@@ -46,10 +46,15 @@ window.PricealerterData = {
       id: "antala-industries", slug: "antala-industries-ipo",
       companyName: "Antala Industries", shortName: "Antala Industries", initials: "AI", color: "#E2EBF8",
       status: "OPEN", board: "SME", exchange: "BSE", issueType: "FRESH",
+      sector: "Packaging",
+      business: "Antala Industries manufactures and supplies industrial and commercial packaging products, including BOPP bags, BOPP printing and lamination rolls, and PP woven bags. Its IPO proceeds are intended to support working capital, machinery purchases and general corporate purposes.",
+      review: "Before applying, review the offer document, company financials, valuation, and the risks of SME IPOs. The minimum retail application is two lots (4,000 shares), or ₹2,68,000 at the upper price band. Grey market premium is not a reliable predictor of listing performance.",
       priceBandLow: 63, priceBandHigh: 67, issuePrice: null, issueSizeCr: 23.33, lotSize: 2000, minimumInvestment: 268000,
       openDate: "2026-10-29", closeDate: "2026-11-02", allotDate: "2026-11-03", listingDate: "2026-11-05",
       gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
-      sourceUrl: null, officialLinks: []
+      sourceUrl: "https://economictimes.indiatimes.com/markets/stocks/news/antala-industries-sme-ipo-opens-today-check-price-band-and-key-details/articleshow/135289593.cms",
+      registrarName: "Bigshare Services",
+      officialLinks: [{ label: "IPO details — Economic Times", url: "https://economictimes.indiatimes.com/antala-industries-ltd/ipos/companyid-2485411.cms" }]
     }
   ]
 };
