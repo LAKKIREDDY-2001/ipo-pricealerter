@@ -45,9 +45,9 @@ window.PricealerterData = {
     {
       id: "antala-industries", slug: "antala-industries-ipo",
       companyName: "Antala Industries", shortName: "Antala Industries", initials: "AI", color: "#E2EBF8",
-      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
-      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
-      openDate: null, closeDate: "2026-11-02", allotDate: null, listingDate: null,
+      status: "OPEN", board: "SME", exchange: "BSE", issueType: "FRESH",
+      priceBandLow: 63, priceBandHigh: 67, issuePrice: null, issueSizeCr: 23.33, lotSize: 2000, minimumInvestment: 268000,
+      openDate: "2026-10-29", closeDate: "2026-11-02", allotDate: "2026-11-03", listingDate: "2026-11-05",
       gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
       sourceUrl: null, officialLinks: []
     }
