@@ -43,11 +43,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
     steps:
       - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
-        env:
-          GITHUB_ACTIONS_FORCE_NODE24: true
