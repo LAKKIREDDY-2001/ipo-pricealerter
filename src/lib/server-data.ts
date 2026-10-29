@@ -2,6 +2,7 @@ import "server-only";
 import { db } from "@/lib/db";
 import type { DataFreshness, Ipo, IpoFeed } from "@/lib/data";
 import { enrichIpoFromIpoGuru, getIpoGuruFeed } from "@/lib/live-ipo";
+import { manualIpos } from "@/lib/manual-ipo-data";
 
 const num = (value: unknown) => value == null ? undefined : Number(value);
 const nameKey = (value: string) => value.toLowerCase().replace(/limited|ltd\.?/g, "").replace(/[^a-z0-9]/g, "");
@@ -73,7 +74,7 @@ export async function getIpoFeed(): Promise<IpoFeed> {
   if (!provider.records.length) {
     const records = saved.map((ipo) => ({ ...ipo, sourceFreshness: ipo.sourceFreshness === "manual" ? "manual" as const : "stale" as const }));
     return {
-      records, freshness: provider.freshness,
+      records: mergeManualRecords(records), freshness: provider.freshness,
       lastSuccessfulUpdate: provider.lastSuccessfulUpdate,
       refreshSeconds: provider.refreshSeconds,
       errorCode: provider.errorCode,
@@ -89,7 +90,33 @@ export async function getIpoFeed(): Promise<IpoFeed> {
   });
   // Retain older locally stored issues and their real history, but label them stale.
   for (const old of oldOnly) records.push({ ...old, sourceFreshness: old.sourceFreshness === "manual" ? "manual" : "stale" });
-  return { ...provider, records };
+  return { ...provider, records: mergeManualRecords(records) };
+}
+
+/** Merge the editable starter dataset without duplicates; provider values remain preferred. */
+function mergeManualRecords(records: Ipo[]): Ipo[] {
+  const byName = new Map(records.map((ipo) => [nameKey(ipo.companyName), ipo]));
+  const providerNames = new Set(records.map((ipo) => nameKey(ipo.companyName)));
+  const merged = [...records];
+  for (const manual of manualIpos) {
+    const existing = byName.get(nameKey(manual.companyName));
+    if (existing) {
+      // Manual details fill gaps only. Live provider details override same-name manual values.
+      const combined = {
+        ...manual, ...existing,
+        aiGainPercent: existing.aiGainPercent ?? manual.aiGainPercent,
+        aiGainRupees: existing.aiGainRupees ?? manual.aiGainRupees,
+        review: existing.review ?? manual.review,
+        id: existing.id,
+        slug: existing.slug,
+      };
+      const index = merged.findIndex((item) => item.id === existing.id);
+      if (index >= 0) merged[index] = combined;
+    } else if (!providerNames.has(nameKey(manual.companyName))) {
+      merged.push(manual);
+    }
+  }
+  return merged;
 }
 
 export async function getIpos(): Promise<Ipo[]> {
