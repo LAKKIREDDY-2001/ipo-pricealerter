@@ -14,7 +14,7 @@ Then open <http://localhost:3000>.
 
 ## IPO data
 
-The website reads its dataset from `data/ipo-data.js`, separate from the rendering code. It carries forward nine manually supplied IPO records from the previous project; their figures are not independently live-verified. There are no demo rows. Replace them only with verified issue records and update `updatedAt` to the snapshot time. A static site cannot refresh exchange data by itself; its display changes when this file is replaced and the page is reloaded.
+The website reads its IPO dataset from `data/ipo-data.js`, separate from the rendering code. The current dashboard includes five IPOs across Mainboard and SME. Keep unknown values as `null` instead of guessing, and update `updatedAt` whenever the issue details are refreshed. A static site cannot refresh exchange data by itself; its display changes when this file is updated and the page is reloaded.
 
 Each record can use these fields:
 
@@ -66,4 +66,4 @@ Use `null` for unknown figures and dates. Minimum investment is calculated only 
 - GMP table and history charts
 - Device-local watchlist and status-change alerts
 
-Watchlist alerts compare the current dataset with the last dataset opened in that browser. Browser notifications require permission. A static website cannot send background alerts or fetch new IPOs while it is closed. AI gain estimates, where present, are manually supplied and unverified.
+Watchlist alerts compare the current dataset with the last dataset opened in that browser. Browser notifications require permission. A static website cannot send background alerts or fetch new IPOs while it is closed. Unknown IPO details are displayed as unavailable instead of being guessed.
