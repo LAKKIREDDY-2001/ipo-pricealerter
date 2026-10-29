@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import type { DataFreshness, Ipo, IpoFeed } from "@/lib/data";
 import { enrichIpoFromIpoGuru, getIpoGuruFeed } from "@/lib/live-ipo";
 import { manualIpos } from "@/lib/manual-ipo-data";
+import { ipoStatusForDates } from "@/lib/ipo-status";
 
 const num = (value: unknown) => value == null ? undefined : Number(value);
 const nameKey = (value: string) => value.toLowerCase().replace(/limited|ltd\.?/g, "").replace(/[^a-z0-9]/g, "");
@@ -98,7 +99,8 @@ function mergeManualRecords(records: Ipo[]): Ipo[] {
   const byName = new Map(records.map((ipo) => [nameKey(ipo.companyName), ipo]));
   const providerNames = new Set(records.map((ipo) => nameKey(ipo.companyName)));
   const merged = [...records];
-  for (const manual of manualIpos) {
+  for (const manualRecord of manualIpos) {
+    const manual = { ...manualRecord, status: ipoStatusForDates(manualRecord.openDate, manualRecord.closeDate, manualRecord.listingDate) };
     const existing = byName.get(nameKey(manual.companyName));
     if (existing) {
       // Manual details fill gaps only. Live provider details override same-name manual values.
