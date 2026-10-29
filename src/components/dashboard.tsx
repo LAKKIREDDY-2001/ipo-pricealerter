@@ -17,12 +17,15 @@ export function Dashboard({ initialFeed }: { initialFeed: IpoFeed }) {
   useEffect(() => { const timer = window.setTimeout(() => { if (searchInput !== query) set("query", searchInput); }, 300); return () => window.clearTimeout(timer); }, [searchInput, query, set]);
   const filtered = useMemo(() => listings.filter((ipo) => {
     const status: Record<DashboardTab, IpoStatus | null> = { "All IPOs": null, Open: "OPEN", Upcoming: "UPCOMING", Closed: "CLOSED", Listed: "LISTED" };
-    return (!status[tab] || ipo.status === status[tab]) && (board === "All boards" || ipo.board === board.toUpperCase()) && (exchange === "All exchanges" || ipo.exchange === exchange || ipo.exchange === "BOTH") && (`${ipo.companyName} ${ipo.slug}`.toLowerCase().includes(query.toLowerCase()));
+    const effectiveStatus = (ipo.status === "OPEN" || ipo.status === "UPCOMING") && ipo.closeDate && ipo.closeDate < new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Kolkata" }).format(new Date()) ? "CLOSED" : ipo.status;
+    return (!status[tab] || effectiveStatus === status[tab]) && (board === "All boards" || ipo.board === board.toUpperCase()) && (exchange === "All exchanges" || ipo.exchange === exchange || ipo.exchange === "BOTH") && (`${ipo.companyName} ${ipo.slug}`.toLowerCase().includes(query.toLowerCase()));
   }).sort((a, b) => sort === "Closing soon" ? a.closeDate.localeCompare(b.closeDate) : a.status === "OPEN" ? -1 : b.status === "OPEN" ? 1 : a.openDate.localeCompare(b.openDate)), [listings, tab, board, exchange, query, sort]);
-  const openCount = listings.filter((i) => i.status === "OPEN").length;
-  const upcomingCount = listings.filter((i) => i.status === "UPCOMING").length;
-  const closedCount = listings.filter((i) => i.status === "CLOSED").length;
-  const liveCount = listings.filter((i) => i.status === "OPEN" || i.status === "UPCOMING").length;
+  const todayForStatus = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Kolkata" }).format(new Date());
+  const effectiveStatus = (ipo: Ipo): IpoStatus => (ipo.status === "OPEN" || ipo.status === "UPCOMING") && ipo.closeDate && ipo.closeDate < todayForStatus ? "CLOSED" : ipo.status;
+  const openCount = listings.filter((i) => effectiveStatus(i) === "OPEN").length;
+  const upcomingCount = listings.filter((i) => effectiveStatus(i) === "UPCOMING").length;
+  const closedCount = listings.filter((i) => effectiveStatus(i) === "CLOSED").length;
+  const liveCount = listings.filter((i) => effectiveStatus(i) === "OPEN" || effectiveStatus(i) === "UPCOMING").length;
   const lastUpdated = feed.lastSuccessfulUpdate ? new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(feed.lastSuccessfulUpdate)) + " IST" : "Not available";
   const hasProviderRecords = listings.some((ipo) => ipo.source === "IPO Guru API");
   const hasSavedRecords = listings.some((ipo) => ipo.source !== "IPO Guru API");
