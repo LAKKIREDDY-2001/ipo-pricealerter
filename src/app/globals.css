@@ -28,3 +28,28 @@
 .stale-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e3a327;box-shadow:0 0 0 3px #fff4da;vertical-align:middle;margin-right:7px}.data-note.data-stale,.gmp-disclaimer.data-stale{border-color:#f0dcae;background:#fffaf0;color:#72591d}.data-note a,.gmp-disclaimer a,.gmp-table-card a,.gmp-note a,.source-card a{color:#287fff;text-decoration:underline;text-underline-offset:2px}.source-card{display:flex;flex-direction:column;gap:9px}.source-card .detail-card-head{margin-bottom:0}.source-card p{font-size:11px;line-height:1.55;color:#748196;margin:0}.source-card>a{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;padding:8px 0;border-top:1px solid #eff2f5}.source-card>a svg{flex:none}.chart-tooltip{display:flex;flex-direction:column;gap:4px;padding:8px 10px;border:1px solid #e5eaf2;border-radius:9px;background:white;box-shadow:0 5px 18px #142b4b12;font-size:11px;color:#34465e}.chart-tooltip span{color:#178b65;font-weight:650}.site-footer .footer-links a{white-space:nowrap}
 .cached-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#4a8be0;box-shadow:0 0 0 3px #edf4ff;vertical-align:middle;margin-right:7px}
 .data-stale-pill{display:inline-flex;align-items:center;padding:3px 5px;border-radius:4px;background:#fff6df;color:#986d16;font-size:7px;letter-spacing:.5px;font-weight:750}
+
+
+/* Spacious manual/live IPO card additions */
+.card-date-line{display:flex;align-items:center;gap:8px;color:var(--muted,#6b7280);font-size:.78rem;padding:12px 0 2px;letter-spacing:.01em}
+.ipo-stats{gap:14px!important}
+.ipo-stats>div{min-width:0}
+.ipo-stats strong{line-height:1.35;overflow-wrap:anywhere}
+.card-subscription{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:var(--muted,#6b7280)}
+.card-subscription b{font-size:1.05rem;color:var(--foreground,#172033)}
+.card-subscription small{font-size:.68rem}
+.gmp-pill{display:flex;flex-direction:column;align-items:flex-end;gap:2px;line-height:1.25}
+.gmp-pill small{font-size:.65rem;font-weight:500;opacity:.8}
+.gmp-pill b{font-size:.95rem}
+.ai-gain-row{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-top:12px;padding:11px 12px;border-radius:10px;background:rgba(45,140,102,.07);border:1px solid rgba(45,140,102,.13);font-size:.76rem}
+.ai-gain-row>span{display:flex;flex-direction:column;gap:3px;color:var(--muted,#6b7280)}
+.ai-gain-row>span small{font-size:.65rem}
+.ai-gain-row>strong{color:#18794e;font-size:1rem;white-space:nowrap}
+.ai-gain-row>small{color:var(--muted,#6b7280);font-size:.7rem;text-align:right}
+.manual-card-note{margin-top:9px;font-size:.62rem;letter-spacing:.04em;color:var(--muted,#7c8494);line-height:1.5}
+.ipo-card{padding:20px!important;gap:0}
+.ipo-card-head{gap:12px}
+.company-title h3{line-height:1.35}
+.ipo-card-bottom{align-items:center;padding-top:14px}
+.subscription-row{margin-top:12px}
+@media(max-width:520px){.ipo-card{padding:16px!important}.ipo-stats{gap:8px!important}.ai-gain-row{flex-wrap:wrap}.ai-gain-row>small{width:100%;text-align:left}}
