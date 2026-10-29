@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ipo {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  companyName   String
+  shortName     String
+  logoUrl       String?
+  status        IpoStatus      @default(UPCOMING)
+  issueType     IpoType?
+  board         Board
+  exchange      Exchange?
+  priceBandLow  Decimal?       @db.Decimal(10, 2)
+  priceBandHigh Decimal?       @db.Decimal(10, 2)
+  lotSize       Int?
+  issueSizeCr   Decimal?       @db.Decimal(12, 2)
+  freshIssueCr  Decimal?       @db.Decimal(12, 2)
+  ofsCr         Decimal?       @db.Decimal(12, 2)
+  openDate      DateTime?
+  closeDate     DateTime?
+  allotDate     DateTime?
+  listingDate   DateTime?
+  gmp           Decimal?       @db.Decimal(10, 2)
+  gmpHistory    GmpRecord[]
+  subscription  Subscription[]
+  financials    Financials?
+  promoters     Promoter[]
+  review        String?
+  peers         String[]       @default([])
+  listingGain   Decimal?       @db.Decimal(10, 2)
+  currentPrice  Decimal?       @db.Decimal(10, 2)
+  issuePrice    Decimal?       @db.Decimal(10, 2)
+  listingPrice  Decimal?       @db.Decimal(10, 2)
+  minimumInvestment Decimal?   @db.Decimal(12, 2)
+  providerSlug  String?
+  providerUrl   String?
+  registrarName String?
+  registrarUrl  String?
+  prospectusUrl String?
+  officialLinks Json?
+  sourceUpdatedAt DateTime?
+  dataSource    String?
+  gmpUpdatedAt DateTime?
+  gmpSource     String?
+  subscriptionUpdatedAt DateTime?
+  subscriptionSource String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model GmpRecord {
+  id        String   @id @default(cuid())
+  ipoId     String
+  ipo       Ipo      @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+  gmp       Decimal  @db.Decimal(10, 2)
+  timestamp DateTime @default(now())
+  @@index([ipoId, timestamp])
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  ipoId     String
+  ipo       Ipo      @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+  day       Int
+  retail    Decimal? @db.Decimal(10, 4)
+  nii       Decimal? @db.Decimal(10, 4)
+  qib       Decimal? @db.Decimal(10, 4)
+  total     Decimal? @db.Decimal(10, 4)
+  timestamp DateTime @default(now())
+  @@unique([ipoId, day])
+}
+
+model Financials {
+  id       String  @id @default(cuid())
+  ipoId    String  @unique
+  ipo      Ipo     @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+  revenue  Decimal? @db.Decimal(12, 2)
+  profit   Decimal? @db.Decimal(12, 2)
+  ebitda   Decimal? @db.Decimal(12, 2)
+  netWorth Decimal? @db.Decimal(12, 2)
+  eps      Decimal? @db.Decimal(10, 2)
+  peRatio  Decimal? @db.Decimal(10, 2)
+  sector   String
+  business String
+}
+
+model Promoter {
+  id      String  @id @default(cuid())
+  ipoId   String
+  ipo     Ipo     @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+  name    String
+  holding Decimal @db.Decimal(10, 2)
+  notes   String?
+}
+
+model ProviderCache {
+  key                String   @id
+  payload            Json?
+  fetchedAt          DateTime?
+  nextRefreshAt      DateTime?
+  retryAt            DateTime?
+  plan               String?
+  dailyLimit         Int?
+  requestsPerMinute  Int?
+  remaining          Int?
+  errorCode          String?
+  updatedAt          DateTime @updatedAt
+}
+
+enum IpoStatus {
+  UPCOMING
+  OPEN
+  CLOSED
+  LISTED
+}
+
+enum IpoType {
+  FRESH
+  OFS
+  FRESH_AND_OFS
+  UNKNOWN
+}
+
+enum Board {
+  MAINBOARD
+  SME
+  UNKNOWN
+}
+
+enum Exchange {
+  NSE
+  BSE
+  BOTH
+  UNKNOWN
+}
