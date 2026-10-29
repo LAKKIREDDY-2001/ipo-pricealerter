@@ -73,7 +73,7 @@ export const manualIpos: Ipo[] = [
     status: "OPEN", issueType: "UNKNOWN", board: "SME", exchange: "BSE",
     priceBandLow: 203, priceBandHigh: 203, issueSizeCr: 38.05, lotSize: 1200, minimumInvestment: 243600,
     openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
-    gmp: 5, gmpPercentage: 2.5, gmpPercentBasis: "priceBandHigh", gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
+    gmp: 5, gmpPercentage: 2.5, aiGainPercent: 0, aiGainRupees: 0, gmpPercentBasis: "priceBandHigh", gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
     gmpSource: "Manually supplied; unofficial GMP", subscriptionTotal: 0.87,
     subscriptionSummary: { retail: 1.57, nii: 0.18, total: 0.87, updatedAt: "2026-10-29T21:00:00+05:30" },
     subscriptionSource: "Manually supplied", source: "Manually supplied", sourceFreshness: "manual", lastUpdated: "2026-10-29T21:00:00+05:30"
