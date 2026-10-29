@@ -200,18 +200,62 @@
     </article>`;
   }
 
+  function listedTable(items) {
+    const percent = (value) => {
+      const amount = num(value);
+      if (amount === null) return '<span class="listed-unavailable">—</span>';
+      const rounded = Math.round(amount * 10) / 10;
+      return `<span class="listed-metric ${rounded > 0 ? "metric-positive" : rounded < 0 ? "metric-negative" : "metric-neutral"}">${rounded > 0 ? "+" : ""}${rounded.toFixed(1)}%</span>`;
+    };
+    const currency = (value) => num(value) === null ? '<span class="listed-unavailable">—</span>' : escapeHtml(money(value));
+    const rows = items.map((ipo) => {
+      const issuePrice = num(ipo.issuePrice);
+      const listingPrice = num(ipo.listingPrice);
+      const closePrice = num(ipo.listingClosePrice) ?? num(ipo.listingDayClosePrice);
+      const listingGain = num(ipo.listingGain) ?? (issuePrice > 0 && listingPrice !== null ? (listingPrice / issuePrice - 1) * 100 : null);
+      const closeGain = num(ipo.closeGain) ?? num(ipo.listingCloseGain) ?? (issuePrice > 0 && closePrice !== null ? (closePrice / issuePrice - 1) * 100 : null);
+      const subscription = num(ipo.subscriptionSummary?.total) ?? num(ipo.subscription?.at(-1)?.total) ?? num(ipo.subscriptionTotal);
+      const history = Array.isArray(ipo.gmpHistory) ? ipo.gmpHistory : [];
+      const gmpDay3 = num(ipo.gmpDay3Percent) ?? num(ipo.gmpD3Percent) ?? num(ipo.gmpDay3) ?? num(ipo.gmpD3) ?? num(history.find((point) => ["3", "d3", "day 3"].includes(String(point.day ?? point.label ?? "").trim().toLowerCase()))?.percentage);
+      const aiPrediction = ipo.aiPrediction ?? ipo.aiPredictedGain ?? ipo.predictedGain;
+      const predictionValue = num(aiPrediction);
+      const predictionCell = predictionValue === null
+        ? '<span class="listed-unavailable" title="No prediction available">—</span>'
+        : percent(predictionValue);
+      return `<tr>
+        <td class="listed-company-cell"><a href="#/ipo/${encodeURIComponent(ipo.slug)}"><span class="listed-logo" style="background-color:${safeColor(ipo.color)}">${escapeHtml(ipo.initials || ipo.shortName?.slice(0, 2) || "IPO")}</span><span>${escapeHtml(ipo.shortName || ipo.companyName)}</span></a></td>
+        <td>${escapeHtml(ipo.sector || "—")}</td>
+        <td>${dateObj(ipo.listingDate) ? escapeHtml(dateLabel(ipo.listingDate, { day: "2-digit", month: "short", year: "2-digit" })) : '<span class="listed-unavailable">—</span>'}</td>
+        <td>${currency(issuePrice)}</td><td>${currency(listingPrice)}</td>
+        <td>${percent(listingGain)}</td><td>${percent(closeGain)}</td>
+        <td>${subscription === null ? '<span class="listed-unavailable">—</span>' : `${subscription.toLocaleString("en-IN", { maximumFractionDigits: 2 })}x`}</td>
+        <td>${percent(gmpDay3)}</td><td>${predictionCell}</td>
+      </tr>`;
+    }).join("");
+    const note = state.tab === "Closed"
+      ? "Closed includes listed IPOs whose issue period has ended. Values are transcribed from your supplied screenshots; please verify independently."
+      : "Values transcribed from the screenshots you supplied. Please verify figures independently.";
+    return `<div class="listed-table-shell" id="listed-table-shell"><div class="listed-table-scroll"><table class="listed-table"><thead><tr><th>COMPANY</th><th>SECTOR</th><th>LISTING</th><th>ISSUE PRICE</th><th>LISTING PRICE</th><th>LISTING GAIN</th><th>CLOSE GAIN</th><th>SUB (X)</th><th>GMP (D3)</th><th>AI PRED.</th></tr></thead><tbody>${rows || '<tr><td class="listed-empty" colspan="10">No listed IPO data is available.</td></tr>'}</tbody></table></div><p class="listed-table-note">${escapeHtml(note)}</p></div>`;
+  }
+
   function filteredRecords() {
     const tabStatus = { Open: "OPEN", Upcoming: "UPCOMING", Closed: "CLOSED", Listed: "LISTED" }[state.tab];
-    return records.filter((ipo) => (state.tab === "Live" ? ["OPEN", "UPCOMING"].includes(ipo.status) : !tabStatus || ipo.status === tabStatus)
-      && (state.board === "All boards" || ipo.board === state.board)
+    return records.filter((ipo) => (state.tab === "Live" ? ["OPEN", "UPCOMING"].includes(ipo.status)
+      : state.tab === "Closed" ? ["CLOSED", "LISTED"].includes(ipo.status)
+        : !tabStatus || ipo.status === tabStatus)
+      && (["Listed", "Closed"].includes(state.tab) || state.board === "All boards" || ipo.board === state.board)
       && `${ipo.companyName} ${ipo.slug}`.toLowerCase().includes(state.query.toLowerCase()))
-      .sort((a, b) => state.sort === "Closing soon" ? String(a.closeDate || "9999").localeCompare(String(b.closeDate || "9999")) : a.status === "OPEN" ? -1 : b.status === "OPEN" ? 1 : String(a.openDate || "9999").localeCompare(String(b.openDate || "9999")));
+      .sort((a, b) => ["Listed", "Closed"].includes(state.tab)
+        ? String(b.listingDate || b.closeDate || "").localeCompare(String(a.listingDate || a.closeDate || ""))
+        : state.sort === "Closing soon"
+          ? String(a.closeDate || "9999").localeCompare(String(b.closeDate || "9999"))
+          : a.status === "OPEN" ? -1 : b.status === "OPEN" ? 1 : String(a.openDate || "9999").localeCompare(String(b.openDate || "9999")));
   }
 
   function dashboard() {
     const openCount = records.filter((ipo) => ipo.status === "OPEN").length;
     const upcomingCount = records.filter((ipo) => ipo.status === "UPCOMING").length;
-    const closedCount = records.filter((ipo) => ipo.status === "CLOSED").length;
+    const closedCount = records.filter((ipo) => ["CLOSED", "LISTED"].includes(ipo.status)).length;
     const lastUpdated = data.updatedAt ? dateLabel(data.updatedAt) : "Not available";
     const listings = filteredRecords();
     const tabs = ["All IPOs", "Live", "Open", "Upcoming", "Closed", "Listed"];
@@ -223,17 +267,17 @@
     return `<div class="page-wrap dashboard-page">
       <div class="market-strip"><span><i class="cached-dot"></i> IPO MARKET WATCH</span><span>INDIA <b>·</b> Mainboard &amp; SME issues</span><span class="market-demo">UPDATED ${escapeHtml(lastUpdated.toUpperCase())}</span></div>
       <section class="hero-section">
-        <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> YOUR IPO DESK</div><h1>Every IPO.<br class="desktop-break"> <em>One clear view.</em></h1><p>Explore upcoming issues, compare key details, and keep important dates in sight.</p><div class="hero-meta"><span><span class="cached-dot"></span> ${records.length} IPOs listed</span><span class="hero-meta-divider"></span><span>${openCount} open for subscription</span></div></div>
+        <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> YOUR IPO DESK</div><h1>Every IPO.<br class="desktop-break"> <em>One clear view.</em></h1><p>Explore upcoming issues, compare key details, and keep important dates in sight.</p><div class="hero-meta"><span><span class="cached-dot"></span> ${records.length} IPOs tracked</span><span class="hero-meta-divider"></span><span>${openCount} open for subscription</span></div></div>
         <div class="hero-visual"><div class="visual-orbit orbit-1"></div><div class="visual-orbit orbit-2"></div><div class="visual-spark">${icon("trend", 29)}</div><div class="visual-label"><span>IPO ACTIVITY</span><strong>On your radar<span> ✦</span></strong><small>Compare dates and issue details</small></div><span class="visual-chip chip-one">${openCount} <span>Open now</span></span><span class="visual-chip chip-two">${upcomingCount} <span>Upcoming</span></span></div>
       </section>
-      <section class="stat-strip"><div class="stat-cell"><span class="stat-icon icon-blue">↗</span><div><span>Open for subscription</span><strong>${openCount} <small>IPOs</small></strong></div></div><div class="stat-cell"><span class="stat-icon icon-amber">✦</span><div><span>Upcoming issues</span><strong>${upcomingCount} <small>IPOs</small></strong></div></div><div class="stat-cell"><span class="stat-icon icon-green">↗</span><div><span>Recently closed</span><strong>${closedCount} <small>IPOs</small></strong></div></div><a class="stat-action" href="#/calendar">View IPO calendar ${icon("arrow", 15)}</a></section>
+      <section class="stat-strip"><div class="stat-cell"><span class="stat-icon icon-blue">↗</span><div><span>Open for subscription</span><strong>${openCount} <small>IPOs</small></strong></div></div><div class="stat-cell"><span class="stat-icon icon-amber">✦</span><div><span>Upcoming issues</span><strong>${upcomingCount} <small>IPOs</small></strong></div></div><div class="stat-cell"><span class="stat-icon icon-green">↗</span><div><span>Closed or listed issues</span><strong>${closedCount} <small>IPOs</small></strong></div></div><a class="stat-action" href="#/calendar">View IPO calendar ${icon("arrow", 15)}</a></section>
       <div class="data-note"><span>${icon("clock", 15)}</span><span><b>Plan with clarity.</b> Issue dates and market indicators can change. Confirm final details before applying; GMP is unofficial and speculative.</span></div>
       <section class="ipo-listing-section"><div class="section-heading"><div><div class="eyebrow compact"><span class="eyebrow-line"></span> THE IPO BOARD</div><h2>Explore IPOs</h2><p>Choose an IPO type, then compare the details that matter to you.</p></div><a href="#/calendar" class="text-link">View IPO calendar ${icon("arrow", 15)}</a></div>
-        <div class="board-tabs" role="tablist" aria-label="Filter IPO type">${boardTabs.map((tab) => `<button role="tab" aria-selected="${state.board === tab.value}" class="board-tab ${state.board === tab.value ? "active" : ""}" data-board-tab="${tab.value}">${tab.label}<span>${tab.count}</span></button>`).join("")}</div>
-        <div class="listing-toolbar"><div class="tabs" role="tablist" aria-label="Filter IPO status">${tabs.map((tab) => `<button role="tab" aria-selected="${state.tab === tab}" class="tab ${state.tab === tab ? "active" : ""}" data-tab="${tab}">${tab}${tab === "Open" || tab === "Live" ? `<span class="tab-count">${tab === "Live" ? openCount + upcomingCount : openCount}</span>` : ""}</button>`).join("")}</div>
+        ${["Listed", "Closed"].includes(state.tab) ? "" : `<div class="board-tabs" role="tablist" aria-label="Filter IPO type">${boardTabs.map((tab) => `<button role="tab" aria-selected="${state.board === tab.value}" class="board-tab ${state.board === tab.value ? "active" : ""}" data-board-tab="${tab.value}">${tab.label}<span>${tab.count}</span></button>`).join("")}</div>`}
+        <div class="listing-toolbar"><div class="tabs" role="tablist" aria-label="Filter IPO status">${tabs.map((tab) => `<button role="tab" aria-selected="${state.tab === tab}" class="tab ${state.tab === tab ? "active" : ""}" data-tab="${tab}">${tab}${tab === "Open" || tab === "Live" || tab === "Listed" || tab === "Closed" ? `<span class="tab-count">${tab === "Live" ? openCount + upcomingCount : tab === "Listed" ? records.filter((ipo) => ipo.status === "LISTED").length : tab === "Closed" ? records.filter((ipo) => ["CLOSED", "LISTED"].includes(ipo.status)).length : openCount}</span>` : ""}</button>`).join("")}</div>
         <div class="list-controls"><label class="search-input">${icon("search", 14)}<input id="ipo-search" value="${escapeHtml(state.query)}" placeholder="Search company name" aria-label="Search IPOs"></label><label class="sort-select"><select id="sort-filter" aria-label="Sort IPOs"><option ${state.sort === "Recommended" ? "selected" : ""}>Recommended</option><option ${state.sort === "Closing soon" ? "selected" : ""}>Closing soon</option></select></label></div></div>
-        <div class="results-line"><span><b id="result-count">${listings.length}</b> IPOs to explore</span><span>Browse by issue type <i class="cached-dot"></i></span></div>
-        <div class="ipo-grid" id="ipo-grid">${listings.map(card).join("")}</div>${listings.length === 0 ? `<div class="empty-state"><div>⌕</div><h3>No IPOs match those filters</h3><p>Try another company name or switch the IPO type.</p><button class="button-secondary" id="clear-filters">Clear filters</button></div>` : ""}
+        <div class="results-line"><span><b id="result-count">${listings.length}</b> ${state.tab === "Listed" ? "listed IPOs" : state.tab === "Closed" ? "closed IPOs" : "IPOs to explore"}</span><span>${["Listed", "Closed"].includes(state.tab) ? "IPO performance" : "Browse by issue type"} <i class="cached-dot"></i></span></div>
+        ${["Listed", "Closed"].includes(state.tab) ? listedTable(listings) : `<div class="ipo-grid" id="ipo-grid">${listings.map(card).join("")}</div>${listings.length === 0 ? `<div class="empty-state"><div>⌕</div><h3>No IPOs match those filters</h3><p>Try another company name or switch the IPO type.</p><button class="button-secondary" id="clear-filters">Clear filters</button></div>` : ""}`}
       </section><section class="bottom-promo"><div class="promo-icon">✦</div><div><strong>Stay one step ahead.</strong><p>Keep important IPO dates in one place.</p></div><a href="#/calendar" class="button-dark">Explore the calendar ${icon("arrow", 15)}</a></section>
     </div>`;
   }

@@ -519,3 +519,23 @@ h1,h2,h3{font-family:Manrope,'DM Sans',sans-serif}
  .notification-panel{right:-6px;width:min(340px,calc(100vw - 24px))}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+
+/* Listed IPO performance table */
+.listed-table-shell{overflow:hidden;border:1px solid #dfe7f2;border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 14px 38px rgba(25,51,88,.07)}
+.listed-table-scroll{overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-color:#cbd6e4 #f4f7fb;scrollbar-width:thin}
+.listed-table{width:100%;min-width:1140px;border-collapse:separate;border-spacing:0;text-align:left}
+.listed-table th{position:sticky;top:0;padding:15px 13px;background:#f0f4f9;color:#596b83;font-size:10px;letter-spacing:.075em;white-space:nowrap}
+.listed-table th:first-child,.listed-table td:first-child{padding-left:18px}
+.listed-table td{padding:13px;border-bottom:1px solid #e9eef5;color:#334963;font-size:13px;white-space:nowrap}
+.listed-table tbody tr:last-child td{border-bottom:0}
+.listed-table tbody tr:hover{background:#f7faff}
+.listed-company-cell a{display:flex;align-items:center;gap:10px;max-width:220px;color:#3655c8;font-weight:700;white-space:normal}
+.listed-company-cell a:hover{color:#1749b5;text-decoration:underline;text-underline-offset:3px}
+.listed-logo{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;color:#3652c7;font-size:10px;font-weight:800}
+.listed-metric{display:inline-flex;justify-content:center;min-width:58px;padding:4px 8px;border-radius:99px;font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.metric-positive{background:#eaf8f0;color:#17814f}.metric-negative{background:#fff0ef;color:#d3423d}.metric-neutral{background:#fff7e7;color:#a66b08}
+.listed-unavailable{color:#99a7b8}.listed-table td:nth-child(4),.listed-table td:nth-child(5),.listed-table td:nth-child(8),.listed-table td:nth-child(9){font-weight:680;font-variant-numeric:tabular-nums}
+.listed-empty{height:130px;text-align:center!important;color:#7889a0!important;font-size:14px!important;white-space:normal!important}
+.listed-table-note{margin:0;padding:12px 18px;border-top:1px solid #e9eef5;background:#f9fbfe;color:#7d8da2;font-size:11px;line-height:1.5}
+@media(max-width:700px){.listed-table-shell{border-radius:15px}.listed-table{min-width:1080px}.listed-table th{padding:13px 10px;font-size:9px}.listed-table td{padding:12px 10px;font-size:12px}.listed-table-note{padding:11px 14px;font-size:10px}}
