@@ -83,6 +83,9 @@ export type Ipo = {
   listingPrice?: number;
   listingGain?: number;
   currentPrice?: number;
+  aiGainPercent?: number;
+  aiGainRupees?: number;
+  aiGainUpdatedAt?: string;
   applyUrl?: string;
   financials?: { year: string; revenue?: number; profit?: number; ebitda?: number; netWorth?: number; eps?: number; peRatio?: number }[];
   promoters?: { name: string; holding?: number; notes?: string }[];
