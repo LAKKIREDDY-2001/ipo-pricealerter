@@ -1,9 +1,2 @@
-node_modules
-.next
-out
-.env*
-!.env.example
-*.log
-coverage
-*.tsbuildinfo
 .DS_Store
+*.log
