@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export type DashboardTab = "All IPOs" | "Open" | "Upcoming" | "Closed" | "Listed";
+export type DashboardTab = "All IPOs" | "Open" | "Upcoming" | "Live" | "Closed" | "Listed";
 type UiState = { tab: DashboardTab; board: string; exchange: string; query: string; sort: string; set: (key: "tab"|"board"|"exchange"|"query"|"sort", value: string) => void; clear: () => void };
 export const useUiStore = create<UiState>((set) => ({ tab: "All IPOs", board: "All boards", exchange: "All exchanges", query: "", sort: "Recommended", set: (key, value) => set({ [key]: value } as Pick<UiState, typeof key>), clear: () => set({ tab: "All IPOs", board: "All boards", exchange: "All exchanges", query: "", sort: "Recommended" }) }));
 
