@@ -1,6 +1,6 @@
 /* IPO dashboard dataset. Update issue dates and figures when confirmed. */
 window.PricealerterData = {
-  updatedAt: "2026-10-29T21:00:00+05:30",
+  updatedAt: "2026-10-30T18:41:00+05:30",
   records: [
     {
       id: "mk-sons-fine-jewels", slug: "m-k-sons-fine-jewels-ipo",
@@ -8,8 +8,8 @@ window.PricealerterData = {
       status: "OPEN", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
       priceBandLow: 153, priceBandHigh: 162, issuePrice: null, issueSizeCr: 330.48, lotSize: 91, minimumInvestment: 14742,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
-      gmp: 11.5, gmpPercentage: 7.1, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
-      subscriptionTotal: 1.18, subscriptionSummary: { total: 1.18, updatedAt: "2026-10-29T21:00:00+05:30" },
+      gmp: 5, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
+      subscriptionTotal: 5.09, subscriptionSummary: { total: { total: 5.09, updatedAt: "2026-10-30T18:41:00+05:30" }, updatedAt: "2026-10-29T21:00:00+05:30" },
       sourceUrl: null, officialLinks: []
     },
     {
@@ -18,8 +18,8 @@ window.PricealerterData = {
       status: "OPEN", board: "MAINBOARD", exchange: "BOTH", issueType: "FRESH",
       priceBandLow: 78, priceBandHigh: 82, issuePrice: null, issueSizeCr: 183.06, lotSize: 182, minimumInvestment: 14924,
       openDate: "2026-10-29", closeDate: "2026-11-02", allotDate: "2026-11-03", listingDate: "2026-11-05",
-      gmp: 9, gmpPercentage: 11, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
-      subscriptionTotal: 2.67, subscriptionSummary: { total: 2.67, updatedAt: "2026-10-29T21:00:00+05:30" },
+      gmp: 7, gmpPercentage: 8.5, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
+      subscriptionTotal: 3.79, subscriptionSummary: { total: { total: 3.79, updatedAt: "2026-10-30T18:41:00+05:30" }, updatedAt: "2026-10-29T21:00:00+05:30" },
       sourceUrl: null, officialLinks: []
     },
     {
@@ -55,6 +55,36 @@ window.PricealerterData = {
       sourceUrl: "https://economictimes.indiatimes.com/markets/stocks/news/antala-industries-sme-ipo-opens-today-check-price-band-and-key-details/articleshow/135289593.cms",
       registrarName: "Bigshare Services",
       officialLinks: [{ label: "IPO details — Economic Times", url: "https://economictimes.indiatimes.com/antala-industries-ltd/ipos/companyid-2485411.cms" }]
+    },
+    {
+      id: "eaaa-india-alternatives", slug: "eaaa-india-alternatives-ipo",
+      companyName: "EAAA India Alternatives", shortName: "EAAA India Alternatives", initials: "EA", color: "#E8EAF7",
+      status: "CLOSED", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
+      priceBandLow: 1585, priceBandHigh: 1665, issuePrice: null, issueSizeCr: 1200, lotSize: 9, minimumInvestment: 14985,
+      openDate: "2026-10-26", closeDate: "2026-10-28", allotDate: null, listingDate: "2026-11-02",
+      gmp: 52, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
+      subscriptionTotal: 5.25, subscriptionSummary: { total: 5.25, updatedAt: "2026-10-30T18:41:00+05:30" },
+      aiPredictedGain: 1.9, sourceUrl: "https://ipogyani.com/ipo/eaaa-india-alternatives-ipo", officialLinks: []
+    },
+    {
+      id: "sfc-environmental-technologies", slug: "sfc-environmental-technologies-ipo",
+      companyName: "SFC Environmental Technologies", shortName: "SFC Environmental Technologies", initials: "SFC", color: "#E3F0EC",
+      status: "CLOSED", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
+      priceBandLow: 313, priceBandHigh: 330, issuePrice: null, issueSizeCr: 667.53, lotSize: 45, minimumInvestment: 14850,
+      openDate: "2026-10-27", closeDate: "2026-10-29", allotDate: null, listingDate: "2026-11-03",
+      gmp: 21, gmpPercentage: 6.4, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
+      subscriptionTotal: 9.47, subscriptionSummary: { total: 9.47, updatedAt: "2026-10-30T18:41:00+05:30" },
+      aiPredictedGain: 7.3, sourceUrl: "https://ipogyani.com/ipo/sfc-environmental-technologies-ipo", officialLinks: []
+    },
+    {
+      id: "bls-polymers", slug: "bls-polymers-ipo",
+      companyName: "BLS Polymers", shortName: "BLS Polymers", initials: "BL", color: "#F3E8E8",
+      status: "CLOSED", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
+      priceBandLow: 142, priceBandHigh: 150, issuePrice: null, issueSizeCr: 255, lotSize: 100, minimumInvestment: 15000,
+      openDate: "2026-10-27", closeDate: "2026-10-29", allotDate: null, listingDate: "2026-11-03",
+      gmp: 69, gmpPercentage: 46, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
+      subscriptionTotal: 241.22, subscriptionSummary: { total: 241.22, updatedAt: "2026-10-30T18:41:00+05:30" },
+      aiPredictedGain: 27.6, sourceUrl: "https://ipogyani.com/ipo/bls-polymers-ipo", officialLinks: []
     },
     // Listed IPO performance transcribed from the screenshots supplied by the user.
     {
