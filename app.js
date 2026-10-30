@@ -175,10 +175,38 @@
 
   function initAdSense() {
     try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (typeof window.adsbygoogle === "undefined") {
+        window.adsbygoogle = [];
+      }
+      const unfilledAds = document.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])");
+      unfilledAds.forEach(() => {
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (err) {
+          // Ignore individual push errors if already requested
+        }
+      });
     } catch (e) {
       // Graceful handling when ad blocker is active or ads are pending review
     }
+  }
+
+  // ==========================================================================
+  // Google AdSense In-Feed Native Unit (Slot 1400016775)
+  // Variable height container matching feed styles
+  // ==========================================================================
+  function renderInFeedAdUnit(isGridSpan = true) {
+    return `
+      <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="Sponsored In-Feed Content">
+        <span class="ad-label-pill">SPONSORED / ADVERTISEMENT</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="fluid"
+             data-ad-layout-key="-6t+ed+2i-1n-4w"
+             data-ad-client="ca-pub-1181608933401999"
+             data-ad-slot="1400016775"></ins>
+      </div>
+    `;
   }
 
   function renderAdSenseUnit(slot = "5892147360", format = "auto") {
@@ -506,6 +534,35 @@
   }
 
   // ==========================================================================
+  // IPO Cards Feed with Native In-Feed Ad Placements
+  // ==========================================================================
+  function renderIpoCardsFeed(cards) {
+    if (!cards || cards.length === 0) {
+      return `
+        <div class="empty-state-card" style="grid-column: 1 / -1; padding: 40px 20px; text-align: center;">
+          <p style="color: var(--text-muted); font-size: 14px;">No IPOs found matching the selected filter criteria.</p>
+        </div>
+      `;
+    }
+
+    const items = [];
+    cards.forEach((card, idx) => {
+      items.push(renderIpoCardHtml(card));
+
+      // Inject Native In-Feed Ad inside the feed:
+      // - After 3rd card in a 6-card feed (e.g. Open IPOs)
+      // - Every 6 cards in longer feeds (e.g. Closed / All Listed)
+      if (idx === 2) {
+        items.push(renderInFeedAdUnit(true));
+      } else if (idx > 2 && (idx + 1) % 6 === 0 && idx !== cards.length - 1) {
+        items.push(renderInFeedAdUnit(true));
+      }
+    });
+
+    return items.join("");
+  }
+
+  // ==========================================================================
   // Home Dashboard View
   // ==========================================================================
   function renderDashboardView() {
@@ -610,9 +667,9 @@
         </div>
       </section>
 
-      <!-- Main IPO Cards Grid -->
+      <!-- Main IPO Cards Grid with Native In-Feed Ad Placement -->
       <section class="ipo-cards-grid" aria-label="Active and Upcoming IPOs">
-        ${visibleCards.map(r => renderIpoCardHtml(r)).join("")}
+        ${renderIpoCardsFeed(visibleCards)}
       </section>
 
       ${totalCount > visibleCards.length ? `
@@ -630,8 +687,8 @@
       <!-- 1-Click Free Demat Account Affiliate Banner -->
       ${renderAffiliateDematBanner()}
 
-      <!-- AdSense Native Feed Slot -->
-      ${renderAdSenseUnit("5892147360", "auto")}
+      <!-- In-Feed Native Ad Unit Where Feed Ends (Slot 1400016775) -->
+      ${renderInFeedAdUnit(false)}
 
       <!-- Bottom Dashboard 4 Sections (2x2 Grid) -->
       <section class="bottom-sections-grid" aria-label="Market Details and Schedules">
@@ -751,6 +808,7 @@
       }
     });
 
+    initAdSense();
   }
 
   // ==========================================================================
@@ -2431,6 +2489,9 @@
         <!-- 1-Click Free Demat Account Affiliate Banner -->
         ${renderAffiliateDematBanner()}
 
+        <!-- Native In-Feed Ad Unit (Slot 1400016775) -->
+        ${renderInFeedAdUnit(false)}
+
         <!-- Section 6: Frequently Asked Questions (FAQ) Accordion -->
         <article class="guide-section-card">
           <div class="guide-section-header">
@@ -2548,8 +2609,8 @@
           </div>
         </div>
 
-        <!-- AdSense Middle Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        <!-- Native In-Feed Ad Unit (Slot 1400016775) -->
+        ${renderInFeedAdUnit(false)}
 
         <!-- Below Calendar Space: Detailed Day-by-Day Schedule for Selected Date -->
         <div id="calendar-day-details-container">
@@ -2561,6 +2622,7 @@
       </div>
     `;
     bindCalendarControls();
+    initAdSense();
   }
 
   function renderListedPage() {

@@ -3431,6 +3431,56 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   font-weight: 600;
 }
 
+/* In-Feed Native Ad Unit Container (Variable Height, Responsive) */
+.adsense-infeed-card {
+  width: 100%;
+  height: auto; /* Variable height as explicitly required by Google AdSense */
+  min-height: 80px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: visible;
+  transition: border-color 0.2s ease;
+}
+
+.adsense-infeed-card:hover {
+  border-color: var(--border-hover);
+}
+
+.adsense-infeed-card.infeed-grid-span {
+  grid-column: 1 / -1;
+  margin: 6px 0 10px;
+}
+
+.adsense-infeed-card ins.adsbygoogle {
+  width: 100%;
+  height: auto;
+  min-height: 60px;
+}
+
+.infeed-ad-feed-wrapper {
+  max-width: 1200px;
+  margin: 16px auto;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .adsense-infeed-card {
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+  .infeed-ad-feed-wrapper {
+    padding: 0 10px;
+  }
+}
+
 /* Guide & Knowledge Center */
 .guide-container {
   max-width: 1080px;
