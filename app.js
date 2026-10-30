@@ -1240,23 +1240,18 @@
           </div>
 
           <div class="detail-header-actions">
-            ${ipo.allotmentUrl ? `
-              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary-blue direct-allotment-btn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                <span>Check Allotment Status</span>
-              </a>
-            ` : ipo.docUrl ? `
-              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary-blue direct-doc-btn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                <span>View IPO Doc (DRHP)</span>
-              </a>
-            ` : `
+            ${ipo.status === 'OPEN' ? `
               <button class="btn-apply-dropdown" id="detail-apply-btn">
                 <span>Apply on Broker</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
               ${state.applyDropdownOpen ? renderBrokerDropdown(ipo) : ""}
-            `}
+            ` : ipo.docUrl ? `
+              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" title="Official SEBI DRHP / RHP Document">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span>View DRHP</span>
+              </a>
+            ` : ''}
           </div>
         </header>
 
@@ -1352,20 +1347,7 @@
 
     return `
       <div class="tab-content-container">
-        ${ipo.allotmentUrl ? `
-          <div class="allotment-portal-callout">
-            <div class="callout-text">
-              <strong>Allotment Status Available</strong>
-              <span>Official Registrar: ${ipo.registrar || 'Registrar Portal'}</span>
-            </div>
-            <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-allotment-direct">
-              <span>Open Allotment Portal</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-          </div>
-        ` : ''}
-
-        <!-- Top Row: Key Details & GMP Card -->
+        <!-- Top Row: Key Details (FIRST) & GMP Card -->
         <div class="detail-overview-grid">
           <!-- Key Details Card (4x3 Grid) -->
           <div class="key-details-card">
@@ -1562,6 +1544,35 @@
                 <div class="affiliate-broker-action" style="font-size:11px;">Apply &rarr;</div>
               </div>
             `).join("")}
+          </div>
+        </div>
+
+        <!-- Official Registrar Allotment Status & Verification Section (At the End) -->
+        <div class="allotment-portal-callout allotment-callout-bottom" id="allotment-section">
+          <div class="callout-text">
+            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:#93C5FD; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Official Registrar Allotment Status
+            </div>
+            <strong style="font-size:15px; color:#FFFFFF;">Check Allotment Status — ${ipo.shortName}</strong>
+            <span style="display:block; margin-top:2px;">Official Registrar: <b style="color:#93C5FD;">${ipo.registrar || 'Registrar Portal'}</b> ${ipo.allotmentDate ? ` • Scheduled Allotment Date: <b>${formatDate(ipo.allotmentDate)}</b>` : ''}</span>
+          </div>
+
+          <div class="allotment-action-buttons-group">
+            ${ipo.allotmentUrl ? `
+              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-allotment-direct">
+                <span>Check on Registrar Portal</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            ` : `
+              <span style="font-size:12px; color:var(--text-muted); background:rgba(255,255,255,0.06); padding:8px 14px; border-radius:6px;">Allotment link activates upon registrar publication</span>
+            `}
+            <a href="https://www.bseindia.com/investors/appli_check.aspx" target="_blank" rel="noopener noreferrer" class="btn-allotment-exchange" title="Check Allotment on BSE India">
+              <span>BSE Query ↗</span>
+            </a>
+            <a href="https://www.nseindia.com/invest/check-trades-bids-verify-ipo-bids" target="_blank" rel="noopener noreferrer" class="btn-allotment-exchange" title="Check Allotment on NSE India">
+              <span>NSE Query ↗</span>
+            </a>
           </div>
         </div>
       </div>

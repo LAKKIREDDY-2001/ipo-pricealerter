@@ -3326,6 +3326,82 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   background: #1D4ED8;
 }
 
+.allotment-portal-callout.allotment-callout-bottom {
+  margin-top: 18px;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.allotment-action-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-allotment-exchange {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #E2E8F0;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-allotment-exchange:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-doc-subtle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-doc-subtle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .btn-doc-subtle {
+    display: none;
+  }
+  .allotment-portal-callout.allotment-callout-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .allotment-action-buttons-group {
+    width: 100%;
+  }
+  .allotment-action-buttons-group .btn-allotment-direct {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+  }
+}
+
 /* ==========================================================================
    Knowledge Center, FAQ, Community Comments, and Portal Directory Styles
    ========================================================================== */
