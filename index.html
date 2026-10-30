@@ -43,7 +43,12 @@
           "name": "IPO Pricealerter",
           "alternateName": ["IPO Price Alerter", "Pricealerter IPO", "Pricealerter", "pricealerter.in"],
           "description": "Live Indian IPO Intelligence, Grey Market Premium (GMP) Tracker, Subscription Multiples & Registrar Allotment Status",
-          "inLanguage": "en-IN"
+          "inLanguage": "en-IN",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://pricealerter.in/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
         },
         {
           "@type": "FinancialService",
@@ -53,6 +58,12 @@
           "url": "https://pricealerter.in/",
           "logo": "https://pricealerter.in/favicon.svg",
           "description": "Real-time primary market financial intelligence platform for Indian IPOs.",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Customer Support",
+            "email": "lakkistudy@gmail.com",
+            "url": "https://pricealerter.in/contact.html"
+          },
           "knowsAbout": [
             "Initial Public Offerings (IPO)",
             "Grey Market Premium (GMP)",
@@ -125,6 +136,12 @@
           "@id": "https://pricealerter.in/#howto-groww-ipo",
           "name": "How to Apply for an IPO on Groww Using UPI ASBA",
           "description": "Step-by-step procedure to bid for Indian IPOs using Groww and authorize UPI mandates.",
+          "totalTime": "PT2M",
+          "estimatedCost": {
+            "@type": "MonetaryAmount",
+            "currency": "INR",
+            "value": "0"
+          },
           "step": [
             {
               "@type": "HowToStep",
