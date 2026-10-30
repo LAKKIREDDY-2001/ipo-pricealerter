@@ -249,10 +249,10 @@
 
     header.innerHTML = `
       <div class="nav-container">
-        <a href="#/" class="brand-wrap" aria-label="IPO Track Home">
+        <a href="#/" class="brand-wrap" aria-label="IPO Pricealerter Home">
           <span>IPO</span>
           <span class="brand-dot-pulse"></span>
-          <span>Track</span>
+          <span>Pricealerter</span>
         </a>
 
         <nav class="main-nav" aria-label="Main Navigation">

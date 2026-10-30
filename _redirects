@@ -1,2 +1,8 @@
+# 301 Permanent Redirects for Legacy Indexed Pages
+/signup.html https://pricealerter.in/ 301
+/signup https://pricealerter.in/ 301
+/blog/* https://pricealerter.in/ 301
+/blog https://pricealerter.in/ 301
+
 # Cloudflare Pages SPA Routing
 /* /index.html 200

@@ -1,4 +1,4 @@
-# Robots.txt for Pricealerter IPO Track (https://pricealerter.in)
+# Robots.txt for Pricealerter IPO Pricealerter (https://pricealerter.in)
 User-agent: *
 Allow: /
 

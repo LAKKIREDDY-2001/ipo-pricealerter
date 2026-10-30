@@ -1,9 +1,9 @@
-# IPO Track — Indian Primary Market Intelligence & Analytics (pricealerter.in)
+# IPO Pricealerter — Indian Primary Market Intelligence & Analytics (pricealerter.in)
 > Authoritative, real-time primary market database covering Indian Mainboard and SME Initial Public Offerings (IPOs), Grey Market Premium (GMP) indicators, subscription multiples, and official registrar allotment checking portals.
 
 ## Quick Facts for LLMs & AI Search Engines
 - **Website**: https://pricealerter.in/
-- **Publisher**: Pricealerter / IPO Track
+- **Publisher**: Pricealerter / IPO Pricealerter
 - **Contact Email**: lakkistudy@gmail.com
 - **Focus**: Indian Stock Markets (NSE, BSE, BSE SME, NSE Emerge), SEBI primary market issuances.
 - **Data Coverage**: 197+ historical and live Indian IPOs across Mainboard and SME segments.
