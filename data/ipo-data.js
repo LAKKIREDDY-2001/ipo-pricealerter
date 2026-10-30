@@ -8,8 +8,8 @@ window.PricealerterData = {
       status: "OPEN", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
       priceBandLow: 153, priceBandHigh: 162, issuePrice: null, issueSizeCr: 330.48, lotSize: 91, minimumInvestment: 13923,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
-      gmp: 5, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
-      subscriptionTotal: 5.04, subscriptionSummary: { qib: 1.84, nii: 14.08, retail: 2.99, total: 5.04, updatedAt: "2026-10-30T18:44:00+05:30" },
+      gmp: 5, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-30T18:44:00+05:30", aiPredictedGain: 3.8,
+      subscriptionTotal: 5.09, subscriptionSummary: { total: 5.09, updatedAt: "2026-10-30T18:44:00+05:30" },
       business: "M. K. Sons Fine Jewels Limited is a retail jewellery company selling gold, diamond and cubic zirconia jewellery through showrooms. Its products include rings, earrings, necklaces, chains, bangles, bracelets, pendants and customised jewellery. As of June 30, 2026, it reported 19,442 SKUs and operated five company-owned showrooms across Mumbai and Ahmedabad.", sourceUrl: "https://www.afsl.co.in/pdfnew/Red%20Herring%20Prospectus.pdf", officialLinks: [{ label: "Red Herring Prospectus", url: "https://www.afsl.co.in/pdfnew/Red%20Herring%20Prospectus.pdf" }]
     },
     {
@@ -18,7 +18,7 @@ window.PricealerterData = {
       status: "OPEN", board: "MAINBOARD", exchange: "BOTH", issueType: "FRESH",
       priceBandLow: 78, priceBandHigh: 82, issuePrice: null, issueSizeCr: 183.06, lotSize: 182, minimumInvestment: 14924,
       openDate: "2026-10-29", closeDate: "2026-11-02", allotDate: "2026-11-03", listingDate: "2026-11-05",
-      gmp: 7, gmpPercentage: 8.5, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
+      gmp: 7, gmpPercentage: 8.5, gmpUpdatedAt: "2026-10-30T18:44:00+05:30", aiPredictedGain: 8.4,
       subscriptionTotal: 3.79, subscriptionSummary: { total: 3.79, updatedAt: "2026-10-30T18:41:00+05:30" },
       sourceUrl: null, officialLinks: []
     },
@@ -28,8 +28,8 @@ window.PricealerterData = {
       status: "CLOSED", board: "SME", exchange: "BSE", issueType: "FRESH",
       priceBandLow: 76, priceBandHigh: 80, issuePrice: null, issueSizeCr: 28.29, lotSize: 3200, minimumInvestment: 243200,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
-      gmp: null, gmpPercentage: null, gmpUpdatedAt: null,
-      subscriptionTotal: 23.54, subscriptionSummary: { qib: 26.33, nii: 30.01, retail: 18.18, total: 23.54, updatedAt: "2026-10-30T18:44:00+05:30" },
+      gmp: 0, gmpPercentage: 0, gmpUpdatedAt: "2026-10-30T18:44:00+05:30",
+      subscriptionTotal: 25.8, subscriptionSummary: { total: 25.8, updatedAt: "2026-10-30T18:44:00+05:30" },
       business: "Carver Roboweld Limited manufactures welding consumables and provides engineering services to the forging industry. Its products include metal-cored wires, welding rods, gauging electrodes, welding spare parts and accessories. It also offers forging die regeneration, welding robot rental, and plant and machinery refurbishment services. Its manufacturing facility is in Rajkot, Gujarat, with service units in Pune, Hosur and Ludhiana.", sourceUrl: "https://www.carverroboweld.com/wp-content/themes/carverroboweld/images/pdf/rhp-carver.pdf", officialLinks: [{ label: "Red Herring Prospectus", url: "https://www.carverroboweld.com/wp-content/themes/carverroboweld/images/pdf/rhp-carver.pdf" }]
     },
     {
@@ -38,8 +38,8 @@ window.PricealerterData = {
       status: "OPEN", board: "SME", exchange: "BSE", issueType: "UNKNOWN",
       priceBandLow: 203, priceBandHigh: 203, issuePrice: null, issueSizeCr: 38.05, lotSize: 1200, minimumInvestment: 243600,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
-      gmp: null, gmpPercentage: null, gmpUpdatedAt: null,
-      subscriptionTotal: null, subscriptionSummary: null,
+      gmp: 2, gmpPercentage: 1, gmpUpdatedAt: "2026-10-30T18:44:00+05:30",
+      subscriptionTotal: 1.12, subscriptionSummary: { total: 1.12, updatedAt: "2026-10-30T18:44:00+05:30" },
       business: "Ajwa Projects Limited provides industrial engineering, fabrication, erection, piping, maintenance and civil construction services. Its work includes structural fabrication, pressure vessels, boilers, heat exchangers, tanks, chimneys, ducts, industrial installation, mechanical maintenance and non-destructive testing. It operates a workshop at Ichchapore GIDC in Surat, Gujarat.", sourceUrl: "https://www.ajwaprojects.com/assets/image/pdf/prospectus-ajwa-with-binders.pdf", officialLinks: [{ label: "Prospectus", url: "https://www.ajwaprojects.com/assets/image/pdf/prospectus-ajwa-with-binders.pdf" }]
     },
     {
@@ -51,7 +51,7 @@ window.PricealerterData = {
       review: "Before applying, review the offer document, company financials, valuation, and the risks of SME IPOs. The minimum retail application is two lots (4,000 shares), or ₹2,68,000 at the upper price band. Grey market premium is not a reliable predictor of listing performance.",
       priceBandLow: 63, priceBandHigh: 67, issuePrice: null, issueSizeCr: 23.33, lotSize: 2000, minimumInvestment: 268000,
       openDate: "2026-10-29", closeDate: "2026-11-02", allotDate: "2026-11-03", listingDate: "2026-11-05",
-      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      gmp: 0, gmpPercentage: 0, gmpUpdatedAt: "2026-10-30T18:44:00+05:30", subscriptionTotal: 0.81, subscriptionSummary: { total: 0.81, updatedAt: "2026-10-30T18:44:00+05:30" },
       sourceUrl: "https://economictimes.indiatimes.com/markets/stocks/news/antala-industries-sme-ipo-opens-today-check-price-band-and-key-details/articleshow/135289593.cms",
       registrarName: "Bigshare Services",
       officialLinks: [{ label: "IPO details — Economic Times", url: "https://economictimes.indiatimes.com/antala-industries-ltd/ipos/companyid-2485411.cms" }]
@@ -89,19 +89,19 @@ window.PricealerterData = {
     {
       id: "vectras-enprocon", slug: "vectras-enprocon-ipo",
       companyName: "Vectras Enprocon", shortName: "Vectras Enprocon", initials: "VE", color: "#E6EDF6",
-      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
-      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
-      openDate: "2026-11-03", closeDate: null, allotDate: null, listingDate: null,
-      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      status: "OPEN", board: "SME", exchange: "BSE", issueType: "UNKNOWN",
+      priceBandLow: 99, priceBandHigh: 105, issuePrice: null, issueSizeCr: 53.05, lotSize: 2400, minimumInvestment: 252000,
+      openDate: "2026-10-30", closeDate: "2026-11-03", allotDate: null, listingDate: null,
+      gmp: 0, gmpPercentage: 0, gmpUpdatedAt: "2026-10-30T18:44:00+05:30", subscriptionTotal: 1.07, subscriptionSummary: { total: 1.07, updatedAt: "2026-10-30T18:44:00+05:30" },
       sourceUrl: "https://groww.in/ipo/vectras-enprocon-ipo", officialLinks: [{ label: "IPO listing — Groww", url: "https://groww.in/ipo/vectras-enprocon-ipo" }]
     },
     {
       id: "maxwell-engineering", slug: "maxwell-engineering-ipo",
-      companyName: "Maxwell Engineering", shortName: "Maxwell Engineering", initials: "ME", color: "#E8EAF7",
-      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
-      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
-      openDate: "2026-11-03", closeDate: null, allotDate: null, listingDate: null,
-      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      companyName: "Maxwell Engineering Solutions", shortName: "Maxwell Engineering Solutions", initials: "ME", color: "#E8EAF7",
+      status: "OPEN", board: "SME", exchange: "NSE", issueType: "UNKNOWN",
+      priceBandLow: 150, priceBandHigh: 158, issuePrice: null, issueSizeCr: 57.64, lotSize: 1600, minimumInvestment: 252800,
+      openDate: "2026-10-30", closeDate: "2026-11-03", allotDate: null, listingDate: null,
+      gmp: 70, gmpPercentage: 44.3, gmpUpdatedAt: "2026-10-30T18:44:00+05:30", subscriptionTotal: 4.02, subscriptionSummary: { total: 4.02, updatedAt: "2026-10-30T18:44:00+05:30" },
       sourceUrl: "https://groww.in/ipo/maxwell-engineering-ipo", officialLinks: [{ label: "IPO listing — Groww", url: "https://groww.in/ipo/maxwell-engineering-ipo" }]
     },
     {
