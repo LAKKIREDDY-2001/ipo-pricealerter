@@ -2153,6 +2153,173 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 }
 
 /* ==========================================================================
+   Affiliate Marketing & Demat Referral Banners (High Conversion)
+   ========================================================================== */
+.affiliate-demat-card {
+  margin: 28px 0;
+  padding: 24px 28px;
+  background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.18), transparent 60%),
+              linear-gradient(135deg, rgba(19, 24, 38, 0.95), rgba(13, 18, 31, 0.98));
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.affiliate-demat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #10B981, #3B82F6, #8B5CF6);
+}
+
+.affiliate-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.affiliate-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: var(--radius-full);
+  color: #34D399;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.affiliate-card-head h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+}
+
+.affiliate-card-head p {
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+.affiliate-brokers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.affiliate-broker-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.affiliate-broker-btn:hover {
+  background: rgba(37, 99, 235, 0.14);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.affiliate-broker-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.affiliate-broker-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: #FFFFFF;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.affiliate-broker-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.affiliate-broker-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.affiliate-broker-badge {
+  font-size: 9.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(59, 130, 246, 0.2);
+  color: #93C5FD;
+  font-weight: 700;
+}
+
+.affiliate-broker-offer {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.affiliate-broker-action {
+  font-size: 12px;
+  font-weight: 700;
+  color: #60A5FA;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-left: 8px;
+}
+
+.affiliate-broker-btn:hover .affiliate-broker-action {
+  color: #93C5FD;
+}
+
+.affiliate-compliance-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
    Toast Feedback System
    ========================================================================== */
 .toast-container {
@@ -2931,6 +3098,34 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     grid-template-columns: 1fr;
     gap: 8px;
     width: 100%;
+  }
+
+  /* Affiliate Demat Card Phone Styles */
+  .affiliate-demat-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+    margin: 16px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .affiliate-card-head h3 {
+    font-size: 17px;
+    line-height: 1.25;
+  }
+
+  .affiliate-card-head p {
+    font-size: 12px;
+  }
+
+  .affiliate-brokers-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .affiliate-broker-btn {
+    padding: 12px 14px;
   }
 
   /* Footer */
