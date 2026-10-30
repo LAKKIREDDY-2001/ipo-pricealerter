@@ -1,0 +1,304 @@
+<!doctype html>
+<html ⚡ lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>IPO Pricealerter — Live IPO Intelligence, GMP & Allotment Status (AMP)</title>
+    <link rel="canonical" href="https://pricealerter.in/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="description" content="Track live IPOs in India, real-time Grey Market Premium (GMP), subscription multiples, allotment dates, and registrar checking portals.">
+    
+    <!-- AMP Runtime Script -->
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- Google AdSense AMP Auto Ads Script -->
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+
+    <!-- AMP Boilerplate Code -->
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <!-- Custom AMP Styles -->
+    <style amp-custom>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: #060911;
+        color: #F8FAFC;
+        line-height: 1.5;
+        padding-bottom: 40px;
+      }
+      .amp-header {
+        background: #0B101D;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .amp-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+      }
+      .amp-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #2563EB;
+      }
+      .amp-container {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .amp-hero {
+        text-align: center;
+        padding: 30px 10px 20px;
+      }
+      .amp-hero h1 {
+        font-size: 28px;
+        margin: 0 0 8px;
+        font-weight: 800;
+      }
+      .amp-hero p {
+        color: #94A3B8;
+        font-size: 14px;
+        margin: 0;
+      }
+      .amp-stats-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin: 24px 0;
+      }
+      .amp-stat-card {
+        background: #0D1527;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 14px;
+        text-align: center;
+      }
+      .amp-stat-num {
+        display: block;
+        font-size: 22px;
+        font-weight: 800;
+        color: #60A5FA;
+      }
+      .amp-stat-label {
+        font-size: 11px;
+        color: #94A3B8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .amp-card {
+        background: #0D1527;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 18px;
+        margin-bottom: 16px;
+      }
+      .amp-card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .amp-card-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .amp-badge {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        background: rgba(16, 185, 129, 0.15);
+        color: #34D399;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+      .amp-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        font-size: 12px;
+        padding: 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 10px 0;
+      }
+      .amp-metric span {
+        display: block;
+        color: #94A3B8;
+        font-size: 11px;
+      }
+      .amp-metric strong {
+        color: #F8FAFC;
+        font-size: 13px;
+      }
+      .amp-btn {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 8px;
+        background: #2563EB;
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 13px;
+        text-align: center;
+        margin-top: 8px;
+      }
+      .amp-footer {
+        text-align: center;
+        padding: 30px 20px;
+        font-size: 12px;
+        color: #64748B;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin-top: 40px;
+      }
+      .amp-footer a {
+        color: #94A3B8;
+        text-decoration: none;
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Google AdSense AMP Auto Ads Placement -->
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-1181608933401999"></amp-auto-ads>
+
+    <header class="amp-header">
+      <a href="https://pricealerter.in/" class="amp-brand">
+        <span>IPO</span>
+        <span class="amp-dot"></span>
+        <span>Pricealerter</span>
+      </a>
+      <a href="https://pricealerter.in/" class="amp-btn" style="padding:6px 12px; font-size:11px;">Open Full App &rarr;</a>
+    </header>
+
+    <main class="amp-container">
+      <div class="amp-hero">
+        <h1>IPO Intelligence & Live GMP</h1>
+        <p>Real-time primary market tracker for Indian Mainboard & SME IPOs</p>
+      </div>
+
+      <div class="amp-stats-row">
+        <div class="amp-stat-card">
+          <span class="amp-stat-num">6</span>
+          <span class="amp-stat-label">Open IPOs</span>
+        </div>
+        <div class="amp-stat-card">
+          <span class="amp-stat-num">165</span>
+          <span class="amp-stat-label">Closed</span>
+        </div>
+        <div class="amp-stat-card">
+          <span class="amp-stat-num">197</span>
+          <span class="amp-stat-label">All Listed</span>
+        </div>
+      </div>
+
+      <!-- Featured Active IPOs -->
+      <article class="amp-card">
+        <div class="amp-card-head">
+          <h2 class="amp-card-title">Afcons Infrastructure Ltd</h2>
+          <span class="amp-badge">Open</span>
+        </div>
+        <p style="font-size:12px; color:#94A3B8; margin:0 0 8px;">Infrastructure & Construction • Mainboard • NSE, BSE</p>
+        <div class="amp-metrics-grid">
+          <div class="amp-metric">
+            <span>Price Band</span>
+            <strong>₹440 – 463</strong>
+          </div>
+          <div class="amp-metric">
+            <span>Lot Size</span>
+            <strong>32 shares</strong>
+          </div>
+          <div class="amp-metric">
+            <span>Issue Size</span>
+            <strong>₹5,430 Cr</strong>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:12px; color:#34D399; font-weight:700;">GMP +₹15 (3.2%)</span>
+          <a href="https://pricealerter.in/#/ipo/afcons-infrastructure" class="amp-btn">View Allotment & Details &rarr;</a>
+        </div>
+      </article>
+
+      <article class="amp-card">
+        <div class="amp-card-head">
+          <h2 class="amp-card-title">Godavari Biorefineries Ltd</h2>
+          <span class="amp-badge">Open</span>
+        </div>
+        <p style="font-size:12px; color:#94A3B8; margin:0 0 8px;">Bio-refinery & Chemicals • Mainboard • NSE, BSE</p>
+        <div class="amp-metrics-grid">
+          <div class="amp-metric">
+            <span>Price Band</span>
+            <strong>₹334 – 352</strong>
+          </div>
+          <div class="amp-metric">
+            <span>Lot Size</span>
+            <strong>42 shares</strong>
+          </div>
+          <div class="amp-metric">
+            <span>Issue Size</span>
+            <strong>₹555 Cr</strong>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:12px; color:#FBBF24; font-weight:700;">GMP +₹5 (1.4%)</span>
+          <a href="https://pricealerter.in/#/ipo/godavari-biorefineries" class="amp-btn">View Allotment & Details &rarr;</a>
+        </div>
+      </article>
+
+      <article class="amp-card">
+        <div class="amp-card-head">
+          <h2 class="amp-card-title">Waaree Energies Ltd</h2>
+          <span class="amp-badge" style="color:#60A5FA; border-color:#3B82F6;">Listed</span>
+        </div>
+        <p style="font-size:12px; color:#94A3B8; margin:0 0 8px;">Solar & Renewable Energy • Mainboard • NSE, BSE</p>
+        <div class="amp-metrics-grid">
+          <div class="amp-metric">
+            <span>Issue Price</span>
+            <strong>₹1,503</strong>
+          </div>
+          <div class="amp-metric">
+            <span>Listing Gain</span>
+            <strong style="color:#34D399;">+69.7%</strong>
+          </div>
+          <div class="amp-metric">
+            <span>Registrar</span>
+            <strong>Link Intime</strong>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+          <span style="font-size:12px; color:#94A3B8;">Allotment Status Available</span>
+          <a href="https://pricealerter.in/#/ipo/waaree-energies" class="amp-btn">Check Allotment &rarr;</a>
+        </div>
+      </article>
+
+      <!-- 1-Click Free Demat Card -->
+      <div class="amp-card" style="background:linear-gradient(135deg, rgba(37,99,235,0.18), rgba(30,58,138,0.28)); border:1px solid rgba(59,130,246,0.4); text-align:center;">
+        <h3 style="margin:0 0 6px; font-size:17px; color:#FFFFFF;">Need a Free Demat Account to Apply?</h3>
+        <p style="font-size:12.5px; color:#93C5FD; margin:0 0 14px;">Instant 5-minute digital paperless KYC with zero account opening charges</p>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          <a href="https://www.angelone.in/open-demat-account" target="_blank" rel="noopener noreferrer" class="amp-btn" style="background:#FF5E3A;">Angel One Free Demat</a>
+          <a href="https://upstox.com/open-demat-account/" target="_blank" rel="noopener noreferrer" class="amp-btn" style="background:#7B2CBF;">Upstox 1-Click Demat</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="amp-footer">
+      <p>&copy; 2026 IPO Pricealerter (pricealerter.in). All rights reserved.</p>
+      <p>
+        <a href="https://pricealerter.in/about.html">About</a> |
+        <a href="https://pricealerter.in/contact.html">Contact</a> |
+        <a href="https://pricealerter.in/disclaimer.html">Disclaimer</a> |
+        <a href="https://pricealerter.in/privacy-policy.html">Privacy</a> |
+        <a href="https://pricealerter.in/terms.html">Terms</a>
+      </p>
+    </footer>
+  </body>
+</html>
