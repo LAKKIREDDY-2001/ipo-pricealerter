@@ -17,16 +17,18 @@
     <meta property="og:description" content="Explore live Indian IPOs, Mainboard & SME issue details, real-time Grey Market Premium (GMP) rates, subscription figures, and registrar allotment links.">
     <meta property="og:site_name" content="IPO Pricealerter">
     <meta property="og:locale" content="en_IN">
-    <meta property="og:image" content="https://pricealerter.in/og-image.svg">
+    <meta property="og:image" content="https://pricealerter.in/og-image.png">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="IPO Pricealerter — Live IPO Intelligence and GMP Tracker">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://pricealerter.in/">
     <meta name="twitter:title" content="IPO Pricealerter — Live IPO Tracker & GMP">
     <meta name="twitter:description" content="Explore live Indian IPOs, subscription figures, unofficial GMP indicators and allotment dates on IPO Pricealerter.">
-    <meta name="twitter:image" content="https://pricealerter.in/og-image.svg">
+    <meta name="twitter:image" content="https://pricealerter.in/og-image.png">
 
     <!-- LLM and AI Crawlers Context -->
     <link rel="alternate" type="text/plain" href="https://pricealerter.in/llms.txt" title="LLM Context">
@@ -51,19 +53,30 @@
           }
         },
         {
-          "@type": "FinancialService",
+          "@type": "Organization",
           "@id": "https://pricealerter.in/#organization",
           "name": "IPO Pricealerter",
-          "alternateName": "Pricealerter",
+          "alternateName": ["Pricealerter", "IPO Price Alerter", "pricealerter.in"],
           "url": "https://pricealerter.in/",
-          "logo": "https://pricealerter.in/favicon.svg",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pricealerter.in/favicon.svg",
+            "caption": "IPO Pricealerter Logo"
+          },
+          "image": "https://pricealerter.in/og-image.png",
           "description": "Real-time primary market financial intelligence platform for Indian IPOs.",
+          "areaServed": "IN",
+          "isAccessibleForFree": true,
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "Customer Support",
             "email": "lakkistudy@gmail.com",
-            "url": "https://pricealerter.in/contact.html"
+            "url": "https://pricealerter.in/contact.html",
+            "availableLanguage": ["English", "Hindi"]
           },
+          "sameAs": [
+            "https://github.com/LAKKIREDDY-2001/ipo-pricealerter"
+          ],
           "knowsAbout": [
             "Initial Public Offerings (IPO)",
             "Grey Market Premium (GMP)",
@@ -204,7 +217,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261031_v8">
+    <link rel="stylesheet" href="styles.css?v=20261031_v9">
     <!-- Google AdSense Publisher Platform -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1181608933401999" crossorigin="anonymous"></script>
     <!-- Google AdSense AMP Auto Ads Script -->
@@ -446,6 +459,6 @@
       }
     </script>
     <script src="data/ipo-data.js?v=20261031_v4" defer></script>
-    <script src="app.js?v=20261031_v8" defer></script>
+    <script src="app.js?v=20261031_v9" defer></script>
   </body>
 </html>
