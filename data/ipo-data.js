@@ -1,27 +1,29 @@
 /* ==========================================================================
-   IPO Track — Live Exchange Dataset
-   Sources: NSE (nseindia.com), BSE (bseindia.com), Chittorgarh, IPO Watch / IPO Gyani
+   IPO Track — Live Primary Market Dataset
+   Sources: Groww, NSE (nseindia.com), BSE (bseindia.com), Chittorgarh, IPO Gyani
    Updated: 30 October 2026 (Post-Market Close: 3:30 PM / 5:00 PM IST)
    ========================================================================== */
 
 window.IpoData = {
   updatedAt: "2026-10-30T17:30:00+05:30",
-  source: "NSE, BSE, Chittorgarh & IPO Gyani Verified Primary Feeds",
+  source: "Verified Live Primary Feeds (Groww, NSE, BSE, Chittorgarh)",
   stats: {
-    openCount: 7,
-    closedCount: 5,
+    openCount: 6,       // 1 Mainboard + 5 SME
+    closedCount: 7,
     upcomingCount: 5,
     listedCount: 8
   },
   records: [
     /* ======================================================================
-       1. LIVE OPEN IPOs (Bidding Continues into Next Week)
+       1. LIVE OPEN IPOs (1 Mainboard + 5 SME)
        ====================================================================== */
+
+    // [1] MAINBOARD OPEN
     {
       id: "bombay-coated-steels",
       slug: "bombay-coated-and-special-steels-ipo",
       companyName: "Bombay Coated and Special Steels Limited",
-      shortName: "Bombay Coated Steels",
+      shortName: "Bombay Coated & Special Steels",
       initials: "BC",
       logoColor: "#2563EB",
       iconType: "infra",
@@ -85,88 +87,15 @@ window.IpoData = {
         applyPercent: 86,
         neutralPercent: 11,
         avoidPercent: 3,
-        consensus: "Apply for Listing Gains & Medium Term"
+        consensus: "Apply (Mainboard Issue)"
       },
       documents: [
         { title: "Red Herring Prospectus (RHP)", size: "4.2 MB", type: "PDF" },
         { title: "Bigshare Services Allotment Portal", type: "LINK", url: "https://www.bigshareonline.com/ipo_Allotment.html" }
       ]
     },
-    {
-      id: "bls-polymers",
-      slug: "bls-polymers",
-      companyName: "BLS Polymers Limited",
-      shortName: "BLS Polymers",
-      initials: "BP",
-      logoColor: "#3B82F6",
-      iconType: "polymer",
-      status: "OPEN",
-      board: "MAINBOARD",
-      exchange: "NSE, BSE",
-      sector: "Chemicals & Specialty Polymers",
-      issueType: "Mainboard",
-      priceBandLow: 142,
-      priceBandHigh: 150,
-      lotSize: 10,
-      issueSizeCr: 500,
-      minimumInvestment: 1500,
-      faceValue: 10,
-      registrar: "KFin Technologies Ltd",
-      openDate: "2026-10-27",
-      closeDate: "2026-11-02",
-      allotDate: "2026-11-03",
-      refundDate: "2026-11-04",
-      dematDate: "2026-11-04",
-      listingDate: "2026-11-05",
-      gmp: 15,
-      gmpPercentage: 10.5,
-      gmpUpdatedAt: "2026-10-30T17:30:00+05:30",
-      dayHighGmp: 18,
-      dayLowGmp: 12,
-      trend: "up",
-      gmpHistory: [
-        { date: "27 Oct", value: 10 },
-        { date: "28 Oct", value: 12 },
-        { date: "29 Oct", value: 14 },
-        { date: "30 Oct", value: 15 }
-      ],
-      subscriptionTotal: 22.1,
-      subscriptionSummary: {
-        qib: 1.20,
-        nii: 3.40,
-        retail: 134.44,
-        employee: 2.10,
-        total: 22.10
-      },
-      financials: [
-        { year: "FY 2024", revenue: 420, profit: 38 },
-        { year: "FY 2025", revenue: 510, profit: 52 },
-        { year: "FY 2026", revenue: 680, profit: 71 }
-      ],
-      ratios: {
-        pe: 21.4,
-        ronw: "19.2%",
-        eps: "₹7.01",
-        marketCap: "₹2,100 Cr"
-      },
-      about: "BLS Polymers manufactures specialty polymer compounds, engineering thermoplastics, and masterbatches used in EV lightweighting, healthcare packaging, and electronics.",
-      swot: {
-        strengths: ["EBITDA margin expansion from 12.1% to 15.4%", "Tier-1 automotive & industrial client base", "Low debt-to-equity ratio of 0.18x"],
-        weaknesses: ["Fluctuation in petroleum-derived monomer feedstocks"],
-        opportunities: ["High demand for EV battery pack casings & flame-retardant polymers"],
-        risks: ["Global chemical commodity price cycles"]
-      },
-      analystRating: {
-        applyPercent: 88,
-        neutralPercent: 9,
-        avoidPercent: 3,
-        consensus: "Apply for Listing Gains"
-      },
-      documents: [
-        { title: "Red Herring Prospectus (RHP)", size: "4.8 MB", type: "PDF" },
-        { title: "KFintech Allotment Status", type: "LINK", url: "https://ris.kfintech.com/ipostatus/" }
-      ]
-    },
+
+    // [2] SME OPEN (BSE SME) — Antala Industries
     {
       id: "antala-industries",
       slug: "antala-industries-ipo",
@@ -229,12 +158,14 @@ window.IpoData = {
         applyPercent: 74,
         neutralPercent: 20,
         avoidPercent: 6,
-        consensus: "Apply (SME Profile)"
+        consensus: "Apply (BSE SME)"
       },
       documents: [
         { title: "Offer Document (BSE SME)", size: "3.4 MB", type: "PDF" }
       ]
     },
+
+    // [3] SME OPEN (BSE SME) — Vectras Enprocon
     {
       id: "vectras-enprocon",
       slug: "vectras-enprocon-ipo",
@@ -296,12 +227,14 @@ window.IpoData = {
         applyPercent: 78,
         neutralPercent: 18,
         avoidPercent: 4,
-        consensus: "Apply for Listing Gains"
+        consensus: "Apply (BSE SME)"
       },
       documents: [
         { title: "Prospectus (BSE SME)", size: "4.1 MB", type: "PDF" }
       ]
     },
+
+    // [4] SME OPEN (NSE SME) — Maxwell Engineering
     {
       id: "maxwell-engineering",
       slug: "maxwell-engineering-solutions-ipo",
@@ -369,6 +302,84 @@ window.IpoData = {
         { title: "Prospectus (NSE Emerge)", size: "3.8 MB", type: "PDF" }
       ]
     },
+
+    // [5] SME OPEN (BSE SME) — Johnsoncab Electricals
+    {
+      id: "johnsoncab-electricals",
+      slug: "johnsoncab-electricals-ipo",
+      companyName: "Johnsoncab Electricals Limited",
+      shortName: "Johnsoncab Electricals",
+      initials: "JE",
+      logoColor: "#EC4899",
+      iconType: "energy",
+      status: "OPEN",
+      board: "SME",
+      exchange: "BSE SME",
+      sector: "Cables, Wires & Electrical Equipment",
+      issueType: "BSE SME",
+      priceBandLow: 190,
+      priceBandHigh: 200,
+      lotSize: 600,
+      issueSizeCr: 56.02,
+      minimumInvestment: 240000,
+      faceValue: 10,
+      registrar: "Maashitla Securities Pvt Ltd",
+      openDate: "2026-10-30",
+      closeDate: "2026-11-03",
+      allotDate: "2026-11-04",
+      refundDate: "2026-11-05",
+      dematDate: "2026-11-05",
+      listingDate: "2026-11-06",
+      gmp: 11,
+      gmpPercentage: 5.50,
+      gmpUpdatedAt: "2026-10-30T17:30:00+05:30",
+      dayHighGmp: 13,
+      dayLowGmp: 9,
+      trend: "up",
+      gmpHistory: [
+        { date: "28 Oct", value: 8 },
+        { date: "29 Oct", value: 9 },
+        { date: "30 Oct", value: 11 }
+      ],
+      subscriptionTotal: 1.14,
+      subscriptionSummary: {
+        qib: 0.00,
+        nii: 2.27,
+        retail: 1.30,
+        employee: 0,
+        total: 1.14
+      },
+      financials: [
+        { year: "FY 2024", revenue: 112, profit: 8.6 },
+        { year: "FY 2025", revenue: 154, profit: 12.8 },
+        { year: "FY 2026", revenue: 210, profit: 18.2 }
+      ],
+      ratios: {
+        pe: 16.4,
+        ronw: "22.1%",
+        eps: "₹12.20",
+        marketCap: "₹220 Cr"
+      },
+      about: "Johnsoncab Electricals is an established manufacturer of low & high voltage electrical wires, submersible cables, flame-retardant industrial harnesses, and power cables.",
+      swot: {
+        strengths: ["Pan-India distributor network with 450+ electrical stockists", "Fully certified BIS, ISO, and CE quality standards", "Consistent revenue growth of >36% CAGR over 3 years"],
+        weaknesses: ["Sensitivity to copper and PVC resin commodity raw material costs"],
+        opportunities: ["Expansion of solar DC cables and EV fast-charging power conduits"],
+        risks: ["Intense competition from large national cable manufacturers"]
+      },
+      analystRating: {
+        applyPercent: 80,
+        neutralPercent: 16,
+        avoidPercent: 4,
+        consensus: "Apply (BSE SME)"
+      },
+      documents: [
+        { title: "Red Herring Prospectus (BSE SME)", size: "4.5 MB", type: "PDF" },
+        { title: "Maashitla Registrar Portal", type: "LINK", url: "https://maashitla.com" }
+      ]
+    },
+
+    // [6] SME OPEN (NSE SME) — HGS India
     {
       id: "hgs-india",
       slug: "hgs-india-ipo",
@@ -376,7 +387,7 @@ window.IpoData = {
       shortName: "HGS India",
       initials: "HG",
       logoColor: "#8B5CF6",
-      iconType: "energy",
+      iconType: "tech",
       status: "OPEN",
       board: "SME",
       exchange: "NSE SME",
@@ -392,6 +403,8 @@ window.IpoData = {
       openDate: "2026-10-30",
       closeDate: "2026-11-03",
       allotDate: "2026-11-04",
+      refundDate: "2026-11-05",
+      dematDate: "2026-11-05",
       listingDate: "2026-11-06",
       gmp: 10,
       gmpPercentage: 8.33,
@@ -428,83 +441,15 @@ window.IpoData = {
         applyPercent: 80,
         neutralPercent: 16,
         avoidPercent: 4,
-        consensus: "Apply"
+        consensus: "Apply (NSE Emerge)"
       },
       documents: [
         { title: "Offer Document", size: "3.2 MB", type: "PDF" }
       ]
     },
-    {
-      id: "energia-power",
-      slug: "energia-power",
-      companyName: "Energia Power & Utilities Ltd",
-      shortName: "Energia Power",
-      initials: "EP",
-      logoColor: "#10B981",
-      iconType: "energy",
-      status: "OPEN",
-      board: "MAINBOARD",
-      exchange: "NSE, BSE",
-      sector: "Power & Clean Energy",
-      issueType: "Mainboard",
-      priceBandLow: 310,
-      priceBandHigh: 326,
-      lotSize: 46,
-      issueSizeCr: 1125,
-      minimumInvestment: 14996,
-      faceValue: 5,
-      registrar: "Link Intime India Pvt Ltd",
-      openDate: "2026-10-28",
-      closeDate: "2026-11-02",
-      allotDate: "2026-11-03",
-      refundDate: "2026-11-04",
-      dematDate: "2026-11-04",
-      listingDate: "2026-11-05",
-      gmp: 28,
-      gmpPercentage: 12.3,
-      gmpUpdatedAt: "2026-10-30T17:30:00+05:30",
-      dayHighGmp: 32,
-      dayLowGmp: 24,
-      trend: "up",
-      gmpHistory: [
-        { date: "27 Oct", value: 20 },
-        { date: "28 Oct", value: 24 },
-        { date: "29 Oct", value: 26 },
-        { date: "30 Oct", value: 28 }
-      ],
-      subscriptionTotal: 14.3,
-      subscriptionSummary: {
-        qib: 5.40,
-        nii: 12.10,
-        retail: 48.60,
-        employee: 1.80,
-        total: 14.30
-      },
-      financials: [
-        { year: "FY 2024", revenue: 980, profit: 92 },
-        { year: "FY 2025", revenue: 1240, profit: 135 },
-        { year: "FY 2026", revenue: 1650, profit: 198 }
-      ],
-      ratios: {
-        pe: 18.6,
-        ronw: "22.4%",
-        eps: "₹17.52",
-        marketCap: "₹4,800 Cr"
-      },
-      about: "Energia Power is a renewable energy producer with 3.2 GW of operational solar, wind, and pumped-hydro assets across western India.",
-      analystRating: {
-        applyPercent: 92,
-        neutralPercent: 6,
-        avoidPercent: 2,
-        consensus: "Strong Apply"
-      },
-      documents: [
-        { title: "Red Herring Prospectus (RHP)", size: "5.4 MB", type: "PDF" }
-      ]
-    },
 
     /* ======================================================================
-       2. CLOSED IPOs (Market Closed at 3:30/5:00 PM Today or Recently)
+       2. CLOSED IPOs (Bidding Closed on or before Oct 30)
        ====================================================================== */
     {
       id: "mk-sons-fine-jewels",
@@ -555,22 +500,13 @@ window.IpoData = {
         { year: "FY 2025", revenue: 490, profit: 34 },
         { year: "FY 2026", revenue: 640, profit: 48 }
       ],
-      ratios: {
-        pe: 22.1,
-        ronw: "18.1%",
-        eps: "₹7.33",
-        marketCap: "₹1,400 Cr"
-      },
       about: "M. K. Sons Fine Jewels operates retail showrooms across western India showcasing gold, diamond, and designer lifestyle jewellery.",
       analystRating: {
         applyPercent: 71,
         neutralPercent: 21,
         avoidPercent: 8,
         consensus: "Closed with 5.09x Subscription"
-      },
-      documents: [
-        { title: "Offer Document", size: "6.2 MB", type: "PDF" }
-      ]
+      }
     },
     {
       id: "carver-roboweld",
@@ -686,6 +622,110 @@ window.IpoData = {
       }
     },
     {
+      id: "bls-polymers",
+      slug: "bls-polymers",
+      companyName: "BLS Polymers Limited",
+      shortName: "BLS Polymers",
+      initials: "BP",
+      logoColor: "#3B82F6",
+      iconType: "polymer",
+      status: "CLOSED",
+      board: "MAINBOARD",
+      exchange: "NSE, BSE",
+      sector: "Chemicals & Specialty Polymers",
+      issueType: "Mainboard",
+      priceBandLow: 142,
+      priceBandHigh: 150,
+      lotSize: 10,
+      issueSizeCr: 500,
+      minimumInvestment: 1500,
+      faceValue: 10,
+      registrar: "KFin Technologies Ltd",
+      openDate: "2026-10-27",
+      closeDate: "2026-10-29",
+      allotDate: "2026-11-01",
+      refundDate: "2026-11-02",
+      dematDate: "2026-11-02",
+      listingDate: "2026-11-03",
+      gmp: 15,
+      gmpPercentage: 10.5,
+      gmpUpdatedAt: "2026-10-30T17:30:00+05:30",
+      dayHighGmp: 18,
+      dayLowGmp: 12,
+      trend: "up",
+      gmpHistory: [
+        { date: "24 Oct", value: 10 },
+        { date: "25 Oct", value: 12 },
+        { date: "26 Oct", value: 14 },
+        { date: "27 Oct", value: 15 }
+      ],
+      subscriptionTotal: 22.1,
+      subscriptionSummary: {
+        qib: 1.20,
+        nii: 3.40,
+        retail: 134.44,
+        employee: 2.10,
+        total: 22.10
+      },
+      financials: [
+        { year: "FY 2024", revenue: 420, profit: 38 },
+        { year: "FY 2025", revenue: 510, profit: 52 },
+        { year: "FY 2026", revenue: 680, profit: 71 }
+      ],
+      ratios: {
+        pe: 21.4,
+        ronw: "19.2%",
+        eps: "₹7.01",
+        marketCap: "₹2,100 Cr"
+      },
+      about: "BLS Polymers manufactures specialty polymer compounds, engineering thermoplastics, and masterbatches used in EV lightweighting, healthcare packaging, and electronics.",
+      swot: {
+        strengths: ["EBITDA margin expansion from 12.1% to 15.4%", "Tier-1 automotive & industrial client base", "Low debt-to-equity ratio of 0.18x"],
+        weaknesses: ["Fluctuation in petroleum-derived monomer feedstocks"],
+        opportunities: ["High demand for EV battery pack casings & flame-retardant polymers"],
+        risks: ["Global chemical commodity price cycles"]
+      },
+      analystRating: {
+        applyPercent: 88,
+        neutralPercent: 9,
+        avoidPercent: 3,
+        consensus: "Apply for Listing Gains"
+      },
+      documents: [
+        { title: "Red Herring Prospectus (RHP)", size: "4.8 MB", type: "PDF" },
+        { title: "KFintech Allotment Status", type: "LINK", url: "https://ris.kfintech.com/ipostatus/" }
+      ]
+    },
+    {
+      id: "energia-power",
+      slug: "energia-power",
+      companyName: "Energia Power & Utilities Ltd",
+      shortName: "Energia Power",
+      initials: "EP",
+      logoColor: "#10B981",
+      iconType: "energy",
+      status: "CLOSED",
+      board: "MAINBOARD",
+      exchange: "NSE, BSE",
+      sector: "Power & Clean Energy",
+      issueType: "Mainboard",
+      priceBandLow: 310,
+      priceBandHigh: 326,
+      lotSize: 46,
+      issueSizeCr: 1125,
+      minimumInvestment: 14996,
+      faceValue: 5,
+      registrar: "Link Intime India Pvt Ltd",
+      openDate: "2026-10-28",
+      closeDate: "2026-10-30",
+      allotDate: "2026-11-02",
+      listingDate: "2026-11-04",
+      gmp: 28,
+      gmpPercentage: 12.3,
+      subscriptionTotal: 14.3,
+      about: "Energia Power is a renewable energy producer with 3.2 GW of operational solar, wind, and pumped-hydro assets across western India."
+    },
+    {
       id: "eaaa-india",
       slug: "eaaa-india-alternatives-ipo",
       companyName: "EAAA India Alternatives Limited",
@@ -712,12 +752,6 @@ window.IpoData = {
       gmp: 24,
       gmpPercentage: 8.14,
       subscriptionTotal: 5.51,
-      subscriptionSummary: {
-        qib: 7.20,
-        nii: 4.80,
-        retail: 3.90,
-        total: 5.51
-      },
       about: "Institutional alternative asset and wealth manager investing in real estate yield instruments and private credit."
     },
     {
@@ -1179,6 +1213,7 @@ window.IpoData = {
     "2026-10-30": [
       { id: "vectras-enprocon", name: "Vectras Enprocon", type: "OPEN", text: "BSE SME Opens (₹99-105)" },
       { id: "maxwell-engineering", name: "Maxwell Engineering", type: "OPEN", text: "NSE SME Opens (₹150-158)" },
+      { id: "johnsoncab-electricals", name: "Johnsoncab Electricals", type: "OPEN", text: "BSE SME Opens (₹190-200)" },
       { id: "hgs-india", name: "HGS India", type: "OPEN", text: "NSE SME Opens (₹114-120)" },
       { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "CLOSE", text: "Market Closed (5.09x)" },
       { id: "carver-roboweld", name: "Carver Roboweld", type: "CLOSE", text: "Market Closed (25.8x)" },
@@ -1186,14 +1221,14 @@ window.IpoData = {
     ],
     "2026-11-02": [
       { id: "vedant-poly-fabs", name: "Vedant Poly Fabs", type: "OPEN", text: "NSE SME Opens" },
-      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "CLOSE", text: "Bidding Closes at 5 PM" },
+      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "CLOSE", text: "Mainboard Closes (5 PM)" },
       { id: "antala-industries", name: "Antala Industries", type: "CLOSE", text: "BSE SME Closes" },
-      { id: "bls-polymers", name: "BLS Polymers", type: "CLOSE", text: "Final Bidding Closes" },
       { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "ALLOTMENT", text: "Allotment Finalization" }
     ],
     "2026-11-03": [
       { id: "vectras-enprocon", name: "Vectras Enprocon", type: "CLOSE", text: "BSE SME Closes" },
       { id: "maxwell-engineering", name: "Maxwell Engineering", type: "CLOSE", text: "NSE SME Closes" },
+      { id: "johnsoncab-electricals", name: "Johnsoncab Electricals", type: "CLOSE", text: "BSE SME Closes" },
       { id: "hgs-india", name: "HGS India", type: "CLOSE", text: "NSE SME Closes" },
       { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "ALLOTMENT", text: "Allotment Finalization" }
     ],
@@ -1205,8 +1240,13 @@ window.IpoData = {
     "2026-11-05": [
       { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "LISTING", text: "Listing on BSE & NSE" },
       { id: "antala-industries", name: "Antala Industries", type: "LISTING", text: "Listing on BSE SME" },
-      { id: "bls-polymers", name: "BLS Polymers", type: "LISTING", text: "Listing on NSE & BSE" },
       { id: "krystal-foods", name: "Krystal Foods", type: "OPEN", text: "Mainboard IPO Opens" }
+    ],
+    "2026-11-06": [
+      { id: "vectras-enprocon", name: "Vectras Enprocon", type: "LISTING", text: "Listing on BSE SME" },
+      { id: "maxwell-engineering", name: "Maxwell Engineering", type: "LISTING", text: "Listing on NSE SME" },
+      { id: "johnsoncab-electricals", name: "Johnsoncab Electricals", type: "LISTING", text: "Listing on BSE SME" },
+      { id: "hgs-india", name: "HGS India", type: "LISTING", text: "Listing on NSE SME" }
     ],
     "2026-11-07": [
       { id: "techfront-india", name: "Techfront India", type: "OPEN", text: "Mainboard IPO Opens" }
@@ -1215,35 +1255,35 @@ window.IpoData = {
   alertsFeed: [
     {
       id: "a1",
-      title: "Market Closed (3:30 PM): M.K. Sons Jewels 5.09x",
-      description: "Bidding concludes for M.K. Sons Fine Jewels with 7.42x retail oversubscription. Allotment on Nov 2.",
+      title: "Johnsoncab Electricals (BSE SME) Opens",
+      description: "Cable manufacturer issue live at ₹190–200 price band. 1.14x subscribed on Day 1. Closes Nov 3.",
       time: "Just now",
+      slug: "johnsoncab-electricals-ipo",
+      tag: "BSE SME"
+    },
+    {
+      id: "a2",
+      title: "Bombay Coated Steels (Mainboard) 3.32x",
+      description: "QIB oversubscribed 6.89x. Retail at 2.16x. Bidding window closes Monday, 02 Nov.",
+      time: "30 mins ago",
+      slug: "bombay-coated-and-special-steels-ipo",
+      tag: "Mainboard"
+    },
+    {
+      id: "a3",
+      title: "Market Closed (3:30 PM): M.K. Sons Jewels 5.09x",
+      description: "Bidding window concluded for M.K. Sons Fine Jewels. Allotment scheduled for Nov 2.",
+      time: "2 hours ago",
       slug: "m-k-sons-fine-jewels-ipo",
       tag: "Closed"
     },
     {
-      id: "a2",
-      title: "Carver Roboweld Closes at 25.8x",
-      description: "BSE SME issue finishes strong with 32.4x retail subscription. Basis of allotment on Nov 2.",
-      time: "1 hour ago",
-      slug: "carver-roboweld-ipo",
-      tag: "Closed"
-    },
-    {
-      id: "a3",
-      title: "Bombay Coated Steels (QIB 6.89x) Open",
-      description: "Day 2 finishes with 3.32x overall subscription. Issue closes on Monday, Nov 2.",
-      time: "2 hours ago",
-      slug: "bombay-coated-and-special-steels-ipo",
-      tag: "Open"
-    },
-    {
       id: "a4",
-      title: "NSE SME: Maxwell Engineering (0.42x) Open",
-      description: "Industrial robotics IPO opened today at ₹150–158 band. Bidding open till Nov 3.",
+      title: "Antala Industries (BSE SME) Closes 02 Nov",
+      description: "Current subscription reaches 1.84x with retail portion 2.38x. Closes Monday.",
       time: "3 hours ago",
-      slug: "maxwell-engineering-solutions-ipo",
-      tag: "NSE Emerge"
+      slug: "antala-industries-ipo",
+      tag: "BSE SME"
     }
   ]
 };
