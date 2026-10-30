@@ -8,8 +8,8 @@ window.PricealerterData = {
       status: "OPEN", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
       priceBandLow: 153, priceBandHigh: 162, issuePrice: null, issueSizeCr: 330.48, lotSize: 91, minimumInvestment: 14742,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
-      gmp: 5, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
-      subscriptionTotal: 5.09, subscriptionSummary: { total: { total: 5.09, updatedAt: "2026-10-30T18:41:00+05:30" }, updatedAt: "2026-10-29T21:00:00+05:30" },
+      gmp: 5, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
+      subscriptionTotal: 5.09, subscriptionSummary: { total: 5.09, updatedAt: "2026-10-30T18:41:00+05:30" },
       sourceUrl: null, officialLinks: []
     },
     {
@@ -19,7 +19,7 @@ window.PricealerterData = {
       priceBandLow: 78, priceBandHigh: 82, issuePrice: null, issueSizeCr: 183.06, lotSize: 182, minimumInvestment: 14924,
       openDate: "2026-10-29", closeDate: "2026-11-02", allotDate: "2026-11-03", listingDate: "2026-11-05",
       gmp: 7, gmpPercentage: 8.5, gmpUpdatedAt: "2026-10-29T21:00:00+05:30",
-      subscriptionTotal: 3.79, subscriptionSummary: { total: { total: 3.79, updatedAt: "2026-10-30T18:41:00+05:30" }, updatedAt: "2026-10-29T21:00:00+05:30" },
+      subscriptionTotal: 3.79, subscriptionSummary: { total: 3.79, updatedAt: "2026-10-30T18:41:00+05:30" },
       sourceUrl: null, officialLinks: []
     },
     {
