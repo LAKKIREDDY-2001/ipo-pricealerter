@@ -307,11 +307,11 @@
     // Filter Logic
     let filtered = records;
     if (state.activeFilter === "open") {
-      filtered = filtered.filter(r => r.status === "OPEN" || r.status === "CLOSING_TODAY");
+      filtered = filtered.filter(r => r.status === "OPEN");
+    } else if (state.activeFilter === "closed") {
+      filtered = filtered.filter(r => r.status === "CLOSED");
     } else if (state.activeFilter === "upcoming") {
       filtered = filtered.filter(r => r.status === "UPCOMING");
-    } else if (state.activeFilter === "closing-today") {
-      filtered = filtered.filter(r => r.status === "CLOSING_TODAY");
     } else if (state.activeFilter === "listed") {
       filtered = filtered.filter(r => r.status === "LISTED");
     }
@@ -335,16 +335,20 @@
           
           <div class="hero-stats-row">
             <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.openCount || 3}</span>
+              <span class="hero-stat-num">${dataset.stats?.openCount || records.filter(r => r.status === "OPEN").length}</span>
               <span class="hero-stat-label">Open</span>
             </div>
             <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.upcomingCount || 12}</span>
+              <span class="hero-stat-num">${dataset.stats?.closedCount || records.filter(r => r.status === "CLOSED").length}</span>
+              <span class="hero-stat-label">Closed</span>
+            </div>
+            <div class="hero-stat-box">
+              <span class="hero-stat-num">${dataset.stats?.upcomingCount || records.filter(r => r.status === "UPCOMING").length}</span>
               <span class="hero-stat-label">Upcoming</span>
             </div>
             <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.listedCount || 47}</span>
-              <span class="hero-stat-label">Listed</span>
+              <span class="hero-stat-num">${dataset.stats?.listedCount || records.filter(r => r.status === "LISTED").length}</span>
+              <span class="hero-stat-label">All Listed</span>
             </div>
           </div>
 
@@ -387,11 +391,11 @@
       <!-- Category Filter Tabs -->
       <section class="filter-tabs-wrapper" aria-label="Filter Options">
         <div class="filter-pills-group" id="status-filter-group">
-          <button class="filter-pill ${state.activeFilter === "all" ? "active" : ""}" data-status="all">All IPOs</button>
+          <button class="filter-pill ${state.activeFilter === "all" ? "active" : ""}" data-status="all">All</button>
           <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open</button>
+          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed</button>
           <button class="filter-pill ${state.activeFilter === "upcoming" ? "active" : ""}" data-status="upcoming">Upcoming</button>
-          <button class="filter-pill ${state.activeFilter === "closing-today" ? "active" : ""}" data-status="closing-today">Closing Today</button>
-          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">Listed</button>
+          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed</button>
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
@@ -452,9 +456,9 @@
     let badgeClass = "open";
     let badgeLabel = "Open";
 
-    if (ipo.status === "CLOSING_TODAY") {
-      badgeClass = "closing-today";
-      badgeLabel = "Closing Today";
+    if (ipo.status === "CLOSED") {
+      badgeClass = "closed";
+      badgeLabel = "Closed";
     } else if (ipo.status === "UPCOMING") {
       badgeClass = "upcoming";
       badgeLabel = "Upcoming";
@@ -471,7 +475,9 @@
       ? `Listed: ${formatDate(ipo.listingDate)}`
       : ipo.status === "UPCOMING"
         ? `Opens: ${formatDate(ipo.openDate)}`
-        : `Closes: ${formatDate(ipo.closeDate)}`;
+        : ipo.status === "CLOSED"
+          ? `Closed: ${formatDate(ipo.closeDate)}`
+          : `Closes: ${formatDate(ipo.closeDate)}`;
 
     const maxSub = 50;
     const subVal = ipo.subscriptionTotal || 0;
@@ -891,8 +897,8 @@
             <div class="detail-title-wrap">
               <div class="detail-title-row">
                 <h1>${ipo.shortName}</h1>
-                <span class="status-badge ${ipo.status === 'CLOSING_TODAY' ? 'closing-today' : ipo.status === 'UPCOMING' ? 'upcoming' : ipo.status === 'LISTED' ? 'listed' : 'open'}">
-                  ${ipo.status === 'CLOSING_TODAY' ? 'Closing Today' : ipo.status === 'UPCOMING' ? 'Upcoming' : ipo.status === 'LISTED' ? 'Listed' : 'Open'}
+                <span class="status-badge ${ipo.status === 'CLOSED' ? 'closed' : ipo.status === 'UPCOMING' ? 'upcoming' : ipo.status === 'LISTED' ? 'listed' : 'open'}">
+                  ${ipo.status === 'CLOSED' ? 'Closed' : ipo.status === 'UPCOMING' ? 'Upcoming' : ipo.status === 'LISTED' ? 'Listed' : 'Open'}
                 </span>
               </div>
               <span class="detail-meta-subtitle">${ipo.sector} • ${ipo.issueType || ipo.board} • ${ipo.exchange}</span>
@@ -1580,7 +1586,7 @@
                     <td><strong style="color:var(--status-open); font-size:15px;">${r.gmp ? `+₹${r.gmp}` : '—'}</strong></td>
                     <td><strong>₹${estPrice}</strong></td>
                     <td><span style="color:var(--status-open); font-weight:700;">${r.gmp ? `+${pct}%` : '—'}</span></td>
-                    <td><span class="status-badge ${r.status === 'CLOSING_TODAY' ? 'closing-today' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}">${r.status}</span></td>
+                    <td><span class="status-badge ${r.status === 'CLOSED' ? 'closed' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}">${r.status === 'CLOSED' ? 'Closed' : r.status === 'UPCOMING' ? 'Upcoming' : r.status === 'LISTED' ? 'Listed' : 'Open'}</span></td>
                     <td><span style="color:var(--status-open);">↑ Bullish</span></td>
                   </tr>
                 `;
@@ -1728,8 +1734,8 @@
             <span>${r.sector} • ${r.board} • ${r.exchange}</span>
           </div>
         </div>
-        <span class="status-badge ${r.status === 'CLOSING_TODAY' ? 'closing-today' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}">
-          ${r.status === 'CLOSING_TODAY' ? 'Closing Today' : r.status}
+        <span class="status-badge ${r.status === 'CLOSED' ? 'closed' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}">
+          ${r.status === 'CLOSED' ? 'Closed' : r.status === 'UPCOMING' ? 'Upcoming' : r.status === 'LISTED' ? 'Listed' : 'Open'}
         </span>
       </div>
     `).join("");

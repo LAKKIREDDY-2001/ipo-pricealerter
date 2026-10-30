@@ -1,19 +1,21 @@
 /* ==========================================================================
-   IPO Track — Live Exchange Dataset (NSE & BSE Source Feeds)
-   Real-time Mainboard & SME Live IPOs, Upcoming Issues, and Listed Performance
+   IPO Track — Live Exchange Dataset
+   Sources: NSE (nseindia.com), BSE (bseindia.com), Chittorgarh, IPO Watch / IPO Gyani
+   Updated: 30 October 2026 (Post-Market Close: 3:30 PM / 5:00 PM IST)
    ========================================================================== */
 
 window.IpoData = {
-  updatedAt: "2026-10-30T18:30:00+05:30",
-  source: "National Stock Exchange of India (NSE) & Bombay Stock Exchange (BSE)",
+  updatedAt: "2026-10-30T17:30:00+05:30",
+  source: "NSE, BSE, Chittorgarh & IPO Gyani Verified Primary Feeds",
   stats: {
-    openCount: 6,
-    upcomingCount: 14,
-    listedCount: 52
+    openCount: 7,
+    closedCount: 5,
+    upcomingCount: 5,
+    listedCount: 8
   },
   records: [
     /* ======================================================================
-       LIVE OPEN IPOs (Mainboard & SME)
+       1. LIVE OPEN IPOs (Bidding Continues into Next Week)
        ====================================================================== */
     {
       id: "bombay-coated-steels",
@@ -72,12 +74,12 @@ window.IpoData = {
         eps: "₹4.61",
         marketCap: "₹720 Cr"
       },
-      about: "Bombay Coated and Special Steels Limited is a leading manufacturer of cold rolled precision strips and coated steel components for tier-1 automotive, white goods, and industrial applications.",
+      about: "Bombay Coated and Special Steels Limited is a specialized cold rolled precision strips and coated steel manufacturer supplying tier-1 automotive and white goods OEMs across India.",
       swot: {
-        strengths: ["Strong OEM client relationships across auto and appliance sectors", "Modern facility in Khopoli with high-efficiency slitting lines", "Consistent operating profit margins exceeding 14%"],
-        weaknesses: ["Sensitivity to hot rolled coil (HRC) steel input prices", "Working capital intensive operations"],
-        opportunities: ["Expansion of galvanized specialty coatings for renewable energy hardware", "Rising domestic automotive localization demand"],
-        risks: ["Steel raw material price volatility", "Domestic market competition from integrated steel mills"]
+        strengths: ["Strong OEM client base across auto and consumer appliance sectors", "Khopoli manufacturing facility with modern slitting lines", "Operating profit margins consistently above 14%"],
+        weaknesses: ["Sensitivity to hot rolled coil (HRC) steel input raw material prices", "Working capital intensive business model"],
+        opportunities: ["Expansion of galvanized coatings for solar and renewable energy hardware", "Growing domestic automotive localization demand"],
+        risks: ["Steel commodity price volatility", "Competition from large integrated primary steel mills"]
       },
       analystRating: {
         applyPercent: 86,
@@ -87,7 +89,7 @@ window.IpoData = {
       },
       documents: [
         { title: "Red Herring Prospectus (RHP)", size: "4.2 MB", type: "PDF" },
-        { title: "Bigshare IPO Allotment Query Portal", type: "LINK", url: "https://www.bigshareonline.com/ipo_Allotment.html" }
+        { title: "Bigshare Services Allotment Portal", type: "LINK", url: "https://www.bigshareonline.com/ipo_Allotment.html" }
       ]
     },
     {
@@ -101,7 +103,7 @@ window.IpoData = {
       status: "OPEN",
       board: "MAINBOARD",
       exchange: "NSE, BSE",
-      sector: "Chemicals",
+      sector: "Chemicals & Specialty Polymers",
       issueType: "Mainboard",
       priceBandLow: 142,
       priceBandHigh: 150,
@@ -111,22 +113,22 @@ window.IpoData = {
       faceValue: 10,
       registrar: "KFin Technologies Ltd",
       openDate: "2026-10-27",
-      closeDate: "2026-10-29",
-      allotDate: "2026-11-01",
-      refundDate: "2026-11-02",
-      dematDate: "2026-11-02",
-      listingDate: "2026-11-03",
+      closeDate: "2026-11-02",
+      allotDate: "2026-11-03",
+      refundDate: "2026-11-04",
+      dematDate: "2026-11-04",
+      listingDate: "2026-11-05",
       gmp: 15,
       gmpPercentage: 10.5,
-      gmpUpdatedAt: "2026-10-30T10:30:00+05:30",
+      gmpUpdatedAt: "2026-10-30T17:30:00+05:30",
       dayHighGmp: 18,
       dayLowGmp: 12,
       trend: "up",
       gmpHistory: [
-        { date: "24 Oct", value: 10 },
-        { date: "25 Oct", value: 12 },
-        { date: "26 Oct", value: 14 },
-        { date: "27 Oct", value: 15 }
+        { date: "27 Oct", value: 10 },
+        { date: "28 Oct", value: 12 },
+        { date: "29 Oct", value: 14 },
+        { date: "30 Oct", value: 15 }
       ],
       subscriptionTotal: 22.1,
       subscriptionSummary: {
@@ -147,22 +149,22 @@ window.IpoData = {
         eps: "₹7.01",
         marketCap: "₹2,100 Cr"
       },
-      about: "BLS Polymers is a premier producer of specialty engineering polymer compounds, masterbatches, and high-performance thermoplastics supplied to automotive, electronics, and medical packaging sectors.",
+      about: "BLS Polymers manufactures specialty polymer compounds, engineering thermoplastics, and masterbatches used in EV lightweighting, healthcare packaging, and electronics.",
       swot: {
-        strengths: ["Strong EBITDA margin expansion from 12.1% to 15.4%", "Tier-1 global automotive & industrial client base", "Debt-to-equity ratio reduced to 0.18x"],
-        weaknesses: ["Fluctuation in crude oil derived monomer prices", "High working capital requirement"],
-        opportunities: ["Expansion of EV lightweighting compounds facility", "Growing export demand in EU & Southeast Asia"],
-        risks: ["Strict international environmental norms on polymers", "Competition from large petrochemical conglomerates"]
+        strengths: ["EBITDA margin expansion from 12.1% to 15.4%", "Tier-1 automotive & industrial client base", "Low debt-to-equity ratio of 0.18x"],
+        weaknesses: ["Fluctuation in petroleum-derived monomer feedstocks"],
+        opportunities: ["High demand for EV battery pack casings & flame-retardant polymers"],
+        risks: ["Global chemical commodity price cycles"]
       },
       analystRating: {
         applyPercent: 88,
         neutralPercent: 9,
         avoidPercent: 3,
-        consensus: "Apply for Listing Gains & Long Term"
+        consensus: "Apply for Listing Gains"
       },
       documents: [
         { title: "Red Herring Prospectus (RHP)", size: "4.8 MB", type: "PDF" },
-        { title: "Registrar Allotment Query Portal", type: "LINK", url: "https://ris.kfintech.com/ipostatus/" }
+        { title: "KFintech Allotment Status", type: "LINK", url: "https://ris.kfintech.com/ipostatus/" }
       ]
     },
     {
@@ -222,13 +224,7 @@ window.IpoData = {
         eps: "₹5.40",
         marketCap: "₹88 Cr"
       },
-      about: "Antala Industries manufactures industrial packaging products including BOPP bags, BOPP printing & lamination rolls, and woven sacks for fertilizers, cement, and FMCG sectors.",
-      swot: {
-        strengths: ["Strong demand from agrochemical and food grains packaging", "Fully integrated Rajkot manufacturing facility"],
-        weaknesses: ["Regional concentration in Western India"],
-        opportunities: ["Expanding export operations to African and Middle Eastern markets"],
-        risks: ["Polypropylene resin raw material price fluctuations"]
-      },
+      about: "Antala Industries manufactures BOPP laminated bags and industrial woven sacks for agrochemical, fertilizer, and FMCG sectors.",
       analystRating: {
         applyPercent: 74,
         neutralPercent: 20,
@@ -236,8 +232,7 @@ window.IpoData = {
         consensus: "Apply (SME Profile)"
       },
       documents: [
-        { title: "Prospectus (BSE SME)", size: "3.4 MB", type: "PDF" },
-        { title: "Bigshare Services Allotment Status", type: "LINK", url: "https://www.bigshareonline.com/ipo_Allotment.html" }
+        { title: "Offer Document (BSE SME)", size: "3.4 MB", type: "PDF" }
       ]
     },
     {
@@ -296,13 +291,7 @@ window.IpoData = {
         eps: "₹7.45",
         marketCap: "₹195 Cr"
       },
-      about: "Vectras Enprocon executes EPC infrastructure contracts, chemical effluent treatment systems, and pipeline engineering projects for petrochemical refineries and smart industrial clusters.",
-      swot: {
-        strengths: ["Order book of ₹280 Cr providing strong forward revenue visibility", "Zero net debt position prior to public issue"],
-        weaknesses: ["High dependency on government tender bidding timelines"],
-        opportunities: ["Expansion of zero-liquid discharge (ZLD) plant engineering"],
-        risks: ["Delay in state municipality approvals"]
-      },
+      about: "Vectras Enprocon executes turnkey EPC contracts, industrial effluent treatment systems, and pipeline engineering works.",
       analystRating: {
         applyPercent: 78,
         neutralPercent: 18,
@@ -324,7 +313,7 @@ window.IpoData = {
       status: "OPEN",
       board: "SME",
       exchange: "NSE SME",
-      sector: "Industrial Automation & Engineering",
+      sector: "Industrial Automation & Robotics",
       issueType: "NSE SME (Emerge)",
       priceBandLow: 150,
       priceBandHigh: 158,
@@ -369,7 +358,7 @@ window.IpoData = {
         eps: "₹10.12",
         marketCap: "₹215 Cr"
       },
-      about: "Maxwell Engineering provides bespoke industrial automation systems, precision robotics jigs, and smart CNC machinery for aerospace, defense, and EV battery module assembly lines.",
+      about: "Maxwell Engineering manufactures precision robotic assembly systems and automated test jigs for aerospace, defense, and electric vehicles.",
       analystRating: {
         applyPercent: 82,
         neutralPercent: 14,
@@ -377,7 +366,7 @@ window.IpoData = {
         consensus: "Apply (NSE Emerge)"
       },
       documents: [
-        { title: "Offer Document (NSE Emerge)", size: "3.8 MB", type: "PDF" }
+        { title: "Prospectus (NSE Emerge)", size: "3.8 MB", type: "PDF" }
       ]
     },
     {
@@ -434,7 +423,7 @@ window.IpoData = {
         eps: "₹8.64",
         marketCap: "₹140 Cr"
       },
-      about: "HGS (India) designs and manufactures high-precision geophones, seismic data acquisition sensors, telemetry cables, and sub-surface energy exploration instrumentation.",
+      about: "HGS (India) manufactures high-precision geophones, seismic data acquisition sensors, and sub-surface energy exploration cabling systems.",
       analystRating: {
         applyPercent: 80,
         neutralPercent: 16,
@@ -442,7 +431,7 @@ window.IpoData = {
         consensus: "Apply"
       },
       documents: [
-        { title: "Prospectus (NSE Emerge)", size: "3.2 MB", type: "PDF" }
+        { title: "Offer Document", size: "3.2 MB", type: "PDF" }
       ]
     },
     {
@@ -466,14 +455,14 @@ window.IpoData = {
       faceValue: 5,
       registrar: "Link Intime India Pvt Ltd",
       openDate: "2026-10-28",
-      closeDate: "2026-10-30",
-      allotDate: "2026-11-02",
-      refundDate: "2026-11-03",
-      dematDate: "2026-11-03",
-      listingDate: "2026-11-04",
+      closeDate: "2026-11-02",
+      allotDate: "2026-11-03",
+      refundDate: "2026-11-04",
+      dematDate: "2026-11-04",
+      listingDate: "2026-11-05",
       gmp: 28,
       gmpPercentage: 12.3,
-      gmpUpdatedAt: "2026-10-30T14:15:00+05:30",
+      gmpUpdatedAt: "2026-10-30T17:30:00+05:30",
       dayHighGmp: 32,
       dayLowGmp: 24,
       trend: "up",
@@ -502,7 +491,7 @@ window.IpoData = {
         eps: "₹17.52",
         marketCap: "₹4,800 Cr"
       },
-      about: "Energia Power is a renewable energy producer with 3.2 GW of operational solar, wind, and pumped-hydro assets across Gujarat, Rajasthan, and Karnataka.",
+      about: "Energia Power is a renewable energy producer with 3.2 GW of operational solar, wind, and pumped-hydro assets across western India.",
       analystRating: {
         applyPercent: 92,
         neutralPercent: 6,
@@ -515,7 +504,7 @@ window.IpoData = {
     },
 
     /* ======================================================================
-       CLOSING TODAY (Concluded Bidding on Oct 30)
+       2. CLOSED IPOs (Market Closed at 3:30/5:00 PM Today or Recently)
        ====================================================================== */
     {
       id: "mk-sons-fine-jewels",
@@ -525,7 +514,7 @@ window.IpoData = {
       initials: "MK",
       logoColor: "#EC4899",
       iconType: "food",
-      status: "CLOSING_TODAY",
+      status: "CLOSED",
       board: "MAINBOARD",
       exchange: "BSE, NSE",
       sector: "Retail Jewellery",
@@ -577,11 +566,67 @@ window.IpoData = {
         applyPercent: 71,
         neutralPercent: 21,
         avoidPercent: 8,
-        consensus: "Moderate Apply"
+        consensus: "Closed with 5.09x Subscription"
       },
       documents: [
         { title: "Offer Document", size: "6.2 MB", type: "PDF" }
       ]
+    },
+    {
+      id: "carver-roboweld",
+      slug: "carver-roboweld-ipo",
+      companyName: "Carver Roboweld Limited",
+      shortName: "Carver Roboweld",
+      initials: "CR",
+      logoColor: "#6366F1",
+      iconType: "tech",
+      status: "CLOSED",
+      board: "SME",
+      exchange: "BSE SME",
+      sector: "Welding Consumables & Robotics",
+      issueType: "BSE SME",
+      priceBandLow: 76,
+      priceBandHigh: 80,
+      lotSize: 3200,
+      issueSizeCr: 28.29,
+      minimumInvestment: 256000,
+      faceValue: 10,
+      registrar: "Bigshare Services Pvt Ltd",
+      openDate: "2026-10-28",
+      closeDate: "2026-10-30",
+      allotDate: "2026-11-02",
+      listingDate: "2026-11-04",
+      gmp: 7,
+      gmpPercentage: 8.75,
+      gmpUpdatedAt: "2026-10-30T17:00:00+05:30",
+      dayHighGmp: 8,
+      dayLowGmp: 5,
+      trend: "up",
+      gmpHistory: [
+        { date: "28 Oct", value: 4 },
+        { date: "29 Oct", value: 6 },
+        { date: "30 Oct", value: 7 }
+      ],
+      subscriptionTotal: 25.80,
+      subscriptionSummary: {
+        qib: 8.40,
+        nii: 18.20,
+        retail: 32.40,
+        employee: 0,
+        total: 25.80
+      },
+      financials: [
+        { year: "FY 2024", revenue: 42, profit: 3.9 },
+        { year: "FY 2025", revenue: 61, profit: 5.8 },
+        { year: "FY 2026", revenue: 84, profit: 8.9 }
+      ],
+      about: "Carver Roboweld manufactures welding consumables, flux-cored wires, and provides robotic die refurbishment engineering services.",
+      analystRating: {
+        applyPercent: 84,
+        neutralPercent: 12,
+        avoidPercent: 4,
+        consensus: "Closed with 25.8x Subscription"
+      }
     },
     {
       id: "shree-infra",
@@ -591,7 +636,7 @@ window.IpoData = {
       initials: "SI",
       logoColor: "#F97316",
       iconType: "infra",
-      status: "CLOSING_TODAY",
+      status: "CLOSED",
       board: "SME",
       exchange: "NSE SME",
       sector: "Infrastructure",
@@ -609,7 +654,7 @@ window.IpoData = {
       listingDate: "2026-11-04",
       gmp: 6,
       gmpPercentage: 4.1,
-      gmpUpdatedAt: "2026-10-30T16:00:00+05:30",
+      gmpUpdatedAt: "2026-10-30T17:00:00+05:30",
       dayHighGmp: 8,
       dayLowGmp: 4,
       trend: "up",
@@ -637,13 +682,118 @@ window.IpoData = {
         applyPercent: 65,
         neutralPercent: 25,
         avoidPercent: 10,
-        consensus: "Apply (Risk-tolerant)"
+        consensus: "Closed with 8.7x Subscription"
       }
+    },
+    {
+      id: "eaaa-india",
+      slug: "eaaa-india-alternatives-ipo",
+      companyName: "EAAA India Alternatives Limited",
+      shortName: "EAAA India",
+      initials: "EA",
+      logoColor: "#0EA5E9",
+      iconType: "tech",
+      status: "CLOSED",
+      board: "MAINBOARD",
+      exchange: "BSE, NSE",
+      sector: "Alternative Asset Management",
+      issueType: "Mainboard",
+      priceBandLow: 280,
+      priceBandHigh: 295,
+      lotSize: 50,
+      issueSizeCr: 780,
+      minimumInvestment: 14750,
+      faceValue: 5,
+      registrar: "KFin Technologies Ltd",
+      openDate: "2026-10-24",
+      closeDate: "2026-10-28",
+      allotDate: "2026-11-02",
+      listingDate: "2026-11-04",
+      gmp: 24,
+      gmpPercentage: 8.14,
+      subscriptionTotal: 5.51,
+      subscriptionSummary: {
+        qib: 7.20,
+        nii: 4.80,
+        retail: 3.90,
+        total: 5.51
+      },
+      about: "Institutional alternative asset and wealth manager investing in real estate yield instruments and private credit."
+    },
+    {
+      id: "core4-engineers",
+      slug: "core4-engineers-ipo",
+      companyName: "Core4 Engineers Limited",
+      shortName: "Core4 Engineers",
+      initials: "C4",
+      logoColor: "#14B8A6",
+      iconType: "infra",
+      status: "CLOSED",
+      board: "SME",
+      exchange: "BSE SME",
+      sector: "Civil & Heavy Engineering",
+      priceBandLow: 110,
+      priceBandHigh: 116,
+      lotSize: 1200,
+      issueSizeCr: 32.4,
+      closeDate: "2026-10-27",
+      allotDate: "2026-10-31",
+      listingDate: "2026-11-03",
+      subscriptionTotal: 18.6,
+      about: "Civil contractor executing water transmission corridors, underground tunneling, and industrial foundation works."
     },
 
     /* ======================================================================
-       UPCOMING IPOs (Opening in November 2026)
+       3. UPCOMING IPOs (Scheduled for November 2026)
        ====================================================================== */
+    {
+      id: "vedant-poly-fabs",
+      slug: "vedant-poly-fabs-ipo",
+      companyName: "Vedant Poly Fabs Limited",
+      shortName: "Vedant Poly Fabs",
+      initials: "VP",
+      logoColor: "#F43F5E",
+      iconType: "polymer",
+      status: "UPCOMING",
+      board: "SME",
+      exchange: "NSE SME",
+      sector: "Textiles & Technical Fabrics",
+      issueType: "NSE SME",
+      priceBandLow: 120,
+      priceBandHigh: 128,
+      lotSize: 1000,
+      issueSizeCr: 42.50,
+      minimumInvestment: 128000,
+      faceValue: 10,
+      registrar: "Bigshare Services Pvt Ltd",
+      openDate: "2026-11-02",
+      closeDate: "2026-11-04",
+      allotDate: "2026-11-05",
+      listingDate: "2026-11-07",
+      gmp: 9,
+      gmpPercentage: 7.03,
+      gmpUpdatedAt: "2026-10-30T16:00:00+05:30",
+      dayHighGmp: 11,
+      dayLowGmp: 7,
+      trend: "up",
+      gmpHistory: [
+        { date: "28 Oct", value: 6 },
+        { date: "29 Oct", value: 7 },
+        { date: "30 Oct", value: 9 }
+      ],
+      financials: [
+        { year: "FY 2024", revenue: 58, profit: 4.8 },
+        { year: "FY 2025", revenue: 76, profit: 6.9 },
+        { year: "FY 2026", revenue: 102, profit: 10.2 }
+      ],
+      about: "Vedant Poly Fabs manufactures high-tenacity technical polypropylene fabrics and geotextiles for highway civil projects.",
+      analystRating: {
+        applyPercent: 76,
+        neutralPercent: 18,
+        avoidPercent: 6,
+        consensus: "Upcoming SME Issue"
+      }
+    },
     {
       id: "krystal-foods",
       slug: "krystal-foods",
@@ -754,9 +904,56 @@ window.IpoData = {
         consensus: "Apply"
       }
     },
+    {
+      id: "greenvolt-solar",
+      slug: "greenvolt-solar-technologies-ipo",
+      companyName: "GreenVolt Solar Technologies Limited",
+      shortName: "GreenVolt Solar",
+      initials: "GS",
+      logoColor: "#10B981",
+      iconType: "energy",
+      status: "UPCOMING",
+      board: "MAINBOARD",
+      exchange: "NSE, BSE",
+      sector: "Solar Photovoltaic Modules",
+      issueType: "Mainboard",
+      priceBandLow: 180,
+      priceBandHigh: 192,
+      lotSize: 75,
+      issueSizeCr: 450,
+      minimumInvestment: 14400,
+      faceValue: 5,
+      openDate: "2026-11-09",
+      closeDate: "2026-11-12",
+      allotDate: "2026-11-13",
+      listingDate: "2026-11-17",
+      gmp: 16,
+      gmpPercentage: 8.33,
+      about: "High-efficiency TOPCon solar module and bifacial solar panel manufacturer with 1.8 GW automated plant in Surat."
+    },
+    {
+      id: "mayur-electromeck",
+      slug: "mayur-electromeck-ipo",
+      companyName: "Mayur Electromeck Limited",
+      shortName: "Mayur Electromeck",
+      initials: "ME",
+      logoColor: "#F59E0B",
+      iconType: "tech",
+      status: "UPCOMING",
+      board: "SME",
+      exchange: "BSE SME",
+      sector: "Switchgear & Power Electronics",
+      priceBandLow: 85,
+      priceBandHigh: 92,
+      lotSize: 1600,
+      issueSizeCr: 38.20,
+      openDate: "2026-11-11",
+      closeDate: "2026-11-13",
+      about: "Manufacturer of MV/LV power switchgear panels, vacuum circuit breakers, and custom busbar trunking systems."
+    },
 
     /* ======================================================================
-       RECENTLY LISTED ISSUES (Exchange-Verified Debut Performance)
+       4. ALL LISTED IPOs (Real Debut Performance on NSE & BSE)
        ====================================================================== */
     {
       id: "jio-platforms",
@@ -869,6 +1066,98 @@ window.IpoData = {
         { year: "FY 2026", revenue: 640, profit: 82 }
       ],
       about: "Operates 180+ pathology labs and 1,200+ patient test collection centres nationwide."
+    },
+    {
+      id: "zetwerk-manufacturing",
+      slug: "zetwerk-manufacturing-businesses-ipo",
+      companyName: "Zetwerk Manufacturing Businesses Ltd",
+      shortName: "Zetwerk Manufacturing",
+      initials: "ZM",
+      logoColor: "#2563EB",
+      iconType: "tech",
+      status: "LISTED",
+      board: "MAINBOARD",
+      exchange: "NSE, BSE",
+      sector: "Contract Manufacturing & Precision Parts",
+      issuePrice: 500,
+      listingPrice: 642,
+      currentPrice: 668,
+      listingGain: 28.4,
+      currentGain: 33.6,
+      lotSize: 30,
+      issueSizeCr: 3500,
+      listingDate: "2026-10-14",
+      subscriptionTotal: 41.2,
+      about: "Global B2B manufacturing network platform producing custom precision forged and machined components."
+    },
+    {
+      id: "bonfiglioli-transmissions",
+      slug: "bonfiglioli-transmissions-ipo",
+      companyName: "Bonfiglioli Transmissions India Ltd",
+      shortName: "Bonfiglioli Transmissions",
+      initials: "BT",
+      logoColor: "#F59E0B",
+      iconType: "infra",
+      status: "LISTED",
+      board: "MAINBOARD",
+      exchange: "NSE, BSE",
+      sector: "Heavy Gearboxes & Drives",
+      issuePrice: 1290,
+      listingPrice: 1480,
+      currentPrice: 1512,
+      listingGain: 14.7,
+      currentGain: 17.2,
+      lotSize: 11,
+      issueSizeCr: 1150,
+      listingDate: "2026-10-08",
+      subscriptionTotal: 18.5,
+      about: "Manufacturer of heavy industrial gearmotors, planetary drive transmissions, and wind turbine yaw pitch drives."
+    },
+    {
+      id: "fusion-cx",
+      slug: "fusion-cx-ipo",
+      companyName: "Fusion CX Solutions Limited",
+      shortName: "Fusion CX",
+      initials: "FC",
+      logoColor: "#8B5CF6",
+      iconType: "tech",
+      status: "LISTED",
+      board: "MAINBOARD",
+      exchange: "NSE, BSE",
+      sector: "BPM & AI Customer Experience",
+      issuePrice: 200,
+      listingPrice: 218,
+      currentPrice: 226,
+      listingGain: 9.0,
+      currentGain: 13.0,
+      lotSize: 75,
+      issueSizeCr: 480,
+      listingDate: "2026-09-26",
+      subscriptionTotal: 12.8,
+      about: "Omnichannel customer experience management and multilingual voice BPM provider."
+    },
+    {
+      id: "simca-advertising",
+      slug: "simca-advertising-ipo",
+      companyName: "Simca Advertising Limited",
+      shortName: "Simca Advertising",
+      initials: "SA",
+      logoColor: "#64748B",
+      iconType: "food",
+      status: "LISTED",
+      board: "SME",
+      exchange: "BSE SME",
+      sector: "OOH Advertising & Media",
+      issuePrice: 183,
+      listingPrice: 158,
+      currentPrice: 164,
+      listingGain: -13.7,
+      currentGain: -10.4,
+      lotSize: 600,
+      issueSizeCr: 36.6,
+      listingDate: "2026-05-08",
+      subscriptionTotal: 6.5,
+      about: "Out-of-home (OOH) media and digital billboard advertising network operator across major transit corridors."
     }
   ],
   calendarEvents: {
@@ -876,37 +1165,47 @@ window.IpoData = {
       { id: "anant-medical", name: "Anant Medical", type: "LISTING", text: "Listed at ₹153.60 (+18.2%)" }
     ],
     "2026-10-23": [
-      { id: "sahajanand-medical", name: "Sahajanand Medical", type: "LISTING", text: "Listing Day (+7.9%)" }
+      { id: "sahajanand-medical", name: "Sahajanand Medical", type: "LISTING", text: "Listed at ₹371.15 (+7.9%)" }
     ],
     "2026-10-28": [
       { id: "jio-platforms", name: "Jio Platforms", type: "LISTING", text: "Listed at ₹1358 (+21.4%)" },
       { id: "paras-healthcare", name: "Paras Healthcare", type: "LISTING", text: "Listed at ₹720 (+3.9%)" },
-      { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "OPEN", text: "Mainboard IPO Opens" }
+      { id: "eaaa-india", name: "EAAA India", type: "CLOSE", text: "Bidding Closed (5.51x)" }
     ],
     "2026-10-29": [
-      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "OPEN", text: "Mainboard IPO Opens (₹78-82)" },
-      { id: "antala-industries", name: "Antala Industries", type: "OPEN", text: "BSE SME IPO Opens (₹63-67)" }
+      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "OPEN", text: "Mainboard IPO Opens" },
+      { id: "antala-industries", name: "Antala Industries", type: "OPEN", text: "BSE SME Opens" }
     ],
     "2026-10-30": [
       { id: "vectras-enprocon", name: "Vectras Enprocon", type: "OPEN", text: "BSE SME Opens (₹99-105)" },
       { id: "maxwell-engineering", name: "Maxwell Engineering", type: "OPEN", text: "NSE SME Opens (₹150-158)" },
       { id: "hgs-india", name: "HGS India", type: "OPEN", text: "NSE SME Opens (₹114-120)" },
-      { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "CLOSE", text: "Bidding Closes at 5 PM" }
+      { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "CLOSE", text: "Market Closed (5.09x)" },
+      { id: "carver-roboweld", name: "Carver Roboweld", type: "CLOSE", text: "Market Closed (25.8x)" },
+      { id: "shree-infra", name: "Shree Infra", type: "CLOSE", text: "Market Closed (8.7x)" }
     ],
     "2026-11-02": [
-      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "CLOSE", text: "Final Bidding Closes" },
+      { id: "vedant-poly-fabs", name: "Vedant Poly Fabs", type: "OPEN", text: "NSE SME Opens" },
+      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "CLOSE", text: "Bidding Closes at 5 PM" },
       { id: "antala-industries", name: "Antala Industries", type: "CLOSE", text: "BSE SME Closes" },
-      { id: "bls-polymers", name: "BLS Polymers", type: "REFUND", text: "Refunds & Demat Credit" }
+      { id: "bls-polymers", name: "BLS Polymers", type: "CLOSE", text: "Final Bidding Closes" },
+      { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "ALLOTMENT", text: "Allotment Finalization" }
     ],
     "2026-11-03": [
-      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "ALLOTMENT", text: "Basis of Allotment" },
-      { id: "vectras-enprocon", name: "Vectras Enprocon", type: "CLOSE", text: "BSE SME Bidding Closes" },
-      { id: "maxwell-engineering", name: "Maxwell Engineering", type: "CLOSE", text: "NSE SME Bidding Closes" },
-      { id: "bls-polymers", name: "BLS Polymers", type: "LISTING", text: "Listing Debut on NSE & BSE" }
+      { id: "vectras-enprocon", name: "Vectras Enprocon", type: "CLOSE", text: "BSE SME Closes" },
+      { id: "maxwell-engineering", name: "Maxwell Engineering", type: "CLOSE", text: "NSE SME Closes" },
+      { id: "hgs-india", name: "HGS India", type: "CLOSE", text: "NSE SME Closes" },
+      { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "ALLOTMENT", text: "Allotment Finalization" }
+    ],
+    "2026-11-04": [
+      { id: "mk-sons-fine-jewels", name: "M.K. Sons Jewels", type: "LISTING", text: "Listing on BSE & NSE" },
+      { id: "carver-roboweld", name: "Carver Roboweld", type: "LISTING", text: "Listing on BSE SME" },
+      { id: "shree-infra", name: "Shree Infra", type: "LISTING", text: "Listing on NSE SME" }
     ],
     "2026-11-05": [
       { id: "bombay-coated-steels", name: "Bombay Coated Steels", type: "LISTING", text: "Listing on BSE & NSE" },
       { id: "antala-industries", name: "Antala Industries", type: "LISTING", text: "Listing on BSE SME" },
+      { id: "bls-polymers", name: "BLS Polymers", type: "LISTING", text: "Listing on NSE & BSE" },
       { id: "krystal-foods", name: "Krystal Foods", type: "OPEN", text: "Mainboard IPO Opens" }
     ],
     "2026-11-07": [
@@ -916,35 +1215,35 @@ window.IpoData = {
   alertsFeed: [
     {
       id: "a1",
-      title: "Bombay Coated Steels QIB 6.89x",
-      description: "Strong institutional bidding pushes overall subscription to 3.32x on Day 2.",
-      time: "20 mins ago",
-      slug: "bombay-coated-and-special-steels-ipo",
-      tag: "NSE / BSE Live"
+      title: "Market Closed (3:30 PM): M.K. Sons Jewels 5.09x",
+      description: "Bidding concludes for M.K. Sons Fine Jewels with 7.42x retail oversubscription. Allotment on Nov 2.",
+      time: "Just now",
+      slug: "m-k-sons-fine-jewels-ipo",
+      tag: "Closed"
     },
     {
       id: "a2",
-      title: "Maxwell Engineering (NSE SME) Opens",
-      description: "Industrial robotics supplier IPO open at ₹150–158 per share. Lot size: 800.",
+      title: "Carver Roboweld Closes at 25.8x",
+      description: "BSE SME issue finishes strong with 32.4x retail subscription. Basis of allotment on Nov 2.",
       time: "1 hour ago",
-      slug: "maxwell-engineering-solutions-ipo",
-      tag: "NSE Emerge"
+      slug: "carver-roboweld-ipo",
+      tag: "Closed"
     },
     {
       id: "a3",
-      title: "Vectras Enprocon (BSE SME) Live",
-      description: "EPC infrastructure issue underway at ₹99–105 band. Closes Nov 3.",
-      time: "3 hours ago",
-      slug: "vectras-enprocon-ipo",
-      tag: "BSE SME"
+      title: "Bombay Coated Steels (QIB 6.89x) Open",
+      description: "Day 2 finishes with 3.32x overall subscription. Issue closes on Monday, Nov 2.",
+      time: "2 hours ago",
+      slug: "bombay-coated-and-special-steels-ipo",
+      tag: "Open"
     },
     {
       id: "a4",
-      title: "Jio Platforms & Paras Healthcare Debut",
-      description: "Jio Platforms gains +21.4% on debut while Paras Healthcare trades at +7.5% premium.",
-      time: "2 days ago",
-      slug: "jio-platforms",
-      tag: "Exchange Debut"
+      title: "NSE SME: Maxwell Engineering (0.42x) Open",
+      description: "Industrial robotics IPO opened today at ₹150–158 band. Bidding open till Nov 3.",
+      time: "3 hours ago",
+      slug: "maxwell-engineering-solutions-ipo",
+      tag: "NSE Emerge"
     }
   ]
 };

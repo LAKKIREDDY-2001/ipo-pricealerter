@@ -818,6 +818,12 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   color: var(--status-open);
 }
 
+.status-badge.closed {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #F87171;
+}
+
 .status-badge.closing-today {
   background: var(--status-closing-bg);
   border: 1px solid var(--status-closing-border);
