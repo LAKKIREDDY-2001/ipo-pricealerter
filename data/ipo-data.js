@@ -1,8 +1,7 @@
 /* ==========================================================================
    IPO Track — Live Primary Market Dataset
    Sources: Chittorgarh (chittorgarh.com), NSE (nseindia.com), BSE (bseindia.com), Groww, IPO Gyani
-   Updated: 30 October 2026 (Verified Post-Market Close)
-   Note: Closed and Listed map to the same comprehensive primary market dataset
+   Updated: 31 October 2026 (Real Brand Logos Integrated)
    ========================================================================== */
 
 window.IpoData = {
@@ -134,7 +133,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.bigshareonline.com/ipo_Allotment.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
     },
     {
       "id": "antala-industries",
@@ -231,7 +231,8 @@ window.IpoData = {
           "size": "3.4 MB",
           "type": "PDF"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AntalaIndustriesLtd_76186824_97526.png"
     },
     {
       "id": "vectras-enprocon",
@@ -324,7 +325,8 @@ window.IpoData = {
           "size": "4.1 MB",
           "type": "PDF"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VectrasEnproconLimited_61797189_95968.png"
     },
     {
       "id": "maxwell-engineering",
@@ -417,7 +419,8 @@ window.IpoData = {
           "size": "3.8 MB",
           "type": "PDF"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MAXWELLENGINEERINGSOLUTIONSLIMITED_60428710_95974.png"
     },
     {
       "id": "johnsoncab-electricals",
@@ -531,7 +534,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://maashitla.com"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JohnsoncabElectricalsLtd_34165819_97524.png"
     },
     {
       "id": "hgs-india",
@@ -624,7 +628,8 @@ window.IpoData = {
           "size": "3.2 MB",
           "type": "PDF"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HGSIndiaLtd_57251763_75413.png"
     },
     {
       "id": "carver-roboweld",
@@ -659,7 +664,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 76,
-      "priceBandHigh": 80
+      "priceBandHigh": 80,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CarverRoboweldLtd_22924101_97556.png"
     },
     {
       "id": "mksons-fine-jewels",
@@ -694,7 +700,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 153,
-      "priceBandHigh": 162
+      "priceBandHigh": 162,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/M.K.SonsFineJewelsLtd_50741840_96958.png"
     },
     {
       "id": "ajwa-projects",
@@ -729,7 +736,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AJWAPROJECTSLIMITED_92182746_96155.png"
     },
     {
       "id": "bls-polymers",
@@ -764,7 +772,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 142,
-      "priceBandHigh": 150
+      "priceBandHigh": 150,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLSPolymersLtd_48567338_81259.png"
     },
     {
       "id": "sfc-environmental-technologies",
@@ -799,7 +808,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SFCEnvironmentalTechnologiesLtd_33455088_35975.png"
     },
     {
       "id": "wiscon-industries",
@@ -834,7 +844,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/WisconIndustriesLtd_59042802_97300.png"
     },
     {
       "id": "eaaa-india-alternatives",
@@ -869,7 +880,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 280,
-      "priceBandHigh": 295
+      "priceBandHigh": 295,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EAAAIndiaAlternativesLtd_98405475_65115.png"
     },
     {
       "id": "core4-engineers",
@@ -904,7 +916,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Core4EngineerLtd_55115367_96746.png"
     },
     {
       "id": "paras-healthcare",
@@ -939,7 +952,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 680,
-      "priceBandHigh": 693
+      "priceBandHigh": 693,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParasHealthcareLtd_26578614_38024.png"
     },
     {
       "id": "reliance-jio",
@@ -974,7 +988,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 1080,
-      "priceBandHigh": 1119
+      "priceBandHigh": 1119,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/JIO.png"
     },
     {
       "id": "zetwerk",
@@ -1009,7 +1024,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 475,
-      "priceBandHigh": 500
+      "priceBandHigh": 500,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/zetwerk-org-logo.png"
     },
     {
       "id": "sahajanand-medical-technologies",
@@ -1044,7 +1060,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 330,
-      "priceBandHigh": 344
+      "priceBandHigh": 344,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SahajanandMedicalTechnologiesLtd_52021429_42813.png"
     },
     {
       "id": "tonbo-imaging",
@@ -1079,7 +1096,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TonboImagingIndiaLtd_70259225_96357.png"
     },
     {
       "id": "shellz-india",
@@ -1114,7 +1132,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShellzIndiaLtd_97853865_80132.png"
     },
     {
       "id": "bonfiglioli-transmissions",
@@ -1149,7 +1168,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 1240,
-      "priceBandHigh": 1290
+      "priceBandHigh": 1290,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BonfiglioliTransmissionsLtd_93777964_83479.png"
     },
     {
       "id": "ravita-engineering-services",
@@ -1184,7 +1204,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RavitaEngineeringServicesLtd_86683196_96742.png"
     },
     {
       "id": "fusion-cx",
@@ -1219,7 +1240,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 200
+      "priceBandHigh": 200,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionCXLtd_51200132_95471.png"
     },
     {
       "id": "hd-fire-protect",
@@ -1254,7 +1276,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HDFireProtectLtd_10283393_40220.png"
     },
     {
       "id": "vaibhav-vyapaar",
@@ -1289,7 +1312,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VaibhavVyapaarLtd_56235870_97157.png"
     },
     {
       "id": "rkfashion-accessories",
@@ -1324,7 +1348,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/R.K.FashionAccessoriesLtd_55932000_96973.png"
     },
     {
       "id": "paramount-syntex",
@@ -1359,7 +1384,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParamountSyntexLtd_42655569_95936.png"
     },
     {
       "id": "acme-india-industries",
@@ -1394,7 +1420,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ACMEINDIAINDUSTRIESLIMITED_54632178_95962.png"
     },
     {
       "id": "tna-solutions",
@@ -1429,7 +1456,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TNASolutionsLtd_77787058_97521.png"
     },
     {
       "id": "everestims-technologies",
@@ -1464,7 +1492,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EverestIMSTechnologiesLtd_35662785_94563.png"
     },
     {
       "id": "shree-tnb-polymers",
@@ -1499,7 +1528,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShreeTNBPolymersLtd_48945624_96835.png"
     },
     {
       "id": "dove-soft",
@@ -1534,7 +1564,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DoveSoftLtd_91006787_92468.png"
     },
     {
       "id": "omara-ventures-india",
@@ -1569,7 +1600,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmaraVenturesLtd_67743782_97266.png"
     },
     {
       "id": "nityas-gems-jewellery",
@@ -1604,7 +1636,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/NityasGemsJewelleryLtd_73277458_96753.png"
     },
     {
       "id": "sollfege-smart-electronics",
@@ -1639,7 +1672,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SollfegeSmartElectronicsLtd_55458084_94651.png"
     },
     {
       "id": "sjp-ultrasonic",
@@ -1674,7 +1708,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SJPULTRASONICSLIMITED_12507441_96005.png"
     },
     {
       "id": "eventions",
@@ -1709,7 +1744,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EventionsLtd_62627122_96759.png"
     },
     {
       "id": "vishal-nirmiti",
@@ -1744,7 +1780,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VishalNirmitiLtd_78509595_34843.png"
     },
     {
       "id": "green-asia-impex",
@@ -1779,7 +1816,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GreenAsiaImpexLtd_69255354_96486.png"
     },
     {
       "id": "black-opal-consultants",
@@ -1814,7 +1852,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLACKOPALCONSULTANTSLIMITED_94566852_96132.png"
     },
     {
       "id": "papadmalji-agro",
@@ -1849,7 +1888,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PAPADMALJIAGROFOODSLIMITED_42602007_96377.png"
     },
     {
       "id": "vans-electroengineerings",
@@ -1884,7 +1924,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VansElectroengineeringsLtd_53249777_97283.png"
     },
     {
       "id": "srit-india",
@@ -1919,7 +1960,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SRITIndiaLtd_48351250_39853.png"
     },
     {
       "id": "shivchem-agro",
@@ -1954,7 +1996,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHIVCHEMAGROLIMITED_70862725_96002.png"
     },
     {
       "id": "acme-universal-safezone-9",
@@ -1989,7 +2032,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AcmeUniversalSafezone9Ltd_66070403_96767.png"
     },
     {
       "id": "pind-hospitality",
@@ -2024,7 +2068,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PindHospitalityLtd_25128305_97634.png"
     },
     {
       "id": "shah-investors-home",
@@ -2059,7 +2104,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShahInvestorsHomeLtd_77471837_71825.png"
     },
     {
       "id": "sai-urja-indo",
@@ -2094,7 +2140,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SaiUrjaIndoVenturesLtd_14350313_96001.png"
     },
     {
       "id": "bench-mark-infotech-services",
@@ -2129,7 +2176,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BenchMarkInfotechServicesLtd_28453504_97454.png"
     },
     {
       "id": "himalayan-solar",
@@ -2164,7 +2212,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HIMALAYANSOLARLIMITED_48416173_96135.png"
     },
     {
       "id": "acevector",
@@ -2199,7 +2248,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/ACEVECTOR.png"
     },
     {
       "id": "german-green-steel-and-power",
@@ -2234,7 +2284,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GermanGreenSteelPowerLtd_78872759_82141.png"
     },
     {
       "id": "runwal-enterprises",
@@ -2269,7 +2320,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/RUNWAL.png"
     },
     {
       "id": "orient-cables",
@@ -2304,7 +2356,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ORIENTCABLESINDIALIMITED_62505464_95655.png"
     },
     {
       "id": "dudani-retail",
@@ -2339,7 +2392,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DudaniRetailLtd_69306656_96771.png"
     },
     {
       "id": "a-one-steels",
@@ -2374,7 +2428,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/A-OneSteelsIndiaLtd_41275253_94335.png"
     },
     {
       "id": "moneyview",
@@ -2409,7 +2464,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MoneyviewLtd_48051054_78774.png"
     },
     {
       "id": "peshwa-wheat",
@@ -2444,7 +2500,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PeshwaWheatLimited_65538191_93513.png"
     },
     {
       "id": "roopa-screen",
@@ -2479,7 +2536,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RoopaScreenLtd_74054328_95930.png"
     },
     {
       "id": "skoffset",
@@ -2514,7 +2572,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/S.K.OffsetLtd_84217131_97132.png"
     },
     {
       "id": "armee-infotech",
@@ -2549,7 +2608,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ArmeeInfotechLtd_38995854_93256.png"
     },
     {
       "id": "liqvd-digital",
@@ -2584,7 +2644,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LiqvdDigitalIndiaLtd_35842097_95952.png"
     },
     {
       "id": "swastika-infra",
@@ -2619,7 +2680,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SWASTIKAINFRALIMITED_26222411_94673.png"
     },
     {
       "id": "elevate-campuses",
@@ -2654,7 +2716,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ELEVATECAMPUSESLIMITED_51324446_96157.png"
     },
     {
       "id": "pooja-logistics",
@@ -2689,7 +2752,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaLogisticsLtd_17838172_95926.png"
     },
     {
       "id": "unitec-fibres",
@@ -2724,7 +2788,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/UnitechFibresLtd_94078773_97139.png"
     },
     {
       "id": "adroit-industries",
@@ -2759,7 +2824,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdroitIndustriesIndiaLtd_81397043_40604.png"
     },
     {
       "id": "core-integra-consulting",
@@ -2794,7 +2860,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CoreintegraConsultingServicesLtd_71823744_95847.png"
     },
     {
       "id": "himalaya-nutravedics",
@@ -2829,7 +2896,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HimalayaNutravedicsIndiaLtd_27349409_96747.png"
     },
     {
       "id": "varmora-granito",
@@ -2864,7 +2932,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VarmoraGranitoLtd_54725145_77219.png"
     },
     {
       "id": "anand-seamless",
@@ -2899,7 +2968,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AnandSeamlessLtd_92351111_96488.png"
     },
     {
       "id": "robokidz-eduventures",
@@ -2934,7 +3004,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RobokidzEduventures_99271756_97411.png"
     },
     {
       "id": "fx-multitech",
@@ -2969,7 +3040,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FXMultitechLtd_31512295_96393.png"
     },
     {
       "id": "vivekanand-cotspin",
@@ -3004,7 +3076,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VIVEKANANDCOTSPINLIMITED_39374030_94571.png"
     },
     {
       "id": "axiom-gas-engineering",
@@ -3039,7 +3112,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AxiomGasEngineeringLtd_22368737_94297.png"
     },
     {
       "id": "sonaselection-india",
@@ -3074,7 +3148,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SonaselectionIndiaLtd_42425597_96172.png"
     },
     {
       "id": "kheria-autocomp",
@@ -3109,7 +3184,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KheriaAutocompLtd_43718405_95947.png"
     },
     {
       "id": "nse",
@@ -3144,7 +3220,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/NSE.png"
     },
     {
       "id": "spectraa-technology-solutions",
@@ -3179,7 +3256,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SpectraATechnologySolutionsLtd_11580717_96530.png"
     },
     {
       "id": "jindal-supreme",
@@ -3214,7 +3292,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JindalSupremeIndiaLtd_54265324_96165.png"
     },
     {
       "id": "ss-retail",
@@ -3249,7 +3328,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SSRETAILLIMITED_27505473_96372.png"
     },
     {
       "id": "hero-motors",
@@ -3284,7 +3364,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HeroMotorsLtd_67351042_25458.png"
     },
     {
       "id": "quanto-agroworld",
@@ -3319,7 +3400,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QuantoAgroworldLtd_70995748_93590.png"
     },
     {
       "id": "shakti-polytarp",
@@ -3354,7 +3436,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShaktiPolytarpLtd_61445370_95395.png"
     },
     {
       "id": "vama-wovenfab",
@@ -3389,7 +3472,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VamaWovenfabLtd_38203162_95935.png"
     },
     {
       "id": "manika-plastech",
@@ -3424,7 +3508,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManikaPlastechLtd_18401999_77258.png"
     },
     {
       "id": "century-business",
@@ -3459,7 +3544,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CenturyBusinessMediaLtd_22972761_95833.png"
     },
     {
       "id": "injecto-polymers",
@@ -3494,7 +3580,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InjectoPolymersLtd_37791382_95902.png"
     },
     {
       "id": "veegaland-developers",
@@ -3529,7 +3616,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VEEGALANDDEVELOPERSLIMITED_51655529_96379.png"
     },
     {
       "id": "panchatv-bharat",
@@ -3564,7 +3652,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PanchatvBharatLtd_60025650_93849.png"
     },
     {
       "id": "raksan-transformers",
@@ -3599,7 +3688,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RAKSANTRANSFORMERSLIMITED_16697549_95958.png"
     },
     {
       "id": "om-galaxy",
@@ -3634,7 +3724,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmGalaxyLtd_17123099_96751.png"
     },
     {
       "id": "maharaja--speedex-india",
@@ -3669,7 +3760,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MaharajaSpeedexIndiaLtd_29055369_37262.png"
     },
     {
       "id": "amtech-esters",
@@ -3704,7 +3796,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AmtechEstersLtd_79872683_94285.png"
     },
     {
       "id": "asset-reconstruction",
@@ -3739,7 +3832,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AssetReconstructionCompanyIndiaLtd_27591237_27214.png"
     },
     {
       "id": "steamhouse-india",
@@ -3774,7 +3868,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SteamhouseIndiaLtd_87975739_96065.png"
     },
     {
       "id": "karamtara-engineering",
@@ -3809,7 +3904,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KaramtaraEngineeringLtd_19295199_34956.png"
     },
     {
       "id": "lcc-projects",
@@ -3844,7 +3940,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LCCProjectsLtd_91695479_85600.png"
     },
     {
       "id": "vinod-texworld",
@@ -3879,7 +3976,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VINODTEXWORLDLIMITED_27930600_95989.png"
     },
     {
       "id": "infrax-renewable",
@@ -3914,7 +4012,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InfraxRenewableLtd_65001881_97103.png"
     },
     {
       "id": "manipal-payment-and-identity-solutions",
@@ -3949,7 +4048,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalPaymentandIdentitySolutionsLtd_36144026_37758.png"
     },
     {
       "id": "rentomojo",
@@ -3984,7 +4084,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RentomojoLtd_21045332_68302.png"
     },
     {
       "id": "kanohar-electricals",
@@ -4019,7 +4120,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KanoharElectricalsLtd_60822875_5928.png"
     },
     {
       "id": "prasol-chemicals",
@@ -4054,7 +4156,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Prasol-Chemicals-Ltd_87256655_23812.png"
     },
     {
       "id": "glass-wall-systems",
@@ -4089,7 +4192,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GlassWallSystemsIndiaLtd_31553834_95849.png"
     },
     {
       "id": "pranav-constructions",
@@ -4124,7 +4228,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PranavConstructionsLtd_56961780_94578.png"
     },
     {
       "id": "apana-logistics",
@@ -4159,7 +4264,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/APANALOGISTICSLIMITED_27677814_95954.png"
     },
     {
       "id": "qualiance-international",
@@ -4194,7 +4300,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QualianceInternationalLtd_91967050_96774.png"
     },
     {
       "id": "rays-of-belief",
@@ -4229,7 +4336,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RaysofbeliefLtd_43264887_96457.png"
     },
     {
       "id": "deepa-jewellers",
@@ -4264,7 +4372,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DEEPAJEWELLERSLIMITED_78637726_96370.png"
     },
     {
       "id": "farm-peace",
@@ -4299,7 +4408,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FarmPeaceLtd_31021830_95916.png"
     },
     {
       "id": "fly-hi-maritime",
@@ -4334,7 +4444,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Fly-HiMaritimeTravelsLtd_17311186_96389.png"
     },
     {
       "id": "shanti-inorganics",
@@ -4369,7 +4480,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShantiInorganicsLtd_22713610_95929.png"
     },
     {
       "id": "phychem-technologies",
@@ -4404,7 +4516,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PHYCHEMTECHNOLOGIESLIMITED_31377666_95986.png"
     },
     {
       "id": "purple-style-labs",
@@ -4439,7 +4552,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PurpleStyleLabsLtd_95439274_95898.png"
     },
     {
       "id": "ashutosh-fibre",
@@ -4474,7 +4588,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AshutoshFibreLtd_37267091_81734.png"
     },
     {
       "id": "priority-jewels",
@@ -4509,7 +4624,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PriorityJewelsLtd_53885287_70979.png"
     },
     {
       "id": "paluck-technologies",
@@ -4544,7 +4660,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PALUCKTECHNOLOGIESLIMITED_49218616_95973.png"
     },
     {
       "id": "complete-sports-and-management",
@@ -4579,7 +4696,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CompleteSportsandManagementIndiaLimited_12032298_97142.png"
     },
     {
       "id": "esds-software",
@@ -4614,7 +4732,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ESDSSoftwareSolutionLtd_29129294_71185.png"
     },
     {
       "id": "kwick-forensic",
@@ -4649,7 +4768,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KwickForensicSolutionsLtd_14246080_95937.png"
     },
     {
       "id": "lumino-industries",
@@ -4684,7 +4804,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LuminoIndustriesLtd_93194948_75521.png"
     },
     {
       "id": "sumax-engineering",
@@ -4719,7 +4840,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SumaxEngineeringLtd_76109776_96750.png"
     },
     {
       "id": "annu-projects",
@@ -4754,7 +4876,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANNUPROJECTSLIMITED_76985673_95590.png"
     },
     {
       "id": "skyways-air",
@@ -4789,7 +4912,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkywaysAirServicesLtd_67602397_16968.png"
     },
     {
       "id": "abh-healthcare",
@@ -4824,7 +4948,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ABHHealthcareLimited_63998922_95591.png"
     },
     {
       "id": "madhur-knit",
@@ -4859,7 +4984,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MADHURKNITCRAFTSLIMITED_65482566_96159.png"
     },
     {
       "id": "symbiotec-pharma",
@@ -4894,7 +5020,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SymbiotecPharmalabLtd_43064860_36114.png"
     },
     {
       "id": "hy-tech-engineers",
@@ -4929,7 +5056,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Hy-TechEngineersLtd_24754229_95831.png"
     },
     {
       "id": "augmont-enterprises",
@@ -4964,7 +5092,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AugmontEnterprisesLtd_75272669_74748.png"
     },
     {
       "id": "tempsens-instruments-india",
@@ -4999,7 +5128,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TempsensInstrumentsIndiaLtd_28550851_38538.png"
     },
     {
       "id": "dhanwel-hybrid-seeds",
@@ -5034,7 +5164,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhanwelHybridSeedsLtd_72011366_96391.png"
     },
     {
       "id": "gaja-alternative-asset-management",
@@ -5069,7 +5200,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GajaAlternativeAssetManagementLtd_80351010_96064.png"
     },
     {
       "id": "mopshop-distribution",
@@ -5104,7 +5236,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MOPSHOPDISTRIBUTIONLIMITED_38667635_95957.png"
     },
     {
       "id": "sunshine-pictures",
@@ -5139,7 +5272,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SunshinePicturesLtd_29183177_94357.png"
     },
     {
       "id": "shankesh-jewellers",
@@ -5174,7 +5308,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHANKESHJEWELLERSLIMITED_35762012_96152.png"
     },
     {
       "id": "fascinate-textiles",
@@ -5209,7 +5344,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FascinateTextilesLtd_94544365_95924.png"
     },
     {
       "id": "lalithaa-jewellery-mart",
@@ -5244,7 +5380,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LalithaaJewelleryMartLtd_86119472_29036.png"
     },
     {
       "id": "horizon-industrial-parks",
@@ -5279,7 +5416,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HORIZONINDUSTRIALPARKSLIMITED_81507881_96371.png"
     },
     {
       "id": "ens-enterprises",
@@ -5314,7 +5452,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ENSENTERPRISESLIMITED_80931987_96134.png"
     },
     {
       "id": "technocrats-plasma-systems",
@@ -5349,7 +5488,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TECHNOCRATSPLASMASYSTEMSLIMITED_96675272_96388.png"
     },
     {
       "id": "skytech-infinite-platform",
@@ -5384,7 +5524,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkytechInfinitePlatformLtd_42634995_97478.png"
     },
     {
       "id": "credent-connect-n-care",
@@ -5419,7 +5560,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CredentConnectNCareLtd_42377851_96760.png"
     },
     {
       "id": "pramodini-medicare",
@@ -5454,7 +5596,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PramodiniMedicareLtd_54032357_96828.png"
     },
     {
       "id": "shiprocket",
@@ -5489,7 +5632,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShiprocketLtd_31975029_77985.png"
     },
     {
       "id": "behari-lal-engineering",
@@ -5524,7 +5668,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BehariLalEngineeringLtd_65685126_95921.png"
     },
     {
       "id": "qt-foods",
@@ -5559,7 +5704,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QTFoodsLtd_86000554_96984.png"
     },
     {
       "id": "milky-mist",
@@ -5594,7 +5740,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MilkyMistDairyFoodLtd_88113449_79872.png"
     },
     {
       "id": "sham-foam",
@@ -5629,7 +5776,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShamFoamLtd_11154771_96484.png"
     },
     {
       "id": "dhoot-transmission",
@@ -5664,7 +5812,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhootTransmissionLtd_97455086_34585.png"
     },
     {
       "id": "molbio-diagnostics",
@@ -5699,7 +5848,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MolbioDiagnosticsLtd_55950307_78994.png"
     },
     {
       "id": "technocraft-ventures",
@@ -5734,7 +5884,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TechnocraftVenturesLtd_29354669_88192.png"
     },
     {
       "id": "optimystix-entertainment",
@@ -5769,7 +5920,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OptimystixEntertainmentIndiaLtd_73079956_95946.png"
     },
     {
       "id": "leap-india",
@@ -5804,7 +5956,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LeapIndiaLtd_15518164_78745.png"
     },
     {
       "id": "lapl-automotive",
@@ -5839,7 +5992,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LAPLAUTOMOTIVELIMITED_49774919_95355.png"
     },
     {
       "id": "gv-electricals",
@@ -5874,7 +6028,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GVElectricalsLtd_37311662_96754.png"
     },
     {
       "id": "ardee-industries",
@@ -5909,7 +6064,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 90,
-      "priceBandHigh": 96
+      "priceBandHigh": 96,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ARDEEINDUSTRIESLIMITED_57536121_96060.png"
     },
     {
       "id": "aegeus-technologies",
@@ -5944,7 +6100,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 100,
-      "priceBandHigh": 106
+      "priceBandHigh": 106,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AegeusTechnologiesLtd_66426305_90636.png"
     },
     {
       "id": "anawil-wire-engieering",
@@ -5979,7 +6136,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 110,
-      "priceBandHigh": 116
+      "priceBandHigh": 116,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANAWILWIREANDENGINEERINGLIMITED_38924945_95907.png"
     },
     {
       "id": "fusion-klassroom-edutech",
@@ -6014,7 +6172,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 120,
-      "priceBandHigh": 126
+      "priceBandHigh": 126,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionKlassromEductechLtd_45197556_96460.png"
     },
     {
       "id": "dhaval-packaging",
@@ -6049,7 +6208,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 130,
-      "priceBandHigh": 136
+      "priceBandHigh": 136,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhavalPackagingLtd_15328258_81876.png"
     },
     {
       "id": "juniper-green-energy",
@@ -6084,7 +6244,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 140,
-      "priceBandHigh": 146
+      "priceBandHigh": 146,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JUNIPERGREENENERGYLIMITED_62046496_95589.png"
     },
     {
       "id": "mv-electrosystems",
@@ -6119,7 +6280,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 150,
-      "priceBandHigh": 156
+      "priceBandHigh": 156,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MVElectrosystemsLimited_71737839_96131.png"
     },
     {
       "id": "oneindig-technologies",
@@ -6154,7 +6316,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 160,
-      "priceBandHigh": 166
+      "priceBandHigh": 166,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ONEINDIGTECHNOLOGIESLIMITED_90997896_96055.png"
     },
     {
       "id": "manipal-health-enterprises",
@@ -6189,7 +6352,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 170,
-      "priceBandHigh": 176
+      "priceBandHigh": 176,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalHealthEnterprisesLtd_84641688_73020.png"
     },
     {
       "id": "hr-hygiene-products",
@@ -6224,7 +6388,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 180,
-      "priceBandHigh": 186
+      "priceBandHigh": 186,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/H.R.HygieneProductsLtd_10827164_95933.png"
     },
     {
       "id": "poojaa-precision-engg",
@@ -6259,7 +6424,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 190,
-      "priceBandHigh": 196
+      "priceBandHigh": 196,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaPrecisionEngineeringLtd_50741856_67838.png"
     },
     {
       "id": "advance-technoforge",
@@ -6294,7 +6460,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 200,
-      "priceBandHigh": 206
+      "priceBandHigh": 206,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdvanceTechnoforgeLtd_32789711_94662.png"
     },
     {
       "id": "propshop-events-exhibitions",
@@ -6329,7 +6496,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 210,
-      "priceBandHigh": 216
+      "priceBandHigh": 216,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PropshopEventsandExhibitionsLtd_71087243_95303.png"
     },
     {
       "id": "cube-highways-trust-invit",
@@ -6364,7 +6532,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 220,
-      "priceBandHigh": 226
+      "priceBandHigh": 226,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CubeHighwaysTrust_17960219_79000.png"
     },
     {
       "id": "silverstorm-parks-resorts",
@@ -6399,7 +6568,8 @@ window.IpoData = {
         }
       ],
       "priceBandLow": 230,
-      "priceBandHigh": 236
+      "priceBandHigh": 236,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SILVERSTORMPARKSANDRESORTSLIMITED_54184578_96384.png"
     },
     {
       "id": "vedant-poly-fabs",
@@ -6431,7 +6601,8 @@ window.IpoData = {
       "lotSize": 1000,
       "issueSizeCr": 42.5,
       "gmp": 9,
-      "gmpPercentage": 7.03
+      "gmpPercentage": 7.03,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VedantPolyFabsLtd_22702370_96975.png"
     },
     {
       "id": "zepto",
@@ -6463,7 +6634,8 @@ window.IpoData = {
       "lotSize": 35,
       "issueSizeCr": 4500,
       "gmp": 65,
-      "gmpPercentage": 16
+      "gmpPercentage": 16,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/Zepto.png"
     },
     {
       "id": "razorpay",
@@ -6487,7 +6659,8 @@ window.IpoData = {
       "lotSize": 21,
       "issueSizeCr": 6000,
       "gmp": 95,
-      "gmpPercentage": 13.9
+      "gmpPercentage": 13.9,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/Razorpay_logo.png"
     },
     {
       "id": "truhome-finance",
@@ -6513,7 +6686,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/mar-2026/truhome-finance-limited_100519.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/truhome_logo.png"
     },
     {
       "id": "marri-retail",
@@ -6539,7 +6713,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/feb-2026/marri-retail-limited-drhp_99483.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/marri_retail.png"
     },
     {
       "id": "incred-holdings",
@@ -6557,7 +6732,8 @@ window.IpoData = {
       "openDate": "2026-11-09",
       "closeDate": "2026-11-12",
       "growwUrl": "https://groww.in/ipo/incred-holdings-ipo",
-      "about": "Tech-driven non-bank lender focusing on consumer loans, education loans, and MSME merchant loans."
+      "about": "Tech-driven non-bank lender focusing on consumer loans, education loans, and MSME merchant loans.",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/incred_logo.png"
     },
     {
       "id": "hero-fincrop-limited",
@@ -6583,7 +6759,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://hfcl-website-cms.s3.ap-south-1.amazonaws.com/DRHP_Hero_Fin_Corp_Limited_fe2e340ba3.pdf"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/hero_fincorp_logo.png"
     },
     {
       "id": "allchem-lifescience",
@@ -6601,7 +6778,8 @@ window.IpoData = {
       "openDate": "2026-11-09",
       "closeDate": "2026-11-12",
       "growwUrl": "https://groww.in/ipo/allchem-lifescience-ipo",
-      "about": "Specialty chemical and API intermediate developer serving domestic pharma formulations makers."
+      "about": "Specialty chemical and API intermediate developer serving domestic pharma formulations makers.",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/Allchecm_logo.png"
     },
     {
       "id": "cardekho",
@@ -6619,7 +6797,8 @@ window.IpoData = {
       "openDate": "2026-11-09",
       "closeDate": "2026-11-12",
       "growwUrl": "https://groww.in/ipo/cardekho-ipo",
-      "about": "Leading auto-tech portal offering vehicle discovery, used-car retailing, insurance, and automotive financing."
+      "about": "Leading auto-tech portal offering vehicle discovery, used-car retailing, insurance, and automotive financing.",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/cardekho.png"
     },
     {
       "id": "haldirams-snacks-foods",
@@ -6643,7 +6822,8 @@ window.IpoData = {
       "lotSize": 33,
       "issueSizeCr": 7200,
       "gmp": 72,
-      "gmpPercentage": 16.2
+      "gmpPercentage": 16.2,
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/haldirams_logo.png"
     },
     {
       "id": "prestige-hospitality-ventures",
@@ -6661,7 +6841,8 @@ window.IpoData = {
       "openDate": "2026-11-15",
       "closeDate": "2026-11-18",
       "growwUrl": "https://groww.in/ipo/prestige-hospitality-ventures-ipo",
-      "about": "Prestige Group hospitality arm developing premier hotel assets, luxury resorts, and serviced suites."
+      "about": "Prestige Group hospitality arm developing premier hotel assets, luxury resorts, and serviced suites.",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/logo-prestige.png"
     },
     {
       "id": "curefoods",
@@ -6687,7 +6868,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/jul-2025/curefoods-india-limited_95013.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/curefoods_logo.png"
     },
     {
       "id": "cult-fit",
@@ -6705,7 +6887,8 @@ window.IpoData = {
       "openDate": "2026-11-15",
       "closeDate": "2026-11-18",
       "growwUrl": "https://groww.in/ipo/cult-fit-ipo",
-      "about": "Holistic fitness and health platform operating 600+ fitness centres, digital workouts, and sports facilities."
+      "about": "Holistic fitness and health platform operating 600+ fitness centres, digital workouts, and sports facilities.",
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/cultfit_logo.png"
     },
     {
       "id": "kent-ro",
@@ -6731,7 +6914,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/jan-2025/kent-r-o-systems-limited_91156.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/kent_ro_logo.png"
     },
     {
       "id": "vlcc",
@@ -6749,7 +6933,8 @@ window.IpoData = {
       "openDate": "2026-11-15",
       "closeDate": "2026-11-18",
       "growwUrl": "https://groww.in/ipo/vlcc-ipo",
-      "about": "Pioneering wellness and personal care brand with wellness clinics and personal care retail lines across 12 countries."
+      "about": "Pioneering wellness and personal care brand with wellness clinics and personal care retail lines across 12 countries.",
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/vlcc_logo.png"
     },
     {
       "id": "pharmeasy",
@@ -6767,7 +6952,8 @@ window.IpoData = {
       "openDate": "2026-11-15",
       "closeDate": "2026-11-18",
       "growwUrl": "https://groww.in/ipo/pharmeasy-ipo",
-      "about": "Integrated healthcare app connecting users to pharmacy delivery, diagnostic consultations, and doctor visits."
+      "about": "Integrated healthcare app connecting users to pharmacy delivery, diagnostic consultations, and doctor visits.",
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Pharmeasy_logo.png"
     },
     {
       "id": "servify",
@@ -6785,7 +6971,8 @@ window.IpoData = {
       "openDate": "2026-11-15",
       "closeDate": "2026-11-18",
       "growwUrl": "https://groww.in/ipo/servify-ipo",
-      "about": "Global device lifecycle management platform powering AppleCare and OEM protection plans."
+      "about": "Global device lifecycle management platform powering AppleCare and OEM protection plans.",
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Servify_logo.png"
     },
     {
       "id": "hero-future-energies",
@@ -6803,7 +6990,8 @@ window.IpoData = {
       "openDate": "2026-11-15",
       "closeDate": "2026-11-18",
       "growwUrl": "https://groww.in/ipo/hero-future-energies-ipo",
-      "about": "Independent power producer with 1.8 GW operational wind, utility solar, and rooftop clean energy assets."
+      "about": "Independent power producer with 1.8 GW operational wind, utility solar, and rooftop clean energy assets.",
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/hero_future_energies_logo.jpg"
     },
     {
       "id": "flipkart",
@@ -6827,7 +7015,8 @@ window.IpoData = {
       "lotSize": 16,
       "issueSizeCr": 12000,
       "gmp": 140,
-      "gmpPercentage": 15.5
+      "gmpPercentage": 15.5,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/flipkart-logo.png"
     },
     {
       "id": "phonepe",
@@ -6859,7 +7048,8 @@ window.IpoData = {
       "lotSize": 27,
       "issueSizeCr": 8000,
       "gmp": 80,
-      "gmpPercentage": 14.5
+      "gmpPercentage": 14.5,
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/phonepe_logo.png"
     },
     {
       "id": "fabindia",
@@ -6885,7 +7075,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/jan-2022/fabindia-limited_55532.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-135.png"
     },
     {
       "id": "oyo",
@@ -6911,7 +7102,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/oct-2021/oravel-stays-limited_53084.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-88.png"
     },
     {
       "id": "boat",
@@ -6937,7 +7129,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/jan-2022/imagine-marketing-limited_55666.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-131.png"
     },
     {
       "id": "bajaj-energy",
@@ -6963,7 +7156,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/apr-2019/bajaj-energy-limited_42638.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/BAJAJHIND.png"
     },
     {
       "id": "arohan-financial",
@@ -6989,7 +7183,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/feb-2021/arohan-financial-services-limited_49148.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-72.png"
     },
     {
       "id": "droom-technology",
@@ -7015,7 +7210,8 @@ window.IpoData = {
           "type": "LINK",
           "url": "https://www.sebi.gov.in/filings/public-issues/nov-2021/droom-technology-limited_53946.html"
         }
-      ]
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/logos-125.png"
     }
   ],
   "calendarEvents": {

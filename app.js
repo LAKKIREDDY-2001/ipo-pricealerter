@@ -88,11 +88,34 @@
   // ==========================================================================
   // Brand Logo & Portal Directory Utilities
   // ==========================================================================
+  function escapeAttr(str) {
+    if (!str) return "";
+    return String(str).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
   function renderCompanyLogo(ipo, size = 44) {
+    if (!ipo) {
+      return `<div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:#2563EB;">IP</div>`;
+    }
     const bg = ipo.logoColor || "#2563EB";
     const initials = ipo.initials || (ipo.shortName ? ipo.shortName.substring(0, 2).toUpperCase() : "IP");
+    const name = escapeAttr(ipo.shortName || ipo.companyName || "Company");
+    const fontSize = Math.max(10, Math.round(size * 0.38));
+    const borderRadius = size > 40 ? 10 : 8;
+
+    if (ipo.logoUrl) {
+      return `
+        <div class="company-logo-img-wrap" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px;">
+          <img src="${ipo.logoUrl}" alt="${name} Logo" width="${size}" height="${size}" loading="lazy" decoding="async" class="company-logo-img"
+               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
+          <div class="company-avatar-box fallback-avatar" style="display:none; width:100%; height:100%; background:${bg}; font-size:${fontSize}px; border-radius:${borderRadius}px;">
+            ${initials}
+          </div>
+        </div>
+      `;
+    }
     return `
-      <div class="company-avatar-box" style="width:${size}px; height:${size}px; background:${bg};">
+      <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:${bg}; font-size:${fontSize}px; border-radius:${borderRadius}px;">
         ${initials}
       </div>
     `;
@@ -959,9 +982,7 @@
         <div class="gmp-widget-list">
           ${topGmp.map(r => `
             <div class="gmp-widget-row" onclick="window.location.hash='#/ipo/${r.slug}'">
-              <div class="gmp-row-logo" style="background:${r.logoColor || '#2563EB'}">
-                ${getCompanyIcon(r.iconType)}
-              </div>
+              ${renderCompanyLogo(r, 32)}
               <span class="gmp-row-name">${r.shortName}</span>
               <div class="gmp-row-sparkline">
                 ${renderSparklineSvg(r.gmpHistory?.map(h => h.value) || [10, 12, 14, 15], 54, 20, "#10B981")}
@@ -2508,9 +2529,7 @@
     list.innerHTML = matches.map(r => `
       <div class="search-result-row" onclick="window.location.hash='#/ipo/${r.slug}'; window.IpoApp.toggleSearchModal(false);">
         <div class="search-row-left">
-          <div style="width:32px; height:32px; border-radius:8px; background:${r.logoColor || '#2563EB'}; display:grid; place-items:center; color:#fff;">
-            ${getCompanyIcon(r.iconType)}
-          </div>
+          ${renderCompanyLogo(r, 32)}
           <div class="search-row-info">
             <h4>${r.shortName}</h4>
             <span>${r.sector} • ${r.board} • ${r.exchange}</span>
