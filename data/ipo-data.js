@@ -6,11 +6,11 @@ window.PricealerterData = {
       id: "mk-sons-fine-jewels", slug: "m-k-sons-fine-jewels-ipo",
       companyName: "M. K. Sons Fine Jewels", shortName: "M. K. Sons Fine Jewels", initials: "MK", color: "#F3E8D8",
       status: "OPEN", board: "MAINBOARD", exchange: "BOTH", issueType: "UNKNOWN",
-      priceBandLow: 153, priceBandHigh: 162, issuePrice: null, issueSizeCr: 330.48, lotSize: 91, minimumInvestment: 14742,
+      priceBandLow: 153, priceBandHigh: 162, issuePrice: null, issueSizeCr: 330.48, lotSize: 91, minimumInvestment: 13923,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
       gmp: 5, gmpPercentage: 3.1, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
-      subscriptionTotal: 5.09, subscriptionSummary: { total: 5.09, updatedAt: "2026-10-30T18:41:00+05:30" },
-      sourceUrl: null, officialLinks: []
+      subscriptionTotal: 5.04, subscriptionSummary: { qib: 1.84, nii: 14.08, retail: 2.99, total: 5.04, updatedAt: "2026-10-30T18:44:00+05:30" },
+      business: "M. K. Sons Fine Jewels Limited is a retail jewellery company selling gold, diamond and cubic zirconia jewellery through showrooms. Its products include rings, earrings, necklaces, chains, bangles, bracelets, pendants and customised jewellery. As of June 30, 2026, it reported 19,442 SKUs and operated five company-owned showrooms across Mumbai and Ahmedabad.", sourceUrl: "https://www.afsl.co.in/pdfnew/Red%20Herring%20Prospectus.pdf", officialLinks: [{ label: "Red Herring Prospectus", url: "https://www.afsl.co.in/pdfnew/Red%20Herring%20Prospectus.pdf" }]
     },
     {
       id: "bombay-coated-special-steels", slug: "bombay-coated-and-special-steels-ipo",
@@ -25,12 +25,12 @@ window.PricealerterData = {
     {
       id: "carver-roboweld", slug: "carver-roboweld-ipo",
       companyName: "Carver Roboweld", shortName: "Carver Roboweld", initials: "CR", color: "#E9E8FA",
-      status: "OPEN", board: "SME", exchange: "BSE", issueType: "FRESH",
-      priceBandLow: 76, priceBandHigh: 80, issuePrice: null, issueSizeCr: 28.29, lotSize: 3200, minimumInvestment: 256000,
+      status: "CLOSED", board: "SME", exchange: "BSE", issueType: "FRESH",
+      priceBandLow: 76, priceBandHigh: 80, issuePrice: null, issueSizeCr: 28.29, lotSize: 3200, minimumInvestment: 243200,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
       gmp: null, gmpPercentage: null, gmpUpdatedAt: null,
-      subscriptionTotal: 0.83, subscriptionSummary: { retail: 0.65, nii: 2.31, qib: 0, total: 0.83 },
-      sourceUrl: null, officialLinks: []
+      subscriptionTotal: 23.54, subscriptionSummary: { qib: 26.33, nii: 30.01, retail: 18.18, total: 23.54, updatedAt: "2026-10-30T18:44:00+05:30" },
+      business: "Carver Roboweld Limited manufactures welding consumables and provides engineering services to the forging industry. Its products include metal-cored wires, welding rods, gauging electrodes, welding spare parts and accessories. It also offers forging die regeneration, welding robot rental, and plant and machinery refurbishment services. Its manufacturing facility is in Rajkot, Gujarat, with service units in Pune, Hosur and Ludhiana.", sourceUrl: "https://www.carverroboweld.com/wp-content/themes/carverroboweld/images/pdf/rhp-carver.pdf", officialLinks: [{ label: "Red Herring Prospectus", url: "https://www.carverroboweld.com/wp-content/themes/carverroboweld/images/pdf/rhp-carver.pdf" }]
     },
     {
       id: "ajwa-projects", slug: "ajwa-projects-ipo",
@@ -39,8 +39,8 @@ window.PricealerterData = {
       priceBandLow: 203, priceBandHigh: 203, issuePrice: null, issueSizeCr: 38.05, lotSize: 1200, minimumInvestment: 243600,
       openDate: "2026-10-28", closeDate: "2026-10-30", allotDate: "2026-11-02", listingDate: "2026-11-04",
       gmp: null, gmpPercentage: null, gmpUpdatedAt: null,
-      subscriptionTotal: 0.87, subscriptionSummary: { retail: 1.57, nii: 0.18, total: 0.87 },
-      sourceUrl: null, officialLinks: []
+      subscriptionTotal: null, subscriptionSummary: null,
+      business: "Ajwa Projects Limited provides industrial engineering, fabrication, erection, piping, maintenance and civil construction services. Its work includes structural fabrication, pressure vessels, boilers, heat exchangers, tanks, chimneys, ducts, industrial installation, mechanical maintenance and non-destructive testing. It operates a workshop at Ichchapore GIDC in Surat, Gujarat.", sourceUrl: "https://www.ajwaprojects.com/assets/image/pdf/prospectus-ajwa-with-binders.pdf", officialLinks: [{ label: "Prospectus", url: "https://www.ajwaprojects.com/assets/image/pdf/prospectus-ajwa-with-binders.pdf" }]
     },
     {
       id: "antala-industries", slug: "antala-industries-ipo",
@@ -85,6 +85,42 @@ window.PricealerterData = {
       gmp: 69, gmpPercentage: 46, gmpUpdatedAt: "2026-10-30T18:41:00+05:30",
       subscriptionTotal: 241.22, subscriptionSummary: { total: 241.22, updatedAt: "2026-10-30T18:41:00+05:30" },
       aiPredictedGain: 27.6, sourceUrl: "https://ipogyani.com/ipo/bls-polymers-ipo", officialLinks: []
+    },
+    {
+      id: "vectras-enprocon", slug: "vectras-enprocon-ipo",
+      companyName: "Vectras Enprocon", shortName: "Vectras Enprocon", initials: "VE", color: "#E6EDF6",
+      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
+      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
+      openDate: "2026-11-03", closeDate: null, allotDate: null, listingDate: null,
+      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      sourceUrl: "https://groww.in/ipo/vectras-enprocon-ipo", officialLinks: [{ label: "IPO listing — Groww", url: "https://groww.in/ipo/vectras-enprocon-ipo" }]
+    },
+    {
+      id: "maxwell-engineering", slug: "maxwell-engineering-ipo",
+      companyName: "Maxwell Engineering", shortName: "Maxwell Engineering", initials: "ME", color: "#E8EAF7",
+      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
+      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
+      openDate: "2026-11-03", closeDate: null, allotDate: null, listingDate: null,
+      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      sourceUrl: "https://groww.in/ipo/maxwell-engineering-ipo", officialLinks: [{ label: "IPO listing — Groww", url: "https://groww.in/ipo/maxwell-engineering-ipo" }]
+    },
+    {
+      id: "johnsoncab-electricals", slug: "johnsoncab-electricals-ipo",
+      companyName: "Johnsoncab Electricals", shortName: "Johnsoncab Electricals", initials: "JE", color: "#E4F0EC",
+      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
+      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
+      openDate: "2026-11-03", closeDate: null, allotDate: null, listingDate: null,
+      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      sourceUrl: "https://groww.in/ipo/johnsoncab-electricals-ipo", officialLinks: [{ label: "IPO listing — Groww", url: "https://groww.in/ipo/johnsoncab-electricals-ipo" }]
+    },
+    {
+      id: "hgs-india", slug: "hgs-india-ipo",
+      companyName: "HGS India", shortName: "HGS India", initials: "HG", color: "#F2EAE0",
+      status: "UPCOMING", board: "SME", exchange: "UNKNOWN", issueType: "UNKNOWN",
+      priceBandLow: null, priceBandHigh: null, issuePrice: null, issueSizeCr: null, lotSize: null, minimumInvestment: null,
+      openDate: "2026-11-03", closeDate: null, allotDate: null, listingDate: null,
+      gmp: null, gmpPercentage: null, gmpUpdatedAt: null, subscriptionTotal: null, subscriptionSummary: null,
+      sourceUrl: "https://groww.in/ipo/hgs-india-ipo", officialLinks: [{ label: "IPO listing — Groww", url: "https://groww.in/ipo/hgs-india-ipo" }]
     },
     // Listed IPO performance transcribed from the screenshots supplied by the user.
     {
