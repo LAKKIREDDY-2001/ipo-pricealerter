@@ -15,9 +15,9 @@
     route: parseRoute(),
     activeFilter: "all",        // 'all' | 'open' | 'upcoming' | 'closing-today' | 'listed'
     activeBoard: "all",         // 'all' | 'mainboard' | 'sme'
-    activeBottomCompany: "bls-polymers",
+    activeBottomCompany: "bombay-coated-and-special-steels-ipo",
     calendarMonth: new Date(2026, 9, 1), // October 2026
-    selectedCalendarDate: "2026-10-27",
+    selectedCalendarDate: "2026-10-30",
     detailTab: "overview",      // 'overview' | 'subscription' | 'gmp' | 'financials' | 'review' | 'documents'
     notificationsOpen: false,
     applyDropdownOpen: false,

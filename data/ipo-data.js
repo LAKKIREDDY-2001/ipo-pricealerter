@@ -7201,34 +7201,34 @@ window.IpoData = {
   "alertsFeed": [
     {
       "id": "a1",
-      "title": "Johnsoncab Electricals (BSE SME) Opens",
-      "description": "Cable manufacturer issue live at ₹190–200 price band. 1.14x subscribed on Day 1. Closes Nov 3.",
-      "time": "Just now",
-      "slug": "johnsoncab-electricals-ipo",
-      "tag": "BSE SME"
+      "title": "Maxwell Engineering (NSE SME) Day 1: 4.67x",
+      "description": "Retail subscribed 7.47x, NII 4.35x. Grey Market Premium at ₹70 (+44.3%). Closes Nov 3.",
+      "time": "Live Chittorgarh",
+      "slug": "maxwell-engineering-solutions-ipo",
+      "tag": "NSE SME"
     },
     {
       "id": "a2",
-      "title": "Bombay Coated Steels (Mainboard) 3.32x",
-      "description": "QIB oversubscribed 6.89x. Retail at 2.16x. Bidding window closes Monday, 02 Nov.",
-      "time": "30 mins ago",
+      "title": "Bombay Coated Steels (Mainboard) 3.98x",
+      "description": "QIB oversubscribed 6.89x, Retail 3.17x, NII 1.90x. Verified on Chittorgarh & NSE. Closes Nov 2.",
+      "time": "Verified Close",
       "slug": "bombay-coated-and-special-steels-ipo",
       "tag": "Mainboard"
     },
     {
       "id": "a3",
       "title": "Market Closed (3:30 PM): M.K. Sons Jewels 5.09x",
-      "description": "Bidding window concluded for M.K. Sons Fine Jewels. Allotment scheduled for Nov 2.",
-      "time": "2 hours ago",
+      "description": "Bidding window concluded. NII portion booked 14.12x. Allotment on Nov 2.",
+      "time": "Market Close",
       "slug": "mksons-fine-jewels-ipo",
       "tag": "Closed"
     },
     {
       "id": "a4",
-      "title": "Antala Industries (BSE SME) Closes 02 Nov",
-      "description": "Current subscription reaches 1.84x with retail portion 2.38x. Closes Monday.",
-      "time": "3 hours ago",
-      "slug": "antala-industries-ipo",
+      "title": "Johnsoncab Electricals (BSE SME) 1.14x",
+      "description": "Cable manufacturer issue fully booked on Day 1. NII booked 2.27x. Closes Nov 3.",
+      "time": "Live BSE",
+      "slug": "johnsoncab-electricals-ipo",
       "tag": "BSE SME"
     }
   ]
