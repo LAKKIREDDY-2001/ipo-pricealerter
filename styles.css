@@ -2419,3 +2419,170 @@ button:focus-visible, a:focus-visible, input:focus-visible {
     bottom: 80px;
   }
 }
+
+/* ==========================================================================
+   Card Direct Action Buttons & Allotment Enhancements
+   ========================================================================== */
+.card-btn-action-row {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card-btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.card-btn-action.btn-allotment {
+  background: rgba(37, 99, 235, 0.16);
+  border: 1px solid rgba(37, 99, 235, 0.4);
+  color: #60A5FA;
+}
+.card-btn-action.btn-allotment:hover {
+  background: rgba(37, 99, 235, 0.3);
+  border-color: #3B82F6;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.card-btn-action.btn-doc {
+  background: rgba(139, 92, 246, 0.16);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: #C084FC;
+}
+.card-btn-action.btn-doc:hover {
+  background: rgba(139, 92, 246, 0.3);
+  border-color: #8B5CF6;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.card-btn-action.btn-apply {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+.card-btn-action.btn-apply:hover {
+  background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+}
+
+.card-btn-action.btn-view {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+}
+.card-btn-action.btn-view:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.hero-stat-box.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.hero-stat-box.clickable:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
+}
+
+.board-badge {
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+.board-badge.mainboard {
+  background: rgba(59, 130, 246, 0.16);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.board-badge.sme {
+  background: rgba(245, 158, 11, 0.16);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.btn-table-allotment {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(37, 99, 235, 0.16);
+  border: 1px solid rgba(37, 99, 235, 0.4);
+  color: #60A5FA;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.btn-table-allotment:hover {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+.direct-allotment-btn, .direct-doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.allotment-portal-callout {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(30, 58, 138, 0.25));
+  border: 1px solid rgba(37, 99, 235, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.allotment-portal-callout .callout-text strong {
+  display: block;
+  font-size: 14px;
+  color: #93C5FD;
+}
+.allotment-portal-callout .callout-text span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.allotment-portal-callout .btn-allotment-direct {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #2563EB;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.allotment-portal-callout .btn-allotment-direct:hover {
+  background: #1D4ED8;
+}

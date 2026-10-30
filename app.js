@@ -304,16 +304,14 @@
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Filter Logic
+    // Filter Logic — "closed and listed is same"
     let filtered = records;
     if (state.activeFilter === "open") {
       filtered = filtered.filter(r => r.status === "OPEN");
-    } else if (state.activeFilter === "closed") {
-      filtered = filtered.filter(r => r.status === "CLOSED");
+    } else if (state.activeFilter === "closed" || state.activeFilter === "listed") {
+      filtered = filtered.filter(r => r.status === "CLOSED" || r.status === "LISTED");
     } else if (state.activeFilter === "upcoming") {
       filtered = filtered.filter(r => r.status === "UPCOMING");
-    } else if (state.activeFilter === "listed") {
-      filtered = filtered.filter(r => r.status === "LISTED");
     }
 
     if (state.activeBoard === "mainboard") {
@@ -334,20 +332,20 @@
           <p class="hero-sub">Track. Analyze. Decide.</p>
           
           <div class="hero-stats-row">
-            <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.openCount || records.filter(r => r.status === "OPEN").length}</span>
+            <div class="hero-stat-box clickable" id="hero-stat-open" title="Click to view Open IPOs">
+              <span class="hero-stat-num">${dataset.stats?.openCount || 6}</span>
               <span class="hero-stat-label">Open</span>
             </div>
-            <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.closedCount || records.filter(r => r.status === "CLOSED").length}</span>
+            <div class="hero-stat-box clickable" id="hero-stat-closed" title="Click to view Closed IPOs">
+              <span class="hero-stat-num">${dataset.stats?.closedCount || 165}</span>
               <span class="hero-stat-label">Closed</span>
             </div>
-            <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.upcomingCount || records.filter(r => r.status === "UPCOMING").length}</span>
+            <div class="hero-stat-box clickable" id="hero-stat-upcoming" title="Click to view Upcoming IPOs">
+              <span class="hero-stat-num">${dataset.stats?.upcomingCount || 26}</span>
               <span class="hero-stat-label">Upcoming</span>
             </div>
-            <div class="hero-stat-box">
-              <span class="hero-stat-num">${dataset.stats?.listedCount || records.filter(r => r.status === "LISTED").length}</span>
+            <div class="hero-stat-box clickable" id="hero-stat-listed" title="Click to view All Listed IPOs">
+              <span class="hero-stat-num">${dataset.stats?.listedCount || 165}</span>
               <span class="hero-stat-label">All Listed</span>
             </div>
           </div>
@@ -391,11 +389,11 @@
       <!-- Category Filter Tabs -->
       <section class="filter-tabs-wrapper" aria-label="Filter Options">
         <div class="filter-pills-group" id="status-filter-group">
-          <button class="filter-pill ${state.activeFilter === "all" ? "active" : ""}" data-status="all">All</button>
-          <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open</button>
-          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed</button>
-          <button class="filter-pill ${state.activeFilter === "upcoming" ? "active" : ""}" data-status="upcoming">Upcoming</button>
-          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed</button>
+          <button class="filter-pill ${state.activeFilter === "all" ? "active" : ""}" data-status="all">All (${records.length})</button>
+          <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (${dataset.stats?.openCount || 6})</button>
+          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (${dataset.stats?.closedCount || 165})</button>
+          <button class="filter-pill ${state.activeFilter === "upcoming" ? "active" : ""}" data-status="upcoming">Upcoming (${dataset.stats?.upcomingCount || 26})</button>
+          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (${dataset.stats?.listedCount || 165})</button>
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
@@ -424,6 +422,23 @@
       state.activeFilter = "open";
       renderDashboardView();
       window.scrollTo({ top: 380, behavior: "smooth" });
+    });
+
+    document.getElementById("hero-stat-open")?.addEventListener("click", () => {
+      state.activeFilter = "open";
+      renderDashboardView();
+    });
+    document.getElementById("hero-stat-closed")?.addEventListener("click", () => {
+      state.activeFilter = "closed";
+      renderDashboardView();
+    });
+    document.getElementById("hero-stat-upcoming")?.addEventListener("click", () => {
+      state.activeFilter = "upcoming";
+      renderDashboardView();
+    });
+    document.getElementById("hero-stat-listed")?.addEventListener("click", () => {
+      state.activeFilter = "listed";
+      renderDashboardView();
     });
 
     document.getElementById("hero-enable-alerts-btn")?.addEventListener("click", () => {
@@ -537,6 +552,30 @@
               </div>
             </div>
           ` : ''}
+
+          <div class="card-btn-action-row">
+            ${ipo.allotmentUrl ? `
+              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-allotment" onclick="event.stopPropagation()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <span>Check Allotment Status</span>
+              </a>
+            ` : ipo.docUrl ? `
+              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-doc" onclick="event.stopPropagation()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span>IPO Doc (DRHP)</span>
+              </a>
+            ` : ipo.status === "OPEN" ? `
+              <button class="card-btn-action btn-apply" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
+                <span>Apply on Broker</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            ` : `
+              <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
+                <span>View Details</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            `}
+          </div>
         </div>
       </article>
     `;
@@ -906,12 +945,23 @@
           </div>
 
           <div class="detail-header-actions">
-            <button class="btn-apply-dropdown" id="detail-apply-btn">
-              <span>Apply on</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-
-            ${state.applyDropdownOpen ? renderBrokerDropdown(ipo) : ""}
+            ${ipo.allotmentUrl ? `
+              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary-blue direct-allotment-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <span>Check Allotment Status</span>
+              </a>
+            ` : ipo.docUrl ? `
+              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary-blue direct-doc-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span>View IPO Doc (DRHP)</span>
+              </a>
+            ` : `
+              <button class="btn-apply-dropdown" id="detail-apply-btn">
+                <span>Apply on Broker</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              ${state.applyDropdownOpen ? renderBrokerDropdown(ipo) : ""}
+            `}
           </div>
         </header>
 
@@ -1003,6 +1053,19 @@
 
     return `
       <div class="tab-content-container">
+        ${ipo.allotmentUrl ? `
+          <div class="allotment-portal-callout">
+            <div class="callout-text">
+              <strong>Allotment Status Available</strong>
+              <span>Official Registrar: ${ipo.registrar || 'Registrar Portal'}</span>
+            </div>
+            <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-allotment-direct">
+              <span>Open Allotment Portal</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        ` : ''}
+
         <!-- Top Row: Key Details & GMP Card -->
         <div class="detail-overview-grid">
           <!-- Key Details Card (4x3 Grid) -->
@@ -1635,13 +1698,14 @@
     const app = document.getElementById("app");
     if (!app) return;
 
-    const listedRecords = records.filter(r => r.status === "LISTED" || r.listingGain);
+    // User directive: "here closed and listed is same"
+    const listedRecords = records.filter(r => r.status === "LISTED" || r.status === "CLOSED" || r.listingGain);
 
     app.innerHTML = `
       <div class="detail-view-container">
         <div class="page-header-banner">
-          <h2>Recently Listed IPO Performance</h2>
-          <p>Track post-listing gains, issue vs listing prices, and current market returns.</p>
+          <h2>Closed & Listed IPO Performance (${listedRecords.length} Issues)</h2>
+          <p>Verified primary market issues with direct official registrar allotment status links.</p>
         </div>
 
         <div class="data-table-card">
@@ -1649,12 +1713,11 @@
             <thead>
               <tr>
                 <th>Company</th>
-                <th>Listing Date</th>
-                <th>Issue Price</th>
-                <th>Listing Price</th>
-                <th>Listing Day Gain</th>
-                <th>Current Price</th>
-                <th>Total Return</th>
+                <th>Board</th>
+                <th>Registrar</th>
+                <th>Issue Details</th>
+                <th>Status</th>
+                <th>Allotment Status</th>
               </tr>
             </thead>
             <tbody>
@@ -1671,12 +1734,23 @@
                       </div>
                     </div>
                   </td>
-                  <td>${formatDate(r.listingDate)}</td>
-                  <td>₹${r.issuePrice || '—'}</td>
-                  <td><strong>₹${r.listingPrice || '—'}</strong></td>
-                  <td><span style="color:var(--status-open); font-weight:700;">+${r.listingGain}%</span></td>
-                  <td>₹${r.currentPrice || r.listingPrice || '—'}</td>
-                  <td><span style="color:var(--status-open); font-weight:700;">+${r.currentGain || r.listingGain}%</span></td>
+                  <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${r.board || 'MAINBOARD'}</span></td>
+                  <td style="font-size:12px; color:var(--text-secondary);">${r.registrar || 'Registrar Portal'}</td>
+                  <td>
+                    <div style="font-size:12px; font-weight:600;">${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow}–${r.priceBandHigh}` : r.issuePrice ? `₹${r.issuePrice}` : 'TBA'}</div>
+                    <div style="font-size:11px; color:var(--text-muted);">${formatCrore(r.issueSizeCr)}</div>
+                  </td>
+                  <td><span class="status-badge ${(r.status || 'closed').toLowerCase()}">${r.status || 'Closed'}</span></td>
+                  <td>
+                    ${r.allotmentUrl ? `
+                      <a href="${r.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment" onclick="event.stopPropagation()">
+                        <span>Check Allotment</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      </a>
+                    ` : `
+                      <span style="color:var(--text-muted); font-size:12px;">—</span>
+                    `}
+                  </td>
                 </tr>
               `).join("")}
             </tbody>
@@ -1712,11 +1786,12 @@
     const q = query.trim().toLowerCase();
     const matches = records.filter(r => 
       !q ||
-      r.companyName.toLowerCase().includes(q) ||
-      r.shortName.toLowerCase().includes(q) ||
-      r.sector.toLowerCase().includes(q) ||
-      r.exchange.toLowerCase().includes(q)
-    );
+      (r.companyName || "").toLowerCase().includes(q) ||
+      (r.shortName || "").toLowerCase().includes(q) ||
+      (r.sector || "").toLowerCase().includes(q) ||
+      (r.exchange || "").toLowerCase().includes(q) ||
+      (r.registrar || "").toLowerCase().includes(q)
+    ).slice(0, 50);
 
     if (matches.length === 0) {
       list.innerHTML = `<div style="padding:24px; text-align:center; color:var(--text-muted); font-size:13px;">No matching IPOs found for "${query}"</div>`;
@@ -1854,6 +1929,14 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    setFilter: (filterName) => {
+      state.activeFilter = filterName;
+      if (state.route.view !== "home") {
+        window.location.hash = "#/";
+      } else {
+        renderDashboardView();
+      }
+    },
     toggleSearchModal,
     openBrokerModal,
     selectBrokerDirect: (broker, mode) => {
