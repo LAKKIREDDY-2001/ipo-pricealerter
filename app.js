@@ -29,36 +29,32 @@
   };
 
   // ==========================================================================
-  // Verified Stock Broker Affiliate & Partner Gateways
-  // Easily customize URLs with your personal affiliate referral IDs
+  // Stock Broker Affiliate & Partner Commission Tracking Config
+  // Insert your personal referral codes / partner tracking URLs below to earn
+  // direct cash commissions (₹200 - ₹750 per Demat account + 20-50% brokerage sharing)
   // ==========================================================================
+  const AFFILIATE_PARTNER_CONFIG = {
+    // 1. Angel One Partner (Earn ₹300–₹750/account + up to 50% brokerage) -> https://partners.angelone.in/
+    ANGEL_ONE_PARTNER_URL: "https://www.angelone.in/open-demat-account",
+    // 2. Upstox Partner (Earn ₹200–₹600/account + 30% brokerage) -> https://upstox.com/partner/
+    UPSTOX_PARTNER_URL: "https://upstox.com/open-demat-account/",
+    // 3. Zerodha Partner (Earn 10% lifetime brokerage) -> https://zerodha.com/partner/
+    ZERODHA_PARTNER_URL: "https://zerodha.com/open-account",
+    // 4. Dhan Superfast Partner (Earn 20%–30% lifetime daily brokerage) -> https://dhan.co/partner/
+    DHAN_PARTNER_URL: "https://dhan.co/",
+    // 5. Groww Partner / Referral -> Groww App Refer & Earn or Cuelinks
+    GROWW_PARTNER_URL: "https://groww.in/open-demat-account"
+  };
+
   const AFFILIATE_BROKERS = [
-    {
-      id: "groww",
-      name: "Groww",
-      shortDesc: "Free Demat • ₹0 AMC • 1-Click UPI Bidding",
-      badge: "Most Popular",
-      color: "#00D09C",
-      affiliateUrl: "https://groww.in/open-demat-account",
-      applyUrl: (ipo) => (ipo && ipo.growwUrl) ? ipo.growwUrl : "https://groww.in/ipo"
-    },
-    {
-      id: "zerodha",
-      name: "Zerodha Kite",
-      shortDesc: "India's #1 Broker • Zero Brokerage on IPO",
-      badge: "Top Rated",
-      color: "#387ED1",
-      affiliateUrl: "https://zerodha.com/open-account",
-      applyUrl: () => "https://kite.zerodha.com/ipo"
-    },
     {
       id: "angelone",
       name: "Angel One",
       shortDesc: "Free Demat Account + ₹0 Brokerage 30 Days",
-      badge: "Best Offer",
+      badge: "Highest Payout",
       color: "#FF5E3A",
-      affiliateUrl: "https://www.angelone.in/open-demat-account",
-      applyUrl: () => "https://www.angelone.in/trade/ipo"
+      affiliateUrl: AFFILIATE_PARTNER_CONFIG.ANGEL_ONE_PARTNER_URL,
+      applyUrl: () => AFFILIATE_PARTNER_CONFIG.ANGEL_ONE_PARTNER_URL
     },
     {
       id: "upstox",
@@ -66,8 +62,26 @@
       shortDesc: "Backed by Ratan Tata • Instant Paperless Demat",
       badge: "Fastest KYC",
       color: "#7B2CBF",
-      affiliateUrl: "https://upstox.com/open-demat-account/",
-      applyUrl: () => "https://upstox.com/ipo/"
+      affiliateUrl: AFFILIATE_PARTNER_CONFIG.UPSTOX_PARTNER_URL,
+      applyUrl: () => AFFILIATE_PARTNER_CONFIG.UPSTOX_PARTNER_URL
+    },
+    {
+      id: "zerodha",
+      name: "Zerodha Kite",
+      shortDesc: "India's #1 Broker • Zero Brokerage on IPO",
+      badge: "Top Rated",
+      color: "#387ED1",
+      affiliateUrl: AFFILIATE_PARTNER_CONFIG.ZERODHA_PARTNER_URL,
+      applyUrl: () => AFFILIATE_PARTNER_CONFIG.ZERODHA_PARTNER_URL
+    },
+    {
+      id: "groww",
+      name: "Groww",
+      shortDesc: "Free Demat • ₹0 AMC • 1-Click UPI Bidding",
+      badge: "Most Popular",
+      color: "#00D09C",
+      affiliateUrl: AFFILIATE_PARTNER_CONFIG.GROWW_PARTNER_URL,
+      applyUrl: (ipo) => (ipo && ipo.growwUrl) ? ipo.growwUrl : AFFILIATE_PARTNER_CONFIG.GROWW_PARTNER_URL
     },
     {
       id: "dhan",
@@ -75,8 +89,8 @@
       shortDesc: "Lightning Fast Trading • Direct Pre-IPO Bids",
       badge: "Zero AMC",
       color: "#4A00E0",
-      affiliateUrl: "https://dhan.co/",
-      applyUrl: () => "https://dhan.co/ipo/"
+      affiliateUrl: AFFILIATE_PARTNER_CONFIG.DHAN_PARTNER_URL,
+      applyUrl: () => AFFILIATE_PARTNER_CONFIG.DHAN_PARTNER_URL
     }
   ];
 
@@ -186,6 +200,18 @@
           // Ignore individual push errors if already requested
         }
       });
+
+      // Automatically collapse parent card containers if ads are pending AdSense approval or unfilled
+      setTimeout(() => {
+        document.querySelectorAll("ins.adsbygoogle[data-ad-status='unfilled'], ins.adsbygoogle:empty").forEach(ins => {
+          if (!ins.querySelector("iframe")) {
+            const parent = ins.closest(".adsense-slot-card, .adsense-infeed-card");
+            if (parent && !parent.querySelector("iframe")) {
+              parent.style.display = "none";
+            }
+          }
+        });
+      }, 1200);
     } catch (e) {
       // Graceful handling when ad blocker is active or ads are pending review
     }
@@ -193,12 +219,11 @@
 
   // ==========================================================================
   // Google AdSense In-Feed Native Unit (Slot 1400016775)
-  // Variable height container matching feed styles
+  // Clean variable-height container (No awkward empty placeholder borders)
   // ==========================================================================
   function renderInFeedAdUnit(isGridSpan = true) {
     return `
       <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="Sponsored In-Feed Content">
-        <span class="ad-label-pill">SPONSORED / ADVERTISEMENT</span>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-format="fluid"
@@ -212,7 +237,6 @@
   function renderAdSenseUnit(slot = "5892147360", format = "auto") {
     return `
       <div class="adsense-slot-card" aria-label="Advertisement">
-        <span class="ad-label-pill">ADVERTISEMENT</span>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-1181608933401999"

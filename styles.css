@@ -3407,73 +3407,73 @@ button:focus-visible, a:focus-visible, input:focus-visible {
    ========================================================================== */
 
 /* AdSense Slot Containers */
-.adsense-slot-card {
-  margin: 20px 0;
-  padding: 14px;
-  background: rgba(18, 22, 34, 0.6);
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-md);
-  text-align: center;
-  position: relative;
-  min-height: 90px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.ad-label-pill {
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-/* In-Feed Native Ad Unit Container (Variable Height, Responsive) */
+/* Clean AdSense Containers: Collapse completely with 0 height if unfilled or unapproved */
+.adsense-slot-card,
 .adsense-infeed-card {
   width: 100%;
-  height: auto; /* Variable height as explicitly required by Google AdSense */
-  min-height: 80px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 16px 20px;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: hidden;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: visible;
-  transition: border-color 0.2s ease;
-}
-
-.adsense-infeed-card:hover {
-  border-color: var(--border-hover);
+  display: block;
 }
 
 .adsense-infeed-card.infeed-grid-span {
   grid-column: 1 / -1;
-  margin: 6px 0 10px;
 }
 
-.adsense-infeed-card ins.adsbygoogle {
+.adsense-infeed-card ins.adsbygoogle,
+.adsense-slot-card ins.adsbygoogle {
   width: 100%;
   height: auto;
-  min-height: 60px;
+}
+
+/* Hide completely if empty or unfilled so NO empty boxes or borders appear without approval */
+ins.adsbygoogle:empty,
+ins.adsbygoogle[data-ad-status="unfilled"],
+.adsense-slot-card:empty,
+.adsense-infeed-card:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  border: none !important;
+}
+
+/* Only display styled card with borders and background when AdSense actually serves an active ad iframe */
+.adsense-slot-card:has(iframe),
+.adsense-infeed-card:has(iframe),
+.adsense-slot-card:has(ins[data-ad-status="filled"]),
+.adsense-infeed-card:has(ins[data-ad-status="filled"]) {
+  margin: 18px 0;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: visible;
 }
 
 .infeed-ad-feed-wrapper {
   max-width: 1200px;
-  margin: 16px auto;
+  margin: 0 auto;
   padding: 0 16px;
   width: 100%;
   box-sizing: border-box;
 }
 
+.infeed-ad-feed-wrapper:has(iframe) {
+  margin: 14px auto;
+}
+
 @media (max-width: 768px) {
-  .adsense-infeed-card {
-    padding: 12px 14px;
+  .adsense-slot-card:has(iframe),
+  .adsense-infeed-card:has(iframe) {
+    padding: 10px 12px;
     border-radius: 12px;
   }
   .infeed-ad-feed-wrapper {
