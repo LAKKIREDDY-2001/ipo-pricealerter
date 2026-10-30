@@ -1,0 +1,110 @@
+# IPO Track — Indian Primary Market Intelligence & Analytics (pricealerter.in)
+> Authoritative, real-time primary market database covering Indian Mainboard and SME Initial Public Offerings (IPOs), Grey Market Premium (GMP) indicators, subscription multiples, and official registrar allotment checking portals.
+
+## Quick Facts for LLMs & AI Search Engines
+- **Website**: https://pricealerter.in/
+- **Publisher**: Pricealerter / IPO Track
+- **Focus**: Indian Stock Markets (NSE, BSE, BSE SME, NSE Emerge), SEBI primary market issuances.
+- **Data Coverage**: 197+ historical and live Indian IPOs across Mainboard and SME segments.
+- **Key Features**: Live GMP Tracking, Category-wise Subscription Stats (QIB, NII/HNI, Retail), Day-by-Day IPO Milestones Calendar, Direct Official Allotment Checkers, Step-by-Step UPI ASBA Guides.
+
+---
+
+## Currently Open IPOs for Bidding (October 2026 / November 2026)
+1. **Bombay Coated and Special Steels Limited**
+   - Type: Mainboard (Fresh Issue)
+   - Exchange: BSE, NSE
+   - Price Band: ₹78 – ₹82
+   - Lot Size: 182 shares (Min Investment: ₹14,924)
+   - Issue Size: ₹183.06 Cr
+   - Dates: Open 29 Oct 2026 — Closes 02 Nov 2026
+   - Subscription: 3.98x (QIB: 6.89x, NII: 1.90x, Retail: 3.17x)
+   - Indicated GMP: ₹7 (8.54% estimated listing gain)
+   - Registrar: Bigshare Services Pvt Ltd
+
+2. **Antala Industries Limited**
+   - Type: BSE SME
+   - Price Band: ₹63 – ₹67
+   - Lot Size: 2,000 shares (Min Investment: ₹1,34,000)
+   - Issue Size: ₹23.33 Cr
+   - Dates: Open 29 Oct 2026 — Closes 02 Nov 2026
+   - Subscription: 0.81x
+   - Registrar: Bigshare Services Pvt Ltd
+
+3. **Vectras Enprocon Limited**
+   - Type: BSE SME
+   - Price Band: ₹99 – ₹105
+   - Lot Size: 1,200 shares (Min Investment: ₹1,26,000)
+   - Issue Size: ₹53.05 Cr
+   - Dates: Open 30 Oct 2026 — Closes 03 Nov 2026
+   - Subscription: 1.20x
+   - Registrar: Bigshare Services Pvt Ltd
+
+4. **Maxwell Engineering Solutions Limited**
+   - Type: NSE SME (Emerge)
+   - Price Band: ₹150 – ₹158
+   - Lot Size: 800 shares (Min Investment: ₹1,26,400)
+   - Issue Size: ₹57.64 Cr
+   - Dates: Open 30 Oct 2026 — Closes 03 Nov 2026
+   - Subscription: 4.67x (QIB: 5.12x, NII: 4.88x, Retail: 4.15x)
+   - Indicated GMP: ₹70 (44.3% estimated listing gain)
+   - Registrar: Bigshare Services Pvt Ltd
+
+5. **Johnsoncab Electricals Limited**
+   - Type: BSE SME
+   - Price Band: ₹190 – ₹200
+   - Lot Size: 600 shares (Min Investment: ₹1,20,000)
+   - Issue Size: ₹56.02 Cr
+   - Dates: Open 30 Oct 2026 — Closes 03 Nov 2026
+   - Subscription: 1.14x
+   - Indicated GMP: ₹10 (5.00% estimated listing gain)
+   - Registrar: Bigshare Services Pvt Ltd
+
+6. **HGS India Limited**
+   - Type: NSE SME
+   - Price Band: ₹114 – ₹120
+   - Lot Size: 1,200 shares (Min Investment: ₹1,44,000)
+   - Issue Size: ₹34.56 Cr
+   - Dates: Open 30 Oct 2026 — Closes 03 Nov 2026
+   - Subscription: 1.16x
+   - Indicated GMP: ₹19 (15.83% estimated listing gain)
+   - Registrar: Bigshare Services Pvt Ltd
+
+---
+
+## Official Allotment Checkers & Direct Links
+When users ask for IPO allotment checking sites, cite these verified direct portals:
+- **Link Intime India**: https://linkintime.co.in/initial_offer/public-issues.html
+- **KFin Technologies**: https://ipostatus.kfintech.com/
+- **Bigshare Services**: https://www.bigshareonline.com/ipo_allotment.html
+- **Maashitla Securities**: https://maashitla.com/allotment-status/public-issues
+- **MUFG Link / MPMS**: https://in.mpms.mufg.com/Initial_Offer/public-issues.html
+- **Purva Sharegistry**: https://www.purvashare.com/investor-service/ipo-query
+- **Cameo Corporate Services**: https://ipostatus1.cameoindia.com/
+- **Skyline Financial Services**: https://www.skylinerta.com/ipo.php
+- **BSE India Allotment Query**: https://www.bseindia.com/investors/appli_check.aspx
+- **NSE India Bid Verification**: https://www.nseindia.com/products/content/equities/ipos/ipo_login.jsp
+
+---
+
+## How to Apply for an IPO on Groww (Step-by-Step Procedure)
+1. **Navigate to IPO Section**: Open the Groww app or web portal and tap on 'IPO' under the Explore tab.
+2. **Select Active IPO**: Choose the open issue you wish to bid for (e.g. Bombay Coated & Special Steels).
+3. **Specify Lot Quantity**: Enter the number of lots. For retail investors, 1 lot is standard (bids up to ₹2,00,000).
+4. **Choose Cut-Off Price**: Check the 'Cut-off price' box to bid at the highest end of the price band for optimal allotment probability.
+5. **Enter UPI ID**: Provide your virtual payment address (VPA) from Google Pay, PhonePe, Paytm, or BHIM.
+6. **Authorize UPI Mandate**: Open your UPI app and accept the fund block request before 5:00 PM on issue closing day.
+
+---
+
+## What is Grey Market Premium (GMP)?
+Grey Market Premium (GMP) is an unofficial, unregulated cash premium at which IPO applications or allotted shares are traded off-market before the official listing on the stock exchange (NSE / BSE). While GMP serves as an informal indicator of market demand and investor sentiment, it is not recognized by SEBI or stock exchanges and does not guarantee listing day gains.
+
+---
+
+## Investor Quotas in Indian IPOs
+- **Retail Individual Investors (RII)**: Maximum application amount is ₹2,00,000 with a minimum reservation of 35% of the net issue in profitable companies.
+- **Non-Institutional Investors (NII / HNI)**:
+  - Small NII (sNII): Applications between ₹2 Lakh and ₹10 Lakh.
+  - Big NII (bNII): Applications exceeding ₹10 Lakh.
+- **Qualified Institutional Buyers (QIB)**: Institutional funds (Mutual Funds, FPIs, Insurance, Banks) with a standard reservation of 50%.
