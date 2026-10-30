@@ -24,7 +24,8 @@
     brokerModalIpo: null,
     searchModalOpen: false,
     calcLots: 1,
-    alertsSubscribed: true
+    alertsSubscribed: true,
+    cardsLimit: 18
   };
 
   // Helper Utilities
@@ -414,6 +415,10 @@
       filtered = filtered.filter(r => r.board === "SME");
     }
 
+    const totalCount = filtered.length;
+    // For 'open' filter, show all 6. For other views, paginate to avoid excessive DOM size
+    const visibleCards = state.activeFilter === "open" ? filtered : filtered.slice(0, state.cardsLimit);
+
     app.innerHTML = `
       <!-- Hero Section -->
       <section class="hero-wrapper" aria-label="IPO Intelligence Hero">
@@ -493,8 +498,20 @@
 
       <!-- Main IPO Cards Grid -->
       <section class="ipo-cards-grid" aria-label="Active and Upcoming IPOs">
-        ${filtered.map(r => renderIpoCardHtml(r)).join("")}
+        ${visibleCards.map(r => renderIpoCardHtml(r)).join("")}
       </section>
+
+      ${totalCount > visibleCards.length ? `
+        <div class="load-more-wrap">
+          <button id="btn-load-more-ipos" class="btn-load-more" aria-label="Load more IPO cards">
+            <span>Show More IPOs (Showing ${visibleCards.length} of ${totalCount})</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <button id="btn-show-all-ipos" class="btn-show-all-subtle" aria-label="Show all IPO cards">
+            Show All (${totalCount})
+          </button>
+        </div>
+      ` : ''}
 
       <!-- AdSense Native Feed Slot -->
       ${renderAdSenseUnit("5892147360", "auto")}
@@ -573,6 +590,7 @@
     document.querySelectorAll("#status-filter-group .filter-pill").forEach(btn => {
       btn.addEventListener("click", () => {
         state.activeFilter = btn.getAttribute("data-status");
+        state.cardsLimit = 18;
         renderDashboardView();
       });
     });
@@ -580,8 +598,19 @@
     document.querySelectorAll("#board-filter-group .filter-pill").forEach(btn => {
       btn.addEventListener("click", () => {
         state.activeBoard = btn.getAttribute("data-board");
+        state.cardsLimit = 18;
         renderDashboardView();
       });
+    });
+
+    document.getElementById("btn-load-more-ipos")?.addEventListener("click", () => {
+      state.cardsLimit += 24;
+      renderDashboardView();
+    });
+
+    document.getElementById("btn-show-all-ipos")?.addEventListener("click", () => {
+      state.cardsLimit = totalCount;
+      renderDashboardView();
     });
 
     bindCalendarControls();
@@ -742,7 +771,7 @@
       <div class="bottom-widget-card" id="subscription-widget">
         <div class="widget-card-head">
           <h3>Subscription Details</h3>
-          <select id="sub-widget-company-select" style="background:var(--bg-input); border:1px solid var(--border-subtle); padding:4px 8px; border-radius:6px; font-size:12px; color:var(--text-primary); cursor:pointer;">
+          <select id="sub-widget-company-select" aria-label="Select company to view subscription details" style="background:var(--bg-input); border:1px solid var(--border-subtle); padding:4px 8px; border-radius:6px; font-size:12px; color:var(--text-primary); cursor:pointer;">
             ${records.filter(r => r.subscriptionSummary).map(r => `
               <option value="${r.slug}" ${r.slug === ipo.slug ? "selected" : ""}>${r.shortName}</option>
             `).join("")}
@@ -1929,7 +1958,7 @@
         <div class="comment-form-box">
           <div class="comment-input-row">
             <input type="text" id="comment-author-input" class="comment-name-input" placeholder="Your Name or Alias (e.g. Ramesh K.)" maxlength="40">
-            <select id="comment-sentiment-select" class="comment-sentiment-select">
+            <select id="comment-sentiment-select" class="comment-sentiment-select" aria-label="Select investor sentiment">
               <option value="bullish">🟢 Bullish — Applying for Listing Gains</option>
               <option value="neutral">⚪ Neutral — Tracking Day 3 Demand</option>
               <option value="bearish">🔴 Bearish — High Valuation / Avoid</option>

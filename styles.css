@@ -38,10 +38,10 @@
   --status-listed-border: rgba(99, 102, 241, 0.3);
 
   --text-primary: #FFFFFF;
-  --text-heading: #F1F5F9;
-  --text-body: #94A3B8;
-  --text-muted: #64748B;
-  --text-dim: #475569;
+  --text-heading: #F8FAFC;
+  --text-body: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
 
   --chart-blue: #3B82F6;
   --chart-gold: #F59E0B;
@@ -859,9 +859,9 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 }
 
 .metric-col .metric-label {
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: #CBD5E1;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -892,7 +892,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 }
 
 .gmp-highlight-text.neutral {
-  color: var(--text-muted);
+  color: #CBD5E1;
+  font-weight: 700;
 }
 
 .date-highlight-text {
@@ -913,7 +914,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 }
 
 .sub-bar-labels span {
-  color: var(--text-muted);
+  color: #CBD5E1;
+  font-weight: 600;
 }
 
 .sub-bar-labels strong {
@@ -3076,4 +3078,71 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+/* ==========================================================================
+   Progressive Loading & Layout Stability (Core Web Vitals)
+   ========================================================================== */
+.load-more-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 28px 0 36px;
+}
+
+.btn-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-load-more:hover {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+.btn-show-all-subtle {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #CBD5E1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-show-all-subtle:hover {
+  color: #FFFFFF;
+  border-color: var(--brand-blue-light);
+  background: var(--bg-card-hover);
+}
+
+.hero-wrapper {
+  min-height: 280px;
+}
+
+.site-header {
+  min-height: 72px;
+}
+
+.ipo-cards-grid {
+  min-height: 320px;
+  contain: layout;
 }
