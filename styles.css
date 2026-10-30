@@ -1590,6 +1590,72 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   color: var(--status-open);
 }
 
+/* GMP Regulatory & Investor Advisory Notes */
+.gmp-advisory-card {
+  margin: 16px 0 20px;
+  padding: 16px 20px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-left: 4px solid #F59E0B;
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+.gmp-advisory-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #FBBF24;
+  margin-bottom: 6px;
+}
+
+.gmp-advisory-text {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #E2E8F0;
+  margin: 0;
+}
+
+.gmp-card-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.gmp-card-note svg {
+  color: #F59E0B;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.gmp-widget-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 10px;
+}
+
+.gmp-widget-disclaimer svg {
+  color: #F59E0B;
+  flex-shrink: 0;
+}
+
 /* Detail Timeline Stepper Card */
 .detail-timeline-card {
   background: var(--bg-card);

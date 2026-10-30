@@ -903,7 +903,7 @@
               <span class="gmp-highlight-text">Listing Gain +${ipo.listingGain}%</span>
               <span class="date-highlight-text">${dateNote}</span>
             ` : `
-              <span class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}">
+              <span class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}" title="Grey Market Premium (GMP) is an unregulated, unofficial sentiment estimate. Not a guarantee of listing gains.">
                 ${ipo.gmp ? `GMP +${ipo.gmp} (${ipo.gmpPercentage}%)` : 'GMP TBA'}
               </span>
               <span class="date-highlight-text">${dateNote}</span>
@@ -1169,6 +1169,9 @@
               </div>
             </div>
           `).join("")}
+        </div>
+        <div class="gmp-widget-disclaimer">
+          ⚠️ <strong>Note:</strong> Grey Market Premium (GMP) is an informal, unofficial estimate unregulated by SEBI or stock exchanges. Realized listing prices depend on market discovery.
         </div>
       </div>
     `;
@@ -1556,6 +1559,12 @@
                 <strong class="trend-green">↑ Up</strong>
               </div>
             </div>
+
+            <!-- GMP Investor Advisory Note -->
+            <div class="gmp-card-note">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span><strong>Advisory Note:</strong> GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.</span>
+            </div>
           </div>
         </div>
 
@@ -1785,6 +1794,17 @@
               <strong class="res-gain">+${formatMoney(estProfit)} (${estReturnPct}%)</strong>
             </div>
           </div>
+        </div>
+
+        <!-- GMP Calculator Regulatory & Risk Disclosure -->
+        <div class="gmp-advisory-card" style="margin-top:16px;">
+          <div class="gmp-advisory-badge">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Important Disclaimer on Estimated Returns</span>
+          </div>
+          <p class="gmp-advisory-text">
+            <strong>Theoretical Calculation:</strong> Estimated listing profits shown above are strictly calculated based on unofficial Grey Market Premium (GMP) dealer indications. GMP is <strong>not regulated by SEBI</strong> or stock exchanges and does not guarantee actual returns. Actual listing prices are determined dynamically during the NSE/BSE pre-open price discovery auction (9:00 AM – 9:45 AM IST) on listing day. Read the full Red Herring Prospectus (RHP) before bidding.
+          </p>
         </div>
 
         <div class="bottom-widget-card" style="margin-top:16px;">
@@ -2039,6 +2059,17 @@
         <div class="page-header-banner">
           <h2>Live Grey Market Premium (GMP) Tracker</h2>
           <p>Real-time unofficial premiums, estimated listing gains, and profit calculations across all active IPOs.</p>
+        </div>
+
+        <!-- Important SEBI Investor Advisory on Grey Market Premium -->
+        <div class="gmp-advisory-card">
+          <div class="gmp-advisory-badge">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Important Investor Advisory on Grey Market Premium (GMP)</span>
+          </div>
+          <p class="gmp-advisory-text">
+            <strong>Please Note:</strong> Grey Market Premium (GMP) is an unofficial, unregulated cash premium traded informally off-market before official stock exchange listing. GMP prices fluctuate rapidly based on short-term sentiment, do <strong>NOT</strong> reflect verified company balance sheets or fundamentals, and do <strong>NOT</strong> guarantee actual listing day returns on NSE or BSE. Never make investment or bidding decisions solely based on GMP. Always read the official SEBI-approved DRHP/RHP prospectus and consult a certified financial advisor before applying.
+          </p>
         </div>
 
         <div class="data-table-card">
