@@ -36,6 +36,7 @@
     if (parts[0] === "gmp") return { view: "gmp" };
     if (parts[0] === "calendar") return { view: "calendar" };
     if (parts[0] === "listed") return { view: "listed" };
+    if (parts[0] === "guide" || parts[0] === "learn" || parts[0] === "faq") return { view: "guide" };
     return { view: "home" };
   }
 
@@ -82,6 +83,97 @@
   }
 
   // Icons Helper
+  
+  // ==========================================================================
+  // Brand Logo & Portal Directory Utilities
+  // ==========================================================================
+  function renderCompanyLogo(ipo, size = 44) {
+    const bg = ipo.logoColor || "#2563EB";
+    const initials = ipo.initials || (ipo.shortName ? ipo.shortName.substring(0, 2).toUpperCase() : "IP");
+    return `
+      <div class="company-avatar-box" style="width:${size}px; height:${size}px; background:${bg};">
+        ${initials}
+      </div>
+    `;
+  }
+
+  function initAdSense() {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      // Graceful handling when ad blocker is active or ads are pending review
+    }
+  }
+
+  function renderAdSenseUnit(slot = "5892147360", format = "auto") {
+    return `
+      <div class="adsense-slot-card" aria-label="Advertisement">
+        <span class="ad-label-pill">ADVERTISEMENT</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1181608933401999"
+             data-ad-slot="${slot}"
+             data-ad-format="${format}"
+             data-full-width-responsive="true"></ins>
+      </div>
+    `;
+  }
+
+  function renderPortalDirectoryWidget() {
+    return `
+      <div class="portal-directory-card" aria-label="Official Exchanges & Registrars">
+        <div class="portal-dir-head">
+          <div>
+            <h3>Official Exchanges & Allotment Checking Directory</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">Official primary market portals for bid verification, exchange documents, and allotment status</p>
+          </div>
+        </div>
+        <div class="portal-chips-grid">
+          <a href="https://www.nseindia.com/market-data/all-upcoming-issues-ipo" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+            <div><span>NSE India IPO</span><div style="font-size:10px; color:var(--text-muted);">Official Exchange Portal</div></div>
+          </a>
+          <a href="https://www.bseindia.com/publicissue.html" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg></div>
+            <div><span>BSE India Public Issues</span><div style="font-size:10px; color:var(--text-muted);">Official Exchange Portal</div></div>
+          </a>
+          <a href="https://ipostatus.kfintech.com/" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+            <div><span>KFintech Allotment</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline></svg></div>
+            <div><span>Link Intime Allotment</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://www.bigshareonline.com/ipo_allotment.html" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+            <div><span>Bigshare Services</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://maashitla.com/allotment-status/public-issues" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+            <div><span>Maashitla Securities</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://in.mpms.mufg.com/Initial_Offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line></svg></div>
+            <div><span>MUFG Link / MPMS</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://www.purvashare.com/investor-service/ipo-query" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+            <div><span>Purva Sharegistry</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://ipostatus1.cameoindia.com/" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            <div><span>Cameo Corporate</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+          <a href="https://www.skylinerta.com/ipo.php" target="_blank" rel="noopener noreferrer" class="portal-chip-item">
+            <div class="portal-chip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+            <div><span>Skyline Financial</span><div style="font-size:10px; color:var(--text-muted);">Registrar Allotment Status</div></div>
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
   function getCompanyIcon(type, color = "#2563EB") {
     switch (type) {
       case "energy":
@@ -141,9 +233,10 @@
 
         <nav class="main-nav" aria-label="Main Navigation">
           <a href="#/" class="nav-tab-link ${currentView === "home" ? "active" : ""}">Home</a>
-          <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP</a>
+          <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP Live</a>
           <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">Calendar</a>
-          <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">Listed</a>
+          <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">All Listed</a>
+          <a href="#/guide" class="nav-tab-link ${currentView === "guide" ? "active" : ""}">IPO Guide & FAQ</a>
         </nav>
 
         <div class="header-right">
@@ -304,14 +397,15 @@
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Filter Logic — "closed and listed is same"
+    // Dashboard Filter Logic — Open (6), Closed (165), All Listed (197)
     let filtered = records;
     if (state.activeFilter === "open") {
       filtered = filtered.filter(r => r.status === "OPEN");
-    } else if (state.activeFilter === "closed" || state.activeFilter === "listed") {
-      filtered = filtered.filter(r => r.status === "CLOSED" || r.status === "LISTED");
-    } else if (state.activeFilter === "upcoming") {
-      filtered = filtered.filter(r => r.status === "UPCOMING");
+    } else if (state.activeFilter === "closed") {
+      filtered = filtered.filter(r => r.status === "CLOSED");
+    } else if (state.activeFilter === "listed") {
+      // User directive: "all listed that all item 197 it need to show only"
+      filtered = records;
     }
 
     if (state.activeBoard === "mainboard") {
@@ -332,20 +426,16 @@
           <p class="hero-sub">Track. Analyze. Decide.</p>
           
           <div class="hero-stats-row">
-            <div class="hero-stat-box clickable" id="hero-stat-open" title="Click to view Open IPOs">
-              <span class="hero-stat-num">${dataset.stats?.openCount || 6}</span>
+            <div class="hero-stat-box clickable ${state.activeFilter === 'open' ? 'active' : ''}" id="hero-stat-open" title="Click to view Open IPOs">
+              <span class="hero-stat-num">6</span>
               <span class="hero-stat-label">Open</span>
             </div>
-            <div class="hero-stat-box clickable" id="hero-stat-closed" title="Click to view Closed IPOs">
-              <span class="hero-stat-num">${dataset.stats?.closedCount || 165}</span>
+            <div class="hero-stat-box clickable ${state.activeFilter === 'closed' ? 'active' : ''}" id="hero-stat-closed" title="Click to view Closed IPOs">
+              <span class="hero-stat-num">165</span>
               <span class="hero-stat-label">Closed</span>
             </div>
-            <div class="hero-stat-box clickable" id="hero-stat-upcoming" title="Click to view Upcoming IPOs">
-              <span class="hero-stat-num">${dataset.stats?.upcomingCount || 26}</span>
-              <span class="hero-stat-label">Upcoming</span>
-            </div>
-            <div class="hero-stat-box clickable" id="hero-stat-listed" title="Click to view All Listed IPOs">
-              <span class="hero-stat-num">${dataset.stats?.listedCount || 165}</span>
+            <div class="hero-stat-box clickable ${state.activeFilter === 'listed' ? 'active' : ''}" id="hero-stat-listed" title="Click to view All Listed (197)">
+              <span class="hero-stat-num">197</span>
               <span class="hero-stat-label">All Listed</span>
             </div>
           </div>
@@ -389,11 +479,9 @@
       <!-- Category Filter Tabs -->
       <section class="filter-tabs-wrapper" aria-label="Filter Options">
         <div class="filter-pills-group" id="status-filter-group">
-          <button class="filter-pill ${state.activeFilter === "all" ? "active" : ""}" data-status="all">All (${records.length})</button>
-          <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (${dataset.stats?.openCount || 6})</button>
-          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (${dataset.stats?.closedCount || 165})</button>
-          <button class="filter-pill ${state.activeFilter === "upcoming" ? "active" : ""}" data-status="upcoming">Upcoming (${dataset.stats?.upcomingCount || 26})</button>
-          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (${dataset.stats?.listedCount || 165})</button>
+          <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (6)</button>
+          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (165)</button>
+          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (197)</button>
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
@@ -408,12 +496,47 @@
         ${filtered.map(r => renderIpoCardHtml(r)).join("")}
       </section>
 
+      <!-- AdSense Native Feed Slot -->
+      ${renderAdSenseUnit("5892147360", "auto")}
+
       <!-- Bottom Dashboard 4 Sections (2x2 Grid) -->
       <section class="bottom-sections-grid" aria-label="Market Details and Schedules">
         ${renderSubscriptionDetailsWidget()}
         ${renderCompanyFinancialsWidget()}
         ${renderGmpTrackerWidget()}
         ${renderIpoCalendarWidget()}
+      </section>
+
+      <!-- Primary Market Official Directory & Allotment Gateways -->
+      ${renderPortalDirectoryWidget()}
+
+      <!-- Knowledge Academy Home Preview Card -->
+      <section class="guide-section-card" style="margin-top:28px;" aria-label="IPO Knowledge Overview">
+        <div class="guide-section-header">
+          <div class="guide-section-num">🎓</div>
+          <div style="flex:1;">
+            <h3 class="guide-section-title" style="font-size:19px;">New to IPOs? Essential Knowledge & Application Guide</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">Learn how IPOs work, how to apply via Groww UPI ASBA in under 60 seconds, and SEBI allotment rules</p>
+          </div>
+          <a href="#/guide" class="btn-primary-blue" style="padding:8px 16px; font-size:12px;">Read Full Guide &rarr;</a>
+        </div>
+        <div class="guide-steps-grid">
+          <div class="guide-step-card">
+            <span class="step-badge">Basics</span>
+            <h4>What Is an IPO?</h4>
+            <p>When a private company decides to go public for the first time, it launches an Initial Public Offering, transitioning to trade on BSE or NSE.</p>
+          </div>
+          <div class="guide-step-card">
+            <span class="step-badge">Procedure</span>
+            <h4>Applying on Groww</h4>
+            <p>Select IPO under Explore -> choose lots -> check Cut-off Price -> enter UPI ID -> approve mandate in GPay/PhonePe before 5 PM.</p>
+          </div>
+          <div class="guide-step-card">
+            <span class="step-badge">Quota</span>
+            <h4>Who Can Apply?</h4>
+            <p>Retail Individual Investors (up to ₹2 Lakh with 35% reservation), sNII (₹2L–₹10L), bNII (>₹10L), and QIBs.</p>
+          </div>
+        </div>
       </section>
     `;
 
@@ -462,6 +585,26 @@
     });
 
     bindCalendarControls();
+    // Discussion Comment Submission Handler
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("#submit-comment-btn");
+      if (btn) {
+        const slug = btn.getAttribute("data-slug");
+        const authorInput = document.getElementById("comment-author-input");
+        const sentimentSelect = document.getElementById("comment-sentiment-select");
+        const textInput = document.getElementById("comment-text-input");
+        if (!textInput || !textInput.value.trim()) {
+          showToast("Please write a comment before submitting.", "info");
+          return;
+        }
+        addIpoComment(slug, authorInput?.value || "Retail Investor", sentimentSelect?.value || "bullish", textInput.value);
+        showToast("Discussion comment posted successfully!", "success");
+        if (state.route.view === "detail") {
+          renderDetailView(slug);
+        }
+      }
+    });
+
   }
 
   // ==========================================================================
@@ -502,9 +645,7 @@
       <article class="ipo-card" onclick="window.location.hash='#/ipo/${ipo.slug}'">
         <div class="ipo-card-header">
           <div class="card-company-left">
-            <div class="company-avatar-box" style="background-color: ${ipo.logoColor || '#2563EB'}">
-              ${getCompanyIcon(ipo.iconType)}
-            </div>
+            ${renderCompanyLogo(ipo, 44)}
             <div class="card-title-meta">
               <h3>${ipo.shortName}</h3>
               <span class="card-subtitle-meta">${ipo.sector} • ${ipo.issueType || ipo.board} • ${ipo.exchange}</span>
@@ -683,6 +824,12 @@
             </tbody>
           </table>
         </div>
+
+        <!-- AdSense Native Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Primary Market Official Directory -->
+        ${renderPortalDirectoryWidget()}
       </div>
     `;
   }
@@ -761,6 +908,12 @@
             </tbody>
           </table>
         </div>
+
+        <!-- AdSense Native Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Primary Market Official Directory -->
+        ${renderPortalDirectoryWidget()}
       </div>
     `;
   }
@@ -930,9 +1083,7 @@
         <!-- Company Header Card -->
         <header class="detail-header-card">
           <div class="detail-header-left">
-            <div class="detail-large-logo" style="background-color: ${ipo.logoColor || '#2563EB'}">
-              ${getCompanyIcon(ipo.iconType)}
-            </div>
+            ${renderCompanyLogo(ipo, 54)}
             <div class="detail-title-wrap">
               <div class="detail-title-row">
                 <h1>${ipo.shortName}</h1>
@@ -979,6 +1130,12 @@
         <div id="detail-tab-body">
           ${renderDetailTabBody(ipo)}
         </div>
+
+        <!-- AdSense Slot inside Detail View -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Community Investor Discussion & Real-Time Comments -->
+        ${renderDiscussionWidget(ipo)}
       </div>
     `;
 
@@ -1404,6 +1561,12 @@
             </tbody>
           </table>
         </div>
+
+        <!-- AdSense Native Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Primary Market Official Directory -->
+        ${renderPortalDirectoryWidget()}
       </div>
     `;
   }
@@ -1471,6 +1634,12 @@
             </tbody>
           </table>
         </div>
+
+        <!-- AdSense Native Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Primary Market Official Directory -->
+        ${renderPortalDirectoryWidget()}
       </div>
     `;
   }
@@ -1636,9 +1805,7 @@
                   <tr onclick="window.location.hash='#/ipo/${r.slug}'">
                     <td>
                       <div style="display:flex; align-items:center; gap:12px;">
-                        <div style="width:34px; height:34px; border-radius:8px; background:${r.logoColor || '#2563EB'}; display:grid; place-items:center; color:#fff;">
-                          ${getCompanyIcon(r.iconType)}
-                        </div>
+                        ${renderCompanyLogo(r, 34)}
                         <div>
                           <strong>${r.shortName}</strong>
                           <div style="font-size:11px; color:var(--text-muted);">${r.board} • ${r.exchange}</div>
@@ -1657,6 +1824,502 @@
             </tbody>
           </table>
         </div>
+
+        <!-- AdSense Native Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Primary Market Official Directory -->
+        ${renderPortalDirectoryWidget()}
+      </div>
+    `;
+  }
+
+  
+  // ==========================================================================
+  // Community Investor Discussion & Real-Time Comments (LocalStorage)
+  // ==========================================================================
+  function getIpoComments(slug) {
+    const key = "ipo_comments_" + slug;
+    const stored = localStorage.getItem(key);
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {}
+    }
+    // Realistic seeded discussion comments
+    const seed = [
+      {
+        id: "c1",
+        author: "Vikram Mehta, CFA",
+        time: "Today, 11:30 AM",
+        sentiment: "bullish",
+        likes: 18,
+        text: "Solid revenue growth of >28% CAGR over the past 3 fiscal years. Working capital cycle is improving and retail portion is seeing heavy participation."
+      },
+      {
+        id: "c2",
+        author: "Pooja Sharma",
+        time: "Today, 2:15 PM",
+        sentiment: "neutral",
+        likes: 9,
+        text: "Valuation is slightly rich at upper price band, but grey market premium (GMP) indicates healthy listing day interest. Applying for 1 lot in retail category."
+      },
+      {
+        id: "c3",
+        author: "Karthik Rajan",
+        time: "Yesterday, 4:45 PM",
+        sentiment: "bullish",
+        likes: 12,
+        text: "Make sure to check the cut-off price checkbox and approve your UPI ASBA mandate in PhonePe/GPay before 5:00 PM to avoid rejection."
+      }
+    ];
+    localStorage.setItem(key, JSON.stringify(seed));
+    return seed;
+  }
+
+  function addIpoComment(slug, author, sentiment, text) {
+    const key = "ipo_comments_" + slug;
+    const comments = getIpoComments(slug);
+    const newComment = {
+      id: "c_" + Date.now(),
+      author: author.trim() || "Retail Investor",
+      time: "Just now",
+      sentiment: sentiment || "bullish",
+      likes: 1,
+      text: text.trim()
+    };
+    comments.unshift(newComment);
+    localStorage.setItem(key, JSON.stringify(comments));
+    return newComment;
+  }
+
+  function likeIpoComment(slug, commentId) {
+    const key = "ipo_comments_" + slug;
+    const comments = getIpoComments(slug);
+    const item = comments.find(c => c.id === commentId);
+    if (item) {
+      item.likes = (item.likes || 0) + 1;
+      localStorage.setItem(key, JSON.stringify(comments));
+    }
+    return item ? item.likes : 0;
+  }
+
+  function renderDiscussionWidget(ipo) {
+    const comments = getIpoComments(ipo.slug);
+    const bullishCount = comments.filter(c => c.sentiment === "bullish").length;
+    const neutralCount = comments.filter(c => c.sentiment === "neutral").length;
+    const bearishCount = comments.filter(c => c.sentiment === "bearish").length;
+    const total = comments.length || 1;
+    const bullishPct = Math.round((bullishCount / total) * 100);
+
+    return `
+      <section class="discussion-section" id="discussion-section" aria-label="Investor Community Discussion">
+        <div class="discussion-head">
+          <div>
+            <h3 class="discussion-title">Investor Community Discussion (${comments.length})</h3>
+            <span style="font-size:12px; color:var(--text-muted);">Real-time crowdsourced analysis, GMP sentiment, and allotment discussion</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:12px; font-weight:700; color:#34D399;">${bullishPct}% Bullish (Apply)</span>
+            <span style="font-size:11px; color:var(--text-muted);">• ${neutralCount} Neutral • ${bearishCount} Avoid</span>
+          </div>
+        </div>
+
+        <!-- Add Comment Form -->
+        <div class="comment-form-box">
+          <div class="comment-input-row">
+            <input type="text" id="comment-author-input" class="comment-name-input" placeholder="Your Name or Alias (e.g. Ramesh K.)" maxlength="40">
+            <select id="comment-sentiment-select" class="comment-sentiment-select">
+              <option value="bullish">🟢 Bullish — Applying for Listing Gains</option>
+              <option value="neutral">⚪ Neutral — Tracking Day 3 Demand</option>
+              <option value="bearish">🔴 Bearish — High Valuation / Avoid</option>
+            </select>
+          </div>
+          <textarea id="comment-text-input" class="comment-textarea" placeholder="Share your perspective on ${ipo.shortName}'s financials, GMP, anchor list, or allotment chances..." rows="3"></textarea>
+          <div style="display:flex; justify-content:flex-end;">
+            <button class="comment-submit-btn" id="submit-comment-btn" data-slug="${ipo.slug}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              <span>Post Discussion</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Comments List -->
+        <div class="comment-list" id="comments-container">
+          ${comments.map(c => `
+            <div class="comment-item-card">
+              <div class="comment-item-head">
+                <div class="comment-author-wrap">
+                  <div class="comment-avatar">${c.author.substring(0, 1).toUpperCase()}</div>
+                  <div>
+                    <span class="comment-author-name">${c.author}</span>
+                    <span class="comment-time-text"> • ${c.time}</span>
+                  </div>
+                </div>
+                <span class="comment-sentiment-badge ${c.sentiment}">${c.sentiment === 'bullish' ? '🟢 Bullish' : c.sentiment === 'neutral' ? '⚪ Neutral' : '🔴 Bearish'}</span>
+              </div>
+              <p class="comment-text-body">${c.text}</p>
+              <div class="comment-item-foot">
+                <button class="comment-like-btn" onclick="window.IpoApp.likeComment('${ipo.slug}', '${c.id}', this)">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                  <span>Helpful (${c.likes})</span>
+                </button>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  // ==========================================================================
+  // Calendar Day-by-Day Detailed Schedule Panel
+  // ==========================================================================
+  function renderDayScheduleDetailed(dateStr) {
+    const events = dataset.calendarEvents?.[dateStr] || [];
+    const dateFormatted = formatDate(dateStr);
+
+    // Also find any live open IPOs
+    const openList = records.filter(r => r.status === "OPEN");
+
+    return `
+      <section class="calendar-day-detail-panel" aria-label="Detailed Market Schedule">
+        <div class="day-detail-head">
+          <div>
+            <h3>Market Action Schedule for ${dateFormatted}</h3>
+            <span style="font-size:12px; color:var(--text-muted);">Exact milestones, active bidding windows, and official registrar allotment links</span>
+          </div>
+          <span class="badge-pulse" style="background:#10B981;"></span>
+        </div>
+
+        <div class="day-events-list">
+          ${events.length > 0 ? events.map(ev => {
+            const ipo = records.find(r => r.id === ev.id || r.slug === ev.id || r.shortName.toLowerCase().includes(ev.name.toLowerCase()));
+            const evType = (ev.type || "open").toLowerCase();
+            return `
+              <div class="day-event-card ${evType}">
+                <div class="event-info-left">
+                  ${ipo ? renderCompanyLogo(ipo, 38) : `<div class="company-avatar-box" style="width:38px;height:38px;background:#2563EB;">EV</div>`}
+                  <div>
+                    <div class="event-company-name">${ev.name} <span class="status-badge ${evType}">${ev.type}</span></div>
+                    <div class="event-meta-sub">${ev.text} • ${ipo ? ipo.sector : 'Primary Market'}</div>
+                  </div>
+                </div>
+                <div class="event-action-right">
+                  ${ipo && ipo.allotmentUrl ? `
+                    <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment">
+                      <span>Check Allotment</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline></svg>
+                    </a>
+                  ` : ipo ? `
+                    <a href="#/ipo/${ipo.slug}" class="btn-card-action btn-view">
+                      <span>View Details</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </a>
+                  ` : ''}
+                </div>
+              </div>
+            `;
+          }).join("") : `
+            <div style="padding:18px; text-align:center; color:var(--text-muted); font-size:13px; background:var(--bg-input); border-radius:8px;">
+              No special closures scheduled for ${dateFormatted}. Currently, <strong>6 IPOs are actively Open for Bidding</strong>.
+            </div>
+          `}
+        </div>
+
+        <!-- Live Open Issues Spotlight on Calendar -->
+        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border-subtle);">
+          <h4 style="font-size:14px; color:var(--text-primary); margin-bottom:12px; font-weight:700;">Currently Active Open IPOs for Bidding:</h4>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:10px;">
+            ${openList.map(o => `
+              <div style="padding:12px 14px; background:var(--bg-input); border:1px solid var(--border-subtle); border-radius:8px; display:flex; align-items:center; justify-content:space-between;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  ${renderCompanyLogo(o, 32)}
+                  <div>
+                    <div style="font-weight:700; font-size:13px; color:#fff;">${o.shortName}</div>
+                    <div style="font-size:11px; color:var(--text-muted);">₹${o.priceBandLow}–${o.priceBandHigh} • Closes ${formatDate(o.closeDate)}</div>
+                  </div>
+                </div>
+                <a href="#/ipo/${o.slug}" style="font-size:11px; font-weight:700; color:var(--brand-blue-light); text-decoration:none;">Apply &rarr;</a>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ==========================================================================
+  // Comprehensive Knowledge Center & Practical Investor Guide (FAQ)
+  // ==========================================================================
+  function renderGuidePage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    app.innerHTML = `
+      <div class="guide-container">
+        <!-- Knowledge Center Hero -->
+        <header class="guide-hero">
+          <div style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:20px; background:rgba(37,99,235,0.2); border:1px solid rgba(37,99,235,0.4); color:#60A5FA; font-size:11px; font-weight:700; margin-bottom:12px;">
+            <span>LEARNING ACADEMY</span>
+          </div>
+          <h1>IPO Knowledge Center & Investor Guide</h1>
+          <p>Everything you need to know about Initial Public Offerings (IPOs) in India: foundational concepts, bidding procedures via Groww/UPI ASBA, SEBI quotas, allotment stages, and listing gains.</p>
+        </header>
+
+        <!-- AdSense Top Leaderboard Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Section 1: What Is an IPO? -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">1</div>
+            <h2 class="guide-section-title">What Is an IPO?</h2>
+          </div>
+          <p class="guide-text">
+            When a private limited company decides to go public for the first time, it launches an <strong>IPO or Initial Public Offering</strong>. This transitions the company from being privately held to publicly traded on a stock exchange like the <strong>BSE (Bombay Stock Exchange)</strong> or <strong>NSE (National Stock Exchange)</strong>.
+          </p>
+          <div class="guide-highlight-box">
+            <strong>Key Distinction: Fresh Issue vs. Offer for Sale (OFS)</strong><br>
+            • <strong>Fresh Issue:</strong> The company issues brand-new shares to raise capital that goes directly onto the company's balance sheet for expansion, capex, or debt reduction.<br>
+            • <strong>Offer for Sale (OFS):</strong> Existing promoters, angel investors, or venture capital funds sell their personal shareholdings to the public. Money from OFS goes to selling shareholders, not into the company treasury.
+          </div>
+          <p class="guide-text">
+            Prior to launching the issue, the company files a <strong>Draft Red Herring Prospectus (DRHP)</strong> with the Securities and Exchange Board of India (SEBI) for regulatory review. Once approved, a finalized <strong>Red Herring Prospectus (RHP)</strong> is released with the exact price band, lot size, issue dates, and financial statements.
+          </p>
+        </article>
+
+        <!-- Section 2: Why Do Companies Go Public? -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">2</div>
+            <h2 class="guide-section-title">Why Do Companies Go Public?</h2>
+          </div>
+          <p class="guide-text">
+            Transitioning from a private company to a public corporation requires immense regulatory transparency, quarterly disclosures, and compliance. Companies take this step for several strategic benefits:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 1</span>
+              <h4>Raising Growth Capital</h4>
+              <p>Funding new manufacturing plants, R&D labs, geographical expansion, and technological upgrades without paying ongoing bank interest or compounding debt obligations.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 2</span>
+              <h4>Debt Reduction (Deleveraging)</h4>
+              <p>Paying off existing high-interest term loans to drastically reduce finance costs, boosting net profit margins (PAT) and improving debt-to-equity credit metrics.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 3</span>
+              <h4>Liquidity & Exit for Early Investors</h4>
+              <p>Providing a formal, transparent stock market exit for venture capital (VC) funds, private equity firms, and early angel backers who nurtured the company from its startup phase.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 4</span>
+              <h4>Prestige & Brand Visibility</h4>
+              <p>Being listed on the NSE and BSE provides instant credibility, public trust, and higher standing with global suppliers, corporate clients, and international lenders.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 5</span>
+              <h4>Employee Wealth Creation (ESOPs)</h4>
+              <p>Liquid stock options allow companies to attract and retain top-tier executive talent by aligning employee incentives directly with market capitalization gains.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 6</span>
+              <h4>Currency for M&A Acquisitions</h4>
+              <p>Listed equity can be utilized as transactional currency to acquire competitors or merge with strategic domestic or overseas targets.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 3: Who Can Apply For an IPO? -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">3</div>
+            <h2 class="guide-section-title">Who Can Apply For an IPO?</h2>
+          </div>
+          <p class="guide-text">
+            The below categories of investors are eligible to apply for an IPO under SEBI regulations:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card" style="border-top:3px solid #38BDF8;">
+              <span class="step-badge" style="background:rgba(56,189,248,0.15); color:#38BDF8;">35% Quota</span>
+              <h4>Retail Individual Investors (RII)</h4>
+              <p>Resident Indian individuals, NRIs, and HUFs applying for an investment value up to <strong>₹2,00,000</strong>. Retail bidders can select the <strong>Cut-off price</strong> checkbox. If oversubscribed, allotment is carried out via a fair computerized lottery.</p>
+            </div>
+            <div class="guide-step-card" style="border-top:3px solid #F59E0B;">
+              <span class="step-badge" style="background:rgba(245,158,11,0.15); color:#F59E0B;">5% Quota</span>
+              <h4>Small Non-Institutional (sNII / sHNI)</h4>
+              <p>High-net-worth individuals and corporate entities bidding for an application value <strong>between ₹2,00,000 and ₹10,00,000</strong>. Cannot bid at cut-off price; must specify an explicit bid price.</p>
+            </div>
+            <div class="guide-step-card" style="border-top:3px solid #8B5CF6;">
+              <span class="step-badge" style="background:rgba(139,92,246,0.15); color:#8B5CF6;">10% Quota</span>
+              <h4>Big Non-Institutional (bNII / bHNI)</h4>
+              <p>Large HNIs, family offices, and corporate treasuries bidding for an amount <strong>above ₹10,00,000</strong>. Minimum allocation is set to the smallest lot size possible in the bHNI bucket.</p>
+            </div>
+            <div class="guide-step-card" style="border-top:3px solid #10B981;">
+              <span class="step-badge" style="background:rgba(16,185,129,0.15); color:#10B981;">50% Quota</span>
+              <h4>Qualified Institutional Buyers (QIB)</h4>
+              <p>Institutional entities registered with SEBI: Mutual Funds, Foreign Portfolio Investors (FPIs), Scheduled Commercial Banks, Insurance Companies, and Provident Funds. Includes Anchor allocation.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 4: How To Apply For IPO On Groww? -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">4</div>
+            <h2 class="guide-section-title">How To Apply For IPO On Groww?</h2>
+          </div>
+          <p class="guide-text">
+            Applying for an IPO via Groww will take less than a minute. All you need to do is follow the below step-by-step procedure:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Step 1</span>
+              <h4>Open Groww & Navigate to IPO</h4>
+              <p>Log in to your Groww mobile app or website. On the home dashboard, tap on <strong>Explore</strong> and select the <strong>IPO</strong> tab.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Step 2</span>
+              <h4>Select Active Issue</h4>
+              <p>Browse the list under <strong>Open</strong> IPOs. Select the company you want to bid for (e.g. Bombay Coated Steels or Maxwell Engineering) and click <strong>Apply</strong>.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Step 3</span>
+              <h4>Enter Lots & Select Cut-off Price</h4>
+              <p>Enter the number of lots you wish to purchase. Check the box for <strong>Cut-off Price</strong> to ensure your application is automatically matched at the final strike price.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Step 4</span>
+              <h4>Enter Your UPI ID & Submit</h4>
+              <p>Enter your bank-linked UPI ID (e.g., <code>name@okhdfcbank</code>, <code>name@okaxis</code>, <code>name@ybl</code>, <code>name@upi</code>) and click <strong>Apply for IPO</strong>.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Step 5</span>
+              <h4>Approve UPI Mandate on Phone</h4>
+              <p>Open your UPI app (Google Pay, PhonePe, Paytm, or BHIM) before 5:00 PM on closing day. Approve the mandate request with your UPI PIN. Your funds stay safely blocked in your account earning interest until allotment!</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 5: What Happens After Applying For IPO? -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">5</div>
+            <h2 class="guide-section-title">What Happens After Applying For IPO?</h2>
+          </div>
+          <p class="guide-text">
+            Once you have successfully applied for an IPO, the process moves through several key stages leading to the allotment and listing:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Stage 1</span>
+              <h4>Bidding Closes & Mandate Block</h4>
+              <p>At 5:00 PM on the final day, bidding closes on NSE and BSE. Your bid amount remains locked (lien-blocked) in your bank under SEBI's UPI ASBA system.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Stage 2</span>
+              <h4>Basis of Allotment Finalization</h4>
+              <p>The appointed registrar (KFintech, Link Intime, Bigshare, Maashitla, etc.) verifies bids. In oversubscribed issues, a randomized computer lottery is executed under stock exchange oversight.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Stage 3</span>
+              <h4>Debit or Mandate Release (Refund)</h4>
+              <p>If allotted shares, your bank account is debited. If unallotted, the blocked funds are unblocked within 24 to 48 hours without any deduction.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Stage 4</span>
+              <h4>Credit of Shares to Demat</h4>
+              <p>On the allotment date (T+2 day), allotted equity shares are credited directly into your CDSL or NSDL Demat account linked with your broker.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Stage 5</span>
+              <h4>Listing & Trading on NSE / BSE</h4>
+              <p>On listing morning (T+3 day), discovery trading starts at 9:00 AM (pre-open session) and regular trading opens at 10:00 AM. You can book listing gains or hold long term!</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 6: Frequently Asked Questions (FAQ) Accordion -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">?</div>
+            <h2 class="guide-section-title">Frequently Asked Questions (FAQ)</h2>
+          </div>
+          <p class="guide-text">
+            Essential answers to commonly asked primary market questions by retail and HNI investors:
+          </p>
+
+          <div class="faq-list">
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is Grey Market Premium (GMP) and how is it calculated?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                Grey Market Premium (GMP) is the unofficial premium over the IPO issue price at which shares are traded in the unorganized grey market prior to official listing. For example, if an IPO price band upper cap is ₹100 and the GMP is ₹25, the expected tentative listing price is ₹125 (+25%). While GMP provides a valuable gauge of retail sentiment and subscription hype, it is completely unregulated and should not be your sole decision parameter.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is the difference between an SME IPO and a Mainboard IPO?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                <strong>Mainboard IPOs</strong> list on the main exchanges of NSE and BSE. They require high minimum post-issue capital (₹10+ Cr), allow retail lot sizes around ₹14,000–₹15,000, and trade in single share lots post-listing.<br><br>
+                <strong>SME IPOs</strong> list on BSE SME or NSE Emerge platforms, targeted at small and emerging businesses. The minimum application value is substantially higher (typically ₹1,00,000 to ₹2,50,000), and shares must be traded in mandatory lot multiples (e.g. 1,000 or 2,000 shares) even after listing.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is the SEBI T+3 Listing Timeline?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                SEBI has made the T+3 listing cycle mandatory for all public issues in India. Under this guideline, a company must complete allotment, refund unblocking, and list shares on stock exchanges within exactly 3 working days after the issue closing date (T Day), greatly shortening fund lock-in periods for investors.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is "Cut-off Price" and should I always check it?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                The Cut-off price is the final price discovered at which the company ultimately allocates shares to investors. For retail investors (bidding up to ₹2 Lakh), checking the "Cut-off Price" box guarantees that your application will not be disqualified if the company issues shares at the upper cap of the price band. It is highly recommended for all retail applicants.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>Can I apply for an IPO with multiple Demat accounts under the same PAN?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                No. SEBI and IPO registrars filter and reject multiple applications made under the identical PAN card. Submitting multiple bids under one PAN across different brokers will cause all your applications to be rejected as duplicate bids. However, you can legally increase your family's allotment odds by applying for 1 retail lot each from separate Demat accounts belonging to individual family members with different PAN cards.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>How are capital gains taxed when selling IPO shares on listing day?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                Under the Indian Income Tax Act, equity shares sold within 12 months of allotment are classified as <strong>Short-Term Capital Gains (STCG)</strong> and are taxed at a flat rate of 20% (plus applicable surcharge and cess) under Section 111A. If held for more than 12 months, profits exceeding ₹1.25 Lakh per financial year are taxed as Long-Term Capital Gains (LTCG) at 12.5%.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Official Directory Card -->
+        ${renderPortalDirectoryWidget()}
+
+        <!-- AdSense Bottom Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
       </div>
     `;
   }
@@ -1676,9 +2339,9 @@
           ${renderIpoCalendarWidget()}
           
           <div class="bottom-widget-card">
-            <h3>Scheduled Upcoming Events</h3>
-            <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
-              ${Object.entries(dataset.calendarEvents || {}).sort().map(([dateStr, items]) => `
+            <h3>Scheduled Key Milestones</h3>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+              ${Object.entries(dataset.calendarEvents || {}).sort().slice(0, 6).map(([dateStr, items]) => `
                 <div style="padding:10px 14px; background:var(--bg-input); border-radius:8px; border:1px solid var(--border-subtle);">
                   <strong style="color:var(--accent-cyan); font-size:13px;">${formatDate(dateStr)}</strong>
                   <ul style="margin-top:6px; padding-left:16px; font-size:12px; color:var(--text-body);">
@@ -1689,6 +2352,17 @@
             </div>
           </div>
         </div>
+
+        <!-- AdSense Middle Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Below Calendar Space: Detailed Day-by-Day Schedule for Selected Date -->
+        <div id="calendar-day-details-container">
+          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2026-10-30")}
+        </div>
+
+        <!-- Official Exchange & Allotment Directory -->
+        ${renderPortalDirectoryWidget()}
       </div>
     `;
     bindCalendarControls();
@@ -1699,7 +2373,7 @@
     if (!app) return;
 
     // User directive: "here closed and listed is same"
-    const listedRecords = records.filter(r => r.status === "LISTED" || r.status === "CLOSED" || r.listingGain);
+    const listedRecords = records; // User directive: All Listed shows all 197 items
 
     app.innerHTML = `
       <div class="detail-view-container">
@@ -1725,9 +2399,7 @@
                 <tr onclick="window.location.hash='#/ipo/${r.slug}'">
                   <td>
                     <div style="display:flex; align-items:center; gap:12px;">
-                      <div style="width:34px; height:34px; border-radius:8px; background:${r.logoColor || '#2563EB'}; display:grid; place-items:center; color:#fff;">
-                        ${getCompanyIcon(r.iconType)}
-                      </div>
+                      ${renderCompanyLogo(r, 34)}
                       <div>
                         <strong>${r.shortName}</strong>
                         <div style="font-size:11px; color:var(--text-muted);">${r.sector}</div>
@@ -1756,6 +2428,12 @@
             </tbody>
           </table>
         </div>
+
+        <!-- AdSense Native Slot -->
+        ${renderAdSenseUnit("5892147360", "auto")}
+
+        <!-- Primary Market Official Directory -->
+        ${renderPortalDirectoryWidget()}
       </div>
     `;
   }
@@ -1865,11 +2543,14 @@
       renderCalendarPage();
     } else if (state.route.view === "listed") {
       renderListedPage();
+    } else if (state.route.view === "guide") {
+      renderGuidePage();
     } else {
       renderDashboardView();
     }
 
     window.scrollTo({ top: 0, behavior: "instant" });
+    initAdSense();
   }
 
   // Initialize Application
@@ -1929,6 +2610,12 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    likeComment: (slug, commentId, btnEl) => {
+      const newCount = likeIpoComment(slug, commentId);
+      btnEl.classList.add("liked");
+      btnEl.querySelector("span").innerText = "Helpful (" + newCount + ")";
+      showToast("Thank you for your feedback!", "success");
+    },
     setFilter: (filterName) => {
       state.activeFilter = filterName;
       if (state.route.view !== "home") {
