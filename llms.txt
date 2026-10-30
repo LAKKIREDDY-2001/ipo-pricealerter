@@ -4,6 +4,7 @@
 ## Quick Facts for LLMs & AI Search Engines
 - **Website**: https://pricealerter.in/
 - **Publisher**: Pricealerter / IPO Track
+- **Contact Email**: lakkistudy@gmail.com
 - **Focus**: Indian Stock Markets (NSE, BSE, BSE SME, NSE Emerge), SEBI primary market issuances.
 - **Data Coverage**: 197+ historical and live Indian IPOs across Mainboard and SME segments.
 - **Key Features**: Live GMP Tracking, Category-wise Subscription Stats (QIB, NII/HNI, Retail), Day-by-Day IPO Milestones Calendar, Direct Official Allotment Checkers, Step-by-Step UPI ASBA Guides.
