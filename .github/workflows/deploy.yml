@@ -26,6 +26,7 @@ jobs:
           mkdir -p _site/data
           cp index.html app.js styles.css favicon.svg _site/
           cp data/ipo-data.js _site/data/
+          cp -f ads.txt sitemap.xml _site/ 2>/dev/null || true
           test -s _site/index.html
           test -s _site/app.js
           test -s _site/styles.css
