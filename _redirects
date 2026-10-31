@@ -1,4 +1,6 @@
 # 301 Permanent Redirects for Legacy Indexed Pages
+/privacy-policy.html https://pricealerter.in/privacy.html 301
+/privacy-policy https://pricealerter.in/privacy.html 301
 /signup.html https://pricealerter.in/ 301
 /signup https://pricealerter.in/ 301
 /blog/* https://pricealerter.in/ 301
