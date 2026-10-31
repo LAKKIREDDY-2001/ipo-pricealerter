@@ -1,7 +1,7 @@
 /* ==========================================================================
    IPO Track — Live Primary Market Dataset
    Sources: Chittorgarh (chittorgarh.com), NSE (nseindia.com), BSE (bseindia.com), Groww, IPO Watch, IPO Gyani
-   Updated: 31 October 2026 (Verified Market Close & Live GMP Feeds)
+   Updated: 31 October 2026 (Verified Market Close & Chronological Calendar Datasets)
    ========================================================================== */
 
 window.IpoData = {
@@ -840,9 +840,9 @@ window.IpoData = {
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
       "openDate": "2026-10-25",
       "closeDate": "2026-10-29",
-      "allotDate": "2026-10-30",
-      "refundDate": "2026-10-31",
-      "dematDate": "2026-11-03",
+      "allotDate": "2026-10-31",
+      "refundDate": "2026-11-01",
+      "dematDate": "2026-11-01",
       "listingDate": "2026-11-04",
       "gmp": 15,
       "gmpPercentage": 3.24,
@@ -963,8 +963,8 @@ window.IpoData = {
       "lotSize": 3200,
       "issueSizeCr": 28.29,
       "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "allotDate": "2026-11-02",
+      "listingDate": "2026-11-04",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
       "growwUrl": "https://groww.in/ipo/carver-roboweld-ipo",
@@ -981,7 +981,10 @@ window.IpoData = {
       ],
       "priceBandLow": 76,
       "priceBandHigh": 80,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CarverRoboweldLtd_22924101_97556.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CarverRoboweldLtd_22924101_97556.png",
+      "openDate": "2026-10-28",
+      "refundDate": "2026-11-03",
+      "dematDate": "2026-11-03"
     },
     {
       "id": "mksons-fine-jewels",
@@ -998,9 +1001,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 91,
       "issueSizeCr": 330.48,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-31",
+      "allotDate": "2026-11-02",
+      "listingDate": "2026-11-04",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/mksons-fine-jewels-ipo",
@@ -1017,7 +1020,10 @@ window.IpoData = {
       ],
       "priceBandLow": 153,
       "priceBandHigh": 162,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/M.K.SonsFineJewelsLtd_50741840_96958.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/M.K.SonsFineJewelsLtd_50741840_96958.png",
+      "openDate": "2026-10-28",
+      "refundDate": "2026-11-03",
+      "dematDate": "2026-11-03"
     },
     {
       "id": "ajwa-projects",
@@ -1034,9 +1040,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 49.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-28",
+      "allotDate": "2026-10-29",
+      "listingDate": "2026-10-31",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ajwa-projects-ipo",
@@ -1053,7 +1059,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AJWAPROJECTSLIMITED_92182746_96155.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AJWAPROJECTSLIMITED_92182746_96155.png",
+      "openDate": "2026-10-24",
+      "refundDate": "2026-10-30",
+      "dematDate": "2026-10-30"
     },
     {
       "id": "bls-polymers",
@@ -1070,9 +1079,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 100,
       "issueSizeCr": 500,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-25",
+      "allotDate": "2026-10-28",
+      "listingDate": "2026-10-30",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/bls-polymers-ipo",
@@ -1089,7 +1098,10 @@ window.IpoData = {
       ],
       "priceBandLow": 142,
       "priceBandHigh": 150,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLSPolymersLtd_48567338_81259.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLSPolymersLtd_48567338_81259.png",
+      "openDate": "2026-10-22",
+      "refundDate": "2026-10-29",
+      "dematDate": "2026-10-29"
     },
     {
       "id": "sfc-environmental-technologies",
@@ -1106,9 +1118,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 830,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-24",
+      "allotDate": "2026-10-25",
+      "listingDate": "2026-10-29",
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/sfc-environmental-technologies-ipo",
@@ -1125,7 +1137,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SFCEnvironmentalTechnologiesLtd_33455088_35975.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SFCEnvironmentalTechnologiesLtd_33455088_35975.png",
+      "openDate": "2026-10-21",
+      "refundDate": "2026-10-28",
+      "dematDate": "2026-10-28"
     },
     {
       "id": "wiscon-industries",
@@ -1142,9 +1157,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 86,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-23",
+      "allotDate": "2026-10-24",
+      "listingDate": "2026-10-28",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/wiscon-industries-ipo",
@@ -1161,7 +1176,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/WisconIndustriesLtd_59042802_97300.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/WisconIndustriesLtd_59042802_97300.png",
+      "openDate": "2026-10-18",
+      "refundDate": "2026-10-25",
+      "dematDate": "2026-10-25"
     },
     {
       "id": "eaaa-india-alternatives",
@@ -1178,9 +1196,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 780,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-22",
+      "allotDate": "2026-10-23",
+      "listingDate": "2026-10-25",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/eaaa-india-alternatives-ipo",
@@ -1197,7 +1215,10 @@ window.IpoData = {
       ],
       "priceBandLow": 280,
       "priceBandHigh": 295,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EAAAIndiaAlternativesLtd_98405475_65115.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EAAAIndiaAlternativesLtd_98405475_65115.png",
+      "openDate": "2026-10-17",
+      "refundDate": "2026-10-24",
+      "dematDate": "2026-10-24"
     },
     {
       "id": "core4-engineers",
@@ -1214,9 +1235,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 32.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-21",
+      "allotDate": "2026-10-22",
+      "listingDate": "2026-10-24",
       "registrar": "Purva Sharegistry (India) Pvt Ltd",
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/core4-engineers-ipo",
@@ -1233,7 +1254,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Core4EngineerLtd_55115367_96746.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Core4EngineerLtd_55115367_96746.png",
+      "openDate": "2026-10-16",
+      "refundDate": "2026-10-23",
+      "dematDate": "2026-10-23"
     },
     {
       "id": "paras-healthcare",
@@ -1250,9 +1274,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 21,
       "issueSizeCr": 1200,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-18",
+      "allotDate": "2026-10-21",
+      "listingDate": "2026-10-23",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/paras-healthcare-ipo",
@@ -1269,7 +1293,10 @@ window.IpoData = {
       ],
       "priceBandLow": 680,
       "priceBandHigh": 693,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParasHealthcareLtd_26578614_38024.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParasHealthcareLtd_26578614_38024.png",
+      "openDate": "2026-10-15",
+      "refundDate": "2026-10-22",
+      "dematDate": "2026-10-22"
     },
     {
       "id": "reliance-jio",
@@ -1286,9 +1313,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 13,
       "issueSizeCr": 28000,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-16",
+      "allotDate": "2026-10-19",
+      "listingDate": "2026-10-21",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/reliance-jio-ipo",
@@ -1305,7 +1332,10 @@ window.IpoData = {
       ],
       "priceBandLow": 1080,
       "priceBandHigh": 1119,
-      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/JIO.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/JIO.png",
+      "openDate": "2026-10-13",
+      "refundDate": "2026-10-20",
+      "dematDate": "2026-10-20"
     },
     {
       "id": "zetwerk",
@@ -1322,9 +1352,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 30,
       "issueSizeCr": 3500,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-16",
+      "allotDate": "2026-10-19",
+      "listingDate": "2026-10-21",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/zetwerk-ipo",
@@ -1341,7 +1371,10 @@ window.IpoData = {
       ],
       "priceBandLow": 475,
       "priceBandHigh": 500,
-      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/zetwerk-org-logo.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/zetwerk-org-logo.png",
+      "openDate": "2026-10-13",
+      "refundDate": "2026-10-20",
+      "dematDate": "2026-10-20"
     },
     {
       "id": "sahajanand-medical-technologies",
@@ -1358,9 +1391,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 43,
       "issueSizeCr": 800,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-15",
+      "allotDate": "2026-10-16",
+      "listingDate": "2026-10-20",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/sahajanand-medical-technologies-ipo",
@@ -1377,7 +1410,10 @@ window.IpoData = {
       ],
       "priceBandLow": 330,
       "priceBandHigh": 344,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SahajanandMedicalTechnologiesLtd_52021429_42813.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SahajanandMedicalTechnologiesLtd_52021429_42813.png",
+      "openDate": "2026-10-12",
+      "refundDate": "2026-10-19",
+      "dematDate": "2026-10-19"
     },
     {
       "id": "tonbo-imaging",
@@ -1394,9 +1430,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1790,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-15",
+      "allotDate": "2026-10-16",
+      "listingDate": "2026-10-20",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/tonbo-imaging-ipo",
@@ -1413,7 +1449,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TonboImagingIndiaLtd_70259225_96357.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TonboImagingIndiaLtd_70259225_96357.png",
+      "openDate": "2026-10-12",
+      "refundDate": "2026-10-19",
+      "dematDate": "2026-10-19"
     },
     {
       "id": "shellz-india",
@@ -1430,9 +1469,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 184.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-14",
+      "allotDate": "2026-10-15",
+      "listingDate": "2026-10-19",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/shellz-india-ipo",
@@ -1449,7 +1488,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShellzIndiaLtd_97853865_80132.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShellzIndiaLtd_97853865_80132.png",
+      "openDate": "2026-10-09",
+      "refundDate": "2026-10-16",
+      "dematDate": "2026-10-16"
     },
     {
       "id": "bonfiglioli-transmissions",
@@ -1466,9 +1508,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 11,
       "issueSizeCr": 1150,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-14",
+      "allotDate": "2026-10-15",
+      "listingDate": "2026-10-19",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/bonfiglioli-transmissions-ipo",
@@ -1485,7 +1527,10 @@ window.IpoData = {
       ],
       "priceBandLow": 1240,
       "priceBandHigh": 1290,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BonfiglioliTransmissionsLtd_93777964_83479.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BonfiglioliTransmissionsLtd_93777964_83479.png",
+      "openDate": "2026-10-09",
+      "refundDate": "2026-10-16",
+      "dematDate": "2026-10-16"
     },
     {
       "id": "ravita-engineering-services",
@@ -1502,9 +1547,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 209,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-13",
+      "allotDate": "2026-10-14",
+      "listingDate": "2026-10-16",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/ravita-engineering-services-ipo",
@@ -1521,7 +1566,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RavitaEngineeringServicesLtd_86683196_96742.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RavitaEngineeringServicesLtd_86683196_96742.png",
+      "openDate": "2026-10-08",
+      "refundDate": "2026-10-15",
+      "dematDate": "2026-10-15"
     },
     {
       "id": "fusion-cx",
@@ -1538,9 +1586,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 75,
       "issueSizeCr": 480,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-13",
+      "allotDate": "2026-10-14",
+      "listingDate": "2026-10-16",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/fusion-cx-ipo",
@@ -1557,7 +1605,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 200,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionCXLtd_51200132_95471.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionCXLtd_51200132_95471.png",
+      "openDate": "2026-10-08",
+      "refundDate": "2026-10-15",
+      "dematDate": "2026-10-15"
     },
     {
       "id": "hd-fire-protect",
@@ -1574,9 +1625,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2390,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-12",
+      "allotDate": "2026-10-13",
+      "listingDate": "2026-10-15",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/hd-fire-protect-ipo",
@@ -1593,7 +1644,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HDFireProtectLtd_10283393_40220.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HDFireProtectLtd_10283393_40220.png",
+      "openDate": "2026-10-07",
+      "refundDate": "2026-10-14",
+      "dematDate": "2026-10-14"
     },
     {
       "id": "vaibhav-vyapaar",
@@ -1610,9 +1664,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 24.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-12",
+      "allotDate": "2026-10-13",
+      "listingDate": "2026-10-15",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/vaibhav-vyapaar-ipo",
@@ -1629,7 +1683,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VaibhavVyapaarLtd_56235870_97157.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VaibhavVyapaarLtd_56235870_97157.png",
+      "openDate": "2026-10-07",
+      "refundDate": "2026-10-14",
+      "dematDate": "2026-10-14"
     },
     {
       "id": "rkfashion-accessories",
@@ -1646,9 +1703,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 36.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-09",
+      "allotDate": "2026-10-12",
+      "listingDate": "2026-10-14",
       "registrar": "Cameo Corporate Services",
       "allotmentUrl": "https://ipostatus1.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/rkfashion-accessories-ipo",
@@ -1665,7 +1722,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/R.K.FashionAccessoriesLtd_55932000_96973.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/R.K.FashionAccessoriesLtd_55932000_96973.png",
+      "openDate": "2026-10-06",
+      "refundDate": "2026-10-13",
+      "dematDate": "2026-10-13"
     },
     {
       "id": "paramount-syntex",
@@ -1682,9 +1742,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 49.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-09",
+      "allotDate": "2026-10-12",
+      "listingDate": "2026-10-14",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/paramount-syntex-ipo",
@@ -1701,7 +1761,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParamountSyntexLtd_42655569_95936.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParamountSyntexLtd_42655569_95936.png",
+      "openDate": "2026-10-06",
+      "refundDate": "2026-10-13",
+      "dematDate": "2026-10-13"
     },
     {
       "id": "acme-india-industries",
@@ -1718,9 +1781,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 61.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-08",
+      "allotDate": "2026-10-09",
+      "listingDate": "2026-10-13",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/acme-india-industries-ipo",
@@ -1737,7 +1800,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ACMEINDIAINDUSTRIESLIMITED_54632178_95962.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ACMEINDIAINDUSTRIESLIMITED_54632178_95962.png",
+      "openDate": "2026-10-05",
+      "refundDate": "2026-10-12",
+      "dematDate": "2026-10-12"
     },
     {
       "id": "tna-solutions",
@@ -1754,9 +1820,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 73.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-08",
+      "allotDate": "2026-10-09",
+      "listingDate": "2026-10-13",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/tna-solutions-ipo",
@@ -1773,7 +1839,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TNASolutionsLtd_77787058_97521.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TNASolutionsLtd_77787058_97521.png",
+      "openDate": "2026-10-05",
+      "refundDate": "2026-10-12",
+      "dematDate": "2026-10-12"
     },
     {
       "id": "everestims-technologies",
@@ -1790,9 +1859,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 86,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-07",
+      "allotDate": "2026-10-08",
+      "listingDate": "2026-10-12",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/everestims-technologies-ipo",
@@ -1809,7 +1878,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EverestIMSTechnologiesLtd_35662785_94563.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EverestIMSTechnologiesLtd_35662785_94563.png",
+      "openDate": "2026-10-02",
+      "refundDate": "2026-10-09",
+      "dematDate": "2026-10-09"
     },
     {
       "id": "shree-tnb-polymers",
@@ -1826,9 +1898,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 98.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-07",
+      "allotDate": "2026-10-08",
+      "listingDate": "2026-10-12",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/",
       "growwUrl": "https://groww.in/ipo/shree-tnb-polymers-ipo",
@@ -1845,7 +1917,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShreeTNBPolymersLtd_48945624_96835.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShreeTNBPolymersLtd_48945624_96835.png",
+      "openDate": "2026-10-02",
+      "refundDate": "2026-10-09",
+      "dematDate": "2026-10-09"
     },
     {
       "id": "dove-soft",
@@ -1862,9 +1937,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 110.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-06",
+      "allotDate": "2026-10-07",
+      "listingDate": "2026-10-09",
       "registrar": "Purva Sharegistry (India) Pvt Ltd",
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/dove-soft-ipo",
@@ -1881,7 +1956,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DoveSoftLtd_91006787_92468.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DoveSoftLtd_91006787_92468.png",
+      "openDate": "2026-10-01",
+      "refundDate": "2026-10-08",
+      "dematDate": "2026-10-08"
     },
     {
       "id": "omara-ventures-india",
@@ -1898,9 +1976,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 122.9,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-06",
+      "allotDate": "2026-10-07",
+      "listingDate": "2026-10-09",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/omara-ventures-india-ipo",
@@ -1917,7 +1995,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmaraVenturesLtd_67743782_97266.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmaraVenturesLtd_67743782_97266.png",
+      "openDate": "2026-10-01",
+      "refundDate": "2026-10-08",
+      "dematDate": "2026-10-08"
     },
     {
       "id": "nityas-gems-jewellery",
@@ -1934,9 +2015,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1190,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-05",
+      "allotDate": "2026-10-06",
+      "listingDate": "2026-10-08",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/nityas-gems-jewellery-ipo",
@@ -1953,7 +2034,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/NityasGemsJewelleryLtd_73277458_96753.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/NityasGemsJewelleryLtd_73277458_96753.png",
+      "openDate": "2026-09-30",
+      "refundDate": "2026-10-07",
+      "dematDate": "2026-10-07"
     },
     {
       "id": "sollfege-smart-electronics",
@@ -1970,9 +2054,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 147.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-05",
+      "allotDate": "2026-10-06",
+      "listingDate": "2026-10-08",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/sollfege-smart-electronics-ipo",
@@ -1989,7 +2073,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SollfegeSmartElectronicsLtd_55458084_94651.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SollfegeSmartElectronicsLtd_55458084_94651.png",
+      "openDate": "2026-09-30",
+      "refundDate": "2026-10-07",
+      "dematDate": "2026-10-07"
     },
     {
       "id": "sjp-ultrasonic",
@@ -2006,9 +2093,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 159.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-02",
+      "allotDate": "2026-10-05",
+      "listingDate": "2026-10-07",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/sjp-ultrasonic-ipo",
@@ -2025,7 +2112,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SJPULTRASONICSLIMITED_12507441_96005.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SJPULTRASONICSLIMITED_12507441_96005.png",
+      "openDate": "2026-09-29",
+      "refundDate": "2026-10-06",
+      "dematDate": "2026-10-06"
     },
     {
       "id": "eventions",
@@ -2042,9 +2132,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 172.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-02",
+      "allotDate": "2026-10-05",
+      "listingDate": "2026-10-07",
       "registrar": "Mudra Financial Services",
       "allotmentUrl": "https://mudrarta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/eventions-ipo",
@@ -2061,7 +2151,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EventionsLtd_62627122_96759.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EventionsLtd_62627122_96759.png",
+      "openDate": "2026-09-29",
+      "refundDate": "2026-10-06",
+      "dematDate": "2026-10-06"
     },
     {
       "id": "vishal-nirmiti",
@@ -2078,9 +2171,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1670,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-01",
+      "allotDate": "2026-10-02",
+      "listingDate": "2026-10-06",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/vishal-nirmiti-ipo",
@@ -2097,7 +2190,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VishalNirmitiLtd_78509595_34843.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VishalNirmitiLtd_78509595_34843.png",
+      "openDate": "2026-09-28",
+      "refundDate": "2026-10-05",
+      "dematDate": "2026-10-05"
     },
     {
       "id": "green-asia-impex",
@@ -2114,9 +2210,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 196.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-10-01",
+      "allotDate": "2026-10-02",
+      "listingDate": "2026-10-06",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/green-asia-impex-ipo",
@@ -2133,7 +2229,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GreenAsiaImpexLtd_69255354_96486.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GreenAsiaImpexLtd_69255354_96486.png",
+      "openDate": "2026-09-28",
+      "refundDate": "2026-10-05",
+      "dematDate": "2026-10-05"
     },
     {
       "id": "black-opal-consultants",
@@ -2150,9 +2249,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 209,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-30",
+      "allotDate": "2026-10-01",
+      "listingDate": "2026-10-05",
       "registrar": "Skyline Financial Services",
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/black-opal-consultants-ipo",
@@ -2169,7 +2268,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLACKOPALCONSULTANTSLIMITED_94566852_96132.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLACKOPALCONSULTANTSLIMITED_94566852_96132.png",
+      "openDate": "2026-09-25",
+      "refundDate": "2026-10-02",
+      "dematDate": "2026-10-02"
     },
     {
       "id": "papadmalji-agro",
@@ -2186,9 +2288,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 221.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-30",
+      "allotDate": "2026-10-01",
+      "listingDate": "2026-10-05",
       "registrar": "Mas Services Limited",
       "allotmentUrl": "https://www.masserv.com/opt.asp",
       "growwUrl": "https://groww.in/ipo/papadmalji-agro-ipo",
@@ -2205,7 +2307,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PAPADMALJIAGROFOODSLIMITED_42602007_96377.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PAPADMALJIAGROFOODSLIMITED_42602007_96377.png",
+      "openDate": "2026-09-25",
+      "refundDate": "2026-10-02",
+      "dematDate": "2026-10-02"
     },
     {
       "id": "vans-electroengineerings",
@@ -2222,9 +2327,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 233.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-29",
+      "allotDate": "2026-09-30",
+      "listingDate": "2026-10-02",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/vans-electroengineerings-ipo",
@@ -2241,7 +2346,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VansElectroengineeringsLtd_53249777_97283.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VansElectroengineeringsLtd_53249777_97283.png",
+      "openDate": "2026-09-24",
+      "refundDate": "2026-10-01",
+      "dematDate": "2026-10-01"
     },
     {
       "id": "srit-india",
@@ -2258,9 +2366,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2270,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-29",
+      "allotDate": "2026-09-30",
+      "listingDate": "2026-10-02",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/srit-india-ipo",
@@ -2277,7 +2385,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SRITIndiaLtd_48351250_39853.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SRITIndiaLtd_48351250_39853.png",
+      "openDate": "2026-09-24",
+      "refundDate": "2026-10-01",
+      "dematDate": "2026-10-01"
     },
     {
       "id": "shivchem-agro",
@@ -2294,9 +2405,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 36.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-28",
+      "allotDate": "2026-09-29",
+      "listingDate": "2026-10-01",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/shivchem-agro-ipo",
@@ -2313,7 +2424,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHIVCHEMAGROLIMITED_70862725_96002.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHIVCHEMAGROLIMITED_70862725_96002.png",
+      "openDate": "2026-09-23",
+      "refundDate": "2026-09-30",
+      "dematDate": "2026-09-30"
     },
     {
       "id": "acme-universal-safezone-9",
@@ -2330,9 +2444,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 49.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-28",
+      "allotDate": "2026-09-29",
+      "listingDate": "2026-10-01",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/acme-universal-safezone-9-ipo",
@@ -2349,7 +2463,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AcmeUniversalSafezone9Ltd_66070403_96767.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AcmeUniversalSafezone9Ltd_66070403_96767.png",
+      "openDate": "2026-09-23",
+      "refundDate": "2026-09-30",
+      "dematDate": "2026-09-30"
     },
     {
       "id": "pind-hospitality",
@@ -2366,9 +2483,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 61.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-25",
+      "allotDate": "2026-09-28",
+      "listingDate": "2026-09-30",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/pind-hospitality-ipo",
@@ -2385,7 +2502,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PindHospitalityLtd_25128305_97634.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PindHospitalityLtd_25128305_97634.png",
+      "openDate": "2026-09-22",
+      "refundDate": "2026-09-29",
+      "dematDate": "2026-09-29"
     },
     {
       "id": "shah-investors-home",
@@ -2402,9 +2522,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 350,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-25",
+      "allotDate": "2026-09-28",
+      "listingDate": "2026-09-30",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/shah-investors-home-ipo",
@@ -2421,7 +2541,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShahInvestorsHomeLtd_77471837_71825.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShahInvestorsHomeLtd_77471837_71825.png",
+      "openDate": "2026-09-22",
+      "refundDate": "2026-09-29",
+      "dematDate": "2026-09-29"
     },
     {
       "id": "sai-urja-indo",
@@ -2438,9 +2561,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 86,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-24",
+      "allotDate": "2026-09-25",
+      "listingDate": "2026-09-29",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/sai-urja-indo-ipo",
@@ -2457,7 +2580,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SaiUrjaIndoVenturesLtd_14350313_96001.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SaiUrjaIndoVenturesLtd_14350313_96001.png",
+      "openDate": "2026-09-21",
+      "refundDate": "2026-09-28",
+      "dematDate": "2026-09-28"
     },
     {
       "id": "bench-mark-infotech-services",
@@ -2474,9 +2600,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 98.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-24",
+      "allotDate": "2026-09-25",
+      "listingDate": "2026-09-29",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/bench-mark-infotech-services-ipo",
@@ -2493,7 +2619,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BenchMarkInfotechServicesLtd_28453504_97454.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BenchMarkInfotechServicesLtd_28453504_97454.png",
+      "openDate": "2026-09-21",
+      "refundDate": "2026-09-28",
+      "dematDate": "2026-09-28"
     },
     {
       "id": "himalayan-solar",
@@ -2510,9 +2639,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 110.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-23",
+      "allotDate": "2026-09-24",
+      "listingDate": "2026-09-28",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/himalayan-solar-ipo",
@@ -2529,7 +2658,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HIMALAYANSOLARLIMITED_48416173_96135.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HIMALAYANSOLARLIMITED_48416173_96135.png",
+      "openDate": "2026-09-18",
+      "refundDate": "2026-09-25",
+      "dematDate": "2026-09-25"
     },
     {
       "id": "acevector",
@@ -2546,9 +2678,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 830,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-23",
+      "allotDate": "2026-09-24",
+      "listingDate": "2026-09-28",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/acevector-ipo",
@@ -2565,7 +2697,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/ACEVECTOR.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/ACEVECTOR.png",
+      "openDate": "2026-09-18",
+      "refundDate": "2026-09-25",
+      "dematDate": "2026-09-25"
     },
     {
       "id": "german-green-steel-and-power",
@@ -2582,9 +2717,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 950,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-22",
+      "allotDate": "2026-09-23",
+      "listingDate": "2026-09-25",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
       "growwUrl": "https://groww.in/ipo/german-green-steel-and-power-ipo",
@@ -2601,7 +2736,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GermanGreenSteelPowerLtd_78872759_82141.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GermanGreenSteelPowerLtd_78872759_82141.png",
+      "openDate": "2026-09-17",
+      "refundDate": "2026-09-24",
+      "dematDate": "2026-09-24"
     },
     {
       "id": "runwal-enterprises",
@@ -2618,9 +2756,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1070,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-22",
+      "allotDate": "2026-09-23",
+      "listingDate": "2026-09-25",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/runwal-enterprises-ipo",
@@ -2637,7 +2775,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/RUNWAL.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/RUNWAL.png",
+      "openDate": "2026-09-17",
+      "refundDate": "2026-09-24",
+      "dematDate": "2026-09-24"
     },
     {
       "id": "orient-cables",
@@ -2654,9 +2795,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1190,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-21",
+      "allotDate": "2026-09-22",
+      "listingDate": "2026-09-24",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/orient-cables-ipo",
@@ -2673,7 +2814,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ORIENTCABLESINDIALIMITED_62505464_95655.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ORIENTCABLESINDIALIMITED_62505464_95655.png",
+      "openDate": "2026-09-16",
+      "refundDate": "2026-09-23",
+      "dematDate": "2026-09-23"
     },
     {
       "id": "dudani-retail",
@@ -2690,9 +2834,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 172.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-21",
+      "allotDate": "2026-09-22",
+      "listingDate": "2026-09-24",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/dudani-retail-ipo",
@@ -2709,7 +2853,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DudaniRetailLtd_69306656_96771.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DudaniRetailLtd_69306656_96771.png",
+      "openDate": "2026-09-16",
+      "refundDate": "2026-09-23",
+      "dematDate": "2026-09-23"
     },
     {
       "id": "a-one-steels",
@@ -2726,9 +2873,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1430,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-18",
+      "allotDate": "2026-09-21",
+      "listingDate": "2026-09-23",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/a-one-steels-ipo",
@@ -2745,7 +2892,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/A-OneSteelsIndiaLtd_41275253_94335.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/A-OneSteelsIndiaLtd_41275253_94335.png",
+      "openDate": "2026-09-15",
+      "refundDate": "2026-09-22",
+      "dematDate": "2026-09-22"
     },
     {
       "id": "moneyview",
@@ -2762,9 +2912,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1550,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-18",
+      "allotDate": "2026-09-21",
+      "listingDate": "2026-09-23",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/moneyview-ipo",
@@ -2781,7 +2931,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MoneyviewLtd_48051054_78774.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MoneyviewLtd_48051054_78774.png",
+      "openDate": "2026-09-15",
+      "refundDate": "2026-09-22",
+      "dematDate": "2026-09-22"
     },
     {
       "id": "peshwa-wheat",
@@ -2798,9 +2951,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 209,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-17",
+      "allotDate": "2026-09-18",
+      "listingDate": "2026-09-22",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/peshwa-wheat-ipo",
@@ -2817,7 +2970,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PeshwaWheatLimited_65538191_93513.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PeshwaWheatLimited_65538191_93513.png",
+      "openDate": "2026-09-14",
+      "refundDate": "2026-09-21",
+      "dematDate": "2026-09-21"
     },
     {
       "id": "roopa-screen",
@@ -2834,9 +2990,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 221.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-17",
+      "allotDate": "2026-09-18",
+      "listingDate": "2026-09-22",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/roopa-screen-ipo",
@@ -2853,7 +3009,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RoopaScreenLtd_74054328_95930.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RoopaScreenLtd_74054328_95930.png",
+      "openDate": "2026-09-14",
+      "refundDate": "2026-09-21",
+      "dematDate": "2026-09-21"
     },
     {
       "id": "skoffset",
@@ -2870,9 +3029,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 233.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-16",
+      "allotDate": "2026-09-17",
+      "listingDate": "2026-09-21",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/",
       "growwUrl": "https://groww.in/ipo/skoffset-ipo",
@@ -2889,7 +3048,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/S.K.OffsetLtd_84217131_97132.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/S.K.OffsetLtd_84217131_97132.png",
+      "openDate": "2026-09-11",
+      "refundDate": "2026-09-18",
+      "dematDate": "2026-09-18"
     },
     {
       "id": "armee-infotech",
@@ -2906,9 +3068,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2030,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-16",
+      "allotDate": "2026-09-17",
+      "listingDate": "2026-09-21",
       "registrar": "Cameo Corporate Services",
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/armee-infotech-ipo",
@@ -2925,7 +3087,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ArmeeInfotechLtd_38995854_93256.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ArmeeInfotechLtd_38995854_93256.png",
+      "openDate": "2026-09-11",
+      "refundDate": "2026-09-18",
+      "dematDate": "2026-09-18"
     },
     {
       "id": "liqvd-digital",
@@ -2942,9 +3107,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 36.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-15",
+      "allotDate": "2026-09-16",
+      "listingDate": "2026-09-18",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/liqvd-digital-ipo",
@@ -2961,7 +3126,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LiqvdDigitalIndiaLtd_35842097_95952.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LiqvdDigitalIndiaLtd_35842097_95952.png",
+      "openDate": "2026-09-10",
+      "refundDate": "2026-09-17",
+      "dematDate": "2026-09-17"
     },
     {
       "id": "swastika-infra",
@@ -2978,9 +3146,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2270,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-15",
+      "allotDate": "2026-09-16",
+      "listingDate": "2026-09-18",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/",
       "growwUrl": "https://groww.in/ipo/swastika-infra-ipo",
@@ -2997,7 +3165,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SWASTIKAINFRALIMITED_26222411_94673.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SWASTIKAINFRALIMITED_26222411_94673.png",
+      "openDate": "2026-09-10",
+      "refundDate": "2026-09-17",
+      "dematDate": "2026-09-17"
     },
     {
       "id": "elevate-campuses",
@@ -3014,9 +3185,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2390,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-14",
+      "allotDate": "2026-09-15",
+      "listingDate": "2026-09-17",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/elevate-campuses-ipo",
@@ -3033,7 +3204,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ELEVATECAMPUSESLIMITED_51324446_96157.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ELEVATECAMPUSESLIMITED_51324446_96157.png",
+      "openDate": "2026-09-09",
+      "refundDate": "2026-09-16",
+      "dematDate": "2026-09-16"
     },
     {
       "id": "pooja-logistics",
@@ -3050,9 +3224,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 73.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-14",
+      "allotDate": "2026-09-15",
+      "listingDate": "2026-09-17",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/pooja-logistics-ipo",
@@ -3069,7 +3243,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaLogisticsLtd_17838172_95926.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaLogisticsLtd_17838172_95926.png",
+      "openDate": "2026-09-09",
+      "refundDate": "2026-09-16",
+      "dematDate": "2026-09-16"
     },
     {
       "id": "unitec-fibres",
@@ -3086,9 +3263,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 86,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-11",
+      "allotDate": "2026-09-14",
+      "listingDate": "2026-09-16",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/unitec-fibres-ipo",
@@ -3105,7 +3282,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/UnitechFibresLtd_94078773_97139.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/UnitechFibresLtd_94078773_97139.png",
+      "openDate": "2026-09-08",
+      "refundDate": "2026-09-15",
+      "dematDate": "2026-09-15"
     },
     {
       "id": "adroit-industries",
@@ -3122,9 +3302,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 350,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-11",
+      "allotDate": "2026-09-14",
+      "listingDate": "2026-09-16",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/adroit-industries-ipo",
@@ -3141,7 +3321,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdroitIndustriesIndiaLtd_81397043_40604.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdroitIndustriesIndiaLtd_81397043_40604.png",
+      "openDate": "2026-09-08",
+      "refundDate": "2026-09-15",
+      "dematDate": "2026-09-15"
     },
     {
       "id": "core-integra-consulting",
@@ -3158,9 +3341,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 110.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-10",
+      "allotDate": "2026-09-11",
+      "listingDate": "2026-09-15",
       "registrar": "Purva Sharegistry (India) Pvt Ltd",
       "allotmentUrl": "https://www.purvashare.com/service/ipo",
       "growwUrl": "https://groww.in/ipo/core-integra-consulting-ipo",
@@ -3177,7 +3360,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CoreintegraConsultingServicesLtd_71823744_95847.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CoreintegraConsultingServicesLtd_71823744_95847.png",
+      "openDate": "2026-09-07",
+      "refundDate": "2026-09-14",
+      "dematDate": "2026-09-14"
     },
     {
       "id": "himalaya-nutravedics",
@@ -3194,9 +3380,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 122.9,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-10",
+      "allotDate": "2026-09-11",
+      "listingDate": "2026-09-15",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/himalaya-nutravedics-ipo",
@@ -3213,7 +3399,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HimalayaNutravedicsIndiaLtd_27349409_96747.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HimalayaNutravedicsIndiaLtd_27349409_96747.png",
+      "openDate": "2026-09-07",
+      "refundDate": "2026-09-14",
+      "dematDate": "2026-09-14"
     },
     {
       "id": "varmora-granito",
@@ -3230,9 +3419,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 710,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-09",
+      "allotDate": "2026-09-10",
+      "listingDate": "2026-09-14",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/varmora-granito-ipo",
@@ -3249,7 +3438,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VarmoraGranitoLtd_54725145_77219.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VarmoraGranitoLtd_54725145_77219.png",
+      "openDate": "2026-09-04",
+      "refundDate": "2026-09-11",
+      "dematDate": "2026-09-11"
     },
     {
       "id": "anand-seamless",
@@ -3266,9 +3458,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 147.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-09",
+      "allotDate": "2026-09-10",
+      "listingDate": "2026-09-14",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/anand-seamless-ipo",
@@ -3285,7 +3477,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AnandSeamlessLtd_92351111_96488.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AnandSeamlessLtd_92351111_96488.png",
+      "openDate": "2026-09-04",
+      "refundDate": "2026-09-11",
+      "dematDate": "2026-09-11"
     },
     {
       "id": "robokidz-eduventures",
@@ -3302,9 +3497,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 159.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-08",
+      "allotDate": "2026-09-09",
+      "listingDate": "2026-09-11",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/robokidz-eduventures-ipo",
@@ -3321,7 +3516,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RobokidzEduventures_99271756_97411.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RobokidzEduventures_99271756_97411.png",
+      "openDate": "2026-09-03",
+      "refundDate": "2026-09-10",
+      "dematDate": "2026-09-10"
     },
     {
       "id": "fx-multitech",
@@ -3338,9 +3536,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 172.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-08",
+      "allotDate": "2026-09-09",
+      "listingDate": "2026-09-11",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/fx-multitech-ipo",
@@ -3357,7 +3555,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FXMultitechLtd_31512295_96393.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FXMultitechLtd_31512295_96393.png",
+      "openDate": "2026-09-03",
+      "refundDate": "2026-09-10",
+      "dematDate": "2026-09-10"
     },
     {
       "id": "vivekanand-cotspin",
@@ -3374,9 +3575,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 184.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-07",
+      "allotDate": "2026-09-08",
+      "listingDate": "2026-09-10",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/vivekanand-cotspin-ipo",
@@ -3393,7 +3594,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VIVEKANANDCOTSPINLIMITED_39374030_94571.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VIVEKANANDCOTSPINLIMITED_39374030_94571.png",
+      "openDate": "2026-09-02",
+      "refundDate": "2026-09-09",
+      "dematDate": "2026-09-09"
     },
     {
       "id": "axiom-gas-engineering",
@@ -3410,9 +3614,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 196.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-07",
+      "allotDate": "2026-09-08",
+      "listingDate": "2026-09-10",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/axiom-gas-engineering-ipo",
@@ -3429,7 +3633,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AxiomGasEngineeringLtd_22368737_94297.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AxiomGasEngineeringLtd_22368737_94297.png",
+      "openDate": "2026-09-02",
+      "refundDate": "2026-09-09",
+      "dematDate": "2026-09-09"
     },
     {
       "id": "sonaselection-india",
@@ -3446,9 +3653,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1430,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-04",
+      "allotDate": "2026-09-07",
+      "listingDate": "2026-09-09",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/sonaselection-india-ipo",
@@ -3465,7 +3672,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SonaselectionIndiaLtd_42425597_96172.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SonaselectionIndiaLtd_42425597_96172.png",
+      "openDate": "2026-09-01",
+      "refundDate": "2026-09-08",
+      "dematDate": "2026-09-08"
     },
     {
       "id": "kheria-autocomp",
@@ -3482,9 +3692,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 221.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-04",
+      "allotDate": "2026-09-07",
+      "listingDate": "2026-09-09",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/kheria-autocomp-ipo",
@@ -3501,7 +3711,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KheriaAutocompLtd_43718405_95947.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KheriaAutocompLtd_43718405_95947.png",
+      "openDate": "2026-09-01",
+      "refundDate": "2026-09-08",
+      "dematDate": "2026-09-08"
     },
     {
       "id": "nse",
@@ -3518,9 +3731,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1670,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-03",
+      "allotDate": "2026-09-04",
+      "listingDate": "2026-09-08",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/nse-ipo",
@@ -3537,7 +3750,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/NSE.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/NSE.png",
+      "openDate": "2026-08-31",
+      "refundDate": "2026-09-07",
+      "dematDate": "2026-09-07"
     },
     {
       "id": "spectraa-technology-solutions",
@@ -3554,9 +3770,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 24.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-03",
+      "allotDate": "2026-09-04",
+      "listingDate": "2026-09-08",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/spectraa-technology-solutions-ipo",
@@ -3573,7 +3789,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SpectraATechnologySolutionsLtd_11580717_96530.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SpectraATechnologySolutionsLtd_11580717_96530.png",
+      "openDate": "2026-08-31",
+      "refundDate": "2026-09-07",
+      "dematDate": "2026-09-07"
     },
     {
       "id": "jindal-supreme",
@@ -3590,9 +3809,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1910,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-02",
+      "allotDate": "2026-09-03",
+      "listingDate": "2026-09-07",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/jindal-supreme-ipo",
@@ -3609,7 +3828,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JindalSupremeIndiaLtd_54265324_96165.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JindalSupremeIndiaLtd_54265324_96165.png",
+      "openDate": "2026-08-28",
+      "refundDate": "2026-09-04",
+      "dematDate": "2026-09-04"
     },
     {
       "id": "ss-retail",
@@ -3626,9 +3848,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2030,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-02",
+      "allotDate": "2026-09-03",
+      "listingDate": "2026-09-07",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ss-retail-ipo",
@@ -3645,7 +3867,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SSRETAILLIMITED_27505473_96372.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SSRETAILLIMITED_27505473_96372.png",
+      "openDate": "2026-08-28",
+      "refundDate": "2026-09-04",
+      "dematDate": "2026-09-04"
     },
     {
       "id": "hero-motors",
@@ -3662,9 +3887,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2150,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-01",
+      "allotDate": "2026-09-02",
+      "listingDate": "2026-09-04",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/hero-motors-ipo",
@@ -3681,7 +3906,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HeroMotorsLtd_67351042_25458.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HeroMotorsLtd_67351042_25458.png",
+      "openDate": "2026-08-27",
+      "refundDate": "2026-09-03",
+      "dematDate": "2026-09-03"
     },
     {
       "id": "quanto-agroworld",
@@ -3698,9 +3926,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 73.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-09-01",
+      "allotDate": "2026-09-02",
+      "listingDate": "2026-09-04",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/quanto-agroworld-ipo",
@@ -3717,7 +3945,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QuantoAgroworldLtd_70995748_93590.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QuantoAgroworldLtd_70995748_93590.png",
+      "openDate": "2026-08-27",
+      "refundDate": "2026-09-03",
+      "dematDate": "2026-09-03"
     },
     {
       "id": "shakti-polytarp",
@@ -3734,9 +3965,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 86,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-31",
+      "allotDate": "2026-09-01",
+      "listingDate": "2026-09-03",
       "registrar": "Skyline Financial Services",
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/shakti-polytarp-ipo",
@@ -3753,7 +3984,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShaktiPolytarpLtd_61445370_95395.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShaktiPolytarpLtd_61445370_95395.png",
+      "openDate": "2026-08-26",
+      "refundDate": "2026-09-02",
+      "dematDate": "2026-09-02"
     },
     {
       "id": "vama-wovenfab",
@@ -3770,9 +4004,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 98.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-31",
+      "allotDate": "2026-09-01",
+      "listingDate": "2026-09-03",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/vama-wovenfab-ipo",
@@ -3789,7 +4023,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VamaWovenfabLtd_38203162_95935.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VamaWovenfabLtd_38203162_95935.png",
+      "openDate": "2026-08-26",
+      "refundDate": "2026-09-02",
+      "dematDate": "2026-09-02"
     },
     {
       "id": "manika-plastech",
@@ -3806,9 +4043,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2630,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-28",
+      "allotDate": "2026-08-31",
+      "listingDate": "2026-09-02",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/manika-plastech-ipo",
@@ -3825,7 +4062,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManikaPlastechLtd_18401999_77258.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManikaPlastechLtd_18401999_77258.png",
+      "openDate": "2026-08-25",
+      "refundDate": "2026-09-01",
+      "dematDate": "2026-09-01"
     },
     {
       "id": "century-business",
@@ -3842,9 +4082,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 122.9,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-28",
+      "allotDate": "2026-08-31",
+      "listingDate": "2026-09-02",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/century-business-ipo",
@@ -3861,7 +4101,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CenturyBusinessMediaLtd_22972761_95833.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CenturyBusinessMediaLtd_22972761_95833.png",
+      "openDate": "2026-08-25",
+      "refundDate": "2026-09-01",
+      "dematDate": "2026-09-01"
     },
     {
       "id": "injecto-polymers",
@@ -3878,9 +4121,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 135.2,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-27",
+      "allotDate": "2026-08-28",
+      "listingDate": "2026-09-01",
       "registrar": "Integrated Registry Management",
       "allotmentUrl": "https://ipostatus.integratedregistry.in/RegistrarsToSTANew.aspx",
       "growwUrl": "https://groww.in/ipo/injecto-polymers-ipo",
@@ -3897,7 +4140,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InjectoPolymersLtd_37791382_95902.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InjectoPolymersLtd_37791382_95902.png",
+      "openDate": "2026-08-24",
+      "refundDate": "2026-08-31",
+      "dematDate": "2026-08-31"
     },
     {
       "id": "veegaland-developers",
@@ -3914,9 +4160,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 590,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-27",
+      "allotDate": "2026-08-28",
+      "listingDate": "2026-09-01",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/veegaland-developers-ipo",
@@ -3933,7 +4179,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VEEGALANDDEVELOPERSLIMITED_51655529_96379.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VEEGALANDDEVELOPERSLIMITED_51655529_96379.png",
+      "openDate": "2026-08-24",
+      "refundDate": "2026-08-31",
+      "dematDate": "2026-08-31"
     },
     {
       "id": "panchatv-bharat",
@@ -3950,9 +4199,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 159.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-26",
+      "allotDate": "2026-08-27",
+      "listingDate": "2026-08-31",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/panchatv-bharat-ipo",
@@ -3969,7 +4218,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PanchatvBharatLtd_60025650_93849.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PanchatvBharatLtd_60025650_93849.png",
+      "openDate": "2026-08-21",
+      "refundDate": "2026-08-28",
+      "dematDate": "2026-08-28"
     },
     {
       "id": "raksan-transformers",
@@ -3986,9 +4238,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 172.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-26",
+      "allotDate": "2026-08-27",
+      "listingDate": "2026-08-31",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/raksan-transformers-ipo",
@@ -4005,7 +4257,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RAKSANTRANSFORMERSLIMITED_16697549_95958.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RAKSANTRANSFORMERSLIMITED_16697549_95958.png",
+      "openDate": "2026-08-21",
+      "refundDate": "2026-08-28",
+      "dematDate": "2026-08-28"
     },
     {
       "id": "om-galaxy",
@@ -4022,9 +4277,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 184.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-25",
+      "allotDate": "2026-08-26",
+      "listingDate": "2026-08-28",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/om-galaxy-ipo",
@@ -4041,7 +4296,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmGalaxyLtd_17123099_96751.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmGalaxyLtd_17123099_96751.png",
+      "openDate": "2026-08-20",
+      "refundDate": "2026-08-27",
+      "dematDate": "2026-08-27"
     },
     {
       "id": "maharaja--speedex-india",
@@ -4058,9 +4316,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 196.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-25",
+      "allotDate": "2026-08-26",
+      "listingDate": "2026-08-28",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/maharaja--speedex-india-ipo",
@@ -4077,7 +4335,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MaharajaSpeedexIndiaLtd_29055369_37262.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MaharajaSpeedexIndiaLtd_29055369_37262.png",
+      "openDate": "2026-08-20",
+      "refundDate": "2026-08-27",
+      "dematDate": "2026-08-27"
     },
     {
       "id": "amtech-esters",
@@ -4094,9 +4355,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 209,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-24",
+      "allotDate": "2026-08-25",
+      "listingDate": "2026-08-27",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/",
       "growwUrl": "https://groww.in/ipo/amtech-esters-ipo",
@@ -4113,7 +4374,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AmtechEstersLtd_79872683_94285.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AmtechEstersLtd_79872683_94285.png",
+      "openDate": "2026-08-19",
+      "refundDate": "2026-08-26",
+      "dematDate": "2026-08-26"
     },
     {
       "id": "asset-reconstruction",
@@ -4130,9 +4394,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1310,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-24",
+      "allotDate": "2026-08-25",
+      "listingDate": "2026-08-27",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/asset-reconstruction-ipo",
@@ -4149,7 +4413,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AssetReconstructionCompanyIndiaLtd_27591237_27214.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AssetReconstructionCompanyIndiaLtd_27591237_27214.png",
+      "openDate": "2026-08-19",
+      "refundDate": "2026-08-26",
+      "dematDate": "2026-08-26"
     },
     {
       "id": "steamhouse-india",
@@ -4166,9 +4433,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1430,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-21",
+      "allotDate": "2026-08-24",
+      "listingDate": "2026-08-26",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/steamhouse-india-ipo",
@@ -4185,7 +4452,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SteamhouseIndiaLtd_87975739_96065.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SteamhouseIndiaLtd_87975739_96065.png",
+      "openDate": "2026-08-18",
+      "refundDate": "2026-08-25",
+      "dematDate": "2026-08-25"
     },
     {
       "id": "karamtara-engineering",
@@ -4202,9 +4472,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1550,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-21",
+      "allotDate": "2026-08-24",
+      "listingDate": "2026-08-26",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/karamtara-engineering-ipo",
@@ -4221,7 +4491,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KaramtaraEngineeringLtd_19295199_34956.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KaramtaraEngineeringLtd_19295199_34956.png",
+      "openDate": "2026-08-18",
+      "refundDate": "2026-08-25",
+      "dematDate": "2026-08-25"
     },
     {
       "id": "lcc-projects",
@@ -4238,9 +4511,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1670,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-20",
+      "allotDate": "2026-08-21",
+      "listingDate": "2026-08-25",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/lcc-projects-ipo",
@@ -4257,7 +4530,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LCCProjectsLtd_91695479_85600.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LCCProjectsLtd_91695479_85600.png",
+      "openDate": "2026-08-17",
+      "refundDate": "2026-08-24",
+      "dematDate": "2026-08-24"
     },
     {
       "id": "vinod-texworld",
@@ -4274,9 +4550,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 49.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-20",
+      "allotDate": "2026-08-21",
+      "listingDate": "2026-08-25",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/vinod-texworld-ipo",
@@ -4293,7 +4569,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VINODTEXWORLDLIMITED_27930600_95989.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VINODTEXWORLDLIMITED_27930600_95989.png",
+      "openDate": "2026-08-17",
+      "refundDate": "2026-08-24",
+      "dematDate": "2026-08-24"
     },
     {
       "id": "infrax-renewable",
@@ -4310,9 +4589,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 61.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-19",
+      "allotDate": "2026-08-20",
+      "listingDate": "2026-08-24",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/infrax-renewable-ipo",
@@ -4329,7 +4608,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InfraxRenewableLtd_65001881_97103.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InfraxRenewableLtd_65001881_97103.png",
+      "openDate": "2026-08-14",
+      "refundDate": "2026-08-21",
+      "dematDate": "2026-08-21"
     },
     {
       "id": "manipal-payment-and-identity-solutions",
@@ -4346,9 +4628,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2030,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-19",
+      "allotDate": "2026-08-20",
+      "listingDate": "2026-08-24",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/manipal-payment-and-identity-solutions-ipo",
@@ -4365,7 +4647,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalPaymentandIdentitySolutionsLtd_36144026_37758.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalPaymentandIdentitySolutionsLtd_36144026_37758.png",
+      "openDate": "2026-08-14",
+      "refundDate": "2026-08-21",
+      "dematDate": "2026-08-21"
     },
     {
       "id": "rentomojo",
@@ -4382,9 +4667,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2150,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-18",
+      "allotDate": "2026-08-19",
+      "listingDate": "2026-08-21",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/rentomojo-ipo",
@@ -4401,7 +4686,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RentomojoLtd_21045332_68302.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RentomojoLtd_21045332_68302.png",
+      "openDate": "2026-08-13",
+      "refundDate": "2026-08-20",
+      "dematDate": "2026-08-20"
     },
     {
       "id": "kanohar-electricals",
@@ -4418,9 +4706,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2270,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-18",
+      "allotDate": "2026-08-19",
+      "listingDate": "2026-08-21",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/kanohar-electricals-ipo",
@@ -4437,7 +4725,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KanoharElectricalsLtd_60822875_5928.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KanoharElectricalsLtd_60822875_5928.png",
+      "openDate": "2026-08-13",
+      "refundDate": "2026-08-20",
+      "dematDate": "2026-08-20"
     },
     {
       "id": "prasol-chemicals",
@@ -4454,9 +4745,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2390,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-17",
+      "allotDate": "2026-08-18",
+      "listingDate": "2026-08-20",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/prasol-chemicals-ipo",
@@ -4473,7 +4764,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Prasol-Chemicals-Ltd_87256655_23812.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Prasol-Chemicals-Ltd_87256655_23812.png",
+      "openDate": "2026-08-12",
+      "refundDate": "2026-08-19",
+      "dematDate": "2026-08-19"
     },
     {
       "id": "glass-wall-systems",
@@ -4490,9 +4784,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2510,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-17",
+      "allotDate": "2026-08-18",
+      "listingDate": "2026-08-20",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/glass-wall-systems-ipo",
@@ -4509,7 +4803,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GlassWallSystemsIndiaLtd_31553834_95849.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GlassWallSystemsIndiaLtd_31553834_95849.png",
+      "openDate": "2026-08-12",
+      "refundDate": "2026-08-19",
+      "dematDate": "2026-08-19"
     },
     {
       "id": "pranav-constructions",
@@ -4526,9 +4823,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2630,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-14",
+      "allotDate": "2026-08-17",
+      "listingDate": "2026-08-19",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/pranav-constructions-ipo",
@@ -4545,7 +4842,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PranavConstructionsLtd_56961780_94578.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PranavConstructionsLtd_56961780_94578.png",
+      "openDate": "2026-08-11",
+      "refundDate": "2026-08-18",
+      "dematDate": "2026-08-18"
     },
     {
       "id": "apana-logistics",
@@ -4562,9 +4862,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 147.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-14",
+      "allotDate": "2026-08-17",
+      "listingDate": "2026-08-19",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/apana-logistics-ipo",
@@ -4581,7 +4881,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/APANALOGISTICSLIMITED_27677814_95954.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/APANALOGISTICSLIMITED_27677814_95954.png",
+      "openDate": "2026-08-11",
+      "refundDate": "2026-08-18",
+      "dematDate": "2026-08-18"
     },
     {
       "id": "qualiance-international",
@@ -4598,9 +4901,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 159.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-13",
+      "allotDate": "2026-08-14",
+      "listingDate": "2026-08-18",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/qualiance-international-ipo",
@@ -4617,7 +4920,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QualianceInternationalLtd_91967050_96774.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QualianceInternationalLtd_91967050_96774.png",
+      "openDate": "2026-08-10",
+      "refundDate": "2026-08-17",
+      "dematDate": "2026-08-17"
     },
     {
       "id": "rays-of-belief",
@@ -4634,9 +4940,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 590,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-13",
+      "allotDate": "2026-08-14",
+      "listingDate": "2026-08-18",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/rays-of-belief-ipo",
@@ -4653,7 +4959,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RaysofbeliefLtd_43264887_96457.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RaysofbeliefLtd_43264887_96457.png",
+      "openDate": "2026-08-10",
+      "refundDate": "2026-08-17",
+      "dematDate": "2026-08-17"
     },
     {
       "id": "deepa-jewellers",
@@ -4670,9 +4979,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 710,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-12",
+      "allotDate": "2026-08-13",
+      "listingDate": "2026-08-17",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/deepa-jewellers-ipo",
@@ -4689,7 +4998,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DEEPAJEWELLERSLIMITED_78637726_96370.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DEEPAJEWELLERSLIMITED_78637726_96370.png",
+      "openDate": "2026-08-07",
+      "refundDate": "2026-08-14",
+      "dematDate": "2026-08-14"
     },
     {
       "id": "farm-peace",
@@ -4706,9 +5018,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 196.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-12",
+      "allotDate": "2026-08-13",
+      "listingDate": "2026-08-17",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/farm-peace-ipo",
@@ -4725,7 +5037,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FarmPeaceLtd_31021830_95916.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FarmPeaceLtd_31021830_95916.png",
+      "openDate": "2026-08-07",
+      "refundDate": "2026-08-14",
+      "dematDate": "2026-08-14"
     },
     {
       "id": "fly-hi-maritime",
@@ -4742,9 +5057,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 209,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-11",
+      "allotDate": "2026-08-12",
+      "listingDate": "2026-08-14",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/fly-hi-maritime-ipo",
@@ -4761,7 +5076,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Fly-HiMaritimeTravelsLtd_17311186_96389.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Fly-HiMaritimeTravelsLtd_17311186_96389.png",
+      "openDate": "2026-08-06",
+      "refundDate": "2026-08-13",
+      "dematDate": "2026-08-13"
     },
     {
       "id": "shanti-inorganics",
@@ -4778,9 +5096,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 221.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-11",
+      "allotDate": "2026-08-12",
+      "listingDate": "2026-08-14",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/shanti-inorganics-ipo",
@@ -4797,7 +5115,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShantiInorganicsLtd_22713610_95929.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShantiInorganicsLtd_22713610_95929.png",
+      "openDate": "2026-08-06",
+      "refundDate": "2026-08-13",
+      "dematDate": "2026-08-13"
     },
     {
       "id": "phychem-technologies",
@@ -4814,9 +5135,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 233.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-10",
+      "allotDate": "2026-08-11",
+      "listingDate": "2026-08-13",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/phychem-technologies-ipo",
@@ -4833,7 +5154,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PHYCHEMTECHNOLOGIESLIMITED_31377666_95986.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PHYCHEMTECHNOLOGIESLIMITED_31377666_95986.png",
+      "openDate": "2026-08-05",
+      "refundDate": "2026-08-12",
+      "dematDate": "2026-08-12"
     },
     {
       "id": "purple-style-labs",
@@ -4850,9 +5174,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1310,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-10",
+      "allotDate": "2026-08-11",
+      "listingDate": "2026-08-13",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/purple-style-labs-ipo",
@@ -4869,7 +5193,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PurpleStyleLabsLtd_95439274_95898.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PurpleStyleLabsLtd_95439274_95898.png",
+      "openDate": "2026-08-05",
+      "refundDate": "2026-08-12",
+      "dematDate": "2026-08-12"
     },
     {
       "id": "ashutosh-fibre",
@@ -4886,9 +5213,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 36.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-07",
+      "allotDate": "2026-08-10",
+      "listingDate": "2026-08-12",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ashutosh-fibre-ipo",
@@ -4905,7 +5232,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AshutoshFibreLtd_37267091_81734.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AshutoshFibreLtd_37267091_81734.png",
+      "openDate": "2026-08-04",
+      "refundDate": "2026-08-11",
+      "dematDate": "2026-08-11"
     },
     {
       "id": "priority-jewels",
@@ -4922,9 +5252,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1550,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-07",
+      "allotDate": "2026-08-10",
+      "listingDate": "2026-08-12",
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://www.linkintime.co.in/",
       "growwUrl": "https://groww.in/ipo/priority-jewels-ipo",
@@ -4941,7 +5271,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PriorityJewelsLtd_53885287_70979.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PriorityJewelsLtd_53885287_70979.png",
+      "openDate": "2026-08-04",
+      "refundDate": "2026-08-11",
+      "dematDate": "2026-08-11"
     },
     {
       "id": "paluck-technologies",
@@ -4958,9 +5291,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 61.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-06",
+      "allotDate": "2026-08-07",
+      "listingDate": "2026-08-11",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/paluck-technologies-ipo",
@@ -4977,7 +5310,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PALUCKTECHNOLOGIESLIMITED_49218616_95973.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PALUCKTECHNOLOGIESLIMITED_49218616_95973.png",
+      "openDate": "2026-08-03",
+      "refundDate": "2026-08-10",
+      "dematDate": "2026-08-10"
     },
     {
       "id": "complete-sports-and-management",
@@ -4994,9 +5330,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 73.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-06",
+      "allotDate": "2026-08-07",
+      "listingDate": "2026-08-11",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/complete-sports-and-management-ipo",
@@ -5013,7 +5349,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CompleteSportsandManagementIndiaLimited_12032298_97142.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CompleteSportsandManagementIndiaLimited_12032298_97142.png",
+      "openDate": "2026-08-03",
+      "refundDate": "2026-08-10",
+      "dematDate": "2026-08-10"
     },
     {
       "id": "esds-software",
@@ -5030,9 +5369,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1910,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-05",
+      "allotDate": "2026-08-06",
+      "listingDate": "2026-08-10",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/",
       "growwUrl": "https://groww.in/ipo/esds-software-ipo",
@@ -5049,7 +5388,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ESDSSoftwareSolutionLtd_29129294_71185.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ESDSSoftwareSolutionLtd_29129294_71185.png",
+      "openDate": "2026-07-31",
+      "refundDate": "2026-08-07",
+      "dematDate": "2026-08-07"
     },
     {
       "id": "kwick-forensic",
@@ -5066,9 +5408,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 98.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-05",
+      "allotDate": "2026-08-06",
+      "listingDate": "2026-08-10",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/kwick-forensic-ipo",
@@ -5085,7 +5427,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KwickForensicSolutionsLtd_14246080_95937.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KwickForensicSolutionsLtd_14246080_95937.png",
+      "openDate": "2026-07-31",
+      "refundDate": "2026-08-07",
+      "dematDate": "2026-08-07"
     },
     {
       "id": "lumino-industries",
@@ -5102,9 +5447,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2150,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-04",
+      "allotDate": "2026-08-05",
+      "listingDate": "2026-08-07",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
       "growwUrl": "https://groww.in/ipo/lumino-industries-ipo",
@@ -5121,7 +5466,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LuminoIndustriesLtd_93194948_75521.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LuminoIndustriesLtd_93194948_75521.png",
+      "openDate": "2026-07-30",
+      "refundDate": "2026-08-06",
+      "dematDate": "2026-08-06"
     },
     {
       "id": "sumax-engineering",
@@ -5138,9 +5486,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 122.9,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-04",
+      "allotDate": "2026-08-05",
+      "listingDate": "2026-08-07",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/sumax-engineering-ipo",
@@ -5157,7 +5505,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SumaxEngineeringLtd_76109776_96750.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SumaxEngineeringLtd_76109776_96750.png",
+      "openDate": "2026-07-30",
+      "refundDate": "2026-08-06",
+      "dematDate": "2026-08-06"
     },
     {
       "id": "annu-projects",
@@ -5174,9 +5525,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2390,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-03",
+      "allotDate": "2026-08-04",
+      "listingDate": "2026-08-06",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/annu-projects-ipo",
@@ -5193,7 +5544,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANNUPROJECTSLIMITED_76985673_95590.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANNUPROJECTSLIMITED_76985673_95590.png",
+      "openDate": "2026-07-29",
+      "refundDate": "2026-08-05",
+      "dematDate": "2026-08-05"
     },
     {
       "id": "skyways-air",
@@ -5210,9 +5564,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2510,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-08-03",
+      "allotDate": "2026-08-04",
+      "listingDate": "2026-08-06",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/skyways-air-ipo",
@@ -5229,7 +5583,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkywaysAirServicesLtd_67602397_16968.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkywaysAirServicesLtd_67602397_16968.png",
+      "openDate": "2026-07-29",
+      "refundDate": "2026-08-05",
+      "dematDate": "2026-08-05"
     },
     {
       "id": "abh-healthcare",
@@ -5246,9 +5603,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 159.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-31",
+      "allotDate": "2026-08-03",
+      "listingDate": "2026-08-05",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/abh-healthcare-ipo",
@@ -5265,7 +5622,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ABHHealthcareLimited_63998922_95591.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ABHHealthcareLimited_63998922_95591.png",
+      "openDate": "2026-07-28",
+      "refundDate": "2026-08-04",
+      "dematDate": "2026-08-04"
     },
     {
       "id": "madhur-knit",
@@ -5282,9 +5642,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 172.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-31",
+      "allotDate": "2026-08-03",
+      "listingDate": "2026-08-05",
       "registrar": "Skyline Financial Services",
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/madhur-knit-ipo",
@@ -5301,7 +5661,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MADHURKNITCRAFTSLIMITED_65482566_96159.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MADHURKNITCRAFTSLIMITED_65482566_96159.png",
+      "openDate": "2026-07-28",
+      "refundDate": "2026-08-04",
+      "dematDate": "2026-08-04"
     },
     {
       "id": "symbiotec-pharma",
@@ -5318,9 +5681,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 470,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-30",
+      "allotDate": "2026-07-31",
+      "listingDate": "2026-08-04",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/symbiotec-pharma-ipo",
@@ -5337,7 +5700,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SymbiotecPharmalabLtd_43064860_36114.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SymbiotecPharmalabLtd_43064860_36114.png",
+      "openDate": "2026-07-27",
+      "refundDate": "2026-08-03",
+      "dematDate": "2026-08-03"
     },
     {
       "id": "hy-tech-engineers",
@@ -5354,9 +5720,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 590,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-30",
+      "allotDate": "2026-07-31",
+      "listingDate": "2026-08-04",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/",
       "growwUrl": "https://groww.in/ipo/hy-tech-engineers-ipo",
@@ -5373,7 +5739,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Hy-TechEngineersLtd_24754229_95831.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Hy-TechEngineersLtd_24754229_95831.png",
+      "openDate": "2026-07-27",
+      "refundDate": "2026-08-03",
+      "dematDate": "2026-08-03"
     },
     {
       "id": "augmont-enterprises",
@@ -5390,9 +5759,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 710,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-29",
+      "allotDate": "2026-07-30",
+      "listingDate": "2026-08-03",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/augmont-enterprises-ipo",
@@ -5409,7 +5778,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AugmontEnterprisesLtd_75272669_74748.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AugmontEnterprisesLtd_75272669_74748.png",
+      "openDate": "2026-07-24",
+      "refundDate": "2026-07-31",
+      "dematDate": "2026-07-31"
     },
     {
       "id": "tempsens-instruments-india",
@@ -5426,9 +5798,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 830,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-29",
+      "allotDate": "2026-07-30",
+      "listingDate": "2026-08-03",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/tempsens-instruments-india-ipo",
@@ -5445,7 +5817,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TempsensInstrumentsIndiaLtd_28550851_38538.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TempsensInstrumentsIndiaLtd_28550851_38538.png",
+      "openDate": "2026-07-24",
+      "refundDate": "2026-07-31",
+      "dematDate": "2026-07-31"
     },
     {
       "id": "dhanwel-hybrid-seeds",
@@ -5462,9 +5837,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 233.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-28",
+      "allotDate": "2026-07-29",
+      "listingDate": "2026-07-31",
       "registrar": "Cameo Corporate Services",
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/dhanwel-hybrid-seeds-ipo",
@@ -5481,7 +5856,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhanwelHybridSeedsLtd_72011366_96391.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhanwelHybridSeedsLtd_72011366_96391.png",
+      "openDate": "2026-07-23",
+      "refundDate": "2026-07-30",
+      "dematDate": "2026-07-30"
     },
     {
       "id": "gaja-alternative-asset-management",
@@ -5498,9 +5876,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1070,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-28",
+      "allotDate": "2026-07-29",
+      "listingDate": "2026-07-31",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/gaja-alternative-asset-management-ipo",
@@ -5517,7 +5895,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GajaAlternativeAssetManagementLtd_80351010_96064.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GajaAlternativeAssetManagementLtd_80351010_96064.png",
+      "openDate": "2026-07-23",
+      "refundDate": "2026-07-30",
+      "dematDate": "2026-07-30"
     },
     {
       "id": "mopshop-distribution",
@@ -5534,9 +5915,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 36.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-27",
+      "allotDate": "2026-07-28",
+      "listingDate": "2026-07-30",
       "registrar": "Cameo Corporate Services",
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/mopshop-distribution-ipo",
@@ -5553,7 +5934,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MOPSHOPDISTRIBUTIONLIMITED_38667635_95957.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MOPSHOPDISTRIBUTIONLIMITED_38667635_95957.png",
+      "openDate": "2026-07-22",
+      "refundDate": "2026-07-29",
+      "dematDate": "2026-07-29"
     },
     {
       "id": "sunshine-pictures",
@@ -5570,9 +5954,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1310,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-27",
+      "allotDate": "2026-07-28",
+      "listingDate": "2026-07-30",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/sunshine-pictures-ipo",
@@ -5589,7 +5973,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SunshinePicturesLtd_29183177_94357.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SunshinePicturesLtd_29183177_94357.png",
+      "openDate": "2026-07-22",
+      "refundDate": "2026-07-29",
+      "dematDate": "2026-07-29"
     },
     {
       "id": "shankesh-jewellers",
@@ -5606,9 +5993,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1430,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-24",
+      "allotDate": "2026-07-27",
+      "listingDate": "2026-07-29",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/shankesh-jewellers-ipo",
@@ -5625,7 +6012,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHANKESHJEWELLERSLIMITED_35762012_96152.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHANKESHJEWELLERSLIMITED_35762012_96152.png",
+      "openDate": "2026-07-21",
+      "refundDate": "2026-07-28",
+      "dematDate": "2026-07-28"
     },
     {
       "id": "fascinate-textiles",
@@ -5642,9 +6032,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 73.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-24",
+      "allotDate": "2026-07-27",
+      "listingDate": "2026-07-29",
       "registrar": "Cameo Corporate Services",
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/fascinate-textiles-ipo",
@@ -5661,7 +6051,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FascinateTextilesLtd_94544365_95924.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FascinateTextilesLtd_94544365_95924.png",
+      "openDate": "2026-07-21",
+      "refundDate": "2026-07-28",
+      "dematDate": "2026-07-28"
     },
     {
       "id": "lalithaa-jewellery-mart",
@@ -5678,9 +6071,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1670,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-23",
+      "allotDate": "2026-07-24",
+      "listingDate": "2026-07-28",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/lalithaa-jewellery-mart-ipo",
@@ -5697,7 +6090,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LalithaaJewelleryMartLtd_86119472_29036.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LalithaaJewelleryMartLtd_86119472_29036.png",
+      "openDate": "2026-07-20",
+      "refundDate": "2026-07-27",
+      "dematDate": "2026-07-27"
     },
     {
       "id": "horizon-industrial-parks",
@@ -5714,9 +6110,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1790,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-23",
+      "allotDate": "2026-07-24",
+      "listingDate": "2026-07-28",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/horizon-industrial-parks-ipo",
@@ -5733,7 +6129,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HORIZONINDUSTRIALPARKSLIMITED_81507881_96371.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HORIZONINDUSTRIALPARKSLIMITED_81507881_96371.png",
+      "openDate": "2026-07-20",
+      "refundDate": "2026-07-27",
+      "dematDate": "2026-07-27"
     },
     {
       "id": "ens-enterprises",
@@ -5750,9 +6149,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 110.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-22",
+      "allotDate": "2026-07-23",
+      "listingDate": "2026-07-27",
       "registrar": "Abhipra Capital Ltd",
       "allotmentUrl": "https://www.abhipra.com/",
       "growwUrl": "https://groww.in/ipo/ens-enterprises-ipo",
@@ -5769,7 +6168,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ENSENTERPRISESLIMITED_80931987_96134.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ENSENTERPRISESLIMITED_80931987_96134.png",
+      "openDate": "2026-07-17",
+      "refundDate": "2026-07-24",
+      "dematDate": "2026-07-24"
     },
     {
       "id": "technocrats-plasma-systems",
@@ -5786,9 +6188,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 122.9,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-22",
+      "allotDate": "2026-07-23",
+      "listingDate": "2026-07-27",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/technocrats-plasma-systems-ipo",
@@ -5805,7 +6207,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TECHNOCRATSPLASMASYSTEMSLIMITED_96675272_96388.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TECHNOCRATSPLASMASYSTEMSLIMITED_96675272_96388.png",
+      "openDate": "2026-07-17",
+      "refundDate": "2026-07-24",
+      "dematDate": "2026-07-24"
     },
     {
       "id": "skytech-infinite-platform",
@@ -5822,9 +6227,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 135.2,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-21",
+      "allotDate": "2026-07-22",
+      "listingDate": "2026-07-24",
       "registrar": "Integrated Registry Management",
       "allotmentUrl": "https://www.integratedregistry.in/IRMS_V2/IPO.aspx",
       "growwUrl": "https://groww.in/ipo/skytech-infinite-platform-ipo",
@@ -5841,7 +6246,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkytechInfinitePlatformLtd_42634995_97478.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkytechInfinitePlatformLtd_42634995_97478.png",
+      "openDate": "2026-07-16",
+      "refundDate": "2026-07-23",
+      "dematDate": "2026-07-23"
     },
     {
       "id": "credent-connect-n-care",
@@ -5858,9 +6266,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 147.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-21",
+      "allotDate": "2026-07-22",
+      "listingDate": "2026-07-24",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/credent-connect-n-care-ipo",
@@ -5877,7 +6285,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CredentConnectNCareLtd_42377851_96760.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CredentConnectNCareLtd_42377851_96760.png",
+      "openDate": "2026-07-16",
+      "refundDate": "2026-07-23",
+      "dematDate": "2026-07-23"
     },
     {
       "id": "pramodini-medicare",
@@ -5894,9 +6305,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 159.8,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-20",
+      "allotDate": "2026-07-21",
+      "listingDate": "2026-07-23",
       "registrar": "Purva Sharegistry (India) Pvt Ltd",
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/pramodini-medicare-ipo",
@@ -5913,7 +6324,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PramodiniMedicareLtd_54032357_96828.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PramodiniMedicareLtd_54032357_96828.png",
+      "openDate": "2026-07-15",
+      "refundDate": "2026-07-22",
+      "dematDate": "2026-07-22"
     },
     {
       "id": "shiprocket",
@@ -5930,9 +6344,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2510,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-20",
+      "allotDate": "2026-07-21",
+      "listingDate": "2026-07-23",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/shiprocket-ipo",
@@ -5949,7 +6363,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShiprocketLtd_31975029_77985.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShiprocketLtd_31975029_77985.png",
+      "openDate": "2026-07-15",
+      "refundDate": "2026-07-22",
+      "dematDate": "2026-07-22"
     },
     {
       "id": "behari-lal-engineering",
@@ -5966,9 +6383,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2630,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-17",
+      "allotDate": "2026-07-20",
+      "listingDate": "2026-07-22",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/behari-lal-engineering-ipo",
@@ -5985,7 +6402,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BehariLalEngineeringLtd_65685126_95921.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BehariLalEngineeringLtd_65685126_95921.png",
+      "openDate": "2026-07-14",
+      "refundDate": "2026-07-21",
+      "dematDate": "2026-07-21"
     },
     {
       "id": "qt-foods",
@@ -6002,9 +6422,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 196.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-17",
+      "allotDate": "2026-07-20",
+      "listingDate": "2026-07-22",
       "registrar": "Skyline Financial Services",
       "allotmentUrl": "https://www.skylinerta.com/",
       "growwUrl": "https://groww.in/ipo/qt-foods-ipo",
@@ -6021,7 +6441,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QTFoodsLtd_86000554_96984.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QTFoodsLtd_86000554_96984.png",
+      "openDate": "2026-07-14",
+      "refundDate": "2026-07-21",
+      "dematDate": "2026-07-21"
     },
     {
       "id": "milky-mist",
@@ -6038,9 +6461,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 470,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-16",
+      "allotDate": "2026-07-17",
+      "listingDate": "2026-07-21",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/milky-mist-ipo",
@@ -6057,7 +6480,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MilkyMistDairyFoodLtd_88113449_79872.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MilkyMistDairyFoodLtd_88113449_79872.png",
+      "openDate": "2026-07-13",
+      "refundDate": "2026-07-20",
+      "dematDate": "2026-07-20"
     },
     {
       "id": "sham-foam",
@@ -6074,9 +6500,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 221.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-16",
+      "allotDate": "2026-07-17",
+      "listingDate": "2026-07-21",
       "registrar": "Alankit Assignments Ltd",
       "allotmentUrl": "http://ipo.alankit.com/",
       "growwUrl": "https://groww.in/ipo/sham-foam-ipo",
@@ -6093,7 +6519,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShamFoamLtd_11154771_96484.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShamFoamLtd_11154771_96484.png",
+      "openDate": "2026-07-13",
+      "refundDate": "2026-07-20",
+      "dematDate": "2026-07-20"
     },
     {
       "id": "dhoot-transmission",
@@ -6110,9 +6539,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 710,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-15",
+      "allotDate": "2026-07-16",
+      "listingDate": "2026-07-20",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/dhoot-transmission-ipo",
@@ -6129,7 +6558,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhootTransmissionLtd_97455086_34585.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhootTransmissionLtd_97455086_34585.png",
+      "openDate": "2026-07-10",
+      "refundDate": "2026-07-17",
+      "dematDate": "2026-07-17"
     },
     {
       "id": "molbio-diagnostics",
@@ -6146,9 +6578,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 830,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-15",
+      "allotDate": "2026-07-16",
+      "listingDate": "2026-07-20",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/molbio-diagnostics-ipo",
@@ -6165,7 +6597,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MolbioDiagnosticsLtd_55950307_78994.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MolbioDiagnosticsLtd_55950307_78994.png",
+      "openDate": "2026-07-10",
+      "refundDate": "2026-07-17",
+      "dematDate": "2026-07-17"
     },
     {
       "id": "technocraft-ventures",
@@ -6182,9 +6617,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 950,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-14",
+      "allotDate": "2026-07-15",
+      "listingDate": "2026-07-17",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/technocraft-ventures-ipo",
@@ -6201,7 +6636,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TechnocraftVenturesLtd_29354669_88192.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TechnocraftVenturesLtd_29354669_88192.png",
+      "openDate": "2026-07-09",
+      "refundDate": "2026-07-16",
+      "dematDate": "2026-07-16"
     },
     {
       "id": "optimystix-entertainment",
@@ -6218,9 +6656,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 49.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-14",
+      "allotDate": "2026-07-15",
+      "listingDate": "2026-07-17",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/optimystix-entertainment-ipo",
@@ -6237,7 +6675,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OptimystixEntertainmentIndiaLtd_73079956_95946.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OptimystixEntertainmentIndiaLtd_73079956_95946.png",
+      "openDate": "2026-07-09",
+      "refundDate": "2026-07-16",
+      "dematDate": "2026-07-16"
     },
     {
       "id": "leap-india",
@@ -6254,9 +6695,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1190,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-13",
+      "allotDate": "2026-07-14",
+      "listingDate": "2026-07-16",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/leap-india-ipo",
@@ -6273,7 +6714,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LeapIndiaLtd_15518164_78745.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LeapIndiaLtd_15518164_78745.png",
+      "openDate": "2026-07-08",
+      "refundDate": "2026-07-15",
+      "dematDate": "2026-07-15"
     },
     {
       "id": "lapl-automotive",
@@ -6290,9 +6734,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 73.7,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-13",
+      "allotDate": "2026-07-14",
+      "listingDate": "2026-07-16",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/lapl-automotive-ipo",
@@ -6309,7 +6753,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LAPLAUTOMOTIVELIMITED_49774919_95355.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LAPLAUTOMOTIVELIMITED_49774919_95355.png",
+      "openDate": "2026-07-08",
+      "refundDate": "2026-07-15",
+      "dematDate": "2026-07-15"
     },
     {
       "id": "gv-electricals",
@@ -6326,9 +6773,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 86,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-10",
+      "allotDate": "2026-07-13",
+      "listingDate": "2026-07-15",
       "registrar": "Mudra Financial Services",
       "allotmentUrl": "https://mudrarta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/gv-electricals-ipo",
@@ -6345,7 +6792,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GVElectricalsLtd_37311662_96754.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GVElectricalsLtd_37311662_96754.png",
+      "openDate": "2026-07-07",
+      "refundDate": "2026-07-14",
+      "dematDate": "2026-07-14"
     },
     {
       "id": "ardee-industries",
@@ -6362,9 +6812,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1550,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-10",
+      "allotDate": "2026-07-13",
+      "listingDate": "2026-07-15",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ardee-industries-ipo",
@@ -6381,7 +6831,10 @@ window.IpoData = {
       ],
       "priceBandLow": 90,
       "priceBandHigh": 96,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ARDEEINDUSTRIESLIMITED_57536121_96060.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ARDEEINDUSTRIESLIMITED_57536121_96060.png",
+      "openDate": "2026-07-07",
+      "refundDate": "2026-07-14",
+      "dematDate": "2026-07-14"
     },
     {
       "id": "aegeus-technologies",
@@ -6398,9 +6851,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 110.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-09",
+      "allotDate": "2026-07-10",
+      "listingDate": "2026-07-14",
       "registrar": "Skyline Financial Services",
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/aegeus-technologies-ipo",
@@ -6417,7 +6870,10 @@ window.IpoData = {
       ],
       "priceBandLow": 100,
       "priceBandHigh": 106,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AegeusTechnologiesLtd_66426305_90636.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AegeusTechnologiesLtd_66426305_90636.png",
+      "openDate": "2026-07-06",
+      "refundDate": "2026-07-13",
+      "dematDate": "2026-07-13"
     },
     {
       "id": "anawil-wire-engieering",
@@ -6434,9 +6890,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 122.9,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-09",
+      "allotDate": "2026-07-10",
+      "listingDate": "2026-07-14",
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/anawil-wire-engieering-ipo",
@@ -6453,7 +6909,10 @@ window.IpoData = {
       ],
       "priceBandLow": 110,
       "priceBandHigh": 116,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANAWILWIREANDENGINEERINGLIMITED_38924945_95907.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANAWILWIREANDENGINEERINGLIMITED_38924945_95907.png",
+      "openDate": "2026-07-06",
+      "refundDate": "2026-07-13",
+      "dematDate": "2026-07-13"
     },
     {
       "id": "fusion-klassroom-edutech",
@@ -6470,9 +6929,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 135.2,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-08",
+      "allotDate": "2026-07-09",
+      "listingDate": "2026-07-13",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/fusion-klassroom-edutech-ipo",
@@ -6489,7 +6948,10 @@ window.IpoData = {
       ],
       "priceBandLow": 120,
       "priceBandHigh": 126,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionKlassromEductechLtd_45197556_96460.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionKlassromEductechLtd_45197556_96460.png",
+      "openDate": "2026-07-03",
+      "refundDate": "2026-07-10",
+      "dematDate": "2026-07-10"
     },
     {
       "id": "dhaval-packaging",
@@ -6506,9 +6968,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 147.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-08",
+      "allotDate": "2026-07-09",
+      "listingDate": "2026-07-13",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/dhaval-packaging-ipo",
@@ -6525,7 +6987,10 @@ window.IpoData = {
       ],
       "priceBandLow": 130,
       "priceBandHigh": 136,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhavalPackagingLtd_15328258_81876.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhavalPackagingLtd_15328258_81876.png",
+      "openDate": "2026-07-03",
+      "refundDate": "2026-07-10",
+      "dematDate": "2026-07-10"
     },
     {
       "id": "juniper-green-energy",
@@ -6542,9 +7007,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2150,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-07",
+      "allotDate": "2026-07-08",
+      "listingDate": "2026-07-10",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/juniper-green-energy-ipo",
@@ -6561,7 +7026,10 @@ window.IpoData = {
       ],
       "priceBandLow": 140,
       "priceBandHigh": 146,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JUNIPERGREENENERGYLIMITED_62046496_95589.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JUNIPERGREENENERGYLIMITED_62046496_95589.png",
+      "openDate": "2026-07-02",
+      "refundDate": "2026-07-09",
+      "dematDate": "2026-07-09"
     },
     {
       "id": "mv-electrosystems",
@@ -6578,9 +7046,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2270,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-07",
+      "allotDate": "2026-07-08",
+      "listingDate": "2026-07-10",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/mv-electrosystems-ipo",
@@ -6597,7 +7065,10 @@ window.IpoData = {
       ],
       "priceBandLow": 150,
       "priceBandHigh": 156,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MVElectrosystemsLimited_71737839_96131.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MVElectrosystemsLimited_71737839_96131.png",
+      "openDate": "2026-07-02",
+      "refundDate": "2026-07-09",
+      "dematDate": "2026-07-09"
     },
     {
       "id": "oneindig-technologies",
@@ -6614,9 +7085,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 184.4,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-06",
+      "allotDate": "2026-07-07",
+      "listingDate": "2026-07-09",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/oneindig-technologies-ipo",
@@ -6633,7 +7104,10 @@ window.IpoData = {
       ],
       "priceBandLow": 160,
       "priceBandHigh": 166,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ONEINDIGTECHNOLOGIESLIMITED_90997896_96055.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ONEINDIGTECHNOLOGIESLIMITED_90997896_96055.png",
+      "openDate": "2026-07-01",
+      "refundDate": "2026-07-08",
+      "dematDate": "2026-07-08"
     },
     {
       "id": "manipal-health-enterprises",
@@ -6650,9 +7124,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 2510,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-06",
+      "allotDate": "2026-07-07",
+      "listingDate": "2026-07-09",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/manipal-health-enterprises-ipo",
@@ -6669,7 +7143,10 @@ window.IpoData = {
       ],
       "priceBandLow": 170,
       "priceBandHigh": 176,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalHealthEnterprisesLtd_84641688_73020.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalHealthEnterprisesLtd_84641688_73020.png",
+      "openDate": "2026-07-01",
+      "refundDate": "2026-07-08",
+      "dematDate": "2026-07-08"
     },
     {
       "id": "hr-hygiene-products",
@@ -6686,9 +7163,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 209,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-03",
+      "allotDate": "2026-07-06",
+      "listingDate": "2026-07-08",
       "registrar": "Purva Sharegistry (India) Pvt Ltd",
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/hr-hygiene-products-ipo",
@@ -6705,7 +7182,10 @@ window.IpoData = {
       ],
       "priceBandLow": 180,
       "priceBandHigh": 186,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/H.R.HygieneProductsLtd_10827164_95933.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/H.R.HygieneProductsLtd_10827164_95933.png",
+      "openDate": "2026-06-30",
+      "refundDate": "2026-07-07",
+      "dematDate": "2026-07-07"
     },
     {
       "id": "poojaa-precision-engg",
@@ -6722,9 +7202,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 221.3,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-03",
+      "allotDate": "2026-07-06",
+      "listingDate": "2026-07-08",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/poojaa-precision-engg-ipo",
@@ -6741,7 +7221,10 @@ window.IpoData = {
       ],
       "priceBandLow": 190,
       "priceBandHigh": 196,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaPrecisionEngineeringLtd_50741856_67838.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaPrecisionEngineeringLtd_50741856_67838.png",
+      "openDate": "2026-06-30",
+      "refundDate": "2026-07-07",
+      "dematDate": "2026-07-07"
     },
     {
       "id": "advance-technoforge",
@@ -6758,9 +7241,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 233.6,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-02",
+      "allotDate": "2026-07-03",
+      "listingDate": "2026-07-07",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/advance-technoforge-ipo",
@@ -6777,7 +7260,10 @@ window.IpoData = {
       ],
       "priceBandLow": 200,
       "priceBandHigh": 206,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdvanceTechnoforgeLtd_32789711_94662.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdvanceTechnoforgeLtd_32789711_94662.png",
+      "openDate": "2026-06-29",
+      "refundDate": "2026-07-06",
+      "dematDate": "2026-07-06"
     },
     {
       "id": "propshop-events-exhibitions",
@@ -6794,9 +7280,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 24.5,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-02",
+      "allotDate": "2026-07-03",
+      "listingDate": "2026-07-07",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/propshop-events-exhibitions-ipo",
@@ -6813,7 +7299,10 @@ window.IpoData = {
       ],
       "priceBandLow": 210,
       "priceBandHigh": 216,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PropshopEventsandExhibitionsLtd_71087243_95303.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PropshopEventsandExhibitionsLtd_71087243_95303.png",
+      "openDate": "2026-06-29",
+      "refundDate": "2026-07-06",
+      "dematDate": "2026-07-06"
     },
     {
       "id": "cube-highways-trust-invit",
@@ -6830,9 +7319,9 @@ window.IpoData = {
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 710,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-01",
+      "allotDate": "2026-07-02",
+      "listingDate": "2026-07-06",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/cube-highways-trust-invit",
@@ -6849,7 +7338,10 @@ window.IpoData = {
       ],
       "priceBandLow": 220,
       "priceBandHigh": 226,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CubeHighwaysTrust_17960219_79000.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CubeHighwaysTrust_17960219_79000.png",
+      "openDate": "2026-06-26",
+      "refundDate": "2026-07-03",
+      "dematDate": "2026-07-03"
     },
     {
       "id": "silverstorm-parks-resorts",
@@ -6866,9 +7358,9 @@ window.IpoData = {
       "issueType": "SME",
       "lotSize": 1200,
       "issueSizeCr": 49.1,
-      "closeDate": "2026-10-30",
-      "allotDate": "2026-11-03",
-      "listingDate": "2026-11-05",
+      "closeDate": "2026-07-01",
+      "allotDate": "2026-07-02",
+      "listingDate": "2026-07-06",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/silverstorm-parks-resorts-ipo",
@@ -6885,7 +7377,10 @@ window.IpoData = {
       ],
       "priceBandLow": 230,
       "priceBandHigh": 236,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SILVERSTORMPARKSANDRESORTSLIMITED_54184578_96384.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SILVERSTORMPARKSANDRESORTSLIMITED_54184578_96384.png",
+      "openDate": "2026-06-26",
+      "refundDate": "2026-07-03",
+      "dematDate": "2026-07-03"
     },
     {
       "id": "niva-bupa-health",
@@ -7983,6 +8478,38 @@ window.IpoData = {
         "name": "Carver Roboweld",
         "type": "CLOSE",
         "text": "Market Closed (25.8x)"
+      }
+    ],
+    "2026-10-31": [
+      {
+        "id": "mksons-fine-jewels",
+        "name": "M.K. Sons Jewels",
+        "type": "CLOSE",
+        "text": "Market Bidding Closed (5.09x)"
+      },
+      {
+        "id": "afcons-infrastructure",
+        "name": "Afcons Infrastructure",
+        "type": "ALLOTMENT",
+        "text": "Basis of Allotment Query on Link Intime"
+      },
+      {
+        "id": "bombay-coated-steels",
+        "name": "Bombay Coated Steels",
+        "type": "OPEN",
+        "text": "Mainboard Bidding Day 3 (3.98x)"
+      },
+      {
+        "id": "maxwell-engineering",
+        "name": "Maxwell Engineering",
+        "type": "OPEN",
+        "text": "NSE SME Bidding Day 2 (12.45x)"
+      },
+      {
+        "id": "johnsoncab-electricals",
+        "name": "Johnsoncab Electricals",
+        "type": "OPEN",
+        "text": "BSE SME Bidding Day 2 (2.15x)"
       }
     ],
     "2026-11-02": [

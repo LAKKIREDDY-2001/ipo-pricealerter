@@ -17,7 +17,7 @@
     activeBoard: "all",         // 'all' | 'mainboard' | 'sme'
     activeBottomCompany: "bombay-coated-and-special-steels-ipo",
     calendarMonth: new Date(2026, 9, 1), // October 2026
-    selectedCalendarDate: "2026-10-30",
+    selectedCalendarDate: "2026-10-31",
     detailTab: "overview",      // 'overview' | 'subscription' | 'gmp' | 'financials' | 'review' | 'documents'
     notificationsOpen: false,
     applyDropdownOpen: false,
@@ -690,15 +690,27 @@
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Dashboard Filter Logic — Open (6), Closed (165), All Listed (197)
-    let filtered = records;
+    // Dashboard Filter Logic — Open (6), Closed (166), All Listed (204)
+    let filtered = [...records];
     if (state.activeFilter === "open") {
-      filtered = filtered.filter(r => r.status === "OPEN");
+      filtered = filtered.filter(r => r.status === "OPEN").sort((a, b) => {
+        const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
+        const db = b.closeDate ? new Date(b.closeDate).getTime() : 0;
+        return da - db; // Soonest close date first
+      });
     } else if (state.activeFilter === "closed") {
-      filtered = filtered.filter(r => r.status === "CLOSED");
+      filtered = filtered.filter(r => r.status === "CLOSED").sort((a, b) => {
+        const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
+        const db = b.closeDate ? new Date(b.closeDate).getTime() : 0;
+        return db - da; // Most recently closed first
+      });
     } else if (state.activeFilter === "listed") {
       // User directive: "all listed that all item 197 it need to show only"
-      filtered = records;
+      filtered = [...records].sort((a, b) => {
+        const da = a.listingDate ? new Date(a.listingDate).getTime() : 0;
+        const db = b.listingDate ? new Date(b.listingDate).getTime() : 0;
+        return db - da; // Most recently listed first
+      });
     }
 
     if (state.activeBoard === "mainboard") {
@@ -957,12 +969,13 @@
       ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}`
       : ipo.issuePrice ? `₹${ipo.issuePrice}` : "TBA";
 
+    const isFutureListing = ipo.listingDate && new Date(ipo.listingDate) > new Date("2026-10-31T23:59:59Z");
     const dateNote = ipo.status === "LISTED"
       ? `Listed: ${formatDate(ipo.listingDate)}`
       : ipo.status === "UPCOMING"
         ? `Opens: ${formatDate(ipo.openDate)}`
         : ipo.status === "CLOSED"
-          ? `Closed: ${formatDate(ipo.closeDate)}`
+          ? (isFutureListing ? `Closed: ${formatDate(ipo.closeDate)} • Listing: ${formatDate(ipo.listingDate)}` : `Closed: ${formatDate(ipo.closeDate)}`)
           : `Closes: ${formatDate(ipo.closeDate)}`;
 
     const maxSub = 50;
@@ -2712,7 +2725,7 @@
 
         <!-- Below Calendar Space: Detailed Day-by-Day Schedule for Selected Date -->
         <div id="calendar-day-details-container">
-          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2026-10-30")}
+          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2026-10-31")}
         </div>
 
         <!-- Official Exchange & Allotment Directory -->
