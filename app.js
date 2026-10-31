@@ -1676,31 +1676,6 @@
           </div>
         </div>
 
-        <!-- 1-Click Apply & Demat Affiliate Section -->
-        <div class="affiliate-demat-card" style="margin-top:14px; padding:18px 20px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-            <div>
-              <strong style="color:#FFFFFF; font-size:16px;">Apply for ${ipo.shortName} via Top Brokers</strong>
-              <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Select your verified broker for instant UPI ASBA bidding or open a 100% free Demat account:</div>
-            </div>
-            <span class="affiliate-badge-pill">⚡ 1-Click Application</span>
-          </div>
-          <div class="affiliate-brokers-grid" style="margin-bottom:0;">
-            ${AFFILIATE_BROKERS.map(b => `
-              <div class="affiliate-broker-btn" onclick="window.IpoApp.trackAndOpenBroker('${b.id}', '${b.applyUrl(ipo)}', 'Apply for ${ipo.shortName}')" style="padding:10px 14px;">
-                <div class="affiliate-broker-left">
-                  <div class="affiliate-broker-icon" style="background:${b.color}; width:32px; height:32px; font-size:11px;">${b.name.substring(0, 2).toUpperCase()}</div>
-                  <div class="affiliate-broker-info">
-                    <span class="affiliate-broker-name" style="font-size:13px;">${b.name}</span>
-                    <span class="affiliate-broker-offer" style="font-size:10.5px;">${b.badge}</span>
-                  </div>
-                </div>
-                <div class="affiliate-broker-action" style="font-size:11px;">Apply &rarr;</div>
-              </div>
-            `).join("")}
-          </div>
-        </div>
-
         <!-- Official Registrar Allotment Status & Verification Section (At the End) -->
         <div class="allotment-portal-callout allotment-callout-bottom" id="allotment-section">
           <div class="callout-text">
