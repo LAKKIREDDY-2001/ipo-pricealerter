@@ -170,9 +170,9 @@ window.IpoData = {
       "gmp": 0,
       "gmpPercentage": 0,
       "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
-      "dayHighGmp": 5,
-      "dayLowGmp": 3,
-      "trend": "up",
+      "dayHighGmp": 4,
+      "dayLowGmp": 0,
+      "trend": "flat",
       "gmpHistory": [
         {
           "date": "27 Oct",
@@ -189,6 +189,10 @@ window.IpoData = {
         {
           "date": "30 Oct",
           "value": 4
+        },
+        {
+          "date": "31 Oct",
+          "value": 0
         }
       ],
       "subscriptionTotal": 0.81,
@@ -267,9 +271,9 @@ window.IpoData = {
       "gmp": 5,
       "gmpPercentage": 4.76,
       "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
-      "dayHighGmp": 10,
-      "dayLowGmp": 6,
-      "trend": "up",
+      "dayHighGmp": 8,
+      "dayLowGmp": 5,
+      "trend": "down",
       "gmpHistory": [
         {
           "date": "28 Oct",
@@ -282,6 +286,10 @@ window.IpoData = {
         {
           "date": "30 Oct",
           "value": 8
+        },
+        {
+          "date": "31 Oct",
+          "value": 5
         }
       ],
       "subscriptionTotal": 1.2,
@@ -359,22 +367,26 @@ window.IpoData = {
       "listingDate": "2026-11-06",
       "gmp": 70,
       "gmpPercentage": 44.3,
-      "gmpUpdatedAt": "2026-10-30T17:30:00+05:30",
-      "dayHighGmp": 16,
-      "dayLowGmp": 12,
+      "gmpUpdatedAt": "2026-10-31T11:45:00+05:30",
+      "dayHighGmp": 72,
+      "dayLowGmp": 50,
       "trend": "up",
       "gmpHistory": [
         {
           "date": "28 Oct",
-          "value": 10
+          "value": 50
         },
         {
           "date": "29 Oct",
-          "value": 12
+          "value": 58
         },
         {
           "date": "30 Oct",
-          "value": 14
+          "value": 65
+        },
+        {
+          "date": "31 Oct",
+          "value": 70
         }
       ],
       "subscriptionTotal": 4.67,
@@ -587,6 +599,10 @@ window.IpoData = {
         {
           "date": "30 Oct",
           "value": 10
+        },
+        {
+          "date": "31 Oct",
+          "value": 12
         }
       ],
       "subscriptionTotal": 1.16,
