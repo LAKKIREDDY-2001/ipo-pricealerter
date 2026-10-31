@@ -49,7 +49,7 @@ Faithfully created from the reference mockups with high attention to detail:
 
 7. **Detailed IPO Page / Modal (BLS Polymers)**:
    - Clickable breadcrumbs (`Home > IPO > BLS Polymers`).
-   - Company header with logo, title, `Open` badge, and `Apply on ▾` dropdown (Zerodha Kite, Groww, Angel One, Upstox, HDFC Sky, SBI ASBA).
+   - Company header with logo, title, `Open` badge, and official DRHP prospectus links.
    - Deep Sub-navigation tabs:
      - `Overview`: 12-item Key Details grid, GMP Trend Chart (with Day High/Low and Trend direction), and horizontal 6-step IPO Timeline stepper.
      - `Subscription`: Full category bid counts, shares offered, and retail allotment probability note.

@@ -28,71 +28,8 @@
     cardsLimit: 18
   };
 
-  // ==========================================================================
-  // Stock Broker Affiliate & Partner Commission Tracking Config
-  // Insert your personal referral codes / partner tracking URLs below to earn
-  // direct cash commissions (₹200 - ₹750 per Demat account + 20-50% brokerage sharing)
-  // ==========================================================================
-  const AFFILIATE_PARTNER_CONFIG = {
-    // 1. Angel One Partner (Earn ₹300–₹750/account + up to 50% brokerage) -> https://partners.angelone.in/
-    ANGEL_ONE_PARTNER_URL: "https://www.angelone.in/open-demat-account",
-    // 2. Upstox Partner (Earn ₹200–₹600/account + 30% brokerage) -> https://upstox.com/partner/
-    UPSTOX_PARTNER_URL: "https://upstox.com/open-demat-account/",
-    // 3. Zerodha Partner (Earn 10% lifetime brokerage) -> https://zerodha.com/partner/
-    ZERODHA_PARTNER_URL: "https://zerodha.com/open-account",
-    // 4. Dhan Superfast Partner (Earn 20%–30% lifetime daily brokerage) -> https://dhan.co/partner/
-    DHAN_PARTNER_URL: "https://dhan.co/",
-    // 5. Groww Partner / Referral -> Groww App Refer & Earn or Cuelinks
-    GROWW_PARTNER_URL: "https://groww.in/open-demat-account"
-  };
-
-  const AFFILIATE_BROKERS = [
-    {
-      id: "angelone",
-      name: "Angel One",
-      shortDesc: "Free Demat Account + ₹0 Brokerage 30 Days",
-      badge: "Highest Payout",
-      color: "#FF5E3A",
-      affiliateUrl: AFFILIATE_PARTNER_CONFIG.ANGEL_ONE_PARTNER_URL,
-      applyUrl: () => AFFILIATE_PARTNER_CONFIG.ANGEL_ONE_PARTNER_URL
-    },
-    {
-      id: "upstox",
-      name: "Upstox Pro",
-      shortDesc: "Backed by Ratan Tata • Instant Paperless Demat",
-      badge: "Fastest KYC",
-      color: "#7B2CBF",
-      affiliateUrl: AFFILIATE_PARTNER_CONFIG.UPSTOX_PARTNER_URL,
-      applyUrl: () => AFFILIATE_PARTNER_CONFIG.UPSTOX_PARTNER_URL
-    },
-    {
-      id: "zerodha",
-      name: "Zerodha Kite",
-      shortDesc: "India's #1 Broker • Zero Brokerage on IPO",
-      badge: "Top Rated",
-      color: "#387ED1",
-      affiliateUrl: AFFILIATE_PARTNER_CONFIG.ZERODHA_PARTNER_URL,
-      applyUrl: () => AFFILIATE_PARTNER_CONFIG.ZERODHA_PARTNER_URL
-    },
-    {
-      id: "groww",
-      name: "Groww",
-      shortDesc: "Free Demat • ₹0 AMC • 1-Click UPI Bidding",
-      badge: "Most Popular",
-      color: "#00D09C",
-      affiliateUrl: AFFILIATE_PARTNER_CONFIG.GROWW_PARTNER_URL,
-      applyUrl: (ipo) => (ipo && ipo.growwUrl) ? ipo.growwUrl : AFFILIATE_PARTNER_CONFIG.GROWW_PARTNER_URL
-    },
-    {
-      id: "dhan",
-      name: "Dhan",
-      shortDesc: "Lightning Fast Trading • Direct Pre-IPO Bids",
-      badge: "Zero AMC",
-      color: "#4A00E0",
-      affiliateUrl: AFFILIATE_PARTNER_CONFIG.DHAN_PARTNER_URL,
-      applyUrl: () => AFFILIATE_PARTNER_CONFIG.DHAN_PARTNER_URL
-    }
-  ];
+  const AFFILIATE_PARTNER_CONFIG = {};
+  const AFFILIATE_BROKERS = [];
 
   // Helper Utilities
   function parseRoute() {
@@ -620,44 +557,6 @@
     `;
   }
 
-  // ==========================================================================
-  // High-Converting Demat Affiliate Banner Component
-  // ==========================================================================
-  function renderAffiliateDematBanner() {
-    return `
-      <section class="affiliate-demat-card" aria-label="Open Free Demat Account with Verified Partners">
-        <div class="affiliate-card-head">
-          <div class="affiliate-badge-pill">🔥 1-CLICK FREE DEMAT ACCOUNT</div>
-          <h3>Need a Demat Account to Apply for Active IPOs? Open in 5 Minutes</h3>
-          <p>Zero account opening charges • 100% paperless digital KYC • Instant UPI ASBA bidding on NSE & BSE</p>
-        </div>
-        <div class="affiliate-brokers-grid">
-          ${AFFILIATE_BROKERS.map(b => `
-            <div class="affiliate-broker-btn" onclick="window.IpoApp.trackAndOpenBroker('${b.id}', '${b.affiliateUrl}', 'Open Demat')">
-              <div class="affiliate-broker-left">
-                <div class="affiliate-broker-icon" style="background:${b.color};">${b.name.substring(0, 2).toUpperCase()}</div>
-                <div class="affiliate-broker-info">
-                  <div class="affiliate-broker-name">
-                    <span>${b.name}</span>
-                    <span class="affiliate-broker-badge">${b.badge}</span>
-                  </div>
-                  <div class="affiliate-broker-offer">${b.shortDesc}</div>
-                </div>
-              </div>
-              <div class="affiliate-broker-action">
-                <span>Open Free</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </div>
-            </div>
-          `).join("")}
-        </div>
-        <div class="affiliate-compliance-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          <span>Transparent Partner Program: We partner with SEBI-registered brokers. Opening an account through our verified links is 100% free with ₹0 AMC and supports our platform.</span>
-        </div>
-      </section>
-    `;
-  }
 
   // ==========================================================================
   // IPO Cards Feed with Native In-Feed Ad Placements
@@ -913,9 +812,6 @@
         </div>
       ` : ''}
 
-      <!-- 1-Click Free Demat Account Affiliate Banner -->
-      ${renderAffiliateDematBanner()}
-
       <!-- In-Feed Native Ad Unit Where Feed Ends (Slot 1400016775) -->
       ${renderInFeedAdUnit(false)}
 
@@ -936,7 +832,7 @@
           <div class="guide-section-num">🎓</div>
           <div style="flex:1;">
             <h3 class="guide-section-title" style="font-size:19px;">New to IPOs? Essential Knowledge & Application Guide</h3>
-            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">Learn how IPOs work, how to apply via Groww UPI ASBA in under 60 seconds, and SEBI allotment rules</p>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">Learn how IPOs work, how to apply via UPI ASBA in under 60 seconds, and SEBI allotment rules</p>
           </div>
           <a href="#/guide" class="btn-primary-blue" style="padding:8px 16px; font-size:12px;">Read Full Guide &rarr;</a>
         </div>
@@ -948,8 +844,8 @@
           </div>
           <div class="guide-step-card">
             <span class="step-badge">Procedure</span>
-            <h4>Applying on Groww</h4>
-            <p>Select IPO under Explore -> choose lots -> check Cut-off Price -> enter UPI ID -> approve mandate in GPay/PhonePe before 5 PM.</p>
+            <h4>Applying via UPI ASBA</h4>
+            <p>Select IPO in your trading app -> choose lots -> check Cut-off Price -> enter UPI ID -> approve mandate in GPay/PhonePe before 5 PM.</p>
           </div>
           <div class="guide-step-card">
             <span class="step-badge">Quota</span>
@@ -1139,11 +1035,6 @@
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                 <span>IPO Doc (DRHP)</span>
               </a>
-            ` : ipo.status === "OPEN" ? `
-              <button class="card-btn-action btn-apply" onclick="event.stopPropagation(); window.IpoApp.openBrokerModal('All', '${ipo.slug}')">
-                <span>Apply on Broker</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
             ` : `
               <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
                 <span>View Details</span>
@@ -1531,13 +1422,7 @@
           </div>
 
           <div class="detail-header-actions">
-            ${ipo.status === 'OPEN' ? `
-              <button class="btn-apply-dropdown" id="detail-apply-btn">
-                <span>Apply on Broker</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </button>
-              ${state.applyDropdownOpen ? renderBrokerDropdown(ipo) : ""}
-            ` : ipo.docUrl ? `
+            ${ipo.docUrl ? `
               <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" title="Official SEBI DRHP / RHP Document">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                 <span>View DRHP</span>
@@ -1570,16 +1455,9 @@
     `;
 
     // Event Bindings
-    document.getElementById("detail-apply-btn")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      state.applyDropdownOpen = !state.applyDropdownOpen;
-      renderDetailView(slug);
-    });
-
     document.querySelectorAll(".detail-tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         state.detailTab = btn.getAttribute("data-dtab");
-        state.applyDropdownOpen = false;
         renderDetailView(slug);
       });
     });
@@ -1587,27 +1465,8 @@
     bindDetailInteractiveEvents(ipo);
   }
 
-  function renderBrokerDropdown(ipo) {
-    return `
-      <div class="broker-dropdown-menu" id="broker-dropdown-menu" onclick="event.stopPropagation()">
-        ${AFFILIATE_BROKERS.map(b => `
-          <a href="javascript:void(0)" class="broker-dropdown-item" onclick="window.IpoApp.trackAndOpenBroker('${b.id}', '${b.applyUrl(ipo)}', 'Apply via ${b.name}')">
-            <span style="color:${b.color}; font-size:16px;">●</span>
-            <div style="display:flex; flex-direction:column; line-height:1.2;">
-              <span style="font-weight:700;">${b.name}</span>
-              <span style="font-size:10px; color:var(--text-muted);">${b.shortDesc.split('•')[0]} • ${b.badge}</span>
-            </div>
-          </a>
-        `).join("")}
-        <a href="javascript:void(0)" class="broker-dropdown-item" onclick="window.IpoApp.trackAndOpenBroker('bank-asba', 'https://www.onlinesbi.sbi/', 'NetBanking ASBA')">
-          <span style="color:#60A5FA; font-size:16px;">●</span>
-          <div style="display:flex; flex-direction:column; line-height:1.2;">
-            <span style="font-weight:700;">NetBanking ASBA</span>
-            <span style="font-size:10px; color:var(--text-muted);">SBI / HDFC / ICICI</span>
-          </div>
-        </a>
-      </div>
-    `;
+  function renderBrokerDropdown() {
+    return "";
   }
 
   function renderDetailTabBody(ipo) {
@@ -2504,7 +2363,7 @@
             <span>LEARNING ACADEMY</span>
           </div>
           <h1>IPO Knowledge Center & Investor Guide</h1>
-          <p>Everything you need to know about Initial Public Offerings (IPOs) in India: foundational concepts, bidding procedures via Groww/UPI ASBA, SEBI quotas, allotment stages, and listing gains.</p>
+          <p>Everything you need to know about Initial Public Offerings (IPOs) in India: foundational concepts, bidding procedures via UPI ASBA, SEBI quotas, allotment stages, and listing gains.</p>
         </header>
 
         <!-- AdSense Top Leaderboard Slot -->
@@ -2605,25 +2464,25 @@
           </div>
         </article>
 
-        <!-- Section 4: How To Apply For IPO On Groww? -->
+        <!-- Section 4: How To Apply For An IPO via UPI ASBA? -->
         <article class="guide-section-card">
           <div class="guide-section-header">
             <div class="guide-section-num">4</div>
-            <h2 class="guide-section-title">How To Apply For IPO On Groww?</h2>
+            <h2 class="guide-section-title">How To Apply For An IPO via UPI ASBA?</h2>
           </div>
           <p class="guide-text">
-            Applying for an IPO via Groww will take less than a minute. All you need to do is follow the below step-by-step procedure:
+            Applying for an IPO via UPI ASBA takes less than a minute on any SEBI-registered trading portal or bank. Follow this standard step-by-step procedure:
           </p>
           <div class="guide-steps-grid">
             <div class="guide-step-card">
               <span class="step-badge">Step 1</span>
-              <h4>Open Groww & Navigate to IPO</h4>
-              <p>Log in to your Groww mobile app or website. On the home dashboard, tap on <strong>Explore</strong> and select the <strong>IPO</strong> tab.</p>
+              <h4>Open Trading App & Navigate to IPO</h4>
+              <p>Log in to your investment app or netbanking portal and navigate to the <strong>IPO</strong> section.</p>
             </div>
             <div class="guide-step-card">
               <span class="step-badge">Step 2</span>
               <h4>Select Active Issue</h4>
-              <p>Browse the list under <strong>Open</strong> IPOs. Select the company you want to bid for (e.g. Bombay Coated Steels or Maxwell Engineering) and click <strong>Apply</strong>.</p>
+              <p>Browse the list under <strong>Open</strong> IPOs. Select the company you want to bid for and click <strong>Apply</strong>.</p>
             </div>
             <div class="guide-step-card">
               <span class="step-badge">Step 3</span>
@@ -2633,22 +2492,13 @@
             <div class="guide-step-card">
               <span class="step-badge">Step 4</span>
               <h4>Enter Your UPI ID & Submit</h4>
-              <p>Enter your bank-linked UPI ID (e.g., <code>name@okhdfcbank</code>, <code>name@okaxis</code>, <code>name@ybl</code>, <code>name@upi</code>) and click <strong>Apply for IPO</strong>.</p>
+              <p>Enter your bank-linked UPI ID (e.g., <code>name@okhdfcbank</code>, <code>name@okaxis</code>, <code>name@ybl</code>, <code>name@upi</code>) and submit your application.</p>
             </div>
             <div class="guide-step-card">
               <span class="step-badge">Step 5</span>
               <h4>Approve UPI Mandate on Phone</h4>
               <p>Open your UPI app (Google Pay, PhonePe, Paytm, or BHIM) before 5:00 PM on closing day. Approve the mandate request with your UPI PIN. Your funds stay safely blocked in your account earning interest until allotment!</p>
             </div>
-          </div>
-          <div style="margin-top:20px; padding:16px 20px; background:rgba(0, 208, 156, 0.08); border:1px solid rgba(0, 208, 156, 0.3); border-radius:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-            <div>
-              <strong style="color:#00D09C; font-size:15px; display:block;">Don't have a Groww Demat Account yet?</strong>
-              <span style="font-size:12.5px; color:var(--text-muted);">Open 100% free account in under 5 minutes • ₹0 AMC • Zero brokerage on IPO applications</span>
-            </div>
-            <button onclick="window.IpoApp.trackAndOpenBroker('groww', 'https://groww.in/open-demat-account', 'Open Groww Account')" class="btn-primary-blue" style="background:#00D09C; border-color:#00D09C; color:#000; font-weight:700;">
-              <span>Open Free Groww Account &rarr;</span>
-            </button>
           </div>
         </article>
 
@@ -2689,9 +2539,6 @@
             </div>
           </div>
         </article>
-
-        <!-- 1-Click Free Demat Account Affiliate Banner -->
-        ${renderAffiliateDematBanner()}
 
         <!-- Native In-Feed Ad Unit (Slot 1400016775) -->
         ${renderInFeedAdUnit(false)}
@@ -2755,11 +2602,6 @@
               </button>
               <div class="faq-answer-panel">
                 No. SEBI and IPO registrars filter and reject multiple applications made under the identical PAN card. Submitting multiple bids under one PAN across different brokers will cause all your applications to be rejected as duplicate bids. However, you can legally increase your family's allotment odds by applying for 1 retail lot each from separate Demat accounts belonging to individual family members with different PAN cards.
-                <div style="margin-top:12px;">
-                  <button onclick="window.IpoApp.openBrokerModal('All')" class="btn-table-allotment" style="background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.4); color:#34D399; font-weight:700;">
-                    <span>⚡ 1-Click Open Free Demat Accounts for Family Members &rarr;</span>
-                  </button>
-                </div>
               </div>
             </div>
 
@@ -2956,51 +2798,10 @@
   // ==========================================================================
   // Broker Modal Logic & 1-Click Affiliate Gateway
   // ==========================================================================
-  function openBrokerModal(brokerName = "All", ipoSlug = null) {
-    state.applyDropdownOpen = false;
-    renderHeader();
-    const modal = document.getElementById("broker-modal-wrap");
-    const grid = document.getElementById("broker-options-grid");
-    const title = document.getElementById("broker-modal-title");
-    if (!modal || !grid) return;
+  function openBrokerModal() {}
 
-    const ipo = ipoSlug ? records.find(r => r.slug === ipoSlug || r.id === ipoSlug) : null;
-    const ipoTitle = ipo ? ipo.shortName : "Active IPO";
-
-    title.innerText = `Apply for ${ipoTitle} or Open Free Demat`;
-    grid.innerHTML = `
-      ${AFFILIATE_BROKERS.map(b => {
-        const directUrl = ipo ? b.applyUrl(ipo) : b.affiliateUrl;
-        return `
-          <div class="broker-option-btn" onclick="window.IpoApp.trackAndOpenBroker('${b.id}', '${directUrl}', 'Apply via ${b.name}')">
-            <div class="broker-icon-sq" style="background:${b.color};">${b.name.substring(0, 2).toUpperCase()}</div>
-            <div class="broker-option-text" style="flex:1;">
-              <h4>${b.name} <span class="affiliate-broker-badge">${b.badge}</span></h4>
-              <span>${b.shortDesc}</span>
-            </div>
-            <div style="font-size:12px; font-weight:700; color:#60A5FA;">1-Click &rarr;</div>
-          </div>
-        `;
-      }).join("")}
-      <div class="broker-option-btn" onclick="window.IpoApp.trackAndOpenBroker('bank-asba', 'https://www.onlinesbi.sbi/', 'NetBanking Bank ASBA')">
-        <div class="broker-icon-sq" style="background:#2563EB;">ASBA</div>
-        <div class="broker-option-text" style="flex:1;">
-          <h4>NetBanking Bank ASBA (SBI, HDFC, ICICI, Axis)</h4>
-          <span>Direct netbanking blocking without UPI mandate</span>
-        </div>
-        <div style="font-size:12px; font-weight:700; color:#60A5FA;">Open &rarr;</div>
-      </div>
-    `;
-
-    modal.classList.remove("hidden");
-  }
-
-  function trackAndOpenBroker(brokerId, url, mode = "Apply") {
-    document.getElementById("broker-modal-wrap")?.classList.add("hidden");
-    const broker = AFFILIATE_BROKERS.find(b => b.id === brokerId);
-    const brokerName = broker ? broker.name : brokerId;
-    showToast(`Opening ${brokerName} portal (${mode}). Complete your application!`, "success");
-    window.open(url, "_blank", "noopener,noreferrer");
+  function trackAndOpenBroker(brokerId, url) {
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
   }
 
   // ==========================================================================
@@ -3047,16 +2848,6 @@
       renderSearchResults(e.target.value);
     });
 
-    // Broker modal close events
-    document.getElementById("close-broker-modal")?.addEventListener("click", () => {
-      document.getElementById("broker-modal-wrap")?.classList.add("hidden");
-    });
-    document.getElementById("broker-modal-wrap")?.addEventListener("click", (e) => {
-      if (e.target.id === "broker-modal-wrap") {
-        document.getElementById("broker-modal-wrap")?.classList.add("hidden");
-      }
-    });
-
     // Keyboard Shortcuts (⌘K, Escape)
     window.addEventListener("keydown", (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -3065,20 +2856,17 @@
       }
       if (e.key === "Escape") {
         toggleSearchModal(false);
-        document.getElementById("broker-modal-wrap")?.classList.add("hidden");
         state.notificationsOpen = false;
         document.body.classList.remove("notif-open");
-        state.applyDropdownOpen = false;
         renderHeader();
       }
     });
 
     // Close flyouts on document click
     document.addEventListener("click", () => {
-      if (state.notificationsOpen || state.applyDropdownOpen) {
+      if (state.notificationsOpen) {
         state.notificationsOpen = false;
         document.body.classList.remove("notif-open");
-        state.applyDropdownOpen = false;
         renderHeader();
       }
     });
@@ -3105,12 +2893,11 @@
       }
     },
     toggleSearchModal,
-    openBrokerModal,
-    trackAndOpenBroker,
-    selectBrokerDirect: (broker, mode) => {
-      document.getElementById("broker-modal-wrap")?.classList.add("hidden");
-      showToast(`Redirecting to ${broker} (${mode}). Application form initiated.`, "success");
+    openBrokerModal: () => {},
+    trackAndOpenBroker: (brokerId, url) => {
+      if (url) window.open(url, "_blank");
     },
+    selectBrokerDirect: () => {},
     handleDocClick: (title, url) => {
       if (url) {
         window.open(url, "_blank");

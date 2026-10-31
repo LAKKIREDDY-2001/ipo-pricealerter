@@ -133,10 +133,10 @@
             },
             {
               "@type": "Question",
-              "name": "How to apply for an IPO on Groww via UPI ASBA?",
+              "name": "How to apply for an IPO via UPI ASBA?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "To apply on Groww: (1) Open the Groww app and navigate to the IPO tab under Explore, (2) select the active IPO, (3) select number of lots and check the Cut-off price box, (4) enter your UPI ID from PhonePe, GPay, or BHIM, and (5) approve the UPI mandate in your payment app before 5:00 PM on closing day."
+                "text": "To apply via UPI ASBA: (1) Open your investment or banking app and navigate to the IPO section, (2) select the active IPO, (3) select number of lots and check the Cut-off price box, (4) enter your bank-linked UPI ID, and (5) approve the UPI mandate in your payment app before 5:00 PM on closing day."
               }
             },
             {
@@ -159,9 +159,9 @@
         },
         {
           "@type": "HowTo",
-          "@id": "https://pricealerter.in/#howto-groww-ipo",
-          "name": "How to Apply for an IPO on Groww Using UPI ASBA",
-          "description": "Step-by-step procedure to bid for Indian IPOs using Groww and authorize UPI mandates.",
+          "@id": "https://pricealerter.in/#howto-ipo-upi-asba",
+          "name": "How to Apply for an IPO Using UPI ASBA",
+          "description": "Step-by-step procedure to bid for Indian IPOs using UPI ASBA and authorize payment mandates.",
           "totalTime": "PT2M",
           "estimatedCost": {
             "@type": "MonetaryAmount",
@@ -172,7 +172,7 @@
             {
               "@type": "HowToStep",
               "name": "Navigate to IPO Section",
-              "text": "Open the Groww app or web portal and tap on IPO under the Explore tab."
+              "text": "Open your investment or banking app and navigate to the IPO section."
             },
             {
               "@type": "HowToStep",
@@ -229,7 +229,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261031_v12">
+    <link rel="stylesheet" href="styles.css?v=20261031_v13">
     <!-- Google AdSense Publisher Platform (Auto Ads & Custom Ad Slots) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1181608933401999" crossorigin="anonymous"></script>
     <link rel="amphtml" href="https://pricealerter.in/amp">
@@ -405,26 +405,6 @@
       </div>
     </div>
 
-    <!-- Application Broker Modal / ASBA Guide -->
-    <div id="broker-modal-wrap" class="modal-backdrop hidden" aria-hidden="true">
-      <div class="broker-modal" role="dialog" aria-modal="true" aria-label="Apply for IPO">
-        <div class="modal-head">
-          <div class="modal-title-wrap">
-            <h3 id="broker-modal-title">Apply for IPO</h3>
-            <span class="modal-subtitle">Choose your preferred broker or bank ASBA gateway</span>
-          </div>
-          <button class="modal-close-btn" id="close-broker-modal" aria-label="Close modal">×</button>
-        </div>
-        <div class="broker-grid" id="broker-options-grid"></div>
-        <div class="modal-foot">
-          <div class="asba-info-note">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <span>Applications are processed through SEBI's UPI ASBA gateway. Funds stay blocked in your bank account until allotment.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Toast Feedback Notification Container -->
     <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
@@ -533,7 +513,7 @@
       }
     </script>
     <script src="data/ipo-data.js?v=20261031_v7" defer></script>
-    <script src="app.js?v=20261031_v15" defer></script>
+    <script src="app.js?v=20261031_v16" defer></script>
 
     <!-- Infolinks Monetization -->
     <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>
