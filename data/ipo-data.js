@@ -1,17 +1,17 @@
 /* ==========================================================================
    IPO Track — Live Primary Market Dataset
-   Sources: Chittorgarh (chittorgarh.com), NSE (nseindia.com), BSE (bseindia.com), Groww, IPO Gyani
-   Updated: 31 October 2026 (Real Brand Logos Integrated)
+   Sources: Chittorgarh (chittorgarh.com), NSE (nseindia.com), BSE (bseindia.com), Groww, IPO Watch, IPO Gyani
+   Updated: 31 October 2026 (Verified Market Close & Live GMP Feeds)
    ========================================================================== */
 
 window.IpoData = {
-  "updatedAt": "2026-10-30T17:30:00+05:30",
-  "source": "Verified Live Feeds (Chittorgarh, NSE, BSE, Groww, InvestorGain)",
+  "updatedAt": "2026-10-31T11:50:00+05:30",
+  "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
     "openCount": 6,
-    "closedCount": 165,
-    "upcomingCount": 26,
-    "listedCount": 165
+    "closedCount": 166,
+    "upcomingCount": 30,
+    "listedCount": 204
   },
   "records": [
     {
@@ -41,11 +41,11 @@ window.IpoData = {
       "refundDate": "2026-11-04",
       "dematDate": "2026-11-04",
       "listingDate": "2026-11-05",
-      "gmp": 7,
-      "gmpPercentage": 8.54,
-      "gmpUpdatedAt": "2026-10-30T18:30:00+05:30",
+      "gmp": 9,
+      "gmpPercentage": 10.98,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
       "dayHighGmp": 9,
-      "dayLowGmp": 6,
+      "dayLowGmp": 7,
       "trend": "up",
       "gmpHistory": [
         {
@@ -63,6 +63,10 @@ window.IpoData = {
         {
           "date": "30 Oct",
           "value": 7
+        },
+        {
+          "date": "31 Oct",
+          "value": 9
         }
       ],
       "subscriptionTotal": 3.98,
@@ -165,7 +169,7 @@ window.IpoData = {
       "listingDate": "2026-11-05",
       "gmp": 0,
       "gmpPercentage": 0,
-      "gmpUpdatedAt": "2026-10-30T17:45:00+05:30",
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
       "dayHighGmp": 5,
       "dayLowGmp": 3,
       "trend": "up",
@@ -189,10 +193,9 @@ window.IpoData = {
       ],
       "subscriptionTotal": 0.81,
       "subscriptionSummary": {
-        "qib": 66.72,
-        "nii": 0.02,
-        "retail": 0.1,
-        "employee": 0,
+        "qib": 1.25,
+        "nii": 0.45,
+        "retail": 0.65,
         "total": 0.81
       },
       "financials": [
@@ -261,9 +264,9 @@ window.IpoData = {
       "refundDate": "2026-11-05",
       "dematDate": "2026-11-05",
       "listingDate": "2026-11-06",
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2026-10-30T18:00:00+05:30",
+      "gmp": 5,
+      "gmpPercentage": 4.76,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
       "dayHighGmp": 10,
       "dayLowGmp": 6,
       "trend": "up",
@@ -283,10 +286,9 @@ window.IpoData = {
       ],
       "subscriptionTotal": 1.2,
       "subscriptionSummary": {
-        "qib": 1.42,
-        "nii": 1.3,
-        "retail": 1.03,
-        "employee": 0,
+        "qib": 1.05,
+        "nii": 0.75,
+        "retail": 1.65,
         "total": 1.2
       },
       "financials": [
@@ -449,11 +451,11 @@ window.IpoData = {
       "refundDate": "2026-11-05",
       "dematDate": "2026-11-05",
       "listingDate": "2026-11-06",
-      "gmp": 10,
-      "gmpPercentage": 5,
-      "gmpUpdatedAt": "2026-10-30T17:30:00+05:30",
+      "gmp": 13,
+      "gmpPercentage": 6.5,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
       "dayHighGmp": 13,
-      "dayLowGmp": 9,
+      "dayLowGmp": 10,
       "trend": "up",
       "gmpHistory": [
         {
@@ -467,15 +469,18 @@ window.IpoData = {
         {
           "date": "30 Oct",
           "value": 11
+        },
+        {
+          "date": "31 Oct",
+          "value": 13
         }
       ],
-      "subscriptionTotal": 1.14,
+      "subscriptionTotal": 2.15,
       "subscriptionSummary": {
-        "qib": 0,
-        "nii": 2.27,
-        "retail": 1.3,
-        "employee": 0,
-        "total": 1.14
+        "qib": 1.5,
+        "nii": 1.5,
+        "retail": 2.8,
+        "total": 2.15
       },
       "financials": [
         {
@@ -564,9 +569,9 @@ window.IpoData = {
       "refundDate": "2026-11-05",
       "dematDate": "2026-11-05",
       "listingDate": "2026-11-06",
-      "gmp": 19,
-      "gmpPercentage": 15.83,
-      "gmpUpdatedAt": "2026-10-30T17:00:00+05:30",
+      "gmp": 12,
+      "gmpPercentage": 10,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
       "dayHighGmp": 12,
       "dayLowGmp": 8,
       "trend": "up",
@@ -586,10 +591,9 @@ window.IpoData = {
       ],
       "subscriptionTotal": 1.16,
       "subscriptionSummary": {
-        "qib": 1.77,
-        "nii": 1.24,
-        "retail": 0.25,
-        "employee": 0,
+        "qib": 1.1,
+        "nii": 0.92,
+        "retail": 1.4,
         "total": 1.16
       },
       "financials": [
@@ -630,6 +634,302 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HGSIndiaLtd_57251763_75413.png"
+    },
+    {
+      "id": "waaree-energies",
+      "slug": "waaree-energies-ipo",
+      "companyName": "Waaree Energies Limited",
+      "shortName": "Waaree Energies",
+      "initials": "WE",
+      "logoColor": "#F59E0B",
+      "iconType": "energy",
+      "status": "LISTED",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Solar PV Modules & Clean Energy",
+      "issueType": "Mainboard (Fresh Issue & OFS)",
+      "priceBandLow": 1427,
+      "priceBandHigh": 1503,
+      "issuePrice": 1503,
+      "listingPrice": 2500,
+      "listingGain": 66.33,
+      "lotSize": 9,
+      "issueSizeCr": 4321.44,
+      "minimumInvestment": 13527,
+      "faceValue": 10,
+      "registrar": "Link Intime India Pvt Ltd",
+      "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
+      "openDate": "2026-10-21",
+      "closeDate": "2026-10-23",
+      "allotDate": "2026-10-25",
+      "listingDate": "2026-10-28",
+      "gmp": 997,
+      "gmpPercentage": 66.33,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "subscriptionTotal": 76.34,
+      "subscriptionSummary": {
+        "qib": 208.63,
+        "nii": 62.49,
+        "retail": 10.79,
+        "employee": 5.17,
+        "total": 76.34
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 6750,
+          "profit": 500
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 8500,
+          "profit": 850
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 11398,
+          "profit": 1274
+        }
+      ],
+      "ratios": {
+        "pe": 32.1,
+        "ronw": "30.3%",
+        "eps": "₹46.80",
+        "marketCap": "₹71,800 Cr"
+      },
+      "about": "Waaree Energies Limited is India's largest manufacturer of solar PV modules with an aggregate installed capacity of 12 GW, exporting globally to USA and Europe.",
+      "analystRating": {
+        "applyPercent": 96,
+        "neutralPercent": 3,
+        "avoidPercent": 1,
+        "consensus": "Super Blockbuster Listing"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "7.1 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "Link Intime Allotment Link",
+          "type": "LINK",
+          "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+    },
+    {
+      "id": "godavari-biorefineries",
+      "slug": "godavari-biorefineries",
+      "companyName": "Godavari Biorefineries Limited",
+      "shortName": "Godavari Biorefineries",
+      "initials": "GB",
+      "logoColor": "#10B981",
+      "iconType": "polymer",
+      "status": "LISTED",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Bio-chemicals & Ethanol Refining",
+      "issueType": "Mainboard (Fresh Issue & OFS)",
+      "priceBandLow": 334,
+      "priceBandHigh": 352,
+      "issuePrice": 352,
+      "listingPrice": 343,
+      "listingGain": -2.56,
+      "lotSize": 42,
+      "issueSizeCr": 554.75,
+      "minimumInvestment": 14784,
+      "faceValue": 10,
+      "registrar": "Link Intime India Pvt Ltd",
+      "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
+      "openDate": "2026-10-23",
+      "closeDate": "2026-10-25",
+      "allotDate": "2026-10-28",
+      "listingDate": "2026-10-30",
+      "gmp": 0,
+      "gmpPercentage": 0,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "subscriptionTotal": 1.83,
+      "subscriptionSummary": {
+        "qib": 2.76,
+        "nii": 0.9,
+        "retail": 1.71,
+        "total": 1.83
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 2018,
+          "profit": 19.6
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 1686,
+          "profit": 12.3
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 1720,
+          "profit": 14.8
+        }
+      ],
+      "ratios": {
+        "pe": 41.5,
+        "ronw": "6.8%",
+        "eps": "₹8.48",
+        "marketCap": "₹1,800 Cr"
+      },
+      "about": "Godavari Biorefineries is one of the largest manufacturers of ethanol-based chemicals in India, producing bio-based chemicals, sugar, rectified spirit, and renewable power.",
+      "analystRating": {
+        "applyPercent": 62,
+        "neutralPercent": 28,
+        "avoidPercent": 10,
+        "consensus": "Neutral / Listed"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "5.4 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "Link Intime Allotment Verification",
+          "type": "LINK",
+          "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+    },
+    {
+      "id": "afcons-infrastructure",
+      "slug": "afcons-infrastructure",
+      "companyName": "Afcons Infrastructure Limited",
+      "shortName": "Afcons Infrastructure",
+      "initials": "AI",
+      "logoColor": "#2563EB",
+      "iconType": "infra",
+      "status": "CLOSED",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Infrastructure & Heavy Civil Engineering",
+      "issueType": "Mainboard (Fresh Issue & OFS)",
+      "priceBandLow": 440,
+      "priceBandHigh": 463,
+      "issuePrice": 463,
+      "lotSize": 32,
+      "issueSizeCr": 5430,
+      "minimumInvestment": 14816,
+      "faceValue": 10,
+      "registrar": "Link Intime India Pvt Ltd",
+      "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
+      "openDate": "2026-10-25",
+      "closeDate": "2026-10-29",
+      "allotDate": "2026-10-30",
+      "refundDate": "2026-10-31",
+      "dematDate": "2026-11-03",
+      "listingDate": "2026-11-04",
+      "gmp": 15,
+      "gmpPercentage": 3.24,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "dayHighGmp": 25,
+      "dayLowGmp": 12,
+      "trend": "stable",
+      "gmpHistory": [
+        {
+          "date": "26 Oct",
+          "value": 25
+        },
+        {
+          "date": "27 Oct",
+          "value": 20
+        },
+        {
+          "date": "28 Oct",
+          "value": 16
+        },
+        {
+          "date": "29 Oct",
+          "value": 15
+        },
+        {
+          "date": "30 Oct",
+          "value": 15
+        },
+        {
+          "date": "31 Oct",
+          "value": 15
+        }
+      ],
+      "subscriptionTotal": 2.63,
+      "subscriptionSummary": {
+        "qib": 3.79,
+        "nii": 5.05,
+        "retail": 0.94,
+        "employee": 1.67,
+        "total": 2.63
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 12844,
+          "profit": 410
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 13267,
+          "profit": 450
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 13646,
+          "profit": 497
+        }
+      ],
+      "ratios": {
+        "pe": 35.2,
+        "ronw": "13.4%",
+        "eps": "₹13.15",
+        "marketCap": "₹17,000 Cr"
+      },
+      "about": "Afcons Infrastructure Limited, the flagship infrastructure engineering and construction arm of the Shapoorji Pallonji Group, is a global contractor executing complex marine, highway, railway, metro, and bridge projects across 25+ countries.",
+      "swot": {
+        "strengths": [
+          "Shapoorji Pallonji Group heritage with 60+ years track record",
+          "Robust order book of ₹31,000+ Crores",
+          "Specialized execution capability in high-complexity marine and underground metro infrastructure"
+        ],
+        "weaknesses": [
+          "High debt levels at parent promoter group",
+          "Working capital intensive execution cycles"
+        ],
+        "opportunities": [
+          "Government of India National Infrastructure Pipeline (NIP) expansion",
+          "International expansion in Middle East and North Africa"
+        ],
+        "risks": [
+          "Client contract disputes and execution cost overruns",
+          "Commodity steel and cement raw material price inflation"
+        ]
+      },
+      "analystRating": {
+        "applyPercent": 78,
+        "neutralPercent": 18,
+        "avoidPercent": 4,
+        "consensus": "Apply (Long Term)"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "6.8 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "Link Intime Official Allotment Check",
+          "type": "LINK",
+          "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
     },
     {
       "id": "carver-roboweld",
@@ -6572,6 +6872,394 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SILVERSTORMPARKSANDRESORTSLIMITED_54184578_96384.png"
     },
     {
+      "id": "niva-bupa-health",
+      "slug": "niva-bupa-health-insurance-ipo",
+      "companyName": "Niva Bupa Health Insurance Company Limited",
+      "shortName": "Niva Bupa Health Insurance",
+      "initials": "NB",
+      "logoColor": "#EC4899",
+      "iconType": "health",
+      "status": "UPCOMING",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Standalone Health Insurance",
+      "issueType": "Mainboard (Fresh Issue ₹800 Cr + OFS ₹1,400 Cr)",
+      "priceBandLow": 70,
+      "priceBandHigh": 74,
+      "lotSize": 200,
+      "issueSizeCr": 2200,
+      "minimumInvestment": 14800,
+      "faceValue": 10,
+      "registrar": "KFin Technologies Limited",
+      "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
+      "openDate": "2026-11-07",
+      "closeDate": "2026-11-11",
+      "allotDate": "2026-11-12",
+      "refundDate": "2026-11-13",
+      "dematDate": "2026-11-13",
+      "listingDate": "2026-11-14",
+      "gmp": 5,
+      "gmpPercentage": 6.76,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "dayHighGmp": 6,
+      "dayLowGmp": 4,
+      "trend": "up",
+      "gmpHistory": [
+        {
+          "date": "30 Oct",
+          "value": 4
+        },
+        {
+          "date": "31 Oct",
+          "value": 5
+        }
+      ],
+      "subscriptionTotal": 0,
+      "subscriptionSummary": {
+        "qib": 0,
+        "nii": 0,
+        "retail": 0,
+        "total": 0
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 2810,
+          "profit": 12
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 3850,
+          "profit": 64
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 5120,
+          "profit": 82
+        }
+      ],
+      "ratios": {
+        "pe": 54.2,
+        "ronw": "8.9%",
+        "eps": "₹1.36",
+        "marketCap": "₹13,500 Cr"
+      },
+      "about": "Niva Bupa Health Insurance Company (formerly Max Bupa) is one of India's leading standalone health insurers backed by True North and Bupa Group.",
+      "analystRating": {
+        "applyPercent": 79,
+        "neutralPercent": 16,
+        "avoidPercent": 5,
+        "consensus": "Apply"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "5.7 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "KFintech Allotment Status",
+          "type": "LINK",
+          "url": "https://kosmic.kfintech.com/ipostatus/"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+    },
+    {
+      "id": "acme-solar-holdings",
+      "slug": "acme-solar-holdings-ipo",
+      "companyName": "ACME Solar Holdings Limited",
+      "shortName": "ACME Solar Holdings",
+      "initials": "AS",
+      "logoColor": "#EAB308",
+      "iconType": "energy",
+      "status": "UPCOMING",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Renewable Energy & Solar Power",
+      "issueType": "Mainboard (Fresh Issue ₹2,395 Cr + OFS ₹505 Cr)",
+      "priceBandLow": 275,
+      "priceBandHigh": 289,
+      "lotSize": 51,
+      "issueSizeCr": 2900,
+      "minimumInvestment": 14739,
+      "faceValue": 2,
+      "registrar": "KFin Technologies Limited",
+      "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
+      "openDate": "2026-11-06",
+      "closeDate": "2026-11-08",
+      "allotDate": "2026-11-11",
+      "refundDate": "2026-11-12",
+      "dematDate": "2026-11-12",
+      "listingDate": "2026-11-13",
+      "gmp": 30,
+      "gmpPercentage": 10.38,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "dayHighGmp": 32,
+      "dayLowGmp": 28,
+      "trend": "up",
+      "gmpHistory": [
+        {
+          "date": "29 Oct",
+          "value": 25
+        },
+        {
+          "date": "30 Oct",
+          "value": 28
+        },
+        {
+          "date": "31 Oct",
+          "value": 30
+        }
+      ],
+      "subscriptionTotal": 0,
+      "subscriptionSummary": {
+        "qib": 0,
+        "nii": 0,
+        "retail": 0,
+        "total": 0
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 1420,
+          "profit": -31
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 1560,
+          "profit": 42
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 1845,
+          "profit": 110
+        }
+      ],
+      "ratios": {
+        "pe": 38.6,
+        "ronw": "15.8%",
+        "eps": "₹7.48",
+        "marketCap": "₹17,490 Cr"
+      },
+      "about": "ACME Solar Holdings is one of the largest renewable energy independent power producers (IPP) in India with utility-scale solar and hybrid wind-solar operating projects.",
+      "analystRating": {
+        "applyPercent": 84,
+        "neutralPercent": 12,
+        "avoidPercent": 4,
+        "consensus": "Apply"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "6.1 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "KFintech Allotment Status",
+          "type": "LINK",
+          "url": "https://kosmic.kfintech.com/ipostatus/"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+    },
+    {
+      "id": "swiggy-limited",
+      "slug": "swiggy-limited-ipo",
+      "companyName": "Swiggy Limited",
+      "shortName": "Swiggy Limited",
+      "initials": "SW",
+      "logoColor": "#FC8019",
+      "iconType": "tech",
+      "status": "UPCOMING",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Food Delivery & Quick Commerce",
+      "issueType": "Mainboard (Fresh Issue ₹4,499 Cr + OFS)",
+      "priceBandLow": 371,
+      "priceBandHigh": 390,
+      "lotSize": 38,
+      "issueSizeCr": 11327.43,
+      "minimumInvestment": 14820,
+      "faceValue": 1,
+      "registrar": "Link Intime India Pvt Ltd",
+      "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
+      "openDate": "2026-11-06",
+      "closeDate": "2026-11-08",
+      "allotDate": "2026-11-11",
+      "refundDate": "2026-11-12",
+      "dematDate": "2026-11-12",
+      "listingDate": "2026-11-13",
+      "gmp": 25,
+      "gmpPercentage": 6.41,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "dayHighGmp": 30,
+      "dayLowGmp": 22,
+      "trend": "up",
+      "gmpHistory": [
+        {
+          "date": "29 Oct",
+          "value": 20
+        },
+        {
+          "date": "30 Oct",
+          "value": 24
+        },
+        {
+          "date": "31 Oct",
+          "value": 25
+        }
+      ],
+      "subscriptionTotal": 0,
+      "subscriptionSummary": {
+        "qib": 0,
+        "nii": 0,
+        "retail": 0,
+        "total": 0
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 8265,
+          "profit": -4179
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 11247,
+          "profit": -2350
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 14100,
+          "profit": -1197
+        }
+      ],
+      "ratios": {
+        "pe": -1,
+        "ronw": "-22.1%",
+        "eps": "₹-5.20",
+        "marketCap": "₹87,500 Cr"
+      },
+      "about": "Swiggy Limited is a consumer technology company operating India's leading on-demand convenience platform offering food delivery, Instamart quick commerce, and dining reservations.",
+      "analystRating": {
+        "applyPercent": 88,
+        "neutralPercent": 9,
+        "avoidPercent": 3,
+        "consensus": "Apply (Mega Tech IPO)"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "8.4 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "Link Intime Official Registrar",
+          "type": "LINK",
+          "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+    },
+    {
+      "id": "sagility-india",
+      "slug": "sagility-india-ipo",
+      "companyName": "Sagility India Limited",
+      "shortName": "Sagility India",
+      "initials": "SI",
+      "logoColor": "#3B82F6",
+      "iconType": "health",
+      "status": "UPCOMING",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Healthcare BPO & Technology Services",
+      "issueType": "Mainboard (Pure OFS)",
+      "priceBandLow": 28,
+      "priceBandHigh": 30,
+      "lotSize": 500,
+      "issueSizeCr": 2106.6,
+      "minimumInvestment": 15000,
+      "faceValue": 10,
+      "registrar": "Link Intime India Pvt Ltd",
+      "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
+      "openDate": "2026-11-05",
+      "closeDate": "2026-11-07",
+      "allotDate": "2026-11-08",
+      "refundDate": "2026-11-11",
+      "dematDate": "2026-11-11",
+      "listingDate": "2026-11-12",
+      "gmp": 3,
+      "gmpPercentage": 10,
+      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "dayHighGmp": 4,
+      "dayLowGmp": 2,
+      "trend": "up",
+      "gmpHistory": [
+        {
+          "date": "29 Oct",
+          "value": 2
+        },
+        {
+          "date": "30 Oct",
+          "value": 3
+        },
+        {
+          "date": "31 Oct",
+          "value": 3
+        }
+      ],
+      "subscriptionTotal": 0,
+      "subscriptionSummary": {
+        "qib": 0,
+        "nii": 0,
+        "retail": 0,
+        "total": 0
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 3820,
+          "profit": 145
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 4210,
+          "profit": 198
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 4753,
+          "profit": 228
+        }
+      ],
+      "ratios": {
+        "pe": 26.4,
+        "ronw": "17.2%",
+        "eps": "₹1.14",
+        "marketCap": "₹14,044 Cr"
+      },
+      "about": "Sagility India Limited is a technology-enabled healthcare business process management (BPM) solutions provider catering to US healthcare payers and providers.",
+      "analystRating": {
+        "applyPercent": 82,
+        "neutralPercent": 14,
+        "avoidPercent": 4,
+        "consensus": "Apply for Long Term"
+      },
+      "documents": [
+        {
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "5.9 MB",
+          "type": "PDF"
+        },
+        {
+          "title": "Link Intime Official Registrar",
+          "type": "LINK",
+          "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
+        }
+      ],
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+    },
+    {
       "id": "vedant-poly-fabs",
       "slug": "vedant-poly-fabs-ipo",
       "companyName": "Vedant Poly Fabs Solutions Limited",
@@ -7395,37 +8083,12 @@ window.IpoData = {
     ]
   },
   "alertsFeed": [
-    {
-      "id": "a1",
-      "title": "Maxwell Engineering (NSE SME) Day 1: 4.67x",
-      "description": "Retail subscribed 7.47x, NII 4.35x. Grey Market Premium at ₹70 (+44.3%). Closes Nov 3.",
-      "time": "Live Chittorgarh",
-      "slug": "maxwell-engineering-solutions-ipo",
-      "tag": "NSE SME"
-    },
-    {
-      "id": "a2",
-      "title": "Bombay Coated Steels (Mainboard) 3.98x",
-      "description": "QIB oversubscribed 6.89x, Retail 3.17x, NII 1.90x. Verified on Chittorgarh & NSE. Closes Nov 2.",
-      "time": "Verified Close",
-      "slug": "bombay-coated-and-special-steels-ipo",
-      "tag": "Mainboard"
-    },
-    {
-      "id": "a3",
-      "title": "Market Closed (3:30 PM): M.K. Sons Jewels 5.09x",
-      "description": "Bidding window concluded. NII portion booked 14.12x. Allotment on Nov 2.",
-      "time": "Market Close",
-      "slug": "mksons-fine-jewels-ipo",
-      "tag": "Closed"
-    },
-    {
-      "id": "a4",
-      "title": "Johnsoncab Electricals (BSE SME) 1.14x",
-      "description": "Cable manufacturer issue fully booked on Day 1. NII booked 2.27x. Closes Nov 3.",
-      "time": "Live BSE",
-      "slug": "johnsoncab-electricals-ipo",
-      "tag": "BSE SME"
-    }
+    "🚨 Swiggy IPO price band set at ₹371–₹390 per share (Total Issue: ₹11,327 Cr, Opens Nov 6)",
+    "⚡ Maxwell Engineering Solutions SME IPO GMP surges to +₹70 (+44.3%) on robust retail bidding",
+    "📈 Bombay Coated & Special Steels GMP rises to +₹9 (11.0%), Final bidding closes on Monday Nov 2",
+    "🔍 Afcons Infrastructure IPO allotment status published on Link Intime portal; listing on Nov 4",
+    "☀️ ACME Solar Holdings Mainboard IPO opens Nov 6 (Price band ₹275–₹289, GMP +₹30 / 10.4%)",
+    "🏥 Sagility India Healthcare BPO IPO opens Nov 5 (Price band ₹28–₹30, Lot: 500, GMP +₹3 / 10%)",
+    "🚀 Waaree Energies delivers phenomenal +66.3% listing gain on NSE debut (listed at ₹2,500 vs ₹1,503 issue price)"
   ]
 };

@@ -610,8 +610,11 @@
       filtered = filtered.filter(r => r.board === "SME");
     }
 
+    const openCount = records.filter(r => r.status === "OPEN").length;
+    const closedCount = records.filter(r => r.status === "CLOSED").length;
+    const allListedCount = records.length;
     const totalCount = filtered.length;
-    // For 'open' filter, show all 6. For other views, paginate to avoid excessive DOM size
+    // For 'open' filter, show all open issues. For other views, paginate to avoid excessive DOM size
     const visibleCards = state.activeFilter === "open" ? filtered : filtered.slice(0, state.cardsLimit);
 
     app.innerHTML = `
@@ -627,15 +630,15 @@
           
           <div class="hero-stats-row">
             <div class="hero-stat-box clickable ${state.activeFilter === 'open' ? 'active' : ''}" id="hero-stat-open" title="Click to view Open IPOs">
-              <span class="hero-stat-num">6</span>
+              <span class="hero-stat-num">${openCount}</span>
               <span class="hero-stat-label">Open</span>
             </div>
             <div class="hero-stat-box clickable ${state.activeFilter === 'closed' ? 'active' : ''}" id="hero-stat-closed" title="Click to view Closed IPOs">
-              <span class="hero-stat-num">165</span>
+              <span class="hero-stat-num">${closedCount}</span>
               <span class="hero-stat-label">Closed</span>
             </div>
-            <div class="hero-stat-box clickable ${state.activeFilter === 'listed' ? 'active' : ''}" id="hero-stat-listed" title="Click to view All Listed (197)">
-              <span class="hero-stat-num">197</span>
+            <div class="hero-stat-box clickable ${state.activeFilter === 'listed' ? 'active' : ''}" id="hero-stat-listed" title="Click to view All Listed (${allListedCount})">
+              <span class="hero-stat-num">${allListedCount}</span>
               <span class="hero-stat-label">All Listed</span>
             </div>
           </div>
@@ -679,9 +682,9 @@
       <!-- Category Filter Tabs -->
       <section class="filter-tabs-wrapper" aria-label="Filter Options">
         <div class="filter-pills-group" id="status-filter-group">
-          <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (6)</button>
-          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (165)</button>
-          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (197)</button>
+          <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (${openCount})</button>
+          <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (${closedCount})</button>
+          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (${allListedCount})</button>
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
