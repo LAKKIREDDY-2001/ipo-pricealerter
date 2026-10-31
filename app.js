@@ -684,6 +684,77 @@
   }
 
   // ==========================================================================
+  // Open IPOs Grouped by Board (Mainboard vs SME)
+  // ==========================================================================
+  function renderOpenIposGrouped(cards, activeBoard) {
+    const mainboard = cards.filter(r => r.board === "MAINBOARD");
+    const sme = cards.filter(r => r.board === "SME");
+
+    if (activeBoard === "mainboard") {
+      return `
+        <div class="open-board-section">
+          <div class="open-board-header">
+            <div class="open-board-title-group">
+              <span class="board-badge mainboard">MAINBOARD</span>
+              <h3>Open Mainboard IPOs (${mainboard.length})</h3>
+            </div>
+            <span class="open-board-subtitle">National Stock Exchange (NSE) & BSE • Retail Lot ~₹14,000–₹15,000</span>
+          </div>
+          <section class="ipo-cards-grid" aria-label="Open Mainboard IPOs">
+            ${renderIpoCardsFeed(mainboard)}
+          </section>
+        </div>
+      `;
+    }
+
+    if (activeBoard === "sme") {
+      return `
+        <div class="open-board-section">
+          <div class="open-board-header">
+            <div class="open-board-title-group">
+              <span class="board-badge sme">SME EMERGE</span>
+              <h3>Open SME IPOs (${sme.length})</h3>
+            </div>
+            <span class="open-board-subtitle">NSE Emerge & BSE SME • Minimum Lot ₹1,00,000–₹2,40,000</span>
+          </div>
+          <section class="ipo-cards-grid" aria-label="Open SME IPOs">
+            ${renderIpoCardsFeed(sme)}
+          </section>
+        </div>
+      `;
+    }
+
+    // Both separated with clear visual demarcation
+    return `
+      <div class="open-board-section" style="margin-bottom:32px;">
+        <div class="open-board-header">
+          <div class="open-board-title-group">
+            <span class="board-badge mainboard">MAINBOARD</span>
+            <h3>Open Mainboard IPOs (${mainboard.length})</h3>
+          </div>
+          <span class="open-board-subtitle">National Stock Exchange (NSE) & BSE • Retail Lot ~₹14,000–₹15,000</span>
+        </div>
+        <section class="ipo-cards-grid" aria-label="Open Mainboard IPOs">
+          ${renderIpoCardsFeed(mainboard)}
+        </section>
+      </div>
+
+      <div class="open-board-section" style="margin-top:16px;">
+        <div class="open-board-header">
+          <div class="open-board-title-group">
+            <span class="board-badge sme">SME EMERGE</span>
+            <h3>Open SME IPOs (${sme.length})</h3>
+          </div>
+          <span class="open-board-subtitle">NSE Emerge & BSE SME • Minimum Lot ₹1,00,000–₹2,40,000</span>
+        </div>
+        <section class="ipo-cards-grid" aria-label="Open SME IPOs">
+          ${renderIpoCardsFeed(sme)}
+        </section>
+      </div>
+    `;
+  }
+
+  // ==========================================================================
   // Home Dashboard View
   // ==========================================================================
   function renderDashboardView() {
@@ -723,6 +794,17 @@
     const closedCount = records.filter(r => r.status === "CLOSED").length;
     const allListedCount = records.length;
     const totalCount = filtered.length;
+
+    const openRecords = records.filter(r => r.status === "OPEN");
+    const currentScopeRecords = state.activeFilter === "open"
+      ? openRecords
+      : state.activeFilter === "closed"
+        ? records.filter(r => r.status === "CLOSED")
+        : records;
+
+    const boardMbCount = currentScopeRecords.filter(r => r.board === "MAINBOARD").length;
+    const boardSmeCount = currentScopeRecords.filter(r => r.board === "SME").length;
+
     // For 'open' filter, show all open issues. For other views, paginate to avoid excessive DOM size
     const visibleCards = state.activeFilter === "open" ? filtered : filtered.slice(0, state.cardsLimit);
 
@@ -797,16 +879,22 @@
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
-          <button class="filter-pill ${state.activeBoard === "all" ? "active" : ""}" data-board="all">All</button>
-          <button class="filter-pill ${state.activeBoard === "mainboard" ? "active" : ""}" data-board="mainboard">Mainboard</button>
-          <button class="filter-pill ${state.activeBoard === "sme" ? "active" : ""}" data-board="sme">SME</button>
+          <button class="filter-pill ${state.activeBoard === "all" ? "active" : ""}" data-board="all">All (${state.activeFilter === "open" ? openCount : (state.activeFilter === "closed" ? closedCount : allListedCount)})</button>
+          <button class="filter-pill ${state.activeBoard === "mainboard" ? "active" : ""}" data-board="mainboard">Mainboard (${boardMbCount})</button>
+          <button class="filter-pill ${state.activeBoard === "sme" ? "active" : ""}" data-board="sme">SME (${boardSmeCount})</button>
         </div>
       </section>
 
-      <!-- Main IPO Cards Grid with Native In-Feed Ad Placement -->
-      <section class="ipo-cards-grid" aria-label="Active and Upcoming IPOs">
-        ${renderIpoCardsFeed(visibleCards)}
-      </section>
+      <!-- Main IPO Cards Grid (Separating Mainboard & SME when in Open Section) -->
+      ${state.activeFilter === "open" ? `
+        <div class="open-ipos-container" style="width:100%;">
+          ${renderOpenIposGrouped(visibleCards, state.activeBoard)}
+        </div>
+      ` : `
+        <section class="ipo-cards-grid" aria-label="Active and Upcoming IPOs">
+          ${renderIpoCardsFeed(visibleCards)}
+        </section>
+      `}
 
       ${totalCount > visibleCards.length ? `
         <div class="load-more-wrap">
