@@ -2,6 +2,13 @@
 User-agent: *
 Allow: /
 
+# Google Search and Google AdSense Monetization Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
 # Explicitly permit AI Search and Grounding Crawlers
 User-agent: Google-Extended
 Allow: /
