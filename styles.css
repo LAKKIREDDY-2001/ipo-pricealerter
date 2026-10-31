@@ -1099,6 +1099,11 @@ body.notif-open {
   font-weight: 700;
 }
 
+.gmp-highlight-text.negative {
+  color: #EF4444;
+  font-weight: 700;
+}
+
 .date-highlight-text {
   color: var(--text-body);
 }

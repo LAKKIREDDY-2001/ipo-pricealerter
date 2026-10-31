@@ -16,8 +16,8 @@
     activeFilter: "listed",     // 'open' | 'closed' | 'listed'
     activeBoard: "all",         // 'all' | 'mainboard' | 'sme'
     activeBottomCompany: "bombay-coated-and-special-steels-ipo",
-    calendarMonth: new Date(2026, 9, 1), // October 2026
-    selectedCalendarDate: "2026-10-31",
+    calendarMonth: new Date(2024, 10, 1), // November 2024
+    selectedCalendarDate: "2024-11-13",
     detailTab: "overview",      // 'overview' | 'subscription' | 'gmp' | 'financials' | 'review' | 'documents'
     notificationsOpen: false,
     applyDropdownOpen: false,
@@ -305,11 +305,11 @@
     }
 
     if (ipo.status === "LISTED") {
-      return `Debut Listing GMP: ${formatDate(ipo.listingDate || ipo.closeDate)}`;
+      return `Debut Listing: ${formatDate(ipo.listingDate || ipo.closeDate)}`;
     }
 
     if (ipo.status === "UPCOMING") {
-      return `Pre-Issue Estimate • Opens ${formatDate(ipo.openDate)}`;
+      return ipo.openDate ? `Pre-Issue Estimate • Opens ${formatDate(ipo.openDate)}` : `Pre-IPO Pipeline • Dates TBA`;
     }
 
     const ts = ipo.gmpUpdatedAt || (window.IpoData && window.IpoData.updatedAt);
@@ -328,7 +328,7 @@
         }
       } catch (e) {}
     }
-    return "Live Tracker: 01 Nov, 12:30 AM";
+    return "Live Tracker: Active";
   }
 
   // ==========================================================================
@@ -347,7 +347,7 @@
     // Anchor date based on IPO lifecycle
     let anchorDate;
     if (ipo && (ipo.status === "CLOSED" || ipo.status === "LISTED")) {
-      anchorDate = ipo.closeDate ? new Date(ipo.closeDate) : new Date("2026-10-25");
+      anchorDate = ipo.closeDate ? new Date(ipo.closeDate) : new Date("2024-10-25");
     } else if (ipo && ipo.status === "UPCOMING") {
       anchorDate = ipo.openDate ? new Date(ipo.openDate) : new Date();
     } else {
@@ -1131,13 +1131,12 @@
       ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}`
       : ipo.issuePrice ? `₹${ipo.issuePrice}` : "TBA";
 
-    const isFutureListing = ipo.listingDate && new Date(ipo.listingDate) > new Date("2026-10-31T23:59:59Z");
     const dateNote = ipo.status === "LISTED"
       ? `Listed: ${formatDate(ipo.listingDate)}`
       : ipo.status === "UPCOMING"
-        ? `Opens: ${formatDate(ipo.openDate)}`
+        ? (ipo.openDate ? `Opens: ${formatDate(ipo.openDate)}` : `Opens: TBA`)
         : ipo.status === "CLOSED"
-          ? (isFutureListing ? `Closed: ${formatDate(ipo.closeDate)} • Listing: ${formatDate(ipo.listingDate)}` : `Closed: ${formatDate(ipo.closeDate)}`)
+          ? (ipo.listingDate ? `Closed: ${formatDate(ipo.closeDate)} • Listing: ${formatDate(ipo.listingDate)}` : `Closed: ${formatDate(ipo.closeDate)}`)
           : `Closes: ${formatDate(ipo.closeDate)}`;
 
     const maxSub = 50;
@@ -1175,7 +1174,7 @@
         <div class="card-footer-info">
           <div class="footer-highlight-row">
             ${ipo.status === "LISTED" ? `
-              <span class="gmp-highlight-text">Listing Gain +${ipo.listingGain}%</span>
+              <span class="gmp-highlight-text ${String(ipo.listingGain || '').startsWith('-') ? 'negative' : ''}">Listing: ₹${ipo.listingPrice || ipo.issuePrice || '—'} (${ipo.listingGain || 'Listed'})</span>
               <span class="date-highlight-text">${dateNote}</span>
             ` : `
               <span class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}" title="Grey Market Premium (GMP) is an unregulated, unofficial sentiment estimate. Not a guarantee of listing gains.">
@@ -1743,12 +1742,16 @@
             </div>
           </div>
 
-          <!-- GMP Card with Trend Graph -->
+          <!-- GMP / Listing Performance Card -->
           <div class="detail-gmp-card">
             <div class="detail-gmp-head">
               <div class="gmp-head-left">
-                <h3>GMP (Grey Market Premium)</h3>
-                <div class="gmp-large-val">${ipo.gmp ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : `₹0 (Flat)`}</div>
+                <h3>${ipo.status === "LISTED" ? "Listing Performance" : "GMP (Grey Market Premium)"}</h3>
+                <div class="gmp-large-val">
+                  ${ipo.status === "LISTED"
+                    ? (ipo.listingPrice ? `₹${ipo.listingPrice} (${ipo.listingGain || '+0%'})` : `₹${ipo.issuePrice || ipo.priceBandHigh || 0} (Listed)`)
+                    : (ipo.gmp ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : `₹0 (Flat)`)}
+                </div>
               </div>
               <span class="gmp-updated-time">${formatGmpLastUpdated(ipo)}</span>
             </div>
@@ -1760,25 +1763,27 @@
 
             <div class="gmp-minibar-stats">
               <div class="gmp-stat-item">
-                <span>Day High</span>
-                <strong>₹${ipo.dayHighGmp != null ? ipo.dayHighGmp : (ipo.gmp || 0)}</strong>
+                <span>${ipo.status === "LISTED" ? "Issue Price" : "Day High"}</span>
+                <strong>₹${ipo.status === "LISTED" ? (ipo.issuePrice || ipo.priceBandHigh || "—") : (ipo.dayHighGmp != null ? ipo.dayHighGmp : (ipo.gmp || 0))}</strong>
               </div>
               <div class="gmp-stat-item">
-                <span>Day Low</span>
-                <strong>₹${ipo.dayLowGmp != null ? ipo.dayLowGmp : Math.max(0, (ipo.gmp || 0) - (ipo.gmp ? 2 : 0))}</strong>
+                <span>${ipo.status === "LISTED" ? "Listing Day High" : "Day Low"}</span>
+                <strong>₹${ipo.status === "LISTED" ? (ipo.dayHighListing || ipo.listingPrice || "—") : (ipo.dayLowGmp != null ? ipo.dayLowGmp : Math.max(0, (ipo.gmp || 0) - (ipo.gmp ? 2 : 0)))}</strong>
               </div>
               <div class="gmp-stat-item">
-                <span>Trend</span>
-                <strong class="${ipo.trend === 'down' ? 'trend-red' : 'trend-green'}">
-                  ${ipo.trend === 'down' ? '↓ Bearish' : ipo.trend === 'flat' ? '— Neutral' : '↑ Bullish'}
+                <span>${ipo.status === "LISTED" ? "Return" : "Trend"}</span>
+                <strong class="${(ipo.status === 'LISTED' ? (String(ipo.listingGain).startsWith('-') ? 'trend-red' : 'trend-green') : (ipo.trend === 'down' ? 'trend-red' : 'trend-green'))}">
+                  ${ipo.status === "LISTED"
+                    ? (ipo.listingGain || "Delivered")
+                    : (ipo.trend === 'down' ? '↓ Bearish' : ipo.trend === 'flat' ? '— Neutral' : '↑ Bullish')}
                 </strong>
               </div>
             </div>
 
-            <!-- GMP Investor Advisory Note -->
+            <!-- Investor Advisory Note -->
             <div class="gmp-card-note">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span><strong>Advisory Note:</strong> GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.</span>
+              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE & BSE. Past listing returns do not guarantee future performance.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
             </div>
           </div>
         </div>
@@ -1788,43 +1793,32 @@
           <h3>IPO Timeline</h3>
           <div class="stepper-timeline-track">
             <div class="stepper-line-bg"></div>
-            <div class="stepper-line-progress"></div>
+            <div class="stepper-line-progress" style="width: ${ipo.status === 'LISTED' ? '100%' : ipo.status === 'CLOSED' ? '50%' : ipo.status === 'OPEN' ? '25%' : '0%'};"></div>
 
-            <div class="step-node-col">
-              <div class="step-circle completed">✓</div>
-              <span class="step-title">IPO Opens</span>
-              <span class="step-date">${formatDate(ipo.openDate)}</span>
-            </div>
+            ${(() => {
+              const isListed = ipo.status === "LISTED";
+              const isClosed = ipo.status === "CLOSED";
+              const isOpen = ipo.status === "OPEN";
 
-            <div class="step-node-col">
-              <div class="step-circle active">●</div>
-              <span class="step-title">IPO Closes</span>
-              <span class="step-date">${formatDate(ipo.closeDate)}</span>
-            </div>
+              const steps = [
+                { title: "IPO Opens", date: ipo.openDate, done: isListed || isClosed || isOpen, active: false, num: 1 },
+                { title: "IPO Closes", date: ipo.closeDate, done: isListed || isClosed, active: isOpen, num: 2 },
+                { title: "Allotment", date: ipo.allotDate, done: isListed, active: isClosed, num: 3 },
+                { title: "Refund", date: ipo.refundDate, done: isListed, active: false, num: 4 },
+                { title: "Credit Demat", date: ipo.dematDate, done: isListed, active: false, num: 5 },
+                { title: "Listing", date: ipo.listingDate, done: isListed, active: false, num: 6 }
+              ];
 
-            <div class="step-node-col">
-              <div class="step-circle">3</div>
-              <span class="step-title">Allotment</span>
-              <span class="step-date">${formatDate(ipo.allotDate)}</span>
-            </div>
-
-            <div class="step-node-col">
-              <div class="step-circle">4</div>
-              <span class="step-title">Refund</span>
-              <span class="step-date">${formatDate(ipo.refundDate)}</span>
-            </div>
-
-            <div class="step-node-col">
-              <div class="step-circle">5</div>
-              <span class="step-title">Credit to Demat</span>
-              <span class="step-date">${formatDate(ipo.dematDate)}</span>
-            </div>
-
-            <div class="step-node-col">
-              <div class="step-circle">6</div>
-              <span class="step-title">Listing</span>
-              <span class="step-date">${formatDate(ipo.listingDate)}</span>
-            </div>
+              return steps.map(s => `
+                <div class="step-node-col">
+                  <div class="step-circle ${s.done ? 'completed' : s.active ? 'active' : ''}">
+                    ${s.done ? '✓' : s.active ? '●' : s.num}
+                  </div>
+                  <span class="step-title">${s.title}</span>
+                  <span class="step-date">${formatDate(s.date)}</span>
+                </div>
+              `).join("");
+            })()}
           </div>
         </div>
 
@@ -2012,7 +2006,7 @@
               ${getIpoGmpHistory(ipo).map((h, i, arr) => {
                 const prev = i > 0 ? arr[i - 1].value : h.value;
                 const diff = h.value - prev;
-                const dateLabel = h.year ? `${h.date} ${h.year}` : (h.date.includes("2026") ? h.date : `${h.date} 2026`);
+                const dateLabel = h.year ? `${h.date} ${h.year}` : (h.date.includes("2024") ? h.date : `${h.date} 2024`);
                 return `
                   <tr>
                     <td>${dateLabel}</td>
@@ -3274,7 +3268,7 @@
 
         <!-- Below Calendar Space: Detailed Day-by-Day Schedule for Selected Date -->
         <div id="calendar-day-details-container">
-          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2026-10-31")}
+          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2024-11-13")}
         </div>
 
         <!-- Editorial Context: Primary Market Issue Pipeline & T+3 Settlement Cycles -->
