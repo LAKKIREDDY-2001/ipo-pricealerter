@@ -1148,6 +1148,9 @@
               </tr>
             </tbody>
           </table>
+          <p style="font-size:11.5px; color:var(--text-muted); line-height:1.5; margin-top:12px; padding-top:8px; border-top:1px dashed var(--border-subtle);">
+            <strong>Subscription Multiples Analysis:</strong> When an issue records high subscription in the QIB category (>30x), it indicates institutional conviction. For retail individual investors, oversubscription exceeding 1x triggers an exchange-supervised computerized lottery where each winning PAN receives one minimum lot.
+          </p>
         </div>
 
         <!-- AdSense Native Slot -->
@@ -1430,6 +1433,17 @@
             ` : ''}
           </div>
         </header>
+
+        <!-- SEBI Regulatory & YMYL Transparency Notice -->
+        <div style="margin: 14px 0 18px; padding: 12px 16px; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.25); border-left: 4px solid #38BDF8; border-radius: 8px; font-size: 12px; color: var(--text-body); line-height: 1.55;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span style="font-weight: 700; color: #38BDF8; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase;">SEBI Regulatory & YMYL Advisory</span>
+          </div>
+          <p style="margin: 0;">
+            <strong>We do not provide buy/sell recommendations or financial advice.</strong> Data is sourced dynamically for educational tracking purposes only from official exchange disclosures (NSE & BSE) and designated registrars. Grey Market Premium (GMP) is an informal off-market estimate and does not guarantee listing returns. Always consult a SEBI-registered financial adviser and review the complete Red Herring Prospectus (RHP) before bidding.
+          </p>
+        </div>
 
         <!-- Sub-navigation Tabs -->
         <nav class="detail-subtabs-bar" aria-label="IPO Details Sections">
@@ -2124,6 +2138,19 @@
           </table>
         </div>
 
+        <!-- Editorial Context: Macro Sentiment & Grey Market Price Dynamics -->
+        <article class="guide-section-card" style="margin-top:20px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg);">
+          <h3 style="font-size:16px; color:var(--text-heading); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            <span>📊 Macro Sentiment & Grey Market Price Dynamics Editorial</span>
+          </h3>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-body); margin-bottom:12px;">
+            The primary market in India currently displays distinct bifurcation between high-growth Mainboard industrial manufacturing issues and specialized SME enterprise offerings. Unofficial Grey Market Premiums (GMP) tracked in the table above represent informal dealer indications gathered across Ahmedabad, Mumbai, and Rajkot trading hubs. These quotes reflect early appetite among High-Net-Worth Individuals (HNIs) seeking pre-listing allocations, driven primarily by anchor investor pedigree, QIB oversubscription multiples, and order book visibility.
+          </p>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-body); margin:0;">
+            However, investors should observe that grey market activity is inherently unregulated and lacks exchange clearing corporation protections. While issues with sustained GMP premiums exceeding 30% historically exhibit enthusiastic opening session price discovery on the National Stock Exchange (NSE) and Bombay Stock Exchange (BSE), macro liquidity fluctuations, domestic institutional participation, and secondary market benchmark volatility (NIFTY 50 / SENSEX) ultimately dictate opening strike prices. We recommend utilizing GMP exclusively as a supplemental sentiment pulse alongside fundamental balance sheet analysis.
+          </p>
+        </article>
+
         <!-- AdSense Native Slot -->
         ${renderAdSenseUnit("5892147360", "auto")}
 
@@ -2539,24 +2566,353 @@
             </div>
           </div>
         </article>
+        <!-- Section 6: What is an ASBA Application & How Does Bank Lien-Blocking Work? -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">6</div>
+            <h2 class="guide-section-title">What is an ASBA Application & How Does Bank Lien-Blocking Work?</h2>
+          </div>
+          <p class="guide-text">
+            <strong>ASBA (Application Supported by Blocked Amount)</strong> is the mandatory bidding mechanism pioneered by the Securities and Exchange Board of India (SEBI) for all public issues. Before ASBA was instituted, investors had to write physical cheques or transfer full cash to issuing merchant bankers, facing delayed refund cheques spanning months. Under ASBA, your bid money never leaves your bank account until shares are officially allotted.
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 1</span>
+              <h4>Lien-Marking Mechanism</h4>
+              <p>When you authorize a UPI mandate or NetBanking ASBA form, your Self-Certified Syndicate Bank (SCSB) places a hold or 'lien' on the exact bidding sum. This amount is locked from withdrawal but remains securely in your account.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 2</span>
+              <h4>Continuous Interest Accrual</h4>
+              <p>Because the funds remain in your savings bank account throughout the 3-day bidding and allotment window, you continue to earn standard daily interest from your bank on the entire blocked sum.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 3</span>
+              <h4>Automated Debit on Allotment</h4>
+              <p>On the Basis of Allotment date, if you receive shares, the registrar dispatches an automated clearing instruction to your bank to debit only the exact proportionate allotment amount.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pillar 4</span>
+              <h4>Instant Lien Revocation (Refunds)</h4>
+              <p>If your bid is unallotted due to heavy oversubscription, your bank releases the lien block within 24 hours of registrar confirmation, instantly restoring your full withdrawable balance without deductions.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 7: Mainboard vs. SME IPOs: Critical Framework Differences -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">7</div>
+            <h2 class="guide-section-title">Mainboard vs. SME IPOs: Critical Framework Differences</h2>
+          </div>
+          <p class="guide-text">
+            While both segments allow Indian enterprises to raise equity capital from public markets, SEBI enforces stark regulatory and structural differences between established Mainboard corporations and emerging small-and-medium enterprises (SMEs):
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card" style="border-top:3px solid #38BDF8;">
+              <span class="step-badge" style="background:rgba(56,189,248,0.15); color:#38BDF8;">Capital & Listing</span>
+              <h4>Minimum Paid-Up Capital</h4>
+              <p><strong>Mainboard:</strong> Requires minimum post-issue paid-up equity of ₹10 Crore (commonly ₹100+ Cr).<br><strong>SME:</strong> Post-issue capital cannot exceed ₹25 Crore, listing on BSE SME or NSE Emerge.</p>
+            </div>
+            <div class="guide-step-card" style="border-top:3px solid #F59E0B;">
+              <span class="step-badge" style="background:rgba(245,158,11,0.15); color:#F59E0B;">Ticket Size</span>
+              <h4>Lot Sizes & Minimum Investment</h4>
+              <p><strong>Mainboard:</strong> Retail lot size is designed for broad participation (~₹14,000 to ₹15,000).<br><strong>SME:</strong> Mandatory high minimum ticket size of ₹1,00,000 to ₹2,50,000 per application to restrict entry to seasoned investors.</p>
+            </div>
+            <div class="guide-step-card" style="border-top:3px solid #8B5CF6;">
+              <span class="step-badge" style="background:rgba(139,92,246,0.15); color:#8B5CF6;">Trading Rules</span>
+              <h4>Secondary Market Lot Trading</h4>
+              <p><strong>Mainboard:</strong> Post-listing, shares can be bought or sold in single-share increments (1 share).<br><strong>SME:</strong> Shares must be traded in mandatory whole lots (e.g., 1,000, 1,200, or 2,000 shares) even in secondary market trading.</p>
+            </div>
+            <div class="guide-step-card" style="border-top:3px solid #10B981;">
+              <span class="step-badge" style="background:rgba(16,185,129,0.15); color:#10B981;">Underwriting</span>
+              <h4>Market Making & Underwriting</h4>
+              <p><strong>Mainboard:</strong> Merchant bankers underwrite issues based on institutional demand.<br><strong>SME:</strong> Merchant bankers must 100% underwrite the issue and appoint a designated Market Maker to provide continuous two-way liquidity for 3 years.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 8: Anchor Investors: Understanding the 30-Day and 90-Day Lock-in Mechanics -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">8</div>
+            <h2 class="guide-section-title">Anchor Investors: Understanding the 30-Day and 90-Day Lock-in Mechanics</h2>
+          </div>
+          <p class="guide-text">
+            <strong>Anchor Investors</strong> are high-profile institutional investors (such as sovereign wealth funds, domestic mutual funds, foreign portfolio investors, and insurance majors) invited to bid one business day prior to the public issue opening. Anchors provide price discovery validation and instill confidence in retail bidders:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Criteria</span>
+              <h4>Minimum Ticket Size & Pricing</h4>
+              <p>Anchor investors must commit a minimum application value of ₹10 Crore each. They are allotted shares at the absolute ceiling of the public price band, confirming institutional willingness to invest at maximum valuation.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Quota</span>
+              <h4>Allocation Limits</h4>
+              <p>Up to 60% of the Qualified Institutional Buyers (QIB) portion can be reserved for anchor investors. Of this anchor book, a mandatory 33% must be earmarked exclusively for domestic mutual funds.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Lock-in Stage 1</span>
+              <h4>30-Day Mandatory Lock-in</h4>
+              <p>To curb immediate listing-day dumping, SEBI mandates that 50% of the shares allocated to anchor investors cannot be sold for 30 calendar days following the allotment date.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Lock-in Stage 2</span>
+              <h4>90-Day Extended Lock-in</h4>
+              <p>The remaining 50% of anchor shares are subject to an extended 90-day lock-in period. Retail investors should track the 30-day and 90-day expiry dates, as sudden institutional selling can exert temporary downward supply pressure.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 9: How to Analyze a Red Herring Prospectus (RHP) in 15 Minutes -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">9</div>
+            <h2 class="guide-section-title">How to Analyze a Red Herring Prospectus (RHP) in 15 Minutes</h2>
+          </div>
+          <p class="guide-text">
+            The <strong>Red Herring Prospectus (RHP)</strong> is a comprehensive legal and financial disclosure document (often exceeding 400 pages) filed with SEBI and registrars of companies. While reading the entire document is daunting, retail investors can extract 90% of actionable insights by focusing on 5 pivotal chapters:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Chapter 1</span>
+              <h4>Objects of the Issue</h4>
+              <p>Examine where your capital will be deployed. Look for productive use of proceeds: capex, manufacturing plant expansion, technology upgrades, or high-cost debt retirement. Be cautious if >70% of the issue is an Offer for Sale (OFS) exiting early backers.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Chapter 2</span>
+              <h4>Restated Financial Information</h4>
+              <p>Review 3 full financial years plus stub period metrics. Check for consistent top-line Revenue CAGR (>15%), expanding operating EBITDA margins, and positive Free Cash Flow (FCF) from core operating activities.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Chapter 3</span>
+              <h4>Internal & External Risk Factors</h4>
+              <p>Skim the 'Risk Factors' section for critical structural vulnerabilities: pending promoter litigations, customer concentration (e.g., top 5 clients generating >60% of total sales), raw material import dependency, or key personnel risks.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Chapter 4</span>
+              <h4>Peer Comparison & Valuation Ratios</h4>
+              <p>Compare the issuer's Price-to-Earnings (P/E) multiple, Return on Net Worth (RoNW), and Price-to-Book (P/B) against established listed competitors. Avoid issues priced at egregious valuation premiums without superior profit margins.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 10: Grey Market Premium (GMP), Kostak Rates & Subject to Sauda Demystified -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">10</div>
+            <h2 class="guide-section-title">Grey Market Premium (GMP), Kostak Rates & Subject to Sauda Demystified</h2>
+          </div>
+          <p class="guide-text">
+            The unorganized over-the-counter (OTC) primary market operates via specialized brokers prior to official exchange listing. Understanding market jargon is essential for retail participants:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Concept 1</span>
+              <h4>Grey Market Premium (GMP)</h4>
+              <p>The estimated per-share markup at which IPO applications or prospective allotted shares trade unofficially. If issue price is ₹200 and GMP is ₹50, anticipated listing price is ₹250 (+25%). Fluctuates daily based on retail hype and subscription tallies.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Concept 2</span>
+              <h4>Kostak Rate</h4>
+              <p>The flat cash consideration paid by a grey market buyer to purchase a completed IPO retail application before allotment is announced. The seller receives this fixed sum regardless of whether the application is subsequently allotted or rejected.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Concept 3</span>
+              <h4>Subject to Sauda</h4>
+              <p>A conditional forward agreement where a buyer pays an agreed premium only if shares are successfully allotted to the applicant. If no allotment occurs in the computerized lottery, the contract is nullified without cash exchange.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Advisory</span>
+              <h4>Regulatory Standing</h4>
+              <p><strong>Crucial Warning:</strong> Grey market transactions are strictly informal and have zero regulatory standing under SEBI or Indian judicial arbitration. Counterparty default risk is high during turbulent market crashes.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 11: Taxation on IPO Listing Profits: STCG (20%) vs LTCG (12.5%) & Advance Tax -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">11</div>
+            <h2 class="guide-section-title">Taxation on IPO Listing Profits: STCG (20%) vs LTCG (12.5%) & Advance Tax</h2>
+          </div>
+          <p class="guide-text">
+            Profits realized from selling allotted IPO equity shares are subject to Indian capital gains taxation under the Income Tax Act, 1961:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Section 111A</span>
+              <h4>Short-Term Capital Gains (STCG)</h4>
+              <p>Applicable if allotted shares are sold on listing day or held for <strong>less than or equal to 12 months</strong>. Taxed at a flat rate of <strong>20%</strong> (effective from Union Budget 2024, previously 15%), plus 4% Health and Education Cess (effective 20.8%).</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Section 112A</span>
+              <h4>Long-Term Capital Gains (LTCG)</h4>
+              <p>Applicable if allotted equity shares are held for <strong>more than 12 months</strong>. Long-term gains exceeding the annual statutory exemption limit of <strong>₹1,25,000</strong> per financial year are taxed at <strong>12.5%</strong> without indexation benefits.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Levy</span>
+              <h4>Securities Transaction Tax (STT)</h4>
+              <p>Both STCG and LTCG preferential tax rates apply only if Securities Transaction Tax (STT) has been settled at the time of sale through the recognized stock exchange platform (NSE or BSE).</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Compliance</span>
+              <h4>Advance Tax Deadlines</h4>
+              <p>If your estimated tax liability exceeds ₹10,000 in a financial year, you must remit advance tax installments (15% by June 15, 45% by Sept 15, 75% by Dec 15, 100% by March 15) to avoid penal interest under Sections 234B and 234C.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 12: NSE & BSE Pre-Open Price Discovery Mechanics (9:00 AM – 9:45 AM IST) -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">12</div>
+            <h2 class="guide-section-title">NSE & BSE Pre-Open Price Discovery Mechanics (9:00 AM – 9:45 AM IST)</h2>
+          </div>
+          <p class="guide-text">
+            On listing morning (T+3 day), newly debuting equity shares do not commence direct trading at 9:15 AM like regular secondary market stocks. Instead, stock exchanges conduct an extended 45-minute Call Auction session to discover an unbiased opening market price:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Phase 1</span>
+              <h4>9:00 AM – 9:45 AM: Order Collection</h4>
+              <p>Market participants (retail, institutional, and HNIs) place, modify, or cancel buy and sell limit orders. No actual trades are executed during this window; orders accumulate in the exchange central order book.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Phase 2</span>
+              <h4>9:45 AM – 9:55 AM: Price Matching</h4>
+              <p>The exchange matching engine calculates the single equilibrium strike price that maximizes cumulative transacted volume. All matched buy and sell bids execute at this uniform opening discovery price.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Phase 3</span>
+              <h4>9:55 AM – 10:00 AM: Buffer Period</h4>
+              <p>A 5-minute system transition interval where no orders can be placed, facilitating exchange clearing infrastructure handover to continuous normal market hours.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Phase 4</span>
+              <h4>10:00 AM: Regular Trading Begins</h4>
+              <p>Continuous secondary market trading opens. Standard circuit filters (e.g., 20% or 10% on Mainboard issues, 90% listing day cap on SME segment) become operational relative to the discovered equilibrium price.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 13: Top 7 Reasons Why IPO Applications Get Rejected & How to Prevent It -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">13</div>
+            <h2 class="guide-section-title">Top 7 Reasons Why IPO Applications Get Rejected & How to Prevent It</h2>
+          </div>
+          <p class="guide-text">
+            Registrars automatically screen bid data received from stock exchanges. Avoid these common blunders that cause immediate disqualification:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Pitfall 1</span>
+              <h4>Third-Party Bank Account Bidding</h4>
+              <p>The PAN registered on your bank account generating the UPI mandate must match the PAN on your Demat account exactly. Submitting a bid for your account using a spouse or friend's UPI ID results in immediate rejection.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pitfall 2</span>
+              <h4>Multiple Bids under Identical PAN</h4>
+              <p>Applying for the same IPO through multiple trading brokers (e.g., bidding on Broker A and Broker B using the same PAN) flags a duplicate application error. All bids associated with that PAN are disqualified.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pitfall 3</span>
+              <h4>Expired UPI Mandate</h4>
+              <p>Bidding closes on exchange terminals at 5:00 PM on the final day. If you fail to open your UPI app and authorize the mandate request before 5:00 PM, your bid is omitted from the registrar's allotment file.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Pitfall 4</span>
+              <h4>Bidding Below Price Band Ceiling</h4>
+              <p>In heavily oversubscribed issues, allocating shares below the price band ceiling is statistically impossible. Failing to select the 'Cut-off Price' option in the retail quota leads to disqualification if the issue prices at the cap.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 14: Role of Official IPO Registrars: KFintech, Link Intime & Bigshare -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">14</div>
+            <h2 class="guide-section-title">Role of Official IPO Registrars: KFintech, Link Intime & Bigshare</h2>
+          </div>
+          <p class="guide-text">
+            <strong>Registrars and Transfer Agents (RTAs)</strong> are independent SEBI-licensed institutions appointed by the issuing company. They operate independently of stock brokers to ensure integrity in the primary issuance pipeline:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Duty 1</span>
+              <h4>Bid File Validation & Scrubbing</h4>
+              <p>The registrar collects raw bidding files from NSE, BSE, and syndicate member banks. They perform automated data scrubbing to eliminate invalid PANs, duplicate bids, and unpaid mandates.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Duty 2</span>
+              <h4>Execution of Computerized Lottery</h4>
+              <p>When the retail or NNI category is oversubscribed, the registrar executes an exchange-audited random lottery algorithm to select successful applicants, ensuring zero human intervention or favoritism.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Duty 3</span>
+              <h4>Fund Debit & Unfreeze Execution</h4>
+              <p>Following allotment approval, the registrar dispatches electronic instructions to SCSB clearing banks to debit allotted bidders and simultaneously release blocked funds for non-allottees.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Duty 4</span>
+              <h4>Official Verification Portals</h4>
+              <p>The registrar hosts verified public inquiry portals where investors can verify their application status using PAN, Demat Beneficiary DP ID, or Application Number within hours of finalization.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 15: Strategic Exit: Listing Day Flipping vs Long-Term Compounding -->
+        <article class="guide-section-card">
+          <div class="guide-section-header">
+            <div class="guide-section-num">15</div>
+            <h2 class="guide-section-title">Strategic Exit: Listing Day Flipping vs Long-Term Compounding</h2>
+          </div>
+          <p class="guide-text">
+            Successful primary market participation requires an explicit exit framework tailored to company fundamentals, valuation multiples, and market environment:
+          </p>
+          <div class="guide-steps-grid">
+            <div class="guide-step-card">
+              <span class="step-badge">Strategy A</span>
+              <h4>Listing Day Listing Gain Booking (Flipping)</h4>
+              <p>Ideal for issues characterized by speculative retail euphoria, high GMP, and stretched valuations (>50x P/E) relative to industry peers. Selling within the first 15–30 minutes of regular trading secures fast cash gains while avoiding secondary market post-hype corrections.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Strategy B</span>
+              <h4>Partial Profit Booking (Principal Extraction)</h4>
+              <p>In issues opening with >80% to 100% listing gains, selling half of your allotted shares recovers your entire initial capital investment. The remaining shares can be held long term risk-free as 'house money'.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Strategy C</span>
+              <h4>Multi-Year Long-Term Compounding</h4>
+              <p>Suited for market leaders operating in high-barrier moats with clean corporate governance, compounding ROE (>20%), and secular tailwinds. Holding past the listing spike allows investors to participate in multi-bagger corporate earnings expansion.</p>
+            </div>
+            <div class="guide-step-card">
+              <span class="step-badge">Strategy D</span>
+              <h4>Trailing Stop-Loss Discipline</h4>
+              <p>If holding through listing day volatility, place a trailing stop-loss 5% below the pre-open discovery price. This protects your hard-earned paper gains if institutional anchor dumping triggers an intraday trend reversal.</p>
+            </div>
+          </div>
+        </article>
 
         <!-- Native In-Feed Ad Unit (Slot 1400016775) -->
         ${renderInFeedAdUnit(false)}
 
-        <!-- Section 6: Frequently Asked Questions (FAQ) Accordion -->
+        <!-- Section 16: Frequently Asked Questions (FAQ) Accordion -->
         <article class="guide-section-card">
           <div class="guide-section-header">
             <div class="guide-section-num">?</div>
-            <h2 class="guide-section-title">Frequently Asked Questions (FAQ)</h2>
+            <h2 class="guide-section-title">Frequently Asked Questions (FAQ) — Primary Market Directory</h2>
           </div>
           <p class="guide-text">
-            Essential answers to commonly asked primary market questions by retail and HNI investors:
+            Comprehensive answers to the top 15 questions asked by Indian retail and HNI investors:
           </p>
 
           <div class="faq-list">
             <div class="faq-accordion-item">
               <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
-                <span>What is Grey Market Premium (GMP) and how is it calculated?</span>
+                <span>1. What is Grey Market Premium (GMP) and how is it calculated?</span>
                 <span class="faq-chevron">▼</span>
               </button>
               <div class="faq-answer-panel">
@@ -2566,7 +2922,7 @@
 
             <div class="faq-accordion-item">
               <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
-                <span>What is the difference between an SME IPO and a Mainboard IPO?</span>
+                <span>2. What is the difference between an SME IPO and a Mainboard IPO?</span>
                 <span class="faq-chevron">▼</span>
               </button>
               <div class="faq-answer-panel">
@@ -2577,7 +2933,7 @@
 
             <div class="faq-accordion-item">
               <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
-                <span>What is the SEBI T+3 Listing Timeline?</span>
+                <span>3. What is the SEBI T+3 Listing Timeline?</span>
                 <span class="faq-chevron">▼</span>
               </button>
               <div class="faq-answer-panel">
@@ -2587,7 +2943,7 @@
 
             <div class="faq-accordion-item">
               <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
-                <span>What is "Cut-off Price" and should I always check it?</span>
+                <span>4. What is "Cut-off Price" and should I always check it?</span>
                 <span class="faq-chevron">▼</span>
               </button>
               <div class="faq-answer-panel">
@@ -2597,7 +2953,7 @@
 
             <div class="faq-accordion-item">
               <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
-                <span>Can I apply for an IPO with multiple Demat accounts under the same PAN?</span>
+                <span>5. Can I apply for an IPO with multiple Demat accounts under the same PAN?</span>
                 <span class="faq-chevron">▼</span>
               </button>
               <div class="faq-answer-panel">
@@ -2607,11 +2963,101 @@
 
             <div class="faq-accordion-item">
               <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
-                <span>How are capital gains taxed when selling IPO shares on listing day?</span>
+                <span>6. How are capital gains taxed when selling IPO shares on listing day?</span>
                 <span class="faq-chevron">▼</span>
               </button>
               <div class="faq-answer-panel">
                 Under the Indian Income Tax Act, equity shares sold within 12 months of allotment are classified as <strong>Short-Term Capital Gains (STCG)</strong> and are taxed at a flat rate of 20% (plus applicable surcharge and cess) under Section 111A. If held for more than 12 months, profits exceeding ₹1.25 Lakh per financial year are taxed as Long-Term Capital Gains (LTCG) at 12.5%.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>7. What happens if an IPO fails to achieve 90% minimum subscription?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                Under SEBI regulations, a public issue must achieve a minimum subscription threshold of 90% of the net offer to the public. If the minimum subscription is not reached within the prescribed bidding timeframe, the entire issue is canceled, and the company is legally obligated to unblock all ASBA funds within 2 business days.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>8. How does the computerized lottery system select retail winners in oversubscribed IPOs?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                When the retail portion of an IPO is oversubscribed (e.g., 50x or 100x), SEBI guidelines mandate that maximum individual retail applicants receive at least one minimum lot. The registrar runs an exchange-supervised random computerized lottery that gives every valid PAN an equal probability of selection, irrespective of whether they applied on Day 1 or Day 3.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>9. Can I modify or cancel my IPO application before 5:00 PM on closing day?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                Yes. Retail Individual Investors (bidding up to ₹2,00,000) are permitted to revise their bid quantity, change their price, or completely cancel their application at any point before the stock exchange bidding cutoff at 5:00 PM IST on the final closing day. Non-Institutional (HNI) and QIB bidders are not permitted to withdraw or downward-revise their bids.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>10. What is an Anchor Book and where can I view anchor investor allocations?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                An Anchor Book discloses the list of premier institutional funds (Mutual Funds, FPIs, Sovereign Funds) that committed capital to an IPO prior to opening day. The company files an official Anchor Allocation Disclosure circular with BSE and NSE on the evening before issue opening, detailing the names of allocated funds and the exact number of shares subscribed.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>11. What should I do if my bank has not unblocked my ASBA funds after allotment?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                If your application was not allotted shares but the bank lien remains active after 3 business days, you should: (1) Contact your bank's ASBA / UPI helpdesk with your Application Number, (2) email the official registrar (Link Intime, KFintech, or Bigshare) with your PAN, and (3) lodge a ticket on SEBI SCORES portal (scores.sebi.gov.in) if the lien is not resolved within 5 working days.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>12. Why do grey market premiums fluctuate so rapidly right before the issue closes?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                On the final day of bidding (Day 3), institutional QIB and Big HNI (bNII) subscription orders flood the exchange between 2:00 PM and 5:00 PM. High institutional oversubscription (e.g., QIB >100x) signals strong institutional validation, triggering immediate upward surges in grey market quotes. Conversely, lackluster institutional interest leads to rapid downward GMP corrections.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>13. Is it possible to apply from both BSE and NSE at the same time?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                No. Both BSE and NSE exchange terminals feed into a single consolidated registrar database. Submitting simultaneous applications for the same issue across both exchanges will be identified as duplicate bids under your PAN card and both will be disqualified.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>14. What are circuit limits on listing day for Mainboard vs SME IPOs?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                On Mainboard IPOs, once the opening price is discovered in the pre-open auction, a standard intraday circuit band (typically 20% or 10%) takes effect. For SME IPOs, SEBI enforces an overall listing day price band cap of 90% (upward or downward) relative to the issue price to manage extreme volatility.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-question-btn" onclick="this.parentElement.classList.toggle('open')">
+                <span>15. What is the fundamental difference between Fresh Issue and Offer for Sale (OFS)?</span>
+                <span class="faq-chevron">▼</span>
+              </button>
+              <div class="faq-answer-panel">
+                In a <strong>Fresh Issue</strong>, the company creates and sells new equity shares; all net proceeds flow directly onto the company's balance sheet to finance growth, build factories, or repay debt. In an <strong>Offer for Sale (OFS)</strong>, existing promoters or early venture capital investors sell their private holdings to the public; the proceeds go directly to those selling shareholders, with zero new capital entering the company.
               </div>
             </div>
           </div>
@@ -2662,6 +3108,19 @@
         <div id="calendar-day-details-container">
           ${renderDayScheduleDetailed(state.selectedCalendarDate || "2026-10-31")}
         </div>
+
+        <!-- Editorial Context: Primary Market Issue Pipeline & T+3 Settlement Cycles -->
+        <article class="guide-section-card" style="margin-top:20px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg);">
+          <h3 style="font-size:16px; color:var(--text-heading); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            <span>📅 Primary Market Issue Pipeline & T+3 Settlement Cycles</span>
+          </h3>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-body); margin-bottom:12px;">
+            Under SEBI's standardized T+3 primary market framework, the lifecycle of an Indian public issue from subscription closing to stock exchange debut is compressed into exactly three business days. This condensed timeline mitigates secondary market volatility risks for prospective investors while expediting the unblocking of non-allotted ASBA funds. The timeline above tracks critical transition nodes: Issue Opening (bidding initiation across Syndicate brokers), Bidding Closure (strict 5:00 PM cutoff for retail UPI mandate submission), Basis of Allotment finalization, and demat credit.
+          </p>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-body); margin:0;">
+            Retail applicants should note that banking holidays and settlement cutoffs can occasionally shift internal processing hours among Self-Certified Syndicate Banks (SCSBs). When scheduling bids across concurrent Mainboard and SME public issues, ensuring that your linked bank account maintains sufficient unencumbered liquidity prior to generating UPI mandates prevents automated mandate rejections at the registrar stage.
+          </p>
+        </article>
 
         <!-- Official Exchange & Allotment Directory -->
         ${renderPortalDirectoryWidget()}
@@ -2731,6 +3190,19 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Editorial Context: Post-Listing Performance & Registrar Verification Insights -->
+        <article class="guide-section-card" style="margin-top:20px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg);">
+          <h3 style="font-size:16px; color:var(--text-heading); margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            <span>📈 Post-Listing Performance & Registrar Verification Insights</span>
+          </h3>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-body); margin-bottom:12px;">
+            The archive above consolidates recent Mainboard and SME public issues across the National Stock Exchange (NSE) and Bombay Stock Exchange (BSE). Evaluating post-listing performance trajectories reveals that companies with robust institutional anchor backings and sustainable EBITDA margins consistently demonstrate price stability beyond the initial listing pop. Conversely, issues marked by significant promoter offer-for-sale (OFS) dilution tend to experience tighter trading ranges once pre-open auction euphoria stabilizes.
+          </p>
+          <p style="font-size:13px; line-height:1.6; color:var(--text-body); margin:0;">
+            For closed issues awaiting basis of allotment, direct links to certified registrar portals (Link Intime, KFin Technologies, Bigshare Services, Maashitla, and MUFG Link/MPMS) enable instantaneous verification via PAN, Demat Beneficiary ID (DP ID/Client ID), or Application Number. We cross-verify registrar feeds with official exchange notice boards to ensure comprehensive tracking integrity for retail market participants.
+          </p>
+        </article>
 
         <!-- AdSense Native Slot -->
         ${renderAdSenseUnit("5892147360", "auto")}
