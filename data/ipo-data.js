@@ -8674,13 +8674,75 @@ window.IpoData = {
     ]
   },
   "alertsFeed": [
-    "📈 Bombay Coated & Special Steels GMP steady at +₹8.5 (10.4%), Final bidding closes on Monday Nov 2",
-    "⚡ Maxwell Engineering Solutions SME IPO GMP jumps to +₹72 (+45.6%) with 4.85x overall subscription",
-    "🔥 Swiggy Mega Mainboard IPO opens Nov 6 (Price band ₹371–₹390, GMP +₹25 / +6.4%, Lot: 38 shares)",
-    "☀️ ACME Solar Holdings IPO opens Nov 6 (Price band ₹275–₹289, GMP +₹30 / +10.4%, Issue: ₹2,900 Cr)",
-    "🏥 Sagility India Healthcare BPO IPO opens Nov 5 (Price band ₹28–₹30, Lot: 500, GMP +₹3 / +10%)",
-    "🛡️ Niva Bupa Health Insurance IPO dates confirmed: Opens Nov 7, Price band ₹70–₹74, GMP +₹5",
-    "💎 M. K. Sons Fine Jewels IPO closes with 5.09x subscription; Allotment Nov 3, Listing Nov 5",
-    "🔍 Afcons Infrastructure IPO final subscription closes at 2.77x; Allotment on Link Intime, Listing Nov 4"
+    {
+      "id": "notif-maxwell",
+      "slug": "maxwell-engineering-solutions-ipo",
+      "title": "Maxwell Engineering Solutions (SME)",
+      "tag": "⚡ TOP GMP +45.6%",
+      "tagClass": "tag-gmp",
+      "pinned": true,
+      "description": "Grey Market Premium surges to +₹72 (+45.6% gain). Retail bidding 6.8x oversubscribed, total subscription at 4.85x. Closes Nov 3.",
+      "time": "Active Bidding • Closes Nov 3"
+    },
+    {
+      "id": "notif-swiggy",
+      "slug": "swiggy-limited-ipo",
+      "title": "Swiggy Limited Mega Mainboard",
+      "tag": "📌 PINNED NEW IPO",
+      "tagClass": "tag-pinned",
+      "pinned": true,
+      "description": "India largest consumer delivery IPO opens Nov 6. Price band ₹371–₹390 (Lot: 38 shares, Issue: ₹11,327 Cr). GMP at +₹25 (+6.4%).",
+      "time": "Opens Nov 6 • Mainboard"
+    },
+    {
+      "id": "notif-bombay-coated",
+      "slug": "bombay-coated-and-special-steels-ipo",
+      "title": "Bombay Coated & Special Steels",
+      "tag": "⏳ CLOSES MONDAY",
+      "tagClass": "tag-closing",
+      "pinned": true,
+      "description": "Final bidding window closes Monday, Nov 2. Overall subscription at 3.98x (QIB 6.89x) with GMP steady at +₹8.5 (+10.4%).",
+      "time": "Final Day Nov 2 • BSE, NSE"
+    },
+    {
+      "id": "notif-acme-solar",
+      "slug": "acme-solar-holdings-ipo",
+      "title": "ACME Solar Holdings",
+      "tag": "⚡ HIGH GMP +10.4%",
+      "tagClass": "tag-gmp",
+      "pinned": false,
+      "description": "Renewable energy producer opens Nov 6. Price band ₹275–₹289 (Lot: 51, Issue: ₹2,900 Cr). Unofficial GMP at +₹30 (+10.4%).",
+      "time": "Opens Nov 6 • Mainboard"
+    },
+    {
+      "id": "notif-sagility",
+      "slug": "sagility-india-ipo",
+      "title": "Sagility India Healthcare BPO",
+      "tag": "📌 PINNED NEW IPO",
+      "tagClass": "tag-pinned",
+      "pinned": false,
+      "description": "Healthcare operations tech provider opens Nov 5. Price band ₹28–₹30 (Lot: 500, Issue: ₹2,106 Cr). GMP at +₹3 (+10.0%).",
+      "time": "Opens Nov 5 • Mainboard"
+    },
+    {
+      "id": "notif-niva-bupa",
+      "slug": "niva-bupa-health-insurance-ipo",
+      "title": "Niva Bupa Health Insurance",
+      "tag": "📌 PINNED NEW IPO",
+      "tagClass": "tag-pinned",
+      "pinned": false,
+      "description": "Health insurer IPO opens Nov 7. Price band ₹70–₹74 (Lot: 200, Issue: ₹2,200 Cr). GMP at +₹5 (+6.8%).",
+      "time": "Opens Nov 7 • Mainboard"
+    },
+    {
+      "id": "notif-afcons",
+      "slug": "afcons-infrastructure",
+      "title": "Afcons Infrastructure Allotment",
+      "tag": "🔍 ALLOTMENT & LISTING",
+      "tagClass": "tag-allotment",
+      "pinned": false,
+      "description": "Subscription closed at 2.77x. Allotment verification active on Link Intime with debut listing on Nov 4.",
+      "time": "Listing Nov 4 • Shapoorji Pallonji"
+    }
   ]
 };

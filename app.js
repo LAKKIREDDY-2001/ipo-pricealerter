@@ -96,6 +96,16 @@
     return String(str).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
+  function escapeHtml(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function renderCompanyLogo(ipo, size = 44) {
     if (!ipo) {
       return `<div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:#2563EB;">IP</div>`;
@@ -514,29 +524,136 @@
     });
   }
 
+  // ==========================================================================
+  // Smart Notifications Generator: Pins New IPOs & Top GMP Gainers
+  // ==========================================================================
+  function getSmartNotifications() {
+    const list = [];
+    const openIpos = records.filter(r => r.status === "OPEN");
+    const upcomingIpos = records.filter(r => r.status === "UPCOMING");
+
+    // Retrieve configured alertsFeed from dataset
+    const feed = (window.IpoData && window.IpoData.alertsFeed) || dataset.alertsFeed || [];
+
+    feed.forEach((item, idx) => {
+      if (typeof item === "object" && item !== null && item.title) {
+        list.push({
+          id: item.id || `feed-${idx}`,
+          slug: item.slug || (records[0]?.slug || ""),
+          title: item.title,
+          tag: item.tag || (item.pinned ? "📌 PINNED" : "🔔 UPDATE"),
+          tagClass: item.tagClass || (item.pinned ? "tag-pinned" : ""),
+          pinned: !!item.pinned,
+          description: item.description || "",
+          time: item.time || "Live"
+        });
+      } else if (typeof item === "string") {
+        const lower = item.toLowerCase();
+        const matched = records.find(r => 
+          lower.includes(r.shortName.toLowerCase()) || 
+          lower.includes((r.companyName || "").toLowerCase().slice(0, 10))
+        );
+        const slug = matched ? matched.slug : (records[0]?.slug || "");
+        const title = matched ? matched.shortName : "Primary Market Alert";
+        const isGmp = lower.includes("gmp") || lower.includes("surge") || lower.includes("jump");
+        const isNew = lower.includes("opens") || lower.includes("price band");
+        list.push({
+          id: `feed-str-${idx}`,
+          slug: slug,
+          title: title,
+          tag: isGmp ? "⚡ HIGH GMP" : isNew ? "📌 NEW IPO" : "🔔 UPDATE",
+          tagClass: isGmp ? "tag-gmp" : isNew ? "tag-pinned" : "",
+          pinned: isNew || isGmp,
+          description: item.replace(/^[^\w\s]+/, "").trim(),
+          time: matched?.status === "OPEN" ? `Bidding Open • Closes ${formatDate(matched.closeDate)}` : "Live Tracker"
+        });
+      }
+    });
+
+    // Fallback if feed is empty: auto-synthesize from records
+    if (list.length === 0) {
+      // 1. High GMP IPOs
+      const highGmp = [...openIpos, ...upcomingIpos]
+        .filter(r => (r.gmp || 0) > 0)
+        .sort((a, b) => {
+          const pctA = a.gmpPercentage || ((a.gmp / (a.priceBandHigh || 100)) * 100);
+          const pctB = b.gmpPercentage || ((b.gmp / (b.priceBandHigh || 100)) * 100);
+          return pctB - pctA;
+        });
+
+      highGmp.slice(0, 3).forEach(ipo => {
+        const pct = ipo.gmpPercentage || ((ipo.gmp / (ipo.priceBandHigh || 100)) * 100).toFixed(1);
+        list.push({
+          id: `auto-gmp-${ipo.id}`,
+          slug: ipo.slug,
+          title: ipo.shortName || ipo.companyName,
+          tag: `⚡ TOP GMP +${pct}%`,
+          tagClass: "tag-gmp",
+          pinned: true,
+          description: `GMP trading at +₹${ipo.gmp} (~${pct}% gain). Price band: ₹${ipo.priceBandLow}–${ipo.priceBandHigh}.`,
+          time: ipo.status === "OPEN" ? `Closes ${formatDate(ipo.closeDate)}` : `Opens ${formatDate(ipo.openDate)}`
+        });
+      });
+
+      // 2. New Upcoming Mainboard IPOs
+      upcomingIpos.slice(0, 3).forEach(ipo => {
+        if (!list.some(l => l.slug === ipo.slug)) {
+          list.push({
+            id: `auto-new-${ipo.id}`,
+            slug: ipo.slug,
+            title: ipo.shortName || ipo.companyName,
+            tag: "📌 PINNED NEW IPO",
+            tagClass: "tag-pinned",
+            pinned: true,
+            description: `New IPO issue: ₹${ipo.issueSizeCr ? ipo.issueSizeCr.toLocaleString('en-IN') + ' Cr' : 'TBA'}. Price band: ₹${ipo.priceBandLow}–${ipo.priceBandHigh}.`,
+            time: `Opens ${formatDate(ipo.openDate)} • Lot: ${ipo.lotSize || '—'}`
+          });
+        }
+      });
+    }
+
+    // Always sort pinned to top
+    return list.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+  }
+
   function renderNotificationsPanel() {
-    const alerts = dataset.alertsFeed || [];
+    const alerts = getSmartNotifications();
     return `
       <div class="notif-backdrop" onclick="window.IpoApp.closeNotifications()"></div>
       <div class="notifications-panel" id="notifications-panel" onclick="event.stopPropagation()">
         <div class="notif-header">
-          <h4>Market Alerts & Updates</h4>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h4>Market Alerts & Updates</h4>
+            <span style="font-size:10px; background:rgba(37,99,235,0.18); color:var(--brand-blue-light); padding:2px 7px; border-radius:10px; font-weight:700;">
+              ${alerts.length} Active
+            </span>
+          </div>
           <div style="display:flex; align-items:center; gap:10px;">
-            <button class="notif-toggle-alerts" id="toggle-alerts-feed-btn">
+            <button class="notif-toggle-alerts" id="toggle-alerts-feed-btn" title="Toggle alerts sound / push">
               ${state.alertsSubscribed ? "Mute" : "Enable"}
             </button>
             <button class="notif-close-btn" onclick="window.IpoApp.closeNotifications()" aria-label="Close notifications">✕</button>
           </div>
         </div>
+
+        <div style="display:flex; align-items:center; gap:6px; margin:8px 0 4px; padding:0 2px;">
+          <span style="font-size:11px; color:var(--text-muted); display:inline-flex; align-items:center; gap:5px;">
+            <span>📌 Pinned New IPOs & Top GMP Movers</span>
+          </span>
+        </div>
+
         <div class="notif-list">
           ${alerts.map(a => `
-            <a href="#/ipo/${a.slug}" class="notif-item" onclick="window.IpoApp.closeNotifications()">
+            <a href="#/ipo/${a.slug}" class="notif-item ${a.pinned ? 'is-pinned' : ''}" onclick="window.IpoApp.closeNotifications()">
               <div class="notif-item-top">
-                <span class="notif-item-title">${a.title}</span>
-                <span class="notif-tag">${a.tag}</span>
+                <span class="notif-item-title">
+                  ${a.pinned ? '<span class="notif-pin-icon">📌</span>' : ''}
+                  ${escapeHtml(a.title)}
+                </span>
+                <span class="notif-tag ${a.tagClass || ''}">${escapeHtml(a.tag)}</span>
               </div>
-              <p class="notif-desc">${a.description}</p>
-              <span class="notif-time">${a.time}</span>
+              <p class="notif-desc">${escapeHtml(a.description)}</p>
+              <span class="notif-time">${escapeHtml(a.time)}</span>
             </a>
           `).join("")}
         </div>
