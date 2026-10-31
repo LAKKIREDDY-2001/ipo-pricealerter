@@ -729,7 +729,7 @@ window.IpoData = {
           "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/WAAREEENER.png",
       "refundDate": "2024-10-25",
       "dematDate": "2024-10-25"
     },
@@ -814,7 +814,7 @@ window.IpoData = {
           "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/GodavariBiorefineriesLtd_61852873_40541.png",
       "refundDate": "2024-10-29",
       "dematDate": "2024-10-29"
     },
@@ -944,7 +944,7 @@ window.IpoData = {
           "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/AFCONS.png",
       "listingPrice": 426,
       "listingGain": "-8.0%"
     },
@@ -7516,7 +7516,7 @@ window.IpoData = {
           "url": "https://kosmic.kfintech.com/ipostatus/"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/NIVABUPA.png"
     },
     {
       "id": "acme-solar-holdings",
@@ -7602,7 +7602,7 @@ window.IpoData = {
           "url": "https://kosmic.kfintech.com/ipostatus/"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/ACMESOLAR.png",
       "issuePrice": 289,
       "listingPrice": 259,
       "listingGain": "-10.38%"
@@ -7691,7 +7691,7 @@ window.IpoData = {
           "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/SWIGGY.png",
       "issuePrice": 390,
       "listingPrice": 420,
       "listingGain": "+7.69%",
@@ -7783,7 +7783,7 @@ window.IpoData = {
           "url": "https://www.linkintime.co.in/initial_offer/public-issues.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/SAGILITY.png",
       "issuePrice": 30,
       "listingPrice": 31.06,
       "listingGain": "+3.53%"
