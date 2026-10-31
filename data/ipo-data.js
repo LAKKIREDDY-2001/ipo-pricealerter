@@ -7857,39 +7857,104 @@ window.IpoData = {
     {
       "id": "vedant-poly-fabs",
       "slug": "vedant-poly-fabs-ipo",
-      "companyName": "Vedant Poly Fabs Solutions Limited",
-      "shortName": "Vedant Poly Fabs Solutions",
+      "companyName": "Vedant Poly Fabs Limited",
+      "shortName": "Vedant Poly Fabs",
       "initials": "VP",
       "logoColor": "#0EA5E9",
-      "iconType": "polymer",
+      "iconType": "packaging",
       "status": "UPCOMING",
       "board": "SME",
       "exchange": "NSE SME",
-      "sector": "Textiles & Technical Fabrics",
-      "issueType": "NSE SME",
-      "openDate": null,
-      "closeDate": null,
+      "sector": "Packaging Materials & Multilayer Films",
+      "issueType": "NSE SME Book Built Issue (Fresh ₹51.01 Cr + OFS ₹5.67 Cr)",
+      "priceBandLow": 88,
+      "priceBandHigh": 94,
+      "lotSize": 1200,
+      "retailMinLot": 2,
+      "retailMinShares": 2400,
+      "minimumInvestment": 211200,
+      "issueSizeCr": 56.68,
+      "freshIssueCr": 51.01,
+      "ofsCr": 5.67,
+      "faceValue": 10,
+      "leadManager": "Affinity Global Capital Market Private Limited",
+      "marketMaker": "Giriraj Stock Broking Private Limited",
+      "registrar": "Cameo Corporate Services Limited",
+      "allotmentUrl": "https://ipo.cameoindia.com/",
+      "openDate": "2026-11-02",
+      "closeDate": "2026-11-04",
+      "allotDate": "2026-11-05",
+      "refundDate": "2026-11-06",
+      "dematDate": "2026-11-06",
+      "listingDate": "2026-11-09",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "trend": "flat",
+      "gmpHistory": [],
+      "subscriptionTotal": 0,
+      "subscriptionSummary": {
+        "qib": 0,
+        "nii": 0,
+        "retail": 0,
+        "total": 0
+      },
+      "financials": [
+        {
+          "year": "FY 2024",
+          "revenue": 49.73,
+          "profit": 0.64,
+          "assets": 18.88,
+          "netWorth": 3.86
+        },
+        {
+          "year": "FY 2025",
+          "revenue": 81.58,
+          "profit": 4.56,
+          "assets": 55.40,
+          "netWorth": 15.42
+        },
+        {
+          "year": "FY 2026",
+          "revenue": 115.31,
+          "profit": 10.97,
+          "assets": 97.80,
+          "netWorth": 42.26
+        }
+      ],
+      "ratios": {
+        "pe": 15.9,
+        "ronw": "25.95%",
+        "roce": "46.34%",
+        "eps": "₹5.91",
+        "debtEquity": "1.11",
+        "marketCap": "₹190.5 Cr"
+      },
+      "about": "Vedant Poly Fabs Limited is engaged in the manufacturing of flexible packaging materials and supplies to business-to-business (B2B) customers across India. Its product portfolio includes 3-layer and 5-layer low-density (LD) films, shrink films, barrier films, printed laminates, and milk and oil pouches used in food and beverage and other consumer product packaging. The company manufactures products according to customer specifications, including size, thickness, material composition, and printing requirements. Its manufacturing processes include extrusion, printing, lamination, slitting, and pouching. The facility is equipped with multilayer extrusion machines, central impression (CI) flexographic printing machines, and rotogravure printing machines. In addition to manufacturing, the company trades in billet strips used in engineering, fabrication, and manufacturing industries. It commenced operations in 2018 and expanded its manufacturing capacity in March 2026 by adding lamination, slitting, and pouching machines. The company also operates a reprocessing unit to process plastic waste generated during manufacturing for reuse in certain applications.",
+      "analystRating": {
+        "applyPercent": 75,
+        "neutralPercent": 20,
+        "avoidPercent": 5,
+        "consensus": "Apply (High SME Growth)"
+      },
       "growwUrl": "https://groww.in/ipo/vedant-poly-fabs-ipo",
-      "about": "Vedant Poly Fabs manufactures high-tenacity technical polypropylene fabrics and geotextiles for highway civil projects.",
       "docUrl": "https://nsearchives.nseindia.com/emerge/corporates/content/Registration_05062026232729_DRHP.pdf",
       "documents": [
         {
-          "title": "Draft Red Herring Prospectus (DRHP)",
-          "type": "LINK",
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "4.8 MB",
+          "type": "PDF",
           "url": "https://nsearchives.nseindia.com/emerge/corporates/content/Registration_05062026232729_DRHP.pdf"
+        },
+        {
+          "title": "Cameo Corporate Official Registrar",
+          "type": "LINK",
+          "url": "https://ipo.cameoindia.com/"
         }
       ],
-      "priceBandLow": 120,
-      "priceBandHigh": 128,
-      "lotSize": 1000,
-      "issueSizeCr": 42.5,
-      "gmp": 9,
-      "gmpPercentage": 7.03,
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VedantPolyFabsLtd_22702370_96975.png",
-      "allotDate": null,
-      "listingDate": null,
-      "refundDate": null,
-      "dematDate": null
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VedantPolyFabsLtd_22702370_96975.png"
     },
     {
       "id": "zepto",
@@ -8760,6 +8825,12 @@ window.IpoData = {
     ],
     "2026-11-04": [
       {
+        "id": "vedant-poly-fabs",
+        "name": "Vedant Poly Fabs",
+        "type": "CLOSE",
+        "text": "NSE SME Closes (5 PM)"
+      },
+      {
         "id": "mksons-fine-jewels",
         "name": "M.K. Sons Jewels",
         "type": "LISTING",
@@ -8773,6 +8844,12 @@ window.IpoData = {
       }
     ],
     "2026-11-05": [
+      {
+        "id": "vedant-poly-fabs",
+        "name": "Vedant Poly Fabs",
+        "type": "ALLOTMENT",
+        "text": "Basis of Allotment"
+      },
       {
         "id": "bombay-coated-steels",
         "name": "Bombay Coated Steels",
@@ -8811,9 +8888,27 @@ window.IpoData = {
         "type": "LISTING",
         "text": "Listing on NSE SME"
       }
+    ],
+    "2026-11-09": [
+      {
+        "id": "vedant-poly-fabs",
+        "name": "Vedant Poly Fabs",
+        "type": "LISTING",
+        "text": "Listing on NSE SME"
+      }
     ]
   },
   "alertsFeed": [
+    {
+      "id": "notif-vedant-poly-fabs",
+      "slug": "vedant-poly-fabs-ipo",
+      "title": "Vedant Poly Fabs Ltd (NSE SME)",
+      "tag": "📅 OPENS NOV 2",
+      "tagClass": "tag-allotment",
+      "pinned": true,
+      "description": "NSE SME Book Built Issue opens Nov 2, 2026. Price band ₹88–₹94, lot size 1,200 (Min 2 lots: 2,400 shares / ₹2,11,200). Grey Market Premium (GMP) is not fixed yet.",
+      "time": "Upcoming • NSE SME Emerge"
+    },
     {
       "id": "notif-swiggy",
       "slug": "swiggy-limited-ipo",

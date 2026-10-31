@@ -309,6 +309,9 @@
     }
 
     if (ipo.status === "UPCOMING") {
+      if (ipo.gmp == null) {
+        return ipo.openDate ? `GMP Not Fixed • Opens ${formatDate(ipo.openDate)}` : `Pre-IPO Pipeline • Dates TBA`;
+      }
       return ipo.openDate ? `Pre-Issue Estimate • Opens ${formatDate(ipo.openDate)}` : `Pre-IPO Pipeline • Dates TBA`;
     }
 
@@ -341,7 +344,11 @@
       return ipo.gmpHistory;
     }
 
-    const currentGmp = (ipo && ipo.gmp != null) ? ipo.gmp : 12;
+    if (!ipo || ipo.gmp == null || (ipo.status === "UPCOMING" && !ipo.gmp)) {
+      return (ipo && ipo.gmpHistory) || [];
+    }
+
+    const currentGmp = ipo.gmp;
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     // Anchor date based on IPO lifecycle
@@ -380,7 +387,17 @@
 
   function renderDetailGmpChartSvg(ipo) {
     const history = getIpoGmpHistory(ipo);
-    const currentGmp = (ipo && ipo.gmp != null) ? ipo.gmp : 15;
+    if (!ipo || ipo.gmp == null || history.length === 0) {
+      return `
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:125px; padding:16px 20px; text-align:center; background:rgba(15,23,42,0.5); border-radius:10px; border:1px dashed rgba(56,189,248,0.25);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.75" style="margin-bottom:6px;"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-3 3"/></svg>
+          <span style="font-size:13px; font-weight:700; color:#E2E8F0;">Grey Market Premium (GMP) Not Fixed</span>
+          <span style="font-size:11px; color:#94A3B8; margin-top:3px; max-width:340px;">Unofficial dealer quotes are not active for this issue. Daily verified GMP trends will appear once trading starts.</span>
+        </div>
+      `;
+    }
+
+    const currentGmp = ipo.gmp;
 
     const values = history.map(h => h.value);
     const maxVal = Math.max(...values, currentGmp, 10);
@@ -852,6 +869,12 @@
         const db = b.closeDate ? new Date(b.closeDate).getTime() : 0;
         return db - da; // Most recently closed first
       });
+    } else if (state.activeFilter === "upcoming") {
+      filtered = filtered.filter(r => r.status === "UPCOMING").sort((a, b) => {
+        const da = a.openDate ? new Date(a.openDate).getTime() : 9999999999999;
+        const db = b.openDate ? new Date(b.openDate).getTime() : 9999999999999;
+        return da - db; // Soonest opening date first
+      });
     } else if (state.activeFilter === "listed") {
       // User directive: "all listed that all item 197 it need to show only"
       filtered = [...records].sort((a, b) => {
@@ -869,6 +892,7 @@
 
     const openCount = records.filter(r => r.status === "OPEN").length;
     const closedCount = records.filter(r => r.status === "CLOSED").length;
+    const upcomingCount = records.filter(r => r.status === "UPCOMING").length;
     const allListedCount = records.length;
     const totalCount = filtered.length;
 
@@ -877,7 +901,9 @@
       ? openRecords
       : state.activeFilter === "closed"
         ? records.filter(r => r.status === "CLOSED")
-        : records;
+        : state.activeFilter === "upcoming"
+          ? records.filter(r => r.status === "UPCOMING")
+          : records;
 
     const boardMbCount = currentScopeRecords.filter(r => r.board === "MAINBOARD").length;
     const boardSmeCount = currentScopeRecords.filter(r => r.board === "SME").length;
@@ -900,6 +926,10 @@
             <div class="hero-stat-box clickable ${state.activeFilter === 'open' ? 'active' : ''}" id="hero-stat-open" title="Click to view Open IPOs">
               <span class="hero-stat-num">${openCount}</span>
               <span class="hero-stat-label">Open</span>
+            </div>
+            <div class="hero-stat-box clickable ${state.activeFilter === 'upcoming' ? 'active' : ''}" id="hero-stat-upcoming" title="Click to view Upcoming IPOs">
+              <span class="hero-stat-num">${upcomingCount}</span>
+              <span class="hero-stat-label">Upcoming</span>
             </div>
             <div class="hero-stat-box clickable ${state.activeFilter === 'closed' ? 'active' : ''}" id="hero-stat-closed" title="Click to view Closed IPOs">
               <span class="hero-stat-num">${closedCount}</span>
@@ -951,12 +981,13 @@
       <section class="filter-tabs-wrapper" aria-label="Filter Options">
         <div class="filter-pills-group" id="status-filter-group">
           <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (${openCount})</button>
+          <button class="filter-pill ${state.activeFilter === "upcoming" ? "active" : ""}" data-status="upcoming">Upcoming (${upcomingCount})</button>
           <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (${closedCount})</button>
           <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (${allListedCount})</button>
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
-          <button class="filter-pill ${state.activeBoard === "all" ? "active" : ""}" data-board="all">All (${state.activeFilter === "open" ? openCount : (state.activeFilter === "closed" ? closedCount : allListedCount)})</button>
+          <button class="filter-pill ${state.activeBoard === "all" ? "active" : ""}" data-board="all">All (${state.activeFilter === "open" ? openCount : (state.activeFilter === "upcoming" ? upcomingCount : (state.activeFilter === "closed" ? closedCount : allListedCount))})</button>
           <button class="filter-pill ${state.activeBoard === "mainboard" ? "active" : ""}" data-board="mainboard">Mainboard (${boardMbCount})</button>
           <button class="filter-pill ${state.activeBoard === "sme" ? "active" : ""}" data-board="sme">SME (${boardSmeCount})</button>
         </div>
@@ -1177,8 +1208,8 @@
               <span class="gmp-highlight-text ${String(ipo.listingGain || '').startsWith('-') ? 'negative' : ''}">Listing: ₹${ipo.listingPrice || ipo.issuePrice || '—'} (${ipo.listingGain || 'Listed'})</span>
               <span class="date-highlight-text">${dateNote}</span>
             ` : `
-              <span class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}" title="Grey Market Premium (GMP) is an unregulated, unofficial sentiment estimate. Not a guarantee of listing gains.">
-                ${ipo.gmp ? `GMP +${ipo.gmp} (${ipo.gmpPercentage}%)` : 'GMP TBA'}
+              <span class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}" title="${ipo.gmp ? 'Grey Market Premium (GMP) is an unregulated, unofficial sentiment estimate. Not a guarantee of listing gains.' : 'GMP is not fixed yet for this issue.'}">
+                ${ipo.gmp ? `GMP +₹${ipo.gmp} (${ipo.gmpPercentage}%)` : (ipo.status === 'UPCOMING' ? 'GMP Not Fixed' : 'GMP TBA')}
               </span>
               <span class="date-highlight-text">${dateNote}</span>
             `}
@@ -1750,7 +1781,7 @@
                 <div class="gmp-large-val">
                   ${ipo.status === "LISTED"
                     ? (ipo.listingPrice ? `₹${ipo.listingPrice} (${ipo.listingGain || '+0%'})` : `₹${ipo.issuePrice || ipo.priceBandHigh || 0} (Listed)`)
-                    : (ipo.gmp ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : `₹0 (Flat)`)}
+                    : (ipo.gmp != null && ipo.gmp > 0 ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : (ipo.status === "UPCOMING" ? `Not Fixed (TBA)` : `₹0 (Flat)`))}
                 </div>
               </div>
               <span class="gmp-updated-time">${formatGmpLastUpdated(ipo)}</span>
@@ -1764,18 +1795,18 @@
             <div class="gmp-minibar-stats">
               <div class="gmp-stat-item">
                 <span>${ipo.status === "LISTED" ? "Issue Price" : "Day High"}</span>
-                <strong>₹${ipo.status === "LISTED" ? (ipo.issuePrice || ipo.priceBandHigh || "—") : (ipo.dayHighGmp != null ? ipo.dayHighGmp : (ipo.gmp || 0))}</strong>
+                <strong>${ipo.status === "LISTED" ? (ipo.issuePrice || ipo.priceBandHigh || "—") : (ipo.gmp != null ? `₹${ipo.dayHighGmp != null ? ipo.dayHighGmp : ipo.gmp}` : "—")}</strong>
               </div>
               <div class="gmp-stat-item">
                 <span>${ipo.status === "LISTED" ? "Listing Day High" : "Day Low"}</span>
-                <strong>₹${ipo.status === "LISTED" ? (ipo.dayHighListing || ipo.listingPrice || "—") : (ipo.dayLowGmp != null ? ipo.dayLowGmp : Math.max(0, (ipo.gmp || 0) - (ipo.gmp ? 2 : 0)))}</strong>
+                <strong>${ipo.status === "LISTED" ? (ipo.dayHighListing || ipo.listingPrice || "—") : (ipo.gmp != null ? `₹${ipo.dayLowGmp != null ? ipo.dayLowGmp : Math.max(0, ipo.gmp - 2)}` : "—")}</strong>
               </div>
               <div class="gmp-stat-item">
                 <span>${ipo.status === "LISTED" ? "Return" : "Trend"}</span>
-                <strong class="${(ipo.status === 'LISTED' ? (String(ipo.listingGain).startsWith('-') ? 'trend-red' : 'trend-green') : (ipo.trend === 'down' ? 'trend-red' : 'trend-green'))}">
+                <strong class="${(ipo.status === 'LISTED' ? (String(ipo.listingGain).startsWith('-') ? 'trend-red' : 'trend-green') : (!ipo.gmp ? 'trend-neutral' : ipo.trend === 'down' ? 'trend-red' : 'trend-green'))}">
                   ${ipo.status === "LISTED"
                     ? (ipo.listingGain || "Delivered")
-                    : (ipo.trend === 'down' ? '↓ Bearish' : ipo.trend === 'flat' ? '— Neutral' : '↑ Bullish')}
+                    : (ipo.gmp != null && ipo.gmp > 0 ? (ipo.trend === 'down' ? '↓ Bearish' : ipo.trend === 'flat' ? '— Neutral' : '↑ Bullish') : '— Awaiting Quotes')}
                 </strong>
               </div>
             </div>
@@ -1928,14 +1959,16 @@
   function renderDetailGmpCalculatorTab(ipo) {
     const lotSize = ipo.lotSize || 10;
     const upperPrice = ipo.priceBandHigh || ipo.issuePrice || 150;
-    const gmpVal = ipo.gmp || 15;
-    const lots = state.calcLots || 1;
+    const isGmpFixed = ipo.gmp != null && ipo.gmp > 0;
+    const gmpVal = isGmpFixed ? ipo.gmp : 0;
+    const lots = state.calcLots || (ipo.retailMinLot || 1);
 
     const totalShares = lots * lotSize;
     const totalInvestment = totalShares * upperPrice;
     const estListingPrice = upperPrice + gmpVal;
     const estProfit = totalShares * gmpVal;
-    const estReturnPct = ((gmpVal / upperPrice) * 100).toFixed(1);
+    const estReturnPct = isGmpFixed ? ((gmpVal / upperPrice) * 100).toFixed(1) : "0.0";
+    const history = getIpoGmpHistory(ipo);
 
     return `
       <div class="tab-content-container">
@@ -1956,7 +1989,7 @@
 
             <div class="calc-field">
               <label>Current GMP per Share</label>
-              <input type="text" class="calc-input-box" value="₹${gmpVal}" disabled style="opacity:0.7;">
+              <input type="text" class="calc-input-box" value="${isGmpFixed ? `₹${gmpVal}` : 'Not Fixed (TBA)'}" disabled style="opacity:0.7;">
             </div>
           </div>
 
@@ -1971,11 +2004,13 @@
             </div>
             <div class="calc-res-item">
               <span>Estimated Listing Price</span>
-              <strong style="color:var(--accent-cyan);">₹${estListingPrice} / share</strong>
+              <strong style="color:var(--accent-cyan);">${isGmpFixed ? `₹${estListingPrice} / share` : `₹${upperPrice} (At Par / Awaiting Quotes)`}</strong>
             </div>
             <div class="calc-res-item" style="border-top:1px solid var(--border-subtle); padding-top:12px;">
               <span>Expected Listing Profit</span>
-              <strong class="res-gain">+${formatMoney(estProfit)} (${estReturnPct}%)</strong>
+              <strong class="${isGmpFixed ? 'res-gain' : ''}" style="${!isGmpFixed ? 'color:var(--text-muted);' : ''}">
+                ${isGmpFixed ? `+${formatMoney(estProfit)} (${estReturnPct}%)` : 'Awaiting GMP Quotes'}
+              </strong>
             </div>
           </div>
         </div>
@@ -2003,7 +2038,7 @@
               </tr>
             </thead>
             <tbody>
-              ${getIpoGmpHistory(ipo).map((h, i, arr) => {
+              ${history.length ? history.map((h, i, arr) => {
                 const prev = i > 0 ? arr[i - 1].value : h.value;
                 const diff = h.value - prev;
                 const dateLabel = h.year ? `${h.date} ${h.year}` : (h.date.includes("2024") ? h.date : `${h.date} 2024`);
@@ -2017,7 +2052,13 @@
                     </td>
                   </tr>
                 `;
-              }).join("")}
+              }).join("") : `
+                <tr>
+                  <td colspan="4" style="text-align:center; color:var(--text-muted); padding:24px 16px; font-size:13px;">
+                    Grey Market Premium (GMP) is not fixed yet for this upcoming issue. Daily quotes and trend history will appear once active dealer trading begins.
+                  </td>
+                </tr>
+              `}
             </tbody>
           </table>
         </div>
@@ -2094,6 +2135,34 @@
             </tbody>
           </table>
         </div>
+
+        ${fin.some(f => f.assets != null) ? `
+          <div class="bottom-widget-card" style="margin-top:16px;">
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:12px;">Balance Sheet & Total Assets Summary</h3>
+            <table class="sub-full-table">
+              <thead>
+                <tr>
+                  <th>Financial Year</th>
+                  <th style="text-align:right;">Total Assets</th>
+                  <th style="text-align:right;">Net Worth / Equity</th>
+                  <th style="text-align:right;">Total Revenue</th>
+                  <th style="text-align:right;">Profit After Tax (PAT)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${fin.map(f => `
+                  <tr>
+                    <td><strong>${f.year}</strong></td>
+                    <td style="text-align:right; font-weight:700; color:var(--accent-cyan);">₹${f.assets ? f.assets + ' Cr' : '—'}</td>
+                    <td style="text-align:right; font-weight:700; color:var(--status-open);">₹${f.netWorth ? f.netWorth + ' Cr' : '—'}</td>
+                    <td style="text-align:right; font-weight:600; color:var(--chart-blue);">₹${f.revenue} Cr</td>
+                    <td style="text-align:right; font-weight:700; color:var(--chart-gold);">₹${f.profit} Cr</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        ` : ''}
 
         <!-- AdSense Native Slot -->
         ${renderAdSenseUnit("5892147360", "auto")}

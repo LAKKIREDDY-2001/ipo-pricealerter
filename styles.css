@@ -1775,6 +1775,14 @@ body.notif-open {
   color: var(--status-open);
 }
 
+.gmp-stat-item strong.trend-red {
+  color: #EF4444;
+}
+
+.gmp-stat-item strong.trend-neutral {
+  color: #94A3B8;
+}
+
 /* GMP Regulatory & Investor Advisory Notes */
 .gmp-advisory-card {
   margin: 16px 0 20px;
