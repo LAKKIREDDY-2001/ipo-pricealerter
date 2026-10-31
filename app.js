@@ -1228,7 +1228,12 @@
           ` : ''}
 
           <div class="card-btn-action-row">
-            ${ipo.allotmentUrl ? `
+            ${ipo.status === "LISTED" ? `
+              <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
+                <span>View Performance & Details</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            ` : ipo.allotmentUrl ? `
               <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-allotment" onclick="event.stopPropagation()">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 <span>Check Allotment Status</span>

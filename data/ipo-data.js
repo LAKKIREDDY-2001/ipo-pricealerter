@@ -675,9 +675,10 @@ window.IpoData = {
       "closeDate": "2024-10-23",
       "allotDate": "2024-10-24",
       "listingDate": "2024-10-28",
-      "gmp": 997,
-      "gmpPercentage": 66.33,
-      "gmpUpdatedAt": "2024-10-31T11:30:00+05:30",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": "2024-10-28T10:00:00+05:30",
+      "gmpHistory": [],
       "subscriptionTotal": 76.34,
       "subscriptionSummary": {
         "qib": 208.63,
@@ -760,9 +761,10 @@ window.IpoData = {
       "closeDate": "2024-10-25",
       "allotDate": "2024-10-28",
       "listingDate": "2024-10-30",
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2024-10-31T11:30:00+05:30",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": "2024-10-30T10:00:00+05:30",
+      "gmpHistory": [],
       "subscriptionTotal": 1.83,
       "subscriptionSummary": {
         "qib": 2.76,
@@ -844,9 +846,10 @@ window.IpoData = {
       "refundDate": "2024-11-01",
       "dematDate": "2024-11-01",
       "listingDate": "2024-11-04",
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2024-10-31T11:30:00+05:30",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": "2024-10-30T10:00:00+05:30",
+      "gmpHistory": [],
       "dayHighGmp": 25,
       "dayLowGmp": 12,
       "trend": "stable",
@@ -7457,22 +7460,13 @@ window.IpoData = {
       "dayHighListing": 89.25,
       "dayLowListing": 73.85,
       "closeListing": 73.90,
-      "gmp": 5,
-      "gmpPercentage": 6.76,
+      "gmp": null,
+      "gmpPercentage": null,
       "gmpUpdatedAt": "2024-11-14T10:00:00+05:30",
-      "dayHighGmp": 6,
-      "dayLowGmp": 4,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "10 Nov",
-          "value": 4
-        },
-        {
-          "date": "11 Nov",
-          "value": 5
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 1.90,
       "subscriptionSummary": {
         "qib": 2.17,
@@ -7551,30 +7545,13 @@ window.IpoData = {
       "refundDate": "2024-11-12",
       "dematDate": "2024-11-12",
       "listingDate": "2024-11-13",
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2024-10-31T11:30:00+05:30",
-      "dayHighGmp": 32,
-      "dayLowGmp": 28,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": "2024-11-13T10:00:00+05:30",
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "29 Oct",
-          "value": 22
-        },
-        {
-          "date": "30 Oct",
-          "value": 25
-        },
-        {
-          "date": "31 Oct",
-          "value": 28
-        },
-        {
-          "date": "01 Nov",
-          "value": 30
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 2.75,
       "subscriptionSummary": {
         "qib": 3.54,
@@ -7657,39 +7634,13 @@ window.IpoData = {
       "refundDate": "2024-11-12",
       "dematDate": "2024-11-12",
       "listingDate": "2024-11-13",
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2024-10-31T11:30:00+05:30",
-      "dayHighGmp": 30,
-      "dayLowGmp": 22,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": "2024-11-13T10:00:00+05:30",
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "stable",
-      "gmpHistory": [
-        {
-          "date": "06 Nov",
-          "year": 2024,
-          "value": 25
-        },
-        {
-          "date": "07 Nov",
-          "year": 2024,
-          "value": 20
-        },
-        {
-          "date": "08 Nov",
-          "year": 2024,
-          "value": 12
-        },
-        {
-          "date": "11 Nov",
-          "year": 2024,
-          "value": 5
-        },
-        {
-          "date": "12 Nov",
-          "year": 2024,
-          "value": 0
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 3.59,
       "subscriptionSummary": {
         "qib": 6.02,
@@ -7775,30 +7726,13 @@ window.IpoData = {
       "refundDate": "2024-11-11",
       "dematDate": "2024-11-11",
       "listingDate": "2024-11-12",
-      "gmp": 0.3,
-      "gmpPercentage": 1,
-      "gmpUpdatedAt": "2024-10-31T11:30:00+05:30",
-      "dayHighGmp": 4,
-      "dayLowGmp": 2,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": "2024-11-12T10:00:00+05:30",
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "29 Oct",
-          "value": 2
-        },
-        {
-          "date": "30 Oct",
-          "value": 2.5
-        },
-        {
-          "date": "31 Oct",
-          "value": 3
-        },
-        {
-          "date": "01 Nov",
-          "value": 3
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 3.2,
       "subscriptionSummary": {
         "qib": 3.52,
@@ -8739,12 +8673,6 @@ window.IpoData = {
         "name": "M.K. Sons Jewels",
         "type": "CLOSE",
         "text": "Market Bidding Closed (5.09x)"
-      },
-      {
-        "id": "afcons-infrastructure",
-        "name": "Afcons Infrastructure",
-        "type": "ALLOTMENT",
-        "text": "Basis of Allotment Query on Link Intime"
       },
       {
         "id": "bombay-coated-steels",
