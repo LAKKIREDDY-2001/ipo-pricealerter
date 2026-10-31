@@ -548,15 +548,28 @@
     const list = [];
     const openIpos = records.filter(r => r.status === "OPEN");
     const upcomingIpos = records.filter(r => r.status === "UPCOMING");
+    const listedIpos = records.filter(r => r.status === "LISTED");
 
     // Retrieve configured alertsFeed from dataset
     const feed = (window.IpoData && window.IpoData.alertsFeed) || dataset.alertsFeed || [];
 
     feed.forEach((item, idx) => {
       if (typeof item === "object" && item !== null && item.title) {
+        let resolvedSlug = item.slug;
+        const directMatch = records.find(r => 
+          r.slug === resolvedSlug || 
+          r.id === resolvedSlug || 
+          (item.id && r.id === item.id.replace(/^notif-/, ''))
+        );
+        if (directMatch) {
+          resolvedSlug = directMatch.slug;
+        } else if (!records.some(r => r.slug === resolvedSlug)) {
+          resolvedSlug = records[0]?.slug || "bombay-coated-and-special-steels-ipo";
+        }
+
         list.push({
           id: item.id || `feed-${idx}`,
-          slug: item.slug || (records[0]?.slug || ""),
+          slug: resolvedSlug,
           title: item.title,
           tag: item.tag || (item.pinned ? "📌 PINNED" : "🔔 UPDATE"),
           tagClass: item.tagClass || (item.pinned ? "tag-pinned" : ""),
@@ -589,7 +602,7 @@
 
     // Fallback if feed is empty: auto-synthesize from records
     if (list.length === 0) {
-      // 1. High GMP IPOs
+      // 1. High GMP IPOs (Open or Upcoming with active GMP)
       const highGmp = [...openIpos, ...upcomingIpos]
         .filter(r => (r.gmp || 0) > 0)
         .sort((a, b) => {
@@ -612,7 +625,7 @@
         });
       });
 
-      // 2. New Upcoming Mainboard IPOs
+      // 2. New Upcoming Mainboard or SME IPOs
       upcomingIpos.slice(0, 3).forEach(ipo => {
         if (!list.some(l => l.slug === ipo.slug)) {
           list.push({
@@ -624,6 +637,24 @@
             pinned: true,
             description: `New IPO issue: ₹${ipo.issueSizeCr ? ipo.issueSizeCr.toLocaleString('en-IN') + ' Cr' : 'TBA'}. Price band: ₹${ipo.priceBandLow}–${ipo.priceBandHigh}.`,
             time: `Opens ${formatDate(ipo.openDate)} • Lot: ${ipo.lotSize || '—'}`
+          });
+        }
+      });
+
+      // 3. Blockbuster Debut Listings
+      listedIpos.slice(0, 3).forEach(ipo => {
+        if (!list.some(l => l.slug === ipo.slug)) {
+          const gain = ipo.listingGainPct || (ipo.listingPrice && ipo.issuePrice ? (((ipo.listingPrice - ipo.issuePrice) / ipo.issuePrice) * 100).toFixed(1) : null);
+          const gainText = gain ? (gain >= 0 ? `+${gain}%` : `${gain}%`) : "LISTED";
+          list.push({
+            id: `auto-listed-${ipo.id}`,
+            slug: ipo.slug,
+            title: `${ipo.shortName || ipo.companyName} Listed`,
+            tag: gain ? `🚀 DEBUT ${gainText}` : "🔍 LISTED",
+            tagClass: "tag-gmp",
+            pinned: true,
+            description: `${ipo.shortName || ipo.companyName} listed on stock exchanges on ${formatDate(ipo.listingDate)}${ipo.listingPrice ? ` at ₹${ipo.listingPrice} (Issue: ₹${ipo.issuePrice || ipo.priceBandHigh})` : ''}.`,
+            time: `Listed ${formatDate(ipo.listingDate)} • ${ipo.issueType || 'Mainboard'}`
           });
         }
       });

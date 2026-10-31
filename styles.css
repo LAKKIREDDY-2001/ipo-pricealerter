@@ -499,6 +499,12 @@ body.notif-open {
   border: 1px solid rgba(59, 130, 246, 0.4);
 }
 
+.notif-tag.tag-listed {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
 .notif-desc {
   font-size: 12px;
   color: var(--text-body);

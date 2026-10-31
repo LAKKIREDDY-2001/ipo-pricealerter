@@ -8831,31 +8831,11 @@ window.IpoData = {
       "id": "notif-vedant-poly-fabs",
       "slug": "vedant-poly-fabs-ipo",
       "title": "Vedant Poly Fabs Ltd (NSE SME)",
-      "tag": "📅 OPENS NOV 2",
-      "tagClass": "tag-allotment",
+      "tag": "📌 NEW SME IPO",
+      "tagClass": "tag-pinned",
       "pinned": true,
-      "description": "NSE SME Book Built Issue opens Nov 2, 2026. Price band ₹88–₹94, lot size 1,200 (Min 2 lots: 2,400 shares / ₹2,11,200). Grey Market Premium (GMP) is not fixed yet.",
-      "time": "Upcoming • NSE SME Emerge"
-    },
-    {
-      "id": "notif-swiggy",
-      "slug": "swiggy-limited-ipo",
-      "title": "Swiggy Limited (NSE: SWIGGY)",
-      "tag": "🚀 LISTED ON EXCHANGES",
-      "tagClass": "tag-allotment",
-      "pinned": true,
-      "description": "Swiggy debuted on Indian stock exchanges on November 13, 2024 at ₹420 (vs ₹390 issue price), delivering a +7.69% listing day return.",
-      "time": "Listed Nov 13, 2024 • Mainboard"
-    },
-    {
-      "id": "notif-waaree",
-      "slug": "waaree-energies",
-      "title": "Waaree Energies Debut Listing",
-      "tag": "🚀 BLOCKBUSTER +66.3%",
-      "tagClass": "tag-gmp",
-      "pinned": true,
-      "description": "Waaree Energies delivered a phenomenal +66.3% listing gain on NSE/BSE debut, listing at ₹2,500 vs ₹1,503 issue price with 76.3x subscription.",
-      "time": "Listed Oct 28, 2024 • Mainboard"
+      "description": "NSE SME Book Built Issue opens Nov 2, 2026. Price band ₹88–₹94, lot size 1,200 (Min 2 lots: 2,400 shares / ₹2,11,200). Note: GMP is not fixed yet.",
+      "time": "Opens Nov 2, 2026 • NSE SME Emerge"
     },
     {
       "id": "notif-maxwell",
@@ -8868,53 +8848,73 @@ window.IpoData = {
       "time": "Active Bidding • SME Emerge"
     },
     {
+      "id": "notif-swiggy",
+      "slug": "swiggy-limited-ipo",
+      "title": "Swiggy Limited (NSE: SWIGGY) Listed",
+      "tag": "🚀 DEBUT +7.69%",
+      "tagClass": "tag-gmp",
+      "pinned": true,
+      "description": "Swiggy debuted on Indian stock exchanges on November 13, 2024 at ₹420 (vs ₹390 issue price), delivering a +7.69% listing day gain.",
+      "time": "Listed Nov 13, 2024 • Mainboard"
+    },
+    {
+      "id": "notif-waaree",
+      "slug": "waaree-energies-ipo",
+      "title": "Waaree Energies (NSE: WAAREEENER) Listed",
+      "tag": "🚀 BLOCKBUSTER +66.3%",
+      "tagClass": "tag-gmp",
+      "pinned": true,
+      "description": "Waaree Energies delivered a phenomenal +66.3% listing gain on NSE/BSE debut, listing at ₹2,500 vs ₹1,503 issue price with 76.3x subscription.",
+      "time": "Listed Oct 28, 2024 • Mainboard"
+    },
+    {
+      "id": "notif-niva-bupa",
+      "slug": "niva-bupa-health-insurance-ipo",
+      "title": "Niva Bupa Health Insurance (NSE: NIVABUPA) Listed",
+      "tag": "🚀 DEBUT +6.08%",
+      "tagClass": "tag-gmp",
+      "pinned": true,
+      "description": "Health insurer debuted on NSE & BSE at ₹78.50 vs ₹74 issue price delivering a +6.08% listing day return (Day high: ₹89.25).",
+      "time": "Listed Nov 14, 2024 • Mainboard"
+    },
+    {
+      "id": "notif-sagility",
+      "slug": "sagility-india-ipo",
+      "title": "Sagility India (NSE: SAGILITY) Listed",
+      "tag": "🚀 DEBUT +3.53%",
+      "tagClass": "tag-gmp",
+      "pinned": true,
+      "description": "Healthcare technology provider debuted at ₹31.06 vs ₹30 issue price (+3.53% gain). Overall subscription closed at 3.20x.",
+      "time": "Listed Nov 12, 2024 • Mainboard"
+    },
+    {
       "id": "notif-bombay-coated",
       "slug": "bombay-coated-and-special-steels-ipo",
       "title": "Bombay Coated & Special Steels",
-      "tag": "⏳ CLOSES MONDAY",
+      "tag": "⏳ CLOSING SOON",
       "tagClass": "tag-closing",
       "pinned": true,
       "description": "Final bidding window active. Overall subscription at 3.98x (QIB 6.89x) with GMP steady at +₹8.5 (+10.4%).",
       "time": "Active Issue • BSE, NSE"
     },
     {
-      "id": "notif-sagility",
-      "slug": "sagility-india-ipo",
-      "title": "Sagility India (NSE: SAGILITY)",
-      "tag": "🔍 LISTED ON EXCHANGES",
-      "tagClass": "tag-allotment",
-      "pinned": false,
-      "description": "Healthcare operations technology provider listed on November 12, 2024 at ₹31.06 (+3.53% gain).",
-      "time": "Listed Nov 12, 2024 • Mainboard"
-    },
-    {
       "id": "notif-acme-solar",
       "slug": "acme-solar-holdings-ipo",
-      "title": "ACME Solar Holdings (NSE: ACMESOLAR)",
+      "title": "ACME Solar Holdings (NSE: ACMESOLAR) Listed",
       "tag": "🔍 LISTED ON EXCHANGES",
-      "tagClass": "tag-allotment",
+      "tagClass": "tag-listed",
       "pinned": false,
-      "description": "Renewable energy producer listed on stock exchanges on November 13, 2024 at ₹259.",
+      "description": "Renewable solar IPP producer listed on stock exchanges on November 13, 2024 at ₹259 vs ₹289 issue price.",
       "time": "Listed Nov 13, 2024 • Mainboard"
-    },
-    {
-      "id": "notif-niva-bupa",
-      "slug": "niva-bupa-health-insurance-ipo",
-      "title": "Niva Bupa Health Insurance",
-      "tag": "🔍 LISTED ON EXCHANGES",
-      "tagClass": "tag-allotment",
-      "pinned": false,
-      "description": "Health insurer listed on November 14, 2024 at ₹78.50 (+6.08% listing day gain).",
-      "time": "Listed Nov 14, 2024 • Mainboard"
     },
     {
       "id": "notif-afcons",
       "slug": "afcons-infrastructure",
-      "title": "Afcons Infrastructure (NSE: AFCONS)",
+      "title": "Afcons Infrastructure (NSE: AFCONS) Listed",
       "tag": "🔍 LISTED ON EXCHANGES",
-      "tagClass": "tag-allotment",
+      "tagClass": "tag-listed",
       "pinned": false,
-      "description": "Heavy civil construction arm of Shapoorji Pallonji Group listed on stock exchanges on November 4, 2024 at ₹426.",
+      "description": "Heavy civil infrastructure arm of Shapoorji Pallonji Group listed on stock exchanges on November 4, 2024 at ₹426.",
       "time": "Listed Nov 4, 2024 • Mainboard"
     }
   ]
