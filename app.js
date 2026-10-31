@@ -886,7 +886,7 @@
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Dashboard Filter Logic — Open (6), Closed (166), All Listed (204)
+    // Dashboard Filter Logic — Open, Closed (Ready to Listing Day), Upcoming, All Listed
     let filtered = [...records];
     if (state.activeFilter === "open") {
       filtered = filtered.filter(r => r.status === "OPEN").sort((a, b) => {
@@ -895,10 +895,11 @@
         return da - db; // Soonest close date first
       });
     } else if (state.activeFilter === "closed") {
+      // ONLY closed IPOs ready to listing day
       filtered = filtered.filter(r => r.status === "CLOSED").sort((a, b) => {
-        const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
-        const db = b.closeDate ? new Date(b.closeDate).getTime() : 0;
-        return db - da; // Most recently closed first
+        const da = a.listingDate ? new Date(a.listingDate).getTime() : 0;
+        const db = b.listingDate ? new Date(b.listingDate).getTime() : 0;
+        return da - db; // Soonest listing day first
       });
     } else if (state.activeFilter === "upcoming") {
       filtered = filtered.filter(r => r.status === "UPCOMING").sort((a, b) => {
@@ -907,8 +908,8 @@
         return da - db; // Soonest opening date first
       });
     } else if (state.activeFilter === "listed") {
-      // User directive: "all listed that all item 197 it need to show only"
-      filtered = [...records].sort((a, b) => {
+      // Only listed IPOs
+      filtered = filtered.filter(r => r.status === "LISTED").sort((a, b) => {
         const da = a.listingDate ? new Date(a.listingDate).getTime() : 0;
         const db = b.listingDate ? new Date(b.listingDate).getTime() : 0;
         return db - da; // Most recently listed first
@@ -924,7 +925,7 @@
     const openCount = records.filter(r => r.status === "OPEN").length;
     const closedCount = records.filter(r => r.status === "CLOSED").length;
     const upcomingCount = records.filter(r => r.status === "UPCOMING").length;
-    const allListedCount = records.length;
+    const listedCount = records.filter(r => r.status === "LISTED").length;
     const totalCount = filtered.length;
 
     const openRecords = records.filter(r => r.status === "OPEN");
@@ -934,7 +935,7 @@
         ? records.filter(r => r.status === "CLOSED")
         : state.activeFilter === "upcoming"
           ? records.filter(r => r.status === "UPCOMING")
-          : records;
+          : records.filter(r => r.status === "LISTED");
 
     const boardMbCount = currentScopeRecords.filter(r => r.board === "MAINBOARD").length;
     const boardSmeCount = currentScopeRecords.filter(r => r.board === "SME").length;
@@ -962,12 +963,12 @@
               <span class="hero-stat-num">${upcomingCount}</span>
               <span class="hero-stat-label">Upcoming</span>
             </div>
-            <div class="hero-stat-box clickable ${state.activeFilter === 'closed' ? 'active' : ''}" id="hero-stat-closed" title="Click to view Closed IPOs">
+            <div class="hero-stat-box clickable ${state.activeFilter === 'closed' ? 'active' : ''}" id="hero-stat-closed" title="Click to view Closed IPOs Ready for Listing (${closedCount})">
               <span class="hero-stat-num">${closedCount}</span>
               <span class="hero-stat-label">Closed</span>
             </div>
-            <div class="hero-stat-box clickable ${state.activeFilter === 'listed' ? 'active' : ''}" id="hero-stat-listed" title="Click to view All Listed (${allListedCount})">
-              <span class="hero-stat-num">${allListedCount}</span>
+            <div class="hero-stat-box clickable ${state.activeFilter === 'listed' ? 'active' : ''}" id="hero-stat-listed" title="Click to view All Listed (${listedCount})">
+              <span class="hero-stat-num">${listedCount}</span>
               <span class="hero-stat-label">All Listed</span>
             </div>
           </div>
@@ -1014,11 +1015,11 @@
           <button class="filter-pill ${state.activeFilter === "open" ? "active" : ""}" data-status="open">Open (${openCount})</button>
           <button class="filter-pill ${state.activeFilter === "upcoming" ? "active" : ""}" data-status="upcoming">Upcoming (${upcomingCount})</button>
           <button class="filter-pill ${state.activeFilter === "closed" ? "active" : ""}" data-status="closed">Closed (${closedCount})</button>
-          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (${allListedCount})</button>
+          <button class="filter-pill ${state.activeFilter === "listed" ? "active" : ""}" data-status="listed">All Listed (${listedCount})</button>
         </div>
 
         <div class="filter-pills-group" id="board-filter-group">
-          <button class="filter-pill ${state.activeBoard === "all" ? "active" : ""}" data-board="all">All (${state.activeFilter === "open" ? openCount : (state.activeFilter === "upcoming" ? upcomingCount : (state.activeFilter === "closed" ? closedCount : allListedCount))})</button>
+          <button class="filter-pill ${state.activeBoard === "all" ? "active" : ""}" data-board="all">All (${state.activeFilter === "open" ? openCount : (state.activeFilter === "upcoming" ? upcomingCount : (state.activeFilter === "closed" ? closedCount : listedCount))})</button>
           <button class="filter-pill ${state.activeBoard === "mainboard" ? "active" : ""}" data-board="mainboard">Mainboard (${boardMbCount})</button>
           <button class="filter-pill ${state.activeBoard === "sme" ? "active" : ""}" data-board="sme">SME (${boardSmeCount})</button>
         </div>
@@ -1180,7 +1181,7 @@
 
     if (ipo.status === "CLOSED") {
       badgeClass = "closed";
-      badgeLabel = "Closed";
+      badgeLabel = "Listing Soon";
     } else if (ipo.status === "UPCOMING") {
       badgeClass = "upcoming";
       badgeLabel = "Upcoming";
@@ -1198,7 +1199,7 @@
       : ipo.status === "UPCOMING"
         ? (ipo.openDate ? `Opens: ${formatDate(ipo.openDate)}` : `Opens: TBA`)
         : ipo.status === "CLOSED"
-          ? (ipo.listingDate ? `Closed: ${formatDate(ipo.closeDate)} • Listing: ${formatDate(ipo.listingDate)}` : `Closed: ${formatDate(ipo.closeDate)}`)
+          ? (ipo.listingDate ? `Bidding Closed • Listing: ${formatDate(ipo.listingDate)}` : `Closed: ${formatDate(ipo.closeDate)}`)
           : `Closes: ${formatDate(ipo.closeDate)}`;
 
     const maxSub = 50;
@@ -1236,7 +1237,7 @@
         <div class="card-footer-info">
           <div class="footer-highlight-row">
             ${ipo.status === "LISTED" ? `
-              <span class="gmp-highlight-text ${String(ipo.listingGain || '').startsWith('-') ? 'negative' : ''}">Listing: ₹${ipo.listingPrice || ipo.issuePrice || '—'} (${ipo.listingGain || 'Listed'})</span>
+              <span class="gmp-highlight-text ${String(ipo.listingGain || '').startsWith('-') ? 'negative' : ''}">Listing: ₹${ipo.listingPrice || ipo.issuePrice || ipo.priceBandHigh || '—'} (${ipo.listingGain || 'Listed'})</span>
               <span class="date-highlight-text">${dateNote}</span>
             ` : `
               <span class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}" title="${ipo.gmp ? 'Grey Market Premium (GMP) is an unregulated, unofficial sentiment estimate. Not a guarantee of listing gains.' : 'GMP is not fixed yet for this issue.'}">
