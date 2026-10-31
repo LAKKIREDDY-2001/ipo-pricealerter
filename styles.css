@@ -165,7 +165,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 100;
   height: 72px;
   background: rgba(11, 14, 23, 0.85);
   backdrop-filter: blur(20px);
@@ -366,6 +366,36 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   color: var(--accent-cyan);
 }
 
+.notif-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.notif-close-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.notif-backdrop {
+  display: none;
+}
+
+body.notif-open {
+  cursor: pointer;
+}
+
 .notif-list {
   max-height: 280px;
   overflow-y: auto;
@@ -422,6 +452,95 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   color: var(--text-muted);
   margin-top: 4px;
   display: block;
+}
+
+/* Mobile & Tablet Notifications End-to-End Responsive */
+@media (max-width: 768px) {
+  .notif-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+  }
+
+  .notifications-panel {
+    position: fixed !important;
+    top: 66px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-width: calc(100vw - 16px) !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 14px !important;
+    z-index: 1000 !important;
+    background: rgba(15, 20, 32, 0.98) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 0 1px var(--border-hover) !important;
+    padding: 14px 12px !important;
+    animation: notifSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  @keyframes notifSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .notif-header {
+    padding-bottom: 10px !important;
+  }
+
+  .notif-header h4 {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+
+  .notif-list {
+    max-height: calc(75vh - 120px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-right: 2px !important;
+    gap: 8px !important;
+  }
+
+  .notif-item {
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .notif-item-top {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+
+  .notif-item-title {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    word-break: break-word !important;
+  }
+
+  .notif-desc {
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    margin-top: 3px !important;
+    word-break: break-word !important;
+  }
+
+  .notif-time {
+    font-size: 10.5px !important;
+    margin-top: 4px !important;
+  }
 }
 
 /* ==========================================================================
@@ -2636,6 +2755,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   .site-header {
     width: 100%;
     max-width: 100%;
+    height: 60px;
     min-height: 60px;
     box-sizing: border-box;
   }

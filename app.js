@@ -495,6 +495,7 @@
     document.getElementById("header-bell-btn")?.addEventListener("click", (e) => {
       e.stopPropagation();
       state.notificationsOpen = !state.notificationsOpen;
+      document.body.classList.toggle("notif-open", state.notificationsOpen);
       renderHeader();
     });
 
@@ -523,12 +524,16 @@
   function renderNotificationsPanel() {
     const alerts = dataset.alertsFeed || [];
     return `
+      <div class="notif-backdrop" onclick="window.IpoApp.closeNotifications()"></div>
       <div class="notifications-panel" id="notifications-panel" onclick="event.stopPropagation()">
         <div class="notif-header">
           <h4>Market Alerts & Updates</h4>
-          <button class="notif-toggle-alerts" id="toggle-alerts-feed-btn">
-            ${state.alertsSubscribed ? "Mute" : "Enable"}
-          </button>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button class="notif-toggle-alerts" id="toggle-alerts-feed-btn">
+              ${state.alertsSubscribed ? "Mute" : "Enable"}
+            </button>
+            <button class="notif-close-btn" onclick="window.IpoApp.closeNotifications()" aria-label="Close notifications">✕</button>
+          </div>
         </div>
         <div class="notif-list">
           ${alerts.map(a => `
@@ -3005,6 +3010,7 @@
     state.route = parseRoute();
     state.applyDropdownOpen = false;
     state.notificationsOpen = false;
+    document.body.classList.remove("notif-open");
     renderHeader();
 
     if (state.route.view === "detail") {
@@ -3061,6 +3067,7 @@
         toggleSearchModal(false);
         document.getElementById("broker-modal-wrap")?.classList.add("hidden");
         state.notificationsOpen = false;
+        document.body.classList.remove("notif-open");
         state.applyDropdownOpen = false;
         renderHeader();
       }
@@ -3070,6 +3077,7 @@
     document.addEventListener("click", () => {
       if (state.notificationsOpen || state.applyDropdownOpen) {
         state.notificationsOpen = false;
+        document.body.classList.remove("notif-open");
         state.applyDropdownOpen = false;
         renderHeader();
       }
@@ -3112,6 +3120,7 @@
     },
     closeNotifications: () => {
       state.notificationsOpen = false;
+      document.body.classList.remove("notif-open");
       renderHeader();
     }
   };
