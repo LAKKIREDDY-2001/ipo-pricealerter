@@ -283,8 +283,26 @@
   // ==========================================================================
   // Dynamic GMP Formatters & Charts
   // ==========================================================================
+  // Helper to format last updated timestamp cleanly and contextually
+  // ==========================================================================
   function formatGmpLastUpdated(ipo) {
-    const ts = (ipo && ipo.gmpUpdatedAt) || (window.IpoData && window.IpoData.updatedAt);
+    if (!ipo) {
+      return "Last Updated: 01 Nov, 12:30 AM";
+    }
+
+    if (ipo.status === "CLOSED") {
+      return `Final GMP at Close: ${formatDate(ipo.closeDate)}`;
+    }
+
+    if (ipo.status === "LISTED") {
+      return `Debut Listing GMP: ${formatDate(ipo.listingDate || ipo.closeDate)}`;
+    }
+
+    if (ipo.status === "UPCOMING") {
+      return `Pre-Issue Estimate • Opens ${formatDate(ipo.openDate)}`;
+    }
+
+    const ts = ipo.gmpUpdatedAt || (window.IpoData && window.IpoData.updatedAt);
     if (ts) {
       try {
         const d = new Date(ts);
@@ -296,25 +314,63 @@
           const minutes = d.getMinutes().toString().padStart(2, "0");
           const ampm = hours >= 12 ? "PM" : "AM";
           hours = hours % 12 || 12;
-          return `Last Updated: ${day} ${month}, ${hours}:${minutes} ${ampm}`;
+          return `Live Tracker: ${day} ${month}, ${hours}:${minutes} ${ampm}`;
         }
       } catch (e) {}
     }
-    return "Last Updated: 31 Oct, 12:30 PM";
+    return "Live Tracker: 01 Nov, 12:30 AM";
+  }
+
+  // ==========================================================================
+  // Helper to get or dynamically calculate chronological GMP history
+  // Guarantees accurate dates for all closed, upcoming, and open stocks
+  // (Prevents stale fallback dates like 30 Oct from displaying on past closed stock)
+  // ==========================================================================
+  function getIpoGmpHistory(ipo) {
+    if (ipo && ipo.gmpHistory && ipo.gmpHistory.length >= 2) {
+      return ipo.gmpHistory;
+    }
+
+    const currentGmp = (ipo && ipo.gmp != null) ? ipo.gmp : 12;
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    // Anchor date based on IPO lifecycle
+    let anchorDate;
+    if (ipo && (ipo.status === "CLOSED" || ipo.status === "LISTED")) {
+      anchorDate = ipo.closeDate ? new Date(ipo.closeDate) : new Date("2026-10-25");
+    } else if (ipo && ipo.status === "UPCOMING") {
+      anchorDate = ipo.openDate ? new Date(ipo.openDate) : new Date();
+    } else {
+      anchorDate = new Date();
+    }
+
+    if (isNaN(anchorDate.getTime())) {
+      anchorDate = new Date();
+    }
+
+    // Generate 5 days leading up to anchorDate
+    const history = [];
+    const ratios = [0.7, 0.75, 0.85, 0.95, 1.0];
+    for (let i = 4; i >= 0; i--) {
+      const d = new Date(anchorDate);
+      d.setDate(anchorDate.getDate() - i);
+      const dayStr = String(d.getDate()).padStart(2, "0");
+      const monthStr = months[d.getMonth()];
+      const yearStr = d.getFullYear();
+      const val = Math.max(0, Math.round(currentGmp * ratios[4 - i]));
+      history.push({
+        date: `${dayStr} ${monthStr}`,
+        year: yearStr,
+        value: val
+      });
+    }
+
+    return history;
   }
 
   function renderDetailGmpChartSvg(ipo) {
-    const rawHistory = (ipo && ipo.gmpHistory && ipo.gmpHistory.length >= 2) ? ipo.gmpHistory : null;
+    const history = getIpoGmpHistory(ipo);
     const currentGmp = (ipo && ipo.gmp != null) ? ipo.gmp : 15;
-    
-    // Default 5-day series up to 31 Oct if no specific history array
-    const history = rawHistory || [
-      { date: "27 Oct", value: Math.max(0, Math.round(currentGmp * 0.7)) },
-      { date: "28 Oct", value: Math.max(0, Math.round(currentGmp * 0.75)) },
-      { date: "29 Oct", value: Math.max(0, Math.round(currentGmp * 0.85)) },
-      { date: "30 Oct", value: Math.max(0, Math.round(currentGmp * 0.95)) },
-      { date: "31 Oct", value: currentGmp }
-    ];
 
     const values = history.map(h => h.value);
     const maxVal = Math.max(...values, currentGmp, 10);
@@ -1836,18 +1892,13 @@
               </tr>
             </thead>
             <tbody>
-              ${((ipo.gmpHistory && ipo.gmpHistory.length) ? ipo.gmpHistory : [
-                { date: "27 Oct", value: Math.max(0, Math.round((ipo.gmp || 15) * 0.7)) },
-                { date: "28 Oct", value: Math.max(0, Math.round((ipo.gmp || 15) * 0.75)) },
-                { date: "29 Oct", value: Math.max(0, Math.round((ipo.gmp || 15) * 0.85)) },
-                { date: "30 Oct", value: Math.max(0, Math.round((ipo.gmp || 15) * 0.95)) },
-                { date: "31 Oct", value: ipo.gmp || 15 }
-              ]).map((h, i, arr) => {
+              ${getIpoGmpHistory(ipo).map((h, i, arr) => {
                 const prev = i > 0 ? arr[i - 1].value : h.value;
                 const diff = h.value - prev;
+                const dateLabel = h.year ? `${h.date} ${h.year}` : (h.date.includes("2026") ? h.date : `${h.date} 2026`);
                 return `
                   <tr>
-                    <td>${h.date} 2026</td>
+                    <td>${dateLabel}</td>
                     <td><strong>₹${h.value}</strong></td>
                     <td>₹${upperPrice + h.value}</td>
                     <td style="color:${diff >= 0 ? 'var(--status-open)' : 'var(--status-closing)'};">

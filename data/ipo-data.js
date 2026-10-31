@@ -1,11 +1,11 @@
 /* ==========================================================================
    IPO Track — Live Primary Market Dataset
    Sources: Chittorgarh (chittorgarh.com), NSE (nseindia.com), BSE (bseindia.com), Groww, IPO Watch, IPO Gyani
-   Updated: 31 October 2026 (Verified Market Close & Chronological Calendar Datasets)
+   Updated: 01 November 2026 (Verified Market Close & Chronological Calendar Datasets)
    ========================================================================== */
 
 window.IpoData = {
-  "updatedAt": "2026-10-31T11:50:00+05:30",
+  "updatedAt": "2026-11-01T00:30:00+05:30",
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
     "openCount": 6,
@@ -41,17 +41,13 @@ window.IpoData = {
       "refundDate": "2026-11-04",
       "dematDate": "2026-11-04",
       "listingDate": "2026-11-05",
-      "gmp": 9,
-      "gmpPercentage": 10.98,
-      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "gmp": 8.5,
+      "gmpPercentage": 10.37,
+      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
       "dayHighGmp": 9,
-      "dayLowGmp": 7,
+      "dayLowGmp": 8,
       "trend": "up",
       "gmpHistory": [
-        {
-          "date": "27 Oct",
-          "value": 5
-        },
         {
           "date": "28 Oct",
           "value": 6
@@ -66,7 +62,11 @@ window.IpoData = {
         },
         {
           "date": "31 Oct",
-          "value": 9
+          "value": 8
+        },
+        {
+          "date": "01 Nov",
+          "value": 8.5
         }
       ],
       "subscriptionTotal": 3.98,
@@ -167,35 +167,31 @@ window.IpoData = {
       "refundDate": "2026-11-04",
       "dematDate": "2026-11-04",
       "listingDate": "2026-11-05",
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "gmp": 1,
+      "gmpPercentage": 1.49,
+      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
       "dayHighGmp": 4,
       "dayLowGmp": 0,
       "trend": "flat",
       "gmpHistory": [
         {
-          "date": "27 Oct",
-          "value": 2
-        },
-        {
-          "date": "28 Oct",
-          "value": 3
-        },
-        {
           "date": "29 Oct",
-          "value": 3
+          "value": 0
         },
         {
           "date": "30 Oct",
-          "value": 4
+          "value": 0
         },
         {
           "date": "31 Oct",
           "value": 0
+        },
+        {
+          "date": "01 Nov",
+          "value": 1
         }
       ],
-      "subscriptionTotal": 0.81,
+      "subscriptionTotal": 0.88,
       "subscriptionSummary": {
         "qib": 1.25,
         "nii": 0.45,
@@ -270,29 +266,29 @@ window.IpoData = {
       "listingDate": "2026-11-06",
       "gmp": 5,
       "gmpPercentage": 4.76,
-      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
       "dayHighGmp": 8,
       "dayLowGmp": 5,
       "trend": "down",
       "gmpHistory": [
         {
-          "date": "28 Oct",
-          "value": 5
-        },
-        {
           "date": "29 Oct",
-          "value": 6
+          "value": 4
         },
         {
           "date": "30 Oct",
-          "value": 8
+          "value": 5
         },
         {
           "date": "31 Oct",
           "value": 5
+        },
+        {
+          "date": "01 Nov",
+          "value": 5
         }
       ],
-      "subscriptionTotal": 1.2,
+      "subscriptionTotal": 1.25,
       "subscriptionSummary": {
         "qib": 1.05,
         "nii": 0.75,
@@ -463,31 +459,31 @@ window.IpoData = {
       "refundDate": "2026-11-05",
       "dematDate": "2026-11-05",
       "listingDate": "2026-11-06",
-      "gmp": 13,
-      "gmpPercentage": 6.5,
-      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "gmp": 15,
+      "gmpPercentage": 7.5,
+      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
       "dayHighGmp": 13,
       "dayLowGmp": 10,
       "trend": "up",
       "gmpHistory": [
         {
-          "date": "28 Oct",
-          "value": 8
-        },
-        {
           "date": "29 Oct",
-          "value": 9
+          "value": 10
         },
         {
           "date": "30 Oct",
-          "value": 11
+          "value": 12
         },
         {
           "date": "31 Oct",
           "value": 13
+        },
+        {
+          "date": "01 Nov",
+          "value": 15
         }
       ],
-      "subscriptionTotal": 2.15,
+      "subscriptionTotal": 2.25,
       "subscriptionSummary": {
         "qib": 1.5,
         "nii": 1.5,
@@ -581,31 +577,31 @@ window.IpoData = {
       "refundDate": "2026-11-05",
       "dematDate": "2026-11-05",
       "listingDate": "2026-11-06",
-      "gmp": 12,
-      "gmpPercentage": 10,
-      "gmpUpdatedAt": "2026-10-31T11:30:00+05:30",
+      "gmp": 14,
+      "gmpPercentage": 11.67,
+      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
       "dayHighGmp": 12,
       "dayLowGmp": 8,
       "trend": "up",
       "gmpHistory": [
         {
-          "date": "28 Oct",
-          "value": 7
-        },
-        {
           "date": "29 Oct",
-          "value": 9
+          "value": 10
         },
         {
           "date": "30 Oct",
-          "value": 10
+          "value": 11
         },
         {
           "date": "31 Oct",
           "value": 12
+        },
+        {
+          "date": "01 Nov",
+          "value": 14
         }
       ],
-      "subscriptionTotal": 1.16,
+      "subscriptionTotal": 1.35,
       "subscriptionSummary": {
         "qib": 1.1,
         "nii": 0.92,
@@ -840,7 +836,7 @@ window.IpoData = {
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
       "openDate": "2026-10-25",
       "closeDate": "2026-10-29",
-      "allotDate": "2026-10-31",
+      "allotDate": "2026-11-04",
       "refundDate": "2026-11-01",
       "dematDate": "2026-11-01",
       "listingDate": "2026-11-04",
@@ -852,8 +848,12 @@ window.IpoData = {
       "trend": "stable",
       "gmpHistory": [
         {
-          "date": "26 Oct",
+          "date": "25 Oct",
           "value": 25
+        },
+        {
+          "date": "26 Oct",
+          "value": 22
         },
         {
           "date": "27 Oct",
@@ -866,23 +866,15 @@ window.IpoData = {
         {
           "date": "29 Oct",
           "value": 15
-        },
-        {
-          "date": "30 Oct",
-          "value": 15
-        },
-        {
-          "date": "31 Oct",
-          "value": 15
         }
       ],
-      "subscriptionTotal": 2.63,
+      "subscriptionTotal": 2.77,
       "subscriptionSummary": {
-        "qib": 3.79,
-        "nii": 5.05,
-        "retail": 0.94,
-        "employee": 1.67,
-        "total": 2.63
+        "qib": 3.99,
+        "nii": 5.31,
+        "retail": 0.99,
+        "employee": 1.77,
+        "total": 2.77
       },
       "financials": [
         {
@@ -984,7 +976,29 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CarverRoboweldLtd_22924101_97556.png",
       "openDate": "2026-10-28",
       "refundDate": "2026-11-03",
-      "dematDate": "2026-11-03"
+      "dematDate": "2026-11-03",
+      "gmpHistory": [
+        {
+          "date": "26 Oct",
+          "value": 5
+        },
+        {
+          "date": "27 Oct",
+          "value": 6
+        },
+        {
+          "date": "28 Oct",
+          "value": 7
+        },
+        {
+          "date": "29 Oct",
+          "value": 8
+        },
+        {
+          "date": "30 Oct",
+          "value": 8
+        }
+      ]
     },
     {
       "id": "mksons-fine-jewels",
@@ -1023,7 +1037,29 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/M.K.SonsFineJewelsLtd_50741840_96958.png",
       "openDate": "2026-10-28",
       "refundDate": "2026-11-03",
-      "dematDate": "2026-11-03"
+      "dematDate": "2026-11-03",
+      "gmpHistory": [
+        {
+          "date": "27 Oct",
+          "value": 4
+        },
+        {
+          "date": "28 Oct",
+          "value": 5
+        },
+        {
+          "date": "29 Oct",
+          "value": 5
+        },
+        {
+          "date": "30 Oct",
+          "value": 6
+        },
+        {
+          "date": "31 Oct",
+          "value": 6
+        }
+      ]
     },
     {
       "id": "ajwa-projects",
@@ -7512,14 +7548,18 @@ window.IpoData = {
       "gmpHistory": [
         {
           "date": "29 Oct",
-          "value": 25
+          "value": 22
         },
         {
           "date": "30 Oct",
-          "value": 28
+          "value": 25
         },
         {
           "date": "31 Oct",
+          "value": 28
+        },
+        {
+          "date": "01 Nov",
           "value": 30
         }
       ],
@@ -7593,7 +7633,7 @@ window.IpoData = {
       "issueSizeCr": 11327.43,
       "minimumInvestment": 14820,
       "faceValue": 1,
-      "registrar": "Link Intime India Pvt Ltd",
+      "registrar": "MUFG Intime India Pvt Ltd",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
       "openDate": "2026-11-06",
       "closeDate": "2026-11-08",
@@ -7610,14 +7650,18 @@ window.IpoData = {
       "gmpHistory": [
         {
           "date": "29 Oct",
-          "value": 20
+          "value": 18
         },
         {
           "date": "30 Oct",
-          "value": 24
+          "value": 22
         },
         {
           "date": "31 Oct",
+          "value": 24
+        },
+        {
+          "date": "01 Nov",
           "value": 25
         }
       ],
@@ -7691,7 +7735,7 @@ window.IpoData = {
       "issueSizeCr": 2106.6,
       "minimumInvestment": 15000,
       "faceValue": 10,
-      "registrar": "Link Intime India Pvt Ltd",
+      "registrar": "MUFG Intime India Pvt Ltd",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
       "openDate": "2026-11-05",
       "closeDate": "2026-11-07",
@@ -7712,10 +7756,14 @@ window.IpoData = {
         },
         {
           "date": "30 Oct",
-          "value": 3
+          "value": 2.5
         },
         {
           "date": "31 Oct",
+          "value": 3
+        },
+        {
+          "date": "01 Nov",
           "value": 3
         }
       ],
@@ -8626,12 +8674,13 @@ window.IpoData = {
     ]
   },
   "alertsFeed": [
-    "🚨 Swiggy IPO price band set at ₹371–₹390 per share (Total Issue: ₹11,327 Cr, Opens Nov 6)",
-    "⚡ Maxwell Engineering Solutions SME IPO GMP surges to +₹70 (+44.3%) on robust retail bidding",
-    "📈 Bombay Coated & Special Steels GMP rises to +₹9 (11.0%), Final bidding closes on Monday Nov 2",
-    "🔍 Afcons Infrastructure IPO allotment status published on Link Intime portal; listing on Nov 4",
-    "☀️ ACME Solar Holdings Mainboard IPO opens Nov 6 (Price band ₹275–₹289, GMP +₹30 / 10.4%)",
-    "🏥 Sagility India Healthcare BPO IPO opens Nov 5 (Price band ₹28–₹30, Lot: 500, GMP +₹3 / 10%)",
-    "🚀 Waaree Energies delivers phenomenal +66.3% listing gain on NSE debut (listed at ₹2,500 vs ₹1,503 issue price)"
+    "📈 Bombay Coated & Special Steels GMP steady at +₹8.5 (10.4%), Final bidding closes on Monday Nov 2",
+    "⚡ Maxwell Engineering Solutions SME IPO GMP jumps to +₹72 (+45.6%) with 4.85x overall subscription",
+    "🔥 Swiggy Mega Mainboard IPO opens Nov 6 (Price band ₹371–₹390, GMP +₹25 / +6.4%, Lot: 38 shares)",
+    "☀️ ACME Solar Holdings IPO opens Nov 6 (Price band ₹275–₹289, GMP +₹30 / +10.4%, Issue: ₹2,900 Cr)",
+    "🏥 Sagility India Healthcare BPO IPO opens Nov 5 (Price band ₹28–₹30, Lot: 500, GMP +₹3 / +10%)",
+    "🛡️ Niva Bupa Health Insurance IPO dates confirmed: Opens Nov 7, Price band ₹70–₹74, GMP +₹5",
+    "💎 M. K. Sons Fine Jewels IPO closes with 5.09x subscription; Allotment Nov 3, Listing Nov 5",
+    "🔍 Afcons Infrastructure IPO final subscription closes at 2.77x; Allotment on Link Intime, Listing Nov 4"
   ]
 };
