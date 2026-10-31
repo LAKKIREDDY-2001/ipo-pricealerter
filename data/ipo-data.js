@@ -9,9 +9,9 @@ window.IpoData = {
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
     "openCount": 6,
-    "closedCount": 2,
+    "closedCount": 7,
     "upcomingCount": 26,
-    "listedCount": 170
+    "listedCount": 165
   },
   "records": [
     {
@@ -849,10 +849,6 @@ window.IpoData = {
       "gmp": null,
       "gmpPercentage": null,
       "gmpUpdatedAt": "2024-10-30T10:00:00+05:30",
-      "gmpHistory": [],
-      "dayHighGmp": 25,
-      "dayLowGmp": 12,
-      "trend": "stable",
       "gmpHistory": [
         {
           "date": "25 Oct",
@@ -875,6 +871,9 @@ window.IpoData = {
           "value": 15
         }
       ],
+      "dayHighGmp": 25,
+      "dayLowGmp": 12,
+      "trend": "stable",
       "subscriptionTotal": 2.63,
       "subscriptionSummary": {
         "qib": 3.79,
@@ -1078,7 +1077,7 @@ window.IpoData = {
       "initials": "AP",
       "logoColor": "#F59E0B",
       "iconType": "infra",
-      "status": "LISTED",
+      "status": "CLOSED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Infrastructure & Real Estate",
@@ -1087,7 +1086,7 @@ window.IpoData = {
       "issueSizeCr": 49.1,
       "closeDate": "2024-10-28",
       "allotDate": "2024-10-29",
-      "listingDate": "2024-10-31",
+      "listingDate": "2024-11-04",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ajwa-projects-ipo",
@@ -1117,7 +1116,7 @@ window.IpoData = {
       "initials": "BP",
       "logoColor": "#8B5CF6",
       "iconType": "polymer",
-      "status": "LISTED",
+      "status": "CLOSED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Polymers & Packaging",
@@ -1126,7 +1125,7 @@ window.IpoData = {
       "issueSizeCr": 500,
       "closeDate": "2024-10-25",
       "allotDate": "2024-10-28",
-      "listingDate": "2024-10-30",
+      "listingDate": "2024-11-03",
       "registrar": "KFin Technologies Ltd",
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/bls-polymers-ipo",
@@ -1156,7 +1155,7 @@ window.IpoData = {
       "initials": "SE",
       "logoColor": "#EC4899",
       "iconType": "tech",
-      "status": "LISTED",
+      "status": "CLOSED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Technology & Digital Platforms",
@@ -1165,7 +1164,7 @@ window.IpoData = {
       "issueSizeCr": 830,
       "closeDate": "2024-10-24",
       "allotDate": "2024-10-25",
-      "listingDate": "2024-10-29",
+      "listingDate": "2024-11-03",
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/sfc-environmental-technologies-ipo",
@@ -1195,7 +1194,7 @@ window.IpoData = {
       "initials": "WI",
       "logoColor": "#0EA5E9",
       "iconType": "infra",
-      "status": "LISTED",
+      "status": "CLOSED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Industrial Engineering & Manufacturing",
@@ -1204,7 +1203,7 @@ window.IpoData = {
       "issueSizeCr": 86,
       "closeDate": "2024-10-23",
       "allotDate": "2024-10-24",
-      "listingDate": "2024-10-28",
+      "listingDate": "2024-11-03",
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/wiscon-industries-ipo",
@@ -1234,7 +1233,7 @@ window.IpoData = {
       "initials": "EA",
       "logoColor": "#14B8A6",
       "iconType": "infra",
-      "status": "LISTED",
+      "status": "CLOSED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Industrial Engineering & Manufacturing",
@@ -1243,7 +1242,7 @@ window.IpoData = {
       "issueSizeCr": 780,
       "closeDate": "2024-10-22",
       "allotDate": "2024-10-23",
-      "listingDate": "2024-10-25",
+      "listingDate": "2024-11-02",
       "registrar": "MUFG Link Intime / MPMS",
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/eaaa-india-alternatives-ipo",
@@ -7455,11 +7454,11 @@ window.IpoData = {
       "dematDate": "2024-11-13",
       "listingDate": "2024-11-14",
       "issuePrice": 74,
-      "listingPrice": 78.50,
+      "listingPrice": 78.5,
       "listingGain": "+6.08%",
       "dayHighListing": 89.25,
       "dayLowListing": 73.85,
-      "closeListing": 73.90,
+      "closeListing": 73.9,
       "gmp": null,
       "gmpPercentage": null,
       "gmpUpdatedAt": "2024-11-14T10:00:00+05:30",
@@ -7467,12 +7466,12 @@ window.IpoData = {
       "dayLowGmp": null,
       "trend": "up",
       "gmpHistory": [],
-      "subscriptionTotal": 1.90,
+      "subscriptionTotal": 1.9,
       "subscriptionSummary": {
         "qib": 2.17,
         "nii": 0.71,
         "retail": 2.88,
-        "total": 1.90
+        "total": 1.9
       },
       "financials": [
         {
@@ -7847,14 +7846,14 @@ window.IpoData = {
           "year": "FY 2025",
           "revenue": 81.58,
           "profit": 4.56,
-          "assets": 55.40,
+          "assets": 55.4,
           "netWorth": 15.42
         },
         {
           "year": "FY 2026",
           "revenue": 115.31,
           "profit": 10.97,
-          "assets": 97.80,
+          "assets": 97.8,
           "netWorth": 42.26
         }
       ],
