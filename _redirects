@@ -1,3 +1,7 @@
+# 301 Permanent Redirects for Decommissioned AMP Pages (Forces mobile search & visitors to main app)
+/amp.html https://pricealerter.in/ 301
+/amp https://pricealerter.in/ 301
+
 # 301 Permanent Redirects for Legacy Indexed Pages
 /privacy-policy.html https://pricealerter.in/privacy.html 301
 /privacy-policy https://pricealerter.in/privacy.html 301
