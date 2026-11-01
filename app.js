@@ -13,7 +13,7 @@
   // Application State
   const state = {
     route: parseRoute(),
-    activeFilter: "listed",     // 'open' | 'closed' | 'listed'
+    activeFilter: "open",       // Default to 'open' so visitors see active open IPOs first
     activeBoard: "all",         // 'all' | 'mainboard' | 'sme'
     activeBottomCompany: "bombay-coated-and-special-steels-ipo",
     calendarMonth: new Date(2024, 10, 1), // November 2024
