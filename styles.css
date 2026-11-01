@@ -1153,6 +1153,157 @@ body.notif-open {
 }
 
 /* ==========================================================================
+   Enriched IPO Cards (Specifically for Active Issues in the OPEN Section)
+   ========================================================================== */
+.ipo-card.is-open-card {
+  border-color: rgba(37, 99, 235, 0.3);
+  background: linear-gradient(180deg, rgba(16, 24, 40, 0.85) 0%, rgba(11, 15, 25, 0.95) 100%);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(37, 99, 235, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.open-card-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(11, 14, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+}
+
+.metric-col.highlight-min-inv .metric-val {
+  color: #38BDF8;
+}
+
+.open-gain-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  font-size: 11.5px;
+}
+
+.gain-banner-label {
+  color: #94A3B8;
+  font-size: 10.5px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.gain-est-price {
+  color: #10B981;
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+.gain-est-profit {
+  color: #38BDF8;
+  font-weight: 700;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.open-sub-categories-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.open-cat-chip {
+  padding: 2.5px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #94A3B8;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.open-cat-chip b {
+  font-weight: 700;
+}
+
+.open-cat-chip.retail {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38BDF8;
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.open-cat-chip.retail b {
+  color: #BAE6FD;
+}
+
+.open-cat-chip.qib {
+  background: rgba(139, 92, 246, 0.1);
+  color: #A78BFA;
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+.open-cat-chip.qib b {
+  color: #DDD6FE;
+}
+
+.open-cat-chip.nii {
+  background: rgba(245, 158, 11, 0.1);
+  color: #FBBF24;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.open-cat-chip.nii b {
+  color: #FDE68A;
+}
+
+.open-cat-chip.emp {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.open-dates-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.open-dates-row span {
+  font-size: 10px;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-right: 3px;
+}
+
+.open-dates-row strong {
+  color: #E2E8F0;
+  font-weight: 600;
+}
+
+.open-registrar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #94A3B8;
+  padding: 0 4px;
+}
+
+.open-registrar-row b {
+  color: #93C5FD;
+}
+
+/* ==========================================================================
    Bottom Dashboard 4 Sections (2x2 Grid)
    ========================================================================== */
 .bottom-sections-grid {
@@ -3104,6 +3255,26 @@ body.notif-open {
     padding: 7px 6px;
     font-size: 10.5px;
     border-radius: 6px;
+  }
+
+  .open-card-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  .open-gain-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .open-dates-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    font-size: 10.5px;
   }
 
   /* Bottom 4 Dashboard Widgets */

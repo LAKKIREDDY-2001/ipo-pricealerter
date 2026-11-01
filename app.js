@@ -1177,7 +1177,7 @@
   // ==========================================================================
   function renderIpoCardHtml(ipo) {
     let badgeClass = "open";
-    let badgeLabel = "Open";
+    let badgeLabel = "Live Bidding";
 
     if (ipo.status === "CLOSED") {
       badgeClass = "closed";
@@ -1203,8 +1203,117 @@
           : `Closes: ${formatDate(ipo.closeDate)}`;
 
     const maxSub = 50;
-    const subVal = ipo.subscriptionTotal || 0;
+    const subVal = ipo.subscriptionTotal || (ipo.subscriptionSummary && ipo.subscriptionSummary.total) || 0;
     const fillPercent = Math.min(100, Math.max(8, (subVal / maxSub) * 100));
+
+    // When status is OPEN: show enriched complete details right on the card
+    if (ipo.status === "OPEN") {
+      const minInv = ipo.minimumInvestment 
+        ? `₹${ipo.minimumInvestment.toLocaleString('en-IN')}`
+        : (ipo.lotSize && ipo.priceBandHigh ? `₹${(ipo.lotSize * ipo.priceBandHigh).toLocaleString('en-IN')}` : '—');
+      
+      const estPrice = ipo.expectedListingPrice || (ipo.priceBandHigh ? ipo.priceBandHigh + (ipo.gmp || 0) : null);
+      const estProfit = ipo.estProfitPerLot || (ipo.gmp && ipo.lotSize ? Math.round(ipo.gmp * ipo.lotSize) : null);
+      const gmpPct = ipo.gmpPercentage || (ipo.gmp && ipo.priceBandHigh ? ((ipo.gmp / ipo.priceBandHigh) * 100).toFixed(1) : null);
+      
+      const sub = ipo.subscriptionSummary || {};
+      const allotDate = ipo.allotmentDate || ipo.allotDate;
+
+      return `
+        <article class="ipo-card is-open-card" onclick="window.location.hash='#/ipo/${ipo.slug}'">
+          <div class="ipo-card-header">
+            <div class="card-company-left">
+              ${renderCompanyLogo(ipo, 46)}
+              <div class="card-title-meta">
+                <h3>${ipo.shortName}</h3>
+                <span class="card-subtitle-meta">${ipo.sector} • ${ipo.issueType || ipo.board} • ${ipo.exchange}</span>
+              </div>
+            </div>
+            <span class="status-badge open">🟢 Open</span>
+          </div>
+
+          <!-- 4-Metric Grid: Price Band, Lot Size, Issue Size, Retail Min Investment -->
+          <div class="open-card-metrics-grid">
+            <div class="metric-col">
+              <span class="metric-label">Price Band</span>
+              <span class="metric-val">${priceBandText}</span>
+            </div>
+            <div class="metric-col">
+              <span class="metric-label">Lot Size</span>
+              <span class="metric-val">${ipo.lotSize ? `${ipo.lotSize} sh` : '—'}</span>
+            </div>
+            <div class="metric-col">
+              <span class="metric-label">Issue Size</span>
+              <span class="metric-val">${formatCrore(ipo.issueSizeCr)}</span>
+            </div>
+            <div class="metric-col highlight-min-inv">
+              <span class="metric-label">Min Investment</span>
+              <span class="metric-val">${minInv}</span>
+            </div>
+          </div>
+
+          <!-- Live GMP & Expected Listing Gain Banner -->
+          <div class="open-gain-banner">
+            <div>
+              <span class="gain-banner-label">Live GMP:</span>
+              <strong class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}">${ipo.gmp ? `+₹${ipo.gmp} (${gmpPct}%)` : 'GMP TBA'}</strong>
+            </div>
+            ${estPrice ? `
+              <div>
+                <span class="gain-banner-label">Est. Listing:</span>
+                <strong class="gain-est-price">₹${estPrice}</strong>
+                ${estProfit ? `<span class="gain-est-profit">(+₹${estProfit.toLocaleString('en-IN')}/lot)</span>` : ''}
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Live Subscription & Category Breakdown -->
+          <div class="card-subscription-bar-wrap">
+            <div class="sub-bar-labels">
+              <span>Overall Subscription</span>
+              <strong>${subVal ? `${subVal}x` : 'Bidding in progress'}</strong>
+            </div>
+            <div class="sub-progress-track">
+              <div class="sub-progress-fill" style="width: ${fillPercent}%"></div>
+            </div>
+            ${sub && (sub.retail || sub.qib || sub.nii) ? `
+              <div class="open-sub-categories-strip">
+                <span class="open-cat-chip retail">Retail: <b>${sub.retail ? `${sub.retail}x` : '—'}</b></span>
+                <span class="open-cat-chip qib">QIB: <b>${sub.qib ? `${sub.qib}x` : '—'}</b></span>
+                <span class="open-cat-chip nii">NII: <b>${sub.nii ? `${sub.nii}x` : '—'}</b></span>
+                ${sub.employee ? `<span class="open-cat-chip emp">Emp: <b>${sub.employee}x</b></span>` : ''}
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Timeline Schedule Strip: Closes, Allotment, Listing -->
+          <div class="open-dates-row">
+            <div><span>Closes:</span> <strong>${formatDate(ipo.closeDate)}</strong></div>
+            <div><span>Allotment:</span> <strong>${allotDate ? formatDate(allotDate) : 'TBA'}</strong></div>
+            <div><span>Listing:</span> <strong>${ipo.listingDate ? formatDate(ipo.listingDate) : 'TBA'}</strong></div>
+          </div>
+
+          <!-- Registrar & Action Row -->
+          <div class="open-registrar-row">
+            <span>Registrar: <b>${ipo.registrar || 'Registrar Portal'}</b></span>
+            ${ipo.faceValue ? `<span>Face Value: <b>₹${ipo.faceValue}</b></span>` : ''}
+          </div>
+
+          <div class="card-btn-action-row">
+            <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
+              <span>View Details & Calculator</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            ${ipo.docUrl ? `
+              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-doc" onclick="event.stopPropagation()" title="View Offer Prospectus">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span>RHP Doc</span>
+              </a>
+            ` : ''}
+          </div>
+        </article>
+      `;
+    }
 
     return `
       <article class="ipo-card" onclick="window.location.hash='#/ipo/${ipo.slug}'">
@@ -1871,7 +1980,7 @@
               const steps = [
                 { title: "IPO Opens", date: ipo.openDate, done: isListed || isClosed || isOpen, active: false, num: 1 },
                 { title: "IPO Closes", date: ipo.closeDate, done: isListed || isClosed, active: isOpen, num: 2 },
-                { title: "Allotment", date: ipo.allotDate, done: isListed, active: isClosed, num: 3 },
+                { title: "Allotment", date: ipo.allotmentDate || ipo.allotDate, done: isListed, active: isClosed, num: 3 },
                 { title: "Refund", date: ipo.refundDate, done: isListed, active: false, num: 4 },
                 { title: "Credit Demat", date: ipo.dematDate, done: isListed, active: false, num: 5 },
                 { title: "Listing", date: ipo.listingDate, done: isListed, active: false, num: 6 }
@@ -1898,7 +2007,7 @@
               Official Registrar Allotment Status
             </div>
             <strong style="font-size:15px; color:#FFFFFF;">Check Allotment Status — ${ipo.shortName}</strong>
-            <span style="display:block; margin-top:2px;">Official Registrar: <b style="color:#93C5FD;">${ipo.registrar || 'Registrar Portal'}</b> ${ipo.allotmentDate ? ` • Scheduled Allotment Date: <b>${formatDate(ipo.allotmentDate)}</b>` : ''}</span>
+            <span style="display:block; margin-top:2px;">Official Registrar: <b style="color:#93C5FD;">${ipo.registrar || 'Registrar Portal'}</b> ${(ipo.allotmentDate || ipo.allotDate) ? ` • Scheduled Allotment Date: <b>${formatDate(ipo.allotmentDate || ipo.allotDate)}</b>` : ''}</span>
           </div>
 
           <div class="allotment-action-buttons-group">
