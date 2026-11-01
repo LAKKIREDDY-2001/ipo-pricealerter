@@ -8,9 +8,9 @@ window.IpoData = {
   "updatedAt": "2024-11-15T18:00:00+05:30",
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
-    "openCount": 6,
+    "openCount": 7,
     "closedCount": 7,
-    "upcomingCount": 26,
+    "upcomingCount": 25,
     "listedCount": 165
   },
   "records": [
@@ -7819,7 +7819,7 @@ window.IpoData = {
       "initials": "VP",
       "logoColor": "#0EA5E9",
       "iconType": "packaging",
-      "status": "UPCOMING",
+      "status": "OPEN",
       "board": "SME",
       "exchange": "NSE SME",
       "sector": "Packaging Materials & Multilayer Films",
@@ -8915,11 +8915,11 @@ window.IpoData = {
       "id": "notif-vedant-poly-fabs",
       "slug": "vedant-poly-fabs-ipo",
       "title": "Vedant Poly Fabs Ltd (NSE SME)",
-      "tag": "📌 UPCOMING SME",
+      "tag": "⚡ LIVE BIDDING",
       "tagClass": "tag-pinned",
-      "pinned": false,
-      "description": "NSE SME Book Built Issue opens Nov 4, 2024. Price band ₹88–₹94, lot size 1,200 (Min 2 lots: 2,400 shares / ₹2,11,200). Note: GMP is not fixed yet.",
-      "time": "Opens Nov 4, 2024 • NSE SME Emerge"
+      "pinned": true,
+      "description": "NSE SME Book Built Issue open for bidding. Price band ₹88–₹94, lot size 1,200 (Min 2 lots: 2,400 shares / ₹211,200). Official registrar: Cameo Corporate. Note: GMP is not fixed yet.",
+      "time": "Active Bidding • Closes Nov 6 • NSE SME"
     },
     {
       "id": "notif-swiggy",

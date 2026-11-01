@@ -1256,7 +1256,7 @@
           <div class="open-gain-banner">
             <div>
               <span class="gain-banner-label">Live GMP:</span>
-              <strong class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}">${ipo.gmp ? `+₹${ipo.gmp} (${gmpPct}%)` : 'GMP TBA'}</strong>
+              <strong class="gmp-highlight-text ${ipo.gmp ? '' : 'neutral'}">${ipo.gmp ? `+₹${ipo.gmp} (${gmpPct}%)` : (ipo.gmp === null ? 'GMP Not Fixed' : 'GMP TBA')}</strong>
             </div>
             ${estPrice ? `
               <div>
@@ -1264,7 +1264,12 @@
                 <strong class="gain-est-price">₹${estPrice}</strong>
                 ${estProfit ? `<span class="gain-est-profit">(+₹${estProfit.toLocaleString('en-IN')}/lot)</span>` : ''}
               </div>
-            ` : ''}
+            ` : `
+              <div>
+                <span class="gain-banner-label">Est. Listing:</span>
+                <strong class="gain-est-price" style="color:#94A3B8;">TBA</strong>
+              </div>
+            `}
           </div>
 
           <!-- Live Subscription & Category Breakdown -->
@@ -1304,7 +1309,12 @@
               <span>View Details & Calculator</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
-            ${ipo.docUrl ? `
+            ${ipo.allotmentUrl ? `
+              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-allotment" onclick="event.stopPropagation()" title="Check Allotment on ${escapeHtml(ipo.registrar || 'Registrar')}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <span>Check Allotment</span>
+              </a>
+            ` : ipo.docUrl ? `
               <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-doc" onclick="event.stopPropagation()" title="View Offer Prospectus">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                 <span>RHP Doc</span>
