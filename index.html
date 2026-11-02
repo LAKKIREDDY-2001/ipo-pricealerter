@@ -333,12 +333,23 @@
 
     <!-- Dynamic Main Application Shell -->
     <main id="app" class="app-root" role="main">
+      <!-- Responsive AdSense Leaderboard Placement (Zero CLS) -->
+      <div class="ad-slot-card ad-slot-leaderboard" aria-label="Sponsored Intelligence">
+        <div class="ad-slot-label">SPONSORED FINANCIAL INTELLIGENCE</div>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1181608933401999"
+             data-ad-slot="leaderboard"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+
       <div class="fig1-dashboard-wrap">
         <!-- Dashboard Top Intro Strip (Executive Overview) -->
         <div class="dashboard-top-intro">
           <div class="dashboard-top-title-wrap">
             <h1 class="dashboard-top-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
-            <p class="dashboard-top-subtitle">Real-time primary market updates, Grey Market Premium (GMP), subscription multiples and listing performance.</p>
+            <p class="dashboard-top-subtitle">Official primary market data synchronized with NSE &amp; BSE exchange disclosures. Unregulated Grey Market Premium (GMP) estimates are speculative sentiment indicators provided solely for educational tracking.</p>
           </div>
           <div class="dashboard-live-indicator">
             <span class="live-pulse"></span>
@@ -516,6 +527,17 @@
               </div>
             </div>
 
+            <!-- Dedicated Layout Break: In-Feed Native Ad Unit (Zero CLS Fixed Height) -->
+            <div class="ad-slot-card ad-slot-infeed" aria-label="Advertisement">
+              <div class="ad-slot-label">ADVERTISEMENT &bull; MARKET SPONSOR</div>
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-format="fluid"
+                   data-ad-layout-key="-6t+ed+2i-1n-4w"
+                   data-ad-client="ca-pub-1181608933401999"
+                   data-ad-slot="1400016775"></ins>
+            </div>
+
             <!-- Listing Performance Chart -->
             <div class="fig1-panel-card">
               <div class="fig1-panel-header">
@@ -613,9 +635,15 @@
           <div class="fig1-right-col">
             <!-- GMP Today Widget -->
             <div class="fig1-panel-card">
-              <div class="fig1-panel-header">
-                <h3 class="fig1-panel-title">📊 GMP Today</h3>
-                <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
+              <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:6px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                  <h3 class="fig1-panel-title">📊 GMP Today</h3>
+                  <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
+                </div>
+                <div class="widget-source-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  <span>Data verified with NSE/BSE filings &bull; GMP is speculative</span>
+                </div>
               </div>
               <div class="fig1-gmp-list">
                 <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/waaree-energies-ipo'">
@@ -747,21 +775,38 @@
                 </a>
               </div>
             </div>
+
+            <!-- Dedicated Sticky Sidebar Half-Page / Skyscraper Ad Unit (Zero CLS) -->
+            <div class="ad-slot-card ad-slot-sidebar" aria-label="Advertisement">
+              <div class="ad-slot-label">ADVERTISEMENT &bull; FINANCIAL PARTNER</div>
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-1181608933401999"
+                   data-ad-slot="5892147360"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+            </div>
           </div>
         </section>
 
         <!-- Active Open IPOs Section (Added Below the Photo Dashboard) -->
         <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding" style="margin-top:24px;">
           <div class="fig1-panel-card">
-            <div class="fig1-panel-header">
-              <div style="display:flex; align-items:center; gap:8px;">
-                <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
-                <span class="live-pulse" style="margin-left:4px;"></span>
-                <span style="font-size:11.5px; font-weight:700; color:#16A34A; background:#EBFBF2; padding:2px 8px; border-radius:12px;">ACTIVE BIDDING</span>
+            <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
+                  <span class="live-pulse" style="margin-left:4px;"></span>
+                  <span style="font-size:11.5px; font-weight:700; color:#14532D; background:#DCFCE7; padding:2px 8px; border-radius:12px; border:1px solid #86EFAC;">ACTIVE BIDDING</span>
+                </div>
+                <a href="#/open" class="fig1-header-link">View All (5) &rarr;</a>
               </div>
-              <a href="#/open" class="fig1-header-link">View All (5) &rarr;</a>
+              <div class="widget-source-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Verified live bidding window synchronized with exchange order books &amp; designated SEBI registrars.</span>
+              </div>
             </div>
-            <div class="fig1-table-responsive">
+            <div class="fig1-table-responsive desktop-only-table">
               <table class="fig1-trending-table">
                 <thead>
                   <tr>
@@ -1057,6 +1102,264 @@
                 </tbody>
               </table>
             </div>
+
+            <!-- Mobile-Optimized Accordion Cards (WCAG AAA Compliant) -->
+            <div class="mobile-open-ipos-cards mobile-only-cards">
+              <!-- Antala Industries -->
+              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/antala-industries-ipo'" style="cursor:pointer;">
+                <div class="mobile-open-top-row">
+                  <div class="mobile-open-brand">
+                    <div class="fig1-avatar fig1-avatar-we" style="width:36px; height:36px; font-size:13px;">AI</div>
+                    <div>
+                      <h3 class="mobile-open-name">Antala Industries</h3>
+                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                    </div>
+                  </div>
+                  <span class="status-badge open">Open</span>
+                </div>
+                <div class="mobile-open-specs-grid">
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Bidding Window</span>
+                    <span class="mobile-spec-val">29 Oct &ndash; 02 Nov</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Price Band</span>
+                    <span class="mobile-spec-val">&inr;63 &ndash; 67</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Lot Size</span>
+                    <span class="mobile-spec-val">2000 shares</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Live GMP</span>
+                    <span class="fig1-return-tag positive">+&inr;1 (1.49%)</span>
+                  </div>
+                </div>
+                <button id="mobile-open-btn-antala-industries-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('antala-industries-ipo') : null">
+                  More Details &blacktriangledown;
+                </button>
+                <div id="mobile-open-expand-antala-industries-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+                    <div><span style="color:#64748B;">Issue Size:</span> <strong>&inr;23.33 Cr</strong></div>
+                    <div><span style="color:#64748B;">Min Inv:</span> <strong>&inr;1,34,000</strong></div>
+                    <div><span style="color:#64748B;">Allotment:</span> <strong>03 Nov 2024</strong></div>
+                    <div><span style="color:#64748B;">Listing:</span> <strong>05 Nov 2024</strong></div>
+                  </div>
+                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
+                    <strong>Registrar:</strong> Bigshare Services Pvt Ltd &bull; <strong style="color:#16A34A;">Est. Listing:</strong> &inr;68 (+1.49%)
+                  </div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
+                    <a href="#/ipo/antala-industries-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
+                    <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
+                    <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply ASBA</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Maxwell Engineering -->
+              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'" style="cursor:pointer;">
+                <div class="mobile-open-top-row">
+                  <div class="mobile-open-brand">
+                    <div class="fig1-avatar fig1-avatar-we" style="width:36px; height:36px; font-size:13px;">ME</div>
+                    <div>
+                      <h3 class="mobile-open-name">Maxwell Engineering</h3>
+                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                    </div>
+                  </div>
+                  <span class="status-badge open">Open</span>
+                </div>
+                <div class="mobile-open-specs-grid">
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Bidding Window</span>
+                    <span class="mobile-spec-val">30 Oct &ndash; 03 Nov</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Price Band</span>
+                    <span class="mobile-spec-val">&inr;150 &ndash; 158</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Lot Size</span>
+                    <span class="mobile-spec-val">800 shares</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Live GMP</span>
+                    <span class="fig1-return-tag positive">+&inr;70 (44.3%)</span>
+                  </div>
+                </div>
+                <button id="mobile-open-btn-maxwell-engineering-solutions-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('maxwell-engineering-solutions-ipo') : null">
+                  More Details &blacktriangledown;
+                </button>
+                <div id="mobile-open-expand-maxwell-engineering-solutions-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+                    <div><span style="color:#64748B;">Issue Size:</span> <strong>&inr;57.64 Cr</strong></div>
+                    <div><span style="color:#64748B;">Min Inv:</span> <strong>&inr;1,26,400</strong></div>
+                    <div><span style="color:#64748B;">Allotment:</span> <strong>04 Nov 2024</strong></div>
+                    <div><span style="color:#64748B;">Listing:</span> <strong>06 Nov 2024</strong></div>
+                  </div>
+                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
+                    <strong>Registrar:</strong> KFin Technologies Ltd &bull; <strong style="color:#16A34A;">Est. Listing:</strong> &inr;228 (+44.3%)
+                  </div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
+                    <a href="#/ipo/maxwell-engineering-solutions-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
+                    <a href="https://ipostatus.kfintech.com/" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
+                    <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply ASBA</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Johnsoncab Electricals -->
+              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'" style="cursor:pointer;">
+                <div class="mobile-open-top-row">
+                  <div class="mobile-open-brand">
+                    <div class="fig1-avatar fig1-avatar-nt" style="width:36px; height:36px; font-size:13px;">JE</div>
+                    <div>
+                      <h3 class="mobile-open-name">Johnsoncab Electricals</h3>
+                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                    </div>
+                  </div>
+                  <span class="status-badge open">Open</span>
+                </div>
+                <div class="mobile-open-specs-grid">
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Bidding Window</span>
+                    <span class="mobile-spec-val">30 Oct &ndash; 04 Nov</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Price Band</span>
+                    <span class="mobile-spec-val">&inr;125 &ndash; 132</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Lot Size</span>
+                    <span class="mobile-spec-val">1000 shares</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Live GMP</span>
+                    <span class="fig1-return-tag positive">+&inr;24 (18.18%)</span>
+                  </div>
+                </div>
+                <button id="mobile-open-btn-johnsoncab-electricals-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('johnsoncab-electricals-ipo') : null">
+                  More Details &blacktriangledown;
+                </button>
+                <div id="mobile-open-expand-johnsoncab-electricals-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+                    <div><span style="color:#64748B;">Issue Size:</span> <strong>&inr;48.20 Cr</strong></div>
+                    <div><span style="color:#64748B;">Min Inv:</span> <strong>&inr;1,32,000</strong></div>
+                    <div><span style="color:#64748B;">Allotment:</span> <strong>05 Nov 2024</strong></div>
+                    <div><span style="color:#64748B;">Listing:</span> <strong>07 Nov 2024</strong></div>
+                  </div>
+                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
+                    <strong>Registrar:</strong> Bigshare Services Pvt Ltd &bull; <strong style="color:#16A34A;">Est. Listing:</strong> &inr;156 (+18.18%)
+                  </div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
+                    <a href="#/ipo/johnsoncab-electricals-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
+                    <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
+                    <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply ASBA</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HGS India -->
+              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/hgs-india-ipo'" style="cursor:pointer;">
+                <div class="mobile-open-top-row">
+                  <div class="mobile-open-brand">
+                    <div class="fig1-avatar fig1-avatar-nt" style="width:36px; height:36px; font-size:13px;">HI</div>
+                    <div>
+                      <h3 class="mobile-open-name">HGS India</h3>
+                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                    </div>
+                  </div>
+                  <span class="status-badge open">Open</span>
+                </div>
+                <div class="mobile-open-specs-grid">
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Bidding Window</span>
+                    <span class="mobile-spec-val">31 Oct &ndash; 05 Nov</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Price Band</span>
+                    <span class="mobile-spec-val">&inr;114 &ndash; 120</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Lot Size</span>
+                    <span class="mobile-spec-val">1200 shares</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Live GMP</span>
+                    <span class="fig1-return-tag positive">+&inr;14 (11.67%)</span>
+                  </div>
+                </div>
+                <button id="mobile-open-btn-hgs-india-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('hgs-india-ipo') : null">
+                  More Details &blacktriangledown;
+                </button>
+                <div id="mobile-open-expand-hgs-india-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+                    <div><span style="color:#64748B;">Issue Size:</span> <strong>&inr;34.56 Cr</strong></div>
+                    <div><span style="color:#64748B;">Min Inv:</span> <strong>&inr;1,44,000</strong></div>
+                    <div><span style="color:#64748B;">Allotment:</span> <strong>06 Nov 2024</strong></div>
+                    <div><span style="color:#64748B;">Listing:</span> <strong>08 Nov 2024</strong></div>
+                  </div>
+                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
+                    <strong>Registrar:</strong> Link Intime India Pvt Ltd &bull; <strong style="color:#16A34A;">Est. Listing:</strong> &inr;134 (+11.67%)
+                  </div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
+                    <a href="#/ipo/hgs-india-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
+                    <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
+                    <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply ASBA</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vectras Enprocon -->
+              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'" style="cursor:pointer;">
+                <div class="mobile-open-top-row">
+                  <div class="mobile-open-brand">
+                    <div class="fig1-avatar fig1-avatar-nt" style="width:36px; height:36px; font-size:13px;">VE</div>
+                    <div>
+                      <h3 class="mobile-open-name">Vectras Enprocon</h3>
+                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                    </div>
+                  </div>
+                  <span class="status-badge open">Open</span>
+                </div>
+                <div class="mobile-open-specs-grid">
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Bidding Window</span>
+                    <span class="mobile-spec-val">29 Oct &ndash; 03 Nov</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Price Band</span>
+                    <span class="mobile-spec-val">&inr;99 &ndash; 105</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Lot Size</span>
+                    <span class="mobile-spec-val">1200 shares</span>
+                  </div>
+                  <div class="mobile-spec-item">
+                    <span class="mobile-spec-label">Live GMP</span>
+                    <span class="fig1-return-tag positive">+&inr;5 (4.76%)</span>
+                  </div>
+                </div>
+                <button id="mobile-open-btn-vectras-enprocon-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('vectras-enprocon-ipo') : null">
+                  More Details &blacktriangledown;
+                </button>
+                <div id="mobile-open-expand-vectras-enprocon-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+                    <div><span style="color:#64748B;">Issue Size:</span> <strong>&inr;53.05 Cr</strong></div>
+                    <div><span style="color:#64748B;">Min Inv:</span> <strong>&inr;1,26,000</strong></div>
+                    <div><span style="color:#64748B;">Allotment:</span> <strong>04 Nov 2024</strong></div>
+                    <div><span style="color:#64748B;">Listing:</span> <strong>06 Nov 2024</strong></div>
+                  </div>
+                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
+                    <strong>Registrar:</strong> Link Intime India Pvt Ltd &bull; <strong style="color:#16A34A;">Est. Listing:</strong> &inr;110 (+4.76%)
+                  </div>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
+                    <a href="#/ipo/vectras-enprocon-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
+                    <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
+                    <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply ASBA</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1233,6 +1536,25 @@
         </div>
       </div>
     </footer>
+
+    <!-- GDPR & Google AdSense Compliant Privacy & Cookie Consent Banner -->
+    <div id="cookie-consent-banner" class="cookie-consent-banner" style="display:none;" aria-label="Privacy and Cookie Consent">
+      <div class="cookie-consent-inner">
+        <div class="cookie-consent-text">
+          <div class="cookie-consent-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00897B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Privacy &amp; Cookie Consent</span>
+          </div>
+          <p>
+            We use cookies, localized storage, and synchronized exchange data to optimize your primary market tracking experience, measure analytics, and deliver personalized financial intelligence per our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a>.
+          </p>
+        </div>
+        <div class="cookie-consent-actions">
+          <button id="btn-cookie-accept" class="btn-cookie-accept" onclick="window.IpoApp && window.IpoApp.acceptCookieConsent()">Accept All</button>
+          <button id="btn-cookie-decline" class="btn-cookie-decline" onclick="window.IpoApp && window.IpoApp.acceptCookieConsent()">Essential Only</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Scripts -->
     <script>

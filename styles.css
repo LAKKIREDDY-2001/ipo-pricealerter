@@ -6284,3 +6284,403 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   }
 }
 
+/* ==========================================================================
+   Google AdSense Readiness & High-Retention Layout Containers (Zero-CLS)
+   ========================================================================== */
+.ad-slot-card {
+  background: #FFFFFF;
+  border: 1px dashed #CBD5E1;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 22px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ad-slot-leaderboard {
+  min-height: 90px;
+  max-width: 1320px;
+  margin: 12px auto 20px;
+  padding: 10px 16px;
+  background: #FFFFFF;
+  border: 1px dashed #E2E8F0;
+  border-radius: 12px;
+}
+
+.ad-slot-infeed {
+  min-height: 250px;
+  width: 100%;
+  margin: 20px 0;
+  background: #FFFFFF;
+}
+
+.ad-slot-sidebar {
+  min-height: 280px;
+  width: 100%;
+  margin-top: 20px;
+  background: #FFFFFF;
+}
+
+.ad-slot-inline {
+  min-height: 120px;
+  width: 100%;
+  margin: 14px 0;
+  background: #F8FAFC;
+}
+
+.ad-slot-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94A3B8;
+  margin-bottom: 8px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ad-slot-label::before,
+.ad-slot-label::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: #CBD5E1;
+}
+
+/* ==========================================================================
+   Mobile-Optimized Open IPOs Accordion Cards (WCAG AAA Usability)
+   ========================================================================== */
+.mobile-open-ipos-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-open-ipos-cards {
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 8px;
+  }
+}
+
+.mobile-open-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+}
+
+.mobile-open-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mobile-open-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-open-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.mobile-open-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+  padding: 12px 0;
+  border-top: 1px solid #F1F5F9;
+  border-bottom: 1px solid #F1F5F9;
+  margin-bottom: 12px;
+}
+
+.mobile-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-spec-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.4px;
+}
+
+.mobile-spec-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-mobile-toggle {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  color: #0F172A;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-mobile-toggle:hover {
+  background: #142B49;
+  border-color: #142B49;
+  color: #FFFFFF;
+}
+
+.mobile-open-drawer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Primary Source & Transparency Badges
+   ========================================================================== */
+.widget-source-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  background: #F1F5F9;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+}
+
+/* WCAG AAA Accessible Status Badges (> 7:1 Contrast) */
+.status-badge.open,
+.fig1-cal-status-pill.open {
+  background: #DCFCE7 !important;
+  color: #14532D !important;
+  border: 1px solid #86EFAC !important;
+  font-weight: 700 !important;
+}
+
+.status-badge.upcoming,
+.fig1-cal-status-pill.upcoming {
+  background: #EFF6FF !important;
+  color: #1E3A8A !important;
+  border: 1px solid #BFDBFE !important;
+  font-weight: 700 !important;
+}
+
+.status-badge.listed,
+.fig1-cal-status-pill.listed {
+  background: #F1F5F9 !important;
+  color: #1E293B !important;
+  border: 1px solid #CBD5E1 !important;
+  font-weight: 700 !important;
+}
+
+.status-badge.tentative,
+.fig1-cal-status-pill.tentative {
+  background: #FEF3C7 !important;
+  color: #78350F !important;
+  border: 1px solid #FDE68A !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   GDPR & AdSense Cookie / Privacy Consent Modal Banner
+   ========================================================================== */
+.cookie-consent-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999;
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.14);
+  padding: 16px 24px;
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.cookie-consent-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cookie-consent-text {
+  flex: 1;
+  min-width: 280px;
+  color: #E2E8F0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cookie-consent-text a {
+  color: #38BDF8;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.cookie-consent-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 14px;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.cookie-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-cookie-accept {
+  background: #079B50;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.btn-cookie-accept:hover {
+  background: #057a3e;
+  transform: translateY(-1px);
+}
+
+.btn-cookie-decline {
+  background: transparent;
+  color: #CBD5E1;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-cookie-decline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Editorial In-Depth Financial Analysis (600+ Words for AdSense Compliance)
+   ========================================================================== */
+.editorial-analysis-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 32px 36px;
+  margin-top: 24px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+}
+
+.editorial-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 12.5px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.editorial-heading {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 24px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.2px;
+}
+
+.editorial-paragraph {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #334155;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.editorial-bullet-list {
+  margin: 12px 0 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #334155;
+}
+
+.editorial-highlight-box {
+  background: #F0FDF4;
+  border-left: 4px solid #16A34A;
+  padding: 14px 18px;
+  border-radius: 0 10px 10px 0;
+  margin: 18px 0;
+  font-size: 13.5px;
+  color: #166534;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .editorial-analysis-card {
+    padding: 20px 18px;
+  }
+  .ad-slot-leaderboard {
+    min-height: 55px;
+  }
+}
+
+
