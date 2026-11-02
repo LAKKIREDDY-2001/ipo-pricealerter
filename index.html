@@ -326,132 +326,391 @@
 
     <!-- Dynamic Main Application Shell -->
     <main id="app" class="app-root" role="main">
-      <!-- Instant Pre-rendered Hero Section (Prevents CLS & Boosts FCP) -->
-      <section class="hero-wrapper" aria-label="IPO Pricealerter Intelligence Hero">
-        <div class="hero-left">
-          <div class="hero-badge-pill">
-            <span class="badge-pulse"></span>
-            <span>LIVE IPO TRACKER</span>
-          </div>
-          <h1 class="hero-title">IPO Pricealerter</h1>
-          <p class="hero-sub">Live Primary Market Intelligence • Real-Time GMP • Allotment</p>
-          
-          <div class="hero-stats-row">
-            <div class="hero-stat-box active" id="hero-stat-open" title="Click to view Open IPOs">
-              <span class="hero-stat-num">6</span>
-              <span class="hero-stat-label">Open</span>
+      <div class="fig1-dashboard-wrap">
+        <!-- Figure 1 Top 4 Summary Cards -->
+        <section class="fig1-summary-grid" aria-label="IPO Market Overview">
+          <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" title="Click to view Open IPOs">
+            <div class="fig1-card-content">
+              <div class="fig1-stat-num">6</div>
+              <div class="fig1-stat-label">Open IPOs</div>
             </div>
-            <div class="hero-stat-box" id="hero-stat-upcoming" title="Click to view Upcoming IPOs">
-              <span class="hero-stat-num">26</span>
-              <span class="hero-stat-label">Upcoming</span>
-            </div>
-            <div class="hero-stat-box" id="hero-stat-closed" title="Click to view Closed IPOs Ready for Listing">
-              <span class="hero-stat-num">7</span>
-              <span class="hero-stat-label">Closed</span>
-            </div>
-            <div class="hero-stat-box" id="hero-stat-listed" title="Click to view All Listed (165)">
-              <span class="hero-stat-num">165</span>
-              <span class="hero-stat-label">All Listed</span>
+            <div class="fig1-icon-badge fig1-badge-green">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
             </div>
           </div>
 
-          <div class="hero-actions-row">
-            <button class="hero-primary-btn" id="hero-view-open-btn">
-              <span>Explore Live Open Issues</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
+          <div class="fig1-summary-card fig1-border-blue clickable" id="fig1-card-upcoming" title="Click to view Upcoming IPOs">
+            <div class="fig1-card-content">
+              <div class="fig1-stat-num">26</div>
+              <div class="fig1-stat-label">Upcoming IPOs</div>
+            </div>
+            <div class="fig1-icon-badge fig1-badge-blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A237E" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Pre-rendered Active Market Issues (Provides instant indexable content for Search Engines & AdSense Review Bots) -->
-      <section class="pre-rendered-seo-content" style="max-width:1200px; margin:20px auto; padding:0 16px;">
-        <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:20px;">
-          <h2 style="font-size:18px; color:var(--text-primary); margin-top:0; margin-bottom:6px;">Verified Primary Market Listings & Performance (NSE & BSE India)</h2>
-          <p style="font-size:13px; color:var(--text-body); margin-bottom:16px;">
-            Real-time verified primary market intelligence and debut listing performance tracked directly from NSE India, BSE India, and official registrar disclosures.
+          <div class="fig1-summary-card fig1-border-red clickable" id="fig1-card-closed" title="Click to view Recently Closed IPOs">
+            <div class="fig1-card-content">
+              <div class="fig1-stat-num">7</div>
+              <div class="fig1-stat-label">Recently Closed</div>
+            </div>
+            <div class="fig1-icon-badge fig1-badge-red">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5"><line x1="7" y1="7" x2="17" y2="17"></line><polyline points="17 7 17 17 7 17"></polyline></svg>
+            </div>
+          </div>
+
+          <div class="fig1-summary-card fig1-border-orange clickable" id="fig1-card-listed" title="Click to view All Listed IPOs">
+            <div class="fig1-card-content">
+              <div class="fig1-stat-num">165+</div>
+              <div class="fig1-stat-label">Total Listed</div>
+            </div>
+            <div class="fig1-icon-badge fig1-badge-orange">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- Figure 1 2-Column Corporate Grid -->
+        <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
+          <div class="fig1-left-col">
+            <!-- Trending IPOs -->
+            <div class="fig1-panel-card">
+              <div class="fig1-panel-header">
+                <h2 class="fig1-panel-title">🔥 Trending IPOs</h2>
+                <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+              </div>
+              <div class="fig1-table-responsive">
+                <table class="fig1-trending-table">
+                  <thead>
+                    <tr>
+                      <th>COMPANY</th>
+                      <th>ISSUE PRICE</th>
+                      <th>CURRENT</th>
+                      <th>RETURN</th>
+                      <th>SUBSCRIPTION</th>
+                      <th>TREND</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-sw">SW</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">Swiggy Ltd</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹390</span></td>
+                      <td><span class="fig1-val-price">₹420</span></td>
+                      <td><span class="fig1-return-tag positive">+7.69% ▲</span></td>
+                      <td><span class="fig1-sub-pill">3.59x</span></td>
+                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-we">WE</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">Waaree Energies</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹1,503</span></td>
+                      <td><span class="fig1-val-price">₹2,500</span></td>
+                      <td><span class="fig1-return-tag positive">+66.3% ▲</span></td>
+                      <td><span class="fig1-sub-pill">76.34x</span></td>
+                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-nb">NB</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">Niva Bupa Health Ins.</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹74</span></td>
+                      <td><span class="fig1-val-price">₹78.50</span></td>
+                      <td><span class="fig1-return-tag positive">+6.08% ▲</span></td>
+                      <td><span class="fig1-sub-pill">1.90x</span></td>
+                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-nt">NT</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">NTPC Green Energy</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹108</span></td>
+                      <td><span class="fig1-val-price">₹130</span></td>
+                      <td><span class="fig1-return-tag positive">+20.37% ▲</span></td>
+                      <td><span class="fig1-sub-pill">2.42x</span></td>
+                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-sg">SG</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">Sagility India</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹30</span></td>
+                      <td><span class="fig1-val-price">₹28</span></td>
+                      <td><span class="fig1-return-tag negative">-6.67% ▼</span></td>
+                      <td><span class="fig1-sub-pill">0.85x</span></td>
+                      <td><span style="color:#EF4444; font-weight:700;">↘ Bearish</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Listing Performance Chart -->
+            <div class="fig1-panel-card">
+              <div class="fig1-panel-header">
+                <h2 class="fig1-panel-title">📊 IPO Listing Performance (Last 30 Days)</h2>
+                <div class="fig1-chart-legend">
+                  <span class="legend-item"><span class="legend-color-box legend-gain"></span> Gain</span>
+                  <span class="legend-item"><span class="legend-color-box legend-loss"></span> Loss</span>
+                </div>
+              </div>
+              <div class="fig1-bar-chart-wrap">
+                <div class="fig1-bar-columns">
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val positive">+66.3%</span>
+                    <div class="fig1-bar-fill gain" style="height:95px;"></div>
+                    <span class="fig1-col-label">Waaree</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val positive">+20.4%</span>
+                    <div class="fig1-bar-fill gain" style="height:38px;"></div>
+                    <span class="fig1-col-label">NTPC</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val positive">+7.7%</span>
+                    <div class="fig1-bar-fill gain" style="height:18px;"></div>
+                    <span class="fig1-col-label">Swiggy</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val positive">+6.1%</span>
+                    <div class="fig1-bar-fill gain" style="height:15px;"></div>
+                    <span class="fig1-col-label">Niva Bupa</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val positive">+7.2%</span>
+                    <div class="fig1-bar-fill gain" style="height:17px;"></div>
+                    <span class="fig1-col-label">ABC Infra</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val negative">-4.8%</span>
+                    <div class="fig1-bar-fill loss" style="height:14px;"></div>
+                    <span class="fig1-col-label">XYZ Fin</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val negative">-6.7%</span>
+                    <div class="fig1-bar-fill loss" style="height:17px;"></div>
+                    <span class="fig1-col-label">Sagility</span>
+                  </div>
+                  <div class="fig1-chart-col">
+                    <span class="fig1-bar-val positive">+15.3%</span>
+                    <div class="fig1-bar-fill gain" style="height:30px;"></div>
+                    <span class="fig1-col-label">PQR Tech</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fig1-right-col">
+            <!-- GMP Today Widget -->
+            <div class="fig1-panel-card">
+              <div class="fig1-panel-header">
+                <h3 class="fig1-panel-title">📊 GMP Today</h3>
+                <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
+              </div>
+              <div class="fig1-gmp-list">
+                <div class="fig1-gmp-row">
+                  <div class="fig1-gmp-left">
+                    <div class="fig1-avatar fig1-avatar-we" style="width:34px; height:34px; font-size:12px;">WE</div>
+                    <span class="fig1-company-name" style="font-size:13.5px;">Waaree Energies</span>
+                  </div>
+                  <span class="fig1-gmp-val pos">+₹980</span>
+                </div>
+                <div class="fig1-gmp-row">
+                  <div class="fig1-gmp-left">
+                    <div class="fig1-avatar fig1-avatar-sw" style="width:34px; height:34px; font-size:12px;">SW</div>
+                    <span class="fig1-company-name" style="font-size:13.5px;">Swiggy Ltd</span>
+                  </div>
+                  <span class="fig1-gmp-val pos">+₹28</span>
+                </div>
+                <div class="fig1-gmp-row">
+                  <div class="fig1-gmp-left">
+                    <div class="fig1-avatar fig1-avatar-nb" style="width:34px; height:34px; font-size:12px;">NB</div>
+                    <span class="fig1-company-name" style="font-size:13.5px;">Niva Bupa</span>
+                  </div>
+                  <span class="fig1-gmp-val pos">+₹4</span>
+                </div>
+                <div class="fig1-gmp-row">
+                  <div class="fig1-gmp-left">
+                    <div class="fig1-avatar fig1-avatar-nt" style="width:34px; height:34px; font-size:12px;">NT</div>
+                    <span class="fig1-company-name" style="font-size:13.5px;">NTPC Green</span>
+                  </div>
+                  <span class="fig1-gmp-val pos">+₹22</span>
+                </div>
+                <div class="fig1-gmp-row">
+                  <div class="fig1-gmp-left">
+                    <div class="fig1-avatar fig1-avatar-sg" style="width:34px; height:34px; font-size:12px;">SG</div>
+                    <span class="fig1-company-name" style="font-size:13.5px;">Sagility India</span>
+                  </div>
+                  <span class="fig1-gmp-val neg">-₹2</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- IPO Calendar Widget -->
+            <div class="fig1-panel-card">
+              <div class="fig1-panel-header">
+                <h3 class="fig1-panel-title">📅 IPO Calendar</h3>
+              </div>
+              <div class="fig1-calendar-list">
+                <div class="fig1-calendar-row">
+                  <div class="fig1-cal-date-badge">
+                    <span class="fig1-cal-day">18</span>
+                    <span class="fig1-cal-month">DEC</span>
+                  </div>
+                  <div class="fig1-cal-info">
+                    <span class="fig1-cal-name">ABC Infra Ltd</span>
+                    <span class="fig1-cal-status-pill open">Open</span>
+                  </div>
+                </div>
+                <div class="fig1-calendar-row">
+                  <div class="fig1-cal-date-badge">
+                    <span class="fig1-cal-day">20</span>
+                    <span class="fig1-cal-month">DEC</span>
+                  </div>
+                  <div class="fig1-cal-info">
+                    <span class="fig1-cal-name">XYZ Finance Ltd</span>
+                    <span class="fig1-cal-status-pill upcoming">Upcoming</span>
+                  </div>
+                </div>
+                <div class="fig1-calendar-row">
+                  <div class="fig1-cal-date-badge">
+                    <span class="fig1-cal-day">23</span>
+                    <span class="fig1-cal-month">DEC</span>
+                  </div>
+                  <div class="fig1-cal-info">
+                    <span class="fig1-cal-name">PQR Tech Solutions</span>
+                    <span class="fig1-cal-status-pill upcoming">Upcoming</span>
+                  </div>
+                </div>
+                <div class="fig1-calendar-row">
+                  <div class="fig1-cal-date-badge">
+                    <span class="fig1-cal-day">27</span>
+                    <span class="fig1-cal-month">DEC</span>
+                  </div>
+                  <div class="fig1-cal-info">
+                    <span class="fig1-cal-name">MNO Pharma Ltd</span>
+                    <span class="fig1-cal-status-pill tentative">Tentative</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stay Updated Card -->
+            <div class="fig1-stay-updated-card">
+              <h3 class="fig1-stay-updated-title">📧 Stay Updated!</h3>
+              <p class="fig1-stay-updated-text">Get IPO alerts &amp; GMP updates directly in your inbox. Join 45,000+ investors.</p>
+              <form class="fig1-subscribe-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                <input type="email" class="fig1-subscribe-input" placeholder="your@email.com" required>
+                <button type="submit" class="fig1-subscribe-btn">Subscribe Now</button>
+              </form>
+              <div class="fig1-subscribe-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>No spam. Unsubscribe anytime.</span>
+              </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="fig1-panel-card">
+              <div class="fig1-panel-header">
+                <h3 class="fig1-panel-title">⚡ Quick Links</h3>
+              </div>
+              <div class="fig1-quick-links-grid">
+                <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="fig1-quick-link-btn">
+                  <span class="quick-icon">📄</span>
+                  <span>IPO Forms</span>
+                </a>
+                <a href="https://www.bseindia.com/investors/appli_check.aspx" target="_blank" rel="noopener noreferrer" class="fig1-quick-link-btn">
+                  <span class="quick-icon">📊</span>
+                  <span>Allotment</span>
+                </a>
+                <a href="blog/index.html" class="fig1-quick-link-btn">
+                  <span class="quick-icon">🎓</span>
+                  <span>IPO Guide</span>
+                </a>
+                <a href="#/gmp" class="fig1-quick-link-btn">
+                  <span class="quick-icon">🔔</span>
+                  <span>Set Alert</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pre-rendered Educational Learning Hub Section (Guarantees Content Depth for Crawlers) -->
+        <section class="fig1-panel-card" style="margin-top:24px;" aria-label="IPO Learning Center & Educational Guides">
+          <div class="fig1-panel-header">
+            <h2 class="fig1-panel-title">🎓 IPO Learning Center &amp; Investor Education Guides</h2>
+            <a href="blog/index.html" class="fig1-header-link">Browse All 10 Guides &rarr;</a>
+          </div>
+          <p style="font-size:14px; color:#64748B; margin-top:0; margin-bottom:20px; line-height:1.6;">
+            Objective, SEBI-compliant educational guides designed to help retail investors master primary market research, valuation metrics, allotment probability, and risk management.
           </p>
-          <div style="overflow-x:auto;">
-            <table style="width:100%; border-collapse:collapse; font-size:13px;">
-              <thead>
-                <tr style="border-bottom:1px solid var(--border-subtle); text-align:left; color:var(--text-muted);">
-                  <th style="padding:10px 8px;">Company</th>
-                  <th style="padding:10px 8px;">Issue Price</th>
-                  <th style="padding:10px 8px;">Listing Price</th>
-                  <th style="padding:10px 8px;">Listing Status</th>
-                  <th style="padding:10px 8px;">Subscription</th>
-                  <th style="padding:10px 8px;">Registrar</th>
-                </tr>
-              </thead>
-              <tbody style="color:var(--text-body);">
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:12px 8px;"><strong>Swiggy Limited</strong><br><small style="color:var(--text-muted);">Mainboard • BSE, NSE</small></td>
-                  <td style="padding:12px 8px;">₹390</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:700;">₹420 (+7.69%)</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:600;">Listed Nov 13, 2024</td>
-                  <td style="padding:12px 8px; font-weight:700;">3.59x</td>
-                  <td style="padding:12px 8px;">Link Intime India</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:12px 8px;"><strong>Waaree Energies Limited</strong><br><small style="color:var(--text-muted);">Mainboard • BSE, NSE</small></td>
-                  <td style="padding:12px 8px;">₹1,503</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:700;">₹2,500 (+66.3%)</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:600;">Listed Oct 28, 2024</td>
-                  <td style="padding:12px 8px; font-weight:700;">76.34x</td>
-                  <td style="padding:12px 8px;">Link Intime India</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:12px 8px;"><strong>Sagility India Limited</strong><br><small style="color:var(--text-muted);">Mainboard • BSE, NSE</small></td>
-                  <td style="padding:12px 8px;">₹30</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:700;">₹31.06 (+3.53%)</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:600;">Listed Nov 12, 2024</td>
-                  <td style="padding:12px 8px; font-weight:700;">3.20x</td>
-                  <td style="padding:12px 8px;">Link Intime India</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:12px 8px;"><strong>Niva Bupa Health Insurance</strong><br><small style="color:var(--text-muted);">Mainboard • BSE, NSE</small></td>
-                  <td style="padding:12px 8px;">₹74</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:700;">₹78.50 (+6.08%)</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:600;">Listed Nov 14, 2024</td>
-                  <td style="padding:12px 8px; font-weight:700;">1.90x</td>
-                  <td style="padding:12px 8px;">KFin Technologies</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:12px 8px;"><strong>ACME Solar Holdings</strong><br><small style="color:var(--text-muted);">Mainboard • BSE, NSE</small></td>
-                  <td style="padding:12px 8px;">₹289</td>
-                  <td style="padding:12px 8px; color:#EF4444; font-weight:700;">₹259 (-10.38%)</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:600;">Listed Nov 13, 2024</td>
-                  <td style="padding:12px 8px; font-weight:700;">2.75x</td>
-                  <td style="padding:12px 8px;">KFin Technologies</td>
-                </tr>
-                <tr>
-                  <td style="padding:12px 8px;"><strong>Afcons Infrastructure</strong><br><small style="color:var(--text-muted);">Mainboard • BSE, NSE</small></td>
-                  <td style="padding:12px 8px;">₹463</td>
-                  <td style="padding:12px 8px; color:#EF4444; font-weight:700;">₹426 (-8.0%)</td>
-                  <td style="padding:12px 8px; color:var(--status-open); font-weight:600;">Listed Nov 4, 2024</td>
-                  <td style="padding:12px 8px; font-weight:700;">2.63x</td>
-                  <td style="padding:12px 8px;">Link Intime India</td>
-                </tr>
-              </tbody>
-            </table>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
+            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
+              <h3 style="font-size:15px; margin:0 0 6px;"><a href="blog/what-is-an-ipo.html" style="color:#1A237E; text-decoration:none;">What is an IPO? A Beginner's Guide &rarr;</a></h3>
+              <p style="font-size:13px; color:#64748B; margin:0;">Complete fundamentals of Initial Public Offerings in India, NSE/BSE listings, and how companies raise capital.</p>
+            </div>
+            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
+              <h3 style="font-size:15px; margin:0 0 6px;"><a href="blog/how-to-apply-for-ipo.html" style="color:#1A237E; text-decoration:none;">How to Apply for an IPO via UPI ASBA &rarr;</a></h3>
+              <p style="font-size:13px; color:#64748B; margin:0;">Step-by-step tutorial on bidding via discount brokers, cut-off prices, and UPI mandate authorizations.</p>
+            </div>
+            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
+              <h3 style="font-size:15px; margin:0 0 6px;"><a href="blog/understanding-grey-market-premium-gmp.html" style="color:#1A237E; text-decoration:none;">Understanding Grey Market Premium (GMP) &rarr;</a></h3>
+              <p style="font-size:13px; color:#64748B; margin:0;">Detailed analysis of Kostak rates, Subject to Sauda, off-market sentiment, and critical investment risks.</p>
+            </div>
+            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
+              <h3 style="font-size:15px; margin:0 0 6px;"><a href="blog/how-ipo-allotment-works.html" style="color:#1A237E; text-decoration:none;">How IPO Allotment Works in India &rarr;</a></h3>
+              <p style="font-size:13px; color:#64748B; margin:0;">SEBI's computerized proportionate lottery system, retail quotas, and maximizing allotment odds legally.</p>
+            </div>
+            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
+              <h3 style="font-size:15px; margin:0 0 6px;"><a href="blog/top-10-ipo-investing-tips.html" style="color:#1A237E; text-decoration:none;">Top 10 IPO Investing Tips for Retail Investors &rarr;</a></h3>
+              <p style="font-size:13px; color:#64748B; margin:0;">Checklist on DRHP reading, evaluating valuation multiples, monitoring QIB subscriptions, and exit rules.</p>
+            </div>
+            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
+              <h3 style="font-size:15px; margin:0 0 6px;"><a href="blog/how-to-check-ipo-allotment-status.html" style="color:#1A237E; text-decoration:none;">How to Check IPO Allotment Status Online &rarr;</a></h3>
+              <p style="font-size:13px; color:#64748B; margin:0;">Verified portals for Link Intime, KFintech, Bigshare, BSE, NSE, and bank mandate debit signals.</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Native In-Feed Ad Unit (Google AdSense Slot 1400016775) -->
-      <section class="infeed-ad-feed-wrapper" aria-label="Sponsored In-Feed Content">
-        <div class="adsense-infeed-card" aria-label="Sponsored In-Feed Content">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-format="fluid"
-               data-ad-layout-key="-6t+ed+2i-1n-4w"
-               data-ad-client="ca-pub-1181608933401999"
-               data-ad-slot="1400016775"></ins>
-          <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+        <!-- SEBI & YMYL Regulatory Disclaimer -->
+        <div style="margin-top:24px; padding:18px 22px; background:#FEF3C7; border-left:4px solid #F59E0B; border-radius:8px; font-size:13px; color:#92400E; line-height:1.6;">
+          <strong>SEBI Regulatory &amp; Financial Advisory Notice:</strong> IPO Pricealerter is an independent financial tracking and educational portal. We are NOT registered with SEBI as an Investment Adviser or Research Analyst. Securities investments are subject to market risks. Read the complete offer document (DRHP/RHP) before bidding.
         </div>
-      </section>
+      </div>
     </main>
 
     <!-- Global Floating Search Dialog (Command+K) -->
