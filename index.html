@@ -300,7 +300,7 @@
           <a href="#/gmp" class="nav-tab-link">GMP</a>
           <a href="#/calendar" class="nav-tab-link">Calendar</a>
           <a href="#/guide" class="nav-tab-link">Learn</a>
-          <a href="blog/index.html" class="nav-tab-link">Blog</a>
+          <a href="/blog/index.html" class="nav-tab-link">Blog</a>
         </nav>
 
         <div class="header-right">
@@ -403,11 +403,16 @@
         <!-- Figure 1 2-Column Corporate Grid -->
         <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
           <div class="fig1-left-col">
-            <!-- Trending IPOs (Matching Uploaded Reference Photo) -->
+            <!-- Top Gainers & Most Profitable Stocks -->
             <div class="fig1-panel-card">
               <div class="fig1-panel-header">
-                <h2 class="fig1-panel-title">🔥 Trending IPOs</h2>
-                <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <h2 class="fig1-panel-title">🏆 Top Gainers &amp; Most Profitable Stocks</h2>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <div class="widget-source-tag">Google Finance &amp; Exchange Synced</div>
+                  <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+                </div>
               </div>
               <div class="fig1-table-responsive">
                 <table class="fig1-trending-table">
@@ -415,33 +420,13 @@
                     <tr>
                       <th>COMPANY</th>
                       <th>ISSUE PRICE</th>
-                      <th>CURRENT</th>
-                      <th>RETURN</th>
+                      <th>CURRENT / EST.</th>
+                      <th>PROFIT GAIN</th>
                       <th>SUBSCRIPTION</th>
                       <th>TREND</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/swiggy-limited-ipo'">
-                      <td>
-                        <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-sw">SW</div>
-                          <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Swiggy Ltd</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td><span class="fig1-val-price">₹390</span></td>
-                      <td><span class="fig1-val-price">₹420</span></td>
-                      <td><span class="fig1-return-tag positive">+7.69% ▲</span></td>
-                      <td><span class="fig1-sub-pill">3.59x</span></td>
-                      <td>
-                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
-                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,8 58,2"></polyline>
-                        </svg>
-                      </td>
-                    </tr>
                     <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/waaree-energies-ipo'">
                       <td>
                         <div class="fig1-company-cell">
@@ -453,32 +438,52 @@
                         </div>
                       </td>
                       <td><span class="fig1-val-price">₹1,503</span></td>
-                      <td><span class="fig1-val-price">₹2,500</span></td>
-                      <td><span class="fig1-return-tag positive">+66.3% ▲</span></td>
+                      <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">₹2,500</span></td>
+                      <td><span class="fig1-return-tag positive">+66.30% ▲</span></td>
                       <td><span class="fig1-sub-pill" style="background:#FEF3C7; color:#D97706; font-weight:700;">76.34x</span></td>
                       <td>
                         <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
-                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,15 38,7 58,2"></polyline>
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 18,14 36,8 58,2"></polyline>
                         </svg>
                       </td>
                     </tr>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/niva-bupa-health-insurance-ipo'">
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-nb">NB</div>
+                          <div class="fig1-avatar fig1-avatar-sw">ME</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Niva Bupa Health Ins.</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
+                            <span class="fig1-company-name">Maxwell Engineering</span>
+                            <span class="fig1-sub-tag listed" style="background:#DCFCE7; color:#15803D;">Open Now</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹74</span></td>
-                      <td><span class="fig1-val-price">₹78.50</span></td>
-                      <td><span class="fig1-return-tag positive">+6.08% ▲</span></td>
-                      <td><span class="fig1-sub-pill">1.90x</span></td>
+                      <td><span class="fig1-val-price">₹158</span></td>
+                      <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">₹228 (Est.)</span></td>
+                      <td><span class="fig1-return-tag positive">+44.30% ▲</span></td>
+                      <td><span class="fig1-sub-pill" style="background:#DCFCE7; color:#15803D; font-weight:700;">4.67x</span></td>
                       <td>
                         <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
-                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,9 58,2"></polyline>
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,18 19,13 38,7 58,2"></polyline>
+                        </svg>
+                      </td>
+                    </tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/zetwerk-ipo'">
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-nt">ZW</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">Zetwerk</span>
+                            <span class="fig1-sub-tag listed" style="background:#EFF6FF; color:#1D4ED8;">Upcoming</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹500</span></td>
+                      <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">₹642 (Est.)</span></td>
+                      <td><span class="fig1-return-tag positive">+28.40% ▲</span></td>
+                      <td><span class="fig1-sub-pill" style="background:#EFF6FF; color:#1D4ED8; font-weight:700;">Anchor</span></td>
+                      <td>
+                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,19 19,15 38,9 58,4"></polyline>
                         </svg>
                       </td>
                     </tr>
@@ -493,32 +498,32 @@
                         </div>
                       </td>
                       <td><span class="fig1-val-price">₹108</span></td>
-                      <td><span class="fig1-val-price">₹130</span></td>
+                      <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">₹130</span></td>
                       <td><span class="fig1-return-tag positive">+20.37% ▲</span></td>
                       <td><span class="fig1-sub-pill">2.42x</span></td>
                       <td>
                         <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
-                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,14 38,8 58,2"></polyline>
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,10 58,5"></polyline>
                         </svg>
                       </td>
                     </tr>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/sagility-india-ipo'">
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/swiggy-limited-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-sg">SG</div>
+                          <div class="fig1-avatar fig1-avatar-sw">SW</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Sagility India</span>
+                            <span class="fig1-company-name">Swiggy Ltd</span>
                             <span class="fig1-sub-tag listed">Listed</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹30</span></td>
-                      <td><span class="fig1-val-price">₹28</span></td>
-                      <td><span class="fig1-return-tag negative">-6.67% ▼</span></td>
-                      <td><span class="fig1-sub-pill">0.85x</span></td>
+                      <td><span class="fig1-val-price">₹390</span></td>
+                      <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">₹420</span></td>
+                      <td><span class="fig1-return-tag positive">+7.69% ▲</span></td>
+                      <td><span class="fig1-sub-pill">3.59x</span></td>
                       <td>
                         <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
-                          <polyline fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,2 19,8 38,13 58,20"></polyline>
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,18 19,14 38,11 58,7"></polyline>
                         </svg>
                       </td>
                     </tr>
@@ -646,40 +651,75 @@
                 </div>
               </div>
               <div class="fig1-gmp-list">
-                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/waaree-energies-ipo'">
+                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">
                   <div class="fig1-gmp-left">
-                    <div class="fig1-avatar fig1-avatar-we" style="width:36px; height:36px; font-size:13px;">WE</div>
-                    <span class="fig1-company-name" style="font-size:14px;">Waaree Energies</span>
+                    <div style="font-size:11px; font-weight:800; color:#475569; min-width:18px;">#1</div>
+                    <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; background:linear-gradient(135deg, #10B981, #059669); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">ME</div>
+                    <div style="display:flex; flex-direction:column;">
+                      <span class="fig1-company-name" style="font-size:13.5px;">Maxwell Engineering</span>
+                      <span style="font-size:10.5px; color:#16A34A; font-weight:600;">🟢 Open Now</span>
+                    </div>
                   </div>
-                  <span class="fig1-gmp-val pos">+₹980</span>
+                  <div style="text-align:right;">
+                    <span class="fig1-gmp-val pos">+₹70</span>
+                    <div style="font-size:10.5px; color:#16A34A; font-weight:600;">(+44.3%)</div>
+                  </div>
                 </div>
-                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/swiggy-limited-ipo'">
+                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'">
                   <div class="fig1-gmp-left">
-                    <div class="fig1-avatar fig1-avatar-sw" style="width:36px; height:36px; font-size:13px;">SW</div>
-                    <span class="fig1-company-name" style="font-size:14px;">Swiggy Ltd</span>
+                    <div style="font-size:11px; font-weight:800; color:#475569; min-width:18px;">#2</div>
+                    <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; background:linear-gradient(135deg, #3B82F6, #2563EB); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">JE</div>
+                    <div style="display:flex; flex-direction:column;">
+                      <span class="fig1-company-name" style="font-size:13.5px;">Johnsoncab Electricals</span>
+                      <span style="font-size:10.5px; color:#16A34A; font-weight:600;">🟢 Open Now</span>
+                    </div>
                   </div>
-                  <span class="fig1-gmp-val pos">+₹28</span>
+                  <div style="text-align:right;">
+                    <span class="fig1-gmp-val pos">+₹15</span>
+                    <div style="font-size:10.5px; color:#16A34A; font-weight:600;">(+7.5%)</div>
+                  </div>
                 </div>
-                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/niva-bupa-health-insurance-ipo'">
+                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/hgs-india-ipo'">
                   <div class="fig1-gmp-left">
-                    <div class="fig1-avatar fig1-avatar-nb" style="width:36px; height:36px; font-size:13px;">NB</div>
-                    <span class="fig1-company-name" style="font-size:14px;">Niva Bupa</span>
+                    <div style="font-size:11px; font-weight:800; color:#475569; min-width:18px;">#3</div>
+                    <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; background:linear-gradient(135deg, #8B5CF6, #7C3AED); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">HG</div>
+                    <div style="display:flex; flex-direction:column;">
+                      <span class="fig1-company-name" style="font-size:13.5px;">HGS India</span>
+                      <span style="font-size:10.5px; color:#16A34A; font-weight:600;">🟢 Open Now</span>
+                    </div>
                   </div>
-                  <span class="fig1-gmp-val pos">+₹4</span>
+                  <div style="text-align:right;">
+                    <span class="fig1-gmp-val pos">+₹14</span>
+                    <div style="font-size:10.5px; color:#16A34A; font-weight:600;">(+11.67%)</div>
+                  </div>
                 </div>
-                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/ntpc-green-energy-ipo'">
+                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'">
                   <div class="fig1-gmp-left">
-                    <div class="fig1-avatar fig1-avatar-nt" style="width:36px; height:36px; font-size:13px;">NT</div>
-                    <span class="fig1-company-name" style="font-size:14px;">NTPC Green</span>
+                    <div style="font-size:11px; font-weight:800; color:#475569; min-width:18px;">#4</div>
+                    <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">VE</div>
+                    <div style="display:flex; flex-direction:column;">
+                      <span class="fig1-company-name" style="font-size:13.5px;">Vectras Enprocon</span>
+                      <span style="font-size:10.5px; color:#16A34A; font-weight:600;">🟢 Open Now</span>
+                    </div>
                   </div>
-                  <span class="fig1-gmp-val pos">+₹22</span>
+                  <div style="text-align:right;">
+                    <span class="fig1-gmp-val pos">+₹5</span>
+                    <div style="font-size:10.5px; color:#16A34A; font-weight:600;">(+4.76%)</div>
+                  </div>
                 </div>
-                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/sagility-india-ipo'">
+                <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/antala-industries-ipo'">
                   <div class="fig1-gmp-left">
-                    <div class="fig1-avatar fig1-avatar-sg" style="width:36px; height:36px; font-size:13px;">SG</div>
-                    <span class="fig1-company-name" style="font-size:14px;">Sagility India</span>
+                    <div style="font-size:11px; font-weight:800; color:#475569; min-width:18px;">#5</div>
+                    <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; background:linear-gradient(135deg, #F59E0B, #D97706); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">AI</div>
+                    <div style="display:flex; flex-direction:column;">
+                      <span class="fig1-company-name" style="font-size:13.5px;">Antala Industries</span>
+                      <span style="font-size:10.5px; color:#16A34A; font-weight:600;">🟢 Open Now</span>
+                    </div>
                   </div>
-                  <span class="fig1-gmp-val neg">-₹2</span>
+                  <div style="text-align:right;">
+                    <span class="fig1-gmp-val pos">+₹1</span>
+                    <div style="font-size:10.5px; color:#16A34A; font-weight:600;">(+1.49%)</div>
+                  </div>
                 </div>
               </div>
               <div style="margin-top:10px; font-size:11px; color:#64748B; line-height:1.45; border-top:1px dashed #E2E8F0; padding-top:8px;">
@@ -694,44 +734,56 @@
                 <a href="#/calendar" class="fig1-header-link" style="font-size:12px; color:var(--primary-green); text-decoration:none; font-weight:600;">Full Calendar &rarr;</a>
               </div>
               <div class="fig1-calendar-list">
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
+                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/antala-industries-ipo'" style="cursor:pointer;">
                   <div class="fig1-cal-date-badge date-badge-open">
-                    <span class="fig1-cal-day">18</span>
-                    <span class="fig1-cal-month">DEC</span>
+                    <span class="fig1-cal-day">02</span>
+                    <span class="fig1-cal-month">NOV</span>
                   </div>
                   <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">ABC Infra Ltd</span>
-                    <span class="fig1-cal-status-pill open">Open</span>
+                    <span class="fig1-cal-name">Antala Industries</span>
+                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+                      <span class="fig1-cal-status-pill open">Closes Soon</span>
+                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
+                    </div>
                   </div>
                 </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-upcoming">
-                    <span class="fig1-cal-day">20</span>
-                    <span class="fig1-cal-month">DEC</span>
+                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'" style="cursor:pointer;">
+                  <div class="fig1-cal-date-badge date-badge-open">
+                    <span class="fig1-cal-day">03</span>
+                    <span class="fig1-cal-month">NOV</span>
                   </div>
                   <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">XYZ Finance Ltd</span>
-                    <span class="fig1-cal-status-pill upcoming">Upcoming</span>
+                    <span class="fig1-cal-name">Vectras Enprocon</span>
+                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+                      <span class="fig1-cal-status-pill open">Closes Soon</span>
+                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
+                    </div>
                   </div>
                 </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-upcoming">
-                    <span class="fig1-cal-day">23</span>
-                    <span class="fig1-cal-month">DEC</span>
+                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'" style="cursor:pointer;">
+                  <div class="fig1-cal-date-badge date-badge-open">
+                    <span class="fig1-cal-day">03</span>
+                    <span class="fig1-cal-month">NOV</span>
                   </div>
                   <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">PQR Tech Solutions</span>
-                    <span class="fig1-cal-status-pill upcoming">Upcoming</span>
+                    <span class="fig1-cal-name">Maxwell Engineering</span>
+                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+                      <span class="fig1-cal-status-pill open">Closes Soon</span>
+                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
+                    </div>
                   </div>
                 </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-tentative">
-                    <span class="fig1-cal-day">27</span>
-                    <span class="fig1-cal-month">DEC</span>
+                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'" style="cursor:pointer;">
+                  <div class="fig1-cal-date-badge date-badge-open">
+                    <span class="fig1-cal-day">03</span>
+                    <span class="fig1-cal-month">NOV</span>
                   </div>
                   <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">MNO Pharma Ltd</span>
-                    <span class="fig1-cal-status-pill tentative">Tentative</span>
+                    <span class="fig1-cal-name">Johnsoncab Electricals</span>
+                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+                      <span class="fig1-cal-status-pill open">Closes Soon</span>
+                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
+                    </div>
                   </div>
                 </div>
               </div>

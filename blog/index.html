@@ -65,18 +65,20 @@
       .cat-pill {
         padding: 8px 18px;
         border-radius: 20px;
-        background: var(--bg-card, #1E293B);
-        color: var(--text-secondary, #94A3B8);
+        background: #FFFFFF;
+        color: #475569;
         text-decoration: none;
         font-size: 13px;
         font-weight: 600;
-        border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+        font-family: inherit;
+        border: 1px solid #CBD5E1;
+        cursor: pointer;
         transition: all 0.2s ease;
       }
       .cat-pill.active, .cat-pill:hover {
-        background: #1a237e;
+        background: #142B49;
         color: #ffffff;
-        border-color: #00897b;
+        border-color: #142B49;
       }
       .article-grid {
         display: grid;
@@ -183,121 +185,121 @@
 
       <div class="blog-container">
         <div class="category-tabs">
-          <span class="cat-pill active">All Guides</span>
-          <span class="cat-pill">Beginner Essentials</span>
-          <span class="cat-pill">Allotment & ASBA</span>
-          <span class="cat-pill">GMP & Valuation</span>
-          <span class="cat-pill">SME vs Mainboard</span>
+          <button type="button" class="cat-pill active" data-cat="all">All Guides (10)</button>
+          <button type="button" class="cat-pill" data-cat="beginner">Beginner Essentials</button>
+          <button type="button" class="cat-pill" data-cat="asba">Allotment &amp; ASBA</button>
+          <button type="button" class="cat-pill" data-cat="gmp">GMP &amp; Valuation</button>
+          <button type="button" class="cat-pill" data-cat="sme">SME vs Mainboard</button>
         </div>
 
-        <div class="article-grid">
+        <div class="article-grid" id="blog-article-grid">
           <!-- Article 1 -->
-          <a href="what-is-an-ipo.html" class="article-card">
+          <a href="what-is-an-ipo.html" class="article-card" data-category="beginner">
             <span class="article-cat-tag">Beginner Guide</span>
             <h2>What is an IPO? A Complete Beginner's Guide for Indian Investors</h2>
             <p>Understand how Initial Public Offerings work in India, why private companies go public on NSE/BSE, the differences between fixed price and book-built issues, and key terms every novice investor must know.</p>
             <div class="article-meta">
               <span>8 min read • Updated Nov 2024</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 2 -->
-          <a href="how-to-apply-for-ipo.html" class="article-card">
+          <a href="how-to-apply-for-ipo.html" class="article-card" data-category="asba">
             <span class="article-cat-tag">Step-by-Step Tutorial</span>
             <h2>How to Apply for an IPO in India — Step by Step (UPI & ASBA Guide)</h2>
             <p>Step-by-step tutorial on applying for Mainboard and SME IPOs via UPI 2.0 mandate or Net Banking ASBA through Zerodha, Groww, Upstox, and ICICI Direct without broker commission fees.</p>
             <div class="article-meta">
               <span>9 min read • Practical Guide</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 3 -->
-          <a href="understanding-grey-market-premium-gmp.html" class="article-card">
+          <a href="understanding-grey-market-premium-gmp.html" class="article-card" data-category="gmp">
             <span class="article-cat-tag">Market Analysis</span>
             <h2>Understanding Grey Market Premium (GMP) in IPOs — Realities & Risks</h2>
             <p>Everything you need to know about Grey Market Premium (GMP), Kostak rates, Subject to Sauda terms, how off-market sentiments are calculated, and why GMP is not guaranteed listing performance.</p>
             <div class="article-meta">
               <span>10 min read • Risk Analysis</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 4 -->
-          <a href="ipo-vs-fpo-vs-ofs.html" class="article-card">
+          <a href="ipo-vs-fpo-vs-ofs.html" class="article-card" data-category="sme">
             <span class="article-cat-tag">Comparison Guide</span>
             <h2>IPO vs FPO vs OFS — What's the Difference for Retail Investors?</h2>
             <p>Clear, side-by-side comparison between Initial Public Offerings, Follow-on Public Offers, and Offers for Sale. Learn how capital dilution, pricing mechanisms, and tax treatments differ.</p>
             <div class="article-meta">
               <span>7 min read • Comparison</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 5 -->
-          <a href="how-ipo-allotment-works.html" class="article-card">
+          <a href="how-ipo-allotment-works.html" class="article-card" data-category="asba">
             <span class="article-cat-tag">SEBI Regulations</span>
             <h2>How IPO Allotment Works in India — Retail Quota & Lottery System Explained</h2>
             <p>Demystifying SEBI's computerized lottery allotment process for oversubscribed retail issues, proportionate allotment rules for sNII and bNII categories, and tips to maximize allotment chances legally.</p>
             <div class="article-meta">
               <span>8 min read • Regulatory Guide</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 6 -->
-          <a href="top-10-ipo-investing-tips.html" class="article-card">
+          <a href="top-10-ipo-investing-tips.html" class="article-card" data-category="beginner gmp">
             <span class="article-cat-tag">Strategy</span>
             <h2>Top 10 Tips for IPO Investing for Beginners in India</h2>
             <p>Essential checklist for analyzing Red Herring Prospectuses (RHP), peer valuations (P/E, P/B), debt obligations, promoter integrity, anchor book participation, and crafting a disciplined listing-day exit strategy.</p>
             <div class="article-meta">
               <span>11 min read • Masterclass</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 7 -->
-          <a href="how-to-check-ipo-allotment-status.html" class="article-card">
+          <a href="how-to-check-ipo-allotment-status.html" class="article-card" data-category="asba">
             <span class="article-cat-tag">Practical Guide</span>
             <h2>How to Check IPO Allotment Status Online — 5 Easy & Direct Methods</h2>
             <p>Detailed walkthrough on verifying share allotment through registrar portals (Link Intime, KFintech, Bigshare, Maashitla), BSE India, NSE India, CDSL/NSDL demat holdings, and bank mandate debits.</p>
             <div class="article-meta">
               <span>6 min read • Verification</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 8 -->
-          <a href="what-is-book-building-process.html" class="article-card">
+          <a href="what-is-book-building-process.html" class="article-card" data-category="beginner">
             <span class="article-cat-tag">Market Mechanics</span>
             <h2>What is the Book Building Process in IPO? Price Discovery Explained</h2>
             <p>How investment bankers (BRLMs) and issuing companies establish price bands, cut-off price mechanics, compilation of institutional order books, and how market forces determine final issue prices.</p>
             <div class="article-meta">
               <span>7 min read • Market Mechanics</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 9 -->
-          <a href="mainboard-vs-sme-ipo.html" class="article-card">
+          <a href="mainboard-vs-sme-ipo.html" class="article-card" data-category="sme">
             <span class="article-cat-tag">SME Emerge</span>
             <h2>Mainboard vs SME IPO — Which is Better for Your Risk Profile?</h2>
             <p>Comparing NSE Emerge / BSE SME platforms with Mainboard issues. Detailed breakdown of minimum ticket size (₹1 Lakh+), liquidity constraints, market maker responsibilities, and migration rules.</p>
             <div class="article-meta">
               <span>9 min read • Risk Assessment</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
 
           <!-- Article 10 -->
-          <a href="how-to-open-demat-account-for-ipo.html" class="article-card">
+          <a href="how-to-open-demat-account-for-ipo.html" class="article-card" data-category="beginner">
             <span class="article-cat-tag">Account Setup</span>
             <h2>How to Open a Demat Account for IPO Applications in India</h2>
             <p>Complete guide to selecting top discount and full-service depository participants (DPs), necessary KYC documentation, PAN-Aadhaar linking mandates, and setting up UPI handles for fast primary market bidding.</p>
             <div class="article-meta">
               <span>8 min read • Setup Tutorial</span>
-              <span class="read-more">Read Guide →</span>
+              <span class="read-more">Read Full Guide →</span>
             </div>
           </a>
         </div>
@@ -340,5 +342,29 @@
         </div>
       </div>
     </footer>
+    <!-- Category Filtering Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const pills = document.querySelectorAll(".category-tabs .cat-pill");
+        const cards = document.querySelectorAll("#blog-article-grid .article-card");
+
+        pills.forEach(pill => {
+          pill.addEventListener("click", function() {
+            pills.forEach(p => p.classList.remove("active"));
+            pill.classList.add("active");
+            const cat = pill.getAttribute("data-cat") || "all";
+
+            cards.forEach(card => {
+              const cardCat = card.getAttribute("data-category") || "";
+              if (cat === "all" || cardCat.split(" ").includes(cat)) {
+                card.style.display = "flex";
+              } else {
+                card.style.display = "none";
+              }
+            });
+          });
+        });
+      });
+    </script>
   </body>
 </html>
