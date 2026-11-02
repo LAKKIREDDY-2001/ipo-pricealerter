@@ -1147,17 +1147,17 @@
         trend: [74, 75, 77, 78.5]
       },
       {
-        slug: "godavari-biorefineries",
-        name: "Godavari Biorefineries",
-        initials: "GB",
-        avatarClass: "fig1-avatar-gb",
+        slug: "ntpc-green-energy-ipo",
+        name: "NTPC Green Energy",
+        initials: "NT",
+        avatarClass: "fig1-avatar-nt",
         status: "Listed",
-        issuePrice: "₹352",
-        currentPrice: "₹368",
-        returnVal: "+4.55% ▲",
+        issuePrice: "₹108",
+        currentPrice: "₹130",
+        returnVal: "+20.37% ▲",
         isPositive: true,
-        sub: "1.83x",
-        trend: [352, 355, 362, 368]
+        sub: "2.42x",
+        trend: [108, 114, 122, 130]
       },
       {
         slug: "sagility-india-ipo",
@@ -1358,13 +1358,13 @@
   function renderFig1PerformanceChart() {
     const chartBars = [
       { name: "Waaree", pct: 66.3, isGain: true, height: 95 },
-      { name: "Maxwell", pct: 44.3, isGain: true, height: 68 },
-      { name: "Swiggy", pct: 7.7, isGain: true, height: 20 },
-      { name: "Niva Bupa", pct: 6.1, isGain: true, height: 16 },
-      { name: "Godavari", pct: 4.5, isGain: true, height: 13 },
-      { name: "Afcons", pct: -7.1, isGain: false, height: 18 },
+      { name: "NTPC", pct: 20.4, isGain: true, height: 38 },
+      { name: "Swiggy", pct: 7.7, isGain: true, height: 18 },
+      { name: "Niva Bupa", pct: 6.1, isGain: true, height: 15 },
+      { name: "ABC Infra", pct: 7.2, isGain: true, height: 17 },
+      { name: "XYZ Fin", pct: -4.8, isGain: false, height: 14 },
       { name: "Sagility", pct: -6.7, isGain: false, height: 17 },
-      { name: "HGS India", pct: 11.7, isGain: true, height: 28 }
+      { name: "PQR Tech", pct: 15.3, isGain: true, height: 30 }
     ];
 
     return `
@@ -1393,12 +1393,11 @@
 
   function renderFig1GmpTodayWidget() {
     const gmpList = [
-      { slug: "maxwell-engineering-solutions-ipo", initials: "ME", avatarClass: "fig1-avatar-we", name: "Maxwell Engg.", val: "+₹70", pos: true },
-      { slug: "johnsoncab-electricals-ipo", initials: "JC", avatarClass: "fig1-avatar-sw", name: "Johnsoncab Elec.", val: "+₹15", pos: true },
-      { slug: "hgs-india-ipo", initials: "HG", avatarClass: "fig1-avatar-nt", name: "HGS India", val: "+₹14", pos: true },
-      { slug: "vectras-enprocon-ipo", initials: "VE", avatarClass: "fig1-avatar-nb", name: "Vectras Enprocon", val: "+₹5", pos: true },
-      { slug: "carver-roboweld-ipo", initials: "CR", avatarClass: "fig1-avatar-sg", name: "Carver Roboweld", val: "+₹8", pos: true },
-      { slug: "bls-polymers-ipo", initials: "BP", avatarClass: "fig1-avatar-we", name: "BLS Polymers", val: "+₹15", pos: true }
+      { slug: "waaree-energies-ipo", initials: "WE", avatarClass: "fig1-avatar-we", name: "Waaree Energies", val: "+₹980", pos: true },
+      { slug: "swiggy-limited-ipo", initials: "SW", avatarClass: "fig1-avatar-sw", name: "Swiggy Ltd", val: "+₹28", pos: true },
+      { slug: "niva-bupa-health-insurance-ipo", initials: "NB", avatarClass: "fig1-avatar-nb", name: "Niva Bupa", val: "+₹4", pos: true },
+      { slug: "ntpc-green-energy-ipo", initials: "NT", avatarClass: "fig1-avatar-nt", name: "NTPC Green", val: "+₹22", pos: true },
+      { slug: "sagility-india-ipo", initials: "SG", avatarClass: "fig1-avatar-sg", name: "Sagility India", val: "-₹2", pos: false }
     ];
 
     return `
@@ -1427,11 +1426,10 @@
 
   function renderFig1CalendarWidget() {
     const events = [
-      { day: "29", month: "OCT", name: "Antala Industries", status: "Open", statusClass: "open", slug: "antala-industries-ipo" },
-      { day: "30", month: "OCT", name: "Maxwell Engineering", status: "Open", statusClass: "open", slug: "maxwell-engineering-solutions-ipo" },
-      { day: "30", month: "OCT", name: "HGS India", status: "Open", statusClass: "open", slug: "hgs-india-ipo" },
-      { day: "04", month: "NOV", name: "Vedant Poly Fabs", status: "Upcoming", statusClass: "upcoming", slug: "vedant-poly-fabs-ipo" },
-      { day: "TBA", month: "2024", name: "Zepto / Razorpay", status: "Tentative", statusClass: "tentative", slug: "zepto-ipo" }
+      { day: "18", month: "DEC", name: "ABC Infra Ltd", status: "Open", statusClass: "open", slug: "calendar" },
+      { day: "20", month: "DEC", name: "XYZ Finance Ltd", status: "Upcoming", statusClass: "upcoming", slug: "calendar" },
+      { day: "23", month: "DEC", name: "PQR Tech Solutions", status: "Upcoming", statusClass: "upcoming", slug: "calendar" },
+      { day: "27", month: "DEC", name: "MNO Pharma Ltd", status: "Tentative", statusClass: "tentative", slug: "calendar" }
     ];
 
     return `
@@ -1569,10 +1567,19 @@
 
     app.innerHTML = `
       <div class="fig1-dashboard-wrap">
-        <!-- Fintech Hero Section -->
-        ${renderFintechHeroSection()}
+        <!-- Dashboard Top Intro Strip (Executive Overview) -->
+        <div class="dashboard-top-intro">
+          <div class="dashboard-top-title-wrap">
+            <h1 class="dashboard-top-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
+            <p class="dashboard-top-subtitle">Real-time primary market updates, Grey Market Premium (GMP), subscription multiples and listing performance.</p>
+          </div>
+          <div class="dashboard-live-indicator">
+            <span class="live-pulse"></span>
+            <span>Live Market Intelligence</span>
+          </div>
+        </div>
 
-        <!-- Figure 1 Top 4 Summary Cards -->
+        <!-- Figure 1 Top 4 Summary Cards (Directly Visible at Top) -->
         ${renderFig1SummaryCards(openCount, upcomingCount, closedCount, listedCount)}
 
         <!-- Figure 1 2-Column Corporate Grid (Matching Uploaded Reference Photo) -->
