@@ -1221,7 +1221,7 @@
       { slug: "maxwell-engineering-solutions-ipo", initials: "ME", avatarClass: "fig1-avatar-we", name: "Maxwell Engg.", val: "+₹70", pos: true },
       { slug: "johnsoncab-electricals-ipo", initials: "JC", avatarClass: "fig1-avatar-sw", name: "Johnsoncab Elec.", val: "+₹15", pos: true },
       { slug: "hgs-india-ipo", initials: "HG", avatarClass: "fig1-avatar-nt", name: "HGS India", val: "+₹14", pos: true },
-      { slug: "bombay-coated-and-special-steels-ipo", initials: "BC", avatarClass: "fig1-avatar-nb", name: "Bombay Coated", val: "+₹8.5", pos: true },
+      { slug: "vectras-enprocon-ipo", initials: "VE", avatarClass: "fig1-avatar-nb", name: "Vectras Enprocon", val: "+₹5", pos: true },
       { slug: "carver-roboweld-ipo", initials: "CR", avatarClass: "fig1-avatar-sg", name: "Carver Roboweld", val: "+₹8", pos: true },
       { slug: "bls-polymers-ipo", initials: "BP", avatarClass: "fig1-avatar-we", name: "BLS Polymers", val: "+₹15", pos: true }
     ];
@@ -1252,7 +1252,7 @@
 
   function renderFig1CalendarWidget() {
     const events = [
-      { day: "29", month: "OCT", name: "Bombay Coated", status: "Open", statusClass: "open", slug: "bombay-coated-and-special-steels-ipo" },
+      { day: "29", month: "OCT", name: "Antala Industries", status: "Open", statusClass: "open", slug: "antala-industries-ipo" },
       { day: "30", month: "OCT", name: "Maxwell Engineering", status: "Open", statusClass: "open", slug: "maxwell-engineering-solutions-ipo" },
       { day: "30", month: "OCT", name: "HGS India", status: "Open", statusClass: "open", slug: "hgs-india-ipo" },
       { day: "04", month: "NOV", name: "Vedant Poly Fabs", status: "Upcoming", statusClass: "upcoming", slug: "vedant-poly-fabs-ipo" },

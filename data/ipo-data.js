@@ -22,11 +22,14 @@ window.IpoData = {
       "initials": "BC",
       "logoColor": "#2563EB",
       "iconType": "infra",
-      "status": "OPEN",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Metals & Special Steels",
       "issueType": "Mainboard (Fresh Issue)",
+      "issuePrice": 82,
+      "listingPrice": 90.5,
+      "listingGainPct": 10.37,
       "priceBandLow": 78,
       "priceBandHigh": 82,
       "lotSize": 182,
@@ -8862,12 +8865,12 @@ window.IpoData = {
     {
       "id": "notif-bombay-coated",
       "slug": "bombay-coated-and-special-steels-ipo",
-      "title": "Bombay Coated & Special Steels (Mainboard)",
-      "tag": "⏳ CLOSING SOON",
-      "tagClass": "tag-closing",
+      "title": "Bombay Coated & Special Steels (BSE/NSE) Listed",
+      "tag": "🚀 LISTED +10.37%",
+      "tagClass": "tag-gmp",
       "pinned": true,
-      "description": "Bidding active for Mainboard issue. Overall subscription 3.98x (QIB 6.89x, Retail 3.17x). GMP steady at +₹8.50 (+10.4%), Est. Listing ₹90.50.",
-      "time": "Active Bidding • Closes Nov 2 • BSE, NSE"
+      "description": "Bombay Coated & Special Steels listed on stock exchanges (BSE & NSE) at ₹90.50 vs ₹82 issue price (+10.37% listing return).",
+      "time": "Listed • Mainboard • BSE, NSE"
     },
     {
       "id": "notif-maxwell",
