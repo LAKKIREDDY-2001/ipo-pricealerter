@@ -1,19 +1,351 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="utf-8">
-    <title>IPO Pricealerter — Live IPO Tracker</title>
-    <meta http-equiv="refresh" content="0; url=https://pricealerter.in/">
-    <link rel="canonical" href="https://pricealerter.in/">
-    <meta name="robots" content="noindex, follow">
-    <script>
-      window.location.replace("https://pricealerter.in/");
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>IPO Learning Center & Knowledge Base — IPO Pricealerter</title>
+    <meta name="description" content="Master Indian IPO investing with comprehensive beginner guides, GMP analysis, allotment procedures, ASBA bidding tutorials, and market strategies.">
+    <meta name="keywords" content="IPO education, what is IPO, how to apply for IPO, grey market premium, IPO allotment process, book building, SME IPO vs Mainboard, demat account for IPO">
+    <meta name="author" content="IPO Pricealerter">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://pricealerter.in/blog/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pricealerter.in/blog/">
+    <meta property="og:title" content="IPO Learning Center & Knowledge Base — IPO Pricealerter">
+    <meta property="og:description" content="In-depth educational guides and expert analysis on Indian primary markets, SEBI guidelines, Grey Market Premium (GMP), and IPO allotment strategies.">
+    <meta property="og:site_name" content="IPO Pricealerter">
+    <meta property="og:image" content="https://pricealerter.in/og-image.png">
+
+    <!-- Google AdSense Account Verification -->
+    <meta name="google-adsense-account" content="ca-pub-1181608933401999">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1181608933401999" crossorigin="anonymous"></script>
+
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=20241115_v11">
+
+    <style>
+      .blog-hero {
+        background: linear-gradient(135deg, #1a237e 0%, #0d1547 60%, #00897b 100%);
+        padding: 50px 24px 60px;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 0 0 24px 24px;
+        margin-bottom: 40px;
+      }
+      .blog-hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+        margin: 0 0 12px;
+      }
+      .blog-hero p {
+        font-size: 16px;
+        color: #E2E8F0;
+        max-width: 680px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+      .blog-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px 60px;
+      }
+      .category-tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        justify-content: center;
+      }
+      .cat-pill {
+        padding: 8px 18px;
+        border-radius: 20px;
+        background: var(--bg-card, #1E293B);
+        color: var(--text-secondary, #94A3B8);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+        transition: all 0.2s ease;
+      }
+      .cat-pill.active, .cat-pill:hover {
+        background: #1a237e;
+        color: #ffffff;
+        border-color: #00897b;
+      }
+      .article-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 24px;
+      }
+      .article-card {
+        background: var(--bg-card, #1E293B);
+        border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+        border-radius: 14px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+      }
+      .article-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+        border-color: rgba(0, 137, 123, 0.4);
+      }
+      .article-cat-tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: rgba(0, 137, 123, 0.15);
+        color: #34D399;
+        margin-bottom: 12px;
+        align-self: flex-start;
+      }
+      .article-card h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary, #F8FAFC);
+        margin: 0 0 10px;
+        line-height: 1.4;
+      }
+      .article-card p {
+        font-size: 13px;
+        color: var(--text-body, #94A3B8);
+        line-height: 1.6;
+        margin: 0 0 16px;
+        flex-grow: 1;
+      }
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text-muted, #64748B);
+        border-top: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+        padding-top: 12px;
+      }
+      .read-more {
+        color: #38BDF8;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      @media (max-width: 768px) {
+        .article-grid { grid-template-columns: 1fr; }
+        .blog-hero h1 { font-size: 26px; }
+      }
+    </style>
   </head>
-  <body style="font-family:sans-serif; background:#0B0E17; color:#fff; display:grid; place-items:center; height:100vh; margin:0;">
-    <div style="text-align:center;">
-      <h2>Redirecting to IPO Pricealerter...</h2>
-      <p><a href="https://pricealerter.in/" style="color:#3B82F6;">Click here to visit IPO Pricealerter</a></p>
-    </div>
+  <body>
+    <!-- Site Navigation Header -->
+    <header class="site-header">
+      <div class="nav-container">
+        <a href="../#/" class="brand-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00897b" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+          <span style="color:#ffffff; font-weight:700; font-family:'Poppins',sans-serif;">IPO PriceAlerter</span>
+        </a>
+        <nav class="main-nav">
+          <a href="../#/" class="nav-tab-link">Home</a>
+          <a href="../#/?status=open" class="nav-tab-link">Open IPOs</a>
+          <a href="../#/?status=upcoming" class="nav-tab-link">Upcoming</a>
+          <a href="../#/gmp" class="nav-tab-link">GMP Today</a>
+          <a href="./" class="nav-tab-link active">Learn</a>
+          <a href="../#/calendar" class="nav-tab-link">Calendar</a>
+        </nav>
+        <div class="header-right-actions">
+          <a href="../#/" class="btn-primary-blue" style="padding:7px 14px; font-size:12px; text-decoration:none;">Live Tracker</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="blog-hero">
+        <span class="article-cat-tag" style="background:rgba(255,255,255,0.15); color:#6EE7B7; margin-bottom:14px;">Educational Knowledge Base</span>
+        <h1>IPO Learning Center & Guides</h1>
+        <p>Comprehensive, independent educational tutorials to help retail investors analyze draft prospectuses, navigate SEBI allotment rules, interpret Grey Market Premium (GMP), and make data-driven investment decisions.</p>
+      </section>
+
+      <div class="blog-container">
+        <div class="category-tabs">
+          <span class="cat-pill active">All Guides</span>
+          <span class="cat-pill">Beginner Essentials</span>
+          <span class="cat-pill">Allotment & ASBA</span>
+          <span class="cat-pill">GMP & Valuation</span>
+          <span class="cat-pill">SME vs Mainboard</span>
+        </div>
+
+        <div class="article-grid">
+          <!-- Article 1 -->
+          <a href="what-is-an-ipo.html" class="article-card">
+            <span class="article-cat-tag">Beginner Guide</span>
+            <h2>What is an IPO? A Complete Beginner's Guide for Indian Investors</h2>
+            <p>Understand how Initial Public Offerings work in India, why private companies go public on NSE/BSE, the differences between fixed price and book-built issues, and key terms every novice investor must know.</p>
+            <div class="article-meta">
+              <span>8 min read • Updated Nov 2024</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 2 -->
+          <a href="how-to-apply-for-ipo.html" class="article-card">
+            <span class="article-cat-tag">Step-by-Step Tutorial</span>
+            <h2>How to Apply for an IPO in India — Step by Step (UPI & ASBA Guide)</h2>
+            <p>Step-by-step tutorial on applying for Mainboard and SME IPOs via UPI 2.0 mandate or Net Banking ASBA through Zerodha, Groww, Upstox, and ICICI Direct without broker commission fees.</p>
+            <div class="article-meta">
+              <span>9 min read • Practical Guide</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 3 -->
+          <a href="understanding-grey-market-premium-gmp.html" class="article-card">
+            <span class="article-cat-tag">Market Analysis</span>
+            <h2>Understanding Grey Market Premium (GMP) in IPOs — Realities & Risks</h2>
+            <p>Everything you need to know about Grey Market Premium (GMP), Kostak rates, Subject to Sauda terms, how off-market sentiments are calculated, and why GMP is not guaranteed listing performance.</p>
+            <div class="article-meta">
+              <span>10 min read • Risk Analysis</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 4 -->
+          <a href="ipo-vs-fpo-vs-ofs.html" class="article-card">
+            <span class="article-cat-tag">Comparison Guide</span>
+            <h2>IPO vs FPO vs OFS — What's the Difference for Retail Investors?</h2>
+            <p>Clear, side-by-side comparison between Initial Public Offerings, Follow-on Public Offers, and Offers for Sale. Learn how capital dilution, pricing mechanisms, and tax treatments differ.</p>
+            <div class="article-meta">
+              <span>7 min read • Comparison</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 5 -->
+          <a href="how-ipo-allotment-works.html" class="article-card">
+            <span class="article-cat-tag">SEBI Regulations</span>
+            <h2>How IPO Allotment Works in India — Retail Quota & Lottery System Explained</h2>
+            <p>Demystifying SEBI's computerized lottery allotment process for oversubscribed retail issues, proportionate allotment rules for sNII and bNII categories, and tips to maximize allotment chances legally.</p>
+            <div class="article-meta">
+              <span>8 min read • Regulatory Guide</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 6 -->
+          <a href="top-10-ipo-investing-tips.html" class="article-card">
+            <span class="article-cat-tag">Strategy</span>
+            <h2>Top 10 Tips for IPO Investing for Beginners in India</h2>
+            <p>Essential checklist for analyzing Red Herring Prospectuses (RHP), peer valuations (P/E, P/B), debt obligations, promoter integrity, anchor book participation, and crafting a disciplined listing-day exit strategy.</p>
+            <div class="article-meta">
+              <span>11 min read • Masterclass</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 7 -->
+          <a href="how-to-check-ipo-allotment-status.html" class="article-card">
+            <span class="article-cat-tag">Practical Guide</span>
+            <h2>How to Check IPO Allotment Status Online — 5 Easy & Direct Methods</h2>
+            <p>Detailed walkthrough on verifying share allotment through registrar portals (Link Intime, KFintech, Bigshare, Maashitla), BSE India, NSE India, CDSL/NSDL demat holdings, and bank mandate debits.</p>
+            <div class="article-meta">
+              <span>6 min read • Verification</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 8 -->
+          <a href="what-is-book-building-process.html" class="article-card">
+            <span class="article-cat-tag">Market Mechanics</span>
+            <h2>What is the Book Building Process in IPO? Price Discovery Explained</h2>
+            <p>How investment bankers (BRLMs) and issuing companies establish price bands, cut-off price mechanics, compilation of institutional order books, and how market forces determine final issue prices.</p>
+            <div class="article-meta">
+              <span>7 min read • Market Mechanics</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 9 -->
+          <a href="mainboard-vs-sme-ipo.html" class="article-card">
+            <span class="article-cat-tag">SME Emerge</span>
+            <h2>Mainboard vs SME IPO — Which is Better for Your Risk Profile?</h2>
+            <p>Comparing NSE Emerge / BSE SME platforms with Mainboard issues. Detailed breakdown of minimum ticket size (₹1 Lakh+), liquidity constraints, market maker responsibilities, and migration rules.</p>
+            <div class="article-meta">
+              <span>9 min read • Risk Assessment</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+
+          <!-- Article 10 -->
+          <a href="how-to-open-demat-account-for-ipo.html" class="article-card">
+            <span class="article-cat-tag">Account Setup</span>
+            <h2>How to Open a Demat Account for IPO Applications in India</h2>
+            <p>Complete guide to selecting top discount and full-service depository participants (DPs), necessary KYC documentation, PAN-Aadhaar linking mandates, and setting up UPI handles for fast primary market bidding.</p>
+            <div class="article-meta">
+              <span>8 min read • Setup Tutorial</span>
+              <span class="read-more">Read Guide →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-top-row">
+          <div class="footer-brand-col">
+            <div class="footer-brand">
+              <span style="color:#ffffff; font-weight:700; font-family:'Poppins',sans-serif; font-size:18px;">IPO PriceAlerter</span>
+            </div>
+            <p class="footer-brand-desc">
+              India's premier independent primary market intelligence dashboard. Real-time IPO tracking, Grey Market Premium (GMP) data, and investor education.
+            </p>
+          </div>
+          <div class="footer-links-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="../#/">Live IPO Tracker</a></li>
+              <li><a href="../#/?status=open">Open IPOs</a></li>
+              <li><a href="../#/?status=upcoming">Upcoming IPOs</a></li>
+              <li><a href="../#/gmp">GMP Live Dashboard</a></li>
+              <li><a href="../#/calendar">IPO Calendar</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Legal & Compliance</h4>
+            <ul>
+              <li><a href="../about.html">About Us</a></li>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../terms.html">Terms & Conditions</a></li>
+              <li><a href="../disclaimer.html">SEBI & Financial Disclaimer</a></li>
+              <li><a href="../dmca.html">DMCA Copyright Policy</a></li>
+              <li><a href="../contact.html">Contact Support</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>SEBI Advisory</h4>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+              Data sourced from NSE & BSE. Unofficial GMP indicators are for educational purposes only. We do not provide buy/sell advice.
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom-bar">
+          <span>© 2026 PriceAlerter.in — All Rights Reserved.</span>
+          <span>Made in India 🇮🇳</span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

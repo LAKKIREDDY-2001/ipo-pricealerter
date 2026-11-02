@@ -4477,3 +4477,588 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   min-height: 320px;
   contain: layout;
 }
+
+
+/* ==========================================================================
+   Figure 1 UI/UX Overhaul: Modern Corporate Dashboard Styles
+   Matching the reference mockup from Google AdSense Readiness Audit
+   ========================================================================== */
+
+.fig1-dashboard-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* 4 Top Summary Cards */
+.fig1-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.fig1-summary-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.fig1-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+
+.fig1-border-green { border-left: 5px solid #10B981 !important; }
+.fig1-border-blue { border-left: 5px solid #1A237E !important; }
+.fig1-border-red { border-left: 5px solid #EF4444 !important; }
+.fig1-border-orange { border-left: 5px solid #F97316 !important; }
+
+.fig1-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.fig1-stat-num {
+  font-family: 'Poppins', 'Outfit', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.fig1-stat-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.fig1-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.fig1-badge-green { background: #ECFDF5; color: #10B981; }
+.fig1-badge-blue { background: #EEF2FF; color: #1A237E; }
+.fig1-badge-red { background: #FEF2F2; color: #EF4444; }
+.fig1-badge-orange { background: #FFF7ED; color: #F97316; }
+
+/* 2-Column Main Layout */
+.fig1-two-col-layout {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 36px;
+}
+
+.fig1-left-col, .fig1-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Panel Card Container */
+.fig1-panel-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.fig1-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.fig1-panel-title {
+  font-family: 'Poppins', 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fig1-header-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #00897B;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.fig1-header-link:hover {
+  color: #004D40;
+  text-decoration: underline;
+}
+
+.fig1-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #ECFDF5;
+  color: #10B981;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.fig1-live-badge .live-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+  animation: pulseLiveDot 1.5s infinite;
+}
+
+/* Trending Table */
+.fig1-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.fig1-trending-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.fig1-trending-table th {
+  text-align: left;
+  padding: 10px 12px;
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.fig1-trending-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #F8FAFC;
+  color: #1E293B;
+  vertical-align: middle;
+}
+
+.fig1-trending-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.fig1-company-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fig1-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+  background: #EEF2FF;
+  color: #1A237E;
+}
+
+.fig1-avatar-sw { background: #FEF3C7; color: #D97706; }
+.fig1-avatar-we { background: #E0F2FE; color: #0284C7; }
+.fig1-avatar-nb { background: #DCFCE7; color: #16A34A; }
+.fig1-avatar-nt { background: #ECFDF5; color: #059669; }
+.fig1-avatar-sg { background: #F3E8FF; color: #7C3AED; }
+
+.fig1-company-name-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fig1-company-name {
+  font-weight: 700;
+  color: #0F172A;
+  font-size: 14px;
+}
+
+.fig1-sub-tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  width: fit-content;
+  background: #F1F5F9;
+  color: #475569;
+}
+
+.fig1-sub-tag.listed { background: #E2E8F0; color: #334155; }
+
+.fig1-val-price {
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.fig1-return-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.fig1-return-tag.positive { color: #10B981; }
+.fig1-return-tag.negative { color: #EF4444; }
+
+.fig1-sub-pill {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: #EFF6FF;
+  color: #2563EB;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* 30-Day Listing Performance Bar Chart */
+.fig1-chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.fig1-chart-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fig1-chart-legend .legend-color-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-gain { background: #10B981; }
+.legend-loss { background: #EF4444; }
+
+.fig1-bar-chart-wrap {
+  padding: 18px 8px 10px;
+}
+
+.fig1-bar-columns {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 150px;
+  border-bottom: 2px solid #E2E8F0;
+  position: relative;
+  padding-bottom: 1px;
+}
+
+.fig1-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 58px;
+}
+
+.fig1-bar-val {
+  font-size: 10.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.fig1-bar-val.positive { color: #10B981; }
+.fig1-bar-val.negative { color: #EF4444; }
+
+.fig1-bar-fill {
+  width: 26px;
+  border-radius: 5px 5px 0 0;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fig1-bar-fill.gain {
+  background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+}
+
+.fig1-bar-fill.loss {
+  background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+  border-radius: 0 0 5px 5px;
+}
+
+.fig1-col-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Right Column: GMP Today Widget */
+.fig1-gmp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fig1-gmp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #F8FAFC;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.fig1-gmp-row:hover {
+  background: #F1F5F9;
+}
+
+.fig1-gmp-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fig1-gmp-val {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14.5px;
+}
+
+.fig1-gmp-val.pos { color: #10B981; }
+.fig1-gmp-val.neg { color: #EF4444; }
+
+/* Right Column: IPO Calendar Widget */
+.fig1-calendar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fig1-calendar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #F8FAFC;
+}
+
+.fig1-cal-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #EEF2FF;
+  color: #1A237E;
+  flex-shrink: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.fig1-cal-day {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.fig1-cal-month {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.fig1-cal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.fig1-cal-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #0F172A;
+}
+
+.fig1-cal-status-pill {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.fig1-cal-status-pill.open { background: #ECFDF5; color: #10B981; }
+.fig1-cal-status-pill.upcoming { background: #EFF6FF; color: #2563EB; }
+.fig1-cal-status-pill.tentative { background: #FFF7ED; color: #F97316; }
+
+/* Right Column: Stay Updated Gradient Card */
+.fig1-stay-updated-card {
+  background: linear-gradient(135deg, #1A237E 0%, #00897B 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(26, 35, 126, 0.25);
+}
+
+.fig1-stay-updated-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #FFFFFF;
+}
+
+.fig1-stay-updated-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 16px;
+}
+
+.fig1-subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.fig1-subscribe-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #FFFFFF;
+  color: #0F172A;
+  font-size: 13.5px;
+  box-sizing: border-box;
+}
+
+.fig1-subscribe-input:focus {
+  outline: none;
+  border-color: #FF6F00;
+  box-shadow: 0 0 0 3px rgba(255, 111, 0, 0.3);
+}
+
+.fig1-subscribe-btn {
+  width: 100%;
+  padding: 12px;
+  background: #FF6F00;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.fig1-subscribe-btn:hover {
+  background: #E65100;
+  transform: translateY(-1px);
+}
+
+.fig1-subscribe-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Right Column: Quick Links 2x2 Grid */
+.fig1-quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.fig1-quick-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1E293B;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.fig1-quick-link-btn:hover {
+  background: #EEF2FF;
+  border-color: #C7D2FE;
+  color: #1A237E;
+  transform: translateY(-1px);
+}
+
+.fig1-quick-link-btn .quick-icon {
+  font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1080px) {
+  .fig1-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fig1-two-col-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .fig1-summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .fig1-dashboard-wrap {
+    padding: 16px 12px 36px;
+  }
+}
