@@ -1105,124 +1105,74 @@
     `;
   }
 
-  function renderFig1TrendingTable() {
-    const trendingList = [
-      {
-        slug: "swiggy-limited-ipo",
-        name: "Swiggy Ltd",
-        initials: "SW",
-        avatarClass: "fig1-avatar-sw",
-        status: "Listed",
-        issuePrice: "₹390",
-        currentPrice: "₹420",
-        returnVal: "+7.69% ▲",
-        isPositive: true,
-        sub: "3.59x",
-        trend: [390, 395, 410, 420]
-      },
-      {
-        slug: "waaree-energies-ipo",
-        name: "Waaree Energies",
-        initials: "WE",
-        avatarClass: "fig1-avatar-we",
-        status: "Listed",
-        issuePrice: "₹1,503",
-        currentPrice: "₹2,500",
-        returnVal: "+66.3% ▲",
-        isPositive: true,
-        sub: "76.34x",
-        trend: [1503, 1800, 2200, 2500]
-      },
-      {
-        slug: "niva-bupa-health-insurance-ipo",
-        name: "Niva Bupa Health Ins.",
-        initials: "NB",
-        avatarClass: "fig1-avatar-nb",
-        status: "Listed",
-        issuePrice: "₹74",
-        currentPrice: "₹78.50",
-        returnVal: "+6.08% ▲",
-        isPositive: true,
-        sub: "1.90x",
-        trend: [74, 75, 77, 78.5]
-      },
-      {
-        slug: "godavari-biorefineries",
-        name: "Godavari Biorefineries",
-        initials: "GB",
-        avatarClass: "fig1-avatar-gb",
-        status: "Listed",
-        issuePrice: "₹352",
-        currentPrice: "₹368",
-        returnVal: "+4.55% ▲",
-        isPositive: true,
-        sub: "1.83x",
-        trend: [352, 355, 362, 368]
-      },
-      {
-        slug: "sagility-india-ipo",
-        name: "Sagility India",
-        initials: "SG",
-        avatarClass: "fig1-avatar-sg",
-        status: "Listed",
-        issuePrice: "₹30",
-        currentPrice: "₹28",
-        returnVal: "-6.67% ▼",
-        isPositive: false,
-        sub: "0.85x",
-        trend: [30, 29.5, 29, 28]
-      }
-    ];
+  function renderFig1OpenIposSection() {
+    const openRecords = records.filter(r => r.status === "OPEN").sort((a, b) => {
+      const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
+      const db = b.closeDate ? new Date(b.closeDate).getTime() : 0;
+      return da - db;
+    });
 
     return `
       <div class="fig1-panel-card">
         <div class="fig1-panel-header">
-          <h2 class="fig1-panel-title">🔥 Trending IPOs</h2>
-          <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
+            <span class="live-pulse" style="margin-left:4px;"></span>
+            <span style="font-size:11.5px; font-weight:700; color:#16A34A; background:#EBFBF2; padding:2px 8px; border-radius:12px;">ACTIVE BIDDING</span>
+          </div>
+          <a href="#/open" class="fig1-header-link">View All (${openRecords.length}) &rarr;</a>
         </div>
         <div class="fig1-table-responsive">
           <table class="fig1-trending-table">
             <thead>
               <tr>
                 <th>COMPANY</th>
-                <th>ISSUE PRICE</th>
-                <th>CURRENT</th>
-                <th>RETURN</th>
-                <th>SUBSCRIPTION</th>
-                <th>TREND</th>
-                <th>VIEW DETAILS</th>
+                <th>BIDDING WINDOW</th>
+                <th>PRICE BAND</th>
+                <th>LOT SIZE</th>
+                <th>LIVE GMP</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
               </tr>
             </thead>
             <tbody>
-              ${trendingList.map(item => `
-                <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${item.slug}'">
-                  <td>
-                    <div class="fig1-company-cell">
-                      <div class="fig1-avatar ${item.avatarClass}">${item.initials}</div>
-                      <div class="fig1-company-name-wrap">
-                        <span class="fig1-company-name">${item.name}</span>
-                        <span class="fig1-sub-tag listed">${item.status}</span>
+              ${openRecords.map(item => {
+                const priceText = item.priceBandLow && item.priceBandHigh 
+                  ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
+                  : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
+                const gmpText = item.gmp ? `+₹${item.gmp}` : '—';
+                const gmpPct = item.gmpPercentage ? `(${item.gmpPercentage}%)` : '';
+                return `
+                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${item.slug}'">
+                    <td>
+                      <div class="fig1-company-cell">
+                        ${renderCompanyLogo(item, 34)}
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">${item.shortName}</span>
+                          <span class="fig1-sub-tag listed" style="background:${item.board === 'MAINBOARD' ? '#EBF5FF' : '#F1F5F9'}; color:${item.board === 'MAINBOARD' ? '#1D4ED8' : '#475569'};">${item.board || 'MAINBOARD'}</span>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td><span class="fig1-val-price">${item.issuePrice}</span></td>
-                  <td><span class="fig1-val-price">${item.currentPrice}</span></td>
-                  <td>
-                    <span class="fig1-return-tag ${item.isPositive ? 'positive' : 'negative'}">
-                      ${item.returnVal}
-                    </span>
-                  </td>
-                  <td><span class="fig1-sub-pill">${item.sub}</span></td>
-                  <td>
-                    ${renderSparklineSvg(item.trend, 58, 22, item.isPositive ? "#10B981" : "#EF4444")}
-                  </td>
-                  <td>
-                    <button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/${item.slug}'">
-                      View Details
-                    </button>
-                  </td>
-                </tr>
-              `).join("")}
+                    </td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">${formatDate(item.openDate)}</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: ${formatDate(item.closeDate)}</div>
+                    </td>
+                    <td><span class="fig1-val-price">${priceText}</span></td>
+                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">${item.lotSize ? item.lotSize + ' shares' : '—'}</span></td>
+                    <td>
+                      <span class="fig1-return-tag ${item.gmp ? 'positive' : ''}" style="${!item.gmp ? 'background:#F1F5F9; color:#64748B;' : ''}">
+                        ${gmpText} ${gmpPct}
+                      </span>
+                    </td>
+                    <td><span class="status-badge open">Open</span></td>
+                    <td>
+                      <button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/${item.slug}'">
+                        Apply / Details
+                      </button>
+                    </td>
+                  </tr>
+                `;
+              }).join("")}
             </tbody>
           </table>
         </div>
@@ -1453,7 +1403,7 @@
         <!-- Figure 1 2-Column Corporate Grid -->
         <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
           <div class="fig1-left-col">
-            ${renderFig1TrendingTable()}
+            ${renderFig1OpenIposSection()}
             ${renderFig1PerformanceChart()}
           </div>
           <div class="fig1-right-col">

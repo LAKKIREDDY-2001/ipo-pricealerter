@@ -449,104 +449,129 @@
         <!-- Figure 1 2-Column Corporate Grid -->
         <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
           <div class="fig1-left-col">
-            <!-- Trending IPOs -->
+            <!-- Open IPOs Section -->
             <div class="fig1-panel-card">
               <div class="fig1-panel-header">
-                <h2 class="fig1-panel-title">🔥 Trending IPOs</h2>
-                <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
+                  <span class="live-pulse" style="margin-left:4px;"></span>
+                  <span style="font-size:11.5px; font-weight:700; color:#16A34A; background:#EBFBF2; padding:2px 8px; border-radius:12px;">ACTIVE BIDDING</span>
+                </div>
+                <a href="#/open" class="fig1-header-link">View All (7) &rarr;</a>
               </div>
               <div class="fig1-table-responsive">
                 <table class="fig1-trending-table">
                   <thead>
                     <tr>
                       <th>COMPANY</th>
-                      <th>ISSUE PRICE</th>
-                      <th>CURRENT</th>
-                      <th>RETURN</th>
-                      <th>SUBSCRIPTION</th>
-                      <th>TREND</th>
+                      <th>BIDDING WINDOW</th>
+                      <th>PRICE BAND</th>
+                      <th>LOT SIZE</th>
+                      <th>LIVE GMP</th>
+                      <th>STATUS</th>
+                      <th>ACTION</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/bombay-coated-and-special-steels-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-sw">SW</div>
+                          <div class="fig1-avatar fig1-avatar-nb">BC</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Swiggy Ltd</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
+                            <span class="fig1-company-name">Bombay Coated &amp; Special Steels</span>
+                            <span class="fig1-sub-tag listed" style="background:#EBF5FF; color:#1D4ED8;">MAINBOARD</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹390</span></td>
-                      <td><span class="fig1-val-price">₹420</span></td>
-                      <td><span class="fig1-return-tag positive">+7.69% ▲</span></td>
-                      <td><span class="fig1-sub-pill">3.59x</span></td>
-                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                      <td>
+                        <div style="font-size:12.5px; font-weight:600; color:#111827;">29 Oct 2024</div>
+                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 02 Nov 2024</div>
+                      </td>
+                      <td><span class="fig1-val-price">₹78 – 82</span></td>
+                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">182 shares</span></td>
+                      <td><span class="fig1-return-tag positive">+₹8.5 (10.37%)</span></td>
+                      <td><span class="status-badge open">Open</span></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/bombay-coated-and-special-steels-ipo'">Apply / Details</button></td>
                     </tr>
-                    <tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-we">WE</div>
+                          <div class="fig1-avatar fig1-avatar-we">ME</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Waaree Energies</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
+                            <span class="fig1-company-name">Maxwell Engineering</span>
+                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹1,503</span></td>
-                      <td><span class="fig1-val-price">₹2,500</span></td>
-                      <td><span class="fig1-return-tag positive">+66.3% ▲</span></td>
-                      <td><span class="fig1-sub-pill">76.34x</span></td>
-                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                      <td>
+                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                      </td>
+                      <td><span class="fig1-val-price">₹150 – 158</span></td>
+                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">800 shares</span></td>
+                      <td><span class="fig1-return-tag positive">+₹70 (44.3%)</span></td>
+                      <td><span class="status-badge open">Open</span></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">Apply / Details</button></td>
                     </tr>
-                    <tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-nb">NB</div>
+                          <div class="fig1-avatar fig1-avatar-sw">JC</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Niva Bupa Health Ins.</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
+                            <span class="fig1-company-name">Johnsoncab Electricals</span>
+                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹74</span></td>
-                      <td><span class="fig1-val-price">₹78.50</span></td>
-                      <td><span class="fig1-return-tag positive">+6.08% ▲</span></td>
-                      <td><span class="fig1-sub-pill">1.90x</span></td>
-                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                      <td>
+                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                      </td>
+                      <td><span class="fig1-val-price">₹190 – 200</span></td>
+                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">600 shares</span></td>
+                      <td><span class="fig1-return-tag positive">+₹15 (7.5%)</span></td>
+                      <td><span class="status-badge open">Open</span></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/johnsoncab-electricals-ipo'">Apply / Details</button></td>
                     </tr>
-                    <tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/hgs-india-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-nt">NT</div>
+                          <div class="fig1-avatar fig1-avatar-nt">HG</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">NTPC Green Energy</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
+                            <span class="fig1-company-name">HGS India</span>
+                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹108</span></td>
-                      <td><span class="fig1-val-price">₹130</span></td>
-                      <td><span class="fig1-return-tag positive">+20.37% ▲</span></td>
-                      <td><span class="fig1-sub-pill">2.42x</span></td>
-                      <td><span style="color:#10B981; font-weight:700;">↗ Bullish</span></td>
+                      <td>
+                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                      </td>
+                      <td><span class="fig1-val-price">₹114 – 120</span></td>
+                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
+                      <td><span class="fig1-return-tag positive">+₹14 (11.67%)</span></td>
+                      <td><span class="status-badge open">Open</span></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/hgs-india-ipo'">Apply / Details</button></td>
                     </tr>
-                    <tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-sg">SG</div>
+                          <div class="fig1-avatar fig1-avatar-sg">VE</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Sagility India</span>
-                            <span class="fig1-sub-tag listed">Listed</span>
+                            <span class="fig1-company-name">Vectras Enprocon</span>
+                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
                           </div>
                         </div>
                       </td>
-                      <td><span class="fig1-val-price">₹30</span></td>
-                      <td><span class="fig1-val-price">₹28</span></td>
-                      <td><span class="fig1-return-tag negative">-6.67% ▼</span></td>
-                      <td><span class="fig1-sub-pill">0.85x</span></td>
-                      <td><span style="color:#EF4444; font-weight:700;">↘ Bearish</span></td>
+                      <td>
+                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                      </td>
+                      <td><span class="fig1-val-price">₹99 – 105</span></td>
+                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
+                      <td><span class="fig1-return-tag positive">+₹5 (4.76%)</span></td>
+                      <td><span class="status-badge open">Open</span></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/vectras-enprocon-ipo'">Apply / Details</button></td>
                     </tr>
                   </tbody>
                 </table>
