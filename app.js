@@ -25,20 +25,37 @@
     searchModalOpen: false,
     calcLots: 1,
     alertsSubscribed: true,
-    cardsLimit: 18
+    cardsLimit: 18,
+    mobileMenuOpen: false,
+    openBoard: "all",
+    openSearchQuery: "",
+    upcomingBoard: "all",
+    upcomingFilter: "all",
+    upcomingSearchQuery: "",
+    gmpFilter: "all",
+    gmpSearchQuery: ""
   };
 
   const AFFILIATE_PARTNER_CONFIG = {};
   const AFFILIATE_BROKERS = [];
 
   // Helper Utilities
+    function isBookmarked(slug) {
+    try {
+      const list = JSON.parse(localStorage.getItem("pricealerter_watchlist") || "[]");
+      return list.includes(slug);
+    } catch (e) {
+      return false;
+    }
+  }
+
   function parseRoute() {
     const hash = window.location.hash.replace(/^#\/?/, "") || "";
     const parts = hash.split("/").filter(Boolean);
     if (parts.length === 0) return { view: "home" };
     if (parts[0] === "ipo" && parts[1]) return { view: "detail", slug: parts[1] };
-    if (parts[0] === "open") return { view: "home", filter: "open" };
-    if (parts[0] === "upcoming") return { view: "home", filter: "upcoming" };
+    if (parts[0] === "open") return { view: "open" };
+    if (parts[0] === "upcoming") return { view: "upcoming" };
     if (parts[0] === "closed") return { view: "home", filter: "closed" };
     if (parts[0] === "gmp") return { view: "gmp" };
     if (parts[0] === "calendar") return { view: "calendar" };
@@ -473,24 +490,32 @@
 
     header.innerHTML = `
       <div class="nav-container">
-        <a href="#/" class="brand-wrap" aria-label="IPO Pricealerter Home">
-          <span>IPO</span>
-          <span class="brand-dot-pulse"></span>
-          <span>Pricealerter</span>
+        <a href="#/" class="brand-wrap" aria-label="IPO PriceAlerter Home">
+          <div class="brand-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <span>IPO PriceAlerter</span>
         </a>
 
         <nav class="main-nav" aria-label="Main Navigation">
           <a href="#/" class="nav-tab-link ${currentView === "home" ? "active" : ""}">Home</a>
-          <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP Live</a>
-          <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">Calendar</a>
-          <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">All Listed</a>
-          <a href="#/guide" class="nav-tab-link ${currentView === "guide" ? "active" : ""}">IPO Guide & FAQ</a>
+          <a href="#/open" class="nav-tab-link ${currentView === "open" ? "active" : ""}">Open IPOs</a>
+          <a href="#/upcoming" class="nav-tab-link ${currentView === "upcoming" ? "active" : ""}">Upcoming IPOs</a>
+          <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">Listed IPOs</a>
+          <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP Tracker</a>
+          <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">IPO Calendar</a>
+          <a href="#/guide" class="nav-tab-link ${currentView === "guide" ? "active" : ""}">Learn</a>
+          <a href="blog/index.html" class="nav-tab-link">Blog</a>
         </nav>
 
         <div class="header-right">
           <button class="header-search-btn" id="open-search-pill" aria-label="Search IPOs">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>Search IPOs, companies...</span>
+            <span>Search IPOs...</span>
             <kbd>⌘K</kbd>
           </button>
 
@@ -509,6 +534,65 @@
           <button class="mobile-hamburger-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-drawer-overlay ${state.mobileMenuOpen ? 'open' : ''}" id="mobile-drawer-overlay">
+        <div class="mobile-drawer">
+          <div class="mobile-drawer-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="brand-icon-box" style="width:28px; height:28px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
+              <strong style="font-size:16px;">PriceAlerter</strong>
+            </div>
+            <button id="close-drawer-btn" style="color:#FFFFFF; font-size:24px; padding:4px; line-height:1;">&times;</button>
+          </div>
+          <div class="mobile-drawer-links">
+            <button class="mobile-drawer-link" onclick="window.IpoApp.toggleSearchModal(true); window.IpoApp.toggleMobileMenu(false);">
+              <span class="link-icon">🔍</span>
+              <span>Search IPOs (⌘K)</span>
+            </button>
+            <a href="#/" class="mobile-drawer-link ${currentView === 'home' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">🏠</span>
+              <span>Home</span>
+            </a>
+            <a href="#/open" class="mobile-drawer-link ${currentView === 'open' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">🟢</span>
+              <span>Open IPOs</span>
+            </a>
+            <a href="#/upcoming" class="mobile-drawer-link ${currentView === 'upcoming' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">⏳</span>
+              <span>Upcoming IPOs</span>
+            </a>
+            <a href="#/listed" class="mobile-drawer-link ${currentView === 'listed' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">📈</span>
+              <span>Listed IPOs</span>
+            </a>
+            <a href="#/gmp" class="mobile-drawer-link ${currentView === 'gmp' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">📊</span>
+              <span>GMP Tracker</span>
+            </a>
+            <a href="#/calendar" class="mobile-drawer-link ${currentView === 'calendar' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">📅</span>
+              <span>IPO Calendar</span>
+            </a>
+            <a href="#/guide" class="mobile-drawer-link ${currentView === 'guide' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">🎓</span>
+              <span>Learn &amp; FAQ</span>
+            </a>
+            <a href="blog/index.html" class="mobile-drawer-link" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">📝</span>
+              <span>Educational Blog</span>
+            </a>
+            <div style="margin-top:16px; padding-top:16px; border-top:1px solid #E2E8F0; display:flex; flex-direction:column; gap:8px;">
+              <a href="about.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">About Us</a>
+              <a href="privacy.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Privacy Policy</a>
+              <a href="terms.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Terms &amp; Conditions</a>
+              <a href="contact.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Contact Us</a>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -530,7 +614,20 @@
     });
 
     document.getElementById("mobile-menu-btn")?.addEventListener("click", () => {
-      toggleSearchModal(true);
+      state.mobileMenuOpen = true;
+      renderHeader();
+    });
+
+    document.getElementById("close-drawer-btn")?.addEventListener("click", () => {
+      state.mobileMenuOpen = false;
+      renderHeader();
+    });
+
+    document.getElementById("mobile-drawer-overlay")?.addEventListener("click", (e) => {
+      if (e.target.id === "mobile-drawer-overlay") {
+        state.mobileMenuOpen = false;
+        renderHeader();
+      }
     });
 
     // Sync Mobile Bottom Navigation
@@ -544,9 +641,6 @@
     });
   }
 
-  // ==========================================================================
-  // Smart Notifications Generator: Pins New IPOs & Top GMP Gainers
-  // ==========================================================================
   function getSmartNotifications() {
     const list = [];
     const openIpos = records.filter(r => r.status === "OPEN");
@@ -885,10 +979,90 @@
   // ==========================================================================
   // Figure 1 UI/UX Overhaul: Corporate Dashboard Components
   // ==========================================================================
+  // ==========================================================================
+  // Fintech Hero Section (Specification Section 4B)
+  // ==========================================================================
+  function renderFintechHeroSection() {
+    return `
+      <section class="fintech-hero-section" aria-label="Welcome to PriceAlerter">
+        <div class="fintech-hero-content">
+          <div class="fintech-hero-tag">
+            <span class="fintech-hero-tag-dot"></span>
+            <span>India's Leading IPO Intelligence Platform</span>
+          </div>
+          <h1 class="fintech-hero-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
+          <p class="fintech-hero-desc">Real-time IPO updates, Grey Market Premium (GMP), subscription status, listing gains and expert insights.</p>
+          <div class="fintech-hero-actions">
+            <a href="#explore-feed-section" class="btn-hero-primary" onclick="const el=document.getElementById('explore-feed-section'); if(el){ el.scrollIntoView({behavior:'smooth'}); }">Explore IPOs</a>
+            <a href="#/guide" class="btn-hero-secondary">How It Works</a>
+          </div>
+        </div>
+        <div class="fintech-hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 460 250" class="fintech-hero-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#079B50" stop-opacity="0.28"/>
+                <stop offset="100%" stop-color="#079B50" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#142B49"/>
+                <stop offset="50%" stop-color="#079B50"/>
+                <stop offset="100%" stop-color="#16A34A"/>
+              </linearGradient>
+            </defs>
+            <line x1="20" y1="40" x2="440" y2="40" stroke="#E2E8F0" stroke-dasharray="3 3"/>
+            <line x1="20" y1="90" x2="440" y2="90" stroke="#E2E8F0" stroke-dasharray="3 3"/>
+            <line x1="20" y1="140" x2="440" y2="140" stroke="#E2E8F0" stroke-dasharray="3 3"/>
+            <line x1="20" y1="190" x2="440" y2="190" stroke="#E2E8F0" stroke-dasharray="3 3"/>
+            <line x1="20" y1="230" x2="440" y2="230" stroke="#CBD5E1" stroke-width="1.5"/>
+
+            <path d="M 30 205 Q 90 185, 140 155 T 250 115 T 350 65 L 430 40 L 430 230 L 30 230 Z" fill="url(#chartGrad)"/>
+            <path d="M 30 205 Q 90 185, 140 155 T 250 115 T 350 65 L 430 40" stroke="url(#lineGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+            <rect x="75" y="160" width="10" height="30" rx="2" fill="#16A34A"/>
+            <line x1="80" y1="150" x2="80" y2="200" stroke="#16A34A" stroke-width="2"/>
+
+            <rect x="180" y="120" width="10" height="40" rx="2" fill="#16A34A"/>
+            <line x1="185" y1="110" x2="185" y2="170" stroke="#16A34A" stroke-width="2"/>
+
+            <rect x="290" y="75" width="10" height="35" rx="2" fill="#16A34A"/>
+            <line x1="295" y1="65" x2="295" y2="120" stroke="#16A34A" stroke-width="2"/>
+
+            <g transform="translate(40, 45)">
+              <rect width="105" height="70" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+              <rect x="12" y="12" width="40" height="6" rx="3" fill="#142B49"/>
+              <rect x="12" y="24" width="80" height="4" rx="2" fill="#94A3B8"/>
+              <rect x="12" y="34" width="65" height="4" rx="2" fill="#CBD5E1"/>
+              <rect x="12" y="45" width="55" height="14" rx="4" fill="#EBFBF2"/>
+              <text x="18" y="55" fill="#079B50" font-size="8.5" font-weight="700" font-family="Inter, sans-serif">RHP FILED</text>
+            </g>
+
+            <g transform="translate(370, 25)">
+              <circle cx="18" cy="18" r="17" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+              <circle cx="18" cy="18" r="14" fill="#FBBF24"/>
+              <text x="13" y="24" fill="#78350F" font-size="15" font-weight="800" font-family="Inter, sans-serif">₹</text>
+            </g>
+
+            <g transform="translate(335, 75)">
+              <circle cx="13" cy="13" r="12" fill="#F59E0B" stroke="#D97706" stroke-width="1.5"/>
+              <circle cx="13" cy="13" r="10" fill="#FDE68A"/>
+              <text x="9" y="17" fill="#78350F" font-size="11" font-weight="800" font-family="Inter, sans-serif">₹</text>
+            </g>
+
+            <g transform="translate(230, 16)">
+              <rect width="84" height="26" rx="13" fill="#142B49"/>
+              <text x="12" y="17" fill="#10B981" font-size="11" font-weight="700" font-family="Inter, sans-serif">▲ +66.3%</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+    `;
+  }
+
   function renderFig1SummaryCards(openCount, upcomingCount, closedCount, listedCount) {
     return `
       <section class="fig1-summary-grid" aria-label="IPO Market Overview">
-        <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" title="Click to view Open IPOs">
+        <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" onclick="window.location.hash='#/open'" title="Click to view Open IPOs">
           <div class="fig1-card-content">
             <div class="fig1-stat-num">${openCount}</div>
             <div class="fig1-stat-label">Open IPOs</div>
@@ -898,7 +1072,7 @@
           </div>
         </div>
 
-        <div class="fig1-summary-card fig1-border-blue clickable" id="fig1-card-upcoming" title="Click to view Upcoming IPOs">
+        <div class="fig1-summary-card fig1-border-blue clickable" id="fig1-card-upcoming" onclick="window.location.hash='#/upcoming'" title="Click to view Upcoming IPOs">
           <div class="fig1-card-content">
             <div class="fig1-stat-num">${upcomingCount}</div>
             <div class="fig1-stat-label">Upcoming IPOs</div>
@@ -908,7 +1082,7 @@
           </div>
         </div>
 
-        <div class="fig1-summary-card fig1-border-red clickable" id="fig1-card-closed" title="Click to view Recently Closed IPOs">
+        <div class="fig1-summary-card fig1-border-red clickable" id="fig1-card-closed" onclick="window.location.hash='#/listed'" title="Click to view Recently Closed IPOs">
           <div class="fig1-card-content">
             <div class="fig1-stat-num">${closedCount}</div>
             <div class="fig1-stat-label">Recently Closed</div>
@@ -918,7 +1092,7 @@
           </div>
         </div>
 
-        <div class="fig1-summary-card fig1-border-orange clickable" id="fig1-card-listed" title="Click to view All Listed IPOs">
+        <div class="fig1-summary-card fig1-border-orange clickable" id="fig1-card-listed" onclick="window.location.hash='#/listed'" title="Click to view All Listed IPOs">
           <div class="fig1-card-content">
             <div class="fig1-stat-num">${listedCount}+</div>
             <div class="fig1-stat-label">Total Listed</div>
@@ -934,7 +1108,7 @@
   function renderFig1TrendingTable() {
     const trendingList = [
       {
-        slug: "swiggy-limited",
+        slug: "swiggy-limited-ipo",
         name: "Swiggy Ltd",
         initials: "SW",
         avatarClass: "fig1-avatar-sw",
@@ -947,7 +1121,7 @@
         trend: [390, 395, 410, 420]
       },
       {
-        slug: "waaree-energies",
+        slug: "waaree-energies-ipo",
         name: "Waaree Energies",
         initials: "WE",
         avatarClass: "fig1-avatar-we",
@@ -960,7 +1134,7 @@
         trend: [1503, 1800, 2200, 2500]
       },
       {
-        slug: "niva-bupa-health-insurance",
+        slug: "niva-bupa-health-insurance-ipo",
         name: "Niva Bupa Health Ins.",
         initials: "NB",
         avatarClass: "fig1-avatar-nb",
@@ -973,20 +1147,20 @@
         trend: [74, 75, 77, 78.5]
       },
       {
-        slug: "ntpc-green-energy",
-        name: "NTPC Green Energy",
-        initials: "NT",
-        avatarClass: "fig1-avatar-nt",
+        slug: "godavari-biorefineries",
+        name: "Godavari Biorefineries",
+        initials: "GB",
+        avatarClass: "fig1-avatar-gb",
         status: "Listed",
-        issuePrice: "₹108",
-        currentPrice: "₹130",
-        returnVal: "+20.37% ▲",
+        issuePrice: "₹352",
+        currentPrice: "₹368",
+        returnVal: "+4.55% ▲",
         isPositive: true,
-        sub: "2.42x",
-        trend: [108, 115, 122, 130]
+        sub: "1.83x",
+        trend: [352, 355, 362, 368]
       },
       {
-        slug: "sagility-india",
+        slug: "sagility-india-ipo",
         name: "Sagility India",
         initials: "SG",
         avatarClass: "fig1-avatar-sg",
@@ -1016,6 +1190,7 @@
                 <th>RETURN</th>
                 <th>SUBSCRIPTION</th>
                 <th>TREND</th>
+                <th>VIEW DETAILS</th>
               </tr>
             </thead>
             <tbody>
@@ -1041,6 +1216,11 @@
                   <td>
                     ${renderSparklineSvg(item.trend, 58, 22, item.isPositive ? "#10B981" : "#EF4444")}
                   </td>
+                  <td>
+                    <button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/${item.slug}'">
+                      View Details
+                    </button>
+                  </td>
                 </tr>
               `).join("")}
             </tbody>
@@ -1053,13 +1233,13 @@
   function renderFig1PerformanceChart() {
     const chartBars = [
       { name: "Waaree", pct: 66.3, isGain: true, height: 95 },
-      { name: "NTPC", pct: 20.4, isGain: true, height: 38 },
-      { name: "Swiggy", pct: 7.7, isGain: true, height: 18 },
-      { name: "Niva Bupa", pct: 6.1, isGain: true, height: 15 },
-      { name: "ABC Infra", pct: 7.2, isGain: true, height: 17 },
-      { name: "XYZ Fin", pct: -4.8, isGain: false, height: 14 },
+      { name: "Maxwell", pct: 44.3, isGain: true, height: 68 },
+      { name: "Swiggy", pct: 7.7, isGain: true, height: 20 },
+      { name: "Niva Bupa", pct: 6.1, isGain: true, height: 16 },
+      { name: "Godavari", pct: 4.5, isGain: true, height: 13 },
+      { name: "Afcons", pct: -7.1, isGain: false, height: 18 },
       { name: "Sagility", pct: -6.7, isGain: false, height: 17 },
-      { name: "PQR Tech", pct: 15.3, isGain: true, height: 30 }
+      { name: "HGS India", pct: 11.7, isGain: true, height: 28 }
     ];
 
     return `
@@ -1074,7 +1254,7 @@
         <div class="fig1-bar-chart-wrap">
           <div class="fig1-bar-columns">
             ${chartBars.map(bar => `
-              <div class="fig1-chart-col">
+              <div class="fig1-chart-col" title="${bar.name}: ${bar.isGain ? '+' : ''}${bar.pct}% listing day return">
                 <span class="fig1-bar-val ${bar.isGain ? 'positive' : 'negative'}">${bar.isGain ? '+' : ''}${bar.pct}%</span>
                 <div class="fig1-bar-fill ${bar.isGain ? 'gain' : 'loss'}" style="height:${bar.height}px;"></div>
                 <span class="fig1-col-label" title="${bar.name}">${bar.name}</span>
@@ -1088,11 +1268,12 @@
 
   function renderFig1GmpTodayWidget() {
     const gmpList = [
-      { slug: "waaree-energies", initials: "WE", avatarClass: "fig1-avatar-we", name: "Waaree Energies", val: "+₹980", pos: true },
-      { slug: "swiggy-limited", initials: "SW", avatarClass: "fig1-avatar-sw", name: "Swiggy Ltd", val: "+₹28", pos: true },
-      { slug: "niva-bupa-health-insurance", initials: "NB", avatarClass: "fig1-avatar-nb", name: "Niva Bupa", val: "+₹4", pos: true },
-      { slug: "ntpc-green-energy", initials: "NT", avatarClass: "fig1-avatar-nt", name: "NTPC Green", val: "+₹22", pos: true },
-      { slug: "sagility-india", initials: "SG", avatarClass: "fig1-avatar-sg", name: "Sagility India", val: "-₹2", pos: false }
+      { slug: "maxwell-engineering-solutions-ipo", initials: "ME", avatarClass: "fig1-avatar-we", name: "Maxwell Engg.", val: "+₹70", pos: true },
+      { slug: "johnsoncab-electricals-ipo", initials: "JC", avatarClass: "fig1-avatar-sw", name: "Johnsoncab Elec.", val: "+₹15", pos: true },
+      { slug: "hgs-india-ipo", initials: "HG", avatarClass: "fig1-avatar-nt", name: "HGS India", val: "+₹14", pos: true },
+      { slug: "bombay-coated-and-special-steels-ipo", initials: "BC", avatarClass: "fig1-avatar-nb", name: "Bombay Coated", val: "+₹8.5", pos: true },
+      { slug: "carver-roboweld-ipo", initials: "CR", avatarClass: "fig1-avatar-sg", name: "Carver Roboweld", val: "+₹8", pos: true },
+      { slug: "bls-polymers-ipo", initials: "BP", avatarClass: "fig1-avatar-we", name: "BLS Polymers", val: "+₹15", pos: true }
     ];
 
     return `
@@ -1112,26 +1293,31 @@
             </div>
           `).join("")}
         </div>
+        <div style="margin-top:10px; font-size:11px; color:#64748B; line-height:1.45; border-top:1px dashed #E2E8F0; padding-top:8px;">
+          *GMP is unofficial &amp; speculative. Past trends do not assure listing price.
+        </div>
       </div>
     `;
   }
 
   function renderFig1CalendarWidget() {
     const events = [
-      { day: "18", month: "DEC", name: "ABC Infra Ltd", status: "Open", statusClass: "open" },
-      { day: "20", month: "DEC", name: "XYZ Finance Ltd", status: "Upcoming", statusClass: "upcoming" },
-      { day: "23", month: "DEC", name: "PQR Tech Solutions", status: "Upcoming", statusClass: "upcoming" },
-      { day: "27", month: "DEC", name: "MNO Pharma Ltd", status: "Tentative", statusClass: "tentative" }
+      { day: "29", month: "OCT", name: "Bombay Coated", status: "Open", statusClass: "open", slug: "bombay-coated-and-special-steels-ipo" },
+      { day: "30", month: "OCT", name: "Maxwell Engineering", status: "Open", statusClass: "open", slug: "maxwell-engineering-solutions-ipo" },
+      { day: "30", month: "OCT", name: "HGS India", status: "Open", statusClass: "open", slug: "hgs-india-ipo" },
+      { day: "04", month: "NOV", name: "Vedant Poly Fabs", status: "Upcoming", statusClass: "upcoming", slug: "vedant-poly-fabs-ipo" },
+      { day: "TBA", month: "2024", name: "Zepto / Razorpay", status: "Tentative", statusClass: "tentative", slug: "zepto-ipo" }
     ];
 
     return `
       <div class="fig1-panel-card">
         <div class="fig1-panel-header">
           <h3 class="fig1-panel-title">📅 IPO Calendar</h3>
+          <a href="#/calendar" class="fig1-header-link" style="font-size:12px; color:var(--primary-green); text-decoration:none; font-weight:600;">Full Calendar &rarr;</a>
         </div>
         <div class="fig1-calendar-list">
           ${events.map(ev => `
-            <div class="fig1-calendar-row">
+            <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/${ev.slug}'" style="cursor:pointer;">
               <div class="fig1-cal-date-badge">
                 <span class="fig1-cal-day">${ev.day}</span>
                 <span class="fig1-cal-month">${ev.month}</span>
@@ -1258,6 +1444,9 @@
 
     app.innerHTML = `
       <div class="fig1-dashboard-wrap">
+        <!-- Fintech Hero Section -->
+        ${renderFintechHeroSection()}
+
         <!-- Figure 1 Top 4 Summary Cards -->
         ${renderFig1SummaryCards(openCount, upcomingCount, closedCount, listedCount)}
 
@@ -2066,6 +2255,15 @@
           </div>
 
           <div class="detail-header-actions">
+            <button class="btn-watchlist ${isBookmarked(ipo.slug) ? 'bookmarked' : ''}" onclick="window.IpoApp.toggleWatchlist('${ipo.slug}', this)" title="Save to Watchlist">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="${isBookmarked(ipo.slug) ? '#F59E0B' : 'none'}" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span>${isBookmarked(ipo.slug) ? 'Bookmarked' : 'Add to Watchlist'}</span>
+            </button>
+            ${ipo.status === 'OPEN' ? `
+              <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none;">
+                Apply Now
+              </a>
+            ` : ''}
             ${ipo.docUrl ? `
               <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" title="Official SEBI DRHP / RHP Document">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
@@ -2074,6 +2272,30 @@
             ` : ''}
           </div>
         </header>
+
+        <!-- Key Metrics Strip (Specification Section 5) -->
+        <div class="key-metrics-strip" aria-label="Key Financial Metrics">
+          <div class="key-metric-box">
+            <span class="key-metric-label">Issue Price</span>
+            <span class="key-metric-val">${ipo.priceBandLow && ipo.priceBandHigh ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
+          </div>
+          <div class="key-metric-box">
+            <span class="key-metric-label">GMP Today</span>
+            <span class="key-metric-val positive">${ipo.gmp ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : '—'}</span>
+          </div>
+          <div class="key-metric-box">
+            <span class="key-metric-label">Est. Listing Price</span>
+            <span class="key-metric-val">${ipo.gmp && upperPrice ? `₹${Number(upperPrice) + Number(ipo.gmp)}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
+          </div>
+          <div class="key-metric-box">
+            <span class="key-metric-label">Listing Date</span>
+            <span class="key-metric-val">${formatDate(ipo.listingDate)}</span>
+          </div>
+          <div class="key-metric-box">
+            <span class="key-metric-label">Subscription Multiple</span>
+            <span class="key-metric-val">${ipo.subscriptionOverall ? ipo.subscriptionOverall + 'x' : (ipo.subscriptionRetail ? ipo.subscriptionRetail + 'x' : 'N/A')}</span>
+          </div>
+        </div>
 
         <!-- SEBI Regulatory & YMYL Transparency Notice -->
         <div style="margin: 14px 0 18px; padding: 12px 16px; background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #1A237E; border-radius: 8px; font-size: 12px; color: #1E293B; line-height: 1.55;">
@@ -2735,6 +2957,345 @@
   }
 
   // ==========================================================================
+  // ==========================================================================
+  // Dedicated Open IPOs Page (#/open)
+  // ==========================================================================
+  function renderOpenIposPage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    let openIssues = records.filter(r => r.status === "OPEN");
+
+    if (state.openBoard === "mainboard") {
+      openIssues = openIssues.filter(r => r.board === "MAINBOARD");
+    } else if (state.openBoard === "sme") {
+      openIssues = openIssues.filter(r => r.board === "SME");
+    }
+
+    if (state.openSearchQuery) {
+      const q = state.openSearchQuery.toLowerCase();
+      openIssues = openIssues.filter(r => 
+        (r.name && r.name.toLowerCase().includes(q)) || 
+        (r.shortName && r.shortName.toLowerCase().includes(q)) ||
+        (r.sector && r.sector.toLowerCase().includes(q))
+      );
+    }
+
+    const allOpenCount = records.filter(r => r.status === "OPEN").length;
+    const mbOpenCount = records.filter(r => r.status === "OPEN" && r.board === "MAINBOARD").length;
+    const smeOpenCount = records.filter(r => r.status === "OPEN" && r.board === "SME").length;
+
+    app.innerHTML = `
+      <div class="detail-view-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="detail-breadcrumbs" aria-label="Breadcrumb">
+          <a href="#/">Home</a>
+          <span>&gt;</span>
+          <span style="color:var(--text-primary); font-weight:600;">Open IPOs</span>
+        </nav>
+
+        <div class="page-header-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div>
+            <h1 style="font-size:24px; font-weight:800; color:#FFFFFF; margin:0 0 6px;">Active &amp; Open IPOs (${allOpenCount})</h1>
+            <p style="margin:0; font-size:14px; opacity:0.9;">Live initial public offerings currently accepting retail and HNI bids via ASBA / UPI.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="live-pulse"></span>
+            <span style="color:#A7F3D0; font-weight:700; font-size:13px;">Market Open Verified</span>
+          </div>
+        </div>
+
+        <!-- Filter and Search Bar -->
+        <div class="filter-tabs-wrapper" style="margin-top:18px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div class="filter-pills-group">
+            <button class="filter-pill ${state.openBoard === 'all' ? 'active' : ''}" onclick="window.IpoApp.setOpenBoardFilter('all')">All Issues (${allOpenCount})</button>
+            <button class="filter-pill ${state.openBoard === 'mainboard' ? 'active' : ''}" onclick="window.IpoApp.setOpenBoardFilter('mainboard')">Mainboard (${mbOpenCount})</button>
+            <button class="filter-pill ${state.openBoard === 'sme' ? 'active' : ''}" onclick="window.IpoApp.setOpenBoardFilter('sme')">SME Platform (${smeOpenCount})</button>
+          </div>
+
+          <div style="position:relative; width:260px; max-width:100%;">
+            <input type="text" 
+                   class="fig1-subscribe-input" 
+                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
+                   placeholder="Search open issues..." 
+                   value="${escapeHtml(state.openSearchQuery || '')}"
+                   oninput="window.IpoApp.setOpenSearch(this.value)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position:absolute; left:11px; top:11px;">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Desktop Data Table -->
+        <div class="data-table-card desktop-only-table">
+          <table class="dedicated-data-table full-data-table">
+            <thead>
+              <tr>
+                <th>COMPANY</th>
+                <th>CATEGORY</th>
+                <th>BIDDING WINDOW</th>
+                <th>PRICE BAND</th>
+                <th>LOT SIZE</th>
+                <th>ISSUE SIZE</th>
+                <th>LIVE GMP</th>
+                <th>SUBSCRIPTION</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${openIssues.length === 0 ? `
+                <tr><td colspan="9" style="text-align:center; padding:32px; color:#64748B;">No open IPOs match your filter criteria.</td></tr>
+              ` : openIssues.map(r => {
+                const priceText = r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA');
+                const gmpText = r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—';
+                const subText = r.subscriptionOverall ? `${r.subscriptionOverall}x` : (r.subscriptionRetail ? `${r.subscriptionRetail}x` : 'Open');
+                return `
+                  <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
+                    <td>
+                      <div class="fig1-company-cell">
+                        ${renderCompanyLogo(r, 36)}
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">${r.shortName}</span>
+                          <span style="font-size:11px; color:#64748B;">${r.sector || 'Industrial'}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${r.board || 'MAINBOARD'}</span></td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">${formatDate(r.openDate)}</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: ${formatDate(r.closeDate)}</div>
+                    </td>
+                    <td><span style="font-weight:700; color:#111827;">${priceText}</span></td>
+                    <td><span style="font-weight:600;">${r.lotSize ? r.lotSize + ' shares' : '—'}</span></td>
+                    <td><span style="font-weight:600;">${formatCrore(r.issueSizeCr)}</span></td>
+                    <td><span style="color:#16A34A; font-weight:700;">${gmpText}</span></td>
+                    <td><span class="fig1-sub-pill">${subText}</span></td>
+                    <td>
+                      <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
+                        <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">Details</button>
+                        ${r.allotmentUrl ? `<a href="${r.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment" title="Registrar">Registrar</a>` : ''}
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Card View -->
+        <div class="mobile-only-cards" style="display:none;">
+          ${openIssues.map(r => `
+            <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  ${renderCompanyLogo(r, 40)}
+                  <div>
+                    <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${r.shortName}</h3>
+                    <span style="font-size:11px; color:#64748B;">${r.board} • ${r.exchange}</span>
+                  </div>
+                </div>
+                <span class="status-badge open">Open</span>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
+                <div><span style="color:#64748B;">Price Band:</span> <strong style="display:block; color:#111827;">${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow}–${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA')}</strong></div>
+                <div><span style="color:#64748B;">Lot Size:</span> <strong style="display:block; color:#111827;">${r.lotSize ? r.lotSize + ' shares' : '—'}</strong></div>
+                <div><span style="color:#64748B;">Closes:</span> <strong style="display:block; color:#DC2626;">${formatDate(r.closeDate)}</strong></div>
+                <div><span style="color:#64748B;">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Complete Details</button>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+
+        <!-- Regulatory Notice -->
+        <div style="margin-top:24px; padding:14px 18px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; font-size:12px; color:#475569; line-height:1.5;">
+          <strong>Disclaimer:</strong> Sourced from BSE and NSE exchange circulars. PriceAlerter is an informational platform and does not provide financial or trading recommendations. Always consult a certified financial adviser before bidding via ASBA.
+        </div>
+      </div>
+    `;
+  }
+
+  // ==========================================================================
+  // Dedicated Upcoming IPOs Page (#/upcoming)
+  // ==========================================================================
+  function renderUpcomingIposPage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    let upcomingRecords = records.filter(r => r.status === "UPCOMING");
+
+    if (state.upcomingBoard === "mainboard") {
+      upcomingRecords = upcomingRecords.filter(r => r.board === "MAINBOARD");
+    } else if (state.upcomingBoard === "sme") {
+      upcomingRecords = upcomingRecords.filter(r => r.board === "SME");
+    }
+
+    if (state.upcomingFilter === "confirmed") {
+      upcomingRecords = upcomingRecords.filter(r => r.openDate);
+    } else if (state.upcomingFilter === "tentative") {
+      upcomingRecords = upcomingRecords.filter(r => !r.openDate);
+    }
+
+    if (state.upcomingSearchQuery) {
+      const q = state.upcomingSearchQuery.toLowerCase();
+      upcomingRecords = upcomingRecords.filter(r => 
+        (r.name && r.name.toLowerCase().includes(q)) || 
+        (r.shortName && r.shortName.toLowerCase().includes(q)) ||
+        (r.sector && r.sector.toLowerCase().includes(q))
+      );
+    }
+
+    const totalUpcoming = records.filter(r => r.status === "UPCOMING").length;
+    const confirmedCount = records.filter(r => r.status === "UPCOMING" && r.openDate).length;
+    const tentativeCount = records.filter(r => r.status === "UPCOMING" && !r.openDate).length;
+
+    app.innerHTML = `
+      <div class="detail-view-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="detail-breadcrumbs" aria-label="Breadcrumb">
+          <a href="#/">Home</a>
+          <span>&gt;</span>
+          <span style="color:var(--text-primary); font-weight:600;">Upcoming IPOs</span>
+        </nav>
+
+        <div class="page-header-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div>
+            <h1 style="font-size:24px; font-weight:800; color:#FFFFFF; margin:0 0 6px;">Upcoming IPOs Pipeline (${totalUpcoming})</h1>
+            <p style="margin:0; font-size:14px; opacity:0.9;">Companies with SEBI DRHP approval awaiting opening dates and tentative pipeline.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.12); padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600; color:#FFFFFF;">
+            ${confirmedCount} Confirmed Dates · ${tentativeCount} Pipeline
+          </div>
+        </div>
+
+        <!-- Filter and Search Bar -->
+        <div class="filter-tabs-wrapper" style="margin-top:18px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div class="filter-pills-group">
+            <button class="filter-pill ${state.upcomingFilter === 'all' ? 'active' : ''}" onclick="window.IpoApp.setUpcomingStatusFilter('all')">All Pipeline (${totalUpcoming})</button>
+            <button class="filter-pill ${state.upcomingFilter === 'confirmed' ? 'active' : ''}" onclick="window.IpoApp.setUpcomingStatusFilter('confirmed')">Confirmed Dates (${confirmedCount})</button>
+            <button class="filter-pill ${state.upcomingFilter === 'tentative' ? 'active' : ''}" onclick="window.IpoApp.setUpcomingStatusFilter('tentative')">Tentative / Filed (${tentativeCount})</button>
+          </div>
+
+          <div style="position:relative; width:260px; max-width:100%;">
+            <input type="text" 
+                   class="fig1-subscribe-input" 
+                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
+                   placeholder="Search upcoming IPOs..." 
+                   value="${escapeHtml(state.upcomingSearchQuery || '')}"
+                   oninput="window.IpoApp.setUpcomingSearch(this.value)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position:absolute; left:11px; top:11px;">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Desktop Data Table -->
+        <div class="data-table-card desktop-only-table">
+          <table class="dedicated-data-table full-data-table">
+            <thead>
+              <tr>
+                <th>COMPANY</th>
+                <th>PIPELINE STAGE</th>
+                <th>CATEGORY</th>
+                <th>EST. ISSUE SIZE</th>
+                <th>EXPECTED DATE</th>
+                <th>SECTOR</th>
+                <th>OFFER DOCUMENT</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${upcomingRecords.length === 0 ? `
+                <tr><td colspan="8" style="text-align:center; padding:32px; color:#64748B;">No upcoming IPOs found matching this query.</td></tr>
+              ` : upcomingRecords.map(r => {
+                const isConfirmed = Boolean(r.openDate);
+                return `
+                  <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
+                    <td>
+                      <div class="fig1-company-cell">
+                        ${renderCompanyLogo(r, 36)}
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">${r.shortName}</span>
+                          <span style="font-size:11px; color:#64748B;">${r.exchange || 'BSE / NSE'}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="${isConfirmed ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
+                        ${isConfirmed ? 'Dates Confirmed' : 'DRHP / Pipeline'}
+                      </span>
+                    </td>
+                    <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${r.board || 'MAINBOARD'}</span></td>
+                    <td><span style="font-weight:700; color:#111827;">${formatCrore(r.issueSizeCr)}</span></td>
+                    <td>
+                      <div style="font-weight:600; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative (2024–2025)'}</div>
+                    </td>
+                    <td><span style="font-size:12px; color:#475569;">${r.sector || 'Diversified'}</span></td>
+                    <td>
+                      ${r.docUrl ? `
+                        <a href="${r.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" onclick="event.stopPropagation()" style="font-size:11px; padding:4px 8px;">
+                          <span>View DRHP</span>
+                        </a>
+                      ` : `
+                        <span style="color:#94A3B8; font-size:11px;">Draft in Review</span>
+                      `}
+                    </td>
+                    <td>
+                      <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
+                        <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">View Details</button>
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Card View -->
+        <div class="mobile-only-cards" style="display:none;">
+          ${upcomingRecords.map(r => `
+            <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  ${renderCompanyLogo(r, 40)}
+                  <div>
+                    <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${r.shortName}</h3>
+                    <span style="font-size:11px; color:#64748B;">${r.board} • ${r.sector || 'Diversified'}</span>
+                  </div>
+                </div>
+                <span class="${r.openDate ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
+                  ${r.openDate ? 'Confirmed' : 'Pipeline'}
+                </span>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
+                <div><span style="color:#64748B;">Est. Issue Size:</span> <strong style="display:block; color:#111827;">${formatCrore(r.issueSizeCr)}</strong></div>
+                <div><span style="color:#64748B;">Expected Date:</span> <strong style="display:block; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative'}</strong></div>
+              </div>
+              <div style="display:flex; gap:8px; margin-top:8px;">
+                <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Details &amp; Analysis</button>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+
+        <!-- Pipeline Editorial Overview -->
+        <article class="guide-section-card" style="margin-top:24px; padding:20px 24px; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px;">
+          <h3 style="font-size:16px; color:#142B49; margin-bottom:10px;">📋 Indian IPO Pipeline &amp; SEBI Scrutiny Highlights</h3>
+          <p style="font-size:13.5px; line-height:1.6; color:#475569; margin-bottom:10px;">
+            The primary market in India maintains a healthy pipeline of over ₹1,00,000 Cr in draft red herring prospectuses (DRHPs) filed with the Securities and Exchange Board of India (SEBI). Key sectors leading the upcoming pipeline include quick commerce, fintech, consumer tech, renewable energy, and financial infrastructure.
+          </p>
+          <p style="font-size:13.5px; line-height:1.6; color:#475569; margin:0;">
+            Issuers with confirmed dates are scheduled based on exchange clearance and anchor book completion. Dates are subject to market conditions and merchant banker roadshows.
+          </p>
+        </article>
+      </div>
+    `;
+  }
+
   // Dedicated Pages: GMP Tracker, Calendar, Listed
   // ==========================================================================
   function renderGmpPage() {
@@ -3960,6 +4521,10 @@
 
     if (state.route.view === "detail") {
       renderDetailView(state.route.slug);
+    } else if (state.route.view === "open") {
+      renderOpenIposPage();
+    } else if (state.route.view === "upcoming") {
+      renderUpcomingIposPage();
     } else if (state.route.view === "gmp") {
       renderGmpPage();
     } else if (state.route.view === "calendar") {
@@ -4058,6 +4623,13 @@
       e.preventDefault();
       const input = e.target.querySelector("input");
       if (input && input.value) {
+        try {
+          const subs = JSON.parse(localStorage.getItem("ipo_subscribers") || "[]");
+          if (!subs.includes(input.value)) {
+            subs.push(input.value);
+            localStorage.setItem("ipo_subscribers", JSON.stringify(subs));
+          }
+        } catch (err) {}
         showToast("✓ Successfully subscribed! You will receive daily IPO & GMP updates.", "success");
         input.value = "";
       }
@@ -4065,6 +4637,65 @@
     toggleAlertsSubscription: () => {
       state.alertsSubscribed = !state.alertsSubscribed;
       showToast(state.alertsSubscribed ? "✓ Alerts enabled for all high-GMP issues!" : "Alerts muted", "info");
+    },
+    toggleWatchlist: (slug, btnEl) => {
+      let bookmarks = [];
+      try {
+        bookmarks = JSON.parse(localStorage.getItem("ipo_watchlist") || "[]");
+      } catch (e) {}
+      const idx = bookmarks.indexOf(slug);
+      let isAdded = false;
+      if (idx > -1) {
+        bookmarks.splice(idx, 1);
+        isAdded = false;
+      } else {
+        bookmarks.push(slug);
+        isAdded = true;
+      }
+      localStorage.setItem("ipo_watchlist", JSON.stringify(bookmarks));
+      if (btnEl) {
+        if (isAdded) {
+          btnEl.classList.add("bookmarked");
+          btnEl.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Bookmarked</span>`;
+          showToast("Added to your Watchlist!", "success");
+        } else {
+          btnEl.classList.remove("bookmarked");
+          btnEl.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>Add to Watchlist</span>`;
+          showToast("Removed from Watchlist", "info");
+        }
+      }
+    },
+    toggleMobileMenu: (force) => {
+      state.mobileMenuOpen = force !== undefined ? force : !state.mobileMenuOpen;
+      renderHeader();
+    },
+    setOpenBoardFilter: (board) => {
+      state.openBoard = board;
+      renderOpenIposPage();
+    },
+    setOpenSearch: (q) => {
+      state.openSearchQuery = q;
+      renderOpenIposPage();
+    },
+    setUpcomingBoardFilter: (board) => {
+      state.upcomingBoard = board;
+      renderUpcomingIposPage();
+    },
+    setUpcomingStatusFilter: (status) => {
+      state.upcomingFilter = status;
+      renderUpcomingIposPage();
+    },
+    setUpcomingSearch: (q) => {
+      state.upcomingSearchQuery = q;
+      renderUpcomingIposPage();
+    },
+    setGmpFilter: (filter) => {
+      state.gmpFilter = filter;
+      renderGmpPage();
+    },
+    setGmpSearch: (q) => {
+      state.gmpSearchQuery = q;
+      renderGmpPage();
     }
   };
 

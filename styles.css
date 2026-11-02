@@ -1,26 +1,39 @@
 /* ==========================================================================
-   IPO PriceAlerter — Light Corporate Design System (Matching Figure 1)
+   IPO PriceAlerter — Modern Fintech Design System (Matching Reference)
    ========================================================================== */
 
 :root {
   color-scheme: light;
-  --bg-main: #F4F6FA;
+  
+  /* Brand & Core Palette (Exact Specification) */
+  --primary-navy: #142B49;
+  --secondary-navy: #1E293B;
+  --primary-green: #079B50;
+  --positive-green: #16A34A;
+  --negative-red: #DC2626;
+  --bg-main: #F5F8FC;
   --bg-surface: #FFFFFF;
   --bg-surface-raised: #FFFFFF;
   --bg-card: #FFFFFF;
   --bg-card-hover: #F8FAFC;
   --bg-input: #FFFFFF;
+  --text-primary: #111827;
+  --text-heading: #111827;
+  --text-body: #64748B;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
   --border-subtle: #E2E8F0;
   --border-hover: #CBD5E1;
-  --border-focus: #1A237E;
+  --border-focus: #142B49;
   
-  --primary-blue: #1A237E;
-  --primary-blue-hover: #0D1654;
-  --primary-blue-glow: rgba(26, 35, 126, 0.2);
-  --accent-cyan: #00897B;
-  --accent-cyan-glow: rgba(0, 137, 123, 0.2);
+  /* UI Role Mappings */
+  --primary-blue: #142B49;
+  --primary-blue-hover: #0D1C30;
+  --primary-blue-glow: rgba(20, 43, 73, 0.2);
+  --accent-cyan: #079B50;
+  --accent-cyan-glow: rgba(7, 155, 80, 0.2);
   
-  --status-open: #10B981;
+  --status-open: #079B50;
   --status-open-bg: #ECFDF5;
   --status-open-border: #A7F3D0;
   
@@ -28,7 +41,7 @@
   --status-closing-bg: #FFF7ED;
   --status-closing-border: #FED7AA;
   
-  --status-upcoming: #2563EB;
+  --status-upcoming: #142B49;
   --status-upcoming-bg: #EFF6FF;
   --status-upcoming-border: #BFDBFE;
   
@@ -36,19 +49,14 @@
   --status-listed-bg: #F1F5F9;
   --status-listed-border: #CBD5E1;
 
-  --text-primary: #0F172A;
-  --text-heading: #0F172A;
-  --text-body: #334155;
-  --text-muted: #64748B;
-  --text-dim: #94A3B8;
-
-  --chart-blue: #1A237E;
+  --chart-blue: #142B49;
   --chart-gold: #F59E0B;
-  --chart-green: #10B981;
-  --chart-orange: #FF6F00;
+  --chart-green: #16A34A;
+  --chart-orange: #F97316;
+  --chart-red: #DC2626;
 
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Poppins', 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --radius-sm: 8px;
@@ -57,10 +65,10 @@
   --radius-xl: 20px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
-  --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.05);
-  --shadow-glow: 0 4px 20px rgba(26, 35, 126, 0.15);
-  --shadow-dropdown: 0 10px 30px rgba(15, 23, 42, 0.12);
+  --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.05);
+  --shadow-card: 0 4px 16px rgba(17, 24, 39, 0.05);
+  --shadow-glow: 0 4px 20px rgba(20, 43, 73, 0.15);
+  --shadow-dropdown: 0 10px 30px rgba(17, 24, 39, 0.12);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -164,16 +172,16 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   top: 0;
   z-index: 100;
   height: 64px;
-  background: #1A237E !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 2px 10px rgba(26, 35, 126, 0.2);
+  background: var(--primary-navy) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(20, 43, 73, 0.2);
 }
 
 .nav-container {
   max-width: 1360px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -182,12 +190,23 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .brand-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-size: 19px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.4px;
   color: #FFFFFF !important;
   user-select: none;
+}
+
+.brand-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--primary-green);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(7, 155, 80, 0.35);
 }
 
 .brand-dot-pulse {
@@ -195,8 +214,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #00897B;
-  box-shadow: 0 0 10px #00897B;
+  background: var(--primary-green);
+  box-shadow: 0 0 10px var(--primary-green);
   margin: 0 2px;
 }
 
@@ -4492,6 +4511,228 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 
 
 /* ==========================================================================
+   Fintech Modern Hero Section (Matching Section 4.B)
+   ========================================================================== */
+.fintech-hero-section {
+  max-width: 1320px;
+  margin: 20px auto 24px;
+  padding: 0 20px;
+}
+
+.fintech-hero-inner {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 36px 40px;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  align-items: center;
+  gap: 36px;
+  box-shadow: 0 4px 20px rgba(17, 24, 39, 0.04);
+}
+
+.fintech-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: var(--primary-green);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.fintech-hero-badge .badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  box-shadow: 0 0 8px var(--primary-green);
+}
+
+.fintech-hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.fintech-hero-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-body);
+  margin-bottom: 24px;
+  max-width: 580px;
+}
+
+.fintech-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 28px;
+  background: var(--primary-green);
+  color: #FFFFFF;
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(7, 155, 80, 0.3);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-hero-primary:hover {
+  background: #068343;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(7, 155, 80, 0.4);
+}
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  background: #F8FAFC;
+  color: var(--primary-navy);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-hero-secondary:hover {
+  background: #EEF2FF;
+  border-color: #CBD5E1;
+  color: var(--primary-navy);
+}
+
+.fintech-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+  border-top: 1px solid #F1F5F9;
+}
+
+.fintech-hero-meta .meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+.fintech-hero-graphic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-illustration-svg {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px -10px rgba(17, 24, 39, 0.08);
+}
+
+/* ==========================================================================
+   Mobile Navigation Drawer (Matching Section 4.A & Section 9)
+   ========================================================================== */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 85vw);
+  background: #FFFFFF;
+  z-index: 1001;
+  box-shadow: -4px 0 24px rgba(17, 24, 39, 0.15);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer-overlay.open .mobile-drawer {
+  transform: translateX(0);
+}
+
+.mobile-drawer-header {
+  padding: 18px 20px;
+  background: var(--primary-navy);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-drawer-links {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.mobile-drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14.5px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mobile-drawer-link:hover, .mobile-drawer-link.active {
+  background: #EFF6FF;
+  color: var(--primary-navy);
+}
+
+.mobile-drawer-link .link-icon {
+  width: 20px;
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+}
+
+/* ==========================================================================
    Figure 1 UI/UX Overhaul: Modern Corporate Dashboard Styles
    Matching the reference mockup from Google AdSense Readiness Audit
    ========================================================================== */
@@ -4530,9 +4771,9 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
 }
 
-.fig1-border-green { border-left: 5px solid #10B981 !important; }
-.fig1-border-blue { border-left: 5px solid #1A237E !important; }
-.fig1-border-red { border-left: 5px solid #EF4444 !important; }
+.fig1-border-green { border-left: 5px solid var(--primary-green) !important; }
+.fig1-border-blue { border-left: 5px solid var(--primary-navy) !important; }
+.fig1-border-red { border-left: 5px solid var(--negative-red) !important; }
 .fig1-border-orange { border-left: 5px solid #F97316 !important; }
 
 .fig1-card-content {
@@ -4541,18 +4782,18 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 
 .fig1-stat-num {
-  font-family: 'Poppins', 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 32px;
   font-weight: 800;
   line-height: 1.1;
-  color: #0F172A;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .fig1-stat-label {
   font-size: 13.5px;
   font-weight: 600;
-  color: #64748B;
+  color: var(--text-body);
 }
 
 .fig1-icon-badge {
@@ -4564,9 +4805,9 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   flex-shrink: 0;
 }
 
-.fig1-badge-green { background: #ECFDF5; color: #10B981; }
-.fig1-badge-blue { background: #EEF2FF; color: #1A237E; }
-.fig1-badge-red { background: #FEF2F2; color: #EF4444; }
+.fig1-badge-green { background: #ECFDF5; color: var(--primary-green); }
+.fig1-badge-blue { background: #EEF2FF; color: var(--primary-navy); }
+.fig1-badge-red { background: #FEF2F2; color: var(--negative-red); }
 .fig1-badge-orange { background: #FFF7ED; color: #F97316; }
 
 /* 2-Column Main Layout */
@@ -4812,8 +5053,8 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   margin-bottom: 4px;
 }
 
-.fig1-bar-val.positive { color: #10B981; }
-.fig1-bar-val.negative { color: #EF4444; }
+.fig1-bar-val.positive { color: var(--positive-green); }
+.fig1-bar-val.negative { color: var(--negative-red); }
 
 .fig1-bar-fill {
   width: 26px;
@@ -4822,18 +5063,18 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 
 .fig1-bar-fill.gain {
-  background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+  background: linear-gradient(180deg, var(--positive-green) 0%, #059669 100%);
 }
 
 .fig1-bar-fill.loss {
-  background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+  background: linear-gradient(180deg, var(--negative-red) 0%, #991B1B 100%);
   border-radius: 0 0 5px 5px;
 }
 
 .fig1-col-label {
   font-size: 11px;
   font-weight: 600;
-  color: #64748B;
+  color: var(--text-body);
   margin-top: 8px;
   text-align: center;
   white-space: nowrap;
@@ -4871,13 +5112,13 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 
 .fig1-gmp-val {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 14.5px;
 }
 
-.fig1-gmp-val.pos { color: #10B981; }
-.fig1-gmp-val.neg { color: #EF4444; }
+.fig1-gmp-val.pos { color: var(--positive-green); }
+.fig1-gmp-val.neg { color: var(--negative-red); }
 
 /* Right Column: IPO Calendar Widget */
 .fig1-calendar-list {
@@ -4904,9 +5145,9 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   height: 44px;
   border-radius: 8px;
   background: #EEF2FF;
-  color: #1A237E;
+  color: var(--primary-navy);
   flex-shrink: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
 }
 
 .fig1-cal-day {
@@ -4932,7 +5173,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 .fig1-cal-name {
   font-weight: 700;
   font-size: 13.5px;
-  color: #0F172A;
+  color: var(--text-primary);
 }
 
 .fig1-cal-status-pill {
@@ -4944,17 +5185,17 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   width: fit-content;
 }
 
-.fig1-cal-status-pill.open { background: #ECFDF5; color: #10B981; }
-.fig1-cal-status-pill.upcoming { background: #EFF6FF; color: #2563EB; }
+.fig1-cal-status-pill.open { background: #ECFDF5; color: var(--primary-green); }
+.fig1-cal-status-pill.upcoming { background: #EFF6FF; color: var(--primary-navy); }
 .fig1-cal-status-pill.tentative { background: #FFF7ED; color: #F97316; }
 
 /* Right Column: Stay Updated Gradient Card */
 .fig1-stay-updated-card {
-  background: linear-gradient(135deg, #1A237E 0%, #00897B 100%);
+  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-green) 100%);
   border-radius: 16px;
   padding: 24px;
   color: #FFFFFF;
-  box-shadow: 0 4px 18px rgba(26, 35, 126, 0.25);
+  box-shadow: 0 4px 18px rgba(20, 43, 73, 0.25);
 }
 
 .fig1-stay-updated-title {
@@ -5514,3 +5755,271 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   color: #FFFFFF !important;
   border-color: #1A237E !important;
 }
+
+/* ==========================================================================
+   Tabular Financial Numerals (Section 3 Requirement)
+   ========================================================================== */
+.num-tabular,
+.metric-val,
+.fig1-val-price,
+.fig1-stat-num,
+.fig1-gmp-val,
+.fig1-return-tag,
+.fig1-bar-val,
+.gmp-row-val,
+.table-num,
+.sub-val,
+.calc-result-val,
+.data-num,
+.key-metric-num {
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   IPO Details Page Key Metrics Strip & Watchlist (Section 5)
+   ========================================================================== */
+.key-metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.key-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: 1px solid #F1F5F9;
+  padding-right: 12px;
+}
+
+.key-metric-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.key-metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.key-metric-num {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.key-metric-num.highlight-green {
+  color: var(--positive-green);
+}
+
+.btn-watchlist {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #F8FAFC;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-watchlist:hover {
+  background: #EEF2FF;
+  border-color: #CBD5E1;
+  color: var(--primary-navy);
+}
+
+.btn-watchlist.bookmarked {
+  background: #FEF3C7;
+  border-color: #FCD34D;
+  color: #B45309;
+}
+
+/* ==========================================================================
+   Dedicated Open IPOs Page & Table (Section 6)
+   ========================================================================== */
+.dedicated-page-header {
+  margin-bottom: 24px;
+}
+
+.dedicated-page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.dedicated-page-subtitle {
+  font-size: 14.5px;
+  color: var(--text-body);
+  margin: 0;
+}
+
+.dedicated-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.dedicated-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  width: min(340px, 100%);
+  box-shadow: var(--shadow-sm);
+}
+
+.dedicated-search-box input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.dedicated-table-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.dedicated-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.dedicated-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.dedicated-data-table th {
+  padding: 14px 18px;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.dedicated-data-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #F1F5F9;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.dedicated-data-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.btn-table-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--primary-navy);
+  color: #FFFFFF;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-table-action:hover {
+  background: #0D1C30;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Dedicated Upcoming IPOs Page (Section 7)
+   ========================================================================== */
+.pipeline-badge-announced {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: var(--primary-green);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pipeline-badge-tentative {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: #FFF7ED;
+  border: 1px solid #FED7AA;
+  color: #C2410C;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .key-metrics-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fintech-hero-inner {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+  }
+  .fintech-hero-graphic {
+    display: none;
+  }
+}
+
+.desktop-only-table {
+  display: block;
+}
+.mobile-only-cards {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-only-table {
+    display: none !important;
+  }
+  .mobile-only-cards {
+    display: block !important;
+  }
+}
+
