@@ -15,7 +15,7 @@
     route: parseRoute(),
     activeFilter: "open",       // Default to 'open' so visitors see active open IPOs first
     activeBoard: "all",         // 'all' | 'mainboard' | 'sme'
-    activeBottomCompany: "bombay-coated-and-special-steels-ipo",
+    activeBottomCompany: "maxwell-engineering-solutions-ipo",
     calendarMonth: new Date(2024, 10, 1), // November 2024
     selectedCalendarDate: "2024-11-13",
     detailTab: "overview",      // 'overview' | 'subscription' | 'gmp' | 'financials' | 'review' | 'documents'
