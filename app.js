@@ -2076,13 +2076,13 @@
         </header>
 
         <!-- SEBI Regulatory & YMYL Transparency Notice -->
-        <div style="margin: 14px 0 18px; padding: 12px 16px; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.25); border-left: 4px solid #38BDF8; border-radius: 8px; font-size: 12px; color: var(--text-body); line-height: 1.55;">
+        <div style="margin: 14px 0 18px; padding: 12px 16px; background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #1A237E; border-radius: 8px; font-size: 12px; color: #1E293B; line-height: 1.55;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            <span style="font-weight: 700; color: #38BDF8; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase;">SEBI Regulatory & YMYL Advisory</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A237E" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span style="font-weight: 700; color: #1A237E; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase;">SEBI Regulatory &amp; YMYL Advisory</span>
           </div>
-          <p style="margin: 0;">
-            <strong>We do not provide buy/sell recommendations or financial advice.</strong> Data is sourced dynamically for educational tracking purposes only from official exchange disclosures (NSE & BSE) and designated registrars. Grey Market Premium (GMP) is an informal off-market estimate and does not guarantee listing returns. Always consult a SEBI-registered financial adviser and review the complete Red Herring Prospectus (RHP) before bidding.
+          <p style="margin: 0; color: #334155;">
+            <strong>We do not provide buy/sell recommendations or financial advice.</strong> Data is sourced dynamically for educational tracking purposes only from official exchange disclosures (NSE &amp; BSE) and designated registrars. Grey Market Premium (GMP) is an informal off-market estimate and does not guarantee listing returns. Always consult a SEBI-registered financial adviser and review the complete Red Herring Prospectus (RHP) before bidding.
           </p>
         </div>
 

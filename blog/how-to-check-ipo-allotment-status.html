@@ -53,36 +53,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css?v=20241115_v11">
+    <link rel="stylesheet" href="../styles.css?v=20241115_v16">
 
-    <style>
-      .article-layout { max-width: 900px; margin: 40px auto; padding: 0 20px 80px; }
-      .article-header { margin-bottom: 32px; border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.08)); padding-bottom: 24px; }
-      .article-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: rgba(37,99,235,0.12); color: #60a5fa; font-size: 0.82rem; font-weight: 600; margin-bottom: 12px; }
-      .article-title { font-family: 'Poppins', sans-serif; font-size: 2.2rem; line-height: 1.3; font-weight: 700; color: var(--text-primary, #f8fafc); margin-bottom: 12px; }
-      .article-meta { font-size: 0.88rem; color: var(--text-tertiary, #94a3b8); display: flex; gap: 16px; flex-wrap: wrap; }
-      .article-content { font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary, #cbd5e1); }
-      .article-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--text-primary, #f8fafc); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.06)); }
-      .article-content h3 { font-size: 1.25rem; color: #93c5fd; margin: 28px 0 12px; }
-      .article-content p { margin-bottom: 20px; }
-      .article-content ul, .article-content ol { margin-bottom: 24px; padding-left: 24px; }
-      .article-content li { margin-bottom: 10px; }
-      .article-callout { background: rgba(30, 41, 59, 0.7); border-left: 4px solid #3b82f6; border-radius: 8px; padding: 18px 20px; margin: 28px 0; }
-      .article-callout.warning { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.08); }
-      .article-callout h4 { margin: 0 0 8px; color: var(--text-primary, #f8fafc); font-size: 1.05rem; }
-      .article-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.95rem; }
-      .article-table th, .article-table td { padding: 12px 16px; text-align: left; border: 1px solid var(--border-subtle, rgba(255,255,255,0.1)); }
-      .article-table th { background: rgba(255,255,255,0.05); color: #f8fafc; font-weight: 600; }
-      .breadcrumb { font-size: 0.88rem; margin-bottom: 20px; color: var(--text-tertiary, #94a3b8); }
-      .breadcrumb a { color: #60a5fa; text-decoration: none; }
-      .breadcrumb a:hover { text-decoration: underline; }
-      .author-box { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle, rgba(255,255,255,0.08)); border-radius: 12px; padding: 20px; margin-top: 48px; }
-      .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #10b981); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.3rem; color: #fff; }
-      .author-info h4 { margin: 0 0 4px; color: #f8fafc; font-size: 1.05rem; }
-      .author-info p { margin: 0; font-size: 0.86rem; color: #94a3b8; line-height: 1.5; }
-    </style>
+    
   </head>
   <body>
+    <header class="site-header" style="background:#1A237E; border-bottom:1px solid rgba(255,255,255,0.1);">
+      <div class="nav-container">
+        <a href="../#/" class="brand-wrap" style="color:#ffffff;">
+          <div style="width:32px; height:32px; border-radius:8px; background:#00897B; display:grid; place-items:center; margin-right:8px; flex-shrink:0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <span style="font-family:'Poppins', sans-serif; font-weight:700; font-size:18px;">IPO PriceAlerter</span>
+        </a>
+        <nav class="main-nav">
+          <a href="../#/" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Home</a>
+          <a href="../#/?status=open" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Open IPOs</a>
+          <a href="../#/?status=upcoming" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Upcoming</a>
+          <a href="../#/gmp" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">GMP</a>
+          <a href="./" class="nav-tab-link active" style="color:#ffffff;">Learn</a>
+          <a href="./" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Blog</a>
+        </nav>
+      </div>
+    </header>
+
     <!-- Top Navigation Bar -->
     <header class="app-header">
       <div class="header-container">
@@ -283,5 +281,40 @@
         </div>
       </div>
     </footer>
-  </body>
+      <footer class="site-footer" style="background:#1A237E; border-top:1px solid rgba(255,255,255,0.1); padding:24px 0; margin-top:40px;">
+      <div class="footer-inner" style="max-width:1320px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:24px; height:24px; border-radius:6px; background:#00897B; display:grid; place-items:center; flex-shrink:0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <span style="font-size:13.5px; color:rgba(255,255,255,0.9); font-weight:500;">&copy; 2026 PriceAlerter.in &mdash; India's #1 IPO Tracker</span>
+        </div>
+        <div class="footer-bottom-links" style="display:flex; gap:16px; font-size:13px;">
+          <a href="../about.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">About Us</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../privacy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Privacy Policy</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../terms.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Terms</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../contact.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Contact</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../disclaimer.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Disclaimer</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.75);">
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter X" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 0 0 1.66-1.66 1.66 1.66 0 0 0-3.32 0 1.66 1.66 0 0 0 1.66 1.66m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
+          </a>
+          <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" aria-label="Telegram" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .26z"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.26 5 12 5 12 5s-6.26 0-7.82.42a2.5 2.5 0 0 0-1.76 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81a2.5 2.5 0 0 0 1.76 1.77C5.74 19 12 19 12 19s6.26 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM9.75 15.02V8.98L15 12l-5.25 3.02z"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+</body>
 </html>

@@ -53,40 +53,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css?v=20241115_v11">
+    <link rel="stylesheet" href="../styles.css?v=20241115_v16">
 
-    <style>
-      .article-layout { max-width: 900px; margin: 40px auto; padding: 0 20px 80px; }
-      .article-header { margin-bottom: 32px; border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.08)); padding-bottom: 24px; }
-      .article-badge { background: rgba(234,179,8,0.15); color: #FBBF24; font-weight:700; font-size:12px; padding:4px 10px; border-radius:6px; display:inline-block; margin-bottom:12px; }
-      .article-header h1 { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 700; line-height: 1.35; color: #FFFFFF; margin: 0 0 14px; }
-      .byline { font-size: 13px; color: var(--text-muted, #94A3B8); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-      .article-body { font-size: 16px; line-height: 1.75; color: var(--text-body, #CBD5E1); }
-      .article-body h2 { font-family: 'Poppins', sans-serif; font-size: 22px; color: #FFFFFF; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .article-body h3 { font-size: 18px; color: #38BDF8; margin: 24px 0 12px; }
-      .article-body p { margin: 0 0 18px; }
-      .article-body ul, .article-body ol { margin: 0 0 20px; padding-left: 24px; }
-      .article-body li { margin-bottom: 8px; }
-      .callout-box { background: rgba(30, 41, 59, 0.7); border-left: 4px solid #00897b; border-radius: 8px; padding: 18px 20px; margin: 24px 0; }
-      .disclaimer-card { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 16px 20px; margin: 36px 0; font-size: 13px; color: #FCD34D; }
-      .back-nav { display: inline-flex; align-items: center; gap: 6px; color: #38BDF8; text-decoration: none; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
-      .formula-box { background:#0F172A; border:1px solid #334155; border-radius:8px; padding:16px; text-align:center; font-family:monospace; font-size:16px; color:#38BDF8; margin:20px 0; }
-    </style>
+    
   </head>
   <body>
-    <header class="site-header">
+    <header class="site-header" style="background:#1A237E; border-bottom:1px solid rgba(255,255,255,0.1);">
       <div class="nav-container">
-        <a href="../#/" class="brand-wrap">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00897b" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-          <span style="color:#ffffff; font-weight:700; font-family:'Poppins',sans-serif;">IPO PriceAlerter</span>
+        <a href="../#/" class="brand-wrap" style="color:#ffffff;">
+          <div style="width:32px; height:32px; border-radius:8px; background:#00897B; display:grid; place-items:center; margin-right:8px; flex-shrink:0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <span style="font-family:'Poppins', sans-serif; font-weight:700; font-size:18px;">IPO PriceAlerter</span>
         </a>
         <nav class="main-nav">
-          <a href="../#/" class="nav-tab-link">Home</a>
-          <a href="../#/?status=open" class="nav-tab-link">Open IPOs</a>
-          <a href="../#/?status=upcoming" class="nav-tab-link">Upcoming</a>
-          <a href="../#/gmp" class="nav-tab-link">GMP Today</a>
-          <a href="./" class="nav-tab-link active">Learn</a>
-          <a href="../#/calendar" class="nav-tab-link">Calendar</a>
+          <a href="../#/" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Home</a>
+          <a href="../#/?status=open" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Open IPOs</a>
+          <a href="../#/?status=upcoming" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Upcoming</a>
+          <a href="../#/gmp" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">GMP</a>
+          <a href="./" class="nav-tab-link active" style="color:#ffffff;">Learn</a>
+          <a href="./" class="nav-tab-link" style="color:rgba(255,255,255,0.85);">Blog</a>
         </nav>
       </div>
     </header>
@@ -160,11 +150,38 @@
       </article>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="footer-bottom-bar">
-          <span>© 2026 PriceAlerter.in — All Rights Reserved.</span>
-          <span><a href="../privacy.html" style="color:#94A3B8;">Privacy</a> • <a href="../disclaimer.html" style="color:#94A3B8;">Disclaimer</a> • <a href="../terms.html" style="color:#94A3B8;">Terms</a></span>
+    <footer class="site-footer" style="background:#1A237E; border-top:1px solid rgba(255,255,255,0.1); padding:24px 0; margin-top:40px;">
+      <div class="footer-inner" style="max-width:1320px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:24px; height:24px; border-radius:6px; background:#00897B; display:grid; place-items:center; flex-shrink:0;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <span style="font-size:13.5px; color:rgba(255,255,255,0.9); font-weight:500;">&copy; 2026 PriceAlerter.in &mdash; India's #1 IPO Tracker</span>
+        </div>
+        <div class="footer-bottom-links" style="display:flex; gap:16px; font-size:13px;">
+          <a href="../about.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">About Us</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../privacy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Privacy Policy</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../terms.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Terms</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../contact.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Contact</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="../disclaimer.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Disclaimer</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.75);">
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter X" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 0 0 1.66-1.66 1.66 1.66 0 0 0-3.32 0 1.66 1.66 0 0 0 1.66 1.66m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
+          </a>
+          <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" aria-label="Telegram" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .26z"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" style="color:rgba(255,255,255,0.85); display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.1);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19a2.5 2.5 0 0 0-1.76-1.77C18.26 5 12 5 12 5s-6.26 0-7.82.42a2.5 2.5 0 0 0-1.76 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81a2.5 2.5 0 0 0 1.76 1.77C5.74 19 12 19 12 19s6.26 0 7.82-.42a2.5 2.5 0 0 0 1.76-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM9.75 15.02V8.98L15 12l-5.25 3.02z"/></svg>
+          </a>
         </div>
       </div>
     </footer>
