@@ -8,10 +8,10 @@ window.IpoData = {
   "updatedAt": "2024-11-15T18:00:00+05:30",
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
-    "openCount": 7,
+    "openCount": 5,
     "closedCount": 7,
     "upcomingCount": 25,
-    "listedCount": 165
+    "listedCount": 167
   },
   "records": [
     {
@@ -155,7 +155,7 @@ window.IpoData = {
       "initials": "AI",
       "logoColor": "#10B981",
       "iconType": "polymer",
-      "status": "OPEN",
+      "status": "CLOSED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Packaging & Polymers",
@@ -7825,12 +7825,12 @@ window.IpoData = {
     {
       "id": "vedant-poly-fabs",
       "slug": "vedant-poly-fabs-ipo",
-      "companyName": "Vedant Poly Fabs Limited",
-      "shortName": "Vedant Poly Fabs",
+      "companyName": "Vedant Poly Fabs Solutions Limited",
+      "shortName": "Vedant Poly Fabs Solutions",
       "initials": "VP",
       "logoColor": "#0EA5E9",
       "iconType": "packaging",
-      "status": "UPCOMING",
+      "status": "OPEN",
       "board": "SME",
       "exchange": "NSE SME",
       "sector": "Packaging Materials & Multilayer Films",
@@ -7849,26 +7849,31 @@ window.IpoData = {
       "marketMaker": "Giriraj Stock Broking Private Limited",
       "registrar": "Cameo Corporate Services Limited",
       "allotmentUrl": "https://ipo.cameoindia.com/",
-      "openDate": "2024-11-04",
-      "closeDate": "2024-11-06",
-      "allotDate": "2024-11-07",
-      "allotmentDate": "2024-11-07",
-      "refundDate": "2024-11-08",
-      "dematDate": "2024-11-08",
-      "listingDate": "2024-11-11",
-      "gmp": null,
-      "gmpPercentage": null,
-      "gmpUpdatedAt": null,
-      "dayHighGmp": null,
-      "dayLowGmp": null,
-      "trend": "flat",
-      "gmpHistory": [],
-      "subscriptionTotal": 0,
+      "openDate": "2024-11-02",
+      "closeDate": "2024-11-04",
+      "allotDate": "2024-11-05",
+      "allotmentDate": "2024-11-05",
+      "refundDate": "2024-11-06",
+      "dematDate": "2024-11-06",
+      "listingDate": "2024-11-07",
+      "expectedListingPrice": 109,
+      "estProfitPerLot": 18000,
+      "gmp": 15,
+      "gmpPercentage": 15.96,
+      "gmpUpdatedAt": "2024-11-02T10:00:00+05:30",
+      "dayHighGmp": 15,
+      "dayLowGmp": 0,
+      "trend": "up",
+      "gmpHistory": [
+        { "date": "01 Nov", "value": 10 },
+        { "date": "02 Nov", "value": 15 }
+      ],
+      "subscriptionTotal": 1.12,
       "subscriptionSummary": {
-        "qib": 0,
-        "nii": 0,
-        "retail": 0,
-        "total": 0
+        "qib": 1.05,
+        "nii": 1.20,
+        "retail": 1.15,
+        "total": 1.12
       },
       "financials": [
         {
@@ -8916,21 +8921,21 @@ window.IpoData = {
       "id": "notif-antala",
       "slug": "antala-industries-ipo",
       "title": "Antala Industries Ltd (BSE SME)",
-      "tag": "⚡ LIVE BIDDING",
-      "tagClass": "tag-pinned",
+      "tag": "CLOSED",
+      "tagClass": "tag-closed",
       "pinned": false,
-      "description": "BSE SME polymer & packaging issue open. Price band ₹63–₹67 (Lot 2,000 shares, Min ₹1,34,000). Bigshare Services registrar.",
-      "time": "Active Bidding • Closes Nov 2 • BSE SME"
+      "description": "BSE SME polymer & packaging issue closed on Nov 2. Allotment verification on Bigshare Services registrar.",
+      "time": "Bidding Closed • Allotment Nov 3 • BSE SME"
     },
     {
       "id": "notif-vedant-poly-fabs",
       "slug": "vedant-poly-fabs-ipo",
-      "title": "Vedant Poly Fabs Ltd (NSE SME)",
-      "tag": "📅 OPENS NOV 4",
+      "title": "Vedant Poly Fabs Solutions (NSE SME)",
+      "tag": "⚡ LIVE BIDDING",
       "tagClass": "tag-pinned",
       "pinned": true,
-      "description": "NSE SME Book Built Issue opening for bidding on Nov 4. Price band ₹88–₹94, lot size 1,200 (Min 2 lots: 2,400 shares / ₹2,11,200). Official registrar: Cameo Corporate.",
-      "time": "Upcoming IPO • Opens Nov 4 • NSE SME"
+      "description": "NSE SME Book Built Issue open for bidding. Price band ₹88–₹94, lot size 1,200 (Min ₹2,11,200). Official registrar: Cameo Corporate.",
+      "time": "Active Bidding • Closes Nov 4 • NSE SME"
     },
     {
       "id": "notif-eaaa",
