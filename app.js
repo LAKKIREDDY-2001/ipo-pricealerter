@@ -993,7 +993,7 @@
           <h1 class="fintech-hero-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
           <p class="fintech-hero-desc">Real-time IPO updates, Grey Market Premium (GMP), subscription status, listing gains and expert insights.</p>
           <div class="fintech-hero-actions">
-            <a href="#explore-feed-section" class="btn-hero-primary" onclick="const el=document.getElementById('explore-feed-section'); if(el){ el.scrollIntoView({behavior:'smooth'}); }">Explore IPOs</a>
+            <a href="#dashboard-open-ipos-section" class="btn-hero-primary" onclick="const el=document.getElementById('dashboard-open-ipos-section'); if(el){ el.scrollIntoView({behavior:'smooth'}); }">Explore IPOs</a>
             <a href="#/guide" class="btn-hero-secondary">How It Works</a>
           </div>
         </div>
@@ -1062,7 +1062,7 @@
   function renderFig1SummaryCards(openCount, upcomingCount, closedCount, listedCount) {
     return `
       <section class="fig1-summary-grid" aria-label="IPO Market Overview">
-        <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" onclick="window.location.hash='#/open'" title="Click to view Open IPOs">
+        <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" onclick="const el=document.getElementById('dashboard-open-ipos-section'); if(el){ el.scrollIntoView({behavior:'smooth'}); } else { window.location.hash='#/open'; }" title="Click to view Open IPOs">
           <div class="fig1-card-content">
             <div class="fig1-stat-num">${openCount}</div>
             <div class="fig1-stat-label">Open IPOs</div>
@@ -1105,6 +1105,131 @@
     `;
   }
 
+  function renderFig1TrendingTable() {
+    const trendingList = [
+      {
+        slug: "swiggy-limited-ipo",
+        name: "Swiggy Ltd",
+        initials: "SW",
+        avatarClass: "fig1-avatar-sw",
+        status: "Listed",
+        issuePrice: "₹390",
+        currentPrice: "₹420",
+        returnVal: "+7.69% ▲",
+        isPositive: true,
+        sub: "3.59x",
+        trend: [390, 395, 410, 420]
+      },
+      {
+        slug: "waaree-energies-ipo",
+        name: "Waaree Energies",
+        initials: "WE",
+        avatarClass: "fig1-avatar-we",
+        status: "Listed",
+        issuePrice: "₹1,503",
+        currentPrice: "₹2,500",
+        returnVal: "+66.3% ▲",
+        isPositive: true,
+        sub: "76.34x",
+        trend: [1503, 1800, 2200, 2500]
+      },
+      {
+        slug: "niva-bupa-health-insurance-ipo",
+        name: "Niva Bupa Health Ins.",
+        initials: "NB",
+        avatarClass: "fig1-avatar-nb",
+        status: "Listed",
+        issuePrice: "₹74",
+        currentPrice: "₹78.50",
+        returnVal: "+6.08% ▲",
+        isPositive: true,
+        sub: "1.90x",
+        trend: [74, 75, 77, 78.5]
+      },
+      {
+        slug: "godavari-biorefineries",
+        name: "Godavari Biorefineries",
+        initials: "GB",
+        avatarClass: "fig1-avatar-gb",
+        status: "Listed",
+        issuePrice: "₹352",
+        currentPrice: "₹368",
+        returnVal: "+4.55% ▲",
+        isPositive: true,
+        sub: "1.83x",
+        trend: [352, 355, 362, 368]
+      },
+      {
+        slug: "sagility-india-ipo",
+        name: "Sagility India",
+        initials: "SG",
+        avatarClass: "fig1-avatar-sg",
+        status: "Listed",
+        issuePrice: "₹30",
+        currentPrice: "₹28",
+        returnVal: "-6.67% ▼",
+        isPositive: false,
+        sub: "0.85x",
+        trend: [30, 29.5, 29, 28]
+      }
+    ];
+
+    return `
+      <div class="fig1-panel-card">
+        <div class="fig1-panel-header">
+          <h2 class="fig1-panel-title">🔥 Trending IPOs</h2>
+          <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+        </div>
+        <div class="fig1-table-responsive">
+          <table class="fig1-trending-table">
+            <thead>
+              <tr>
+                <th>COMPANY</th>
+                <th>ISSUE PRICE</th>
+                <th>CURRENT</th>
+                <th>RETURN</th>
+                <th>SUBSCRIPTION</th>
+                <th>TREND</th>
+                <th>VIEW DETAILS</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${trendingList.map(item => `
+                <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${item.slug}'">
+                  <td>
+                    <div class="fig1-company-cell">
+                      <div class="fig1-avatar ${item.avatarClass}">${item.initials}</div>
+                      <div class="fig1-company-name-wrap">
+                        <span class="fig1-company-name">${item.name}</span>
+                        <span class="fig1-sub-tag listed">${item.status}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="fig1-val-price">${item.issuePrice}</span></td>
+                  <td><span class="fig1-val-price">${item.currentPrice}</span></td>
+                  <td>
+                    <span class="fig1-return-tag ${item.isPositive ? 'positive' : 'negative'}">
+                      ${item.returnVal}
+                    </span>
+                  </td>
+                  <td><span class="fig1-sub-pill">${item.sub}</span></td>
+                  <td>
+                    ${renderSparklineSvg(item.trend, 58, 22, item.isPositive ? "#10B981" : "#EF4444")}
+                  </td>
+                  <td>
+                    <button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/${item.slug}'">
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
   function renderFig1OpenIposSection() {
     const openRecords = records.filter(r => r.status === "OPEN").sort((a, b) => {
       const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
@@ -1142,6 +1267,13 @@
                   : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
                 const gmpText = item.gmp ? `+₹${item.gmp}` : '—';
                 const gmpPct = item.gmpPercentage ? `(${item.gmpPercentage}%)` : '';
+                const estListing = item.gmp && (item.priceBandHigh || item.issuePrice) 
+                  ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp) 
+                  : null;
+                const minInvFormatted = item.minimumInvestment 
+                  ? `₹${Number(item.minimumInvestment).toLocaleString('en-IN')}` 
+                  : (item.lotSize && item.priceBandHigh ? `₹${(item.lotSize * item.priceBandHigh).toLocaleString('en-IN')}` : '—');
+
                 return `
                   <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${item.slug}'">
                     <td>
@@ -1166,9 +1298,52 @@
                     </td>
                     <td><span class="status-badge open">Open</span></td>
                     <td>
-                      <button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/${item.slug}'">
-                        Apply / Details
+                      <button id="open-ipo-btn-${item.slug}" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp.toggleOpenIpoDetail('${item.slug}')">
+                        More Details &rarr;
                       </button>
+                    </td>
+                  </tr>
+                  <tr id="open-ipo-expand-${item.slug}" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
+                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
+                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹${item.issueSizeCr || '—'} Cr</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">${minInvFormatted} (${item.lotSize || 0} shares)</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">${formatDate(item.allotmentDate)}</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">${formatDate(item.listingDate)}</div>
+                          </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
+                          <div style="font-size:13px; color:#475569;">
+                            <strong>Registrar:</strong> ${item.registrar || 'TBA'}
+                            ${estListing ? ` • <strong style="color:#16A34A;">Est. Listing:</strong> ₹${estListing} (+${item.gmpPercentage || 0}%)` : ''}
+                          </div>
+                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="#/ipo/${item.slug}" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">
+                              Full Analysis &rarr;
+                            </a>
+                            ${item.allotmentUrl ? `
+                              <a href="${item.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">
+                                Check Allotment
+                              </a>
+                            ` : ''}
+                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">
+                              Apply ASBA
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 `;
@@ -1400,10 +1575,10 @@
         <!-- Figure 1 Top 4 Summary Cards -->
         ${renderFig1SummaryCards(openCount, upcomingCount, closedCount, listedCount)}
 
-        <!-- Figure 1 2-Column Corporate Grid -->
+        <!-- Figure 1 2-Column Corporate Grid (Matching Uploaded Reference Photo) -->
         <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
           <div class="fig1-left-col">
-            ${renderFig1OpenIposSection()}
+            ${renderFig1TrendingTable()}
             ${renderFig1PerformanceChart()}
           </div>
           <div class="fig1-right-col">
@@ -1412,6 +1587,11 @@
             ${renderFig1StayUpdatedWidget()}
             ${renderFig1QuickLinksWidget()}
           </div>
+        </section>
+
+        <!-- Active Open IPOs Section (Added Below the Photo Dashboard) -->
+        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding" style="margin-top:24px;">
+          ${renderFig1OpenIposSection()}
         </section>
 
         <!-- Live GMP Ticker Bar -->
@@ -4537,6 +4717,23 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    toggleOpenIpoDetail: (slug) => {
+      const drawer = document.getElementById("open-ipo-expand-" + slug);
+      const btn = document.getElementById("open-ipo-btn-" + slug);
+      if (!drawer) return;
+      const isVisible = drawer.style.display !== "none" && drawer.style.display !== "";
+      if (isVisible) {
+        drawer.style.display = "none";
+        if (btn) btn.innerHTML = "More Details &rarr;";
+      } else {
+        drawer.style.display = "table-row";
+        if (btn) btn.innerHTML = "Hide Details &and;";
+        try {
+          drawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } catch(e) {}
+      }
+    },
+
     likeComment: (slug, commentId, btnEl) => {
       const newCount = likeIpoComment(slug, commentId);
       btnEl.classList.add("liked");

@@ -4816,7 +4816,12 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   grid-template-columns: 1.8fr 1fr;
   gap: 24px;
   align-items: start;
-  margin-bottom: 36px;
+  margin-bottom: 28px;
+}
+
+.fig1-open-section-wrap {
+  width: 100%;
+  margin-bottom: 32px;
 }
 
 .fig1-left-col, .fig1-right-col {

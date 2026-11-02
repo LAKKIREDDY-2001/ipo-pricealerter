@@ -275,7 +275,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20241115_v20">
+    <link rel="stylesheet" href="styles.css?v=20241115_v23">
   </head>
   <body>
     <!-- Site Navigation Header (Sticky Dark Navy #142B49) -->
@@ -449,109 +449,130 @@
         <!-- Figure 1 2-Column Corporate Grid -->
         <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
           <div class="fig1-left-col">
-            <!-- Open IPOs Section -->
+            <!-- Trending IPOs (Matching Uploaded Reference Photo) -->
             <div class="fig1-panel-card">
               <div class="fig1-panel-header">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
-                  <span class="live-pulse" style="margin-left:4px;"></span>
-                  <span style="font-size:11.5px; font-weight:700; color:#16A34A; background:#EBFBF2; padding:2px 8px; border-radius:12px;">ACTIVE BIDDING</span>
-                </div>
-                <a href="#/open" class="fig1-header-link">View All (5) &rarr;</a>
+                <h2 class="fig1-panel-title">🔥 Trending IPOs</h2>
+                <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
               </div>
               <div class="fig1-table-responsive">
                 <table class="fig1-trending-table">
                   <thead>
                     <tr>
                       <th>COMPANY</th>
-                      <th>BIDDING WINDOW</th>
-                      <th>PRICE BAND</th>
-                      <th>LOT SIZE</th>
-                      <th>LIVE GMP</th>
-                      <th>STATUS</th>
-                      <th>ACTION</th>
+                      <th>ISSUE PRICE</th>
+                      <th>CURRENT</th>
+                      <th>RETURN</th>
+                      <th>SUBSCRIPTION</th>
+                      <th>TREND</th>
+                      <th>VIEW DETAILS</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/swiggy-limited-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-we">ME</div>
+                          <div class="fig1-avatar fig1-avatar-sw">SW</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Maxwell Engineering</span>
-                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                            <span class="fig1-company-name">Swiggy Ltd</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
                           </div>
                         </div>
                       </td>
+                      <td><span class="fig1-val-price">₹390</span></td>
+                      <td><span class="fig1-val-price">₹420</span></td>
+                      <td><span class="fig1-return-tag positive">+7.69% ▲</span></td>
+                      <td><span class="fig1-sub-pill">3.59x</span></td>
                       <td>
-                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
-                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,8 58,2"></polyline>
+                        </svg>
                       </td>
-                      <td><span class="fig1-val-price">₹150 – 158</span></td>
-                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">800 shares</span></td>
-                      <td><span class="fig1-return-tag positive">+₹70 (44.3%)</span></td>
-                      <td><span class="status-badge open">Open</span></td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">Apply / Details</button></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/swiggy-limited-ipo'">View Details</button></td>
                     </tr>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'">
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/waaree-energies-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-sw">JC</div>
+                          <div class="fig1-avatar fig1-avatar-we">WE</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Johnsoncab Electricals</span>
-                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                            <span class="fig1-company-name">Waaree Energies</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
                           </div>
                         </div>
                       </td>
+                      <td><span class="fig1-val-price">₹1,503</span></td>
+                      <td><span class="fig1-val-price">₹2,500</span></td>
+                      <td><span class="fig1-return-tag positive">+66.3% ▲</span></td>
+                      <td><span class="fig1-sub-pill">76.34x</span></td>
                       <td>
-                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
-                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,15 38,7 58,2"></polyline>
+                        </svg>
                       </td>
-                      <td><span class="fig1-val-price">₹190 – 200</span></td>
-                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">600 shares</span></td>
-                      <td><span class="fig1-return-tag positive">+₹15 (7.5%)</span></td>
-                      <td><span class="status-badge open">Open</span></td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/johnsoncab-electricals-ipo'">Apply / Details</button></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/waaree-energies-ipo'">View Details</button></td>
                     </tr>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/hgs-india-ipo'">
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/niva-bupa-health-insurance-ipo'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-nt">HG</div>
+                          <div class="fig1-avatar fig1-avatar-nb">NB</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">HGS India</span>
-                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                            <span class="fig1-company-name">Niva Bupa Health Ins.</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
                           </div>
                         </div>
                       </td>
+                      <td><span class="fig1-val-price">₹74</span></td>
+                      <td><span class="fig1-val-price">₹78.50</span></td>
+                      <td><span class="fig1-return-tag positive">+6.08% ▲</span></td>
+                      <td><span class="fig1-sub-pill">1.90x</span></td>
                       <td>
-                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
-                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,9 58,2"></polyline>
+                        </svg>
                       </td>
-                      <td><span class="fig1-val-price">₹114 – 120</span></td>
-                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
-                      <td><span class="fig1-return-tag positive">+₹14 (11.67%)</span></td>
-                      <td><span class="status-badge open">Open</span></td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/hgs-india-ipo'">Apply / Details</button></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/niva-bupa-health-insurance-ipo'">View Details</button></td>
                     </tr>
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'">
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/godavari-biorefineries'">
                       <td>
                         <div class="fig1-company-cell">
-                          <div class="fig1-avatar fig1-avatar-sg">VE</div>
+                          <div class="fig1-avatar fig1-avatar-nt">GB</div>
                           <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name">Vectras Enprocon</span>
-                            <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                            <span class="fig1-company-name">Godavari Biorefineries</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
                           </div>
                         </div>
                       </td>
+                      <td><span class="fig1-val-price">₹352</span></td>
+                      <td><span class="fig1-val-price">₹368</span></td>
+                      <td><span class="fig1-return-tag positive">+4.55% ▲</span></td>
+                      <td><span class="fig1-sub-pill">1.83x</span></td>
                       <td>
-                        <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
-                        <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
+                          <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,17 38,11 58,2"></polyline>
+                        </svg>
                       </td>
-                      <td><span class="fig1-val-price">₹99 – 105</span></td>
-                      <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
-                      <td><span class="fig1-return-tag positive">+₹5 (4.76%)</span></td>
-                      <td><span class="status-badge open">Open</span></td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/vectras-enprocon-ipo'">Apply / Details</button></td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/godavari-biorefineries'">View Details</button></td>
+                    </tr>
+                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/sagility-india-ipo'">
+                      <td>
+                        <div class="fig1-company-cell">
+                          <div class="fig1-avatar fig1-avatar-sg">SG</div>
+                          <div class="fig1-company-name-wrap">
+                            <span class="fig1-company-name">Sagility India</span>
+                            <span class="fig1-sub-tag listed">Listed</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="fig1-val-price">₹30</span></td>
+                      <td><span class="fig1-val-price">₹28</span></td>
+                      <td><span class="fig1-return-tag negative">-6.67% ▼</span></td>
+                      <td><span class="fig1-sub-pill">0.85x</span></td>
+                      <td>
+                        <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
+                          <polyline fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,2 19,8 38,13 58,20"></polyline>
+                        </svg>
+                      </td>
+                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/sagility-india-ipo'">View Details</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -771,6 +792,316 @@
           </div>
         </section>
 
+        <!-- Active Open IPOs Section (Added Below the Photo Dashboard) -->
+        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding" style="margin-top:24px;">
+          <div class="fig1-panel-card">
+            <div class="fig1-panel-header">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
+                <span class="live-pulse" style="margin-left:4px;"></span>
+                <span style="font-size:11.5px; font-weight:700; color:#16A34A; background:#EBFBF2; padding:2px 8px; border-radius:12px;">ACTIVE BIDDING</span>
+              </div>
+              <a href="#/open" class="fig1-header-link">View All (5) &rarr;</a>
+            </div>
+            <div class="fig1-table-responsive">
+              <table class="fig1-trending-table">
+                <thead>
+                  <tr>
+                    <th>COMPANY</th>
+                    <th>BIDDING WINDOW</th>
+                    <th>PRICE BAND</th>
+                    <th>LOT SIZE</th>
+                    <th>LIVE GMP</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Antala Industries -->
+                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/antala-industries-ipo'">
+                    <td>
+                      <div class="fig1-company-cell">
+                        <div class="fig1-avatar fig1-avatar-we">AI</div>
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">Antala Industries</span>
+                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">29 Oct 2024</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 02 Nov 2024</div>
+                    </td>
+                    <td><span class="fig1-val-price">₹63 – 67</span></td>
+                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">2000 shares</span></td>
+                    <td><span class="fig1-return-tag positive">+₹1 (1.49%)</span></td>
+                    <td><span class="status-badge open">Open</span></td>
+                    <td><button id="open-ipo-btn-antala-industries-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('antala-industries-ipo') : (window.location.hash='#/ipo/antala-industries-ipo')">More Details &rarr;</button></td>
+                  </tr>
+                  <tr id="open-ipo-expand-antala-industries-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
+                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
+                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹23.33 Cr</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹1,34,000 (2000 shares)</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">03 Nov 2024</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">05 Nov 2024</div>
+                          </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
+                          <div style="font-size:13px; color:#475569;">
+                            <strong>Registrar:</strong> Bigshare Services Pvt Ltd • <strong style="color:#16A34A;">Est. Listing:</strong> ₹68 (+1.49%)
+                          </div>
+                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="#/ipo/antala-industries-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
+                            <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
+                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Apply ASBA</a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Maxwell Engineering -->
+                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'">
+                    <td>
+                      <div class="fig1-company-cell">
+                        <div class="fig1-avatar fig1-avatar-we">ME</div>
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">Maxwell Engineering</span>
+                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                    </td>
+                    <td><span class="fig1-val-price">₹150 – 158</span></td>
+                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">800 shares</span></td>
+                    <td><span class="fig1-return-tag positive">+₹70 (44.3%)</span></td>
+                    <td><span class="status-badge open">Open</span></td>
+                    <td><button id="open-ipo-btn-maxwell-engineering-solutions-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('maxwell-engineering-solutions-ipo') : (window.location.hash='#/ipo/maxwell-engineering-solutions-ipo')">More Details &rarr;</button></td>
+                  </tr>
+                  <tr id="open-ipo-expand-maxwell-engineering-solutions-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
+                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
+                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹57.64 Cr</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹1,26,400 (800 shares)</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">04 Nov 2024</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">06 Nov 2024</div>
+                          </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
+                          <div style="font-size:13px; color:#475569;">
+                            <strong>Registrar:</strong> KFin Technologies Ltd • <strong style="color:#16A34A;">Est. Listing:</strong> ₹228 (+44.3%)
+                          </div>
+                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="#/ipo/maxwell-engineering-solutions-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
+                            <a href="https://ipostatus.kfintech.com/" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
+                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Apply ASBA</a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Johnsoncab Electricals -->
+                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'">
+                    <td>
+                      <div class="fig1-company-cell">
+                        <div class="fig1-avatar fig1-avatar-sw">JC</div>
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">Johnsoncab Electricals</span>
+                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                    </td>
+                    <td><span class="fig1-val-price">₹190 – 200</span></td>
+                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">600 shares</span></td>
+                    <td><span class="fig1-return-tag positive">+₹15 (7.5%)</span></td>
+                    <td><span class="status-badge open">Open</span></td>
+                    <td><button id="open-ipo-btn-johnsoncab-electricals-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('johnsoncab-electricals-ipo') : (window.location.hash='#/ipo/johnsoncab-electricals-ipo')">More Details &rarr;</button></td>
+                  </tr>
+                  <tr id="open-ipo-expand-johnsoncab-electricals-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
+                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
+                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹56.02 Cr</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹2,40,000 (600 shares)</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">04 Nov 2024</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">06 Nov 2024</div>
+                          </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
+                          <div style="font-size:13px; color:#475569;">
+                            <strong>Registrar:</strong> Maashitla Securities Pvt Ltd • <strong style="color:#16A34A;">Est. Listing:</strong> ₹215 (+7.5%)
+                          </div>
+                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="#/ipo/johnsoncab-electricals-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
+                            <a href="https://maashitla.com/allotment-status/public-issues" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
+                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Apply ASBA</a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- HGS India -->
+                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/hgs-india-ipo'">
+                    <td>
+                      <div class="fig1-company-cell">
+                        <div class="fig1-avatar fig1-avatar-nt">HG</div>
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">HGS India</span>
+                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                    </td>
+                    <td><span class="fig1-val-price">₹114 – 120</span></td>
+                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
+                    <td><span class="fig1-return-tag positive">+₹14 (11.67%)</span></td>
+                    <td><span class="status-badge open">Open</span></td>
+                    <td><button id="open-ipo-btn-hgs-india-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('hgs-india-ipo') : (window.location.hash='#/ipo/hgs-india-ipo')">More Details &rarr;</button></td>
+                  </tr>
+                  <tr id="open-ipo-expand-hgs-india-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
+                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
+                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹34.56 Cr</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹1,44,000 (1200 shares)</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">04 Nov 2024</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">06 Nov 2024</div>
+                          </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
+                          <div style="font-size:13px; color:#475569;">
+                            <strong>Registrar:</strong> Link Intime India Pvt Ltd • <strong style="color:#16A34A;">Est. Listing:</strong> ₹134 (+11.67%)
+                          </div>
+                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="#/ipo/hgs-india-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
+                            <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
+                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Apply ASBA</a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Vectras Enprocon -->
+                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'">
+                    <td>
+                      <div class="fig1-company-cell">
+                        <div class="fig1-avatar fig1-avatar-sg">VE</div>
+                        <div class="fig1-company-name-wrap">
+                          <span class="fig1-company-name">Vectras Enprocon</span>
+                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="font-size:12.5px; font-weight:600; color:#111827;">30 Oct 2024</div>
+                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 03 Nov 2024</div>
+                    </td>
+                    <td><span class="fig1-val-price">₹99 – 105</span></td>
+                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
+                    <td><span class="fig1-return-tag positive">+₹5 (4.76%)</span></td>
+                    <td><span class="status-badge open">Open</span></td>
+                    <td><button id="open-ipo-btn-vectras-enprocon-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('vectras-enprocon-ipo') : (window.location.hash='#/ipo/vectras-enprocon-ipo')">More Details &rarr;</button></td>
+                  </tr>
+                  <tr id="open-ipo-expand-vectras-enprocon-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
+                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
+                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹53.05 Cr</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹1,26,000 (1200 shares)</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">04 Nov 2024</div>
+                          </div>
+                          <div>
+                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
+                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">06 Nov 2024</div>
+                          </div>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
+                          <div style="font-size:13px; color:#475569;">
+                            <strong>Registrar:</strong> Link Intime India Pvt Ltd • <strong style="color:#16A34A;">Est. Listing:</strong> ₹110 (+4.76%)
+                          </div>
+                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="#/ipo/vectras-enprocon-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
+                            <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
+                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Apply ASBA</a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         <!-- Pre-rendered Educational Learning Hub Section (Guarantees Content Depth for Crawlers) -->
         <section class="fig1-panel-card" style="margin-top:24px;" aria-label="IPO Learning Center & Educational Guides">
           <div class="fig1-panel-header">
@@ -954,8 +1285,8 @@
         });
       }
     </script>
-    <script src="data/ipo-data.js?v=20241115_v20" defer></script>
-    <script src="app.js?v=20241115_v20" defer></script>
+    <script src="data/ipo-data.js?v=20241115_v23" defer></script>
+    <script src="app.js?v=20241115_v23" defer></script>
 
     <!-- Infolinks Monetization -->
     <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>
