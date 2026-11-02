@@ -295,10 +295,10 @@
         <nav class="main-nav" aria-label="Main Navigation">
           <a href="#/" class="nav-tab-link active">Home</a>
           <a href="#/open" class="nav-tab-link">Open IPOs</a>
-          <a href="#/upcoming" class="nav-tab-link">Upcoming IPOs</a>
-          <a href="#/listed" class="nav-tab-link">Listed IPOs</a>
-          <a href="#/gmp" class="nav-tab-link">GMP Tracker</a>
-          <a href="#/calendar" class="nav-tab-link">IPO Calendar</a>
+          <a href="#/upcoming" class="nav-tab-link">Upcoming</a>
+          <a href="#/listed" class="nav-tab-link">Listed</a>
+          <a href="#/gmp" class="nav-tab-link">GMP</a>
+          <a href="#/calendar" class="nav-tab-link">Calendar</a>
           <a href="#/guide" class="nav-tab-link">Learn</a>
           <a href="blog/index.html" class="nav-tab-link">Blog</a>
         </nav>
@@ -308,6 +308,11 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <span>Search IPOs...</span>
             <kbd>⌘K</kbd>
+          </button>
+
+          <button class="btn-header-alerts" id="header-alerts-btn" aria-label="Get IPO Alerts" onclick="window.IpoApp && window.IpoApp.toggleAlertsSubscription()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span>Get Alerts</span>
           </button>
 
           <div class="bell-btn-wrap">
@@ -403,7 +408,6 @@
                       <th>RETURN</th>
                       <th>SUBSCRIPTION</th>
                       <th>TREND</th>
-                      <th>VIEW DETAILS</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -426,7 +430,6 @@
                           <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,8 58,2"></polyline>
                         </svg>
                       </td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/swiggy-limited-ipo'">View Details</button></td>
                     </tr>
                     <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/waaree-energies-ipo'">
                       <td>
@@ -441,13 +444,12 @@
                       <td><span class="fig1-val-price">₹1,503</span></td>
                       <td><span class="fig1-val-price">₹2,500</span></td>
                       <td><span class="fig1-return-tag positive">+66.3% ▲</span></td>
-                      <td><span class="fig1-sub-pill">76.34x</span></td>
+                      <td><span class="fig1-sub-pill" style="background:#FEF3C7; color:#D97706; font-weight:700;">76.34x</span></td>
                       <td>
                         <svg width="58" height="22" viewBox="0 0 58 22" style="overflow:visible;">
                           <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,15 38,7 58,2"></polyline>
                         </svg>
                       </td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/waaree-energies-ipo'">View Details</button></td>
                     </tr>
                     <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/niva-bupa-health-insurance-ipo'">
                       <td>
@@ -468,7 +470,6 @@
                           <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,16 38,9 58,2"></polyline>
                         </svg>
                       </td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/niva-bupa-health-insurance-ipo'">View Details</button></td>
                     </tr>
                     <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/ntpc-green-energy-ipo'">
                       <td>
@@ -489,7 +490,6 @@
                           <polyline fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,20 19,14 38,8 58,2"></polyline>
                         </svg>
                       </td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/ntpc-green-energy-ipo'">View Details</button></td>
                     </tr>
                     <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/sagility-india-ipo'">
                       <td>
@@ -510,7 +510,6 @@
                           <polyline fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,2 19,8 38,13 58,20"></polyline>
                         </svg>
                       </td>
-                      <td><button class="btn-table-action" onclick="event.stopPropagation(); window.location.hash='#/ipo/sagility-india-ipo'">View Details</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -527,46 +526,84 @@
                 </div>
               </div>
               <div class="fig1-bar-chart-wrap">
-                <div class="fig1-bar-columns">
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val positive">+66.3%</span>
-                    <div class="fig1-bar-fill gain" style="height:95px;"></div>
-                    <span class="fig1-col-label">Waaree</span>
+                <div class="fig1-chart-layout">
+                  <div class="fig1-chart-yaxis">
+                    <span>80%</span>
+                    <span>0%</span>
+                    <span>-20%</span>
                   </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val positive">+20.4%</span>
-                    <div class="fig1-bar-fill gain" style="height:38px;"></div>
-                    <span class="fig1-col-label">NTPC</span>
-                  </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val positive">+7.7%</span>
-                    <div class="fig1-bar-fill gain" style="height:18px;"></div>
-                    <span class="fig1-col-label">Swiggy</span>
-                  </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val positive">+6.1%</span>
-                    <div class="fig1-bar-fill gain" style="height:15px;"></div>
-                    <span class="fig1-col-label">Niva Bupa</span>
-                  </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val positive">+7.2%</span>
-                    <div class="fig1-bar-fill gain" style="height:17px;"></div>
-                    <span class="fig1-col-label">ABC Infra</span>
-                  </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val negative">-4.8%</span>
-                    <div class="fig1-bar-fill loss" style="height:14px;"></div>
-                    <span class="fig1-col-label">XYZ Fin</span>
-                  </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val negative">-6.7%</span>
-                    <div class="fig1-bar-fill loss" style="height:17px;"></div>
-                    <span class="fig1-col-label">Sagility</span>
-                  </div>
-                  <div class="fig1-chart-col">
-                    <span class="fig1-bar-val positive">+15.3%</span>
-                    <div class="fig1-bar-fill gain" style="height:30px;"></div>
-                    <span class="fig1-col-label">PQR Tech</span>
+                  <div class="fig1-chart-stage">
+                    <div class="fig1-chart-gridlines">
+                      <div class="gridline top"></div>
+                      <div class="gridline baseline"></div>
+                      <div class="gridline bottom"></div>
+                    </div>
+                    <div class="fig1-bar-columns">
+                      <div class="fig1-chart-col" title="Waaree: +66.3% listing day return">
+                        <div class="fig1-bar-upper">
+                          <span class="fig1-bar-val positive">+66.3%</span>
+                          <div class="fig1-bar-fill gain" style="height:80px;"></div>
+                        </div>
+                        <div class="fig1-bar-lower"></div>
+                        <span class="fig1-col-label" title="Waaree">Waaree</span>
+                      </div>
+                      <div class="fig1-chart-col" title="NTPC: +20.4% listing day return">
+                        <div class="fig1-bar-upper">
+                          <span class="fig1-bar-val positive">+20.4%</span>
+                          <div class="fig1-bar-fill gain" style="height:38px;"></div>
+                        </div>
+                        <div class="fig1-bar-lower"></div>
+                        <span class="fig1-col-label" title="NTPC">NTPC</span>
+                      </div>
+                      <div class="fig1-chart-col" title="Swiggy: +7.7% listing day return">
+                        <div class="fig1-bar-upper">
+                          <span class="fig1-bar-val positive">+7.7%</span>
+                          <div class="fig1-bar-fill gain" style="height:18px;"></div>
+                        </div>
+                        <div class="fig1-bar-lower"></div>
+                        <span class="fig1-col-label" title="Swiggy">Swiggy</span>
+                      </div>
+                      <div class="fig1-chart-col" title="Niva Bupa: +6.1% listing day return">
+                        <div class="fig1-bar-upper">
+                          <span class="fig1-bar-val positive">+6.1%</span>
+                          <div class="fig1-bar-fill gain" style="height:15px;"></div>
+                        </div>
+                        <div class="fig1-bar-lower"></div>
+                        <span class="fig1-col-label" title="Niva Bupa">Niva Bupa</span>
+                      </div>
+                      <div class="fig1-chart-col" title="ABC Infra: +7.2% listing day return">
+                        <div class="fig1-bar-upper">
+                          <span class="fig1-bar-val positive">+7.2%</span>
+                          <div class="fig1-bar-fill gain" style="height:17px;"></div>
+                        </div>
+                        <div class="fig1-bar-lower"></div>
+                        <span class="fig1-col-label" title="ABC Infra">ABC Infra</span>
+                      </div>
+                      <div class="fig1-chart-col" title="XYZ Fin: -4.8% listing day return">
+                        <div class="fig1-bar-upper"></div>
+                        <div class="fig1-bar-lower">
+                          <div class="fig1-bar-fill loss" style="height:15px;"></div>
+                          <span class="fig1-bar-val negative">-4.8%</span>
+                        </div>
+                        <span class="fig1-col-label" title="XYZ Fin">XYZ Fin</span>
+                      </div>
+                      <div class="fig1-chart-col" title="Sagility: -6.7% listing day return">
+                        <div class="fig1-bar-upper"></div>
+                        <div class="fig1-bar-lower">
+                          <div class="fig1-bar-fill loss" style="height:20px;"></div>
+                          <span class="fig1-bar-val negative">-6.7%</span>
+                        </div>
+                        <span class="fig1-col-label" title="Sagility">Sagility</span>
+                      </div>
+                      <div class="fig1-chart-col" title="PQR Tech: +15.3% listing day return">
+                        <div class="fig1-bar-upper">
+                          <span class="fig1-bar-val positive">+15.3%</span>
+                          <div class="fig1-bar-fill gain" style="height:30px;"></div>
+                        </div>
+                        <div class="fig1-bar-lower"></div>
+                        <span class="fig1-col-label" title="PQR Tech">PQR Tech</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -630,7 +667,7 @@
               </div>
               <div class="fig1-calendar-list">
                 <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge">
+                  <div class="fig1-cal-date-badge date-badge-open">
                     <span class="fig1-cal-day">18</span>
                     <span class="fig1-cal-month">DEC</span>
                   </div>
@@ -640,7 +677,7 @@
                   </div>
                 </div>
                 <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge">
+                  <div class="fig1-cal-date-badge date-badge-upcoming">
                     <span class="fig1-cal-day">20</span>
                     <span class="fig1-cal-month">DEC</span>
                   </div>
@@ -650,7 +687,7 @@
                   </div>
                 </div>
                 <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge">
+                  <div class="fig1-cal-date-badge date-badge-upcoming">
                     <span class="fig1-cal-day">23</span>
                     <span class="fig1-cal-month">DEC</span>
                   </div>
@@ -660,7 +697,7 @@
                   </div>
                 </div>
                 <div class="fig1-calendar-row" onclick="window.location.hash='#/calendar'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge">
+                  <div class="fig1-cal-date-badge date-badge-tentative">
                     <span class="fig1-cal-day">27</span>
                     <span class="fig1-cal-month">DEC</span>
                   </div>
@@ -757,7 +794,7 @@
                     <td><span style="font-size:12.5px; font-weight:600; color:#111827;">2000 shares</span></td>
                     <td><span class="fig1-return-tag positive">+₹1 (1.49%)</span></td>
                     <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-antala-industries-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('antala-industries-ipo') : (window.location.hash='#/ipo/antala-industries-ipo')">More Details &rarr;</button></td>
+                    <td><button id="open-ipo-btn-antala-industries-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('antala-industries-ipo') : (window.location.hash='#/ipo/antala-industries-ipo')">More Details ▾</button></td>
                   </tr>
                   <tr id="open-ipo-expand-antala-industries-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
                     <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
@@ -813,7 +850,7 @@
                     <td><span style="font-size:12.5px; font-weight:600; color:#111827;">800 shares</span></td>
                     <td><span class="fig1-return-tag positive">+₹70 (44.3%)</span></td>
                     <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-maxwell-engineering-solutions-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('maxwell-engineering-solutions-ipo') : (window.location.hash='#/ipo/maxwell-engineering-solutions-ipo')">More Details &rarr;</button></td>
+                    <td><button id="open-ipo-btn-maxwell-engineering-solutions-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('maxwell-engineering-solutions-ipo') : (window.location.hash='#/ipo/maxwell-engineering-solutions-ipo')">More Details ▾</button></td>
                   </tr>
                   <tr id="open-ipo-expand-maxwell-engineering-solutions-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
                     <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
@@ -869,7 +906,7 @@
                     <td><span style="font-size:12.5px; font-weight:600; color:#111827;">600 shares</span></td>
                     <td><span class="fig1-return-tag positive">+₹15 (7.5%)</span></td>
                     <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-johnsoncab-electricals-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('johnsoncab-electricals-ipo') : (window.location.hash='#/ipo/johnsoncab-electricals-ipo')">More Details &rarr;</button></td>
+                    <td><button id="open-ipo-btn-johnsoncab-electricals-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('johnsoncab-electricals-ipo') : (window.location.hash='#/ipo/johnsoncab-electricals-ipo')">More Details ▾</button></td>
                   </tr>
                   <tr id="open-ipo-expand-johnsoncab-electricals-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
                     <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
@@ -925,7 +962,7 @@
                     <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
                     <td><span class="fig1-return-tag positive">+₹14 (11.67%)</span></td>
                     <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-hgs-india-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('hgs-india-ipo') : (window.location.hash='#/ipo/hgs-india-ipo')">More Details &rarr;</button></td>
+                    <td><button id="open-ipo-btn-hgs-india-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('hgs-india-ipo') : (window.location.hash='#/ipo/hgs-india-ipo')">More Details ▾</button></td>
                   </tr>
                   <tr id="open-ipo-expand-hgs-india-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
                     <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
@@ -981,7 +1018,7 @@
                     <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
                     <td><span class="fig1-return-tag positive">+₹5 (4.76%)</span></td>
                     <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-vectras-enprocon-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('vectras-enprocon-ipo') : (window.location.hash='#/ipo/vectras-enprocon-ipo')">More Details &rarr;</button></td>
+                    <td><button id="open-ipo-btn-vectras-enprocon-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('vectras-enprocon-ipo') : (window.location.hash='#/ipo/vectras-enprocon-ipo')">More Details ▾</button></td>
                   </tr>
                   <tr id="open-ipo-expand-vectras-enprocon-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
                     <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
