@@ -1411,8 +1411,8 @@
                                 Check Allotment
                               </a>
                             ` : ''}
-                            <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">
-                              Apply ASBA
+                            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:700; border-radius:8px;">
+                              Apply Now
                             </a>
                           </div>
                         </div>
@@ -1515,8 +1515,8 @@
                         Check Allotment
                       </a>
                     ` : ''}
-                    <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#F8FAFC; border:1px solid #CBD5E1; color:#334155; text-decoration:none; padding:6px 12px; font-size:12px; font-weight:600; border-radius:8px; flex:1; text-align:center;">
-                      Apply ASBA
+                    <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:6px 12px; font-size:12px; font-weight:700; border-radius:8px; flex:1; text-align:center;">
+                      Apply Now
                     </a>
                   </div>
                 </div>
@@ -2040,22 +2040,15 @@
             ${ipo.faceValue ? `<span>Face Value: <b>₹${ipo.faceValue}</b></span>` : ''}
           </div>
 
-          <div class="card-btn-action-row">
-            <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
-              <span>View Details & Calculator</span>
+          <div class="card-btn-action-row" style="display:flex; gap:8px;">
+            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="card-btn-action" style="background:#10B981; color:#FFFFFF; text-decoration:none; font-weight:700; flex:1; text-align:center; padding:7px 12px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; gap:4px;" onclick="event.stopPropagation()">
+              <span>Apply Now</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <button class="card-btn-action btn-view" style="flex:1;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
+              <span>Details</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
-            ${ipo.allotmentUrl ? `
-              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-allotment" onclick="event.stopPropagation()" title="Check Allotment on ${escapeHtml(ipo.registrar || 'Registrar')}">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                <span>Check Allotment</span>
-              </a>
-            ` : ipo.docUrl ? `
-              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-doc" onclick="event.stopPropagation()" title="View Offer Prospectus">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                <span>RHP Doc</span>
-              </a>
-            ` : ''}
           </div>
         </article>
       `;
@@ -2114,28 +2107,15 @@
             </div>
           ` : ''}
 
-          <div class="card-btn-action-row">
-            ${ipo.status === "LISTED" ? `
-              <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
-                <span>View Performance & Details</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            ` : ipo.allotmentUrl ? `
-              <a href="${ipo.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-allotment" onclick="event.stopPropagation()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                <span>Check Allotment Status</span>
-              </a>
-            ` : ipo.docUrl ? `
-              <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="card-btn-action btn-doc" onclick="event.stopPropagation()">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                <span>IPO Doc (DRHP)</span>
-              </a>
-            ` : `
-              <button class="card-btn-action btn-view" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
-                <span>View Details</span>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            `}
+          <div class="card-btn-action-row" style="display:flex; gap:8px;">
+            <button class="card-btn-action btn-view" style="flex:1;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${ipo.slug}'">
+              <span>View Details</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="card-btn-action" style="background:#10B981; color:#FFFFFF; text-decoration:none; font-weight:700; padding:7px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:4px; font-size:12px;" onclick="event.stopPropagation()">
+              <span>${ipo.status === "LISTED" ? "Invest" : "Apply"}</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
           </div>
         </div>
       </article>
@@ -2569,10 +2549,18 @@
               <span>${isBookmarked(ipo.slug) ? 'Bookmarked' : 'Add to Watchlist'}</span>
             </button>
             ${ipo.status === 'OPEN' ? `
-              <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none;">
-                Apply Now
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
+                Apply Now &rarr;
               </a>
-            ` : ''}
+            ` : (ipo.status === 'UPCOMING' ? `
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
+                Apply / Pre-Apply &rarr;
+              </a>
+            ` : `
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
+                Apply / Trade Stock &rarr;
+              </a>
+            `)}
             ${ipo.docUrl ? `
               <a href="${ipo.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" title="Official SEBI DRHP / RHP Document">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
@@ -3445,6 +3433,7 @@
           <td><span class="fig1-sub-pill">${subText}</span></td>
           <td>
             <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;">Apply</a>
               <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">Details</button>
               ${r.allotmentUrl ? `<a href="${r.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment" title="Registrar">Registrar</a>` : ''}
             </div>
@@ -3477,7 +3466,8 @@
           <div><span style="color:#64748B;">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
         </div>
         <div style="display:flex; gap:8px;">
-          <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Complete Details</button>
+          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="flex:1; justify-content:center; text-align:center; background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;" onclick="event.stopPropagation()">Apply Now</a>
+          <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Details</button>
         </div>
       </div>
     `).join("");
@@ -4190,7 +4180,7 @@
             `;
           }).join("") : `
             <div style="padding:18px; text-align:center; color:var(--text-muted); font-size:13px; background:var(--bg-input); border-radius:8px;">
-              No special closures scheduled for ${dateFormatted}. Currently, <strong>6 IPOs are actively Open for Bidding</strong>.
+              No special closures scheduled for ${dateFormatted}. Currently, <strong>2 IPOs are actively Open for Bidding</strong>.
             </div>
           `}
         </div>
@@ -4208,7 +4198,7 @@
                     <div style="font-size:11px; color:var(--text-muted);">₹${o.priceBandLow}–${o.priceBandHigh} • Closes ${formatDate(o.closeDate)}</div>
                   </div>
                 </div>
-                <a href="#/ipo/${o.slug}" style="font-size:11px; font-weight:700; color:var(--brand-blue-light); text-decoration:none;">Apply &rarr;</a>
+                <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" style="font-size:11px; font-weight:700; color:#10B981; background:rgba(16,185,129,0.15); padding:4px 8px; border-radius:4px; text-decoration:none;">Apply &rarr;</a>
               </div>
             `).join("")}
           </div>
