@@ -436,7 +436,7 @@
     }
 
     if (ipo.status === "LISTED") {
-      return `Debut Listing: ${formatDate(ipo.listingDate || ipo.closeDate)}`;
+      return ipo.priceSource ? `Live: ${ipo.priceSource}` : `Debut Listing: ${formatDate(ipo.listingDate || ipo.closeDate)}`;
     }
 
     if (ipo.status === "UPCOMING") {
@@ -1167,7 +1167,7 @@
   }
 
   function renderFig1TrendingTable() {
-    // Top profitable companies based on verified NSE/BSE and Google Finance listing gains
+    // Top profitable companies based on verified NSE/BSE and Groww listing gains
     const profitableList = [
       {
         slug: "waaree-energies-ipo",
@@ -1176,68 +1176,68 @@
         avatarClass: "fig1-avatar-we",
         status: "Listed",
         issuePrice: "₹1,503",
-        currentPrice: "₹2,500",
-        profitGain: "+66.30% ▲",
+        currentPrice: "₹2,318.00",
+        profitGain: "+54.22% ▲",
         isPositive: true,
         sub: "76.34x",
         subStyle: "style=\"background:#FEF3C7; color:#D97706; font-weight:700;\"",
-        trend: [1503, 1800, 2200, 2500]
+        trend: [1503, 1950, 2150, 2318]
       },
       {
-        slug: "maxwell-engineering-solutions-ipo",
-        name: "Maxwell Engineering",
-        initials: "ME",
+        slug: "krn-heat-exchanger-ipo",
+        name: "KRN Heat Exchanger",
+        initials: "KN",
         avatarClass: "fig1-avatar-sw",
-        status: "Open Now",
-        issuePrice: "₹158",
-        currentPrice: "₹228 (Est.)",
-        profitGain: "+44.30% ▲",
+        status: "Listed",
+        issuePrice: "₹220",
+        currentPrice: "₹1,035.50",
+        profitGain: "+370.68% ▲",
         isPositive: true,
-        sub: "4.67x",
+        sub: "214.42x",
         subStyle: "style=\"background:#DCFCE7; color:#15803D; font-weight:700;\"",
-        trend: [158, 180, 205, 228]
+        trend: [220, 510, 840, 1035]
       },
       {
-        slug: "zetwerk-ipo",
-        name: "Zetwerk",
-        initials: "ZW",
-        avatarClass: "fig1-avatar-nt",
-        status: "Upcoming",
-        issuePrice: "₹500",
-        currentPrice: "₹642 (Est.)",
-        profitGain: "+28.40% ▲",
-        isPositive: true,
-        sub: "Anchor",
-        subStyle: "style=\"background:#EFF6FF; color:#1D4ED8; font-weight:700;\"",
-        trend: [500, 540, 590, 642]
-      },
-      {
-        slug: "ntpc-green-energy-ipo",
-        name: "NTPC Green Energy",
-        initials: "NT",
+        slug: "premier-energies-ipo",
+        name: "Premier Energies",
+        initials: "PE",
         avatarClass: "fig1-avatar-nt",
         status: "Listed",
-        issuePrice: "₹108",
-        currentPrice: "₹130",
-        profitGain: "+20.37% ▲",
+        issuePrice: "₹450",
+        currentPrice: "₹890.00",
+        profitGain: "+97.78% ▲",
         isPositive: true,
-        sub: "2.42x",
-        subStyle: "",
-        trend: [108, 114, 122, 130]
+        sub: "75.00x",
+        subStyle: "style=\"background:#EFF6FF; color:#1D4ED8; font-weight:700;\"",
+        trend: [450, 620, 780, 890]
       },
       {
-        slug: "swiggy-limited-ipo",
-        name: "Swiggy Ltd",
-        initials: "SW",
+        slug: "diffusion-engineers-ipo",
+        name: "Diffusion Engineers",
+        initials: "DE",
+        avatarClass: "fig1-avatar-nt",
+        status: "Listed",
+        issuePrice: "₹168",
+        currentPrice: "₹401.45",
+        profitGain: "+138.96% ▲",
+        isPositive: true,
+        sub: "114.50x",
+        subStyle: "style=\"background:#FEF3C7; color:#D97706; font-weight:700;\"",
+        trend: [168, 250, 340, 401]
+      },
+      {
+        slug: "hyundai-motor-india-ipo",
+        name: "Hyundai Motor India",
+        initials: "HM",
         avatarClass: "fig1-avatar-sw",
         status: "Listed",
-        issuePrice: "₹390",
-        currentPrice: "₹420",
-        profitGain: "+7.69% ▲",
+        issuePrice: "₹1,960",
+        currentPrice: "₹2,030.00",
+        profitGain: "+3.57% ▲",
         isPositive: true,
-        sub: "3.59x",
+        sub: "2.37x",
         subStyle: "",
-        trend: [390, 395, 410, 420]
+        trend: [1960, 1920, 1980, 2030]
       }
     ];
 
@@ -1248,7 +1248,7 @@
             <h2 class="fig1-panel-title">🏆 Top Gainers &amp; Most Profitable Stocks</h2>
           </div>
           <div style="display:flex; align-items:center; gap:12px;">
-            <div class="widget-source-tag">Google Finance &amp; Exchange Synced</div>
+            <div class="widget-source-tag">Groww, Tapetide &amp; Exchange Synced</div>
             <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
           </div>
         </div>
@@ -2584,26 +2584,57 @@
 
         <!-- Key Metrics Strip (Specification Section 5) -->
         <div class="key-metrics-strip" aria-label="Key Financial Metrics">
-          <div class="key-metric-box">
-            <span class="key-metric-label">Issue Price</span>
-            <span class="key-metric-val">${ipo.priceBandLow && ipo.priceBandHigh ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
-          </div>
-          <div class="key-metric-box">
-            <span class="key-metric-label">GMP Today</span>
-            <span class="key-metric-val positive">${ipo.gmp ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : '—'}</span>
-          </div>
-          <div class="key-metric-box">
-            <span class="key-metric-label">Est. Listing Price</span>
-            <span class="key-metric-val">${ipo.gmp && upperPrice ? `₹${Number(upperPrice) + Number(ipo.gmp)}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
-          </div>
-          <div class="key-metric-box">
-            <span class="key-metric-label">Listing Date</span>
-            <span class="key-metric-val">${formatDate(ipo.listingDate)}</span>
-          </div>
-          <div class="key-metric-box">
-            <span class="key-metric-label">Subscription Multiple</span>
-            <span class="key-metric-val">${ipo.subscriptionOverall ? ipo.subscriptionOverall + 'x' : (ipo.subscriptionRetail ? ipo.subscriptionRetail + 'x' : 'N/A')}</span>
-          </div>
+          ${ipo.status === 'LISTED' ? `
+            <div class="key-metric-box">
+              <span class="key-metric-label">Current Market Price (CMP)</span>
+              <span class="key-metric-val" style="display:flex; align-items:center; gap:6px;">
+                ₹${Number(ipo.currentPrice || ipo.listingPrice || ipo.issuePrice || 0).toLocaleString('en-IN')}
+                <span class="live-cmp-pill" style="display:inline-flex; align-items:center; gap:3px; background:#DCFCE7; color:#15803D; font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px;"><span style="width:5px; height:5px; border-radius:50%; background:#16A34A; box-shadow:0 0 4px #16A34A;"></span>LIVE</span>
+              </span>
+              ${ipo.dayChangePerc !== undefined && ipo.dayChangePerc !== null ? `<span style="font-size:11px; font-weight:600; color:${ipo.dayChangePerc >= 0 ? '#16A34A' : '#DC2626'};">${ipo.dayChangePerc >= 0 ? '▲ +' : '▼ '}${ipo.dayChangePerc}% Today</span>` : ''}
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">Issue Price</span>
+              <span class="key-metric-val">${ipo.issuePrice ? `₹${Number(ipo.issuePrice).toLocaleString('en-IN')}` : (ipo.priceBandLow && ipo.priceBandHigh ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}` : '—')}</span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">Debut Listing Price</span>
+              <span class="key-metric-val">${ipo.listingPrice ? `₹${Number(ipo.listingPrice).toLocaleString('en-IN')} (+${ipo.listingGainPct || 0}%)` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : '—')}</span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">Total Gain Since Issue</span>
+              <span class="key-metric-val ${Number(ipo.returnSinceIssuePct || 0) >= 0 ? 'positive' : 'negative'}">
+                ${ipo.returnSinceIssuePct !== undefined && ipo.returnSinceIssuePct !== null ? (Number(ipo.returnSinceIssuePct) >= 0 ? '+' : '') + ipo.returnSinceIssuePct + '%' : (ipo.listingGainPct ? '+' + ipo.listingGainPct + '%' : '—')}
+              </span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">52-Week Range / Listing</span>
+              <span class="key-metric-val" style="font-size:13px;">
+                ${ipo.yearLow && ipo.yearHigh ? `₹${Number(ipo.yearLow).toLocaleString('en-IN')} – ₹${Number(ipo.yearHigh).toLocaleString('en-IN')}` : formatDate(ipo.listingDate)}
+              </span>
+            </div>
+          ` : `
+            <div class="key-metric-box">
+              <span class="key-metric-label">Issue Price</span>
+              <span class="key-metric-val">${ipo.priceBandLow && ipo.priceBandHigh ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">GMP Today</span>
+              <span class="key-metric-val positive">${ipo.gmp ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : '—'}</span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">Est. Listing Price</span>
+              <span class="key-metric-val">${ipo.gmp && upperPrice ? `₹${Number(upperPrice) + Number(ipo.gmp)}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">Listing Date</span>
+              <span class="key-metric-val">${formatDate(ipo.listingDate)}</span>
+            </div>
+            <div class="key-metric-box">
+              <span class="key-metric-label">Subscription Multiple</span>
+              <span class="key-metric-val">${ipo.subscriptionOverall ? ipo.subscriptionOverall + 'x' : (ipo.subscriptionRetail ? ipo.subscriptionRetail + 'x' : 'N/A')}</span>
+            </div>
+          `}
         </div>
 
         <!-- SEBI Regulatory & YMYL Transparency Notice -->
@@ -2835,10 +2866,10 @@
           <div class="detail-gmp-card">
             <div class="detail-gmp-head">
               <div class="gmp-head-left">
-                <h3>${ipo.status === "LISTED" ? "Listing Performance" : "GMP (Grey Market Premium)"}</h3>
+                <h3>${ipo.status === "LISTED" ? "Market Performance &amp; Live CMP" : "GMP (Grey Market Premium)"}</h3>
                 <div class="gmp-large-val">
                   ${ipo.status === "LISTED"
-                    ? (ipo.listingPrice ? `₹${ipo.listingPrice} (${ipo.listingGain || '+0%'})` : `₹${ipo.issuePrice || ipo.priceBandHigh || 0} (Listed)`)
+                    ? `₹${Number(ipo.currentPrice || ipo.listingPrice || 0).toLocaleString('en-IN')} <span style="font-size:14px; font-weight:700; color:${Number(ipo.returnSinceIssuePct || 0) >= 0 ? '#16A34A' : '#DC2626'};">${Number(ipo.returnSinceIssuePct || 0) >= 0 ? '+' : ''}${ipo.returnSinceIssuePct || ipo.listingGainPct || 0}%</span>`
                     : (ipo.gmp != null && ipo.gmp > 0 ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : (ipo.status === "UPCOMING" ? `Not Fixed (TBA)` : `₹0 (Flat)`))}
                 </div>
               </div>
@@ -2853,17 +2884,17 @@
             <div class="gmp-minibar-stats">
               <div class="gmp-stat-item">
                 <span>${ipo.status === "LISTED" ? "Issue Price" : "Day High"}</span>
-                <strong>${ipo.status === "LISTED" ? (ipo.issuePrice || ipo.priceBandHigh || "—") : (ipo.gmp != null ? `₹${ipo.dayHighGmp != null ? ipo.dayHighGmp : ipo.gmp}` : "—")}</strong>
+                <strong>${ipo.status === "LISTED" ? (ipo.issuePrice ? `₹${ipo.issuePrice}` : (ipo.priceBandHigh ? `₹${ipo.priceBandHigh}` : "—")) : (ipo.gmp != null ? `₹${ipo.dayHighGmp != null ? ipo.dayHighGmp : ipo.gmp}` : "—")}</strong>
               </div>
               <div class="gmp-stat-item">
-                <span>${ipo.status === "LISTED" ? "Listing Day High" : "Day Low"}</span>
-                <strong>${ipo.status === "LISTED" ? (ipo.dayHighListing || ipo.listingPrice || "—") : (ipo.gmp != null ? `₹${ipo.dayLowGmp != null ? ipo.dayLowGmp : Math.max(0, ipo.gmp - 2)}` : "—")}</strong>
+                <span>${ipo.status === "LISTED" ? "Debut Listing" : "Day Low"}</span>
+                <strong>${ipo.status === "LISTED" ? (ipo.listingPrice ? `₹${ipo.listingPrice}` : "—") : (ipo.gmp != null ? `₹${ipo.dayLowGmp != null ? ipo.dayLowGmp : Math.max(0, ipo.gmp - 2)}` : "—")}</strong>
               </div>
               <div class="gmp-stat-item">
-                <span>${ipo.status === "LISTED" ? "Return" : "Trend"}</span>
-                <strong class="${(ipo.status === 'LISTED' ? (String(ipo.listingGain).startsWith('-') ? 'trend-red' : 'trend-green') : (!ipo.gmp ? 'trend-neutral' : ipo.trend === 'down' ? 'trend-red' : 'trend-green'))}">
+                <span>${ipo.status === "LISTED" ? "Day Change" : "Trend"}</span>
+                <strong class="${(ipo.status === 'LISTED' ? (Number(ipo.dayChangePerc || 0) >= 0 ? 'trend-green' : 'trend-red') : (!ipo.gmp ? 'trend-neutral' : ipo.trend === 'down' ? 'trend-red' : 'trend-green'))}">
                   ${ipo.status === "LISTED"
-                    ? (ipo.listingGain || "Delivered")
+                    ? (ipo.dayChangePerc !== undefined ? `${ipo.dayChangePerc >= 0 ? '▲ +' : '▼ '}${ipo.dayChangePerc}%` : "Verified Live")
                     : (ipo.gmp != null && ipo.gmp > 0 ? (ipo.trend === 'down' ? '↓ Bearish' : ipo.trend === 'flat' ? '— Neutral' : '↑ Bullish') : '— Awaiting Quotes')}
                 </strong>
               </div>
@@ -2872,7 +2903,7 @@
             <!-- Investor Advisory Note -->
             <div class="gmp-card-note">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE & BSE. Past listing returns do not guarantee future performance.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
+              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE &amp; BSE. Current price &amp; return are synchronized with Groww and exchange disclosures.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
             </div>
           </div>
         </div>

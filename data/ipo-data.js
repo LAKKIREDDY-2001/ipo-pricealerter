@@ -1,9 +1,3 @@
-/* ==========================================================================
-   IPO Track — Live Primary Market Dataset
-   Sources: Chittorgarh (chittorgarh.com), NSE (nseindia.com), BSE (bseindia.com), Groww, IPO Watch, IPO Gyani
-   Updated: 15 November 2024 (Verified Market Close & Official Listing Datasets)
-   ========================================================================== */
-
 window.IpoData = {
   "updatedAt": "2026-11-15T18:00:00+05:30",
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
@@ -145,7 +139,19 @@ window.IpoData = {
           "url": "https://www.bigshareonline.com/ipo_Allotment.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BOMBAYCOATEDANDSPECIALSTEELSLIMITED_79726171_96057.png",
+      "currentPrice": 401.45,
+      "closePrice": 408.2,
+      "dayChange": -6.75,
+      "dayChangePerc": -1.65,
+      "dayHigh": 413.75,
+      "dayLow": 401,
+      "yearHigh": 519.7,
+      "yearLow": 222.1,
+      "volume": 1594,
+      "priceSource": "Groww (BSE: 544264)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "returnSinceIssuePct": 389.57
     },
     {
       "id": "antala-industries",
@@ -189,37 +195,61 @@ window.IpoData = {
       "expectedListingPrice": 66,
       "estProfitPerLot": 0,
       "gmp": 0,
-      "gmpPercentage": 0.00,
+      "gmpPercentage": 0,
       "gmpUpdatedAt": "2026-11-03T18:21:00+05:30",
       "dayHighGmp": 0,
       "dayLowGmp": 0,
       "trend": "neutral",
       "gmpHistory": [
-        { "date": "27 Oct", "value": 0 },
-        { "date": "28 Oct", "value": 0 },
-        { "date": "29 Oct", "value": 0 },
-        { "date": "30 Oct", "value": 0 },
-        { "date": "31 Oct", "value": 0 },
-        { "date": "01 Nov", "value": 0 },
-        { "date": "02 Nov", "value": 0 },
-        { "date": "03 Nov", "value": 0 }
+        {
+          "date": "27 Oct",
+          "value": 0
+        },
+        {
+          "date": "28 Oct",
+          "value": 0
+        },
+        {
+          "date": "29 Oct",
+          "value": 0
+        },
+        {
+          "date": "30 Oct",
+          "value": 0
+        },
+        {
+          "date": "31 Oct",
+          "value": 0
+        },
+        {
+          "date": "01 Nov",
+          "value": 0
+        },
+        {
+          "date": "02 Nov",
+          "value": 0
+        },
+        {
+          "date": "03 Nov",
+          "value": 0
+        }
       ],
       "subscriptionTotal": 1.33,
       "subscriptionOverall": 1.33,
-      "subscriptionRetail": 0.50,
+      "subscriptionRetail": 0.5,
       "subscriptionSummary": {
-        "qib": 67.00,
+        "qib": 67,
         "nii": 1.35,
-        "bNii": 1.80,
+        "bNii": 1.8,
         "sNii": 0.44,
-        "retail": 0.50,
+        "retail": 0.5,
         "total": 1.33
       },
       "bidsReceived": {
         "qibSharesOffered": 36000,
         "niiSharesOffered": 510000,
         "niiSharesBid": 690000,
-        "bNiiTimes": 1.80,
+        "bNiiTimes": 1.8,
         "sNiiTimes": 0.44,
         "retailSharesOffered": 2760000,
         "totalSharesOffered": 3306000,
@@ -237,7 +267,7 @@ window.IpoData = {
         {
           "year": "FY 2025",
           "revenue": 25.13,
-          "profit": 1.50,
+          "profit": 1.5,
           "assets": 15.95,
           "netWorth": 8.44
         },
@@ -269,14 +299,36 @@ window.IpoData = {
         "General Corporate Purposes"
       ],
       "management": [
-        { "name": "Rajeshkumar Chandulal Antala", "role": "Managing Director & Promoter" },
-        { "name": "Pankajkumar Chandulal Antala", "role": "Chief Operating Officer & Promoter" },
-        { "name": "Lataben Rajeshbhai Antala", "role": "Director & Promoter" },
-        { "name": "Hetalben Pankajkumar Antala", "role": "Director & Promoter" }
+        {
+          "name": "Rajeshkumar Chandulal Antala",
+          "role": "Managing Director & Promoter"
+        },
+        {
+          "name": "Pankajkumar Chandulal Antala",
+          "role": "Chief Operating Officer & Promoter"
+        },
+        {
+          "name": "Lataben Rajeshbhai Antala",
+          "role": "Director & Promoter"
+        },
+        {
+          "name": "Hetalben Pankajkumar Antala",
+          "role": "Director & Promoter"
+        }
       ],
       "peers": [
-        { "name": "Knack Packaging Ltd", "pe": 24.62, "pb": 6.83, "ronw": "34.41%" },
-        { "name": "Dhaval Packaging Ltd", "pe": 18.50, "pb": 3.60, "ronw": "31.58%" }
+        {
+          "name": "Knack Packaging Ltd",
+          "pe": 24.62,
+          "pb": 6.83,
+          "ronw": "34.41%"
+        },
+        {
+          "name": "Dhaval Packaging Ltd",
+          "pe": 18.5,
+          "pb": 3.6,
+          "ronw": "31.58%"
+        }
       ],
       "about": "Antala Industries Limited (originally formed as M/s Octagon Industries in 2021) is a Gujarat-based packaging company manufacturing high-grade BOPP bags and PP woven bags for agriculture, fertilizers, chemicals, cement, and food processing industries. Production takes place at an integrated manufacturing facility in Rajkot, Gujarat featuring rotogravure printing, extrusion lamination, and automated cutting-stitching machinery.",
       "analystRating": {
@@ -811,7 +863,20 @@ window.IpoData = {
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/WAAREEENER.png",
       "refundDate": "2026-10-25",
-      "dematDate": "2026-10-25"
+      "dematDate": "2026-10-25",
+      "listingGainPct": 69.66,
+      "currentPrice": 2318,
+      "returnSinceIssuePct": 54.22,
+      "closePrice": 2324,
+      "dayChange": -6,
+      "dayChangePerc": -0.26,
+      "dayHigh": 2347.4,
+      "dayLow": 2305,
+      "yearHigh": 3557,
+      "yearLow": 2161.5,
+      "volume": 398632,
+      "priceSource": "Groww (NSE: WAAREEENER)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "godavari-biorefineries",
@@ -896,7 +961,20 @@ window.IpoData = {
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/GodavariBiorefineriesLtd_61852873_40541.png",
       "refundDate": "2026-10-29",
-      "dematDate": "2026-10-29"
+      "dematDate": "2026-10-29",
+      "listingGainPct": -11.78,
+      "currentPrice": 213.2,
+      "returnSinceIssuePct": -39.43,
+      "closePrice": 215.5,
+      "dayChange": -2.3000000000000114,
+      "dayChangePerc": -1.07,
+      "dayHigh": 221,
+      "dayLow": 213,
+      "yearHigh": 353,
+      "yearLow": 193.6,
+      "volume": 55064,
+      "priceSource": "Groww (NSE: GODAVARIB)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "afcons-infrastructure",
@@ -1025,7 +1103,20 @@ window.IpoData = {
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/AFCONS.png",
       "listingPrice": 426,
-      "listingGain": "-8.0%"
+      "listingGain": "-8.0%",
+      "listingGainPct": -7.12,
+      "currentPrice": 211.4,
+      "returnSinceIssuePct": -54.34,
+      "closePrice": 212.72,
+      "dayChange": -1.3199999999999932,
+      "dayChangePerc": -0.62,
+      "dayHigh": 220.75,
+      "dayLow": 209.71,
+      "yearHigh": 455.5,
+      "yearLow": 203.6,
+      "volume": 783398,
+      "priceSource": "Groww (NSE: AFCONS)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "carver-roboweld",
@@ -1162,7 +1253,7 @@ window.IpoData = {
       "exchange": "BSE SME",
       "sector": "Infrastructure & Real Estate",
       "issueType": "SME",
-      "lotSize": 1200,
+      "lotSize": 600,
       "issueSizeCr": 49.1,
       "closeDate": "2026-10-28",
       "allotDate": "2026-10-29",
@@ -1184,7 +1275,6 @@ window.IpoData = {
       "priceBandLow": 203,
       "priceBandHigh": 203,
       "issuePrice": 203,
-      "lotSize": 600,
       "minimumInvestment": 121800,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AJWAPROJECTSLIMITED_92182746_96155.png",
       "openDate": "2026-10-24",
@@ -1243,7 +1333,7 @@ window.IpoData = {
       "exchange": "BSE, NSE",
       "sector": "Technology & Digital Platforms",
       "issueType": "Mainboard",
-      "lotSize": 50,
+      "lotSize": 45,
       "issueSizeCr": 830,
       "closeDate": "2026-10-24",
       "allotDate": "2026-10-25",
@@ -1265,7 +1355,6 @@ window.IpoData = {
       "priceBandLow": 313,
       "priceBandHigh": 330,
       "issuePrice": 330,
-      "lotSize": 45,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SFCEnvironmentalTechnologiesLtd_33455088_35975.png",
       "openDate": "2026-10-21",
       "refundDate": "2026-10-28",
@@ -1284,7 +1373,7 @@ window.IpoData = {
       "exchange": "BSE SME",
       "sector": "Industrial Engineering & Manufacturing",
       "issueType": "SME",
-      "lotSize": 1200,
+      "lotSize": 600,
       "issueSizeCr": 86,
       "closeDate": "2026-10-23",
       "allotDate": "2026-10-24",
@@ -1305,7 +1394,6 @@ window.IpoData = {
       ],
       "priceBandLow": 194,
       "priceBandHigh": 204,
-      "lotSize": 600,
       "minimumInvestment": 244800,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/WisconIndustriesLtd_59042802_97300.png",
       "openDate": "2026-10-18",
@@ -1350,7 +1438,21 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EAAAIndiaAlternativesLtd_98405475_65115.png",
       "openDate": "2026-10-17",
       "refundDate": "2026-10-24",
-      "dematDate": "2026-10-24"
+      "dematDate": "2026-10-24",
+      "listingPrice": 1675.5,
+      "listingGainPct": 0.63,
+      "currentPrice": 1722.3,
+      "returnSinceIssuePct": 3.44,
+      "closePrice": 1727.8,
+      "dayChange": -5.5,
+      "dayChangePerc": -0.32,
+      "dayHigh": 1763.8,
+      "dayLow": 1686.4,
+      "yearHigh": 1762.5,
+      "yearLow": 1601,
+      "volume": 659064,
+      "priceSource": "Groww (NSE: EDELALTS)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "core4-engineers",
@@ -1389,7 +1491,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Core4EngineerLtd_55115367_96746.png",
       "openDate": "2026-10-16",
       "refundDate": "2026-10-23",
-      "dematDate": "2026-10-23"
+      "dematDate": "2026-10-23",
+      "issuePrice": 93,
+      "listingPrice": 74.4,
+      "listingGainPct": -20,
+      "currentPrice": 86.12,
+      "returnSinceIssuePct": -7.4,
+      "closePrice": 82.02,
+      "dayChange": 4.1000000000000085,
+      "dayChangePerc": 5,
+      "dayHigh": 86.12,
+      "dayLow": 82,
+      "yearHigh": 82.02,
+      "yearLow": 74.4,
+      "volume": 180000,
+      "priceSource": "Groww (BSE: 545007)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "paras-healthcare",
@@ -1428,7 +1545,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParasHealthcareLtd_26578614_38024.png",
       "openDate": "2026-10-15",
       "refundDate": "2026-10-22",
-      "dematDate": "2026-10-22"
+      "dematDate": "2026-10-22",
+      "issuePrice": 693,
+      "listingPrice": 720,
+      "listingGainPct": 3.9,
+      "currentPrice": 730.8,
+      "returnSinceIssuePct": 5.45,
+      "closePrice": 739.3,
+      "dayChange": -8.5,
+      "dayChangePerc": -1.15,
+      "dayHigh": 750.95,
+      "dayLow": 715.1,
+      "yearHigh": 794.4,
+      "yearLow": 706,
+      "volume": 577138,
+      "priceSource": "Groww (NSE: PARASHLTH)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "reliance-jio",
@@ -1467,7 +1599,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/JIO.png",
       "openDate": "2026-10-13",
       "refundDate": "2026-10-20",
-      "dematDate": "2026-10-20"
+      "dematDate": "2026-10-20",
+      "issuePrice": 1119,
+      "listingPrice": 1358,
+      "listingGainPct": 21.36,
+      "currentPrice": 1437.4,
+      "returnSinceIssuePct": 28.45,
+      "closePrice": 1420.7,
+      "dayChange": 16.700000000000045,
+      "dayChangePerc": 1.18,
+      "dayHigh": 1442,
+      "dayLow": 1405,
+      "yearHigh": 1489.7,
+      "yearLow": 1357,
+      "volume": 10314943,
+      "priceSource": "Groww (NSE: JPL)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "zetwerk",
@@ -1506,7 +1653,18 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/zetwerk-org-logo.png",
       "openDate": "2026-10-13",
       "refundDate": "2026-10-20",
-      "dematDate": "2026-10-20"
+      "dematDate": "2026-10-20",
+      "currentPrice": 156.4,
+      "closePrice": 159.1,
+      "dayChange": -2.6999999999999886,
+      "dayChangePerc": -1.7,
+      "dayHigh": 161.01,
+      "dayLow": 153.2,
+      "yearHigh": 168.87,
+      "yearLow": 127.4,
+      "volume": 5214645,
+      "priceSource": "Groww (NSE: ZETWERK)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "sahajanand-medical-technologies",
@@ -1545,7 +1703,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SahajanandMedicalTechnologiesLtd_52021429_42813.png",
       "openDate": "2026-10-12",
       "refundDate": "2026-10-19",
-      "dematDate": "2026-10-19"
+      "dematDate": "2026-10-19",
+      "issuePrice": 344,
+      "listingPrice": 371.15,
+      "listingGainPct": 7.89,
+      "currentPrice": 458.6,
+      "returnSinceIssuePct": 33.31,
+      "closePrice": 460.1,
+      "dayChange": -1.5,
+      "dayChangePerc": -0.33,
+      "dayHigh": 468,
+      "dayLow": 450.05,
+      "yearHigh": 565.75,
+      "yearLow": 346.65,
+      "volume": 423221,
+      "priceSource": "Groww (NSE: SMT)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "tonbo-imaging",
@@ -1584,7 +1757,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TonboImagingIndiaLtd_70259225_96357.png",
       "openDate": "2026-10-12",
       "refundDate": "2026-10-19",
-      "dematDate": "2026-10-19"
+      "dematDate": "2026-10-19",
+      "issuePrice": 700,
+      "listingPrice": 1160,
+      "listingGainPct": 65.71,
+      "currentPrice": 1230.4,
+      "returnSinceIssuePct": 75.77,
+      "closePrice": 1267,
+      "dayChange": -36.59999999999991,
+      "dayChangePerc": -2.89,
+      "dayHigh": 1274.8,
+      "dayLow": 1215.8,
+      "yearHigh": 1344,
+      "yearLow": 1013.7,
+      "volume": 640826,
+      "priceSource": "Groww (NSE: TONBO)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "shellz-india",
@@ -1623,7 +1811,18 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShellzIndiaLtd_97853865_80132.png",
       "openDate": "2026-10-09",
       "refundDate": "2026-10-16",
-      "dematDate": "2026-10-16"
+      "dematDate": "2026-10-16",
+      "currentPrice": 172,
+      "closePrice": 172.55,
+      "dayChange": -0.5500000000000114,
+      "dayChangePerc": -0.32,
+      "dayHigh": 173.8,
+      "dayLow": 165.2,
+      "yearHigh": 179,
+      "yearLow": 150,
+      "volume": 8000,
+      "priceSource": "Groww (BSE: 544998)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "bonfiglioli-transmissions",
@@ -1662,7 +1861,21 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BonfiglioliTransmissionsLtd_93777964_83479.png",
       "openDate": "2026-10-09",
       "refundDate": "2026-10-16",
-      "dematDate": "2026-10-16"
+      "dematDate": "2026-10-16",
+      "issuePrice": 586,
+      "listingPrice": 586,
+      "currentPrice": 657,
+      "returnSinceIssuePct": 12.12,
+      "closePrice": 647.8,
+      "dayChange": 9.200000000000045,
+      "dayChangePerc": 1.42,
+      "dayHigh": 667.75,
+      "dayLow": 640.15,
+      "yearHigh": 659,
+      "yearLow": 527.4,
+      "volume": 1655569,
+      "priceSource": "Groww (NSE: BONFIG)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "ravita-engineering-services",
@@ -1701,7 +1914,21 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RavitaEngineeringServicesLtd_86683196_96742.png",
       "openDate": "2026-10-08",
       "refundDate": "2026-10-15",
-      "dematDate": "2026-10-15"
+      "dematDate": "2026-10-15",
+      "issuePrice": 112,
+      "listingPrice": 112,
+      "currentPrice": 107,
+      "returnSinceIssuePct": -4.46,
+      "closePrice": 108.4,
+      "dayChange": -1.4000000000000057,
+      "dayChangePerc": -1.29,
+      "dayHigh": 111.65,
+      "dayLow": 107,
+      "yearHigh": 119.35,
+      "yearLow": 101.25,
+      "volume": 48000,
+      "priceSource": "Groww (NSE: RAVITA)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "fusion-cx",
@@ -1740,7 +1967,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionCXLtd_51200132_95471.png",
       "openDate": "2026-10-08",
       "refundDate": "2026-10-15",
-      "dematDate": "2026-10-15"
+      "dematDate": "2026-10-15",
+      "issuePrice": 289,
+      "listingPrice": 305,
+      "listingGainPct": 5.54,
+      "currentPrice": 272.1,
+      "returnSinceIssuePct": -5.85,
+      "closePrice": 275.15,
+      "dayChange": -3.0499999999999545,
+      "dayChangePerc": -1.11,
+      "dayHigh": 279,
+      "dayLow": 270.05,
+      "yearHigh": 312.95,
+      "yearLow": 262.3,
+      "volume": 67044,
+      "priceSource": "Groww (NSE: FUSIONCX)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "hd-fire-protect",
@@ -1779,7 +2021,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HDFireProtectLtd_10283393_40220.png",
       "openDate": "2026-10-07",
       "refundDate": "2026-10-14",
-      "dematDate": "2026-10-14"
+      "dematDate": "2026-10-14",
+      "issuePrice": 271,
+      "listingPrice": 335,
+      "listingGainPct": 23.62,
+      "currentPrice": 265.9,
+      "returnSinceIssuePct": -1.88,
+      "closePrice": 260.55,
+      "dayChange": 5.349999999999966,
+      "dayChangePerc": 2.05,
+      "dayHigh": 267.2,
+      "dayLow": 256.1,
+      "yearHigh": 340,
+      "yearLow": 254.55,
+      "volume": 546666,
+      "priceSource": "Groww (NSE: HDFIRE)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "vaibhav-vyapaar",
@@ -1818,7 +2075,18 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VaibhavVyapaarLtd_56235870_97157.png",
       "openDate": "2026-10-07",
       "refundDate": "2026-10-14",
-      "dematDate": "2026-10-14"
+      "dematDate": "2026-10-14",
+      "currentPrice": 61.8,
+      "closePrice": 58.9,
+      "dayChange": 2.8999999999999986,
+      "dayChangePerc": 4.92,
+      "dayHigh": 61.8,
+      "dayLow": 58.9,
+      "yearHigh": 58.9,
+      "yearLow": 50.3,
+      "volume": 148000,
+      "priceSource": "Groww (NSE: LOANFRONT)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "rkfashion-accessories",
@@ -1857,7 +2125,18 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/R.K.FashionAccessoriesLtd_55932000_96973.png",
       "openDate": "2026-10-06",
       "refundDate": "2026-10-13",
-      "dematDate": "2026-10-13"
+      "dematDate": "2026-10-13",
+      "currentPrice": 28.15,
+      "closePrice": 26.85,
+      "dayChange": 1.2999999999999972,
+      "dayChangePerc": 4.84,
+      "dayHigh": 28.15,
+      "dayLow": 25.6,
+      "yearHigh": 80,
+      "yearLow": 26.2,
+      "volume": 254400,
+      "priceSource": "Groww (NSE: RKFAL)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "paramount-syntex",
@@ -1896,7 +2175,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ParamountSyntexLtd_42655569_95936.png",
       "openDate": "2026-10-06",
       "refundDate": "2026-10-13",
-      "dematDate": "2026-10-13"
+      "dematDate": "2026-10-13",
+      "issuePrice": 127,
+      "listingPrice": 115,
+      "listingGainPct": -9.45,
+      "currentPrice": 60.08,
+      "returnSinceIssuePct": -52.69,
+      "closePrice": 57.22,
+      "dayChange": 2.8599999999999994,
+      "dayChangePerc": 5,
+      "dayHigh": 60.08,
+      "dayLow": 60.07,
+      "yearHigh": 115,
+      "yearLow": 48.3,
+      "volume": 1094000,
+      "priceSource": "Groww (BSE: 544982)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "acme-india-industries",
@@ -1935,7 +2229,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ACMEINDIAINDUSTRIESLIMITED_54632178_95962.png",
       "openDate": "2026-10-05",
       "refundDate": "2026-10-12",
-      "dematDate": "2026-10-12"
+      "dematDate": "2026-10-12",
+      "issuePrice": 196,
+      "listingPrice": 221,
+      "listingGainPct": 12.76,
+      "currentPrice": 412.5,
+      "returnSinceIssuePct": 110.46,
+      "closePrice": 418.75,
+      "dayChange": -6.25,
+      "dayChangePerc": -1.49,
+      "dayHigh": 421.9,
+      "dayLow": 411,
+      "yearHigh": 476.9,
+      "yearLow": 195.9,
+      "volume": 577564,
+      "priceSource": "Groww (NSE: ACMESOLAR)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "tna-solutions",
@@ -1974,7 +2283,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TNASolutionsLtd_77787058_97521.png",
       "openDate": "2026-10-05",
       "refundDate": "2026-10-12",
-      "dematDate": "2026-10-12"
+      "dematDate": "2026-10-12",
+      "issuePrice": 70,
+      "listingPrice": 56,
+      "listingGainPct": -20,
+      "currentPrice": 43.98,
+      "returnSinceIssuePct": -37.17,
+      "closePrice": 41.1,
+      "dayChange": 2.8799999999999955,
+      "dayChangePerc": 7.01,
+      "dayHigh": 45.99,
+      "dayLow": 42.55,
+      "yearHigh": 58.8,
+      "yearLow": 40,
+      "volume": 28000,
+      "priceSource": "Groww (BSE: 544983)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "everestims-technologies",
@@ -2013,7 +2337,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EverestIMSTechnologiesLtd_35662785_94563.png",
       "openDate": "2026-10-02",
       "refundDate": "2026-10-09",
-      "dematDate": "2026-10-09"
+      "dematDate": "2026-10-09",
+      "issuePrice": 85,
+      "listingPrice": 126,
+      "listingGainPct": 48.24,
+      "currentPrice": 82.64,
+      "returnSinceIssuePct": -2.78,
+      "closePrice": 87.5,
+      "dayChange": -4.859999999999999,
+      "dayChangePerc": -5.55,
+      "dayHigh": 87.4,
+      "dayLow": 82.11,
+      "yearHigh": 126.97,
+      "yearLow": 86.01,
+      "volume": 68800,
+      "priceSource": "Groww (BSE: 544979)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "shree-tnb-polymers",
@@ -2052,7 +2391,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShreeTNBPolymersLtd_48945624_96835.png",
       "openDate": "2026-10-02",
       "refundDate": "2026-10-09",
-      "dematDate": "2026-10-09"
+      "dematDate": "2026-10-09",
+      "issuePrice": 53,
+      "listingPrice": 60,
+      "listingGainPct": 13.21,
+      "currentPrice": 53.75,
+      "returnSinceIssuePct": 1.42,
+      "closePrice": 53.13,
+      "dayChange": 0.6199999999999974,
+      "dayChangePerc": 1.17,
+      "dayHigh": 54.5,
+      "dayLow": 53,
+      "yearHigh": 61.8,
+      "yearLow": 51.3,
+      "volume": 10000,
+      "priceSource": "Groww (BSE: 544978)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "dove-soft",
@@ -2091,7 +2445,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DoveSoftLtd_91006787_92468.png",
       "openDate": "2026-10-01",
       "refundDate": "2026-10-08",
-      "dematDate": "2026-10-08"
+      "dematDate": "2026-10-08",
+      "issuePrice": 111,
+      "listingPrice": 110.3,
+      "listingGainPct": -0.63,
+      "currentPrice": 94.5,
+      "returnSinceIssuePct": -14.86,
+      "closePrice": 92.43,
+      "dayChange": 2.069999999999993,
+      "dayChangePerc": 2.24,
+      "dayHigh": 95,
+      "dayLow": 94,
+      "yearHigh": 111,
+      "yearLow": 81.5,
+      "volume": 92400,
+      "priceSource": "Groww (BSE: 544975)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "omara-ventures-india",
@@ -2130,7 +2499,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmaraVenturesLtd_67743782_97266.png",
       "openDate": "2026-10-01",
       "refundDate": "2026-10-08",
-      "dematDate": "2026-10-08"
+      "dematDate": "2026-10-08",
+      "issuePrice": 311,
+      "listingPrice": 319,
+      "listingGainPct": 2.57,
+      "currentPrice": 327,
+      "returnSinceIssuePct": 5.14,
+      "closePrice": 328.5,
+      "dayChange": -1.5,
+      "dayChangePerc": -0.46,
+      "dayHigh": 337.05,
+      "dayLow": 325.05,
+      "yearHigh": 350,
+      "yearLow": 306,
+      "volume": 6400,
+      "priceSource": "Groww (BSE: 544976)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "nityas-gems-jewellery",
@@ -2169,7 +2553,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/NityasGemsJewelleryLtd_73277458_96753.png",
       "openDate": "2026-09-30",
       "refundDate": "2026-10-07",
-      "dematDate": "2026-10-07"
+      "dematDate": "2026-10-07",
+      "issuePrice": 75,
+      "listingPrice": 80,
+      "listingGainPct": 6.67,
+      "currentPrice": 66.9,
+      "returnSinceIssuePct": -10.8,
+      "closePrice": 67.26,
+      "dayChange": -0.35999999999999943,
+      "dayChangePerc": -0.54,
+      "dayHigh": 69.79,
+      "dayLow": 66.04,
+      "yearHigh": 84,
+      "yearLow": 58.1,
+      "volume": 243414,
+      "priceSource": "Groww (NSE: NITYAS)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "sollfege-smart-electronics",
@@ -2208,7 +2607,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SollfegeSmartElectronicsLtd_55458084_94651.png",
       "openDate": "2026-09-30",
       "refundDate": "2026-10-07",
-      "dematDate": "2026-10-07"
+      "dematDate": "2026-10-07",
+      "issuePrice": 55,
+      "listingPrice": 104.4,
+      "listingGainPct": 89.82,
+      "currentPrice": 60,
+      "returnSinceIssuePct": 9.09,
+      "closePrice": 57,
+      "dayChange": 3,
+      "dayChangePerc": 5.26,
+      "dayHigh": 60,
+      "dayLow": 57,
+      "yearHigh": 104.5,
+      "yearLow": 49.31,
+      "volume": 4000,
+      "priceSource": "Groww (BSE: 544977)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "sjp-ultrasonic",
@@ -2247,7 +2661,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SJPULTRASONICSLIMITED_12507441_96005.png",
       "openDate": "2026-09-29",
       "refundDate": "2026-10-06",
-      "dematDate": "2026-10-06"
+      "dematDate": "2026-10-06",
+      "issuePrice": 67,
+      "listingPrice": 74.2,
+      "listingGainPct": 10.75,
+      "currentPrice": 106,
+      "returnSinceIssuePct": 58.21,
+      "closePrice": 107.3,
+      "dayChange": -1.2999999999999972,
+      "dayChangePerc": -1.21,
+      "dayHigh": 108.25,
+      "dayLow": 106,
+      "yearHigh": 119,
+      "yearLow": 73,
+      "volume": 34000,
+      "priceSource": "Groww (BSE: 544980)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "eventions",
@@ -2286,7 +2715,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/EventionsLtd_62627122_96759.png",
       "openDate": "2026-09-29",
       "refundDate": "2026-10-06",
-      "dematDate": "2026-10-06"
+      "dematDate": "2026-10-06",
+      "issuePrice": 118,
+      "listingPrice": 111,
+      "listingGainPct": -5.93,
+      "currentPrice": 53.95,
+      "returnSinceIssuePct": -54.28,
+      "closePrice": 55.25,
+      "dayChange": -1.2999999999999972,
+      "dayChangePerc": -2.35,
+      "dayHigh": 55.5,
+      "dayLow": 53,
+      "yearHigh": 111,
+      "yearLow": 50.05,
+      "volume": 518400,
+      "priceSource": "Groww (NSE: EVENTIONS)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "vishal-nirmiti",
@@ -2325,7 +2769,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VishalNirmitiLtd_78509595_34843.png",
       "openDate": "2026-09-28",
       "refundDate": "2026-10-05",
-      "dematDate": "2026-10-05"
+      "dematDate": "2026-10-05",
+      "issuePrice": 220,
+      "listingPrice": 215,
+      "listingGainPct": -2.27,
+      "currentPrice": 99.66,
+      "returnSinceIssuePct": -54.7,
+      "closePrice": 100.96,
+      "dayChange": -1.2999999999999972,
+      "dayChangePerc": -1.29,
+      "dayHigh": 102.9,
+      "dayLow": 98.11,
+      "yearHigh": 215,
+      "yearLow": 89.19,
+      "volume": 208250,
+      "priceSource": "Groww (NSE: VNL)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "green-asia-impex",
@@ -2364,7 +2823,21 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GreenAsiaImpexLtd_69255354_96486.png",
       "openDate": "2026-09-28",
       "refundDate": "2026-10-05",
-      "dematDate": "2026-10-05"
+      "dematDate": "2026-10-05",
+      "issuePrice": 89,
+      "listingPrice": 89,
+      "currentPrice": 73.85,
+      "returnSinceIssuePct": -17.02,
+      "closePrice": 71.25,
+      "dayChange": 2.5999999999999943,
+      "dayChangePerc": 3.65,
+      "dayHigh": 75.6,
+      "dayLow": 72,
+      "yearHigh": 89,
+      "yearLow": 57,
+      "volume": 4800,
+      "priceSource": "Groww (NSE: GREENASIA)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "black-opal-consultants",
@@ -2403,7 +2876,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLACKOPALCONSULTANTSLIMITED_94566852_96132.png",
       "openDate": "2026-09-25",
       "refundDate": "2026-10-02",
-      "dematDate": "2026-10-02"
+      "dematDate": "2026-10-02",
+      "issuePrice": 197,
+      "listingPrice": 200,
+      "listingGainPct": 1.52,
+      "currentPrice": 151.5,
+      "returnSinceIssuePct": -23.1,
+      "closePrice": 133.9,
+      "dayChange": 17.599999999999994,
+      "dayChangePerc": 13.14,
+      "dayHigh": 152,
+      "dayLow": 135.9,
+      "yearHigh": 210,
+      "yearLow": 128.8,
+      "volume": 27000,
+      "priceSource": "Groww (BSE: 544972)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "papadmalji-agro",
@@ -2442,7 +2930,18 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PAPADMALJIAGROFOODSLIMITED_42602007_96377.png",
       "openDate": "2026-09-25",
       "refundDate": "2026-10-02",
-      "dematDate": "2026-10-02"
+      "dematDate": "2026-10-02",
+      "currentPrice": 37.15,
+      "closePrice": 40.25,
+      "dayChange": -3.1000000000000014,
+      "dayChangePerc": -7.7,
+      "dayHigh": 39.3,
+      "dayLow": 36.45,
+      "yearHigh": 72.3,
+      "yearLow": 38.55,
+      "volume": 145600,
+      "priceSource": "Groww (NSE: PAPADMALJI)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "vans-electroengineerings",
@@ -2481,7 +2980,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VansElectroengineeringsLtd_53249777_97283.png",
       "openDate": "2026-09-24",
       "refundDate": "2026-10-01",
-      "dematDate": "2026-10-01"
+      "dematDate": "2026-10-01",
+      "issuePrice": 118,
+      "listingPrice": 224.2,
+      "listingGainPct": 90,
+      "currentPrice": 412.95,
+      "returnSinceIssuePct": 249.96,
+      "closePrice": 393.3,
+      "dayChange": 19.649999999999977,
+      "dayChangePerc": 5,
+      "dayHigh": 412.95,
+      "dayLow": 380,
+      "yearHigh": 473.8,
+      "yearLow": 224.2,
+      "volume": 74400,
+      "priceSource": "Groww (BSE: 544971)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "srit-india",
@@ -2520,7 +3034,18 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SRITIndiaLtd_48351250_39853.png",
       "openDate": "2026-09-24",
       "refundDate": "2026-10-01",
-      "dematDate": "2026-10-01"
+      "dematDate": "2026-10-01",
+      "currentPrice": 116.04,
+      "closePrice": 119.87,
+      "dayChange": -3.8299999999999983,
+      "dayChangePerc": -3.2,
+      "dayHigh": 121.45,
+      "dayLow": 115.01,
+      "yearHigh": 155.09,
+      "yearLow": 95,
+      "volume": 969186,
+      "priceSource": "Groww (NSE: SRIT)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "shivchem-agro",
@@ -2559,7 +3084,21 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHIVCHEMAGROLIMITED_70862725_96002.png",
       "openDate": "2026-09-23",
       "refundDate": "2026-09-30",
-      "dematDate": "2026-09-30"
+      "dematDate": "2026-09-30",
+      "issuePrice": 62,
+      "listingPrice": 62,
+      "currentPrice": 24.07,
+      "returnSinceIssuePct": -61.18,
+      "closePrice": 28.02,
+      "dayChange": -3.9499999999999993,
+      "dayChangePerc": -14.1,
+      "dayHigh": 28,
+      "dayLow": 24,
+      "yearHigh": 62,
+      "yearLow": 28,
+      "volume": 22000,
+      "priceSource": "Groww (BSE: 544967)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "acme-universal-safezone-9",
@@ -2598,7 +3137,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AcmeUniversalSafezone9Ltd_66070403_96767.png",
       "openDate": "2026-09-23",
       "refundDate": "2026-09-30",
-      "dematDate": "2026-09-30"
+      "dematDate": "2026-09-30",
+      "issuePrice": 71,
+      "listingPrice": 101,
+      "listingGainPct": 42.25,
+      "currentPrice": 104.95,
+      "returnSinceIssuePct": 47.82,
+      "closePrice": 104.15,
+      "dayChange": 0.7999999999999972,
+      "dayChangePerc": 0.77,
+      "dayHigh": 108.7,
+      "dayLow": 101.1,
+      "yearHigh": 122,
+      "yearLow": 94,
+      "volume": 145600,
+      "priceSource": "Groww (BSE: 544964)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "pind-hospitality",
@@ -2637,7 +3191,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PindHospitalityLtd_25128305_97634.png",
       "openDate": "2026-09-22",
       "refundDate": "2026-09-29",
-      "dematDate": "2026-09-29"
+      "dematDate": "2026-09-29",
+      "issuePrice": 99,
+      "listingPrice": 79.2,
+      "listingGainPct": -20,
+      "currentPrice": 24.55,
+      "returnSinceIssuePct": -75.2,
+      "closePrice": 25.84,
+      "dayChange": -1.2899999999999991,
+      "dayChangePerc": -4.99,
+      "dayHigh": 24.55,
+      "dayLow": 24.55,
+      "yearHigh": 79.2,
+      "yearLow": 25.84,
+      "volume": 30000,
+      "priceSource": "Groww (BSE: 544966)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "shah-investors-home",
@@ -2676,7 +3245,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShahInvestorsHomeLtd_77471837_71825.png",
       "openDate": "2026-09-22",
       "refundDate": "2026-09-29",
-      "dematDate": "2026-09-29"
+      "dematDate": "2026-09-29",
+      "issuePrice": 167,
+      "listingPrice": 171,
+      "listingGainPct": 2.4,
+      "currentPrice": 139.69,
+      "returnSinceIssuePct": -16.35,
+      "closePrice": 140.06,
+      "dayChange": -0.37000000000000455,
+      "dayChangePerc": -0.26,
+      "dayHigh": 142.88,
+      "dayLow": 138.01,
+      "yearHigh": 179.55,
+      "yearLow": 129.64,
+      "volume": 32686,
+      "priceSource": "Groww (NSE: SHAHINVEST)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "sai-urja-indo",
@@ -2715,7 +3299,22 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SaiUrjaIndoVenturesLtd_14350313_96001.png",
       "openDate": "2026-09-21",
       "refundDate": "2026-09-28",
-      "dematDate": "2026-09-28"
+      "dematDate": "2026-09-28",
+      "issuePrice": 113,
+      "listingPrice": 133.8,
+      "listingGainPct": 18.41,
+      "currentPrice": 116.1,
+      "returnSinceIssuePct": 2.74,
+      "closePrice": 110.6,
+      "dayChange": 5.5,
+      "dayChangePerc": 4.97,
+      "dayHigh": 116.1,
+      "dayLow": 106.25,
+      "yearHigh": 247,
+      "yearLow": 106.4,
+      "volume": 21600,
+      "priceSource": "Groww (BSE: 544958)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "bench-mark-infotech-services",
@@ -2754,7 +3353,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BenchMarkInfotechServicesLtd_28453504_97454.png",
       "openDate": "2026-09-21",
       "refundDate": "2026-09-28",
-      "dematDate": "2026-09-28"
+      "dematDate": "2026-09-28",
+      "issuePrice": 110,
+      "listingPrice": 110,
+      "currentPrice": 189,
+      "returnSinceIssuePct": 71.82
     },
     {
       "id": "himalayan-solar",
@@ -2793,7 +3396,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HIMALAYANSOLARLIMITED_48416173_96135.png",
       "openDate": "2026-09-18",
       "refundDate": "2026-09-25",
-      "dematDate": "2026-09-25"
+      "dematDate": "2026-09-25",
+      "issuePrice": 103,
+      "listingPrice": 85,
+      "listingGainPct": -17.48,
+      "currentPrice": 83.25,
+      "returnSinceIssuePct": -19.17
     },
     {
       "id": "acevector",
@@ -2832,7 +3440,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/ACEVECTOR.png",
       "openDate": "2026-09-18",
       "refundDate": "2026-09-25",
-      "dematDate": "2026-09-25"
+      "dematDate": "2026-09-25",
+      "issuePrice": 32,
+      "listingPrice": 28.32,
+      "listingGainPct": -11.5,
+      "currentPrice": 19.06,
+      "returnSinceIssuePct": -40.44
     },
     {
       "id": "german-green-steel-and-power",
@@ -2871,7 +3484,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GermanGreenSteelPowerLtd_78872759_82141.png",
       "openDate": "2026-09-17",
       "refundDate": "2026-09-24",
-      "dematDate": "2026-09-24"
+      "dematDate": "2026-09-24",
+      "issuePrice": 139,
+      "listingPrice": 142,
+      "listingGainPct": 2.16,
+      "currentPrice": 102.08,
+      "returnSinceIssuePct": -26.56
     },
     {
       "id": "runwal-enterprises",
@@ -2910,7 +3528,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/RUNWAL.png",
       "openDate": "2026-09-17",
       "refundDate": "2026-09-24",
-      "dematDate": "2026-09-24"
+      "dematDate": "2026-09-24",
+      "issuePrice": 305,
+      "listingPrice": 305,
+      "currentPrice": 205.09,
+      "returnSinceIssuePct": -32.76
     },
     {
       "id": "orient-cables",
@@ -2949,7 +3571,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ORIENTCABLESINDIALIMITED_62505464_95655.png",
       "openDate": "2026-09-16",
       "refundDate": "2026-09-23",
-      "dematDate": "2026-09-23"
+      "dematDate": "2026-09-23",
+      "issuePrice": 272,
+      "listingPrice": 450,
+      "listingGainPct": 65.44,
+      "currentPrice": 337.45,
+      "returnSinceIssuePct": 24.06
     },
     {
       "id": "dudani-retail",
@@ -2988,7 +3615,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DudaniRetailLtd_69306656_96771.png",
       "openDate": "2026-09-16",
       "refundDate": "2026-09-23",
-      "dematDate": "2026-09-23"
+      "dematDate": "2026-09-23",
+      "issuePrice": 29,
+      "listingPrice": 25,
+      "listingGainPct": -13.79,
+      "currentPrice": 7.78,
+      "returnSinceIssuePct": -73.17
     },
     {
       "id": "a-one-steels",
@@ -3027,7 +3659,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/A-OneSteelsIndiaLtd_41275253_94335.png",
       "openDate": "2026-09-15",
       "refundDate": "2026-09-22",
-      "dematDate": "2026-09-22"
+      "dematDate": "2026-09-22",
+      "issuePrice": 405,
+      "listingPrice": 455,
+      "listingGainPct": 12.35,
+      "currentPrice": 369.5,
+      "returnSinceIssuePct": -8.77
     },
     {
       "id": "moneyview",
@@ -3066,7 +3703,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MoneyviewLtd_48051054_78774.png",
       "openDate": "2026-09-15",
       "refundDate": "2026-09-22",
-      "dematDate": "2026-09-22"
+      "dematDate": "2026-09-22",
+      "issuePrice": 34,
+      "listingPrice": 55,
+      "listingGainPct": 61.76,
+      "currentPrice": 53.89,
+      "returnSinceIssuePct": 58.5
     },
     {
       "id": "peshwa-wheat",
@@ -3105,7 +3747,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PeshwaWheatLimited_65538191_93513.png",
       "openDate": "2026-09-14",
       "refundDate": "2026-09-21",
-      "dematDate": "2026-09-21"
+      "dematDate": "2026-09-21",
+      "issuePrice": 101,
+      "listingPrice": 100.05,
+      "listingGainPct": -0.94,
+      "currentPrice": 34.52,
+      "returnSinceIssuePct": -65.82
     },
     {
       "id": "roopa-screen",
@@ -3144,7 +3791,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RoopaScreenLtd_74054328_95930.png",
       "openDate": "2026-09-14",
       "refundDate": "2026-09-21",
-      "dematDate": "2026-09-21"
+      "dematDate": "2026-09-21",
+      "issuePrice": 64,
+      "listingPrice": 121.6,
+      "listingGainPct": 90,
+      "currentPrice": 90.79,
+      "returnSinceIssuePct": 41.86
     },
     {
       "id": "skoffset",
@@ -3183,7 +3835,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/S.K.OffsetLtd_84217131_97132.png",
       "openDate": "2026-09-11",
       "refundDate": "2026-09-18",
-      "dematDate": "2026-09-18"
+      "dematDate": "2026-09-18",
+      "issuePrice": 125,
+      "listingPrice": 126,
+      "listingGainPct": 0.8,
+      "currentPrice": 108,
+      "returnSinceIssuePct": -13.6
     },
     {
       "id": "armee-infotech",
@@ -3222,7 +3879,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ArmeeInfotechLtd_38995854_93256.png",
       "openDate": "2026-09-11",
       "refundDate": "2026-09-18",
-      "dematDate": "2026-09-18"
+      "dematDate": "2026-09-18",
+      "issuePrice": 375,
+      "listingPrice": 375,
+      "currentPrice": 286.2,
+      "returnSinceIssuePct": -23.68
     },
     {
       "id": "liqvd-digital",
@@ -3261,7 +3922,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LiqvdDigitalIndiaLtd_35842097_95952.png",
       "openDate": "2026-09-10",
       "refundDate": "2026-09-17",
-      "dematDate": "2026-09-17"
+      "dematDate": "2026-09-17",
+      "issuePrice": 54,
+      "listingPrice": 53.73,
+      "listingGainPct": -0.5,
+      "currentPrice": 26.75,
+      "returnSinceIssuePct": -50.46
     },
     {
       "id": "swastika-infra",
@@ -3300,7 +3966,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SWASTIKAINFRALIMITED_26222411_94673.png",
       "openDate": "2026-09-10",
       "refundDate": "2026-09-17",
-      "dematDate": "2026-09-17"
+      "dematDate": "2026-09-17",
+      "issuePrice": 185,
+      "listingPrice": 200,
+      "listingGainPct": 8.11,
+      "currentPrice": 196.09,
+      "returnSinceIssuePct": 5.99
     },
     {
       "id": "elevate-campuses",
@@ -3339,7 +4010,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ELEVATECAMPUSESLIMITED_51324446_96157.png",
       "openDate": "2026-09-09",
       "refundDate": "2026-09-16",
-      "dematDate": "2026-09-16"
+      "dematDate": "2026-09-16",
+      "issuePrice": 362,
+      "listingPrice": 355.1,
+      "listingGainPct": -1.91,
+      "currentPrice": 275.6,
+      "returnSinceIssuePct": -23.87
     },
     {
       "id": "pooja-logistics",
@@ -3378,7 +4054,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaLogisticsLtd_17838172_95926.png",
       "openDate": "2026-09-09",
       "refundDate": "2026-09-16",
-      "dematDate": "2026-09-16"
+      "dematDate": "2026-09-16",
+      "issuePrice": 115,
+      "listingPrice": 118,
+      "listingGainPct": 2.61,
+      "currentPrice": 94.15,
+      "returnSinceIssuePct": -18.13
     },
     {
       "id": "unitec-fibres",
@@ -3417,7 +4098,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/UnitechFibresLtd_94078773_97139.png",
       "openDate": "2026-09-08",
       "refundDate": "2026-09-15",
-      "dematDate": "2026-09-15"
+      "dematDate": "2026-09-15",
+      "issuePrice": 88,
+      "listingPrice": 90,
+      "listingGainPct": 2.27,
+      "currentPrice": 90,
+      "returnSinceIssuePct": 2.27
     },
     {
       "id": "adroit-industries",
@@ -3456,7 +4142,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdroitIndustriesIndiaLtd_81397043_40604.png",
       "openDate": "2026-09-08",
       "refundDate": "2026-09-15",
-      "dematDate": "2026-09-15"
+      "dematDate": "2026-09-15",
+      "issuePrice": 134,
+      "listingPrice": 235,
+      "listingGainPct": 75.37,
+      "currentPrice": 171.52,
+      "returnSinceIssuePct": 28
     },
     {
       "id": "core-integra-consulting",
@@ -3495,7 +4186,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CoreintegraConsultingServicesLtd_71823744_95847.png",
       "openDate": "2026-09-07",
       "refundDate": "2026-09-14",
-      "dematDate": "2026-09-14"
+      "dematDate": "2026-09-14",
+      "issuePrice": 78,
+      "listingPrice": 78.1,
+      "listingGainPct": 0.13,
+      "currentPrice": 110,
+      "returnSinceIssuePct": 41.03
     },
     {
       "id": "himalaya-nutravedics",
@@ -3534,7 +4230,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HimalayaNutravedicsIndiaLtd_27349409_96747.png",
       "openDate": "2026-09-07",
       "refundDate": "2026-09-14",
-      "dematDate": "2026-09-14"
+      "dematDate": "2026-09-14",
+      "issuePrice": 106,
+      "listingPrice": 118,
+      "listingGainPct": 11.32,
+      "currentPrice": 127.95,
+      "returnSinceIssuePct": 20.71
     },
     {
       "id": "varmora-granito",
@@ -3573,7 +4274,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VarmoraGranitoLtd_54725145_77219.png",
       "openDate": "2026-09-04",
       "refundDate": "2026-09-11",
-      "dematDate": "2026-09-11"
+      "dematDate": "2026-09-11",
+      "issuePrice": 148,
+      "listingPrice": 155,
+      "listingGainPct": 4.73,
+      "currentPrice": 123.27,
+      "returnSinceIssuePct": -16.71
     },
     {
       "id": "anand-seamless",
@@ -3612,7 +4318,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AnandSeamlessLtd_92351111_96488.png",
       "openDate": "2026-09-04",
       "refundDate": "2026-09-11",
-      "dematDate": "2026-09-11"
+      "dematDate": "2026-09-11",
+      "issuePrice": 72,
+      "listingPrice": 72.1,
+      "listingGainPct": 0.14,
+      "currentPrice": 70.5,
+      "returnSinceIssuePct": -2.08
     },
     {
       "id": "robokidz-eduventures",
@@ -3651,7 +4362,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RobokidzEduventures_99271756_97411.png",
       "openDate": "2026-09-03",
       "refundDate": "2026-09-10",
-      "dematDate": "2026-09-10"
+      "dematDate": "2026-09-10",
+      "issuePrice": 106,
+      "listingPrice": 201.4,
+      "listingGainPct": 90,
+      "currentPrice": 135.6,
+      "returnSinceIssuePct": 27.92
     },
     {
       "id": "fx-multitech",
@@ -3690,7 +4406,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FXMultitechLtd_31512295_96393.png",
       "openDate": "2026-09-03",
       "refundDate": "2026-09-10",
-      "dematDate": "2026-09-10"
+      "dematDate": "2026-09-10",
+      "issuePrice": 116,
+      "listingPrice": 123.05,
+      "listingGainPct": 6.08,
+      "currentPrice": 124.45,
+      "returnSinceIssuePct": 7.28
     },
     {
       "id": "vivekanand-cotspin",
@@ -3729,7 +4450,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VIVEKANANDCOTSPINLIMITED_39374030_94571.png",
       "openDate": "2026-09-02",
       "refundDate": "2026-09-09",
-      "dematDate": "2026-09-09"
+      "dematDate": "2026-09-09",
+      "issuePrice": 37,
+      "listingPrice": 38,
+      "listingGainPct": 2.7,
+      "currentPrice": 63.99,
+      "returnSinceIssuePct": 72.95
     },
     {
       "id": "axiom-gas-engineering",
@@ -3768,7 +4494,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AxiomGasEngineeringLtd_22368737_94297.png",
       "openDate": "2026-09-02",
       "refundDate": "2026-09-09",
-      "dematDate": "2026-09-09"
+      "dematDate": "2026-09-09",
+      "issuePrice": 54,
+      "listingPrice": 54.75,
+      "listingGainPct": 1.39,
+      "currentPrice": 39.5,
+      "returnSinceIssuePct": -26.85
     },
     {
       "id": "sonaselection-india",
@@ -3846,7 +4577,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KheriaAutocompLtd_43718405_95947.png",
       "openDate": "2026-09-01",
       "refundDate": "2026-09-08",
-      "dematDate": "2026-09-08"
+      "dematDate": "2026-09-08",
+      "issuePrice": 101,
+      "listingPrice": 104.9,
+      "listingGainPct": 3.86,
+      "currentPrice": 97.55,
+      "returnSinceIssuePct": -3.42
     },
     {
       "id": "nse",
@@ -3924,7 +4660,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SpectraATechnologySolutionsLtd_11580717_96530.png",
       "openDate": "2026-08-31",
       "refundDate": "2026-09-07",
-      "dematDate": "2026-09-07"
+      "dematDate": "2026-09-07",
+      "issuePrice": 118,
+      "listingPrice": 224.2,
+      "listingGainPct": 90,
+      "currentPrice": 240,
+      "returnSinceIssuePct": 103.39
     },
     {
       "id": "jindal-supreme",
@@ -3963,7 +4704,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JindalSupremeIndiaLtd_54265324_96165.png",
       "openDate": "2026-08-28",
       "refundDate": "2026-09-04",
-      "dematDate": "2026-09-04"
+      "dematDate": "2026-09-04",
+      "issuePrice": 93,
+      "listingPrice": 120,
+      "listingGainPct": 29.03,
+      "currentPrice": 159.01,
+      "returnSinceIssuePct": 70.98
     },
     {
       "id": "ss-retail",
@@ -4002,7 +4748,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SSRETAILLIMITED_27505473_96372.png",
       "openDate": "2026-08-28",
       "refundDate": "2026-09-04",
-      "dematDate": "2026-09-04"
+      "dematDate": "2026-09-04",
+      "issuePrice": 424,
+      "listingPrice": 624,
+      "listingGainPct": 47.17,
+      "currentPrice": 636,
+      "returnSinceIssuePct": 50
     },
     {
       "id": "hero-motors",
@@ -4041,7 +4792,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HeroMotorsLtd_67351042_25458.png",
       "openDate": "2026-08-27",
       "refundDate": "2026-09-03",
-      "dematDate": "2026-09-03"
+      "dematDate": "2026-09-03",
+      "issuePrice": 84,
+      "listingPrice": 82,
+      "listingGainPct": -2.38,
+      "currentPrice": 118.22,
+      "returnSinceIssuePct": 40.74
     },
     {
       "id": "quanto-agroworld",
@@ -4080,7 +4836,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QuantoAgroworldLtd_70995748_93590.png",
       "openDate": "2026-08-27",
       "refundDate": "2026-09-03",
-      "dematDate": "2026-09-03"
+      "dematDate": "2026-09-03",
+      "issuePrice": 67,
+      "listingPrice": 66.99,
+      "listingGainPct": -0.01,
+      "currentPrice": 59.08,
+      "returnSinceIssuePct": -11.82
     },
     {
       "id": "shakti-polytarp",
@@ -4119,7 +4880,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShaktiPolytarpLtd_61445370_95395.png",
       "openDate": "2026-08-26",
       "refundDate": "2026-09-02",
-      "dematDate": "2026-09-02"
+      "dematDate": "2026-09-02",
+      "issuePrice": 59,
+      "listingPrice": 58.9,
+      "listingGainPct": -0.17,
+      "currentPrice": 45,
+      "returnSinceIssuePct": -23.73
     },
     {
       "id": "vama-wovenfab",
@@ -4158,7 +4924,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VamaWovenfabLtd_38203162_95935.png",
       "openDate": "2026-08-26",
       "refundDate": "2026-09-02",
-      "dematDate": "2026-09-02"
+      "dematDate": "2026-09-02",
+      "issuePrice": 341,
+      "listingPrice": 341,
+      "currentPrice": 77.7,
+      "returnSinceIssuePct": -77.21
     },
     {
       "id": "manika-plastech",
@@ -4197,7 +4967,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManikaPlastechLtd_18401999_77258.png",
       "openDate": "2026-08-25",
       "refundDate": "2026-09-01",
-      "dematDate": "2026-09-01"
+      "dematDate": "2026-09-01",
+      "issuePrice": 43,
+      "listingPrice": 43,
+      "currentPrice": 50.32,
+      "returnSinceIssuePct": 17.02
     },
     {
       "id": "century-business",
@@ -4275,7 +5049,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InjectoPolymersLtd_37791382_95902.png",
       "openDate": "2026-08-24",
       "refundDate": "2026-08-31",
-      "dematDate": "2026-08-31"
+      "dematDate": "2026-08-31",
+      "issuePrice": 100,
+      "listingPrice": 99,
+      "listingGainPct": -1,
+      "currentPrice": 93.49,
+      "returnSinceIssuePct": -6.51
     },
     {
       "id": "veegaland-developers",
@@ -4314,7 +5093,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VEEGALANDDEVELOPERSLIMITED_51655529_96379.png",
       "openDate": "2026-08-24",
       "refundDate": "2026-08-31",
-      "dematDate": "2026-08-31"
+      "dematDate": "2026-08-31",
+      "issuePrice": 140,
+      "listingPrice": 154,
+      "listingGainPct": 10,
+      "currentPrice": 131.97,
+      "returnSinceIssuePct": -5.74
     },
     {
       "id": "panchatv-bharat",
@@ -4353,7 +5137,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PanchatvBharatLtd_60025650_93849.png",
       "openDate": "2026-08-21",
       "refundDate": "2026-08-28",
-      "dematDate": "2026-08-28"
+      "dematDate": "2026-08-28",
+      "issuePrice": 140,
+      "listingPrice": 128.95,
+      "listingGainPct": -7.89,
+      "currentPrice": 42.2,
+      "returnSinceIssuePct": -69.86
     },
     {
       "id": "raksan-transformers",
@@ -4392,7 +5181,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RAKSANTRANSFORMERSLIMITED_16697549_95958.png",
       "openDate": "2026-08-21",
       "refundDate": "2026-08-28",
-      "dematDate": "2026-08-28"
+      "dematDate": "2026-08-28",
+      "issuePrice": 273,
+      "listingPrice": 273,
+      "currentPrice": 216.7,
+      "returnSinceIssuePct": -20.62
     },
     {
       "id": "om-galaxy",
@@ -4431,7 +5224,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OmGalaxyLtd_17123099_96751.png",
       "openDate": "2026-08-20",
       "refundDate": "2026-08-27",
-      "dematDate": "2026-08-27"
+      "dematDate": "2026-08-27",
+      "issuePrice": 90,
+      "listingPrice": 90.2,
+      "listingGainPct": 0.22,
+      "currentPrice": 87,
+      "returnSinceIssuePct": -3.33
     },
     {
       "id": "maharaja--speedex-india",
@@ -4509,7 +5307,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AmtechEstersLtd_79872683_94285.png",
       "openDate": "2026-08-19",
       "refundDate": "2026-08-26",
-      "dematDate": "2026-08-26"
+      "dematDate": "2026-08-26",
+      "issuePrice": 75,
+      "listingPrice": 100,
+      "listingGainPct": 33.33,
+      "currentPrice": 80.68,
+      "returnSinceIssuePct": 7.57
     },
     {
       "id": "asset-reconstruction",
@@ -4626,7 +5429,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KaramtaraEngineeringLtd_19295199_34956.png",
       "openDate": "2026-08-18",
       "refundDate": "2026-08-25",
-      "dematDate": "2026-08-25"
+      "dematDate": "2026-08-25",
+      "issuePrice": 254,
+      "listingPrice": 320,
+      "listingGainPct": 25.98,
+      "currentPrice": 369.65,
+      "returnSinceIssuePct": 45.53
     },
     {
       "id": "lcc-projects",
@@ -4665,7 +5473,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LCCProjectsLtd_91695479_85600.png",
       "openDate": "2026-08-17",
       "refundDate": "2026-08-24",
-      "dematDate": "2026-08-24"
+      "dematDate": "2026-08-24",
+      "issuePrice": 146,
+      "listingPrice": 189,
+      "listingGainPct": 29.45,
+      "currentPrice": 136.5,
+      "returnSinceIssuePct": -6.51
     },
     {
       "id": "vinod-texworld",
@@ -4704,7 +5517,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VINODTEXWORLDLIMITED_27930600_95989.png",
       "openDate": "2026-08-17",
       "refundDate": "2026-08-24",
-      "dematDate": "2026-08-24"
+      "dematDate": "2026-08-24",
+      "issuePrice": 94,
+      "listingPrice": 94,
+      "currentPrice": 24.35,
+      "returnSinceIssuePct": -74.1
     },
     {
       "id": "infrax-renewable",
@@ -4743,7 +5560,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/InfraxRenewableLtd_65001881_97103.png",
       "openDate": "2026-08-14",
       "refundDate": "2026-08-21",
-      "dematDate": "2026-08-21"
+      "dematDate": "2026-08-21",
+      "issuePrice": 104,
+      "listingPrice": 104,
+      "currentPrice": 136.25,
+      "returnSinceIssuePct": 31.01
     },
     {
       "id": "manipal-payment-and-identity-solutions",
@@ -4782,7 +5603,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalPaymentandIdentitySolutionsLtd_36144026_37758.png",
       "openDate": "2026-08-14",
       "refundDate": "2026-08-21",
-      "dematDate": "2026-08-21"
+      "dematDate": "2026-08-21",
+      "issuePrice": 339,
+      "listingPrice": 330,
+      "listingGainPct": -2.65,
+      "currentPrice": 330.25,
+      "returnSinceIssuePct": -2.58
     },
     {
       "id": "rentomojo",
@@ -4821,7 +5647,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RentomojoLtd_21045332_68302.png",
       "openDate": "2026-08-13",
       "refundDate": "2026-08-20",
-      "dematDate": "2026-08-20"
+      "dematDate": "2026-08-20",
+      "issuePrice": 404,
+      "listingPrice": 482.45,
+      "listingGainPct": 19.42,
+      "currentPrice": 548.5,
+      "returnSinceIssuePct": 35.77
     },
     {
       "id": "kanohar-electricals",
@@ -4860,7 +5691,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/KanoharElectricalsLtd_60822875_5928.png",
       "openDate": "2026-08-13",
       "refundDate": "2026-08-20",
-      "dematDate": "2026-08-20"
+      "dematDate": "2026-08-20",
+      "issuePrice": 632,
+      "listingPrice": 685.5,
+      "listingGainPct": 8.47,
+      "currentPrice": 1025.6,
+      "returnSinceIssuePct": 62.28
     },
     {
       "id": "prasol-chemicals",
@@ -4899,7 +5735,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Prasol-Chemicals-Ltd_87256655_23812.png",
       "openDate": "2026-08-12",
       "refundDate": "2026-08-19",
-      "dematDate": "2026-08-19"
+      "dematDate": "2026-08-19",
+      "issuePrice": 676,
+      "listingPrice": 610,
+      "listingGainPct": -9.76,
+      "currentPrice": 754.65,
+      "returnSinceIssuePct": 11.63
     },
     {
       "id": "glass-wall-systems",
@@ -4938,7 +5779,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GlassWallSystemsIndiaLtd_31553834_95849.png",
       "openDate": "2026-08-12",
       "refundDate": "2026-08-19",
-      "dematDate": "2026-08-19"
+      "dematDate": "2026-08-19",
+      "issuePrice": 182,
+      "listingPrice": 194,
+      "listingGainPct": 6.59,
+      "currentPrice": 230.72,
+      "returnSinceIssuePct": 26.77
     },
     {
       "id": "pranav-constructions",
@@ -4977,7 +5823,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PranavConstructionsLtd_56961780_94578.png",
       "openDate": "2026-08-11",
       "refundDate": "2026-08-18",
-      "dematDate": "2026-08-18"
+      "dematDate": "2026-08-18",
+      "issuePrice": 124,
+      "listingPrice": 165,
+      "listingGainPct": 33.06,
+      "currentPrice": 89.6,
+      "returnSinceIssuePct": -27.74
     },
     {
       "id": "apana-logistics",
@@ -5016,7 +5867,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/APANALOGISTICSLIMITED_27677814_95954.png",
       "openDate": "2026-08-11",
       "refundDate": "2026-08-18",
-      "dematDate": "2026-08-18"
+      "dematDate": "2026-08-18",
+      "issuePrice": 60,
+      "listingPrice": 60,
+      "currentPrice": 18.26,
+      "returnSinceIssuePct": -69.57
     },
     {
       "id": "qualiance-international",
@@ -5055,7 +5910,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QualianceInternationalLtd_91967050_96774.png",
       "openDate": "2026-08-10",
       "refundDate": "2026-08-17",
-      "dematDate": "2026-08-17"
+      "dematDate": "2026-08-17",
+      "issuePrice": 127,
+      "listingPrice": 224.9,
+      "listingGainPct": 77.09,
+      "currentPrice": 127.65,
+      "returnSinceIssuePct": 0.51
     },
     {
       "id": "rays-of-belief",
@@ -5094,7 +5954,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/RaysofbeliefLtd_43264887_96457.png",
       "openDate": "2026-08-10",
       "refundDate": "2026-08-17",
-      "dematDate": "2026-08-17"
+      "dematDate": "2026-08-17",
+      "issuePrice": 239,
+      "listingPrice": 239,
+      "currentPrice": 247.56,
+      "returnSinceIssuePct": 3.58
     },
     {
       "id": "deepa-jewellers",
@@ -5133,7 +5997,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DEEPAJEWELLERSLIMITED_78637726_96370.png",
       "openDate": "2026-08-07",
       "refundDate": "2026-08-14",
-      "dematDate": "2026-08-14"
+      "dematDate": "2026-08-14",
+      "issuePrice": 177,
+      "listingPrice": 221,
+      "listingGainPct": 24.86,
+      "currentPrice": 202.45,
+      "returnSinceIssuePct": 14.38
     },
     {
       "id": "farm-peace",
@@ -5172,7 +6041,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FarmPeaceLtd_31021830_95916.png",
       "openDate": "2026-08-07",
       "refundDate": "2026-08-14",
-      "dematDate": "2026-08-14"
+      "dematDate": "2026-08-14",
+      "issuePrice": 59,
+      "listingPrice": 112.1,
+      "listingGainPct": 90,
+      "currentPrice": 39.95,
+      "returnSinceIssuePct": -32.29
     },
     {
       "id": "fly-hi-maritime",
@@ -5250,7 +6124,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShantiInorganicsLtd_22713610_95929.png",
       "openDate": "2026-08-06",
       "refundDate": "2026-08-13",
-      "dematDate": "2026-08-13"
+      "dematDate": "2026-08-13",
+      "issuePrice": 83,
+      "listingPrice": 157.7,
+      "listingGainPct": 90,
+      "currentPrice": 177,
+      "returnSinceIssuePct": 113.25
     },
     {
       "id": "phychem-technologies",
@@ -5289,7 +6168,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PHYCHEMTECHNOLOGIESLIMITED_31377666_95986.png",
       "openDate": "2026-08-05",
       "refundDate": "2026-08-12",
-      "dematDate": "2026-08-12"
+      "dematDate": "2026-08-12",
+      "issuePrice": 54,
+      "listingPrice": 56,
+      "listingGainPct": 3.7,
+      "currentPrice": 43,
+      "returnSinceIssuePct": -20.37
     },
     {
       "id": "purple-style-labs",
@@ -5328,7 +6212,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PurpleStyleLabsLtd_95439274_95898.png",
       "openDate": "2026-08-05",
       "refundDate": "2026-08-12",
-      "dematDate": "2026-08-12"
+      "dematDate": "2026-08-12",
+      "issuePrice": 575,
+      "listingPrice": 535,
+      "listingGainPct": -6.96,
+      "currentPrice": 498.75,
+      "returnSinceIssuePct": -13.26
     },
     {
       "id": "ashutosh-fibre",
@@ -5367,7 +6256,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AshutoshFibreLtd_37267091_81734.png",
       "openDate": "2026-08-04",
       "refundDate": "2026-08-11",
-      "dematDate": "2026-08-11"
+      "dematDate": "2026-08-11",
+      "issuePrice": 92,
+      "listingPrice": 140,
+      "listingGainPct": 52.17,
+      "currentPrice": 129.65,
+      "returnSinceIssuePct": 40.92
     },
     {
       "id": "priority-jewels",
@@ -5406,7 +6300,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PriorityJewelsLtd_53885287_70979.png",
       "openDate": "2026-08-04",
       "refundDate": "2026-08-11",
-      "dematDate": "2026-08-11"
+      "dematDate": "2026-08-11",
+      "issuePrice": 200,
+      "listingPrice": 230,
+      "listingGainPct": 15,
+      "currentPrice": 270.8,
+      "returnSinceIssuePct": 35.4
     },
     {
       "id": "paluck-technologies",
@@ -5445,7 +6344,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PALUCKTECHNOLOGIESLIMITED_49218616_95973.png",
       "openDate": "2026-08-03",
       "refundDate": "2026-08-10",
-      "dematDate": "2026-08-10"
+      "dematDate": "2026-08-10",
+      "issuePrice": 48,
+      "listingPrice": 46.8,
+      "listingGainPct": -2.5,
+      "currentPrice": 38.26,
+      "returnSinceIssuePct": -20.29
     },
     {
       "id": "complete-sports-and-management",
@@ -5523,7 +6427,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ESDSSoftwareSolutionLtd_29129294_71185.png",
       "openDate": "2026-07-31",
       "refundDate": "2026-08-07",
-      "dematDate": "2026-08-07"
+      "dematDate": "2026-08-07",
+      "issuePrice": 429,
+      "listingPrice": 757,
+      "listingGainPct": 76.46,
+      "currentPrice": 1187.6,
+      "returnSinceIssuePct": 176.83
     },
     {
       "id": "kwick-forensic",
@@ -5601,7 +6510,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LuminoIndustriesLtd_93194948_75521.png",
       "openDate": "2026-07-30",
       "refundDate": "2026-08-06",
-      "dematDate": "2026-08-06"
+      "dematDate": "2026-08-06",
+      "issuePrice": 82,
+      "listingPrice": 110,
+      "listingGainPct": 34.15,
+      "currentPrice": 94.28,
+      "returnSinceIssuePct": 14.98
     },
     {
       "id": "sumax-engineering",
@@ -5640,7 +6554,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SumaxEngineeringLtd_76109776_96750.png",
       "openDate": "2026-07-30",
       "refundDate": "2026-08-06",
-      "dematDate": "2026-08-06"
+      "dematDate": "2026-08-06",
+      "issuePrice": 101,
+      "listingPrice": 111,
+      "listingGainPct": 9.9,
+      "currentPrice": 95.5,
+      "returnSinceIssuePct": -5.45
     },
     {
       "id": "annu-projects",
@@ -5679,7 +6598,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ANNUPROJECTSLIMITED_76985673_95590.png",
       "openDate": "2026-07-29",
       "refundDate": "2026-08-05",
-      "dematDate": "2026-08-05"
+      "dematDate": "2026-08-05",
+      "issuePrice": 99,
+      "listingPrice": 72,
+      "listingGainPct": -27.27,
+      "currentPrice": 37.94,
+      "returnSinceIssuePct": -61.68
     },
     {
       "id": "skyways-air",
@@ -5718,7 +6642,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkywaysAirServicesLtd_67602397_16968.png",
       "openDate": "2026-07-29",
       "refundDate": "2026-08-05",
-      "dematDate": "2026-08-05"
+      "dematDate": "2026-08-05",
+      "issuePrice": 138,
+      "listingPrice": 124,
+      "listingGainPct": -10.14,
+      "currentPrice": 97.52,
+      "returnSinceIssuePct": -29.33
     },
     {
       "id": "abh-healthcare",
@@ -5757,7 +6686,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ABHHealthcareLimited_63998922_95591.png",
       "openDate": "2026-07-28",
       "refundDate": "2026-08-04",
-      "dematDate": "2026-08-04"
+      "dematDate": "2026-08-04",
+      "issuePrice": 102,
+      "listingPrice": 99,
+      "listingGainPct": -2.94,
+      "currentPrice": 40.25,
+      "returnSinceIssuePct": -60.54
     },
     {
       "id": "madhur-knit",
@@ -5796,7 +6730,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MADHURKNITCRAFTSLIMITED_65482566_96159.png",
       "openDate": "2026-07-28",
       "refundDate": "2026-08-04",
-      "dematDate": "2026-08-04"
+      "dematDate": "2026-08-04",
+      "issuePrice": 100,
+      "listingPrice": 100,
+      "currentPrice": 65.2,
+      "returnSinceIssuePct": -34.8
     },
     {
       "id": "symbiotec-pharma",
@@ -5835,7 +6773,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SymbiotecPharmalabLtd_43064860_36114.png",
       "openDate": "2026-07-27",
       "refundDate": "2026-08-03",
-      "dematDate": "2026-08-03"
+      "dematDate": "2026-08-03",
+      "issuePrice": 988,
+      "listingPrice": 988,
+      "currentPrice": 1263,
+      "returnSinceIssuePct": 27.83
     },
     {
       "id": "hy-tech-engineers",
@@ -5874,7 +6816,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/Hy-TechEngineersLtd_24754229_95831.png",
       "openDate": "2026-07-27",
       "refundDate": "2026-08-03",
-      "dematDate": "2026-08-03"
+      "dematDate": "2026-08-03",
+      "issuePrice": 53,
+      "listingPrice": 75,
+      "listingGainPct": 41.51,
+      "currentPrice": 80.03,
+      "returnSinceIssuePct": 51
     },
     {
       "id": "augmont-enterprises",
@@ -5913,7 +6860,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AugmontEnterprisesLtd_75272669_74748.png",
       "openDate": "2026-07-24",
       "refundDate": "2026-07-31",
-      "dematDate": "2026-07-31"
+      "dematDate": "2026-07-31",
+      "issuePrice": 788,
+      "listingPrice": 961,
+      "listingGainPct": 21.95,
+      "currentPrice": 972.5,
+      "returnSinceIssuePct": 23.41
     },
     {
       "id": "tempsens-instruments-india",
@@ -5952,7 +6904,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TempsensInstrumentsIndiaLtd_28550851_38538.png",
       "openDate": "2026-07-24",
       "refundDate": "2026-07-31",
-      "dematDate": "2026-07-31"
+      "dematDate": "2026-07-31",
+      "issuePrice": 300,
+      "listingPrice": 634,
+      "listingGainPct": 111.33,
+      "currentPrice": 552.25,
+      "returnSinceIssuePct": 84.08
     },
     {
       "id": "dhanwel-hybrid-seeds",
@@ -5991,7 +6948,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhanwelHybridSeedsLtd_72011366_96391.png",
       "openDate": "2026-07-23",
       "refundDate": "2026-07-30",
-      "dematDate": "2026-07-30"
+      "dematDate": "2026-07-30",
+      "issuePrice": 99,
+      "listingPrice": 99,
+      "currentPrice": 36.5,
+      "returnSinceIssuePct": -63.13
     },
     {
       "id": "gaja-alternative-asset-management",
@@ -6030,7 +6991,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GajaAlternativeAssetManagementLtd_80351010_96064.png",
       "openDate": "2026-07-23",
       "refundDate": "2026-07-30",
-      "dematDate": "2026-07-30"
+      "dematDate": "2026-07-30",
+      "issuePrice": 160,
+      "listingPrice": 185,
+      "listingGainPct": 15.63,
+      "currentPrice": 127.53,
+      "returnSinceIssuePct": -20.29
     },
     {
       "id": "mopshop-distribution",
@@ -6069,7 +7035,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MOPSHOPDISTRIBUTIONLIMITED_38667635_95957.png",
       "openDate": "2026-07-22",
       "refundDate": "2026-07-29",
-      "dematDate": "2026-07-29"
+      "dematDate": "2026-07-29",
+      "issuePrice": 138,
+      "listingPrice": 137,
+      "listingGainPct": -0.72,
+      "currentPrice": 29.6,
+      "returnSinceIssuePct": -78.55
     },
     {
       "id": "sunshine-pictures",
@@ -6108,7 +7079,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SunshinePicturesLtd_29183177_94357.png",
       "openDate": "2026-07-22",
       "refundDate": "2026-07-29",
-      "dematDate": "2026-07-29"
+      "dematDate": "2026-07-29",
+      "issuePrice": 360,
+      "listingPrice": 395.9,
+      "listingGainPct": 9.97,
+      "currentPrice": 390.45,
+      "returnSinceIssuePct": 8.46
     },
     {
       "id": "shankesh-jewellers",
@@ -6147,7 +7123,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SHANKESHJEWELLERSLIMITED_35762012_96152.png",
       "openDate": "2026-07-21",
       "refundDate": "2026-07-28",
-      "dematDate": "2026-07-28"
+      "dematDate": "2026-07-28",
+      "issuePrice": 93,
+      "listingPrice": 103.3,
+      "listingGainPct": 11.08,
+      "currentPrice": 90.56,
+      "returnSinceIssuePct": -2.62
     },
     {
       "id": "fascinate-textiles",
@@ -6186,7 +7167,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FascinateTextilesLtd_94544365_95924.png",
       "openDate": "2026-07-21",
       "refundDate": "2026-07-28",
-      "dematDate": "2026-07-28"
+      "dematDate": "2026-07-28",
+      "issuePrice": 151,
+      "listingPrice": 120.8,
+      "listingGainPct": -20,
+      "currentPrice": 109.15,
+      "returnSinceIssuePct": -27.72
     },
     {
       "id": "lalithaa-jewellery-mart",
@@ -6225,7 +7211,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LalithaaJewelleryMartLtd_86119472_29036.png",
       "openDate": "2026-07-20",
       "refundDate": "2026-07-27",
-      "dematDate": "2026-07-27"
+      "dematDate": "2026-07-27",
+      "issuePrice": 201,
+      "listingPrice": 265,
+      "listingGainPct": 31.84,
+      "currentPrice": 363,
+      "returnSinceIssuePct": 80.6
     },
     {
       "id": "horizon-industrial-parks",
@@ -6264,7 +7255,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HORIZONINDUSTRIALPARKSLIMITED_81507881_96371.png",
       "openDate": "2026-07-20",
       "refundDate": "2026-07-27",
-      "dematDate": "2026-07-27"
+      "dematDate": "2026-07-27",
+      "issuePrice": 60,
+      "listingPrice": 60.25,
+      "listingGainPct": 0.42,
+      "currentPrice": 43.14,
+      "returnSinceIssuePct": -28.1
     },
     {
       "id": "ens-enterprises",
@@ -6303,7 +7299,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ENSENTERPRISESLIMITED_80931987_96134.png",
       "openDate": "2026-07-17",
       "refundDate": "2026-07-24",
-      "dematDate": "2026-07-24"
+      "dematDate": "2026-07-24",
+      "issuePrice": 92,
+      "listingPrice": 96,
+      "listingGainPct": 4.35,
+      "currentPrice": 125.8,
+      "returnSinceIssuePct": 36.74
     },
     {
       "id": "technocrats-plasma-systems",
@@ -6342,7 +7343,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TECHNOCRATSPLASMASYSTEMSLIMITED_96675272_96388.png",
       "openDate": "2026-07-17",
       "refundDate": "2026-07-24",
-      "dematDate": "2026-07-24"
+      "dematDate": "2026-07-24",
+      "issuePrice": 132,
+      "listingPrice": 230,
+      "listingGainPct": 74.24,
+      "currentPrice": 398,
+      "returnSinceIssuePct": 201.52
     },
     {
       "id": "skytech-infinite-platform",
@@ -6381,7 +7387,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SkytechInfinitePlatformLtd_42634995_97478.png",
       "openDate": "2026-07-16",
       "refundDate": "2026-07-23",
-      "dematDate": "2026-07-23"
+      "dematDate": "2026-07-23",
+      "issuePrice": 77,
+      "listingPrice": 74,
+      "listingGainPct": -3.9,
+      "currentPrice": 31.05,
+      "returnSinceIssuePct": -59.68
     },
     {
       "id": "credent-connect-n-care",
@@ -6420,7 +7431,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/CredentConnectNCareLtd_42377851_96760.png",
       "openDate": "2026-07-16",
       "refundDate": "2026-07-23",
-      "dematDate": "2026-07-23"
+      "dematDate": "2026-07-23",
+      "issuePrice": 189,
+      "listingPrice": 359.1,
+      "listingGainPct": 90,
+      "currentPrice": 396.1,
+      "returnSinceIssuePct": 109.58
     },
     {
       "id": "pramodini-medicare",
@@ -6459,7 +7475,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PramodiniMedicareLtd_54032357_96828.png",
       "openDate": "2026-07-15",
       "refundDate": "2026-07-22",
-      "dematDate": "2026-07-22"
+      "dematDate": "2026-07-22",
+      "issuePrice": 118,
+      "listingPrice": 120,
+      "listingGainPct": 1.69,
+      "currentPrice": 108,
+      "returnSinceIssuePct": -8.47
     },
     {
       "id": "shiprocket",
@@ -6498,7 +7519,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShiprocketLtd_31975029_77985.png",
       "openDate": "2026-07-15",
       "refundDate": "2026-07-22",
-      "dematDate": "2026-07-22"
+      "dematDate": "2026-07-22",
+      "issuePrice": 97,
+      "listingPrice": 131,
+      "listingGainPct": 35.05,
+      "currentPrice": 130.87,
+      "returnSinceIssuePct": 34.92
     },
     {
       "id": "behari-lal-engineering",
@@ -6537,7 +7563,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BehariLalEngineeringLtd_65685126_95921.png",
       "openDate": "2026-07-14",
       "refundDate": "2026-07-21",
-      "dematDate": "2026-07-21"
+      "dematDate": "2026-07-21",
+      "issuePrice": 285,
+      "listingPrice": 465,
+      "listingGainPct": 63.16,
+      "currentPrice": 442.95,
+      "returnSinceIssuePct": 55.42
     },
     {
       "id": "qt-foods",
@@ -6576,7 +7607,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/QTFoodsLtd_86000554_96984.png",
       "openDate": "2026-07-14",
       "refundDate": "2026-07-21",
-      "dematDate": "2026-07-21"
+      "dematDate": "2026-07-21",
+      "issuePrice": 115,
+      "listingPrice": 115,
+      "currentPrice": 31.03,
+      "returnSinceIssuePct": -73.02
     },
     {
       "id": "milky-mist",
@@ -6615,7 +7650,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MilkyMistDairyFoodLtd_88113449_79872.png",
       "openDate": "2026-07-13",
       "refundDate": "2026-07-20",
-      "dematDate": "2026-07-20"
+      "dematDate": "2026-07-20",
+      "issuePrice": 140,
+      "listingPrice": 165,
+      "listingGainPct": 17.86,
+      "currentPrice": 298.75,
+      "returnSinceIssuePct": 113.39
     },
     {
       "id": "sham-foam",
@@ -6654,7 +7694,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ShamFoamLtd_11154771_96484.png",
       "openDate": "2026-07-13",
       "refundDate": "2026-07-20",
-      "dematDate": "2026-07-20"
+      "dematDate": "2026-07-20",
+      "issuePrice": 130,
+      "listingPrice": 104,
+      "listingGainPct": -20,
+      "currentPrice": 86.05,
+      "returnSinceIssuePct": -33.81
     },
     {
       "id": "dhoot-transmission",
@@ -6693,7 +7738,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhootTransmissionLtd_97455086_34585.png",
       "openDate": "2026-07-10",
       "refundDate": "2026-07-17",
-      "dematDate": "2026-07-17"
+      "dematDate": "2026-07-17",
+      "issuePrice": 871,
+      "listingPrice": 1200,
+      "listingGainPct": 37.77,
+      "currentPrice": 1488.4,
+      "returnSinceIssuePct": 70.88
     },
     {
       "id": "molbio-diagnostics",
@@ -6732,7 +7782,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MolbioDiagnosticsLtd_55950307_78994.png",
       "openDate": "2026-07-10",
       "refundDate": "2026-07-17",
-      "dematDate": "2026-07-17"
+      "dematDate": "2026-07-17",
+      "issuePrice": 807,
+      "listingPrice": 980,
+      "listingGainPct": 21.44,
+      "currentPrice": 1350.8,
+      "returnSinceIssuePct": 67.39
     },
     {
       "id": "technocraft-ventures",
@@ -6771,7 +7826,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/TechnocraftVenturesLtd_29354669_88192.png",
       "openDate": "2026-07-09",
       "refundDate": "2026-07-16",
-      "dematDate": "2026-07-16"
+      "dematDate": "2026-07-16",
+      "issuePrice": 212,
+      "listingPrice": 284,
+      "listingGainPct": 33.96,
+      "currentPrice": 506.85,
+      "returnSinceIssuePct": 139.08
     },
     {
       "id": "optimystix-entertainment",
@@ -6810,7 +7870,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/OptimystixEntertainmentIndiaLtd_73079956_95946.png",
       "openDate": "2026-07-09",
       "refundDate": "2026-07-16",
-      "dematDate": "2026-07-16"
+      "dematDate": "2026-07-16",
+      "issuePrice": 175,
+      "listingPrice": 180,
+      "listingGainPct": 2.86,
+      "currentPrice": 132.35,
+      "returnSinceIssuePct": -24.37
     },
     {
       "id": "leap-india",
@@ -6888,7 +7953,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/LAPLAUTOMOTIVELIMITED_49774919_95355.png",
       "openDate": "2026-07-08",
       "refundDate": "2026-07-15",
-      "dematDate": "2026-07-15"
+      "dematDate": "2026-07-15",
+      "issuePrice": 94,
+      "listingPrice": 135,
+      "listingGainPct": 43.62,
+      "currentPrice": 110,
+      "returnSinceIssuePct": 17.02
     },
     {
       "id": "gv-electricals",
@@ -6927,7 +7997,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/GVElectricalsLtd_37311662_96754.png",
       "openDate": "2026-07-07",
       "refundDate": "2026-07-14",
-      "dematDate": "2026-07-14"
+      "dematDate": "2026-07-14",
+      "issuePrice": 130,
+      "listingPrice": 158,
+      "listingGainPct": 21.54,
+      "currentPrice": 96.7,
+      "returnSinceIssuePct": -25.62
     },
     {
       "id": "ardee-industries",
@@ -6966,7 +8041,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ARDEEINDUSTRIESLIMITED_57536121_96060.png",
       "openDate": "2026-07-07",
       "refundDate": "2026-07-14",
-      "dematDate": "2026-07-14"
+      "dematDate": "2026-07-14",
+      "issuePrice": 53,
+      "listingPrice": 72,
+      "listingGainPct": 35.85,
+      "currentPrice": 45.1,
+      "returnSinceIssuePct": -14.91
     },
     {
       "id": "aegeus-technologies",
@@ -7005,7 +8085,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AegeusTechnologiesLtd_66426305_90636.png",
       "openDate": "2026-07-06",
       "refundDate": "2026-07-13",
-      "dematDate": "2026-07-13"
+      "dematDate": "2026-07-13",
+      "issuePrice": 105,
+      "listingPrice": 124.5,
+      "listingGainPct": 18.57,
+      "currentPrice": 107,
+      "returnSinceIssuePct": 1.9
     },
     {
       "id": "anawil-wire-engieering",
@@ -7083,7 +8168,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/FusionKlassromEductechLtd_45197556_96460.png",
       "openDate": "2026-07-03",
       "refundDate": "2026-07-10",
-      "dematDate": "2026-07-10"
+      "dematDate": "2026-07-10",
+      "issuePrice": 159,
+      "listingPrice": 170,
+      "listingGainPct": 6.92,
+      "currentPrice": 160.75,
+      "returnSinceIssuePct": 1.1
     },
     {
       "id": "dhaval-packaging",
@@ -7122,7 +8212,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/DhavalPackagingLtd_15328258_81876.png",
       "openDate": "2026-07-03",
       "refundDate": "2026-07-10",
-      "dematDate": "2026-07-10"
+      "dematDate": "2026-07-10",
+      "issuePrice": 97,
+      "listingPrice": 110,
+      "listingGainPct": 13.4,
+      "currentPrice": 113,
+      "returnSinceIssuePct": 16.49
     },
     {
       "id": "juniper-green-energy",
@@ -7161,7 +8256,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JUNIPERGREENENERGYLIMITED_62046496_95589.png",
       "openDate": "2026-07-02",
       "refundDate": "2026-07-09",
-      "dematDate": "2026-07-09"
+      "dematDate": "2026-07-09",
+      "issuePrice": 225,
+      "listingPrice": 245,
+      "listingGainPct": 8.89,
+      "currentPrice": 250,
+      "returnSinceIssuePct": 11.11
     },
     {
       "id": "mv-electrosystems",
@@ -7200,7 +8300,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MVElectrosystemsLimited_71737839_96131.png",
       "openDate": "2026-07-02",
       "refundDate": "2026-07-09",
-      "dematDate": "2026-07-09"
+      "dematDate": "2026-07-09",
+      "issuePrice": 425,
+      "listingPrice": 520,
+      "listingGainPct": 22.35,
+      "currentPrice": 734.8,
+      "returnSinceIssuePct": 72.89
     },
     {
       "id": "oneindig-technologies",
@@ -7239,7 +8344,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ONEINDIGTECHNOLOGIESLIMITED_90997896_96055.png",
       "openDate": "2026-07-01",
       "refundDate": "2026-07-08",
-      "dematDate": "2026-07-08"
+      "dematDate": "2026-07-08",
+      "issuePrice": 96,
+      "listingPrice": 120,
+      "listingGainPct": 25,
+      "currentPrice": 127.7,
+      "returnSinceIssuePct": 33.02
     },
     {
       "id": "manipal-health-enterprises",
@@ -7278,7 +8388,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/ManipalHealthEnterprisesLtd_84641688_73020.png",
       "openDate": "2026-07-01",
       "refundDate": "2026-07-08",
-      "dematDate": "2026-07-08"
+      "dematDate": "2026-07-08",
+      "issuePrice": 590,
+      "listingPrice": 652,
+      "listingGainPct": 10.51,
+      "currentPrice": 642,
+      "returnSinceIssuePct": 8.81
     },
     {
       "id": "hr-hygiene-products",
@@ -7356,7 +8471,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/PoojaPrecisionEngineeringLtd_50741856_67838.png",
       "openDate": "2026-06-30",
       "refundDate": "2026-07-07",
-      "dematDate": "2026-07-07"
+      "dematDate": "2026-07-07",
+      "issuePrice": 301,
+      "listingPrice": 470,
+      "listingGainPct": 56.15,
+      "currentPrice": 931.9,
+      "returnSinceIssuePct": 209.6
     },
     {
       "id": "advance-technoforge",
@@ -7395,7 +8515,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AdvanceTechnoforgeLtd_32789711_94662.png",
       "openDate": "2026-06-29",
       "refundDate": "2026-07-06",
-      "dematDate": "2026-07-06"
+      "dematDate": "2026-07-06",
+      "issuePrice": 95,
+      "listingPrice": 94,
+      "listingGainPct": -1.05,
+      "currentPrice": 72,
+      "returnSinceIssuePct": -24.21
     },
     {
       "id": "propshop-events-exhibitions",
@@ -7512,7 +8637,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SILVERSTORMPARKSANDRESORTSLIMITED_54184578_96384.png",
       "openDate": "2026-06-26",
       "refundDate": "2026-07-03",
-      "dematDate": "2026-07-03"
+      "dematDate": "2026-07-03",
+      "issuePrice": 133,
+      "listingPrice": 132.9,
+      "listingGainPct": -0.08,
+      "currentPrice": 121,
+      "returnSinceIssuePct": -9.02
     },
     {
       "id": "niva-bupa-health",
@@ -7692,7 +8822,20 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/ACMESOLAR.png",
       "issuePrice": 289,
       "listingPrice": 259,
-      "listingGain": "-10.38%"
+      "listingGain": "-10.38%",
+      "listingGainPct": -10.38,
+      "currentPrice": 412.5,
+      "returnSinceIssuePct": 42.73,
+      "closePrice": 418.75,
+      "dayChange": -6.25,
+      "dayChangePerc": -1.49,
+      "dayHigh": 421.9,
+      "dayLow": 411,
+      "yearHigh": 476.9,
+      "yearLow": 195.9,
+      "volume": 577564,
+      "priceSource": "Groww (NSE: ACMESOLAR)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "swiggy-limited",
@@ -7784,7 +8927,19 @@ window.IpoData = {
       "listingGain": "+7.69%",
       "dayHighListing": 449,
       "dayLowListing": 412,
-      "closeListing": 456
+      "closeListing": 456,
+      "currentPrice": 176.72,
+      "closePrice": 177.73,
+      "dayChange": -1.009999999999991,
+      "dayChangePerc": -0.57,
+      "dayHigh": 180.89,
+      "dayLow": 175.98,
+      "yearHigh": 421.6,
+      "yearLow": 174.2,
+      "volume": 18431663,
+      "priceSource": "Groww (NSE: SWIGGY)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "returnSinceIssuePct": -54.69
     },
     {
       "id": "sagility-india",
@@ -7873,7 +9028,20 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/SAGILITY.png",
       "issuePrice": 30,
       "listingPrice": 31.06,
-      "listingGain": "+3.53%"
+      "listingGain": "+3.53%",
+      "listingGainPct": 3.53,
+      "currentPrice": 42.34,
+      "returnSinceIssuePct": 41.13,
+      "closePrice": 42.74,
+      "dayChange": -0.3999999999999986,
+      "dayChangePerc": -0.94,
+      "dayHigh": 42.98,
+      "dayLow": 41.99,
+      "yearHigh": 54.3,
+      "yearLow": 35.83,
+      "volume": 50514631,
+      "priceSource": "Groww (NSE: SAGILITY)",
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
     },
     {
       "id": "vedant-poly-fabs",
@@ -7918,13 +9086,19 @@ window.IpoData = {
       "dayLowGmp": 0,
       "trend": "up",
       "gmpHistory": [
-        { "date": "01 Nov", "value": 10 },
-        { "date": "02 Nov", "value": 15 }
+        {
+          "date": "01 Nov",
+          "value": 10
+        },
+        {
+          "date": "02 Nov",
+          "value": 15
+        }
       ],
       "subscriptionTotal": 1.12,
       "subscriptionSummary": {
         "qib": 1.05,
-        "nii": 1.20,
+        "nii": 1.2,
         "retail": 1.15,
         "total": 1.12
       },
