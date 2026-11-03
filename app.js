@@ -16,8 +16,8 @@
     activeFilter: "open",       // Default to 'open' so visitors see active open IPOs first
     activeBoard: "all",         // 'all' | 'mainboard' | 'sme'
     activeBottomCompany: "maxwell-engineering-solutions-ipo",
-    calendarMonth: new Date(2024, 10, 1), // November 2024
-    selectedCalendarDate: "2024-11-13",
+    calendarMonth: new Date(2026, 10, 1), // November 2026
+    selectedCalendarDate: "2026-11-03",
     detailTab: "overview",      // 'overview' | 'subscription' | 'gmp' | 'financials' | 'review' | 'documents'
     notificationsOpen: false,
     applyDropdownOpen: false,
@@ -392,7 +392,7 @@
     // Anchor date based on IPO lifecycle
     let anchorDate;
     if (ipo && (ipo.status === "CLOSED" || ipo.status === "LISTED")) {
-      anchorDate = ipo.closeDate ? new Date(ipo.closeDate) : new Date("2024-10-25");
+      anchorDate = ipo.closeDate ? new Date(ipo.closeDate) : new Date("2026-10-25");
     } else if (ipo && ipo.status === "UPCOMING") {
       anchorDate = ipo.openDate ? new Date(ipo.openDate) : new Date();
     } else {
@@ -2961,7 +2961,7 @@
               ${history.length ? history.map((h, i, arr) => {
                 const prev = i > 0 ? arr[i - 1].value : h.value;
                 const diff = h.value - prev;
-                const dateLabel = h.year ? `${h.date} ${h.year}` : (h.date.includes("2024") ? h.date : `${h.date} 2024`);
+                const dateLabel = h.year ? `${h.date} ${h.year}` : (h.date.includes("2026") ? h.date : `${h.date} 2026`);
                 return `
                   <tr>
                     <td>${dateLabel}</td>
@@ -3491,7 +3491,7 @@
                     <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${r.board || 'MAINBOARD'}</span></td>
                     <td><span style="font-weight:700; color:#111827;">${formatCrore(r.issueSizeCr)}</span></td>
                     <td>
-                      <div style="font-weight:600; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative (2024–2025)'}</div>
+                      <div style="font-weight:600; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative (2026–2027)'}</div>
                     </td>
                     <td><span style="font-size:12px; color:#475569;">${r.sector || 'Diversified'}</span></td>
                     <td>
@@ -4764,7 +4764,7 @@
 
         <!-- Below Calendar Space: Detailed Day-by-Day Schedule for Selected Date -->
         <div id="calendar-day-details-container">
-          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2024-11-13")}
+          ${renderDayScheduleDetailed(state.selectedCalendarDate || "2026-11-03")}
         </div>
 
         <!-- Editorial Context: Primary Market Issue Pipeline & T+3 Settlement Cycles -->

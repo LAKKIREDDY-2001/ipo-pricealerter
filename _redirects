@@ -7,8 +7,22 @@
 /privacy-policy https://pricealerter.in/privacy.html 301
 /signup.html https://pricealerter.in/ 301
 /signup https://pricealerter.in/ 301
-/blog/* https://pricealerter.in/ 301
-/blog https://pricealerter.in/ 301
+
+# Blog Clean URL Rewrites (Allow direct access to educational articles)
+/blog /blog/index.html 200
+/blog/ /blog/index.html 200
+/blog/what-is-an-ipo /blog/what-is-an-ipo.html 200
+/blog/what-is-ipo /blog/what-is-an-ipo.html 200
+/blog/how-to-apply-for-ipo /blog/how-to-apply-for-ipo.html 200
+/blog/how-to-apply-ipo-upi /blog/how-to-apply-for-ipo.html 200
+/blog/understanding-grey-market-premium-gmp /blog/understanding-grey-market-premium-gmp.html 200
+/blog/how-ipo-allotment-works /blog/how-ipo-allotment-works.html 200
+/blog/mainboard-vs-sme-ipo /blog/mainboard-vs-sme-ipo.html 200
+/blog/how-to-check-ipo-allotment-status /blog/how-to-check-ipo-allotment-status.html 200
+/blog/top-10-ipo-investing-tips /blog/top-10-ipo-investing-tips.html 200
+/blog/what-is-book-building-process /blog/what-is-book-building-process.html 200
+/blog/how-to-open-demat-account-for-ipo /blog/how-to-open-demat-account-for-ipo.html 200
+/blog/ipo-vs-fpo-vs-ofs /blog/ipo-vs-fpo-vs-ofs.html 200
 
 # Cloudflare Pages SPA Routing
 /* /index.html 200

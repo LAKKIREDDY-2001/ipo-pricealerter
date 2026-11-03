@@ -16,6 +16,17 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1181608933401999" crossorigin="anonymous"></script>
 
     
+      <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-194LPKEC3M', {
+        'send_page_view': true,
+        'anonymize_ip': true
+      });
+    </script>
   </head>
   <body>
     <header class="site-header" style="background:#1A237E; border-bottom:1px solid rgba(255,255,255,0.1);">
@@ -163,5 +174,46 @@
         </div>
       </div>
     </footer>
-</body>
+    <!-- GDPR & Google AdSense Compliant Privacy & Cookie Consent Banner -->
+    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy and Cookie Consent">
+      <div class="cookie-consent-inner">
+        <div class="cookie-consent-text">
+          <div class="cookie-consent-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00897B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Privacy &amp; Cookie Consent</span>
+          </div>
+          <p>
+            We use cookies, device identifiers, and synchronized exchange data to optimize your market tracking experience, measure analytics, and deliver personalized financial advertisements per our <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms.html" target="_blank" rel="noopener">Terms of Service</a>.
+          </p>
+        </div>
+        <div class="cookie-consent-actions">
+          <button id="btn-cookie-accept" class="btn-cookie-accept" onclick="acceptCookieConsent(true)">Accept All</button>
+          <button id="btn-cookie-decline" class="btn-cookie-decline" onclick="acceptCookieConsent(false)">Essential Only</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function checkCookieConsent() {
+        try {
+          if (localStorage.getItem("ipo_cookie_consent")) {
+            var b = document.getElementById("cookie-consent-banner");
+            if (b) b.style.display = "none";
+          }
+        } catch(e) {}
+      }
+      function acceptCookieConsent(accepted) {
+        try {
+          localStorage.setItem("ipo_cookie_consent", accepted ? "accepted" : "declined");
+          var b = document.getElementById("cookie-consent-banner");
+          if (b) {
+            b.style.opacity = "0";
+            b.style.transform = "translateY(20px)";
+            b.style.transition = "all 0.3s ease";
+            setTimeout(function() { b.style.display = "none"; }, 300);
+          }
+        } catch(e) {}
+      }
+      checkCookieConsent();
+    </script>
+  </body>
 </html>
