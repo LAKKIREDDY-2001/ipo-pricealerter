@@ -6970,6 +6970,133 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45) !important;
 }
 
+/* 7. Dedicated HDFC Bank IRCTC Card Unit */
+.sponsored-hdfc-slot {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-top: 3px solid #004C8F !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+  padding: 14px 16px !important;
+}
+
+.sponsored-hdfc-slot:hover {
+  border-color: #CBD5E1 !important;
+  border-top-color: #ED1C24 !important;
+  box-shadow: 0 6px 20px rgba(0, 76, 143, 0.12) !important;
+}
+
+.sponsored-hdfc-label {
+  color: #004C8F !important;
+  font-weight: 700;
+}
+
+.sponsored-hdfc-label::before,
+.sponsored-hdfc-label::after {
+  background: #CBD5E1 !important;
+}
+
+.sponsored-hdfc-link {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.sponsored-hdfc-img-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1px solid #F1F5F9;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+.sponsored-hdfc-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  max-height: 130px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sponsored-hdfc-link:hover .sponsored-hdfc-img {
+  transform: scale(1.02);
+}
+
+.sponsored-hdfc-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sponsored-hdfc-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+  line-height: 1.35;
+}
+
+.sponsored-hdfc-desc {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 0 12px 0;
+  text-align: center;
+}
+
+.sponsored-hdfc-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.sponsored-hdfc-perk-item {
+  font-size: 12px;
+  color: #1E293B;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAFC;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #F1F5F9;
+}
+
+.sponsored-hdfc-perk-item .perk-check {
+  color: #004C8F;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.sponsored-hdfc-action {
+  width: 100%;
+}
+
+.sponsored-cta-hdfc {
+  background: linear-gradient(135deg, #004C8F 0%, #003366 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(0, 76, 143, 0.3) !important;
+}
+
+.sponsored-hdfc-link:hover .sponsored-cta-hdfc {
+  background: linear-gradient(135deg, #003366 0%, #002244 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 76, 143, 0.45) !important;
+}
+
 /* Mobile & Tablet Responsive Adaptations */
 @media (max-width: 768px) {
   .sponsored-sbi-footer {

@@ -303,27 +303,27 @@
       `;
     }
 
-    if (type === "sidebar") {
+    if (type === "sidebar" || type === "hdfc") {
       return `
-        <div class="ad-slot-card ad-slot-sidebar" aria-label="${label}">
-          <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER</div>
-          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
-            <div class="sponsored-sidebar-logo-wrap">
-              <img src="assets/sponsored/angel-one-square.png" alt="Angel One Logo" class="sponsored-logo-square" loading="lazy" />
+        <div class="ad-slot-card ad-slot-sidebar sponsored-hdfc-slot" aria-label="${label}">
+          <div class="ad-slot-label sponsored-hdfc-label">SPONSORED FINANCIAL PARTNER &bull; HDFC BANK</div>
+          <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
+            <div class="sponsored-hdfc-img-wrap">
+              <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
             </div>
-            <div class="sponsored-sidebar-body">
-              <h3 class="sponsored-sidebar-title">Trade &amp; Invest with Angel One</h3>
-              <p class="sponsored-sidebar-desc">Fast, secure IPO bidding with seamless UPI authorization in just 3 clicks.</p>
-              <div class="sponsored-sidebar-perks">
-                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>₹0 Demat Account Opening Fee</span></div>
-                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Zero Brokerage on Equity Delivery</span></div>
-                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Flat ₹20 for Intraday &amp; F&amp;O Trades</span></div>
-                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Pre-apply for IPOs 24x7</span></div>
+            <div class="sponsored-hdfc-body">
+              <h3 class="sponsored-hdfc-title">HDFC Bank IRCTC Credit Card</h3>
+              <p class="sponsored-hdfc-desc">Earn exclusive reward points &amp; save up to 5% on IRCTC ticket bookings with zero hassle.</p>
+              <div class="sponsored-hdfc-perks">
+                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Up to 5x Reward Points on IRCTC</span></div>
+                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Complimentary Railway Lounge Access</span></div>
+                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>1% Fuel Surcharge Waiver</span></div>
+                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Instant Digital Card Application</span></div>
               </div>
-              <div class="sponsored-sidebar-action">
-                <span class="sponsored-cta-btn sponsored-cta-full">Open Free Demat Account &rarr;</span>
+              <div class="sponsored-hdfc-action">
+                <span class="sponsored-cta-btn sponsored-cta-hdfc sponsored-cta-full">Apply for HDFC Card &rarr;</span>
               </div>
-              <div class="sponsored-partner-footnote">Trusted by over 2.5 Crore+ investors across India</div>
+              <div class="sponsored-partner-footnote">Official HDFC Bank Co-Branded IRCTC Credit Card</div>
             </div>
           </a>
         </div>
@@ -395,6 +395,60 @@
             <div class="sponsored-sbi-action">
               <span class="sponsored-cta-btn sponsored-cta-sbi">Apply for SBI Card &rarr;</span>
             </div>
+          </div>
+        </a>
+      </div>
+    `;
+  }
+
+  function renderHdfcCardUnit() {
+    return `
+      <div class="ad-slot-card sponsored-hdfc-slot" aria-label="Sponsored Financial Partner • HDFC Bank">
+        <div class="ad-slot-label sponsored-hdfc-label">SPONSORED FINANCIAL PARTNER &bull; HDFC BANK</div>
+        <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
+          <div class="sponsored-hdfc-img-wrap">
+            <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
+          </div>
+          <div class="sponsored-hdfc-body">
+            <h3 class="sponsored-hdfc-title">HDFC Bank IRCTC Credit Card</h3>
+            <p class="sponsored-hdfc-desc">Earn exclusive reward points &amp; save up to 5% on IRCTC ticket bookings with zero hassle.</p>
+            <div class="sponsored-hdfc-perks">
+              <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Up to 5x Reward Points on IRCTC</span></div>
+              <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Complimentary Railway Lounge Access</span></div>
+              <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>1% Fuel Surcharge Waiver</span></div>
+              <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Instant Digital Card Application</span></div>
+            </div>
+            <div class="sponsored-hdfc-action">
+              <span class="sponsored-cta-btn sponsored-cta-hdfc sponsored-cta-full">Apply for HDFC Card &rarr;</span>
+            </div>
+            <div class="sponsored-partner-footnote">Official HDFC Bank Co-Branded IRCTC Credit Card</div>
+          </div>
+        </a>
+      </div>
+    `;
+  }
+
+  function renderAngelOneUnit() {
+    return `
+      <div class="ad-slot-card ad-slot-sidebar" aria-label="Sponsored Financial Partner • Angel One">
+        <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER &bull; ANGEL ONE</div>
+        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
+          <div class="sponsored-sidebar-logo-wrap">
+            <img src="assets/sponsored/angel-one-square.png" alt="Angel One Logo" class="sponsored-logo-square" loading="lazy" />
+          </div>
+          <div class="sponsored-sidebar-body">
+            <h3 class="sponsored-sidebar-title">Trade &amp; Invest with Angel One</h3>
+            <p class="sponsored-sidebar-desc">Fast, secure IPO bidding with seamless UPI authorization in just 3 clicks.</p>
+            <div class="sponsored-sidebar-perks">
+              <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>₹0 Demat Account Opening Fee</span></div>
+              <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Zero Brokerage on Equity Delivery</span></div>
+              <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Flat ₹20 for Intraday &amp; F&amp;O Trades</span></div>
+              <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Pre-apply for IPOs 24x7</span></div>
+            </div>
+            <div class="sponsored-sidebar-action">
+              <span class="sponsored-cta-btn sponsored-cta-full">Open Free Demat Account &rarr;</span>
+            </div>
+            <div class="sponsored-partner-footnote">Trusted by over 2.5 Crore+ investors across India</div>
           </div>
         </a>
       </div>
