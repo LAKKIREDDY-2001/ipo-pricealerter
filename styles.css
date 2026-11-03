@@ -6424,46 +6424,54 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 
 /* ==========================================================================
-   Google AdSense Readiness & High-Retention Layout Containers (Zero-CLS)
+   Angel One Sponsored Partner Placement & Zero-CLS Layout Units
    ========================================================================== */
 .ad-slot-card {
   background: #FFFFFF;
-  border: 1px dashed #CBD5E1;
+  border: 1px solid #E2E8F0;
   border-radius: 14px;
-  padding: 14px 16px;
-  margin: 22px 0;
+  padding: 14px 18px;
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   position: relative;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
   overflow: hidden;
   box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ad-slot-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
 }
 
 .ad-slot-leaderboard {
-  min-height: 90px;
+  min-height: 80px;
   max-width: 1320px;
   margin: 12px auto 20px;
-  padding: 10px 16px;
-  background: #FFFFFF;
-  border: 1px dashed #E2E8F0;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 1px solid #E2E8F0;
   border-radius: 12px;
 }
 
 .ad-slot-infeed {
-  min-height: 250px;
+  min-height: 220px;
   width: 100%;
-  margin: 20px 0;
-  background: #FFFFFF;
+  margin: 22px 0;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAFCFF 100%);
+  border: 1px solid #E0E7FF;
 }
 
 .ad-slot-sidebar {
   min-height: 280px;
   width: 100%;
   margin-top: 20px;
-  background: #FFFFFF;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 1px solid #E2E8F0;
 }
 
 .ad-slot-inline {
@@ -6478,21 +6486,429 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: #94A3B8;
+  color: #64748B;
   margin-bottom: 8px;
   user-select: none;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
 }
 
 .ad-slot-label::before,
 .ad-slot-label::after {
   content: "";
   display: inline-block;
-  width: 16px;
+  width: 20px;
   height: 1px;
   background: #CBD5E1;
+}
+
+/* Base Clickable Sponsored Anchor Link */
+.sponsored-banner-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block;
+  width: 100%;
+  transition: opacity 0.15s ease;
+  cursor: pointer;
+}
+
+/* Common CTA Button */
+.sponsored-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+  color: #FFFFFF !important;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(29, 78, 216, 0.25);
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.sponsored-banner-link:hover .sponsored-cta-btn {
+  background: linear-gradient(135deg, #1E40AF 0%, #1D4ED8 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
+}
+
+.sponsored-cta-lg {
+  padding: 10px 24px;
+  font-size: 14px;
+}
+
+.sponsored-cta-sm {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.sponsored-cta-full {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 13.5px;
+}
+
+/* 1. Leaderboard Styling */
+.sponsored-leaderboard-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.sponsored-banner-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sponsored-logo-wide {
+  height: 44px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+.sponsored-banner-mid {
+  flex: 1;
+  min-width: 0;
+}
+
+.sponsored-banner-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.35;
+}
+
+.sponsored-banner-sub {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.4;
+  margin-top: 3px;
+}
+
+.sponsored-banner-right {
+  flex-shrink: 0;
+}
+
+/* 2. In-Feed Unit Styling */
+.sponsored-infeed-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.sponsored-infeed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 8px;
+}
+
+.sponsored-logo-infeed {
+  height: 38px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+}
+
+.sponsored-verified-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0369A1;
+  background: #E0F2FE;
+  border: 1px solid #BAE6FD;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.sponsored-infeed-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+  line-height: 1.35;
+}
+
+.sponsored-infeed-desc {
+  font-size: 13px;
+  color: #475569;
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+}
+
+.sponsored-perks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sponsored-perk-pill {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0F172A;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sponsored-infeed-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.sponsored-disclaimer {
+  font-size: 10.5px;
+  color: #94A3B8;
+  line-height: 1.4;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* 3. Sidebar Unit Styling */
+.sponsored-sidebar-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.sponsored-sidebar-logo-wrap {
+  width: 110px;
+  height: 110px;
+  margin: 4px auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.sponsored-logo-square {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.sponsored-sidebar-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sponsored-sidebar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+}
+
+.sponsored-sidebar-desc {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 0 12px 0;
+  text-align: center;
+}
+
+.sponsored-sidebar-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.sponsored-sidebar-perk-item {
+  font-size: 12px;
+  color: #1E293B;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAFC;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #F1F5F9;
+}
+
+.sponsored-sidebar-perk-item .perk-check {
+  color: #16A34A;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.sponsored-sidebar-action {
+  width: 100%;
+}
+
+.sponsored-partner-footnote {
+  font-size: 10.5px;
+  color: #94A3B8;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* 4. Detail View & Tab Sponsored Unit Styling */
+.sponsored-detail-slot {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F0F9FF 100%);
+  border: 1px solid #BAE6FD;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 18px 0;
+}
+
+.sponsored-detail-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.sponsored-detail-logo-wrap {
+  flex-shrink: 0;
+}
+
+.sponsored-logo-detail {
+  height: 40px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.sponsored-detail-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-banner-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.35;
+}
+
+.detail-banner-sub {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.sponsored-detail-cta {
+  flex-shrink: 0;
+}
+
+/* 5. In-Feed Compact Unit */
+.sponsored-infeed-compact {
+  display: block;
+  text-decoration: none;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+}
+
+.sponsored-infeed-compact-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sponsored-logo-compact {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sponsored-infeed-compact-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.compact-headline {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.compact-sub {
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+/* Mobile & Tablet Responsive Adaptations */
+@media (max-width: 768px) {
+  .sponsored-leaderboard-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  .sponsored-banner-left {
+    justify-content: center;
+  }
+  .sponsored-banner-title {
+    font-size: 13.5px;
+  }
+  .sponsored-banner-sub {
+    font-size: 11.5px;
+  }
+  .sponsored-cta-btn {
+    width: 100%;
+    padding: 9px 16px;
+  }
+  .sponsored-infeed-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sponsored-infeed-action {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sponsored-cta-lg {
+    width: 100%;
+  }
+  .sponsored-detail-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  .sponsored-detail-cta {
+    width: 100%;
+  }
+  .sponsored-detail-cta .sponsored-cta-btn {
+    width: 100%;
+  }
 }
 
 /* ==========================================================================

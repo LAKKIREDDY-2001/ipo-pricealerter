@@ -278,49 +278,121 @@
   }
 
   // ==========================================================================
-  // Zero-CLS Ad Container Renderer (Leaderboard, In-Feed, Sidebar)
-  // Compliant with Google AdSense layout stability & accidental-click policies
+  // Angel One Sponsored Partner Units & High-Conversion Banners (Zero-CLS)
+  // Responsive across Desktop, Tablet & Mobile devices
+  // Target: https://mdeal.in/c_iDpnIUs4
   // ==========================================================================
   function renderAdContainer(type = "infeed", slot = "5892147360", label = "SPONSORED FINANCIAL INTELLIGENCE") {
+    if (type === "leaderboard") {
+      return `
+        <div class="ad-slot-card ad-slot-leaderboard" aria-label="${label}">
+          <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER &bull; ANGEL ONE</div>
+          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
+            <div class="sponsored-banner-left">
+              <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" />
+            </div>
+            <div class="sponsored-banner-mid">
+              <div class="sponsored-banner-title">Open Free Demat Account &amp; Apply for IPOs with Zero Brokerage</div>
+              <div class="sponsored-banner-sub">Flat ₹20 for Intraday &amp; F&amp;O &bull; 100% Paperless UPI Mandates &bull; Trusted by 2+ Crore Indians</div>
+            </div>
+            <div class="sponsored-banner-right">
+              <span class="sponsored-cta-btn">Open Free Account &rarr;</span>
+            </div>
+          </a>
+        </div>
+      `;
+    }
+
+    if (type === "sidebar") {
+      return `
+        <div class="ad-slot-card ad-slot-sidebar" aria-label="${label}">
+          <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER</div>
+          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
+            <div class="sponsored-sidebar-logo-wrap">
+              <img src="assets/sponsored/angel-one-square.png" alt="Angel One Logo" class="sponsored-logo-square" loading="lazy" />
+            </div>
+            <div class="sponsored-sidebar-body">
+              <h3 class="sponsored-sidebar-title">Trade &amp; Invest with Angel One</h3>
+              <p class="sponsored-sidebar-desc">Fast, secure IPO bidding with seamless UPI authorization in just 3 clicks.</p>
+              <div class="sponsored-sidebar-perks">
+                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>₹0 Demat Account Opening Fee</span></div>
+                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Zero Brokerage on Equity Delivery</span></div>
+                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Flat ₹20 for Intraday &amp; F&amp;O Trades</span></div>
+                <div class="sponsored-sidebar-perk-item"><span class="perk-check">✓</span> <span>Pre-apply for IPOs 24x7</span></div>
+              </div>
+              <div class="sponsored-sidebar-action">
+                <span class="sponsored-cta-btn sponsored-cta-full">Open Free Demat Account &rarr;</span>
+              </div>
+              <div class="sponsored-partner-footnote">Trusted by over 2.5 Crore+ investors across India</div>
+            </div>
+          </a>
+        </div>
+      `;
+    }
+
+    // Default: infeed placement
     return `
-      <div class="ad-slot-card ad-slot-${type}" aria-label="${label}">
-        <div class="ad-slot-label">${label}</div>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1181608933401999"
-             data-ad-slot="${slot}"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+      <div class="ad-slot-card ad-slot-infeed" aria-label="${label}">
+        <div class="ad-slot-label">SPONSORED MARKET PARTNER &bull; ANGEL ONE</div>
+        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-infeed-banner" title="Apply for IPOs with Angel One">
+          <div class="sponsored-infeed-header">
+            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-infeed" loading="lazy" />
+            <span class="sponsored-verified-badge">✓ Official Partner</span>
+          </div>
+          <div class="sponsored-infeed-body">
+            <h3 class="sponsored-infeed-title">Supercharge Your IPO Applications with Angel One</h3>
+            <p class="sponsored-infeed-desc">Seamlessly apply for Mainline and SME IPOs with instant UPI payment mandates and zero delivery brokerage.</p>
+            <div class="sponsored-perks-row">
+              <span class="sponsored-perk-pill">⚡ Instant UPI Mandate</span>
+              <span class="sponsored-perk-pill">💰 ₹0 Demat Account Opening</span>
+              <span class="sponsored-perk-pill">🛡️ Zero Delivery Brokerage</span>
+            </div>
+          </div>
+          <div class="sponsored-infeed-action">
+            <span class="sponsored-cta-btn sponsored-cta-lg">Open Free Demat Account &rarr;</span>
+            <span class="sponsored-disclaimer">Investments in securities market are subject to market risks. Read all scheme related documents carefully.</span>
+          </div>
+        </a>
       </div>
     `;
   }
 
   // ==========================================================================
-  // Google AdSense In-Feed Native Unit (Slot 1400016775)
-  // Clean variable-height container (No awkward empty placeholder borders)
+  // In-Feed Native Sponsored Card
   // ==========================================================================
   function renderInFeedAdUnit(isGridSpan = true) {
     return `
       <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="Sponsored In-Feed Content">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="-6t+ed+2i-1n-4w"
-             data-ad-client="ca-pub-1181608933401999"
-             data-ad-slot="1400016775"></ins>
+        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-infeed-compact" title="Open Demat Account with Angel One">
+          <div class="sponsored-infeed-compact-inner">
+            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-compact" loading="lazy" />
+            <div class="sponsored-infeed-compact-text">
+              <div class="compact-headline">Trade &amp; Apply for IPOs with Angel One</div>
+              <div class="compact-sub">Zero Delivery Brokerage &bull; Instant UPI Mandates</div>
+            </div>
+            <span class="sponsored-cta-btn sponsored-cta-sm">Apply Now &rarr;</span>
+          </div>
+        </a>
       </div>
     `;
   }
 
   function renderAdSenseUnit(slot = "5892147360", format = "auto") {
     return `
-      <div class="adsense-slot-card" aria-label="Advertisement">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1181608933401999"
-             data-ad-slot="${slot}"
-             data-ad-format="${format}"
-             data-full-width-responsive="true"></ins>
+      <div class="adsense-slot-card sponsored-detail-slot" aria-label="Sponsored Partner &bull; Angel One">
+        <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER &bull; ANGEL ONE</div>
+        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-detail-banner" title="Apply for this IPO via Angel One">
+          <div class="sponsored-detail-logo-wrap">
+            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-detail" loading="lazy" />
+          </div>
+          <div class="sponsored-detail-text">
+            <div class="detail-banner-title">Ready to apply for this IPO?</div>
+            <div class="detail-banner-sub">Bid with instant UPI authorization on Angel One. Enjoy ₹0 account opening fee and zero brokerage on equity delivery.</div>
+          </div>
+          <div class="sponsored-detail-cta">
+            <span class="sponsored-cta-btn">Open Account &amp; Apply &rarr;</span>
+          </div>
+        </a>
       </div>
     `;
   }
