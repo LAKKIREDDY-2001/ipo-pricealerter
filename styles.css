@@ -7955,6 +7955,34 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   margin-bottom: 24px;
 }
 
+.movers-card-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.movers-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+.movers-badge.gain {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.movers-badge.loss {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
 .movers-panel-header {
   display: flex;
   align-items: center;

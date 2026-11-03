@@ -1308,7 +1308,7 @@
     `;
   }
 
-  function renderMoversSparkline(values, strokeColor, width = 110, height = 30) {
+  function renderMoversSparkline(values, strokeColor, isGain = true, width = 110, height = 30) {
     if (!values || values.length < 2) return '';
     const min = Math.min(...values);
     const max = Math.max(...values);
@@ -1323,7 +1323,9 @@
       return `${x},${y}`;
     }).join(' ');
 
-    const baselineY = (height - paddingY).toFixed(1);
+    // For gainers, dashed baseline is at the bottom (green curve rises above it)
+    // For losers, dashed baseline is at the TOP (red curve plunges below it)
+    const baselineY = isGain ? (height - paddingY).toFixed(1) : (paddingY + 2).toFixed(1);
 
     return `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" style="overflow:visible;">
@@ -1400,7 +1402,7 @@
       change: "-92.80 (3.16%)",
       isGain: false,
       volume: "4,86,507",
-      trend: [2940, 2930, 2910, 2880, 2870, 2860, 2865, 2855, 2850, 2846.6]
+      trend: [2940, 2928, 2932, 2915, 2925, 2900, 2895, 2905, 2875, 2870, 2865, 2870, 2855, 2858, 2846.6]
     },
     {
       name: "Power Grid Corpn.",
@@ -1409,7 +1411,7 @@
       change: "-8.15 (3.04%)",
       isGain: false,
       volume: "1,09,94,586",
-      trend: [267.7, 266.5, 265.0, 264.2, 263.0, 262.5, 261.0, 260.5, 259.55]
+      trend: [267.7, 267.5, 267.0, 266.8, 267.2, 266.5, 266.8, 266.0, 265.5, 264.0, 260.0, 259.55]
     },
     {
       name: "Hitachi Energy",
@@ -1418,7 +1420,7 @@
       change: "-800.00 (2.85%)",
       isGain: false,
       volume: "85,103",
-      trend: [28080, 27800, 27600, 27500, 27400, 27350, 27400, 27300, 27280]
+      trend: [28080, 27750, 27900, 27700, 27800, 27600, 27550, 27500, 27400, 27450, 27350, 27280]
     },
     {
       name: "PNB",
@@ -1427,7 +1429,7 @@
       change: "-2.09 (1.70%)",
       isGain: false,
       volume: "1,90,95,279",
-      trend: [123.06, 122.8, 122.4, 122.1, 121.8, 121.5, 121.2, 120.97]
+      trend: [123.06, 122.2, 121.8, 121.5, 122.5, 122.8, 122.4, 122.9, 121.6, 121.2, 121.0, 121.4, 120.97]
     },
     {
       name: "State Bank Of India",
@@ -1436,7 +1438,7 @@
       change: "-16.75 (1.70%)",
       isGain: false,
       volume: "2,79,59,412",
-      trend: [987, 984, 981, 978, 979, 975, 973, 971, 970.25]
+      trend: [987.0, 986.5, 986.0, 987.5, 988.0, 987.0, 986.5, 988.0, 985.0, 978.0, 975.0, 979.0, 970.25]
     },
     {
       name: "Union Bank of India",
@@ -1445,138 +1447,173 @@
       change: "-2.80 (1.51%)",
       isGain: false,
       volume: "1,40,40,640",
-      trend: [186, 185.5, 185.0, 184.6, 184.2, 183.8, 183.5, 183.2]
+      trend: [186.0, 185.0, 186.2, 184.8, 184.0, 182.5, 183.8, 184.5, 184.0, 184.2, 183.5, 183.2]
     }
   ];
 
-  window.switchMoversTab = function(tab) {
-    const gainersTable = document.getElementById('movers-table-gainers');
-    const losersTable = document.getElementById('movers-table-losers');
+  window.switchMoversView = function(view) {
+    const cardGainers = document.getElementById('movers-card-gainers');
+    const cardLosers = document.getElementById('movers-card-losers');
+    const btnBoth = document.getElementById('tab-btn-both');
     const btnGainers = document.getElementById('tab-btn-gainers');
     const btnLosers = document.getElementById('tab-btn-losers');
-    
-    if (tab === 'gainers') {
-      if (gainersTable) gainersTable.style.display = '';
-      if (losersTable) losersTable.style.display = 'none';
+
+    [btnBoth, btnGainers, btnLosers].forEach(b => {
+      if (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      }
+    });
+
+    if (view === 'gainers') {
+      if (cardGainers) cardGainers.style.display = '';
+      if (cardLosers) cardLosers.style.display = 'none';
       if (btnGainers) {
         btnGainers.classList.add('active');
         btnGainers.setAttribute('aria-selected', 'true');
       }
-      if (btnLosers) {
-        btnLosers.classList.remove('active');
-        btnLosers.setAttribute('aria-selected', 'false');
-      }
-    } else {
-      if (gainersTable) gainersTable.style.display = 'none';
-      if (losersTable) losersTable.style.display = '';
-      if (btnGainers) {
-        btnGainers.classList.remove('active');
-        btnGainers.setAttribute('aria-selected', 'false');
-      }
+    } else if (view === 'losers') {
+      if (cardGainers) cardGainers.style.display = 'none';
+      if (cardLosers) cardLosers.style.display = '';
       if (btnLosers) {
         btnLosers.classList.add('active');
         btnLosers.setAttribute('aria-selected', 'true');
       }
+    } else {
+      if (cardGainers) cardGainers.style.display = '';
+      if (cardLosers) cardLosers.style.display = '';
+      if (btnBoth) {
+        btnBoth.classList.add('active');
+        btnBoth.setAttribute('aria-selected', 'true');
+      }
     }
   };
+  window.switchMoversTab = window.switchMoversView;
 
   function renderFig1TrendingTable() {
     return `
-      <div class="movers-panel-card" id="market-movers-section">
-        <div class="movers-panel-header">
-          <div class="movers-title-wrap">
-            <h2 class="fig1-panel-title" style="margin:0;">🏆 Top Gainers &amp; Market Movers</h2>
-            <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers Filter">
-              <button type="button" class="movers-tab-btn active" id="tab-btn-gainers" onclick="window.switchMoversTab('gainers')" role="tab" aria-selected="true" aria-controls="movers-table-gainers">
-                <span class="movers-tab-dot green"></span> Top Gainers
-              </button>
-              <button type="button" class="movers-tab-btn" id="tab-btn-losers" onclick="window.switchMoversTab('losers')" role="tab" aria-selected="false" aria-controls="movers-table-losers">
-                <span class="movers-tab-dot red"></span> Top Losers
-              </button>
+      <div class="movers-container" id="market-movers-section">
+        <!-- Movers Master Filter Toolbar -->
+        <div class="movers-filter-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h2 class="fig1-panel-title" style="margin:0; font-size:18px;">📊 Today's Market Movers</h2>
+            <div class="widget-source-tag">Groww &amp; Tapetide Synced</div>
+          </div>
+          <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers View Selection">
+            <button type="button" class="movers-tab-btn active" id="tab-btn-both" onclick="window.switchMoversView('both')" role="tab" aria-selected="true">
+              Show Both
+            </button>
+            <button type="button" class="movers-tab-btn" id="tab-btn-gainers" onclick="window.switchMoversView('gainers')" role="tab" aria-selected="false">
+              <span class="movers-tab-dot green"></span> Top Gainers
+            </button>
+            <button type="button" class="movers-tab-btn" id="tab-btn-losers" onclick="window.switchMoversView('losers')" role="tab" aria-selected="false">
+              <span class="movers-tab-dot red"></span> Top Losers
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. Top Gainers Card -->
+        <div class="movers-panel-card" id="movers-card-gainers" style="margin-bottom:20px;">
+          <div class="movers-panel-header">
+            <div class="movers-title-wrap">
+              <h3 class="movers-card-title">
+                <span>🏆 Top Gainers Today</span>
+                <span class="movers-badge gain">Bullish Surge</span>
+              </h3>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <button type="button" class="fig1-header-link" style="background:none; border:none; cursor:pointer;" onclick="window.switchMoversView('losers')">View Top Losers &darr;</button>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <div class="widget-source-tag">Groww &amp; Tapetide Synced</div>
-            <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
+          <div class="movers-table-wrap">
+            <table class="movers-table">
+              <thead>
+                <tr>
+                  <th class="th-company">Company</th>
+                  <th class="th-price">Market price (1D)</th>
+                  <th class="th-volume">Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${marketGainers.map(item => `
+                  <tr>
+                    <td>
+                      <div class="movers-company-cell">
+                        <div class="movers-logo-box">
+                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                        </div>
+                        <span class="movers-company-name">${item.name}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="movers-price-cell">
+                        <div class="movers-sparkline-wrap">
+                          ${renderMoversSparkline(item.trend, '#00B386', true, 110, 30)}
+                        </div>
+                        <div class="movers-price-block">
+                          <div class="movers-cmp">${item.price}</div>
+                          <div class="movers-change gain">${item.change}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="movers-volume-cell">${item.volume}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- Top Gainers Table (Active by Default) -->
-        <div class="movers-table-wrap" id="movers-table-gainers" role="tabpanel" aria-labelledby="tab-btn-gainers">
-          <table class="movers-table">
-            <thead>
-              <tr>
-                <th class="th-company">Company</th>
-                <th class="th-price">Market price (1D)</th>
-                <th class="th-volume">Volume</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${marketGainers.map(item => `
+        <!-- 2. Top Losers Card (Directly visible, no tab hidden) -->
+        <div class="movers-panel-card" id="movers-card-losers">
+          <div class="movers-panel-header">
+            <div class="movers-title-wrap">
+              <h3 class="movers-card-title">
+                <span>🔻 Top Losers Today</span>
+                <span class="movers-badge loss">Intraday Pullback</span>
+              </h3>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <button type="button" class="fig1-header-link" style="background:none; border:none; cursor:pointer;" onclick="window.switchMoversView('gainers')">View Top Gainers &uarr;</button>
+            </div>
+          </div>
+          <div class="movers-table-wrap">
+            <table class="movers-table">
+              <thead>
                 <tr>
-                  <td>
-                    <div class="movers-company-cell">
-                      <div class="movers-logo-box">
-                        <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
-                      </div>
-                      <span class="movers-company-name">${item.name}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="movers-price-cell">
-                      <div class="movers-sparkline-wrap">
-                        ${renderMoversSparkline(item.trend, '#00B386', 110, 30)}
-                      </div>
-                      <div class="movers-price-block">
-                        <div class="movers-cmp">${item.price}</div>
-                        <div class="movers-change gain">${item.change}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="movers-volume-cell">${item.volume}</td>
+                  <th class="th-company">Company</th>
+                  <th class="th-price">Market price (1D)</th>
+                  <th class="th-volume">Volume</th>
                 </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Top Losers Table (Toggled via tab) -->
-        <div class="movers-table-wrap" id="movers-table-losers" role="tabpanel" aria-labelledby="tab-btn-losers" style="display:none;">
-          <table class="movers-table">
-            <thead>
-              <tr>
-                <th class="th-company">Company</th>
-                <th class="th-price">Market price (1D)</th>
-                <th class="th-volume">Volume</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${marketLosers.map(item => `
-                <tr>
-                  <td>
-                    <div class="movers-company-cell">
-                      <div class="movers-logo-box">
-                        <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+              </thead>
+              <tbody>
+                ${marketLosers.map(item => `
+                  <tr>
+                    <td>
+                      <div class="movers-company-cell">
+                        <div class="movers-logo-box">
+                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                        </div>
+                        <span class="movers-company-name">${item.name}</span>
                       </div>
-                      <span class="movers-company-name">${item.name}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="movers-price-cell">
-                      <div class="movers-sparkline-wrap">
-                        ${renderMoversSparkline(item.trend, '#EB5B3C', 110, 30)}
+                    </td>
+                    <td>
+                      <div class="movers-price-cell">
+                        <div class="movers-sparkline-wrap">
+                          ${renderMoversSparkline(item.trend, '#EB5B3C', false, 110, 30)}
+                        </div>
+                        <div class="movers-price-block">
+                          <div class="movers-cmp">${item.price}</div>
+                          <div class="movers-change loss">${item.change}</div>
+                        </div>
                       </div>
-                      <div class="movers-price-block">
-                        <div class="movers-cmp">${item.price}</div>
-                        <div class="movers-change loss">${item.change}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="movers-volume-cell">${item.volume}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
+                    </td>
+                    <td class="movers-volume-cell">${item.volume}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     `;
