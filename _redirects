@@ -1,3 +1,6 @@
+# Canonical Redirect from www to apex domain
+https://www.pricealerter.in/* https://pricealerter.in/:splat 301
+
 # 301 Permanent Redirects for Decommissioned AMP Pages (Forces mobile search & visitors to main app)
 /amp.html https://pricealerter.in/ 301
 /amp https://pricealerter.in/ 301

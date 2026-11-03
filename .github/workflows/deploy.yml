@@ -24,8 +24,8 @@ jobs:
       - name: Prepare static website
         run: |
           mkdir -p _site/data _site/blog
-          cp index.html app.js styles.css favicon* logo* apple-touch-icon* site.webmanifest manifest.json _site/ 2>/dev/null || true
-          cp data/ipo-data.js _site/data/
+          cp index.html app.js styles.css sw.js service-worker.js favicon* logo* apple-touch-icon* site.webmanifest manifest.json _site/ 2>/dev/null || true
+          cp -r data/. _site/data/
           cp -r assets _site/ 2>/dev/null || true
           cp -f ads.txt sitemap.xml sitemap.xsl robots.txt llms.txt og-image.svg og-image.png amp.html 404.html about.html contact.html signup.html privacy.html privacy-policy.html terms.html disclaimer.html dmca.html CNAME _headers _redirects _site/ 2>/dev/null || true
           cp -f blog/*.html _site/blog/ 2>/dev/null || true

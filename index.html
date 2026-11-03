@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>IPO Pricealerter — Live IPO Tracker, GMP & Allotment Status</title>
 
+    <!-- Immediate Cache-Buster & Service Worker Purge (Forces Instant Live Refresh on Apex & WWW) -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+      (function() {
+        // 1. If someone visits www.pricealerter.in, redirect to canonical pricealerter.in
+        if (window.location.hostname === 'www.pricealerter.in') {
+          window.location.replace('https://pricealerter.in' + window.location.pathname + window.location.search + window.location.hash);
+          return;
+        }
+
+        // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
+        var CURRENT_VERSION = 'v20261104_v35';
+        try {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+              for (var i = 0; i < registrations.length; i++) {
+                registrations[i].unregister();
+              }
+            });
+          }
+          if ('caches' in window) {
+            caches.keys().then(function(names) {
+              for (var i = 0; i < names.length; i++) {
+                caches.delete(names[i]);
+              }
+            });
+          }
+          // 3. Force one-time hard reload if client was on older cached bundle
+          var lastVer = localStorage.getItem('ipo_app_build_version');
+          if (lastVer !== CURRENT_VERSION) {
+            localStorage.setItem('ipo_app_build_version', CURRENT_VERSION);
+            if (lastVer) {
+              window.location.reload(true);
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
+
     <!-- Google AdSense Account Verification & Auto Ads -->
     <meta name="google-adsense-account" content="ca-pub-1181608933401999">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1181608933401999" crossorigin="anonymous"></script>
@@ -288,7 +329,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261115_v25">
+    <link rel="stylesheet" href="styles.css?v=20261104_v35">
 
     <!-- Google tag (gtag.js) - Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
@@ -1631,9 +1672,9 @@
         });
       }
     </script>
-    <script src="data/ipo-data.js?v=20261115_v25" defer></script>
-    <script src="data/listed-gains-data.js?v=20261115_v25" defer></script>
-    <script src="app.js?v=20261115_v25" defer></script>
+    <script src="data/ipo-data.js?v=20261104_v35" defer></script>
+    <script src="data/listed-gains-data.js?v=20261104_v35" defer></script>
+    <script src="app.js?v=20261104_v35" defer></script>
 
     <!-- Infolinks Monetization -->
     <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>
