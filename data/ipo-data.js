@@ -42,8 +42,8 @@ window.IpoData = {
       "listingDate": "2026-11-05",
       "expectedListingPrice": 90.5,
       "estProfitPerLot": 1547,
-      "gmp": 8.5,
-      "gmpPercentage": 10.37,
+      "gmp": null,
+      "gmpPercentage": null,
       "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
       "dayHighGmp": 9,
       "dayLowGmp": 8,
@@ -1289,7 +1289,7 @@ window.IpoData = {
       "initials": "BP",
       "logoColor": "#8B5CF6",
       "iconType": "polymer",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Polymers & Packaging",
@@ -1303,8 +1303,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/bls-polymers-ipo",
       "subscriptionTotal": 22.1,
-      "gmp": 15,
-      "gmpPercentage": 10.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "BLS Polymers manufactures specialty polymer compounds, engineering thermoplastics, and masterbatches used in EV lightweighting, healthcare packaging, and electronics.",
       "documents": [
         {
@@ -1318,7 +1318,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/BLSPolymersLtd_48567338_81259.png",
       "openDate": "2026-10-22",
       "refundDate": "2026-10-29",
-      "dematDate": "2026-10-29"
+      "dematDate": "2026-10-29",
+      "listingPrice": 248,
+      "listingGainPct": 65.33,
+      "currentPrice": 268.8,
+      "returnSinceIssuePct": 79.2
     },
     {
       "id": "sfc-environmental-technologies",
@@ -1328,7 +1332,7 @@ window.IpoData = {
       "initials": "SE",
       "logoColor": "#EC4899",
       "iconType": "tech",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Technology & Digital Platforms",
@@ -1342,8 +1346,8 @@ window.IpoData = {
       "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/sfc-environmental-technologies-ipo",
       "subscriptionTotal": 10.6,
-      "gmp": 8,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "SFC Environmental Technologies is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -1358,7 +1362,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/SFCEnvironmentalTechnologiesLtd_33455088_35975.png",
       "openDate": "2026-10-21",
       "refundDate": "2026-10-28",
-      "dematDate": "2026-10-28"
+      "dematDate": "2026-10-28",
+      "listingPrice": 355.1,
+      "listingGainPct": 7.61,
+      "currentPrice": 426.1,
+      "returnSinceIssuePct": 29.12
     },
     {
       "id": "wiscon-industries",
@@ -1368,7 +1376,7 @@ window.IpoData = {
       "initials": "WI",
       "logoColor": "#0EA5E9",
       "iconType": "infra",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Industrial Engineering & Manufacturing",
@@ -1382,8 +1390,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/wiscon-industries-ipo",
       "subscriptionTotal": 12.45,
-      "gmp": 9,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Wiscon Industries is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -1398,7 +1406,11 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/WisconIndustriesLtd_59042802_97300.png",
       "openDate": "2026-10-18",
       "refundDate": "2026-10-25",
-      "dematDate": "2026-10-25"
+      "dematDate": "2026-10-25",
+      "listingPrice": 204,
+      "listingGainPct": 0,
+      "currentPrice": 204,
+      "returnSinceIssuePct": 0
     },
     {
       "id": "eaaa-india-alternatives",
@@ -1476,8 +1488,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/core4-engineers-ipo",
       "subscriptionTotal": 18.6,
-      "gmp": 8,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Civil contractor executing water transmission corridors, underground tunneling, and industrial foundation works.",
       "documents": [
         {
@@ -1530,8 +1542,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/paras-healthcare-ipo",
       "subscriptionTotal": 2.23,
-      "gmp": 27,
-      "gmpPercentage": 3.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Multi-specialty hospital chain with super-specialty focus in oncology, cardiology, neurosurgery, and orthopedics.",
       "documents": [
         {
@@ -1584,8 +1596,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/reliance-jio-ipo",
       "subscriptionTotal": 22.19,
-      "gmp": 239,
-      "gmpPercentage": 21.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "India's premier digital powerhouse connecting 480M+ customers with 5G connectivity, enterprise cloud, and digital services.",
       "documents": [
         {
@@ -1638,8 +1650,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/zetwerk-ipo",
       "subscriptionTotal": 41.2,
-      "gmp": 142,
-      "gmpPercentage": 28.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Global B2B manufacturing network platform producing custom precision forged and machined components.",
       "documents": [
         {
@@ -1688,8 +1700,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/sahajanand-medical-technologies-ipo",
       "subscriptionTotal": 14.2,
-      "gmp": 27,
-      "gmpPercentage": 7.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Developer and global exporter of advanced cardiovascular drug-eluting stents and catheter delivery solutions.",
       "documents": [
         {
@@ -1742,8 +1754,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/tonbo-imaging-ipo",
       "subscriptionTotal": 25.4,
-      "gmp": 4,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Tonbo Imaging is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -1796,8 +1808,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/shellz-india-ipo",
       "subscriptionTotal": 27.25,
-      "gmp": 5,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shellz India is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -1846,8 +1858,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/bonfiglioli-transmissions-ipo",
       "subscriptionTotal": 18.5,
-      "gmp": 190,
-      "gmpPercentage": 14.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Manufacturer of heavy industrial gearmotors, planetary drive transmissions, and wind turbine yaw pitch drives.",
       "documents": [
         {
@@ -1899,8 +1911,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/ravita-engineering-services-ipo",
       "subscriptionTotal": 30.95,
-      "gmp": 7,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Ravita Engineering Services is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -1952,8 +1964,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/fusion-cx-ipo",
       "subscriptionTotal": 12.8,
-      "gmp": 18,
-      "gmpPercentage": 9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Omnichannel customer experience management and multilingual voice BPM provider.",
       "documents": [
         {
@@ -2006,8 +2018,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/hd-fire-protect-ipo",
       "subscriptionTotal": 34.65,
-      "gmp": 9,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "HD Fire Protect is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2060,8 +2072,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/vaibhav-vyapaar-ipo",
       "subscriptionTotal": 36.5,
-      "gmp": 10,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Vaibhav Vyapar is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -2110,8 +2122,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus1.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/rkfashion-accessories-ipo",
       "subscriptionTotal": 38.35,
-      "gmp": 11,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "R K Fashion is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -2160,8 +2172,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/paramount-syntex-ipo",
       "subscriptionTotal": 40.2,
-      "gmp": 12,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Paramount Syntex is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -2214,8 +2226,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/acme-india-industries-ipo",
       "subscriptionTotal": 42.05,
-      "gmp": 13,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Acme India Industries is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2268,8 +2280,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/tna-solutions-ipo",
       "subscriptionTotal": 43.9,
-      "gmp": 14,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "TNA Solutions is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2322,8 +2334,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/everestims-technologies-ipo",
       "subscriptionTotal": 45.75,
-      "gmp": 15,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "EverestIMS Technologies is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -2376,8 +2388,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/",
       "growwUrl": "https://groww.in/ipo/shree-tnb-polymers-ipo",
       "subscriptionTotal": 47.6,
-      "gmp": 4,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shree TNB Polymers is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -2430,8 +2442,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/dove-soft-ipo",
       "subscriptionTotal": 49.45,
-      "gmp": 5,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Dove Soft is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2484,8 +2496,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/omara-ventures-india-ipo",
       "subscriptionTotal": 51.3,
-      "gmp": 6,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Omara Ventures is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2538,8 +2550,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/nityas-gems-jewellery-ipo",
       "subscriptionTotal": 53.15,
-      "gmp": 7,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Nityas Gems & Jewellery is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -2592,8 +2604,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/sollfege-smart-electronics-ipo",
       "subscriptionTotal": 55,
-      "gmp": 8,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Sollfege Smart Electronics is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -2646,8 +2658,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/sjp-ultrasonic-ipo",
       "subscriptionTotal": 56.85,
-      "gmp": 9,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "SJP Ultrasonic is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2700,8 +2712,8 @@ window.IpoData = {
       "allotmentUrl": "https://mudrarta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/eventions-ipo",
       "subscriptionTotal": 58.7,
-      "gmp": 10,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Eventions is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2754,8 +2766,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/vishal-nirmiti-ipo",
       "subscriptionTotal": 60.55,
-      "gmp": 11,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Vishal Nirmiti is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2808,8 +2820,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/green-asia-impex-ipo",
       "subscriptionTotal": 62.4,
-      "gmp": 12,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Green Asia Impex is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -2861,8 +2873,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/black-opal-consultants-ipo",
       "subscriptionTotal": 64.25,
-      "gmp": 13,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Black Opal Consultants is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -2915,8 +2927,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.masserv.com/opt.asp",
       "growwUrl": "https://groww.in/ipo/papadmalji-agro-ipo",
       "subscriptionTotal": 66.1,
-      "gmp": 14,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Papadmalji Agro is an established Indian enterprise operating in the agro & food processing sector.",
       "documents": [
         {
@@ -2965,8 +2977,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/vans-electroengineerings-ipo",
       "subscriptionTotal": 3.2,
-      "gmp": 15,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Vans Electroengineerings is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -3019,8 +3031,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/srit-india-ipo",
       "subscriptionTotal": 5.05,
-      "gmp": 4,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "SRIT India is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -3069,8 +3081,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/shivchem-agro-ipo",
       "subscriptionTotal": 6.9,
-      "gmp": 5,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shivchem Agro is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -3122,8 +3134,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/acme-universal-safezone-9-ipo",
       "subscriptionTotal": 8.75,
-      "gmp": 6,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Acme Universal Safezone 9 is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -3176,8 +3188,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/pind-hospitality-ipo",
       "subscriptionTotal": 10.6,
-      "gmp": 7,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Pind Hospitality is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -3230,8 +3242,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/shah-investors-home-ipo",
       "subscriptionTotal": 12.45,
-      "gmp": 8,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shah Investor's Home is an established Indian enterprise operating in the financial services & capital markets sector.",
       "documents": [
         {
@@ -3284,8 +3296,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/sai-urja-indo-ipo",
       "subscriptionTotal": 14.3,
-      "gmp": 9,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Sai Urja Indo Ventures is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -3338,8 +3350,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/bench-mark-infotech-services-ipo",
       "subscriptionTotal": 16.15,
-      "gmp": 10,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Bench Mark Infotech is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -3381,8 +3393,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/himalayan-solar-ipo",
       "subscriptionTotal": 18,
-      "gmp": 11,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Himalayan Solar is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -3425,8 +3437,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/acevector-ipo",
       "subscriptionTotal": 19.85,
-      "gmp": 12,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "AceVector (Snapdeal) is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -3469,8 +3481,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
       "growwUrl": "https://groww.in/ipo/german-green-steel-and-power-ipo",
       "subscriptionTotal": 21.7,
-      "gmp": 13,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "German Green Steel and Power is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -3513,8 +3525,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/runwal-enterprises-ipo",
       "subscriptionTotal": 23.55,
-      "gmp": 14,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Runwal Enterprises is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -3556,8 +3568,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/orient-cables-ipo",
       "subscriptionTotal": 25.4,
-      "gmp": 15,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Orient Cables is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -3600,8 +3612,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/dudani-retail-ipo",
       "subscriptionTotal": 27.25,
-      "gmp": 4,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Dudani Retail is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -3644,8 +3656,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/a-one-steels-ipo",
       "subscriptionTotal": 29.1,
-      "gmp": 5,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "A-One Steels is an established Indian enterprise operating in the metals, forging & heavy industry sector.",
       "documents": [
         {
@@ -3688,8 +3700,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/moneyview-ipo",
       "subscriptionTotal": 30.95,
-      "gmp": 6,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Moneyview is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -3732,8 +3744,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/peshwa-wheat-ipo",
       "subscriptionTotal": 32.8,
-      "gmp": 7,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Peshwa Wheat is an established Indian enterprise operating in the agro & food processing sector.",
       "documents": [
         {
@@ -3776,8 +3788,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/roopa-screen-ipo",
       "subscriptionTotal": 34.65,
-      "gmp": 8,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Roopa Screen is an established Indian enterprise operating in the media, leisure & hospitality sector.",
       "documents": [
         {
@@ -3820,8 +3832,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/",
       "growwUrl": "https://groww.in/ipo/skoffset-ipo",
       "subscriptionTotal": 36.5,
-      "gmp": 9,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "S K Offset is an established Indian enterprise operating in the media, leisure & hospitality sector.",
       "documents": [
         {
@@ -3864,8 +3876,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/armee-infotech-ipo",
       "subscriptionTotal": 38.35,
-      "gmp": 10,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "ArMee Infotech is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -3907,8 +3919,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/liqvd-digital-ipo",
       "subscriptionTotal": 40.2,
-      "gmp": 11,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Liqvd Digital is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -3951,8 +3963,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/",
       "growwUrl": "https://groww.in/ipo/swastika-infra-ipo",
       "subscriptionTotal": 42.05,
-      "gmp": 12,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Swastika Infra is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -3995,8 +4007,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/elevate-campuses-ipo",
       "subscriptionTotal": 43.9,
-      "gmp": 13,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Elevate Campuses is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4039,8 +4051,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/pooja-logistics-ipo",
       "subscriptionTotal": 45.75,
-      "gmp": 14,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Pooja Logistics is an established Indian enterprise operating in the logistics & supply chain sector.",
       "documents": [
         {
@@ -4083,8 +4095,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/unitec-fibres-ipo",
       "subscriptionTotal": 47.6,
-      "gmp": 15,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Unitec Fibres is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -4127,8 +4139,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/adroit-industries-ipo",
       "subscriptionTotal": 49.45,
-      "gmp": 4,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Adroit Industries is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4171,8 +4183,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.purvashare.com/service/ipo",
       "growwUrl": "https://groww.in/ipo/core-integra-consulting-ipo",
       "subscriptionTotal": 51.3,
-      "gmp": 5,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Coreintegra Consulting Services is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4215,8 +4227,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/himalaya-nutravedics-ipo",
       "subscriptionTotal": 53.15,
-      "gmp": 6,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Himalaya Nutravedics is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -4259,8 +4271,8 @@ window.IpoData = {
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/varmora-granito-ipo",
       "subscriptionTotal": 55,
-      "gmp": 7,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Varmora Granito is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -4303,8 +4315,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/anand-seamless-ipo",
       "subscriptionTotal": 56.85,
-      "gmp": 8,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Anand Seamless is an established Indian enterprise operating in the metals, forging & heavy industry sector.",
       "documents": [
         {
@@ -4347,8 +4359,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/robokidz-eduventures-ipo",
       "subscriptionTotal": 58.7,
-      "gmp": 9,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Robokidz Eduventures is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4391,8 +4403,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/fx-multitech-ipo",
       "subscriptionTotal": 60.55,
-      "gmp": 10,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "FX Multitech is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -4435,8 +4447,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/vivekanand-cotspin-ipo",
       "subscriptionTotal": 62.4,
-      "gmp": 11,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Vivekanand Cotspin is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -4479,8 +4491,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/axiom-gas-engineering-ipo",
       "subscriptionTotal": 64.25,
-      "gmp": 12,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Axiom Gas Engineering is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -4523,8 +4535,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/sonaselection-india-ipo",
       "subscriptionTotal": 66.1,
-      "gmp": 13,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Sonaselection Limited is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4562,8 +4574,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/kheria-autocomp-ipo",
       "subscriptionTotal": 3.2,
-      "gmp": 14,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Kheria Autocomp is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4606,8 +4618,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/nse-ipo",
       "subscriptionTotal": 5.05,
-      "gmp": 15,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "NSE is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4645,8 +4657,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/spectraa-technology-solutions-ipo",
       "subscriptionTotal": 6.9,
-      "gmp": 4,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "SpectraA Technology is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -4689,8 +4701,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/jindal-supreme-ipo",
       "subscriptionTotal": 8.75,
-      "gmp": 5,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Jindal Supreme is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4733,8 +4745,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ss-retail-ipo",
       "subscriptionTotal": 10.6,
-      "gmp": 6,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "SS Retail is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -4777,8 +4789,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/hero-motors-ipo",
       "subscriptionTotal": 12.45,
-      "gmp": 7,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Hero Motors is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -4821,8 +4833,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/quanto-agroworld-ipo",
       "subscriptionTotal": 14.3,
-      "gmp": 8,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Quanto Agroworld is an established Indian enterprise operating in the agro & food processing sector.",
       "documents": [
         {
@@ -4865,8 +4877,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/shakti-polytarp-ipo",
       "subscriptionTotal": 16.15,
-      "gmp": 9,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shakti Polytarp is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -4909,8 +4921,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/vama-wovenfab-ipo",
       "subscriptionTotal": 18,
-      "gmp": 10,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Vama Wovenfab is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -4952,8 +4964,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/manika-plastech-ipo",
       "subscriptionTotal": 19.85,
-      "gmp": 11,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Manika Plastech is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -4995,8 +5007,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/century-business-ipo",
       "subscriptionTotal": 21.7,
-      "gmp": 12,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Century Business is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5034,8 +5046,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.integratedregistry.in/RegistrarsToSTANew.aspx",
       "growwUrl": "https://groww.in/ipo/injecto-polymers-ipo",
       "subscriptionTotal": 23.55,
-      "gmp": 13,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Injecto Polymers is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -5078,8 +5090,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/veegaland-developers-ipo",
       "subscriptionTotal": 25.4,
-      "gmp": 14,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Veegaland Developers is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -5122,8 +5134,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/panchatv-bharat-ipo",
       "subscriptionTotal": 27.25,
-      "gmp": 15,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Panchatv Bharat is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5166,8 +5178,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/raksan-transformers-ipo",
       "subscriptionTotal": 29.1,
-      "gmp": 4,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Raksan Transformers is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -5209,8 +5221,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/om-galaxy-ipo",
       "subscriptionTotal": 30.95,
-      "gmp": 5,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Om Galaxy is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5253,8 +5265,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/maharaja--speedex-india-ipo",
       "subscriptionTotal": 32.8,
-      "gmp": 6,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Maharaja & Speedex India is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5292,8 +5304,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/",
       "growwUrl": "https://groww.in/ipo/amtech-esters-ipo",
       "subscriptionTotal": 34.65,
-      "gmp": 7,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Amtech Esters is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -5336,8 +5348,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/asset-reconstruction-ipo",
       "subscriptionTotal": 36.5,
-      "gmp": 8,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Asset Reconstruction is an established Indian enterprise operating in the financial services & capital markets sector.",
       "documents": [
         {
@@ -5375,8 +5387,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/steamhouse-india-ipo",
       "subscriptionTotal": 38.35,
-      "gmp": 9,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Steamhouse India is an established Indian enterprise operating in the agro & food processing sector.",
       "documents": [
         {
@@ -5414,8 +5426,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/karamtara-engineering-ipo",
       "subscriptionTotal": 40.2,
-      "gmp": 10,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Karamtara Engineering is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5458,8 +5470,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/lcc-projects-ipo",
       "subscriptionTotal": 42.05,
-      "gmp": 11,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "LCC Projects is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -5502,8 +5514,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/vinod-texworld-ipo",
       "subscriptionTotal": 43.9,
-      "gmp": 12,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Vinod Texworld is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -5545,8 +5557,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/infrax-renewable-ipo",
       "subscriptionTotal": 45.75,
-      "gmp": 13,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Infrax Renewable is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -5588,8 +5600,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/manipal-payment-and-identity-solutions-ipo",
       "subscriptionTotal": 47.6,
-      "gmp": 14,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Manipal Payment and Identity Solutions is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5632,8 +5644,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/rentomojo-ipo",
       "subscriptionTotal": 49.45,
-      "gmp": 15,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Rentomojo is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5676,8 +5688,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/kanohar-electricals-ipo",
       "subscriptionTotal": 51.3,
-      "gmp": 4,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Kanohar Electricals is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -5720,8 +5732,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/prasol-chemicals-ipo",
       "subscriptionTotal": 53.15,
-      "gmp": 5,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Prasol Chemicals is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -5764,8 +5776,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/glass-wall-systems-ipo",
       "subscriptionTotal": 55,
-      "gmp": 6,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Glass Wall Systems is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5808,8 +5820,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/pranav-constructions-ipo",
       "subscriptionTotal": 56.85,
-      "gmp": 7,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Pranav Constructions is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -5852,8 +5864,8 @@ window.IpoData = {
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/apana-logistics-ipo",
       "subscriptionTotal": 58.7,
-      "gmp": 8,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Apana Logistics is an established Indian enterprise operating in the logistics & supply chain sector.",
       "documents": [
         {
@@ -5895,8 +5907,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/qualiance-international-ipo",
       "subscriptionTotal": 60.55,
-      "gmp": 9,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Qualiance International is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5939,8 +5951,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/rays-of-belief-ipo",
       "subscriptionTotal": 62.4,
-      "gmp": 10,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Rays of Belief is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -5982,8 +5994,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/deepa-jewellers-ipo",
       "subscriptionTotal": 64.25,
-      "gmp": 11,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Deepa Jewellers is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -6026,8 +6038,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/farm-peace-ipo",
       "subscriptionTotal": 66.1,
-      "gmp": 12,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Farm Peace is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6070,8 +6082,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/fly-hi-maritime-ipo",
       "subscriptionTotal": 3.2,
-      "gmp": 13,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Fly-Hi Maritime is an established Indian enterprise operating in the logistics & supply chain sector.",
       "documents": [
         {
@@ -6109,8 +6121,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/shanti-inorganics-ipo",
       "subscriptionTotal": 5.05,
-      "gmp": 14,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shanti Inorganics is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6153,8 +6165,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/phychem-technologies-ipo",
       "subscriptionTotal": 6.9,
-      "gmp": 15,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Phychem Technologies is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -6197,8 +6209,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/purple-style-labs-ipo",
       "subscriptionTotal": 8.75,
-      "gmp": 4,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Purple Style Labs is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6241,8 +6253,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ashutosh-fibre-ipo",
       "subscriptionTotal": 10.6,
-      "gmp": 5,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Ashutosh Fibre is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -6285,8 +6297,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.linkintime.co.in/",
       "growwUrl": "https://groww.in/ipo/priority-jewels-ipo",
       "subscriptionTotal": 12.45,
-      "gmp": 6,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Priority Jewels is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -6329,8 +6341,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/paluck-technologies-ipo",
       "subscriptionTotal": 14.3,
-      "gmp": 7,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Paluck Technologies is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -6373,8 +6385,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/complete-sports-and-management-ipo",
       "subscriptionTotal": 16.15,
-      "gmp": 8,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Complete Sports and Management is an established Indian enterprise operating in the media, leisure & hospitality sector.",
       "documents": [
         {
@@ -6412,8 +6424,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/",
       "growwUrl": "https://groww.in/ipo/esds-software-ipo",
       "subscriptionTotal": 18,
-      "gmp": 9,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "ESDS Software Solution is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -6456,8 +6468,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/kwick-forensic-ipo",
       "subscriptionTotal": 19.85,
-      "gmp": 10,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Kwick Forensic is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -6495,8 +6507,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
       "growwUrl": "https://groww.in/ipo/lumino-industries-ipo",
       "subscriptionTotal": 21.7,
-      "gmp": 11,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Lumino Industries is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6539,8 +6551,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/sumax-engineering-ipo",
       "subscriptionTotal": 23.55,
-      "gmp": 12,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Sumax Engineering is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6583,8 +6595,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/annu-projects-ipo",
       "subscriptionTotal": 25.4,
-      "gmp": 13,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Annu Projects is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -6627,8 +6639,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/skyways-air-ipo",
       "subscriptionTotal": 27.25,
-      "gmp": 14,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Skyways Air Services is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -6671,8 +6683,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/abh-healthcare-ipo",
       "subscriptionTotal": 29.1,
-      "gmp": 15,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "ABH Healthcare is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -6715,8 +6727,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/madhur-knit-ipo",
       "subscriptionTotal": 30.95,
-      "gmp": 4,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Madhur Knit Crafts is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -6758,8 +6770,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/symbiotec-pharma-ipo",
       "subscriptionTotal": 32.8,
-      "gmp": 5,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Symbiotec Pharmalab is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -6801,8 +6813,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/",
       "growwUrl": "https://groww.in/ipo/hy-tech-engineers-ipo",
       "subscriptionTotal": 34.65,
-      "gmp": 6,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Hy-tech Engineers is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -6845,8 +6857,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/augmont-enterprises-ipo",
       "subscriptionTotal": 36.5,
-      "gmp": 7,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Augmont Enterprises is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6889,8 +6901,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/tempsens-instruments-india-ipo",
       "subscriptionTotal": 38.35,
-      "gmp": 8,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Tempsens Instruments is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -6933,8 +6945,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/dhanwel-hybrid-seeds-ipo",
       "subscriptionTotal": 40.2,
-      "gmp": 9,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Dhanwel Hybrid Seeds is an established Indian enterprise operating in the agro & food processing sector.",
       "documents": [
         {
@@ -6976,8 +6988,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/gaja-alternative-asset-management-ipo",
       "subscriptionTotal": 42.05,
-      "gmp": 10,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Gaja Alternate Asset Management is an established Indian enterprise operating in the financial services & capital markets sector.",
       "documents": [
         {
@@ -7020,8 +7032,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/mopshop-distribution-ipo",
       "subscriptionTotal": 43.9,
-      "gmp": 11,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Mopshop Distribution is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7064,8 +7076,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/sunshine-pictures-ipo",
       "subscriptionTotal": 45.75,
-      "gmp": 12,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Sunshine Picture is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7108,8 +7120,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/shankesh-jewellers-ipo",
       "subscriptionTotal": 47.6,
-      "gmp": 13,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shankesh Jewellers is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -7152,8 +7164,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipo.cameoindia.com/",
       "growwUrl": "https://groww.in/ipo/fascinate-textiles-ipo",
       "subscriptionTotal": 49.45,
-      "gmp": 14,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Fascinate Textiles is an established Indian enterprise operating in the textiles & technical fabrics sector.",
       "documents": [
         {
@@ -7196,8 +7208,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/lalithaa-jewellery-mart-ipo",
       "subscriptionTotal": 51.3,
-      "gmp": 15,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Lalithaa Jewellery Mart is an established Indian enterprise operating in the gems & lifestyle retail sector.",
       "documents": [
         {
@@ -7240,8 +7252,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/horizon-industrial-parks-ipo",
       "subscriptionTotal": 53.15,
-      "gmp": 4,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Horizon Industrial is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7284,8 +7296,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.abhipra.com/",
       "growwUrl": "https://groww.in/ipo/ens-enterprises-ipo",
       "subscriptionTotal": 55,
-      "gmp": 5,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "ENS Enterprises is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7328,8 +7340,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/technocrats-plasma-systems-ipo",
       "subscriptionTotal": 56.85,
-      "gmp": 6,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Technocrats Plasma is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -7372,8 +7384,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.integratedregistry.in/IRMS_V2/IPO.aspx",
       "growwUrl": "https://groww.in/ipo/skytech-infinite-platform-ipo",
       "subscriptionTotal": 58.7,
-      "gmp": 7,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Skytech Infinite Platform is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -7416,8 +7428,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/credent-connect-n-care-ipo",
       "subscriptionTotal": 60.55,
-      "gmp": 8,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Credent Connect N Care is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7460,8 +7472,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/pramodini-medicare-ipo",
       "subscriptionTotal": 62.4,
-      "gmp": 9,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Pramodini Medicare is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -7504,8 +7516,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/shiprocket-ipo",
       "subscriptionTotal": 64.25,
-      "gmp": 10,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Shiprocket is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7548,8 +7560,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/behari-lal-engineering-ipo",
       "subscriptionTotal": 66.1,
-      "gmp": 11,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Behari Lal Engineering is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7592,8 +7604,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.skylinerta.com/",
       "growwUrl": "https://groww.in/ipo/qt-foods-ipo",
       "subscriptionTotal": 3.2,
-      "gmp": 12,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Q&T Foods is an established Indian enterprise operating in the agro & food processing sector.",
       "documents": [
         {
@@ -7635,8 +7647,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/milky-mist-ipo",
       "subscriptionTotal": 5.05,
-      "gmp": 13,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Milky Mist Dairy Food is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -7679,8 +7691,8 @@ window.IpoData = {
       "allotmentUrl": "http://ipo.alankit.com/",
       "growwUrl": "https://groww.in/ipo/sham-foam-ipo",
       "subscriptionTotal": 6.9,
-      "gmp": 14,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Sham Foam is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -7723,8 +7735,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/dhoot-transmission-ipo",
       "subscriptionTotal": 8.75,
-      "gmp": 15,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Dhoot Transmission is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7767,8 +7779,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/molbio-diagnostics-ipo",
       "subscriptionTotal": 10.6,
-      "gmp": 4,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Molbio Diagnostics is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -7811,8 +7823,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/technocraft-ventures-ipo",
       "subscriptionTotal": 12.45,
-      "gmp": 5,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Technocraft Ventures is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -7855,8 +7867,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/optimystix-entertainment-ipo",
       "subscriptionTotal": 14.3,
-      "gmp": 6,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Optimystix Entertainment is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -7899,8 +7911,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/leap-india-ipo",
       "subscriptionTotal": 16.15,
-      "gmp": 7,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "LEAP India is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7938,8 +7950,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/lapl-automotive-ipo",
       "subscriptionTotal": 18,
-      "gmp": 8,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "LAPL Automotive is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -7982,8 +7994,8 @@ window.IpoData = {
       "allotmentUrl": "https://mudrarta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/gv-electricals-ipo",
       "subscriptionTotal": 19.85,
-      "gmp": 9,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "G V Electricals is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -8026,8 +8038,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ardee-industries-ipo",
       "subscriptionTotal": 21.7,
-      "gmp": 10,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Ardee Industries is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -8070,8 +8082,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.skylinerta.com/ipo.php",
       "growwUrl": "https://groww.in/ipo/aegeus-technologies-ipo",
       "subscriptionTotal": 23.55,
-      "gmp": 11,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Aegeus Technologies is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -8114,8 +8126,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/anawil-wire-engieering-ipo",
       "subscriptionTotal": 25.4,
-      "gmp": 12,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Anawil Wire and Engineering is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -8153,8 +8165,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/fusion-klassroom-edutech-ipo",
       "subscriptionTotal": 27.25,
-      "gmp": 13,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Fusion Klassroom Edutech is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -8197,8 +8209,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/dhaval-packaging-ipo",
       "subscriptionTotal": 29.1,
-      "gmp": 14,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Dhaval Packaging is an established Indian enterprise operating in the polymers & packaging sector.",
       "documents": [
         {
@@ -8241,8 +8253,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/juniper-green-energy-ipo",
       "subscriptionTotal": 30.95,
-      "gmp": 15,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Juniper Green Energy is an established Indian enterprise operating in the power & renewable energy sector.",
       "documents": [
         {
@@ -8285,8 +8297,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/mv-electrosystems-ipo",
       "subscriptionTotal": 32.8,
-      "gmp": 4,
-      "gmpPercentage": 8.6,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "MV Electrosystem is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -8329,8 +8341,8 @@ window.IpoData = {
       "allotmentUrl": "https://maashitla.com/allotment-status/public-issues",
       "growwUrl": "https://groww.in/ipo/oneindig-technologies-ipo",
       "subscriptionTotal": 34.65,
-      "gmp": 5,
-      "gmpPercentage": 10.3,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Oneindig Technologies is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -8373,8 +8385,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/manipal-health-enterprises-ipo",
       "subscriptionTotal": 36.5,
-      "gmp": 6,
-      "gmpPercentage": 12,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Manipal Health is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -8417,8 +8429,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.purvashare.com/investor-service/ipo-query",
       "growwUrl": "https://groww.in/ipo/hr-hygiene-products-ipo",
       "subscriptionTotal": 38.35,
-      "gmp": 7,
-      "gmpPercentage": 13.7,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "H.R.Hygiene Products is an established Indian enterprise operating in the healthcare, pharma & chemicals sector.",
       "documents": [
         {
@@ -8456,8 +8468,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/poojaa-precision-engg-ipo",
       "subscriptionTotal": 40.2,
-      "gmp": 8,
-      "gmpPercentage": 15.4,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Poojaa Precision Engineering is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
       "documents": [
         {
@@ -8500,8 +8512,8 @@ window.IpoData = {
       "allotmentUrl": "https://ris.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/advance-technoforge-ipo",
       "subscriptionTotal": 42.05,
-      "gmp": 9,
-      "gmpPercentage": 17.1,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Advance Technoforge is an established Indian enterprise operating in the technology & digital platforms sector.",
       "documents": [
         {
@@ -8544,8 +8556,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/propshop-events-exhibitions-ipo",
       "subscriptionTotal": 43.9,
-      "gmp": 10,
-      "gmpPercentage": 3.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Propshop Events & Exhibitions is an established Indian enterprise operating in the media, leisure & hospitality sector.",
       "documents": [
         {
@@ -8583,8 +8595,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/cube-highways-trust-invit",
       "subscriptionTotal": 45.75,
-      "gmp": 11,
-      "gmpPercentage": 5.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Cube Highways Trust InvIT is an established Indian enterprise operating in the financial services & capital markets sector.",
       "documents": [
         {
@@ -8622,8 +8634,8 @@ window.IpoData = {
       "allotmentUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/silverstorm-parks-resorts-ipo",
       "subscriptionTotal": 47.6,
-      "gmp": 12,
-      "gmpPercentage": 6.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Silverstrom Parks & Resorts is an established Indian enterprise operating in the media, leisure & hospitality sector.",
       "documents": [
         {

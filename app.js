@@ -1736,10 +1736,10 @@
       .filter(r => r.status === "OPEN" && r.gmp != null)
       .sort((a, b) => Number(b.gmp || 0) - Number(a.gmp || 0));
 
-    // Pad with top active/upcoming issues if fewer than 5
+    // Pad with top active/upcoming unlisted issues if fewer than 5 (strictly exclude listed stocks)
     const remainingNeeded = Math.max(0, 5 - openStocksWithGmp.length);
     const fillerStocks = records
-      .filter(r => r.status !== "OPEN" && r.gmp != null && Number(r.gmp) > 0 && !openStocksWithGmp.some(o => o.slug === r.slug))
+      .filter(r => (r.status === "UPCOMING" || r.status === "CLOSED") && r.status !== "LISTED" && r.gmp != null && Number(r.gmp) > 0 && !openStocksWithGmp.some(o => o.slug === r.slug))
       .sort((a, b) => Number(b.gmp || 0) - Number(a.gmp || 0))
       .slice(0, remainingNeeded);
 
@@ -1752,13 +1752,23 @@
             <h3 class="fig1-panel-title">📊 GMP Today</h3>
             <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
           </div>
-          <div class="widget-source-tag">Ranked High to Low • Live Open GMP</div>
+          <div class="widget-source-tag">Ranked High to Low • Live IPO GMP</div>
         </div>
         <div class="fig1-gmp-list">
           ${rankedGmpList.map((item, index) => {
             const isPos = Number(item.gmp || 0) >= 0;
             const gmpVal = isPos ? `+₹${item.gmp}` : `-₹${Math.abs(item.gmp)}`;
             const pct = item.gmpPercentage ? `(+${item.gmpPercentage}%)` : '';
+            const statusLabel = item.status === 'OPEN'
+              ? '🟢 Open Now'
+              : item.status === 'CLOSED'
+                ? '⏳ Closed (Awaiting Listing)'
+                : '📅 Upcoming';
+            const statusColor = item.status === 'OPEN'
+              ? '#16A34A'
+              : item.status === 'CLOSED'
+                ? '#D97706'
+                : '#1D4ED8';
             return `
               <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/${item.slug}'">
                 <div class="fig1-gmp-left">
@@ -1766,8 +1776,8 @@
                   ${renderCompanyLogo(item, 34)}
                   <div style="display:flex; flex-direction:column;">
                     <span class="fig1-company-name" style="font-size:13.5px;">${item.shortName}</span>
-                    <span style="font-size:10.5px; color:${item.status === 'OPEN' ? '#16A34A' : '#1D4ED8'}; font-weight:600;">
-                      ${item.status === 'OPEN' ? '🟢 Open Now' : 'Upcoming'}
+                    <span style="font-size:10.5px; color:${statusColor}; font-weight:600;">
+                      ${statusLabel}
                     </span>
                   </div>
                 </div>
@@ -3919,7 +3929,7 @@
   // Dedicated Pages: GMP Tracker, Calendar, Listed
   // ==========================================================================
   function getFilteredGmpIssues() {
-    let list = [...records];
+    let list = records.filter(r => r.status !== "LISTED");
     if (state.gmpFilter === "open") {
       list = list.filter(r => r.status === "OPEN");
     } else if (state.gmpFilter === "bullish") {
