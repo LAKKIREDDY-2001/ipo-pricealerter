@@ -7943,5 +7943,265 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   background: #F1F5F9 !important;
 }
 
+/* ==========================================================================
+   Market Movers: Top Gainers & Losers (Groww / TapeTide Exact Match)
+   ========================================================================== */
+.movers-panel-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 24px;
+}
+
+.movers-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #EDF2F7;
+  background: #FFFFFF;
+}
+
+.movers-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.movers-tabs-nav {
+  display: inline-flex;
+  align-items: center;
+  background: #F1F5F9;
+  padding: 3px;
+  border-radius: 10px;
+  gap: 4px;
+}
+
+.movers-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.movers-tab-btn:hover {
+  color: #1E293B;
+}
+
+.movers-tab-btn.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.movers-tab-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.movers-tab-dot.green {
+  background: #10B981;
+}
+
+.movers-tab-dot.red {
+  background: #EF4444;
+}
+
+.movers-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.movers-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.movers-table thead th {
+  padding: 12px 18px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #64748B;
+  background: #FAFAFC;
+  border-bottom: 1px solid #EDF2F7;
+  letter-spacing: 0.2px;
+}
+
+.movers-table thead th.th-company {
+  text-align: left;
+}
+
+.movers-table thead th.th-price {
+  text-align: right;
+  padding-right: 28px;
+}
+
+.movers-table thead th.th-volume {
+  text-align: right;
+}
+
+.movers-table tbody td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #F1F5F9;
+  vertical-align: middle;
+  background: #FFFFFF;
+  transition: background 0.15s ease;
+}
+
+.movers-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.movers-table tbody tr:hover td {
+  background: #F8FAFC;
+}
+
+.movers-company-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.movers-logo-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.movers-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.movers-company-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.15px;
+}
+
+.movers-price-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.movers-sparkline-wrap {
+  width: 110px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.movers-price-block {
+  text-align: right;
+  min-width: 110px;
+}
+
+.movers-cmp {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.25;
+}
+
+.movers-change {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.movers-change.gain {
+  color: #00B386;
+}
+
+.movers-change.loss {
+  color: #EB5B3C;
+}
+
+.movers-volume-cell {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1E293B;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .movers-panel-header {
+    padding: 12px 14px;
+  }
+  .movers-table thead th {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .movers-table thead th.th-price {
+    padding-right: 14px;
+  }
+  .movers-table tbody td {
+    padding: 12px 12px;
+  }
+  .movers-logo-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+  .movers-company-name {
+    font-size: 13.5px;
+  }
+  .movers-sparkline-wrap {
+    width: 75px;
+  }
+  .movers-sparkline-wrap svg {
+    width: 75px;
+  }
+  .movers-price-cell {
+    gap: 10px;
+  }
+  .movers-price-block {
+    min-width: 90px;
+  }
+  .movers-cmp {
+    font-size: 13.5px;
+  }
+  .movers-change {
+    font-size: 12px;
+  }
+  .movers-volume-cell {
+    font-size: 13px;
+  }
+}
+
 
 

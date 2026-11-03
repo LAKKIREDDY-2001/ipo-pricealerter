@@ -1308,127 +1308,271 @@
     `;
   }
 
-  function renderFig1TrendingTable() {
-    // Top profitable companies based on verified NSE/BSE and Groww listing gains
-    const profitableList = [
-      {
-        slug: "waaree-energies-ipo",
-        name: "Waaree Energies",
-        initials: "WE",
-        avatarClass: "fig1-avatar-we",
-        status: "Listed",
-        issuePrice: "₹1,503",
-        currentPrice: "₹2,318.00",
-        profitGain: "+54.22% ▲",
-        isPositive: true,
-        sub: "76.34x",
-        subStyle: "style=\"background:#FEF3C7; color:#D97706; font-weight:700;\"",
-        trend: [1503, 1950, 2150, 2318]
-      },
-      {
-        slug: "krn-heat-exchanger-ipo",
-        name: "KRN Heat Exchanger",
-        initials: "KN",
-        avatarClass: "fig1-avatar-sw",
-        status: "Listed",
-        issuePrice: "₹220",
-        currentPrice: "₹1,035.50",
-        profitGain: "+370.68% ▲",
-        isPositive: true,
-        sub: "214.42x",
-        subStyle: "style=\"background:#DCFCE7; color:#15803D; font-weight:700;\"",
-        trend: [220, 510, 840, 1035]
-      },
-      {
-        slug: "premier-energies-ipo",
-        name: "Premier Energies",
-        initials: "PE",
-        avatarClass: "fig1-avatar-nt",
-        status: "Listed",
-        issuePrice: "₹450",
-        currentPrice: "₹890.00",
-        profitGain: "+97.78% ▲",
-        isPositive: true,
-        sub: "75.00x",
-        subStyle: "style=\"background:#EFF6FF; color:#1D4ED8; font-weight:700;\"",
-        trend: [450, 620, 780, 890]
-      },
-      {
-        slug: "diffusion-engineers-ipo",
-        name: "Diffusion Engineers",
-        initials: "DE",
-        avatarClass: "fig1-avatar-nt",
-        status: "Listed",
-        issuePrice: "₹168",
-        currentPrice: "₹401.45",
-        profitGain: "+138.96% ▲",
-        isPositive: true,
-        sub: "114.50x",
-        subStyle: "style=\"background:#FEF3C7; color:#D97706; font-weight:700;\"",
-        trend: [168, 250, 340, 401]
-      },
-      {
-        slug: "hyundai-motor-india-ipo",
-        name: "Hyundai Motor India",
-        initials: "HM",
-        avatarClass: "fig1-avatar-sw",
-        status: "Listed",
-        issuePrice: "₹1,960",
-        currentPrice: "₹2,030.00",
-        profitGain: "+3.57% ▲",
-        isPositive: true,
-        sub: "2.37x",
-        subStyle: "",
-        trend: [1960, 1920, 1980, 2030]
-      }
-    ];
+  function renderMoversSparkline(values, strokeColor, width = 110, height = 30) {
+    if (!values || values.length < 2) return '';
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const paddingY = 4;
+    const usableH = height - paddingY * 2;
+    const stepX = width / (values.length - 1);
+    
+    const points = values.map((v, i) => {
+      const x = (i * stepX).toFixed(1);
+      const y = (height - paddingY - ((v - min) / range) * usableH).toFixed(1);
+      return `${x},${y}`;
+    }).join(' ');
+
+    const baselineY = (height - paddingY).toFixed(1);
 
     return `
-      <div class="fig1-panel-card">
-        <div class="fig1-panel-header">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <h2 class="fig1-panel-title">🏆 Top Gainers &amp; Most Profitable Stocks</h2>
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" style="overflow:visible;">
+        <line x1="0" y1="${baselineY}" x2="${width}" y2="${baselineY}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" />
+        <polyline fill="none" stroke="${strokeColor}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="${points}" />
+      </svg>
+    `;
+  }
+
+  // Define Top Gainers data exactly from verified reference capture
+  const marketGainers = [
+    {
+      name: "Britannia Industries",
+      logo: "assets/movers/britannia.png",
+      price: "₹4,930.00",
+      change: "295.00 (6.36%)",
+      isGain: true,
+      volume: "5,91,547",
+      trend: [4635, 4640, 4625, 4645, 4630, 4638, 4620, 4750, 4890, 4875, 4910, 4895, 4930]
+    },
+    {
+      name: "BSE",
+      logo: "assets/movers/bse.png",
+      price: "₹3,665.70",
+      change: "175.70 (5.03%)",
+      isGain: true,
+      volume: "60,62,222",
+      trend: [3490, 3510, 3540, 3530, 3560, 3580, 3620, 3640, 3635, 3655, 3665.7]
+    },
+    {
+      name: "Nestle India",
+      logo: "assets/movers/nestle.png",
+      price: "₹1,248.40",
+      change: "53.40 (4.47%)",
+      isGain: true,
+      volume: "35,10,938",
+      trend: [1195, 1205, 1190, 1200, 1210, 1205, 1220, 1215, 1235, 1230, 1248.4]
+    },
+    {
+      name: "Tata Consumer Prod.",
+      logo: "assets/movers/tata-consumer.png",
+      price: "₹1,073.00",
+      change: "44.10 (4.29%)",
+      isGain: true,
+      volume: "26,88,691",
+      trend: [1029, 1033, 1038, 1042, 1040, 1048, 1052, 1056, 1060, 1065, 1073]
+    },
+    {
+      name: "Avenue Supermarts",
+      logo: "assets/movers/avenue-supermarts.png",
+      price: "₹3,359.00",
+      change: "129.00 (3.99%)",
+      isGain: true,
+      volume: "7,82,428",
+      trend: [3230, 3240, 3310, 3290, 3320, 3305, 3315, 3345, 3330, 3350, 3359]
+    },
+    {
+      name: "Asian Paints",
+      logo: "assets/movers/asian-paints.png",
+      price: "₹2,437.80",
+      change: "93.50 (3.99%)",
+      isGain: true,
+      volume: "20,08,963",
+      trend: [2344, 2360, 2410, 2430, 2405, 2390, 2400, 2415, 2410, 2430, 2437.8]
+    }
+  ];
+
+  // Define Top Losers data exactly from verified reference capture
+  const marketLosers = [
+    {
+      name: "Siemens Energy India",
+      logo: "assets/movers/siemens-energy.png",
+      price: "₹2,846.60",
+      change: "-92.80 (3.16%)",
+      isGain: false,
+      volume: "4,86,507",
+      trend: [2940, 2930, 2910, 2880, 2870, 2860, 2865, 2855, 2850, 2846.6]
+    },
+    {
+      name: "Power Grid Corpn.",
+      logo: "assets/movers/power-grid.png",
+      price: "₹259.55",
+      change: "-8.15 (3.04%)",
+      isGain: false,
+      volume: "1,09,94,586",
+      trend: [267.7, 266.5, 265.0, 264.2, 263.0, 262.5, 261.0, 260.5, 259.55]
+    },
+    {
+      name: "Hitachi Energy",
+      logo: "assets/movers/hitachi-energy.png",
+      price: "₹27,280.00",
+      change: "-800.00 (2.85%)",
+      isGain: false,
+      volume: "85,103",
+      trend: [28080, 27800, 27600, 27500, 27400, 27350, 27400, 27300, 27280]
+    },
+    {
+      name: "PNB",
+      logo: "assets/movers/pnb.png",
+      price: "₹120.97",
+      change: "-2.09 (1.70%)",
+      isGain: false,
+      volume: "1,90,95,279",
+      trend: [123.06, 122.8, 122.4, 122.1, 121.8, 121.5, 121.2, 120.97]
+    },
+    {
+      name: "State Bank Of India",
+      logo: "assets/movers/sbi.png",
+      price: "₹970.25",
+      change: "-16.75 (1.70%)",
+      isGain: false,
+      volume: "2,79,59,412",
+      trend: [987, 984, 981, 978, 979, 975, 973, 971, 970.25]
+    },
+    {
+      name: "Union Bank of India",
+      logo: "assets/movers/union-bank.png",
+      price: "₹183.20",
+      change: "-2.80 (1.51%)",
+      isGain: false,
+      volume: "1,40,40,640",
+      trend: [186, 185.5, 185.0, 184.6, 184.2, 183.8, 183.5, 183.2]
+    }
+  ];
+
+  window.switchMoversTab = function(tab) {
+    const gainersTable = document.getElementById('movers-table-gainers');
+    const losersTable = document.getElementById('movers-table-losers');
+    const btnGainers = document.getElementById('tab-btn-gainers');
+    const btnLosers = document.getElementById('tab-btn-losers');
+    
+    if (tab === 'gainers') {
+      if (gainersTable) gainersTable.style.display = '';
+      if (losersTable) losersTable.style.display = 'none';
+      if (btnGainers) {
+        btnGainers.classList.add('active');
+        btnGainers.setAttribute('aria-selected', 'true');
+      }
+      if (btnLosers) {
+        btnLosers.classList.remove('active');
+        btnLosers.setAttribute('aria-selected', 'false');
+      }
+    } else {
+      if (gainersTable) gainersTable.style.display = 'none';
+      if (losersTable) losersTable.style.display = '';
+      if (btnGainers) {
+        btnGainers.classList.remove('active');
+        btnGainers.setAttribute('aria-selected', 'false');
+      }
+      if (btnLosers) {
+        btnLosers.classList.add('active');
+        btnLosers.setAttribute('aria-selected', 'true');
+      }
+    }
+  };
+
+  function renderFig1TrendingTable() {
+    return `
+      <div class="movers-panel-card" id="market-movers-section">
+        <div class="movers-panel-header">
+          <div class="movers-title-wrap">
+            <h2 class="fig1-panel-title" style="margin:0;">🏆 Top Gainers &amp; Market Movers</h2>
+            <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers Filter">
+              <button type="button" class="movers-tab-btn active" id="tab-btn-gainers" onclick="window.switchMoversTab('gainers')" role="tab" aria-selected="true" aria-controls="movers-table-gainers">
+                <span class="movers-tab-dot green"></span> Top Gainers
+              </button>
+              <button type="button" class="movers-tab-btn" id="tab-btn-losers" onclick="window.switchMoversTab('losers')" role="tab" aria-selected="false" aria-controls="movers-table-losers">
+                <span class="movers-tab-dot red"></span> Top Losers
+              </button>
+            </div>
           </div>
           <div style="display:flex; align-items:center; gap:12px;">
-            <div class="widget-source-tag">Groww, Tapetide &amp; Exchange Synced</div>
+            <div class="widget-source-tag">Groww &amp; Tapetide Synced</div>
             <a href="#/listed" class="fig1-header-link">View All &rarr;</a>
           </div>
         </div>
-        <div class="fig1-table-responsive">
-          <table class="fig1-trending-table">
+
+        <!-- Top Gainers Table (Active by Default) -->
+        <div class="movers-table-wrap" id="movers-table-gainers" role="tabpanel" aria-labelledby="tab-btn-gainers">
+          <table class="movers-table">
             <thead>
               <tr>
-                <th>COMPANY</th>
-                <th>ISSUE PRICE</th>
-                <th>CURRENT / EST.</th>
-                <th>PROFIT GAIN</th>
-                <th>SUBSCRIPTION</th>
-                <th>TREND</th>
+                <th class="th-company">Company</th>
+                <th class="th-price">Market price (1D)</th>
+                <th class="th-volume">Volume</th>
               </tr>
             </thead>
             <tbody>
-              ${profitableList.map(item => `
-                <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${item.slug}'">
+              ${marketGainers.map(item => `
+                <tr>
                   <td>
-                    <div class="fig1-company-cell">
-                      <div class="fig1-avatar ${item.avatarClass}">${item.initials}</div>
-                      <div class="fig1-company-name-wrap">
-                        <span class="fig1-company-name">${item.name}</span>
-                        <span class="fig1-sub-tag listed" style="background:${item.status === 'Open Now' ? '#DCFCE7' : item.status === 'Upcoming' ? '#EFF6FF' : '#F1F5F9'}; color:${item.status === 'Open Now' ? '#15803D' : item.status === 'Upcoming' ? '#1D4ED8' : '#334155'};">${item.status}</span>
+                    <div class="movers-company-cell">
+                      <div class="movers-logo-box">
+                        <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                      </div>
+                      <span class="movers-company-name">${item.name}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="movers-price-cell">
+                      <div class="movers-sparkline-wrap">
+                        ${renderMoversSparkline(item.trend, '#00B386', 110, 30)}
+                      </div>
+                      <div class="movers-price-block">
+                        <div class="movers-cmp">${item.price}</div>
+                        <div class="movers-change gain">${item.change}</div>
                       </div>
                     </div>
                   </td>
-                  <td><span class="fig1-val-price">${item.issuePrice}</span></td>
-                  <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${item.currentPrice}</span></td>
+                  <td class="movers-volume-cell">${item.volume}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Top Losers Table (Toggled via tab) -->
+        <div class="movers-table-wrap" id="movers-table-losers" role="tabpanel" aria-labelledby="tab-btn-losers" style="display:none;">
+          <table class="movers-table">
+            <thead>
+              <tr>
+                <th class="th-company">Company</th>
+                <th class="th-price">Market price (1D)</th>
+                <th class="th-volume">Volume</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${marketLosers.map(item => `
+                <tr>
                   <td>
-                    <span class="fig1-return-tag positive">
-                      ${item.profitGain}
-                    </span>
+                    <div class="movers-company-cell">
+                      <div class="movers-logo-box">
+                        <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                      </div>
+                      <span class="movers-company-name">${item.name}</span>
+                    </div>
                   </td>
-                  <td><span class="fig1-sub-pill" ${item.subStyle || ''}>${item.sub}</span></td>
                   <td>
-                    ${renderSparklineSvg(item.trend, 58, 22, "#10B981")}
+                    <div class="movers-price-cell">
+                      <div class="movers-sparkline-wrap">
+                        ${renderMoversSparkline(item.trend, '#EB5B3C', 110, 30)}
+                      </div>
+                      <div class="movers-price-block">
+                        <div class="movers-cmp">${item.price}</div>
+                        <div class="movers-change loss">${item.change}</div>
+                      </div>
+                    </div>
                   </td>
+                  <td class="movers-volume-cell">${item.volume}</td>
                 </tr>
               `).join("")}
             </tbody>
