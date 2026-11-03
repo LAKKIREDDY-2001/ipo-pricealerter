@@ -1255,10 +1255,12 @@
                 const priceText = item.priceBandLow && item.priceBandHigh 
                   ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
                   : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
-                const gmpText = item.gmp ? `+₹${item.gmp}` : '—';
-                const gmpPct = item.gmpPercentage ? `(${item.gmpPercentage}%)` : '';
-                const estListing = item.gmp && (item.priceBandHigh || item.issuePrice) 
-                  ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp) 
+                const gmpText = (item.gmp !== null && item.gmp !== undefined)
+                  ? (item.gmp > 0 ? `+₹${item.gmp}` : `₹${item.gmp}`) 
+                  : '—';
+                const gmpPct = (item.gmpPercentage !== null && item.gmpPercentage !== undefined) ? `(${item.gmpPercentage}%)` : '';
+                const estListing = (item.priceBandHigh || item.issuePrice) 
+                  ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp || 0) 
                   : null;
                 const minInvFormatted = item.minimumInvestment 
                   ? `₹${Number(item.minimumInvestment).toLocaleString('en-IN')}` 
@@ -1348,10 +1350,12 @@
             const priceText = item.priceBandLow && item.priceBandHigh 
               ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
               : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
-            const gmpText = item.gmp ? `+₹${item.gmp}` : '—';
-            const gmpPct = item.gmpPercentage ? `(${item.gmpPercentage}%)` : '';
-            const estListing = item.gmp && (item.priceBandHigh || item.issuePrice) 
-              ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp) 
+            const gmpText = (item.gmp !== null && item.gmp !== undefined)
+              ? (item.gmp > 0 ? `+₹${item.gmp}` : `₹${item.gmp}`) 
+              : '—';
+            const gmpPct = (item.gmpPercentage !== null && item.gmpPercentage !== undefined) ? `(${item.gmpPercentage}%)` : '';
+            const estListing = (item.priceBandHigh || item.issuePrice) 
+              ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp || 0) 
               : null;
             const minInvFormatted = item.minimumInvestment 
               ? `₹${Number(item.minimumInvestment).toLocaleString('en-IN')}` 

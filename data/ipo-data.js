@@ -8,8 +8,8 @@ window.IpoData = {
   "updatedAt": "2026-11-15T18:00:00+05:30",
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
-    "openCount": 5,
-    "closedCount": 7,
+    "openCount": 6,
+    "closedCount": 6,
     "upcomingCount": 25,
     "listedCount": 167
   },
@@ -153,97 +153,150 @@ window.IpoData = {
       "companyName": "Antala Industries Limited",
       "shortName": "Antala Industries",
       "initials": "AI",
-      "logoColor": "#10B981",
-      "iconType": "polymer",
-      "status": "CLOSED",
+      "logoColor": "#0284C7",
+      "iconType": "packaging",
+      "status": "OPEN",
       "board": "SME",
       "exchange": "BSE SME",
-      "sector": "Packaging & Polymers",
-      "issueType": "BSE SME",
-      "priceBandLow": 63,
-      "priceBandHigh": 67,
+      "sector": "Plastic Packaging & BOPP Bags",
+      "issueType": "BSE SME Book Built Issue (100% Fresh Issue)",
+      "priceBandLow": 62,
+      "priceBandHigh": 66,
+      "issuePrice": 66,
       "lotSize": 2000,
+      "retailMinLot": 1,
+      "retailMinShares": 2000,
+      "minimumInvestment": 132000,
       "issueSizeCr": 23.33,
-      "minimumInvestment": 134000,
+      "freshIssueCr": 21.82,
+      "ofsCr": 0,
       "faceValue": 10,
-      "registrar": "Bigshare Services Pvt Ltd",
+      "marketCapCr": 80.23,
+      "promoterHoldingPre": 72.92,
+      "isin": "INE15Z101013",
+      "cin": "U22208GJ2024PLC154065",
+      "leadManager": "Vatsa Capital Venture Pvt. Ltd.",
+      "marketMaker": "BSE SME Market Maker",
+      "registrar": "Bigshare Services Pvt. Ltd.",
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
-      "docUrl": "https://www.bseindia.com/corporates/download/321860/DRHP.pdf",
       "openDate": "2026-10-29",
-      "closeDate": "2026-11-02",
-      "allotDate": "2026-11-03",
-      "allotmentDate": "2026-11-03",
-      "refundDate": "2026-11-04",
-      "dematDate": "2026-11-04",
-      "listingDate": "2026-11-05",
-      "expectedListingPrice": 68,
-      "estProfitPerLot": 2000,
-      "gmp": 1,
-      "gmpPercentage": 1.49,
-      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
-      "dayHighGmp": 4,
+      "closeDate": "2026-11-05",
+      "allotDate": "2026-11-06",
+      "allotmentDate": "2026-11-06",
+      "refundDate": "2026-11-09",
+      "dematDate": "2026-11-09",
+      "listingDate": "2026-11-11",
+      "expectedListingPrice": 66,
+      "estProfitPerLot": 0,
+      "gmp": 0,
+      "gmpPercentage": 0.00,
+      "gmpUpdatedAt": "2026-11-03T18:21:00+05:30",
+      "dayHighGmp": 0,
       "dayLowGmp": 0,
-      "trend": "flat",
+      "trend": "neutral",
       "gmpHistory": [
-        {
-          "date": "29 Oct",
-          "value": 0
-        },
-        {
-          "date": "30 Oct",
-          "value": 0
-        },
-        {
-          "date": "31 Oct",
-          "value": 0
-        },
-        {
-          "date": "01 Nov",
-          "value": 1
-        }
+        { "date": "27 Oct", "value": 0 },
+        { "date": "28 Oct", "value": 0 },
+        { "date": "29 Oct", "value": 0 },
+        { "date": "30 Oct", "value": 0 },
+        { "date": "31 Oct", "value": 0 },
+        { "date": "01 Nov", "value": 0 },
+        { "date": "02 Nov", "value": 0 },
+        { "date": "03 Nov", "value": 0 }
       ],
-      "subscriptionTotal": 0.88,
+      "subscriptionTotal": 1.33,
+      "subscriptionOverall": 1.33,
+      "subscriptionRetail": 0.50,
       "subscriptionSummary": {
-        "qib": 1.25,
-        "nii": 0.45,
-        "retail": 0.65,
-        "total": 0.81
+        "qib": 67.00,
+        "nii": 1.35,
+        "bNii": 1.80,
+        "sNii": 0.44,
+        "retail": 0.50,
+        "total": 1.33
+      },
+      "bidsReceived": {
+        "qibSharesOffered": 36000,
+        "niiSharesOffered": 510000,
+        "niiSharesBid": 690000,
+        "bNiiTimes": 1.80,
+        "sNiiTimes": 0.44,
+        "retailSharesOffered": 2760000,
+        "totalSharesOffered": 3306000,
+        "totalSharesBid": 4388000,
+        "totalBidsValueCr": 28.96
       },
       "financials": [
         {
           "year": "FY 2024",
-          "revenue": 54,
-          "profit": 3.8
+          "revenue": 12.59,
+          "profit": 0.89,
+          "assets": 5.97,
+          "netWorth": 3.54
         },
         {
           "year": "FY 2025",
-          "revenue": 72,
-          "profit": 5.4
+          "revenue": 25.13,
+          "profit": 1.50,
+          "assets": 15.95,
+          "netWorth": 8.44
         },
         {
           "year": "FY 2026",
-          "revenue": 94,
-          "profit": 7.9
+          "revenue": 47.53,
+          "profit": 4.24,
+          "assets": 28.41,
+          "netWorth": 17.03
         }
       ],
       "ratios": {
-        "pe": 12.4,
-        "ronw": "18.5%",
-        "eps": "₹5.40",
-        "marketCap": "₹88 Cr"
+        "pe": 9.58,
+        "prePe": 13.52,
+        "ronw": "24.88%",
+        "roce": "36.00%",
+        "eps": "₹6.89",
+        "preEps": "₹4.88",
+        "debtEquity": "0.25",
+        "pb": 3.19,
+        "nav": "₹20.67",
+        "patMargin": "8.92%",
+        "ebitdaMargin": "12.97%",
+        "marketCap": "₹80.23 Cr"
       },
-      "about": "Antala Industries manufactures BOPP laminated bags and industrial woven sacks for agrochemical, fertilizer, and FMCG sectors.",
+      "objects": [
+        "To Meet Incremental Working Capital Requirements: ₹10.68 Cr",
+        "Purchase & Installation of Machinery / Capex: ₹5.89 Cr",
+        "General Corporate Purposes"
+      ],
+      "management": [
+        { "name": "Rajeshkumar Chandulal Antala", "role": "Managing Director & Promoter" },
+        { "name": "Pankajkumar Chandulal Antala", "role": "Chief Operating Officer & Promoter" },
+        { "name": "Lataben Rajeshbhai Antala", "role": "Director & Promoter" },
+        { "name": "Hetalben Pankajkumar Antala", "role": "Director & Promoter" }
+      ],
+      "peers": [
+        { "name": "Knack Packaging Ltd", "pe": 24.62, "pb": 6.83, "ronw": "34.41%" },
+        { "name": "Dhaval Packaging Ltd", "pe": 18.50, "pb": 3.60, "ronw": "31.58%" }
+      ],
+      "about": "Antala Industries Limited (originally formed as M/s Octagon Industries in 2021) is a Gujarat-based packaging company manufacturing high-grade BOPP bags and PP woven bags for agriculture, fertilizers, chemicals, cement, and food processing industries. Production takes place at an integrated manufacturing facility in Rajkot, Gujarat featuring rotogravure printing, extrusion lamination, and automated cutting-stitching machinery.",
       "analystRating": {
-        "applyPercent": 74,
-        "neutralPercent": 20,
-        "avoidPercent": 6,
-        "consensus": "Apply (BSE SME)"
+        "applyPercent": 65,
+        "neutralPercent": 25,
+        "avoidPercent": 10,
+        "consensus": "Neutral to Apply (Low P/E 9.58x, 36% ROCE)"
       },
+      "docUrl": "https://docs.tapetide.com/docs/3bd1dc1d4bc73fd7122633b1fe5cdb4a77694e35ffe217a7b038853fddb0f505.pdf",
       "documents": [
         {
-          "title": "Offer Document (BSE SME)",
-          "size": "3.4 MB",
-          "type": "PDF"
+          "title": "Red Herring Prospectus (RHP)",
+          "size": "6.1 MB",
+          "type": "PDF",
+          "url": "https://docs.tapetide.com/docs/3bd1dc1d4bc73fd7122633b1fe5cdb4a77694e35ffe217a7b038853fddb0f505.pdf"
+        },
+        {
+          "title": "Bigshare Services Official Registrar",
+          "type": "LINK",
+          "url": "https://www.bigshareonline.com/ipo_Allotment.html"
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AntalaIndustriesLtd_76186824_97526.png"
@@ -8747,12 +8800,6 @@ window.IpoData = {
         "text": "Mainboard Closes (5 PM)"
       },
       {
-        "id": "antala-industries",
-        "name": "Antala Industries",
-        "type": "CLOSE",
-        "text": "BSE SME Closes"
-      },
-      {
         "id": "mksons-fine-jewels",
         "name": "M.K. Sons Jewels",
         "type": "ALLOTMENT",
@@ -8827,11 +8874,17 @@ window.IpoData = {
       {
         "id": "antala-industries",
         "name": "Antala Industries",
-        "type": "LISTING",
-        "text": "Listing on BSE SME"
+        "type": "CLOSE",
+        "text": "BSE SME Closes (5 PM)"
       }
     ],
     "2026-11-06": [
+      {
+        "id": "antala-industries",
+        "name": "Antala Industries",
+        "type": "ALLOTMENT",
+        "text": "Basis of Allotment"
+      },
       {
         "id": "vectras-enprocon",
         "name": "Vectras Enprocon",
@@ -8863,6 +8916,14 @@ window.IpoData = {
         "name": "Vedant Poly Fabs",
         "type": "LISTING",
         "text": "Listing on NSE SME"
+      }
+    ],
+    "2026-11-11": [
+      {
+        "id": "antala-industries",
+        "name": "Antala Industries",
+        "type": "LISTING",
+        "text": "Listing on BSE SME"
       }
     ]
   },
@@ -8921,11 +8982,11 @@ window.IpoData = {
       "id": "notif-antala",
       "slug": "antala-industries-ipo",
       "title": "Antala Industries Ltd (BSE SME)",
-      "tag": "CLOSED",
-      "tagClass": "tag-closed",
-      "pinned": false,
-      "description": "BSE SME polymer & packaging issue closed on Nov 2. Allotment verification on Bigshare Services registrar.",
-      "time": "Bidding Closed • Allotment Nov 3 • BSE SME"
+      "tag": "⚡ LIVE BIDDING",
+      "tagClass": "tag-pinned",
+      "pinned": true,
+      "description": "BSE SME packaging issue open. Price band ₹62–₹66, lot size 2,000 (Min ₹1,32,000). QIB 67.00x, Total Sub 1.33x. Closes Nov 5.",
+      "time": "Active Bidding • Closes Nov 5 • BSE SME"
     },
     {
       "id": "notif-vedant-poly-fabs",
