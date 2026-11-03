@@ -4952,7 +4952,7 @@
             </div>
 
             <div style="display:flex; align-items:center; gap:16px; text-align:right;">
-              <div style="display:none; @media(min-width:600px){display:block;}">
+              <div class="search-desktop-meta">
                 <div style="font-size:12.5px; font-weight:700; color:#111827;">${priceText}</div>
                 <div style="font-size:11px; color:#64748B;">Lot: ${r.lotSize ? r.lotSize + ' sh' : '—'} (${minInv})</div>
               </div>
