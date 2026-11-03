@@ -10,6 +10,22 @@
   const dataset = window.IpoData || { records: [], stats: {}, calendarEvents: {}, alertsFeed: [] };
   const records = dataset.records || [];
 
+  // Fast normalized name-to-logo map for exchange-wide logo resolution
+  function cleanCompanyName(str) {
+    return (str || "").toLowerCase()
+      .replace(/limited|ltd|ipo|\.|\,|\-|\&|\band\b|\(\w+\)/gi, "")
+      .replace(/\s+/g, "")
+      .trim();
+  }
+  const ipoLogoMap = new Map();
+  records.forEach(r => {
+    if (r.logoUrl) {
+      if (r.shortName) ipoLogoMap.set(cleanCompanyName(r.shortName), r.logoUrl);
+      if (r.companyName) ipoLogoMap.set(cleanCompanyName(r.companyName), r.logoUrl);
+      if (r.slug) ipoLogoMap.set(r.slug.replace(/-ipo(-\d+)?$/i, ""), r.logoUrl);
+    }
+  });
+
   // Application State
   const state = {
     route: parseRoute(),
@@ -138,32 +154,97 @@
       .replace(/'/g, "&#39;");
   }
 
+  const AVATAR_PALETTES = [
+    "linear-gradient(135deg, #1E40AF 0%, #1D4ED8 100%)", // Cobalt
+    "linear-gradient(135deg, #0F766E 0%, #0D9488 100%)", // Deep Teal
+    "linear-gradient(135deg, #7C2D12 0%, #C2410C 100%)", // Copper Amber
+    "linear-gradient(135deg, #581C87 0%, #7E22CE 100%)", // Royal Purple
+    "linear-gradient(135deg, #065F46 0%, #059669 100%)", // Emerald
+    "linear-gradient(135deg, #991B1B 0%, #DC2626 100%)", // Crimson
+    "linear-gradient(135deg, #1E293B 0%, #334155 100%)", // Slate Steel
+    "linear-gradient(135deg, #831843 0%, #BE185D 100%)", // Rose
+    "linear-gradient(135deg, #164E63 0%, #0891B2 100%)", // Deep Cyan
+    "linear-gradient(135deg, #3730A3 0%, #4F46E5 100%)", // Indigo
+    "linear-gradient(135deg, #78350F 0%, #B45309 100%)", // Bronze
+    "linear-gradient(135deg, #14532D 0%, #16A34A 100%)"  // Forest Green
+  ];
+
+  function getCompanyInitials(name) {
+    if (!name) return "CO";
+    const clean = name.replace(/^the\s+/i, "")
+                      .replace(/limited|ltd|corp|corporation|holdings|india|industries|\(.*\)/gi, "")
+                      .trim();
+    const words = clean.split(/\s+/).filter(Boolean);
+    if (words.length >= 2) {
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+    return clean.slice(0, 2).toUpperCase() || "CO";
+  }
+
+  function getAvatarGradient(name) {
+    if (!name) return AVATAR_PALETTES[0];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const idx = Math.abs(hash) % AVATAR_PALETTES.length;
+    return AVATAR_PALETTES[idx];
+  }
+
   function renderCompanyLogo(ipo, size = 44) {
     if (!ipo) {
-      return `<div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:#2563EB;">IP</div>`;
+      return `<div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:#2563EB; color:#FFF;">IP</div>`;
     }
-    const bg = ipo.logoColor || "#2563EB";
-    const initials = ipo.initials || (ipo.shortName ? ipo.shortName.substring(0, 2).toUpperCase() : "IP");
-    const name = escapeAttr(ipo.shortName || ipo.companyName || "Company");
-    const fontSize = Math.max(10, Math.round(size * 0.38));
+    const name = ipo.shortName || ipo.companyName || ipo.name || "Company";
+    const initials = ipo.initials || getCompanyInitials(name);
+    const fontSize = Math.max(10, Math.round(size * 0.36));
     const borderRadius = size > 40 ? 10 : 8;
+    const gradient = ipo.logoColor || getAvatarGradient(name);
 
-    if (ipo.logoUrl) {
+    let logoUrl = ipo.logoUrl || null;
+    if (!logoUrl) {
+      const cleanKey = cleanCompanyName(name);
+      if (ipoLogoMap.has(cleanKey)) {
+        logoUrl = ipoLogoMap.get(cleanKey);
+      } else if (ipo.slug) {
+        const cleanSlug = ipo.slug.replace(/-ipo(-\d+)?$/i, "");
+        if (ipoLogoMap.has(cleanSlug)) {
+          logoUrl = ipoLogoMap.get(cleanSlug);
+        }
+      }
+    }
+
+    const isBBTC = (name.includes("Bombay Burmah") || (ipo.slug && ipo.slug.includes("bombay-burmah"))) || ipo.symbol === "500020" || ipo.bseCode === "500020";
+
+    if (logoUrl) {
       return `
-        <div class="company-logo-img-wrap" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px;">
-          <img src="${ipo.logoUrl}" alt="${name} Logo" width="${size}" height="${size}" loading="lazy" decoding="async" class="company-logo-img"
-               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
-          <div class="company-avatar-box fallback-avatar" style="display:none; width:100%; height:100%; background:${bg}; font-size:${fontSize}px; border-radius:${borderRadius}px;">
+        <div class="company-logo-img-wrap" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; background:#FFFFFF; border:1px solid #E2E8F0; flex-shrink:0;">
+          <img src="${logoUrl}" alt="${escapeAttr(name)} Logo" width="${size}" height="${size}" loading="lazy" decoding="async" class="company-logo-img" style="width:100%; height:100%; object-fit:contain; padding:2px;"
+               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">
+          <div class="company-avatar-box fallback-avatar" style="display:none; width:100%; height:100%; background:${gradient}; color:#FFFFFF; font-weight:800; font-size:${fontSize}px; border-radius:${borderRadius}px; align-items:center; justify-content:center; text-shadow:0 1px 2px rgba(0,0,0,0.35);">
             ${initials}
           </div>
         </div>
       `;
     }
+
+    if (isBBTC) {
+      return `
+        <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px; background:linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color:#FDE047; font-weight:900; font-size:${fontSize}px; display:inline-flex; align-items:center; justify-content:center; text-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0; border:1.5px solid #F59E0B; box-shadow:0 0 8px rgba(245, 158, 11, 0.35);" title="1st Stock in BSE History (1875)">
+          BB
+        </div>
+      `;
+    }
+
     return `
-      <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:${bg}; font-size:${fontSize}px; border-radius:${borderRadius}px;">
+      <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:${gradient}; color:#FFFFFF; font-weight:800; font-size:${fontSize}px; border-radius:${borderRadius}px; display:inline-flex; align-items:center; justify-content:center; text-shadow:0 1px 2px rgba(0,0,0,0.35); flex-shrink:0; border:1px solid rgba(0,0,0,0.08); ${ipo.isHistoric ? 'border:1.5px solid #F59E0B;' : ''}">
         ${initials}
       </div>
     `;
+  }
+
+  function getListedCompanyLogo(r, size = 36) {
+    return renderCompanyLogo(r, size);
   }
 
   function initAdSense() {
@@ -3280,27 +3361,111 @@
   // ==========================================================================
   // Dedicated Open IPOs Page (#/open)
   // ==========================================================================
+  function getFilteredOpenIssues() {
+    let openIssues = records.filter(r => r.status === "OPEN");
+
+    if (state.openBoard === "mainboard") {
+      openIssues = openIssues.filter(r => (r.board || "").toUpperCase() === "MAINBOARD");
+    } else if (state.openBoard === "sme") {
+      openIssues = openIssues.filter(r => (r.board || "").toUpperCase().includes("SME"));
+    }
+
+    if (state.openSearchQuery) {
+      const q = state.openSearchQuery.toLowerCase().trim();
+      openIssues = openIssues.filter(r => 
+        (r.name && r.name.toLowerCase().includes(q)) || 
+        (r.companyName && r.companyName.toLowerCase().includes(q)) ||
+        (r.shortName && r.shortName.toLowerCase().includes(q)) ||
+        (r.sector && r.sector.toLowerCase().includes(q)) ||
+        (r.symbol && r.symbol.toLowerCase().includes(q))
+      );
+    }
+    return openIssues;
+  }
+
+  function renderOpenRows(openIssues) {
+    if (openIssues.length === 0) {
+      return `<tr><td colspan="9" style="text-align:center; padding:32px; color:#64748B;">No open IPOs match your filter criteria. Try clearing the search query.</td></tr>`;
+    }
+    return openIssues.map(r => {
+      const priceText = r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA');
+      const gmpText = r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—';
+      const subText = r.subscriptionOverall ? `${r.subscriptionOverall}x` : (r.subscriptionRetail ? `${r.subscriptionRetail}x` : 'Open');
+      return `
+        <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
+          <td>
+            <div class="fig1-company-cell">
+              ${renderCompanyLogo(r, 36)}
+              <div class="fig1-company-name-wrap">
+                <span class="fig1-company-name">${escapeHtml(r.shortName)}</span>
+                <span style="font-size:11px; color:#64748B;">${escapeHtml(r.sector || 'Industrial')}</span>
+              </div>
+            </div>
+          </td>
+          <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${escapeHtml(r.board || 'MAINBOARD')}</span></td>
+          <td>
+            <div style="font-size:12.5px; font-weight:600; color:#111827;">${formatDate(r.openDate)}</div>
+            <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: ${formatDate(r.closeDate)}</div>
+          </td>
+          <td><span style="font-weight:700; color:#111827;">${priceText}</span></td>
+          <td><span style="font-weight:600;">${r.lotSize ? r.lotSize + ' shares' : '—'}</span></td>
+          <td><span style="font-weight:600;">${formatCrore(r.issueSizeCr)}</span></td>
+          <td><span style="color:#16A34A; font-weight:700;">${gmpText}</span></td>
+          <td><span class="fig1-sub-pill">${subText}</span></td>
+          <td>
+            <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
+              <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">Details</button>
+              ${r.allotmentUrl ? `<a href="${r.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment" title="Registrar">Registrar</a>` : ''}
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderOpenCards(openIssues) {
+    if (openIssues.length === 0) {
+      return `<div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px;">No open IPOs match your filter criteria.</div>`;
+    }
+    return openIssues.map(r => `
+      <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            ${renderCompanyLogo(r, 40)}
+            <div>
+              <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${escapeHtml(r.shortName)}</h3>
+              <span style="font-size:11px; color:#64748B;">${escapeHtml(r.board)} • ${escapeHtml(r.exchange)}</span>
+            </div>
+          </div>
+          <span class="status-badge open">Open</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
+          <div><span style="color:#64748B;">Price Band:</span> <strong style="display:block; color:#111827;">${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow}–${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA')}</strong></div>
+          <div><span style="color:#64748B;">Lot Size:</span> <strong style="display:block; color:#111827;">${r.lotSize ? r.lotSize + ' shares' : '—'}</strong></div>
+          <div><span style="color:#64748B;">Closes:</span> <strong style="display:block; color:#DC2626;">${formatDate(r.closeDate)}</strong></div>
+          <div><span style="color:#64748B;">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Complete Details</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function updateOpenIposDomInPlace() {
+    const tableBody = document.getElementById("open-ipos-table-body");
+    const cardsBody = document.getElementById("open-ipos-mobile-cards");
+    if (!tableBody || !cardsBody) return;
+    const issues = getFilteredOpenIssues();
+    tableBody.innerHTML = renderOpenRows(issues);
+    cardsBody.innerHTML = renderOpenCards(issues);
+  }
+
   function renderOpenIposPage() {
     const app = document.getElementById("app");
     if (!app) return;
 
-    let openIssues = records.filter(r => r.status === "OPEN");
-
-    if (state.openBoard === "mainboard") {
-      openIssues = openIssues.filter(r => r.board === "MAINBOARD");
-    } else if (state.openBoard === "sme") {
-      openIssues = openIssues.filter(r => r.board === "SME");
-    }
-
-    if (state.openSearchQuery) {
-      const q = state.openSearchQuery.toLowerCase();
-      openIssues = openIssues.filter(r => 
-        (r.name && r.name.toLowerCase().includes(q)) || 
-        (r.shortName && r.shortName.toLowerCase().includes(q)) ||
-        (r.sector && r.sector.toLowerCase().includes(q))
-      );
-    }
-
+    const openIssues = getFilteredOpenIssues();
     const allOpenCount = records.filter(r => r.status === "OPEN").length;
     const mbOpenCount = records.filter(r => r.status === "OPEN" && r.board === "MAINBOARD").length;
     const smeOpenCount = records.filter(r => r.status === "OPEN" && r.board === "SME").length;
@@ -3335,6 +3500,7 @@
 
           <div style="position:relative; width:260px; max-width:100%;">
             <input type="text" 
+                   id="open-search-input"
                    class="fig1-subscribe-input" 
                    style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
                    placeholder="Search open issues..." 
@@ -3362,72 +3528,15 @@
                 <th>ACTIONS</th>
               </tr>
             </thead>
-            <tbody>
-              ${openIssues.length === 0 ? `
-                <tr><td colspan="9" style="text-align:center; padding:32px; color:#64748B;">No open IPOs match your filter criteria.</td></tr>
-              ` : openIssues.map(r => {
-                const priceText = r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA');
-                const gmpText = r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—';
-                const subText = r.subscriptionOverall ? `${r.subscriptionOverall}x` : (r.subscriptionRetail ? `${r.subscriptionRetail}x` : 'Open');
-                return `
-                  <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
-                    <td>
-                      <div class="fig1-company-cell">
-                        ${renderCompanyLogo(r, 36)}
-                        <div class="fig1-company-name-wrap">
-                          <span class="fig1-company-name">${r.shortName}</span>
-                          <span style="font-size:11px; color:#64748B;">${r.sector || 'Industrial'}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${r.board || 'MAINBOARD'}</span></td>
-                    <td>
-                      <div style="font-size:12.5px; font-weight:600; color:#111827;">${formatDate(r.openDate)}</div>
-                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: ${formatDate(r.closeDate)}</div>
-                    </td>
-                    <td><span style="font-weight:700; color:#111827;">${priceText}</span></td>
-                    <td><span style="font-weight:600;">${r.lotSize ? r.lotSize + ' shares' : '—'}</span></td>
-                    <td><span style="font-weight:600;">${formatCrore(r.issueSizeCr)}</span></td>
-                    <td><span style="color:#16A34A; font-weight:700;">${gmpText}</span></td>
-                    <td><span class="fig1-sub-pill">${subText}</span></td>
-                    <td>
-                      <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
-                        <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">Details</button>
-                        ${r.allotmentUrl ? `<a href="${r.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment" title="Registrar">Registrar</a>` : ''}
-                      </div>
-                    </td>
-                  </tr>
-                `;
-              }).join("")}
+            <tbody id="open-ipos-table-body">
+              ${renderOpenRows(openIssues)}
             </tbody>
           </table>
         </div>
 
         <!-- Mobile Card View -->
-        <div class="mobile-only-cards" style="display:none;">
-          ${openIssues.map(r => `
-            <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                  ${renderCompanyLogo(r, 40)}
-                  <div>
-                    <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${r.shortName}</h3>
-                    <span style="font-size:11px; color:#64748B;">${r.board} • ${r.exchange}</span>
-                  </div>
-                </div>
-                <span class="status-badge open">Open</span>
-              </div>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
-                <div><span style="color:#64748B;">Price Band:</span> <strong style="display:block; color:#111827;">${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow}–${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA')}</strong></div>
-                <div><span style="color:#64748B;">Lot Size:</span> <strong style="display:block; color:#111827;">${r.lotSize ? r.lotSize + ' shares' : '—'}</strong></div>
-                <div><span style="color:#64748B;">Closes:</span> <strong style="display:block; color:#DC2626;">${formatDate(r.closeDate)}</strong></div>
-                <div><span style="color:#64748B;">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Complete Details</button>
-              </div>
-            </div>
-          `).join("")}
+        <div class="mobile-only-cards" id="open-ipos-mobile-cards">
+          ${renderOpenCards(openIssues)}
         </div>
 
         <!-- Regulatory Notice -->
@@ -3441,33 +3550,124 @@
   // ==========================================================================
   // Dedicated Upcoming IPOs Page (#/upcoming)
   // ==========================================================================
-  function renderUpcomingIposPage() {
-    const app = document.getElementById("app");
-    if (!app) return;
-
+  function getFilteredUpcomingIssues() {
     let upcomingRecords = records.filter(r => r.status === "UPCOMING");
 
     if (state.upcomingBoard === "mainboard") {
-      upcomingRecords = upcomingRecords.filter(r => r.board === "MAINBOARD");
+      upcomingRecords = upcomingRecords.filter(r => (r.board || "").toUpperCase() === "MAINBOARD");
     } else if (state.upcomingBoard === "sme") {
-      upcomingRecords = upcomingRecords.filter(r => r.board === "SME");
+      upcomingRecords = upcomingRecords.filter(r => (r.board || "").toUpperCase().includes("SME"));
     }
 
     if (state.upcomingFilter === "confirmed") {
-      upcomingRecords = upcomingRecords.filter(r => r.openDate);
+      upcomingRecords = upcomingRecords.filter(r => Boolean(r.openDate));
     } else if (state.upcomingFilter === "tentative") {
       upcomingRecords = upcomingRecords.filter(r => !r.openDate);
     }
 
     if (state.upcomingSearchQuery) {
-      const q = state.upcomingSearchQuery.toLowerCase();
+      const q = state.upcomingSearchQuery.toLowerCase().trim();
       upcomingRecords = upcomingRecords.filter(r => 
         (r.name && r.name.toLowerCase().includes(q)) || 
+        (r.companyName && r.companyName.toLowerCase().includes(q)) ||
         (r.shortName && r.shortName.toLowerCase().includes(q)) ||
-        (r.sector && r.sector.toLowerCase().includes(q))
+        (r.sector && r.sector.toLowerCase().includes(q)) ||
+        (r.symbol && r.symbol.toLowerCase().includes(q))
       );
     }
+    return upcomingRecords;
+  }
 
+  function renderUpcomingRows(upcomingRecords) {
+    if (upcomingRecords.length === 0) {
+      return `<tr><td colspan="8" style="text-align:center; padding:32px; color:#64748B;">No upcoming IPOs found matching this query. Try clearing the search query.</td></tr>`;
+    }
+    return upcomingRecords.map(r => {
+      const isConfirmed = Boolean(r.openDate);
+      return `
+        <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
+          <td>
+            <div class="fig1-company-cell">
+              ${renderCompanyLogo(r, 36)}
+              <div class="fig1-company-name-wrap">
+                <span class="fig1-company-name">${escapeHtml(r.shortName)}</span>
+                <span style="font-size:11px; color:#64748B;">${escapeHtml(r.exchange || 'BSE / NSE')}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="${isConfirmed ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
+              ${isConfirmed ? 'Dates Confirmed' : 'DRHP / Pipeline'}
+            </span>
+          </td>
+          <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${escapeHtml(r.board || 'MAINBOARD')}</span></td>
+          <td><span style="font-weight:700; color:#111827;">${formatCrore(r.issueSizeCr)}</span></td>
+          <td>
+            <div style="font-weight:600; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative (2026–2027)'}</div>
+          </td>
+          <td><span style="font-size:12px; color:#475569;">${escapeHtml(r.sector || 'Diversified')}</span></td>
+          <td>
+            ${r.docUrl ? `
+              <a href="${r.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" onclick="event.stopPropagation()" style="font-size:11px; padding:4px 8px;">
+                <span>View DRHP</span>
+              </a>
+            ` : `
+              <span style="color:#94A3B8; font-size:11px;">Draft in Review</span>
+            `}
+          </td>
+          <td>
+            <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
+              <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">View Details</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderUpcomingCards(upcomingRecords) {
+    if (upcomingRecords.length === 0) {
+      return `<div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px;">No upcoming IPOs found matching this query.</div>`;
+    }
+    return upcomingRecords.map(r => `
+      <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            ${renderCompanyLogo(r, 40)}
+            <div>
+              <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${escapeHtml(r.shortName)}</h3>
+              <span style="font-size:11px; color:#64748B;">${escapeHtml(r.board)} • ${escapeHtml(r.sector || 'Diversified')}</span>
+            </div>
+          </div>
+          <span class="${r.openDate ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
+            ${r.openDate ? 'Confirmed' : 'Pipeline'}
+          </span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
+          <div><span style="color:#64748B;">Est. Issue Size:</span> <strong style="display:block; color:#111827;">${formatCrore(r.issueSizeCr)}</strong></div>
+          <div><span style="color:#64748B;">Expected Date:</span> <strong style="display:block; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative'}</strong></div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Details &amp; Analysis</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function updateUpcomingIposDomInPlace() {
+    const tableBody = document.getElementById("upcoming-ipos-table-body");
+    const cardsBody = document.getElementById("upcoming-ipos-mobile-cards");
+    if (!tableBody || !cardsBody) return;
+    const recordsList = getFilteredUpcomingIssues();
+    tableBody.innerHTML = renderUpcomingRows(recordsList);
+    cardsBody.innerHTML = renderUpcomingCards(recordsList);
+  }
+
+  function renderUpcomingIposPage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    const upcomingRecords = getFilteredUpcomingIssues();
     const totalUpcoming = records.filter(r => r.status === "UPCOMING").length;
     const confirmedCount = records.filter(r => r.status === "UPCOMING" && r.openDate).length;
     const tentativeCount = records.filter(r => r.status === "UPCOMING" && !r.openDate).length;
@@ -3501,6 +3701,7 @@
 
           <div style="position:relative; width:260px; max-width:100%;">
             <input type="text" 
+                   id="upcoming-search-input"
                    class="fig1-subscribe-input" 
                    style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
                    placeholder="Search upcoming IPOs..." 
@@ -3527,79 +3728,15 @@
                 <th>ACTIONS</th>
               </tr>
             </thead>
-            <tbody>
-              ${upcomingRecords.length === 0 ? `
-                <tr><td colspan="8" style="text-align:center; padding:32px; color:#64748B;">No upcoming IPOs found matching this query.</td></tr>
-              ` : upcomingRecords.map(r => {
-                const isConfirmed = Boolean(r.openDate);
-                return `
-                  <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
-                    <td>
-                      <div class="fig1-company-cell">
-                        ${renderCompanyLogo(r, 36)}
-                        <div class="fig1-company-name-wrap">
-                          <span class="fig1-company-name">${r.shortName}</span>
-                          <span style="font-size:11px; color:#64748B;">${r.exchange || 'BSE / NSE'}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="${isConfirmed ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
-                        ${isConfirmed ? 'Dates Confirmed' : 'DRHP / Pipeline'}
-                      </span>
-                    </td>
-                    <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${r.board || 'MAINBOARD'}</span></td>
-                    <td><span style="font-weight:700; color:#111827;">${formatCrore(r.issueSizeCr)}</span></td>
-                    <td>
-                      <div style="font-weight:600; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative (2026–2027)'}</div>
-                    </td>
-                    <td><span style="font-size:12px; color:#475569;">${r.sector || 'Diversified'}</span></td>
-                    <td>
-                      ${r.docUrl ? `
-                        <a href="${r.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" onclick="event.stopPropagation()" style="font-size:11px; padding:4px 8px;">
-                          <span>View DRHP</span>
-                        </a>
-                      ` : `
-                        <span style="color:#94A3B8; font-size:11px;">Draft in Review</span>
-                      `}
-                    </td>
-                    <td>
-                      <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
-                        <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">View Details</button>
-                      </div>
-                    </td>
-                  </tr>
-                `;
-              }).join("")}
+            <tbody id="upcoming-ipos-table-body">
+              ${renderUpcomingRows(upcomingRecords)}
             </tbody>
           </table>
         </div>
 
         <!-- Mobile Card View -->
-        <div class="mobile-only-cards" style="display:none;">
-          ${upcomingRecords.map(r => `
-            <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                  ${renderCompanyLogo(r, 40)}
-                  <div>
-                    <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${r.shortName}</h3>
-                    <span style="font-size:11px; color:#64748B;">${r.board} • ${r.sector || 'Diversified'}</span>
-                  </div>
-                </div>
-                <span class="${r.openDate ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
-                  ${r.openDate ? 'Confirmed' : 'Pipeline'}
-                </span>
-              </div>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
-                <div><span style="color:#64748B;">Est. Issue Size:</span> <strong style="display:block; color:#111827;">${formatCrore(r.issueSizeCr)}</strong></div>
-                <div><span style="color:#64748B;">Expected Date:</span> <strong style="display:block; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative'}</strong></div>
-              </div>
-              <div style="display:flex; gap:8px; margin-top:8px;">
-                <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Details &amp; Analysis</button>
-              </div>
-            </div>
-          `).join("")}
+        <div class="mobile-only-cards" id="upcoming-ipos-mobile-cards">
+          ${renderUpcomingCards(upcomingRecords)}
         </div>
 
         <!-- Pipeline Editorial Overview -->
@@ -3618,9 +3755,105 @@
 
   // Dedicated Pages: GMP Tracker, Calendar, Listed
   // ==========================================================================
+  function getFilteredGmpIssues() {
+    let list = [...records];
+    if (state.gmpFilter === "open") {
+      list = list.filter(r => r.status === "OPEN");
+    } else if (state.gmpFilter === "bullish") {
+      list = list.filter(r => r.gmp != null && Number(r.gmp) > 0);
+    }
+
+    if (state.gmpSearchQuery) {
+      const q = state.gmpSearchQuery.toLowerCase().trim();
+      list = list.filter(r => 
+        (r.name && r.name.toLowerCase().includes(q)) || 
+        (r.companyName && r.companyName.toLowerCase().includes(q)) ||
+        (r.shortName && r.shortName.toLowerCase().includes(q)) ||
+        (r.sector && r.sector.toLowerCase().includes(q)) ||
+        (r.symbol && r.symbol.toLowerCase().includes(q))
+      );
+    }
+
+    list.sort((a, b) => {
+      const getLatestDate = (item) => {
+        const dStr = item.closeDate || item.openDate || item.listingDate || item.allotmentDate;
+        return dStr ? new Date(dStr).getTime() : 0;
+      };
+      return getLatestDate(b) - getLatestDate(a); // Newest date first, oldest date last
+    });
+
+    return list;
+  }
+
+  function renderGmpRows(gmpList) {
+    if (gmpList.length === 0) {
+      return `<tr><td colspan="8" style="text-align:center; padding:32px; color:#64748B;">No IPOs found matching the GMP filter criteria.</td></tr>`;
+    }
+    return gmpList.map(r => {
+      const upper = r.priceBandHigh || r.issuePrice || 100;
+      const gmp = r.gmp != null ? Number(r.gmp) : null;
+      const estPrice = gmp != null ? upper + gmp : upper;
+      const pct = r.gmpPercentage || (gmp != null && upper ? ((gmp / upper) * 100).toFixed(1) : null);
+      const isPos = gmp != null && gmp > 0;
+      const isNeg = gmp != null && gmp < 0;
+
+      const dateStr = r.status === 'OPEN' && r.closeDate 
+        ? `Closes ${formatDate(r.closeDate)}`
+        : r.status === 'UPCOMING' && r.openDate
+          ? `Opens ${formatDate(r.openDate)}`
+          : r.listingDate
+            ? `Listed ${formatDate(r.listingDate)}`
+            : (r.closeDate ? formatDate(r.closeDate) : 'TBA');
+
+      return `
+        <tr onclick="window.location.hash='#/ipo/${r.slug}'" style="cursor:pointer;">
+          <td>
+            <div style="display:flex; align-items:center; gap:12px;">
+              ${renderCompanyLogo(r, 34)}
+              <div>
+                <strong>${escapeHtml(r.shortName)}</strong>
+                <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.board || 'MAINBOARD')} • ${escapeHtml(r.exchange || 'NSE, BSE')}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span style="font-size:12px; font-weight:600; color:#111827;">${dateStr}</span>
+          </td>
+          <td>${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : `₹${r.issuePrice || '—'}`}</td>
+          <td>
+            <strong style="color:${isPos ? '#16A34A' : isNeg ? '#DC2626' : '#64748B'}; font-size:14px;">
+              ${gmp != null ? (isPos ? `+₹${gmp}` : isNeg ? `-₹${Math.abs(gmp)}` : `₹0 (Flat)`) : (r.status === 'UPCOMING' ? 'TBA' : '—')}
+            </strong>
+          </td>
+          <td><strong>${gmp != null ? `₹${estPrice}` : (r.status === 'LISTED' && r.listingPrice ? `₹${r.listingPrice}` : '—')}</strong></td>
+          <td>
+            <span style="color:${isPos ? '#16A34A' : isNeg ? '#DC2626' : '#64748B'}; font-weight:700;">
+              ${pct != null ? `${isPos ? '+' : ''}${pct}%` : (r.status === 'LISTED' && r.listingGain ? r.listingGain : '—')}
+            </span>
+          </td>
+          <td><span class="status-badge ${r.status === 'CLOSED' ? 'closed' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}">${r.status === 'CLOSED' ? 'Closed' : r.status === 'UPCOMING' ? 'Upcoming' : r.status === 'LISTED' ? 'Listed' : 'Open'}</span></td>
+          <td>
+            <span style="color:${isPos ? '#16A34A' : isNeg ? '#DC2626' : '#64748B'}; font-weight:600;">
+              ${isPos ? '↑ Bullish' : isNeg ? '↓ Bearish' : '— Neutral'}
+            </span>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function updateGmpDomInPlace() {
+    const tableBody = document.getElementById("gmp-table-body");
+    if (!tableBody) return;
+    const list = getFilteredGmpIssues();
+    tableBody.innerHTML = renderGmpRows(list);
+  }
+
   function renderGmpPage() {
     const app = document.getElementById("app");
     if (!app) return;
+
+    const gmpList = getFilteredGmpIssues();
 
     app.innerHTML = `
       <div class="detail-view-container">
@@ -3644,6 +3877,28 @@
           </p>
         </div>
 
+        <!-- Filter and Search Bar -->
+        <div class="filter-tabs-wrapper" style="margin-top:18px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div class="filter-pills-group">
+            <button class="filter-pill ${state.gmpFilter === 'all' || !state.gmpFilter ? 'active' : ''}" onclick="window.IpoApp.setGmpFilter('all')">All IPOs</button>
+            <button class="filter-pill ${state.gmpFilter === 'open' ? 'active' : ''}" onclick="window.IpoApp.setGmpFilter('open')">Open Issues Only</button>
+            <button class="filter-pill ${state.gmpFilter === 'bullish' ? 'active' : ''}" onclick="window.IpoApp.setGmpFilter('bullish')">Bullish (GMP &gt; 0)</button>
+          </div>
+
+          <div style="position:relative; width:260px; max-width:100%;">
+            <input type="text" 
+                   id="gmp-search-input"
+                   class="fig1-subscribe-input" 
+                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
+                   placeholder="Search GMP by company..." 
+                   value="${escapeHtml(state.gmpSearchQuery || '')}"
+                   oninput="window.IpoApp.setGmpSearch(this.value)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position:absolute; left:11px; top:11px;">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+        </div>
+
         <div class="data-table-card">
           <table class="full-data-table">
             <thead>
@@ -3658,68 +3913,8 @@
                 <th>Trend</th>
               </tr>
             </thead>
-            <tbody>
-              ${(() => {
-                const sortedGmpRecords = [...records].sort((a, b) => {
-                  const getLatestDate = (item) => {
-                    const dStr = item.closeDate || item.openDate || item.listingDate || item.allotmentDate;
-                    return dStr ? new Date(dStr).getTime() : 0;
-                  };
-                  return getLatestDate(b) - getLatestDate(a); // Newest date first, oldest date last
-                });
-
-                return sortedGmpRecords.map(r => {
-                  const upper = r.priceBandHigh || r.issuePrice || 100;
-                  const gmp = r.gmp != null ? Number(r.gmp) : null;
-                  const estPrice = gmp != null ? upper + gmp : upper;
-                  const pct = r.gmpPercentage || (gmp != null && upper ? ((gmp / upper) * 100).toFixed(1) : null);
-                  const isPos = gmp != null && gmp > 0;
-                  const isNeg = gmp != null && gmp < 0;
-
-                  const dateStr = r.status === 'OPEN' && r.closeDate 
-                    ? `Closes ${formatDate(r.closeDate)}`
-                    : r.status === 'UPCOMING' && r.openDate
-                      ? `Opens ${formatDate(r.openDate)}`
-                      : r.listingDate
-                        ? `Listed ${formatDate(r.listingDate)}`
-                        : (r.closeDate ? formatDate(r.closeDate) : 'TBA');
-
-                  return `
-                    <tr onclick="window.location.hash='#/ipo/${r.slug}'">
-                      <td>
-                        <div style="display:flex; align-items:center; gap:12px;">
-                          ${renderCompanyLogo(r, 34)}
-                          <div>
-                            <strong>${r.shortName}</strong>
-                            <div style="font-size:11px; color:var(--text-muted);">${r.board} • ${r.exchange}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span style="font-size:12px; font-weight:600; color:#111827;">${dateStr}</span>
-                      </td>
-                      <td>${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : `₹${r.issuePrice || '—'}`}</td>
-                      <td>
-                        <strong style="color:${isPos ? '#16A34A' : isNeg ? '#DC2626' : '#64748B'}; font-size:14px;">
-                          ${gmp != null ? (isPos ? `+₹${gmp}` : isNeg ? `-₹${Math.abs(gmp)}` : `₹0 (Flat)`) : (r.status === 'UPCOMING' ? 'TBA' : '—')}
-                        </strong>
-                      </td>
-                      <td><strong>${gmp != null ? `₹${estPrice}` : (r.status === 'LISTED' && r.listingPrice ? `₹${r.listingPrice}` : '—')}</strong></td>
-                      <td>
-                        <span style="color:${isPos ? '#16A34A' : isNeg ? '#DC2626' : '#64748B'}; font-weight:700;">
-                          ${pct != null ? `${isPos ? '+' : ''}${pct}%` : (r.status === 'LISTED' && r.listingGain ? r.listingGain : '—')}
-                        </span>
-                      </td>
-                      <td><span class="status-badge ${r.status === 'CLOSED' ? 'closed' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}">${r.status === 'CLOSED' ? 'Closed' : r.status === 'UPCOMING' ? 'Upcoming' : r.status === 'LISTED' ? 'Listed' : 'Open'}</span></td>
-                      <td>
-                        <span style="color:${isPos ? '#16A34A' : isNeg ? '#DC2626' : '#64748B'}; font-weight:600;">
-                          ${isPos ? '↑ Bullish' : isNeg ? '↓ Bearish' : '— Neutral'}
-                        </span>
-                      </td>
-                    </tr>
-                  `;
-                }).join("");
-              })()}
+            <tbody id="gmp-table-body">
+              ${renderGmpRows(gmpList)}
             </tbody>
           </table>
         </div>
@@ -4850,29 +5045,25 @@
 
   // ==========================================================================
   // Historical Listed IPOs & Listing Gains Directory (1875 - 2026)
-  // Data Synchronized with Tapetide Reports & Bombay Stock Exchange Archives
+  // Data Synchronized with NSE, BSE Reports & Bombay Stock Exchange Archives
   // ==========================================================================
-  function renderListedPage() {
-    const app = document.getElementById("app");
-    if (!app) return;
-
+  function getFilteredListedRecords() {
     const dataStore = window.ListedGainsData || { stats: {}, records: [] };
     const allListingRecords = dataStore.records && dataStore.records.length ? dataStore.records : records;
-    const statsData = dataStore.stats || {};
-
     const activeYear = state.listedYear || "2026";
     const activeSegment = state.listedSegment || "all";
     const query = (state.listedSearchQuery || "").toLowerCase().trim();
 
-    // Filtering
     let filtered = allListingRecords.filter(r => {
-      // Year Filter
-      if (activeYear === "all") {
-        // all records
-      } else if (activeYear === "historic") {
-        if (Number(r.year) >= 2018 && !r.isHistoric) return false;
-      } else {
-        if (String(r.year) !== String(activeYear)) return false;
+      // Year Filter: When user is actively searching by name/code, search across all 1875-2026 archives!
+      if (!query) {
+        if (activeYear === "all") {
+          // all records
+        } else if (activeYear === "historic") {
+          if (Number(r.year) >= 2018 && !r.isHistoric) return false;
+        } else {
+          if (String(r.year) !== String(activeYear)) return false;
+        }
       }
 
       // Segment Filter
@@ -4889,13 +5080,13 @@
         const name = (r.name || r.shortName || "").toLowerCase();
         const scrip = (r.bseCode || "").toLowerCase();
         const notes = (r.notes || "").toLowerCase();
-        if (!name.includes(query) && !scrip.includes(query) && !notes.includes(query)) return false;
+        const yr = String(r.year || "");
+        if (!name.includes(query) && !scrip.includes(query) && !notes.includes(query) && !yr.includes(query)) return false;
       }
 
       return true;
     });
 
-    // Sorting
     const sortMode = state.listedSort || "date-desc";
     filtered.sort((a, b) => {
       if (sortMode === "gain-desc") {
@@ -4913,13 +5104,200 @@
         const db = b.listedDate ? new Date(b.listedDate).getTime() : (b.year * 10000);
         return da - db;
       } else {
-        // date-desc default
         const da = a.listedDate ? new Date(a.listedDate).getTime() : (a.year * 10000);
         const db = b.listedDate ? new Date(b.listedDate).getTime() : (b.year * 10000);
         return db - da;
       }
     });
 
+    return filtered;
+  }
+
+  function renderListedRows(recordsList) {
+    if (!recordsList || recordsList.length === 0) {
+      return `
+        <tr>
+          <td colspan="10" style="text-align:center; padding:36px; color:#64748B;">
+            No listed companies found matching your criteria. Try adjusting the search query or selecting another year.
+          </td>
+        </tr>
+      `;
+    }
+
+    return recordsList.map(r => {
+      const gain = r.listingGainPct !== null && !isNaN(r.listingGainPct) ? Number(r.listingGainPct) : null;
+      const isPos = gain !== null && gain > 0;
+      const isNeg = gain !== null && gain < 0;
+      const gainClass = isPos ? "positive" : isNeg ? "negative" : "";
+      const gainText = gain !== null ? (gain > 0 ? "+" : "") + gain.toFixed(2) + "%" : "—";
+      const subText = r.subscription ? r.subscription + "x" : "—";
+      const sizeText = r.issueSizeCr ? "₹" + Number(r.issueSizeCr).toLocaleString("en-IN") + " Cr" : "—";
+      const curText = r.currentPrice ? "₹" + Number(r.currentPrice).toLocaleString("en-IN") : "—";
+      const retSince = r.returnSinceIssuePct !== null && !isNaN(r.returnSinceIssuePct) ? Number(r.returnSinceIssuePct) : null;
+      const retText = retSince !== null ? (retSince > 0 ? "+" : "") + retSince.toLocaleString("en-IN") + "%" : "—";
+      const retPos = retSince !== null && retSince > 0;
+      const retNeg = retSince !== null && retSince < 0;
+
+      return `
+        <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${r.slug}'">
+          <td>
+            <div class="fig1-company-cell">
+              ${renderCompanyLogo(r, 36)}
+              <div class="fig1-company-name-wrap">
+                <span class="fig1-company-name" style="font-size:13.5px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}</span>
+                <span style="font-size:11px; color:#64748B;">
+                  ${r.bseCode ? 'BSE: ' + r.bseCode : (r.exchange || 'NSE, BSE')}
+                  ${r.isHistoric ? ' &bull; <strong style="color:#B45309;">1875 Landmark</strong>' : ''}
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="fig1-sub-tag listed" style="background:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#EBF5FF' : '#F1F5F9'}; color:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#1D4ED8' : '#475569'};">
+              ${escapeHtml(r.segment || 'Mainboard')}
+            </span>
+          </td>
+          <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${formatDate(r.listedDate)}</span></td>
+          <td><span class="fig1-val-price">${r.issuePrice ? '₹' + Number(r.issuePrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td>
+            <span class="fig1-return-tag ${gainClass}">${gainText}</span>
+          </td>
+          <td>
+            <span class="fig1-sub-pill">${subText}</span>
+          </td>
+          <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${sizeText}</span></td>
+          <td>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <div style="display:flex; align-items:center; gap:5px;">
+                <span class="fig1-val-price" style="font-weight:700; color:#0F172A;">${curText}</span>
+                ${r.currentPrice ? `<span class="live-cmp-pill" style="display:inline-flex; align-items:center; gap:3px; background:#DCFCE7; color:#15803D; font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px;"><span style="width:5px; height:5px; border-radius:50%; background:#16A34A; box-shadow:0 0 4px #16A34A;"></span>LIVE</span>` : ''}
+              </div>
+              <span style="font-size:10px; color:#64748B; font-weight:500;">NSE &bull; BSE Synced</span>
+            </div>
+          </td>
+          <td>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <span class="fig1-return-tag ${retPos ? 'positive' : retNeg ? 'negative' : ''}" style="font-size:12px; font-weight:700;">
+                ${retText}
+              </span>
+              <span style="font-size:10px; color:#64748B;">Total Gain</span>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderListedCards(recordsList) {
+    if (!recordsList || recordsList.length === 0) {
+      return `
+        <div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px;">
+          No listed companies found matching the criteria.
+        </div>
+      `;
+    }
+
+    return recordsList.map(r => {
+      const gain = r.listingGainPct !== null && !isNaN(r.listingGainPct) ? Number(r.listingGainPct) : null;
+      const isPos = gain !== null && gain > 0;
+      const isNeg = gain !== null && gain < 0;
+      const gainClass = isPos ? "positive" : isNeg ? "negative" : "";
+      const gainText = gain !== null ? (gain > 0 ? "+" : "") + gain.toFixed(2) + "%" : "—";
+      const subText = r.subscription ? r.subscription + "x" : "—";
+      const sizeText = r.issueSizeCr ? "₹" + Number(r.issueSizeCr).toLocaleString("en-IN") + " Cr" : "—";
+      const curText = r.currentPrice ? "₹" + Number(r.currentPrice).toLocaleString("en-IN") : "—";
+      const retSince = r.returnSinceIssuePct !== null && !isNaN(r.returnSinceIssuePct) ? Number(r.returnSinceIssuePct) : null;
+      const retText = retSince !== null ? (retSince > 0 ? "+" : "") + retSince.toLocaleString("en-IN") + "%" : "—";
+      const retPos = retSince !== null && retSince > 0;
+      const retNeg = retSince !== null && retSince < 0;
+
+      return `
+        <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'">
+          <div class="mobile-open-top-row">
+            <div class="mobile-open-brand">
+              ${renderCompanyLogo(r, 36)}
+              <div>
+                <h3 class="mobile-open-name" style="font-size:14px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}</h3>
+                <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
+                  <span class="fig1-sub-tag listed">${escapeHtml(r.segment || 'Mainboard')}</span>
+                  <span style="font-size:11px; color:#64748B;">${formatDate(r.listedDate)}</span>
+                </div>
+              </div>
+            </div>
+            <span class="fig1-return-tag ${gainClass}">${gainText}</span>
+          </div>
+
+          <div class="mobile-open-specs-grid" style="grid-template-columns:repeat(3, 1fr); gap:8px;">
+            <div class="mobile-spec-item">
+              <span class="mobile-spec-label">Issue Price</span>
+              <span class="mobile-spec-val">${r.issuePrice ? '₹' + r.issuePrice : '—'}</span>
+            </div>
+            <div class="mobile-spec-item">
+              <span class="mobile-spec-label">Listing Price</span>
+              <span class="mobile-spec-val">${r.listingPrice ? '₹' + r.listingPrice : '—'}</span>
+            </div>
+            <div class="mobile-spec-item">
+              <span class="mobile-spec-label">Subscribed</span>
+              <span class="mobile-spec-val">${subText}</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#475569; padding-top:8px; border-top:1px dashed #E2E8F0;">
+            <span><strong>Issue:</strong> ${sizeText}</span>
+            <span>
+              <strong>Current:</strong> <span style="font-weight:700; color:#0F172A;">${curText}</span>
+              <span style="font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : '#64748B'}; margin-left:4px;">(${retText})</span>
+              ${r.currentPrice ? `<span style="background:#DCFCE7; color:#15803D; font-size:9.5px; font-weight:700; padding:1px 4px; border-radius:3px; margin-left:4px;">LIVE</span>` : ''}
+            </span>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function updateListedDomInPlace() {
+    const tableBody = document.getElementById("listed-table-body");
+    const cardsBody = document.getElementById("listed-cards-body");
+    if (!tableBody || !cardsBody) return;
+
+    const filtered = getFilteredListedRecords();
+    const limit = state.listedLimit || 50;
+    const visible = filtered.slice(0, limit);
+
+    tableBody.innerHTML = renderListedRows(visible);
+    cardsBody.innerHTML = renderListedCards(visible);
+
+    const kpiTotal = document.getElementById("listed-kpi-total-val");
+    if (kpiTotal) kpiTotal.innerText = filtered.length;
+
+    const loadMoreWrap = document.getElementById("listed-load-more-wrap");
+    if (loadMoreWrap) {
+      if (filtered.length > limit) {
+        loadMoreWrap.innerHTML = `
+          <div style="text-align:center; margin:24px 0;">
+            <button type="button" class="btn-table-action" style="padding:10px 24px; font-size:13.5px; font-weight:700;" onclick="window.IpoApp.loadMoreListed()">
+              Load More Issues (Showing ${limit} of ${filtered.length}) &darr;
+            </button>
+          </div>
+        `;
+      } else {
+        loadMoreWrap.innerHTML = "";
+      }
+    }
+  }
+
+  function renderListedPage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    const dataStore = window.ListedGainsData || { stats: {}, records: [] };
+    const statsData = dataStore.stats || {};
+    const activeYear = state.listedYear || "2026";
+    const activeSegment = state.listedSegment || "all";
+    const query = (state.listedSearchQuery || "").toLowerCase().trim();
+
+    const filtered = getFilteredListedRecords();
     const totalMatching = filtered.length;
     const limit = state.listedLimit || 50;
     const visibleRecords = filtered.slice(0, limit);
@@ -4984,7 +5362,7 @@
             </div>
             <div class="widget-source-tag" style="background:#F0FDF4; border-color:#86EFAC; color:#14532D;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Verified Exchange Disclosures &amp; Tapetide Research Reports</span>
+              <span>Verified Exchange Disclosures based on NSE, BSE Reports</span>
             </div>
           </div>
 
@@ -4992,7 +5370,7 @@
           <div class="listed-kpi-grid">
             <div class="listed-kpi-card">
               <div class="listed-kpi-label">Total IPOs (${activeYear === "all" ? "All Time" : activeYear === "historic" ? "1875-2017" : activeYear})</div>
-              <div class="listed-kpi-val">${totalMatching}</div>
+              <div class="listed-kpi-val" id="listed-kpi-total-val">${totalMatching}</div>
             </div>
             <div class="listed-kpi-card">
               <div class="listed-kpi-label">Average Listing Gain</div>
@@ -5104,13 +5482,13 @@
 
               <!-- Sort Dropdown -->
               <select class="listed-select" aria-label="Sort By" onchange="window.IpoApp.setListedSort(this.value)">
-                <option value="date-desc" ${sortMode === "date-desc" ? "selected" : ""}>Listing Date (Newest)</option>
-                <option value="date-asc" ${sortMode === "date-asc" ? "selected" : ""}>Listing Date (Oldest &bull; 1875+)</option>
-                <option value="gain-desc" ${sortMode === "gain-desc" ? "selected" : ""}>Highest Listing Gain %</option>
-                <option value="gain-asc" ${sortMode === "gain-asc" ? "selected" : ""}>Lowest / Loss Listing %</option>
-                <option value="sub-desc" ${sortMode === "sub-desc" ? "selected" : ""}>Highest Subscription</option>
-                <option value="size-desc" ${sortMode === "size-desc" ? "selected" : ""}>Largest Issue Size</option>
-                <option value="return-desc" ${sortMode === "return-desc" ? "selected" : ""}>Highest Return Since Issue</option>
+                <option value="date-desc" ${state.listedSort === "date-desc" || !state.listedSort ? "selected" : ""}>Listing Date (Newest)</option>
+                <option value="date-asc" ${state.listedSort === "date-asc" ? "selected" : ""}>Listing Date (Oldest &bull; 1875+)</option>
+                <option value="gain-desc" ${state.listedSort === "gain-desc" ? "selected" : ""}>Highest Listing Gain %</option>
+                <option value="gain-asc" ${state.listedSort === "gain-asc" ? "selected" : ""}>Lowest / Loss Listing %</option>
+                <option value="sub-desc" ${state.listedSort === "sub-desc" ? "selected" : ""}>Highest Subscription</option>
+                <option value="size-desc" ${state.listedSort === "size-desc" ? "selected" : ""}>Largest Issue Size</option>
+                <option value="return-desc" ${state.listedSort === "return-desc" ? "selected" : ""}>Highest Return Since Issue</option>
               </select>
             </div>
           </div>
@@ -5134,140 +5512,28 @@
                   <th>RETURN SINCE ISSUE</th>
                 </tr>
               </thead>
-              <tbody>
-                ${visibleRecords.length === 0 ? `
-                  <tr>
-                    <td colspan="10" style="text-align:center; padding:36px; color:#64748B;">
-                      No listed companies found matching the selected year and filter criteria. Try selecting another year or clearing search.
-                    </td>
-                  </tr>
-                ` : visibleRecords.map(r => {
-                  const gain = r.listingGainPct !== null && !isNaN(r.listingGainPct) ? Number(r.listingGainPct) : null;
-                  const isPos = gain !== null && gain > 0;
-                  const isNeg = gain !== null && gain < 0;
-                  const gainClass = isPos ? "positive" : isNeg ? "negative" : "";
-                  const gainText = gain !== null ? (gain > 0 ? "+" : "") + gain.toFixed(2) + "%" : "—";
-                  const subText = r.subscription ? r.subscription + "x" : "—";
-                  const sizeText = r.issueSizeCr ? "₹" + Number(r.issueSizeCr).toLocaleString("en-IN") + " Cr" : "—";
-                  const curText = r.currentPrice ? "₹" + Number(r.currentPrice).toLocaleString("en-IN") : "—";
-                  const retSince = r.returnSinceIssuePct !== null && !isNaN(r.returnSinceIssuePct) ? Number(r.returnSinceIssuePct) : null;
-                  const retText = retSince !== null ? (retSince > 0 ? "+" : "") + retSince.toLocaleString("en-IN") + "%" : "—";
-                  const retPos = retSince !== null && retSince > 0;
-                  const retNeg = retSince !== null && retSince < 0;
-
-                  return `
-                    <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${r.slug}'">
-                      <td>
-                        <div class="fig1-company-cell">
-                          <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; font-weight:800; background:#EEF2FF; color:#142B49;">
-                            ${(r.name || 'CO').slice(0, 2).toUpperCase()}
-                          </div>
-                          <div class="fig1-company-name-wrap">
-                            <span class="fig1-company-name" style="font-size:13.5px;">${r.name}</span>
-                            <span style="font-size:11px; color:#64748B;">
-                              ${r.bseCode ? 'BSE: ' + r.bseCode : (r.exchange || 'NSE, BSE')}
-                              ${r.isHistoric ? ' &bull; <strong style="color:#B45309;">Historic Landmark</strong>' : ''}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="fig1-sub-tag listed" style="background:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#EBF5FF' : '#F1F5F9'}; color:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#1D4ED8' : '#475569'};">
-                          ${r.segment || 'Mainboard'}
-                        </span>
-                      </td>
-                      <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${formatDate(r.listedDate)}</span></td>
-                      <td><span class="fig1-val-price">${r.issuePrice ? '₹' + Number(r.issuePrice).toLocaleString('en-IN') : '—'}</span></td>
-                      <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
-                      <td>
-                        <span class="fig1-return-tag ${gainClass}">${gainText}</span>
-                      </td>
-                      <td>
-                        <span class="fig1-sub-pill">${subText}</span>
-                      </td>
-                      <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${sizeText}</span></td>
-                      <td><span class="fig1-val-price">${curText}</span></td>
-                      <td>
-                        <span style="font-size:12.5px; font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : '#64748B'};">
-                          ${retText}
-                        </span>
-                      </td>
-                    </tr>
-                  `;
-                }).join("")}
+              <tbody id="listed-table-body">
+                ${renderListedRows(visibleRecords)}
               </tbody>
             </table>
           </div>
         </div>
 
         <!-- Mobile Cards View (Phones & Small Screens) -->
-        <div class="mobile-only-cards" style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
-          ${visibleRecords.length === 0 ? `
-            <div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px;">
-              No listed companies found matching the criteria.
-            </div>
-          ` : visibleRecords.map(r => {
-            const gain = r.listingGainPct !== null && !isNaN(r.listingGainPct) ? Number(r.listingGainPct) : null;
-            const isPos = gain !== null && gain > 0;
-            const isNeg = gain !== null && gain < 0;
-            const gainClass = isPos ? "positive" : isNeg ? "negative" : "";
-            const gainText = gain !== null ? (gain > 0 ? "+" : "") + gain.toFixed(2) + "%" : "—";
-            const subText = r.subscription ? r.subscription + "x" : "—";
-            const sizeText = r.issueSizeCr ? "₹" + Number(r.issueSizeCr).toLocaleString("en-IN") + " Cr" : "—";
-            const curText = r.currentPrice ? "₹" + Number(r.currentPrice).toLocaleString("en-IN") : "—";
-            const retSince = r.returnSinceIssuePct !== null && !isNaN(r.returnSinceIssuePct) ? Number(r.returnSinceIssuePct) : null;
-            const retText = retSince !== null ? (retSince > 0 ? "+" : "") + retSince.toLocaleString("en-IN") + "%" : "—";
-
-            return `
-              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'">
-                <div class="mobile-open-top-row">
-                  <div class="mobile-open-brand">
-                    <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px;">
-                      ${(r.name || 'CO').slice(0, 2).toUpperCase()}
-                    </div>
-                    <div>
-                      <h3 class="mobile-open-name" style="font-size:14px;">${r.name}</h3>
-                      <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
-                        <span class="fig1-sub-tag listed">${r.segment || 'Mainboard'}</span>
-                        <span style="font-size:11px; color:#64748B;">${formatDate(r.listedDate)}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <span class="fig1-return-tag ${gainClass}">${gainText}</span>
-                </div>
-
-                <div class="mobile-open-specs-grid" style="grid-template-columns:repeat(3, 1fr); gap:8px;">
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Issue Price</span>
-                    <span class="mobile-spec-val">${r.issuePrice ? '₹' + r.issuePrice : '—'}</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Listing Price</span>
-                    <span class="mobile-spec-val">${r.listingPrice ? '₹' + r.listingPrice : '—'}</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Subscribed</span>
-                    <span class="mobile-spec-val">${subText}</span>
-                  </div>
-                </div>
-
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#475569; padding-top:8px; border-top:1px dashed #E2E8F0;">
-                  <span><strong>Issue:</strong> ${sizeText}</span>
-                  <span><strong>Current:</strong> ${curText} (<strong style="color:${retSince && retSince > 0 ? '#16A34A' : '#64748B'};">${retText}</strong>)</span>
-                </div>
-              </div>
-            `;
-          }).join("")}
+        <div class="mobile-only-cards" id="listed-cards-body" style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+          ${renderListedCards(visibleRecords)}
         </div>
 
-        <!-- Load More Records Button -->
-        ${filtered.length > limit ? `
-          <div style="text-align:center; margin:24px 0;">
-            <button type="button" class="btn-table-action" style="padding:10px 24px; font-size:13.5px; font-weight:700;" onclick="window.IpoApp.loadMoreListed()">
-              Load More Issues (Showing ${limit} of ${filtered.length}) &darr;
-            </button>
-          </div>
-        ` : ""}
+        <!-- Load More Records Button Container -->
+        <div id="listed-load-more-wrap">
+          ${filtered.length > limit ? `
+            <div style="text-align:center; margin:24px 0;">
+              <button type="button" class="btn-table-action" style="padding:10px 24px; font-size:13.5px; font-weight:700;" onclick="window.IpoApp.loadMoreListed()">
+                Load More Issues (Showing ${limit} of ${filtered.length}) &darr;
+              </button>
+            </div>
+          ` : ""}
+        </div>
 
         <!-- Comprehensive Editorial Context -->
         <article class="editorial-analysis-card" style="margin-top:28px;">
@@ -5292,8 +5558,89 @@
   }
 
   // ==========================================================================
-  // Global Search Modal Dialog (Command+K)
+  // Global Search Modal Dialog (Command+K) Across ALL 2,031+ Stocks (1875 - 2026)
   // ==========================================================================
+  function getAllSearchableSecurities() {
+    const dataset = window.IpoData || { records: [] };
+    const baseRecords = dataset.records || [];
+    const histData = window.ListedGainsData || { records: [] };
+    const histRecords = histData.records || [];
+
+    const combined = [];
+    const seenSlugs = new Set();
+
+    // 1. Add active dataset records (Open, Upcoming, Closed, Recent Listed)
+    baseRecords.forEach(r => {
+      combined.push({
+        slug: r.slug,
+        name: r.shortName || r.companyName,
+        companyName: r.companyName || r.shortName,
+        shortName: r.shortName || r.companyName,
+        symbol: r.symbol || "",
+        sector: r.sector || "Equity",
+        board: r.board || "MAINBOARD",
+        exchange: r.exchange || "NSE, BSE",
+        status: r.status || "OPEN",
+        priceText: r.priceBandLow && r.priceBandHigh 
+          ? `₹${r.priceBandLow}–${r.priceBandHigh}` 
+          : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA'),
+        lotSize: r.lotSize,
+        minInv: r.minimumInvestment 
+          ? `₹${Number(r.minimumInvestment).toLocaleString('en-IN')}` 
+          : (r.lotSize && r.priceBandHigh ? `₹${(r.lotSize * r.priceBandHigh).toLocaleString('en-IN')}` : '—'),
+        gmp: r.gmp,
+        gmpPercentage: r.gmpPercentage,
+        currentPrice: r.currentPrice,
+        returnSinceIssuePct: r.returnSinceIssuePct,
+        openDate: r.openDate,
+        closeDate: r.closeDate,
+        listingDate: r.listingDate,
+        logoUrl: r.logoUrl,
+        isHistoric: false,
+        isListedRecord: false,
+        bseCode: r.bseCode || null,
+        notes: ""
+      });
+      seenSlugs.add(r.slug);
+    });
+
+    // 2. Add historical & listed records from 1875 to 2026
+    histRecords.forEach(h => {
+      if (!seenSlugs.has(h.slug)) {
+        combined.push({
+          slug: h.slug,
+          name: h.name,
+          companyName: h.name,
+          shortName: h.name,
+          symbol: h.bseCode || (h.name || "").slice(0, 6).toUpperCase(),
+          sector: h.isHistoric ? "Historic Exchange Benchmark" : (h.segment || "Listed Equities"),
+          board: (h.segment || "MAINBOARD").toUpperCase(),
+          exchange: h.exchange || (h.bseCode ? `BSE: ${h.bseCode}` : "NSE, BSE"),
+          status: "LISTED",
+          priceText: h.issuePrice ? `₹${Number(h.issuePrice).toLocaleString('en-IN')}` : "—",
+          lotSize: 1,
+          minInv: h.issuePrice ? `₹${Number(h.issuePrice).toLocaleString('en-IN')}` : "—",
+          gmp: null,
+          gmpPercentage: h.listingGainPct,
+          currentPrice: h.currentPrice,
+          returnSinceIssuePct: h.returnSinceIssuePct,
+          openDate: null,
+          closeDate: null,
+          listingDate: h.listedDate,
+          logoUrl: null,
+          isHistoric: Boolean(h.isHistoric),
+          isListedRecord: true,
+          bseCode: h.bseCode || null,
+          year: h.year,
+          notes: h.notes || ""
+        });
+        seenSlugs.add(h.slug);
+      }
+    });
+
+    return combined;
+  }
+
   function toggleSearchModal(show) {
     state.searchModalOpen = show;
     const modal = document.getElementById("search-dialog-wrap");
@@ -5314,81 +5661,129 @@
     const list = document.getElementById("search-results-list");
     if (!list) return;
 
-    const q = query.trim().toLowerCase();
-    const matches = records.filter(r => 
-      !q ||
-      (r.companyName || "").toLowerCase().includes(q) ||
-      (r.shortName || "").toLowerCase().includes(q) ||
-      (r.symbol || "").toLowerCase().includes(q) ||
-      (r.sector || "").toLowerCase().includes(q) ||
-      (r.board || "").toLowerCase().includes(q) ||
-      (r.exchange || "").toLowerCase().includes(q) ||
-      (r.status || "").toLowerCase().includes(q) ||
-      (r.registrar || "").toLowerCase().includes(q)
-    );
+    const q = (query || "").trim().toLowerCase();
+    const allSecurities = getAllSearchableSecurities();
+
+    let matches = [];
+    if (!q) {
+      // Default: show open IPOs first, then upcoming, then top recent listed
+      matches = allSecurities.slice(0, 35);
+    } else {
+      const exactPrefix = [];
+      const containsMatch = [];
+
+      for (let i = 0; i < allSecurities.length; i++) {
+        const item = allSecurities[i];
+        const nameLower = (item.name || "").toLowerCase();
+        const shortLower = (item.shortName || "").toLowerCase();
+        const symLower = (item.symbol || "").toLowerCase();
+        const bseLower = (item.bseCode || "").toLowerCase();
+        const secLower = (item.sector || "").toLowerCase();
+        const notesLower = (item.notes || "").toLowerCase();
+
+        if (nameLower.startsWith(q) || shortLower.startsWith(q) || symLower.startsWith(q) || bseLower === q) {
+          exactPrefix.push(item);
+        } else if (
+          nameLower.includes(q) || 
+          shortLower.includes(q) || 
+          symLower.includes(q) || 
+          bseLower.includes(q) || 
+          secLower.includes(q) ||
+          notesLower.includes(q)
+        ) {
+          containsMatch.push(item);
+        }
+
+        if (exactPrefix.length >= 40) break;
+      }
+      matches = exactPrefix.concat(containsMatch).slice(0, 40);
+    }
 
     if (matches.length === 0) {
-      list.innerHTML = `<div style="padding:28px; text-align:center; color:#64748B; font-size:13.5px;">No matching IPOs found for "<strong>${escapeHtml(query)}</strong>". Try searching by company name, sector, or registrar.</div>`;
+      list.innerHTML = `<div style="padding:28px; text-align:center; color:#64748B; font-size:13.5px;">No matching securities found for "<strong>${escapeHtml(query)}</strong>". Try searching by company name, sector, BSE code, or historical year.</div>`;
       return;
     }
 
     list.innerHTML = `
-      <div style="padding:6px 14px 10px; font-size:12px; font-weight:700; color:#64748B; border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
-        <span>${q ? `Matching Search Results (${matches.length})` : `All Indian Stocks &amp; IPOs (${matches.length})`}</span>
-        <span style="font-size:11px; font-weight:600; color:#16A34A;">Live NSE/BSE Synced</span>
+      <div style="padding:8px 14px 10px; font-size:12px; font-weight:700; color:#64748B; border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center; background:#F8FAFC;">
+        <span>${q ? `Matching Securities (${matches.length}${matches.length === 40 ? '+' : ''})` : `All Indian Stocks &amp; IPOs (2,031+ Issues)`}</span>
+        <span style="font-size:11px; font-weight:600; color:#16A34A; display:flex; align-items:center; gap:4px;">
+          <span style="width:6px; height:6px; border-radius:50%; background:#16A34A; box-shadow:0 0 4px #16A34A;"></span>
+          Live NSE/BSE Synced
+        </span>
       </div>
-      ${matches.map(r => {
-        const priceText = r.priceBandLow && r.priceBandHigh 
-          ? `₹${r.priceBandLow}–${r.priceBandHigh}` 
-          : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA');
-        const minInv = r.minimumInvestment 
-          ? `₹${Number(r.minimumInvestment).toLocaleString('en-IN')}` 
-          : (r.lotSize && r.priceBandHigh ? `₹${(r.lotSize * r.priceBandHigh).toLocaleString('en-IN')}` : '—');
-        const gmpText = r.gmp != null && r.gmp > 0 ? `+₹${r.gmp}` : (r.gmp != null && r.gmp < 0 ? `-₹${Math.abs(r.gmp)}` : '—');
-        const gmpPct = r.gmpPercentage ? `(${r.gmpPercentage}%)` : '';
-        const isPos = r.gmp != null && r.gmp > 0;
+      <div style="max-height:60vh; overflow-y:auto;">
+        ${matches.map(r => {
+          const isPos = r.gmp != null && r.gmp > 0;
+          const gmpText = r.gmp != null && r.gmp > 0 ? `+₹${r.gmp}` : (r.gmp != null && r.gmp < 0 ? `-₹${Math.abs(r.gmp)}` : '—');
+          const gmpPct = r.gmpPercentage ? `(${r.gmpPercentage}%)` : '';
 
-        const dateStr = r.status === 'OPEN' && r.closeDate 
-          ? `Closes: ${formatDate(r.closeDate)}`
-          : r.status === 'UPCOMING' && r.openDate
-            ? `Opens: ${formatDate(r.openDate)}`
-            : r.listingDate
-              ? `Listed: ${formatDate(r.listingDate)}`
-              : (r.closeDate ? formatDate(r.closeDate) : 'TBA');
+          const retSince = r.returnSinceIssuePct !== null && !isNaN(r.returnSinceIssuePct) ? Number(r.returnSinceIssuePct) : null;
+          const retText = retSince !== null ? (retSince > 0 ? "+" : "") + retSince.toLocaleString("en-IN") + "%" : null;
+          const retPos = retSince !== null && retSince > 0;
+          const retNeg = retSince !== null && retSince < 0;
 
-        return `
-          <div class="search-result-row" onclick="window.location.hash='#/ipo/${r.slug}'; window.IpoApp.toggleSearchModal(false);" style="border-bottom:1px solid #F1F5F9; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px;">
-            <div class="search-row-left" style="flex:1; min-width:200px;">
-              ${renderCompanyLogo(r, 36)}
-              <div class="search-row-info">
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <h4 style="margin:0; font-size:14px; font-weight:700; color:#111827;">${r.shortName}</h4>
-                  <span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}" style="font-size:10px; padding:1px 6px;">${r.board || 'MAINBOARD'}</span>
+          const dateStr = r.status === 'OPEN' && r.closeDate 
+            ? `Closes: ${formatDate(r.closeDate)}`
+            : r.status === 'UPCOMING' && r.openDate
+              ? `Opens: ${formatDate(r.openDate)}`
+              : r.listingDate
+                ? `Listed: ${formatDate(r.listingDate)}`
+                : (r.closeDate ? formatDate(r.closeDate) : 'TBA');
+
+          const curPrice = r.currentPrice ? `₹${Number(r.currentPrice).toLocaleString('en-IN')}` : null;
+
+          return `
+            <div class="search-result-row" onclick="window.location.hash='#/ipo/${r.slug}'; window.IpoApp.toggleSearchModal(false);" style="border-bottom:1px solid #F1F5F9; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px; cursor:pointer;">
+              <div class="search-row-left" style="flex:1; min-width:200px; display:flex; align-items:center; gap:10px;">
+                ${renderCompanyLogo(r, 36)}
+                <div class="search-row-info">
+                  <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                    <h4 style="margin:0; font-size:14px; font-weight:700; color:#111827;">${escapeHtml(r.shortName || r.name)}</h4>
+                    <span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()} style="font-size:10px; padding:1px 6px;">${escapeHtml(r.board || 'MAINBOARD')}</span>
+                    ${r.isHistoric ? `<span style="background:#FEF3C7; color:#92400E; font-size:9.5px; font-weight:700; padding:1px 5px; border-radius:3px;">1875 LANDMARK</span>` : ''}
+                  </div>
+                  <div style="font-size:11.5px; color:#64748B; margin-top:2px;">
+                    ${escapeHtml(r.sector || 'General')} &bull; ${escapeHtml(r.exchange || 'NSE, BSE')} &bull; ${dateStr}
+                  </div>
                 </div>
-                <div style="font-size:11.5px; color:#64748B; margin-top:2px;">
-                  ${r.sector || 'General'} • ${r.exchange || 'NSE, BSE'} • ${dateStr}
+              </div>
+
+              <div style="display:flex; align-items:center; gap:16px; text-align:right;">
+                ${curPrice ? `
+                  <div class="search-desktop-meta" style="text-align:right;">
+                    <div style="display:flex; align-items:center; justify-content:flex-end; gap:4px;">
+                      <span style="font-size:13px; font-weight:800; color:#0F172A;">${curPrice}</span>
+                      <span style="background:#DCFCE7; color:#15803D; font-size:9px; font-weight:700; padding:1px 4px; border-radius:3px;">LIVE</span>
+                    </div>
+                    ${retText ? `<div style="font-size:11px; font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : '#64748B'};">${retText} Return</div>` : `<div style="font-size:11px; color:#64748B;">CMP</div>`}
+                  </div>
+                ` : `
+                  <div class="search-desktop-meta">
+                    <div style="font-size:12.5px; font-weight:700; color:#111827;">${r.priceText}</div>
+                    <div style="font-size:11px; color:#64748B;">Lot: ${r.lotSize ? r.lotSize + ' sh' : '—'}</div>
+                  </div>
+                `}
+
+                <div>
+                  ${r.status === 'OPEN' || r.status === 'UPCOMING' ? `
+                    <div style="font-size:12.5px; font-weight:700; color:${isPos ? '#16A34A' : '#64748B'};">
+                      ${gmpText} ${gmpPct}
+                    </div>
+                  ` : `
+                    <div style="font-size:12px; font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : '#64748B'};">
+                      ${retText || (r.gmpPercentage ? `+${r.gmpPercentage}%` : 'Listed')}
+                    </div>
+                  `}
+                  <span class="status-badge ${r.status === 'CLOSED' ? 'closed' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}" style="margin-top:2px; display:inline-block;">
+                    ${r.status === 'CLOSED' ? 'Closed' : r.status === 'UPCOMING' ? 'Upcoming' : r.status === 'LISTED' ? 'Listed' : 'Open'}
+                  </span>
                 </div>
               </div>
             </div>
-
-            <div style="display:flex; align-items:center; gap:16px; text-align:right;">
-              <div class="search-desktop-meta">
-                <div style="font-size:12.5px; font-weight:700; color:#111827;">${priceText}</div>
-                <div style="font-size:11px; color:#64748B;">Lot: ${r.lotSize ? r.lotSize + ' sh' : '—'} (${minInv})</div>
-              </div>
-
-              <div>
-                <div style="font-size:12.5px; font-weight:700; color:${isPos ? '#16A34A' : '#64748B'};">
-                  ${gmpText} ${gmpPct}
-                </div>
-                <span class="status-badge ${r.status === 'CLOSED' ? 'closed' : r.status === 'UPCOMING' ? 'upcoming' : r.status === 'LISTED' ? 'listed' : 'open'}" style="margin-top:2px; display:inline-block;">
-                  ${r.status === 'CLOSED' ? 'Closed' : r.status === 'UPCOMING' ? 'Upcoming' : r.status === 'LISTED' ? 'Listed' : 'Open'}
-                </span>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("")}
+          `;
+        }).join("")}
+      </div>
     `;
   }
 
@@ -5478,6 +5873,9 @@
     document.getElementById("close-search-btn")?.addEventListener("click", () => toggleSearchModal(false));
     document.getElementById("search-dialog-wrap")?.addEventListener("click", (e) => {
       if (e.target.id === "search-dialog-wrap") toggleSearchModal(false);
+    });
+    document.querySelector(".search-dialog")?.addEventListener("click", (e) => {
+      e.stopPropagation();
     });
 
     document.getElementById("global-search-input")?.addEventListener("input", (e) => {
@@ -5663,7 +6061,13 @@
     },
     setOpenSearch: (q) => {
       state.openSearchQuery = q;
-      renderOpenIposPage();
+      const tableBody = document.getElementById("open-ipos-table-body");
+      const cardsBody = document.getElementById("open-ipos-mobile-cards");
+      if (tableBody && cardsBody) {
+        updateOpenIposDomInPlace();
+      } else {
+        renderOpenIposPage();
+      }
     },
     setUpcomingBoardFilter: (board) => {
       state.upcomingBoard = board;
@@ -5675,15 +6079,31 @@
     },
     setUpcomingSearch: (q) => {
       state.upcomingSearchQuery = q;
-      renderUpcomingIposPage();
+      const tableBody = document.getElementById("upcoming-ipos-table-body");
+      const cardsBody = document.getElementById("upcoming-ipos-mobile-cards");
+      if (tableBody && cardsBody) {
+        updateUpcomingIposDomInPlace();
+      } else {
+        renderUpcomingIposPage();
+      }
     },
     setGmpFilter: (filter) => {
       state.gmpFilter = filter;
-      renderGmpPage();
+      const tableBody = document.getElementById("gmp-table-body");
+      if (tableBody) {
+        updateGmpDomInPlace();
+      } else {
+        renderGmpPage();
+      }
     },
     setGmpSearch: (q) => {
       state.gmpSearchQuery = q;
-      renderGmpPage();
+      const tableBody = document.getElementById("gmp-table-body");
+      if (tableBody) {
+        updateGmpDomInPlace();
+      } else {
+        renderGmpPage();
+      }
     },
     setListedYear: (yr) => {
       state.listedYear = String(yr);
@@ -5702,11 +6122,23 @@
     searchListed: (query) => {
       state.listedSearchQuery = query;
       state.listedLimit = 50;
-      renderListedPage();
+      const tableBody = document.getElementById("listed-table-body");
+      const cardsBody = document.getElementById("listed-cards-body");
+      if (tableBody && cardsBody) {
+        updateListedDomInPlace();
+      } else {
+        renderListedPage();
+      }
     },
     loadMoreListed: () => {
       state.listedLimit = (state.listedLimit || 50) + 50;
-      renderListedPage();
+      const tableBody = document.getElementById("listed-table-body");
+      const cardsBody = document.getElementById("listed-cards-body");
+      if (tableBody && cardsBody) {
+        updateListedDomInPlace();
+      } else {
+        renderListedPage();
+      }
     }
   };
 

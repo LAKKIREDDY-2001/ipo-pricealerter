@@ -7158,4 +7158,64 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   }
 }
 
+/* ==========================================================================
+   Live Real-Time CMP, Logo Image Wrappers & High-Contrast Avatars
+   ========================================================================== */
+.live-cmp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #DCFCE7;
+  color: #15803D;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.live-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #16A34A;
+  box-shadow: 0 0 6px #16A34A;
+  animation: pulseGreen 1.8s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+.company-logo-img-wrap {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.company-avatar-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.search-result-row:hover {
+  background: #F8FAFC !important;
+}
+
+.search-result-row:active {
+  background: #F1F5F9 !important;
+}
+
+
 
