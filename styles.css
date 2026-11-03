@@ -6867,8 +6867,120 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   color: #64748B;
 }
 
+/* 6. Dedicated SBI Card Sponsored Unit */
+.sponsored-sbi-slot {
+  background: linear-gradient(135deg, #180D30 0%, #29154C 100%) !important;
+  border: 1px solid #3E2173 !important;
+  box-shadow: 0 4px 20px rgba(24, 13, 48, 0.25) !important;
+  padding: 14px 16px !important;
+  color: #FFFFFF !important;
+}
+
+.sponsored-sbi-slot:hover {
+  border-color: #6D28D9 !important;
+  box-shadow: 0 6px 24px rgba(109, 40, 217, 0.3) !important;
+}
+
+.sponsored-sbi-label {
+  color: #D8B4FE !important;
+}
+
+.sponsored-sbi-label::before,
+.sponsored-sbi-label::after {
+  background: #4C268A !important;
+}
+
+.sponsored-sbi-link {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.sponsored-sbi-img-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #200E3D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.25);
+}
+
+.sponsored-sbi-img {
+  width: 100%;
+  max-width: 738px;
+  height: auto;
+  max-height: 384px;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sponsored-sbi-link:hover .sponsored-sbi-img {
+  transform: scale(1.015);
+}
+
+.sponsored-sbi-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+.sponsored-sbi-info {
+  flex: 1;
+  min-width: 220px;
+}
+
+.sponsored-sbi-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.35;
+}
+
+.sponsored-sbi-sub {
+  font-size: 12px;
+  color: #D8B4FE;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.sponsored-cta-sbi {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35) !important;
+  font-size: 13.5px !important;
+  padding: 9px 20px !important;
+  border-radius: 8px !important;
+}
+
+.sponsored-sbi-link:hover .sponsored-cta-sbi {
+  background: linear-gradient(135deg, #0369A1 0%, #075985 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45) !important;
+}
+
 /* Mobile & Tablet Responsive Adaptations */
 @media (max-width: 768px) {
+  .sponsored-sbi-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 8px;
+  }
+  .sponsored-cta-sbi {
+    width: 100% !important;
+  }
   .sponsored-leaderboard-banner {
     flex-direction: column;
     text-align: center;

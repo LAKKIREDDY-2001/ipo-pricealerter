@@ -35,6 +35,7 @@ jobs:
           test -s _site/data/ipo-data.js
           test -s _site/assets/sponsored/angel-one-square.png
           test -s _site/assets/sponsored/angel-one-wide.png
+          test -s _site/assets/sponsored/sbi-card.png
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

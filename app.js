@@ -330,27 +330,22 @@
       `;
     }
 
-    // Default: infeed placement
+    // Default: infeed placement (SBI Card Credit Card Banner)
     return `
-      <div class="ad-slot-card ad-slot-infeed" aria-label="${label}">
-        <div class="ad-slot-label">SPONSORED MARKET PARTNER &bull; ANGEL ONE</div>
-        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-infeed-banner" title="Apply for IPOs with Angel One">
-          <div class="sponsored-infeed-header">
-            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-infeed" loading="lazy" />
-            <span class="sponsored-verified-badge">✓ Official Partner</span>
+      <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="Sponsored Financial Partner • SBI Card">
+        <div class="ad-slot-label sponsored-sbi-label">SPONSORED FINANCIAL PARTNER &bull; SBI CARD</div>
+        <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+          <div class="sponsored-sbi-img-wrap">
+            <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
           </div>
-          <div class="sponsored-infeed-body">
-            <h3 class="sponsored-infeed-title">Supercharge Your IPO Applications with Angel One</h3>
-            <p class="sponsored-infeed-desc">Seamlessly apply for Mainline and SME IPOs with instant UPI payment mandates and zero delivery brokerage.</p>
-            <div class="sponsored-perks-row">
-              <span class="sponsored-perk-pill">⚡ Instant UPI Mandate</span>
-              <span class="sponsored-perk-pill">💰 ₹0 Demat Account Opening</span>
-              <span class="sponsored-perk-pill">🛡️ Zero Delivery Brokerage</span>
+          <div class="sponsored-sbi-footer">
+            <div class="sponsored-sbi-info">
+              <div class="sponsored-sbi-title">Apply for SBI Credit Card Online &bull; Instant Approval</div>
+              <div class="sponsored-sbi-sub">Welcome reward points &bull; Airport lounge access &bull; Fuel surcharge waiver</div>
             </div>
-          </div>
-          <div class="sponsored-infeed-action">
-            <span class="sponsored-cta-btn sponsored-cta-lg">Open Free Demat Account &rarr;</span>
-            <span class="sponsored-disclaimer">Investments in securities market are subject to market risks. Read all scheme related documents carefully.</span>
+            <div class="sponsored-sbi-action">
+              <span class="sponsored-cta-btn sponsored-cta-sbi">Apply for SBI Card &rarr;</span>
+            </div>
           </div>
         </a>
       </div>
@@ -358,19 +353,48 @@
   }
 
   // ==========================================================================
-  // In-Feed Native Sponsored Card
+  // In-Feed Native Sponsored Card (SBI Credit Card)
   // ==========================================================================
   function renderInFeedAdUnit(isGridSpan = true) {
     return `
-      <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="Sponsored In-Feed Content">
-        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-infeed-compact" title="Open Demat Account with Angel One">
-          <div class="sponsored-infeed-compact-inner">
-            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-compact" loading="lazy" />
-            <div class="sponsored-infeed-compact-text">
-              <div class="compact-headline">Trade &amp; Apply for IPOs with Angel One</div>
-              <div class="compact-sub">Zero Delivery Brokerage &bull; Instant UPI Mandates</div>
+      <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="Sponsored Financial Partner • SBI Card">
+        <div class="ad-slot-card sponsored-sbi-slot" style="margin: 8px 0; border-radius: 12px;">
+          <div class="ad-slot-label sponsored-sbi-label">SPONSORED FINANCIAL PARTNER &bull; SBI CARD</div>
+          <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+            <div class="sponsored-sbi-img-wrap">
+              <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
             </div>
-            <span class="sponsored-cta-btn sponsored-cta-sm">Apply Now &rarr;</span>
+            <div class="sponsored-sbi-footer">
+              <div class="sponsored-sbi-info">
+                <div class="sponsored-sbi-title">SBI Credit Card &bull; Instant Online Application</div>
+                <div class="sponsored-sbi-sub">Digital KYC &bull; Welcome reward points &bull; Airport lounge access</div>
+              </div>
+              <div class="sponsored-sbi-action">
+                <span class="sponsored-cta-btn sponsored-cta-sbi">Apply Now &rarr;</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderSbiCardUnit() {
+    return `
+      <div class="ad-slot-card sponsored-sbi-slot" aria-label="Sponsored Financial Partner • SBI Card">
+        <div class="ad-slot-label sponsored-sbi-label">SPONSORED FINANCIAL PARTNER &bull; SBI CARD</div>
+        <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+          <div class="sponsored-sbi-img-wrap">
+            <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
+          </div>
+          <div class="sponsored-sbi-footer">
+            <div class="sponsored-sbi-info">
+              <div class="sponsored-sbi-title">Apply for SBI Credit Card Online &bull; Instant Approval</div>
+              <div class="sponsored-sbi-sub">Welcome reward points &bull; Airport lounge access &bull; Fuel surcharge waiver</div>
+            </div>
+            <div class="sponsored-sbi-action">
+              <span class="sponsored-cta-btn sponsored-cta-sbi">Apply for SBI Card &rarr;</span>
+            </div>
           </div>
         </a>
       </div>
