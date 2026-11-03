@@ -2,9 +2,17 @@
 User-agent: *
 Allow: /
 
-# Google Search and Google AdSense Monetization Crawlers
+# Google Search, Google Images & Google Favicon Crawlers
 User-agent: Googlebot
 Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.ico$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.jpg$
 
 User-agent: Mediapartners-Google
 Allow: /

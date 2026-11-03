@@ -24,15 +24,20 @@ jobs:
       - name: Prepare static website
         run: |
           mkdir -p _site/data _site/blog
-          cp index.html app.js styles.css favicon.svg _site/
+          cp index.html app.js styles.css favicon* logo* apple-touch-icon* site.webmanifest manifest.json _site/ 2>/dev/null || true
           cp data/ipo-data.js _site/data/
           cp -r assets _site/ 2>/dev/null || true
-          cp -f ads.txt sitemap.xml sitemap.xsl robots.txt llms.txt og-image.svg og-image.png amp.html 404.html about.html contact.html signup.html privacy.html privacy-policy.html terms.html disclaimer.html CNAME _headers _redirects _site/ 2>/dev/null || true
-          cp -f blog/index.html _site/blog/ 2>/dev/null || true
+          cp -f ads.txt sitemap.xml sitemap.xsl robots.txt llms.txt og-image.svg og-image.png amp.html 404.html about.html contact.html signup.html privacy.html privacy-policy.html terms.html disclaimer.html dmca.html CNAME _headers _redirects _site/ 2>/dev/null || true
+          cp -f blog/*.html _site/blog/ 2>/dev/null || true
           test -s _site/index.html
           test -s _site/app.js
           test -s _site/styles.css
           test -s _site/data/ipo-data.js
+          test -s _site/favicon.ico
+          test -s _site/favicon-48x48.png
+          test -s _site/favicon-192x192.png
+          test -s _site/logo-512x512.png
+          test -s _site/site.webmanifest
           test -s _site/assets/sponsored/angel-one-square.png
           test -s _site/assets/sponsored/angel-one-wide.png
           test -s _site/assets/sponsored/sbi-card.png
