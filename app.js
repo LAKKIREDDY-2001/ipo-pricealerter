@@ -5175,7 +5175,11 @@
           <div class="bottom-widget-card">
             <h3>Scheduled Key Milestones</h3>
             <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
-              ${Object.entries(dataset.calendarEvents || {}).sort().slice(0, 6).map(([dateStr, items]) => `
+              ${Object.entries(dataset.calendarEvents || {})
+                .filter(([dateStr]) => dateStr >= "2026-11-03")
+                .sort(([a], [b]) => a.localeCompare(b))
+                .slice(0, 8)
+                .map(([dateStr, items]) => `
                 <div style="padding:10px 14px; background:var(--bg-input); border-radius:8px; border:1px solid var(--border-subtle);">
                   <strong style="color:var(--accent-cyan); font-size:13px;">${formatDate(dateStr)}</strong>
                   <ul style="margin-top:6px; padding-left:16px; font-size:12px; color:var(--text-body);">
