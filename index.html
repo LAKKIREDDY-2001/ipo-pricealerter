@@ -18,7 +18,7 @@
         }
 
         // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
-        var CURRENT_VERSION = 'v20261104_v35';
+        var CURRENT_VERSION = 'v20261104_v36';
         try {
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -329,7 +329,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261104_v35">
+    <link rel="stylesheet" href="styles.css?v=20261104_v36">
 
     <!-- Google tag (gtag.js) - Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
@@ -1097,13 +1097,13 @@
             <div class="fig1-stay-updated-card">
               <h3 class="fig1-stay-updated-title">📧 Stay Updated!</h3>
               <p class="fig1-stay-updated-text">Get IPO alerts &amp; GMP updates directly in your inbox. Join 45,000+ investors.</p>
-              <form class="fig1-subscribe-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+              <form class="fig1-subscribe-form" onsubmit="window.handleSubscribeForm ? window.handleSubscribeForm(event, 'Homepage Stay Updated') : (window.IpoApp && window.IpoApp.handleFig1Subscribe(event))">
                 <input type="email" class="fig1-subscribe-input" placeholder="your@email.com" required>
                 <button type="submit" class="fig1-subscribe-btn">Subscribe Now</button>
               </form>
               <div class="fig1-subscribe-note">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>No spam. Unsubscribe anytime.</span>
+                <span>No spam. Duplicate emails strictly rejected.</span>
               </div>
             </div>
 
@@ -1672,9 +1672,10 @@
         });
       }
     </script>
-    <script src="data/ipo-data.js?v=20261104_v35" defer></script>
-    <script src="data/listed-gains-data.js?v=20261104_v35" defer></script>
-    <script src="app.js?v=20261104_v35" defer></script>
+    <script src="subscribers.js?v=20261104_v36"></script>
+    <script src="data/ipo-data.js?v=20261104_v36" defer></script>
+    <script src="data/listed-gains-data.js?v=20261104_v36" defer></script>
+    <script src="app.js?v=20261104_v36" defer></script>
 
     <!-- Infolinks Monetization -->
     <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>

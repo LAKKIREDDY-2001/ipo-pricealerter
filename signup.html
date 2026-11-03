@@ -182,11 +182,16 @@
           </li>
         </ul>
 
-        <form class="signup-form" onsubmit="event.preventDefault(); alert('Thank you! You have successfully subscribed to IPO PriceAlerter priority alerts.');">
-          <input type="text" class="form-input" placeholder="Your Name" required>
-          <input type="email" class="form-input" placeholder="Your Email Address (e.g. name@gmail.com)" required>
+        <form id="signup-form-main" class="signup-form" onsubmit="handleSignupPageSubmit(event)">
+          <input type="text" id="subscriber-name-input" class="form-input" placeholder="Your Name" required>
+          <input type="email" id="subscriber-email-input" class="form-input" placeholder="Your Email Address (e.g. name@gmail.com)" required>
           <button type="submit" class="btn-subscribe-main">Subscribe to Free IPO Alerts</button>
         </form>
+
+        <div id="signup-status-box" style="display:none; padding:14px 18px; border-radius:10px; margin-top:16px; font-size:14px; font-weight:600; line-height:1.5;"></div>
+        <div style="margin-top:12px; text-align:center;">
+          <a href="javascript:void(0)" onclick="if(window.SubscriberService) window.SubscriberService.downloadExcel()" style="color:#64748B; font-size:12px; text-decoration:none; font-weight:600;">📥 Export All Unique Subscribers to Excel (.xlsx/.csv)</a>
+        </div>
 
         <p class="signup-footer-note">
           We respect your privacy. In accordance with our <a href="privacy.html" style="color:#1A237E;">Privacy Policy</a>, we never share or sell your email address.
@@ -250,6 +255,42 @@
         } catch(e) {}
       }
       checkCookieConsent();
+    </script>
+    <script src="subscribers.js?v=20261104_v36"></script>
+    <script>
+      function handleSignupPageSubmit(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var emailInput = document.getElementById("subscriber-email-input");
+        var nameInput = document.getElementById("subscriber-name-input");
+        var statusBox = document.getElementById("signup-status-box");
+        if (!emailInput || !emailInput.value) return;
+
+        var email = emailInput.value.trim();
+        var name = nameInput ? nameInput.value.trim() : "";
+
+        if (window.SubscriberService) {
+          var res = window.SubscriberService.subscribe(email, name, "Signup Page");
+          statusBox.style.display = "block";
+          if (res.duplicate) {
+            statusBox.style.background = "#FEF3C7";
+            statusBox.style.color = "#92400E";
+            statusBox.style.border = "1px solid #F59E0B";
+            statusBox.innerHTML = "⚠️ <strong>Duplicate Email Detected:</strong> '" + email + "' is ALREADY subscribed!<br><span style='font-size:12.5px; font-weight:500; color:#78350F;'>Duplicates are strictly prohibited from being stored in GitHub or Excel.</span>";
+          } else if (res.success) {
+            statusBox.style.background = "#ECFDF5";
+            statusBox.style.color = "#065F46";
+            statusBox.style.border = "1px solid #10B981";
+            statusBox.innerHTML = "✅ <strong>Successfully Subscribed!</strong> '" + email + "' has been automatically recorded in the Excel database.";
+            emailInput.value = "";
+            if (nameInput) nameInput.value = "";
+          } else {
+            statusBox.style.background = "#FEE2E2";
+            statusBox.style.color = "#991B1B";
+            statusBox.style.border = "1px solid #EF4444";
+            statusBox.innerHTML = "❌ " + res.message;
+          }
+        }
+      }
     </script>
   </body>
 </html>

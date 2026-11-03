@@ -6365,19 +6365,31 @@
     },
     handleFig1Subscribe: (e) => {
       e.preventDefault();
-      const input = e.target.querySelector("input");
-      if (input && input.value) {
-        try {
-          const subs = JSON.parse(localStorage.getItem("ipo_subscribers") || "[]");
-          if (!subs.includes(input.value)) {
-            subs.push(input.value);
-            localStorage.setItem("ipo_subscribers", JSON.stringify(subs));
-          }
-        } catch (err) {}
-        showToast("✓ Successfully subscribed! You will receive daily IPO & GMP updates.", "success");
+      const input = e.target.querySelector("input[type='email']") || e.target.querySelector("input");
+      if (!input || !input.value) return;
+      const email = input.value.trim();
+
+      if (window.SubscriberService) {
+        const res = window.SubscriberService.subscribe(email, "", "Stay Updated Form");
+        if (res.duplicate) {
+          showToast(`⚠️ Duplicate: ${email} is already subscribed. Blocked from storing in GitHub or Excel.`, "warning");
+        } else if (res.success) {
+          showToast(`✓ Subscribed! ${email} automatically added to Excel database.`, "success");
+          input.value = "";
+        } else {
+          showToast(res.message, "warning");
+        }
+      } else {
+        showToast("✓ Subscribed successfully!", "success");
         input.value = "";
       }
     },
+    exportSubscribersExcel: () => {
+      if (window.SubscriberService) {
+        window.SubscriberService.downloadExcel();
+      }
+    },
+    showToast: (msg, type) => showToast(msg, type),
     toggleAlertsSubscription: () => {
       state.alertsSubscribed = !state.alertsSubscribed;
       showToast(state.alertsSubscribed ? "✓ Alerts enabled for all high-GMP issues!" : "Alerts muted", "info");

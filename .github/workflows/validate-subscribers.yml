@@ -1,0 +1,36 @@
+name: Strictly Validate No Duplicate Subscribers in GitHub
+
+on:
+  push:
+    paths:
+      - 'data/subscribers.*'
+      - 'scripts/manage_subscribers.py'
+      - '.github/workflows/validate-subscribers.yml'
+  pull_request:
+    paths:
+      - 'data/subscribers.*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-deduplication:
+    name: Verify Zero Duplicate Subscribers
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install openpyxl
+
+      - name: Enforce Strict Deduplication (Reject Any Duplicate in GitHub)
+        run: |
+          python3 scripts/manage_subscribers.py --validate

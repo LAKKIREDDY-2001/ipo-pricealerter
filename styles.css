@@ -2823,6 +2823,14 @@ body.notif-open {
   border-left: 4px solid var(--status-open);
 }
 
+.toast-msg.warning {
+  border-left: 4px solid #F59E0B;
+}
+
+.toast-msg.error {
+  border-left: 4px solid #EF4444;
+}
+
 .toast-msg.info {
   border-left: 4px solid var(--primary-blue);
 }
