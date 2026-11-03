@@ -286,7 +286,6 @@
     if (type === "leaderboard") {
       return `
         <div class="ad-slot-card ad-slot-leaderboard" aria-label="${label}">
-          <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER &bull; ANGEL ONE</div>
           <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
             <div class="sponsored-banner-left">
               <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" />
@@ -306,7 +305,6 @@
     if (type === "sidebar" || type === "hdfc") {
       return `
         <div class="ad-slot-card ad-slot-sidebar sponsored-hdfc-slot" aria-label="${label}">
-          <div class="ad-slot-label sponsored-hdfc-label">SPONSORED FINANCIAL PARTNER &bull; HDFC BANK</div>
           <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
             <div class="sponsored-hdfc-img-wrap">
               <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
@@ -332,8 +330,7 @@
 
     // Default: infeed placement (SBI Card Credit Card Banner)
     return `
-      <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="Sponsored Financial Partner • SBI Card">
-        <div class="ad-slot-label sponsored-sbi-label">SPONSORED FINANCIAL PARTNER &bull; SBI CARD</div>
+      <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
         <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
             <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
@@ -357,9 +354,8 @@
   // ==========================================================================
   function renderInFeedAdUnit(isGridSpan = true) {
     return `
-      <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="Sponsored Financial Partner • SBI Card">
+      <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="SBI Card">
         <div class="ad-slot-card sponsored-sbi-slot" style="margin: 8px 0; border-radius: 12px;">
-          <div class="ad-slot-label sponsored-sbi-label">SPONSORED FINANCIAL PARTNER &bull; SBI CARD</div>
           <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
             <div class="sponsored-sbi-img-wrap">
               <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
@@ -381,8 +377,7 @@
 
   function renderSbiCardUnit() {
     return `
-      <div class="ad-slot-card sponsored-sbi-slot" aria-label="Sponsored Financial Partner • SBI Card">
-        <div class="ad-slot-label sponsored-sbi-label">SPONSORED FINANCIAL PARTNER &bull; SBI CARD</div>
+      <div class="ad-slot-card sponsored-sbi-slot" aria-label="SBI Card">
         <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
             <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
@@ -403,8 +398,7 @@
 
   function renderHdfcCardUnit() {
     return `
-      <div class="ad-slot-card sponsored-hdfc-slot" aria-label="Sponsored Financial Partner • HDFC Bank">
-        <div class="ad-slot-label sponsored-hdfc-label">SPONSORED FINANCIAL PARTNER &bull; HDFC BANK</div>
+      <div class="ad-slot-card sponsored-hdfc-slot" aria-label="HDFC Bank">
         <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
           <div class="sponsored-hdfc-img-wrap">
             <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
@@ -430,8 +424,7 @@
 
   function renderAngelOneUnit() {
     return `
-      <div class="ad-slot-card ad-slot-sidebar" aria-label="Sponsored Financial Partner • Angel One">
-        <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER &bull; ANGEL ONE</div>
+      <div class="ad-slot-card ad-slot-sidebar" aria-label="Angel One">
         <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
           <div class="sponsored-sidebar-logo-wrap">
             <img src="assets/sponsored/angel-one-square.png" alt="Angel One Logo" class="sponsored-logo-square" loading="lazy" />
@@ -457,8 +450,7 @@
 
   function renderAdSenseUnit(slot = "5892147360", format = "auto") {
     return `
-      <div class="adsense-slot-card sponsored-detail-slot" aria-label="Sponsored Partner &bull; Angel One">
-        <div class="ad-slot-label">SPONSORED FINANCIAL PARTNER &bull; ANGEL ONE</div>
+      <div class="adsense-slot-card sponsored-detail-slot" aria-label="Angel One">
         <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-detail-banner" title="Apply for this IPO via Angel One">
           <div class="sponsored-detail-logo-wrap">
             <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-detail" loading="lazy" />

@@ -6508,26 +6508,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 
 .ad-slot-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: #64748B;
-  margin-bottom: 8px;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.ad-slot-label::before,
-.ad-slot-label::after {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 1px;
-  background: #CBD5E1;
+  display: none !important;
 }
 
 /* Base Clickable Sponsored Anchor Link */
