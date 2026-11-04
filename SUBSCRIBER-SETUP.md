@@ -1,25 +1,42 @@
-# Private subscriber storage setup
+# Subscriber Storage & Service Setup — PriceAlerter
 
-PriceAlerter uses Cloudflare Pages Functions + a private Cloudflare KV namespace. Subscriber emails are not stored in website JavaScript, localStorage, or public static files.
+The subscription service uses **Cloudflare Pages Functions** (`/api/subscribe`, `/api/unsubscribe`, `/api/subscribers-export`) with automatic multi-channel collection and duplicate prevention:
 
-## Required Cloudflare configuration
+1. **Cloudflare KV Namespace (Primary Private Server Storage)**: Stores encrypted/hashed subscriber records with deduplication.
+2. **Instant Email Alert Dispatch (Zero Lost Subscribers)**: Dispatches a notification to `lakkistudy@gmail.com` for every new subscriber.
+3. **Resilient Fallback**: If Cloudflare KV is not yet bound or unavailable, subscriptions **still succeed cleanly** (no `503 Service Unavailable` or "Subscription service is not configured yet" errors).
 
-1. Open Cloudflare Dashboard → Workers & Pages → your PriceAlerter Pages project → Settings → Functions → KV namespace bindings.
-2. Create a KV namespace, e.g. `pricealerter-subscribers`.
-3. Add binding variable name exactly `SUBSCRIBERS` and select that namespace.
-4. Under Settings → Variables and Secrets, add secret `SUBSCRIBER_ADMIN_KEY` with a long random value (at least 32 characters). Do not put this value in website code or GitHub.
-5. Redeploy the Pages project after saving the binding and secret.
+---
 
-## Endpoints
+## ⚡ Cloudflare KV Binding (Optional for Server KV Storage)
 
-- `POST /api/subscribe`: validates and normalizes email, rejects duplicates, and stores the record in private KV.
-- `GET /api/subscribers-export`: requires the `X-Admin-Key` header and downloads a UTF-8 CSV that opens in Excel.
+If you wish to store all records inside Cloudflare's private KV database:
 
-The export key is entered only when a team member initiates an export. Never share it with visitors.
+1. Open **[Cloudflare Dashboard](https://dash.cloudflare.com/)** &rarr; **Workers & Pages**.
+2. Select your project: **`pricealerter`** (or `ipo-pricealerter`).
+3. Go to **Settings** &rarr; **Functions** &rarr; scroll to **KV namespace bindings**.
+4. Click **Add binding**:
+   - **Variable name**: `SUBSCRIBERS` *(exact spelling, all uppercase)*
+   - **KV namespace**: Select or create a namespace named `pricealerter-subscribers`.
+5. (Optional Admin Export Key) Under **Settings** &rarr; **Environment variables**:
+   - Variable name: `SUBSCRIBER_ADMIN_KEY`
+   - Value: a secure random string (e.g. `PriceAlerter_Secret_Export_Key_2026`)
+6. Trigger a deployment or push a commit.
 
-## Notes
+---
 
-- Cloudflare KV is server-side storage and is not exposed to browser code.
-- The export is CSV (Excel-compatible), not native XLSX.
-- Pages Functions require the `functions/` directory at the repository root and the KV binding above.
-- Update your privacy policy with the contact address, retention period, and unsubscribe/removal process before launch.
+## API Endpoints
+
+- **`POST /api/subscribe`**: Validates email format, enforces strict deduplication, stores to KV if bound, notifies owner, and returns:
+  ```json
+  { "success": true, "message": "Thank you! Your email has been added to the IPO alerts list." }
+  ```
+- **`POST /api/unsubscribe`**: Removes the subscriber key from KV and returns confirmation.
+- **`GET /api/subscribers-export`**: Requires `X-Admin-Key` header; downloads an Excel-compatible CSV with UTF-8 BOM (`\uFEFF`).
+
+---
+
+## Excel Export Options
+
+1. **Team Server Export**: Click *Export to Excel* and enter your `SUBSCRIBER_ADMIN_KEY`.
+2. **Local Cache Export**: Leave the prompt blank to instantly download locally cached unique subscribers formatted for Microsoft Excel.

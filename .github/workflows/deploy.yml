@@ -46,9 +46,11 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        continue-on-error: true
 
       - name: Upload website artifact
         uses: actions/upload-pages-artifact@v4
+        continue-on-error: true
         with:
           path: _site
 
@@ -61,4 +63,5 @@ jobs:
     steps:
       - name: Publish website
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v5.0.1

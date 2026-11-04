@@ -858,8 +858,12 @@
     // Bind Header Events
     document.getElementById("open-search-pill")?.addEventListener("click", () => toggleSearchModal(true));
     document.getElementById("header-alerts-btn")?.addEventListener("click", () => {
-      state.alertsSubscribed = !state.alertsSubscribed;
-      showToast(state.alertsSubscribed ? "🔔 Real-time alerts enabled for IPOs" : "Alerts muted", "success");
+      if (window.SubscriberService && typeof window.SubscriberService.openSubscribeModal === "function") {
+        window.SubscriberService.openSubscribeModal();
+      } else {
+        state.alertsSubscribed = !state.alertsSubscribed;
+        showToast(state.alertsSubscribed ? "🔔 Real-time alerts enabled for IPOs" : "Alerts muted", "success");
+      }
     });
     document.getElementById("header-bell-btn")?.addEventListener("click", (e) => {
       e.stopPropagation();
