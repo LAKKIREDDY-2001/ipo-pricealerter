@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Sync Live Market Data via Tapetide & Exchange Feeds
+      - name: Sync Live Market Data from Configured Quote Sources
         env:
           TAPETIDE_TOKEN: ${{ secrets.TAPETIDE_TOKEN }}
         run: |
