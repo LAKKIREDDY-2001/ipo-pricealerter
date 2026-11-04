@@ -25,7 +25,7 @@ def read_js_object(path: Path, assignment: str):
         if quoted:
             if escaped:
                 escaped = False
-            elif char == "\\\\":
+            elif char == "\\":
                 escaped = True
             elif char == '"':
                 quoted = False
