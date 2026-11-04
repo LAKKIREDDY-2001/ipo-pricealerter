@@ -18,7 +18,7 @@
         }
 
         // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
-        var CURRENT_VERSION = 'v20261104_v47';
+        var CURRENT_VERSION = 'v20261105_v55';
         try {
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -330,7 +330,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261104_v47">
+    <link rel="stylesheet" href="styles.css?v=20261105_v55">
 
     <!-- Google tag (gtag.js) - Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
@@ -365,6 +365,7 @@
           <a href="#/upcoming" class="nav-tab-link">Upcoming</a>
           <a href="#/listed" class="nav-tab-link">Listed</a>
           <a href="#/calculator" class="nav-tab-link">Calculator</a>
+          <a href="#/live-prices" class="nav-tab-link">⚡ Live Prices</a>
           <a href="#/allotment" class="nav-tab-link">Allotment</a>
           <a href="#/gmp" class="nav-tab-link">GMP</a>
           <a href="#/calendar" class="nav-tab-link">Calendar</a>
@@ -379,7 +380,7 @@
             <kbd>⌘K</kbd>
           </button>
 
-          <button class="btn-header-alerts" id="header-alerts-btn" aria-label="Get IPO Alerts" onclick="window.IpoApp && window.IpoApp.toggleAlertsSubscription()">
+          <button class="btn-header-alerts" id="header-alerts-btn" aria-label="Get IPO Alerts" onclick="window.IpoApp && (window.IpoApp.handleGetAlertsClick ? window.IpoApp.handleGetAlertsClick() : window.IpoApp.toggleAlertsSubscription())">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             <span>Get Alerts</span>
           </button>
@@ -1727,10 +1728,10 @@
         });
       }
     </script>
-    <script src="subscribers.js?v=20261104_v47"></script>
-    <script src="data/ipo-data.js?v=20261104_v47" defer></script>
-    <script src="data/listed-gains-data.js?v=20261104_v47" defer></script>
-    <script src="app.js?v=20261104_v47" defer></script>
+    <script src="subscribers.js?v=20261105_v55"></script>
+    <script src="data/ipo-data.js?v=20261105_v55" defer></script>
+    <script src="data/listed-gains-data.js?v=20261105_v55" defer></script>
+    <script src="app.js?v=20261105_v55" defer></script>
 
     <!-- Infolinks Monetization -->
     <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>
