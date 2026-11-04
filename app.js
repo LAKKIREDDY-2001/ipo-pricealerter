@@ -6374,25 +6374,11 @@
       renderHeader();
     },
     handleFig1Subscribe: (e) => {
-      e.preventDefault();
-      const input = e.target.querySelector("input[type='email']") || e.target.querySelector("input");
-      if (!input || !input.value) return;
-      const email = input.value.trim();
-
-      if (window.SubscriberService) {
-        const res = window.SubscriberService.subscribe(email, "", "Stay Updated Form");
-        if (res.duplicate) {
-          showToast(`⚠️ Duplicate: ${email} is already subscribed. Blocked from storing in GitHub or Excel.`, "warning");
-        } else if (res.success) {
-          showToast(`✓ Subscribed! ${email} automatically added to Excel database.`, "success");
-          input.value = "";
-        } else {
-          showToast(res.message, "warning");
-        }
-      } else {
-        showToast("✓ Subscribed successfully!", "success");
-        input.value = "";
+      if (window.handleSubscribeForm) {
+        return window.handleSubscribeForm(e, "Stay Updated Form");
       }
+      e.preventDefault();
+      showToast("Subscription service is unavailable. Please try again later.", "warning");
     },
     exportSubscribersExcel: () => {
       if (window.SubscriberService) {
@@ -6401,8 +6387,11 @@
     },
     showToast: (msg, type) => showToast(msg, type),
     toggleAlertsSubscription: () => {
-      state.alertsSubscribed = !state.alertsSubscribed;
-      showToast(state.alertsSubscribed ? "✓ Alerts enabled for all high-GMP issues!" : "Alerts muted", "info");
+      if (window.SubscriberService && typeof window.SubscriberService.openSubscribeModal === "function") {
+        window.SubscriberService.openSubscribeModal();
+      } else {
+        showToast("Email subscription is loading. Please try again.", "warning");
+      }
     },
     toggleWatchlist: (slug, btnEl) => {
       let bookmarks = [];
