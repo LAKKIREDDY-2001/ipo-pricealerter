@@ -314,6 +314,324 @@ TRACKED_LOSERS = [
     }
 ]
 
+TRACKED_RECENT_IPOS = [
+    {
+        "symbol": "WAAREEENER",
+        "ticker": "WAAREEENER.NS",
+        "name": "Waaree Energies",
+        "subtitle": "Solar PV Modules & Clean Energy",
+        "logo": "assets/movers/waaree.png",
+        "initials": "WE",
+        "gradient": "linear-gradient(135deg, #F59E0B, #B45309)",
+        "issuePrice": 1503,
+        "lotSize": 9,
+        "defaultPrice": 2408.00,
+        "defaultChange": 14.50,
+        "defaultPct": 0.61,
+        "defaultVolume": "6,87,608",
+        "defaultVolRaw": 687608,
+        "slug": "waaree-energies-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [2320, 2350, 2375, 2390, 2410, 2405, 2408.0]
+    },
+    {
+        "symbol": "SWIGGY",
+        "ticker": "SWIGGY.NS",
+        "name": "Swiggy Limited",
+        "subtitle": "Food Delivery & Quick Commerce",
+        "logo": "assets/movers/swiggy.png",
+        "initials": "SW",
+        "gradient": "linear-gradient(135deg, #FC8019, #EA580C)",
+        "issuePrice": 390,
+        "lotSize": 38,
+        "defaultPrice": 178.89,
+        "defaultChange": 2.45,
+        "defaultPct": 1.39,
+        "defaultVolume": "1,53,05,731",
+        "defaultVolRaw": 15305731,
+        "slug": "swiggy-limited-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [172.5, 174.0, 175.8, 177.2, 178.0, 178.89]
+    },
+    {
+        "symbol": "HYUNDAI",
+        "ticker": "HYUNDAI.NS",
+        "name": "Hyundai Motor India",
+        "subtitle": "Automobile OEM Leader",
+        "logo": "assets/movers/hyundai.png",
+        "initials": "HMI",
+        "gradient": "linear-gradient(135deg, #002C6C, #001A40)",
+        "issuePrice": 1960,
+        "lotSize": 7,
+        "defaultPrice": 2063.00,
+        "defaultChange": 18.50,
+        "defaultPct": 0.91,
+        "defaultVolume": "7,38,012",
+        "defaultVolRaw": 738012,
+        "slug": "hyundai-motor-india-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [2030, 2045, 2050, 2058, 2063.0]
+    },
+    {
+        "symbol": "PREMIERENE",
+        "ticker": "PREMIERENE.NS",
+        "name": "Premier Energies",
+        "subtitle": "Solar PV Cells Manufacturer",
+        "logo": "assets/movers/premier-energies.png",
+        "initials": "PE",
+        "gradient": "linear-gradient(135deg, #10B981, #047857)",
+        "issuePrice": 450,
+        "lotSize": 33,
+        "defaultPrice": 904.00,
+        "defaultChange": 14.00,
+        "defaultPct": 1.57,
+        "defaultVolume": "11,45,856",
+        "defaultVolRaw": 1145856,
+        "slug": "premier-energies-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [885, 892, 898, 902, 904.0]
+    },
+    {
+        "symbol": "BAJAJHFL",
+        "ticker": "BAJAJHFL.NS",
+        "name": "Bajaj Housing Finance",
+        "subtitle": "NBFC Housing Finance",
+        "logo": "assets/movers/bajaj-housing.png",
+        "initials": "BHF",
+        "gradient": "linear-gradient(135deg, #0284C7, #0369A1)",
+        "issuePrice": 70,
+        "lotSize": 214,
+        "defaultPrice": 81.42,
+        "defaultChange": 0.85,
+        "defaultPct": 1.05,
+        "defaultVolume": "43,02,345",
+        "defaultVolRaw": 4302345,
+        "slug": "bajaj-housing-finance-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [80.2, 80.6, 81.0, 81.2, 81.42]
+    },
+    {
+        "symbol": "OLAELEC",
+        "ticker": "OLAELEC.NS",
+        "name": "Ola Electric Mobility",
+        "subtitle": "EV Two-Wheeler OEM",
+        "logo": "assets/movers/ola-electric.png",
+        "initials": "OLA",
+        "gradient": "linear-gradient(135deg, #1E293B, #0F172A)",
+        "issuePrice": 76,
+        "lotSize": 195,
+        "defaultPrice": 35.04,
+        "defaultChange": -0.62,
+        "defaultPct": -1.74,
+        "defaultVolume": "4,30,60,994",
+        "defaultVolRaw": 43060994,
+        "slug": "ola-electric-mobility-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [36.2, 35.8, 35.5, 35.2, 35.04]
+    },
+    {
+        "symbol": "BSE",
+        "ticker": "BSE.NS",
+        "name": "BSE Limited",
+        "subtitle": "India Exchange & Trading Infra",
+        "logo": "assets/movers/bse.png",
+        "initials": "BSE",
+        "gradient": "linear-gradient(135deg, #2563EB, #1D4ED8)",
+        "issuePrice": 806,
+        "lotSize": 10,
+        "defaultPrice": 3601.50,
+        "defaultChange": 72.50,
+        "defaultPct": 2.05,
+        "defaultVolume": "42,13,926",
+        "defaultVolRaw": 4213926,
+        "slug": "bse-limited",
+        "exchange": "NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [3520, 3550, 3580, 3600, 3601.5]
+    },
+    {
+        "symbol": "NTPCGREEN",
+        "ticker": "NTPCGREEN.NS",
+        "name": "NTPC Green Energy",
+        "subtitle": "Renewable Power Utility",
+        "logo": "assets/movers/ntpc-green.png",
+        "initials": "NGE",
+        "gradient": "linear-gradient(135deg, #059669, #065F46)",
+        "issuePrice": 108,
+        "lotSize": 138,
+        "defaultPrice": 115.00,
+        "defaultChange": 1.20,
+        "defaultPct": 1.05,
+        "defaultVolume": "2,15,40,110",
+        "defaultVolRaw": 21540110,
+        "slug": "ntpc-green-energy-ipo",
+        "exchange": "BSE, NSE",
+        "category": "RECENT_IPO",
+        "catLabel": "🚀 Recent IPO Debut",
+        "trend": [112.5, 113.8, 114.2, 114.8, 115.0]
+    }
+]
+
+TRACKED_BLUECHIPS = [
+    {
+        "symbol": "RELIANCE",
+        "ticker": "RELIANCE.NS",
+        "name": "Reliance Industries",
+        "subtitle": "Energy, Retail & Telecom Giant",
+        "logo": "assets/movers/reliance.png",
+        "initials": "RIL",
+        "gradient": "linear-gradient(135deg, #0284C7, #075985)",
+        "defaultPrice": 1311.00,
+        "defaultChange": 14.50,
+        "defaultPct": 1.12,
+        "defaultVolume": "1,94,44,018",
+        "defaultVolRaw": 19444018,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [1295, 1302, 1305, 1308, 1311.0]
+    },
+    {
+        "symbol": "TCS",
+        "ticker": "TCS.NS",
+        "name": "Tata Consultancy Services",
+        "subtitle": "Global IT Services Leader",
+        "logo": "assets/movers/tcs.png",
+        "initials": "TCS",
+        "gradient": "linear-gradient(135deg, #1E293B, #334155)",
+        "defaultPrice": 2436.00,
+        "defaultChange": 22.00,
+        "defaultPct": 0.91,
+        "defaultVolume": "31,40,927",
+        "defaultVolRaw": 3140927,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [2410, 2418, 2425, 2430, 2436.0]
+    },
+    {
+        "symbol": "INFY",
+        "ticker": "INFY.NS",
+        "name": "Infosys Limited",
+        "subtitle": "Digital Services & Consulting",
+        "logo": "assets/movers/infosys.png",
+        "initials": "INFY",
+        "gradient": "linear-gradient(135deg, #2563EB, #1D4ED8)",
+        "defaultPrice": 1128.20,
+        "defaultChange": 11.20,
+        "defaultPct": 1.00,
+        "defaultVolume": "93,24,799",
+        "defaultVolRaw": 9324799,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [1115, 1120, 1124, 1126, 1128.2]
+    },
+    {
+        "symbol": "HDFCBANK",
+        "ticker": "HDFCBANK.NS",
+        "name": "HDFC Bank",
+        "subtitle": "Private Banking Benchmark",
+        "logo": "assets/movers/hdfc-bank.png",
+        "initials": "HDFC",
+        "gradient": "linear-gradient(135deg, #004C8F, #002E54)",
+        "defaultPrice": 736.70,
+        "defaultChange": 5.40,
+        "defaultPct": 0.74,
+        "defaultVolume": "5,06,71,579",
+        "defaultVolRaw": 50671579,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [730, 732, 734, 735.5, 736.7]
+    },
+    {
+        "symbol": "ICICIBANK",
+        "ticker": "ICICIBANK.NS",
+        "name": "ICICI Bank",
+        "subtitle": "Diversified Financial Conglomerate",
+        "logo": "assets/movers/icici-bank.png",
+        "initials": "ICICI",
+        "gradient": "linear-gradient(135deg, #B91C1C, #991B1B)",
+        "defaultPrice": 1424.10,
+        "defaultChange": 18.20,
+        "defaultPct": 1.29,
+        "defaultVolume": "1,05,98,803",
+        "defaultVolRaw": 10598803,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [1405, 1412, 1418, 1422, 1424.1]
+    },
+    {
+        "symbol": "BAJFINANCE",
+        "ticker": "BAJFINANCE.NS",
+        "name": "Bajaj Finance",
+        "subtitle": "Consumer NBFC Champion",
+        "logo": "assets/movers/bajaj-finance.png",
+        "initials": "BF",
+        "gradient": "linear-gradient(135deg, #0284C7, #0369A1)",
+        "defaultPrice": 994.00,
+        "defaultChange": 12.00,
+        "defaultPct": 1.22,
+        "defaultVolume": "1,44,07,596",
+        "defaultVolRaw": 14407596,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [980, 985, 990, 992, 994.0]
+    },
+    {
+        "symbol": "LT",
+        "ticker": "LT.NS",
+        "name": "Larsen & Toubro",
+        "subtitle": "EPC Infrastructure Leader",
+        "logo": "assets/movers/lt.png",
+        "initials": "LT",
+        "gradient": "linear-gradient(135deg, #D97706, #B45309)",
+        "defaultPrice": 3944.40,
+        "defaultChange": 48.00,
+        "defaultPct": 1.23,
+        "defaultVolume": "24,93,326",
+        "defaultVolRaw": 2493326,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [3890, 3910, 3925, 3935, 3944.4]
+    },
+    {
+        "symbol": "ITC",
+        "ticker": "ITC.NS",
+        "name": "ITC Limited",
+        "subtitle": "FMCG, Hotels & Paperboards",
+        "logo": "assets/movers/itc.png",
+        "initials": "ITC",
+        "gradient": "linear-gradient(135deg, #B45309, #78350F)",
+        "defaultPrice": 280.00,
+        "defaultChange": 3.10,
+        "defaultPct": 1.12,
+        "defaultVolume": "4,24,46,833",
+        "defaultVolRaw": 42446833,
+        "exchange": "NSE, BSE",
+        "category": "BLUECHIP",
+        "catLabel": "🏛️ Nifty 50 Bluechip",
+        "trend": [276, 277.5, 278.2, 279.0, 280.0]
+    }
+]
+
 TRACKED_IPOS = [
     {
         "slug": "antala-industries-ipo",
@@ -580,8 +898,11 @@ def resolve_stock_live(stock_def, tapetide_token=None):
 
     return {
         "symbol": symbol,
+        "ticker": stock_def.get("ticker", f"{symbol}.NS"),
         "name": stock_def["name"],
         "subtitle": stock_def.get("subtitle", ""),
+        "category": stock_def.get("category", ""),
+        "catLabel": stock_def.get("catLabel", ""),
         "logo": stock_def["logo"],
         "initials": stock_def["initials"],
         "gradient": stock_def["gradient"],
@@ -596,6 +917,10 @@ def resolve_stock_live(stock_def, tapetide_token=None):
         "volRaw": vol_raw,
         "volume": vol_str,
         "volChange": stock_def.get("volChange", ""),
+        "issuePrice": stock_def.get("issuePrice"),
+        "lotSize": stock_def.get("lotSize"),
+        "slug": stock_def.get("slug"),
+        "exchange": stock_def.get("exchange", "NSE / BSE"),
         "trend": stock_def.get("trend", [])
     }
 
@@ -616,30 +941,56 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
 
     # 1. Fetch Gainers
     synced_gainers = []
-    print("\n[1/4] Syncing Top Gainers...")
+    print("\n[1/6] Syncing Top Gainers...")
     for item in TRACKED_GAINERS:
+        item["category"] = "GAINER"
+        item["catLabel"] = "🏆 Top Gainer"
         res = resolve_stock_live(item, tapetide_token)
         synced_gainers.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
     # 2. Fetch Market Shakers (Volume Surge)
     synced_shakers = []
-    print("\n[2/4] Syncing Market Shakers (Volume Breakouts)...")
+    print("\n[2/6] Syncing Market Shakers (Volume Breakouts)...")
     for item in TRACKED_SHAKERS:
+        item["category"] = "SHAKER"
+        item["catLabel"] = "⚡ Market Shaker"
         res = resolve_stock_live(item, tapetide_token)
         synced_shakers.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Vol Chg: {res['volChange']:>8} | Vol: {res['volume']}")
 
     # 3. Fetch Losers
     synced_losers = []
-    print("\n[3/4] Syncing Top Losers...")
+    print("\n[3/6] Syncing Top Losers...")
     for item in TRACKED_LOSERS:
+        item["category"] = "LOSER"
+        item["catLabel"] = "🔻 Top Loser"
         res = resolve_stock_live(item, tapetide_token)
         synced_losers.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
-    # 4. Active IPOs & Market Debuts
-    print("\n[4/4] Syncing Active IPOs & Grey Market Premiums...")
+    # 4. Fetch Recent IPO Debuts
+    synced_recent_ipos = []
+    print("\n[4/6] Syncing Recent IPO Debuts...")
+    for item in TRACKED_RECENT_IPOS:
+        item["category"] = "RECENT_IPO"
+        item["catLabel"] = "🚀 Recent IPO Debut"
+        res = resolve_stock_live(item, tapetide_token)
+        synced_recent_ipos.append(res)
+        print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Issue: ₹{res.get('issuePrice', '—')} | Vol: {res['volume']}")
+
+    # 5. Fetch Nifty 50 Bluechips
+    synced_bluechips = []
+    print("\n[5/6] Syncing Nifty 50 Bluechips...")
+    for item in TRACKED_BLUECHIPS:
+        item["category"] = "BLUECHIP"
+        item["catLabel"] = "🏛️ Nifty 50 Bluechip"
+        res = resolve_stock_live(item, tapetide_token)
+        synced_bluechips.append(res)
+        print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
+
+    # 6. Active IPOs & Market Debuts
+    print("\n[6/6] Syncing Active IPOs & Grey Market Premiums...")
     synced_ipos = []
     for ipo in TRACKED_IPOS:
         # Check if live ticker exists
@@ -670,18 +1021,35 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         })
         print(f"  ✓ {ipo['name']:<24}: Price: ₹{issue_price} | GMP: +₹{gmp} ({ipo.get('gmpPct')}%) | 1-Lot Profit: +₹{est_profit:,}")
 
+    # Aggregate Unified All Live Stocks (32+ stocks)
+    all_live_stocks = []
+    all_live_stocks.extend(synced_recent_ipos)
+    all_live_stocks.extend(synced_gainers)
+    all_live_stocks.extend(synced_shakers)
+    all_live_stocks.extend(synced_losers)
+    all_live_stocks.extend(synced_bluechips)
+
     # Build Central Live Market Data Structure
     live_dataset = {
         "lastSyncTime": iso_time,
         "lastSyncFormatted": formatted_time,
         "nextSyncCountdownSeconds": 600,
         "syncIntervalMinutes": 10,
-        "source": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE)",
+        "source": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
+        "officialSources": {
+            "dhan": "https://dhan.co/ipo/",
+            "nse": "https://www.nseindia.com/static/market-data/real-time-data-subscription",
+            "bse": "https://marketdata.bseindia.com/",
+            "tapetide": "https://tapetide.com/"
+        },
         "status": "LIVE_SYNCHRONIZED",
         "marketGainers": synced_gainers,
         "marketShakers": synced_shakers,
         "marketLosers": synced_losers,
-        "trackedIpos": synced_ipos
+        "recentIpos": synced_recent_ipos,
+        "bluechips": synced_bluechips,
+        "trackedIpos": synced_ipos,
+        "allLiveStocks": all_live_stocks
     }
 
     if dry_run:
@@ -692,10 +1060,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(LIVE_DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(live_dataset, f, indent=2, ensure_ascii=False)
-    print(f"\n✅ Updated {LIVE_DATA_FILE}")
+    print(f"\n✅ Updated {LIVE_DATA_FILE} ({len(all_live_stocks)} total real-time stocks)")
 
-    # 2. Update data/ipo-data.js with active IPO GMPs
-    update_ipo_data_js(synced_ipos, iso_time)
+    # 2. Update data/ipo-data.js with active IPO GMPs and recent IPO CMPs
+    update_ipo_data_js(synced_ipos, synced_recent_ipos, iso_time)
 
     # 3. Update app.js static fallbacks
     update_app_js_constants(synced_gainers, synced_shakers, synced_losers)
@@ -703,7 +1071,7 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     print(f"\n✨ Market data sync complete! Next autonomous cycle in 10 minutes.")
     return True
 
-def update_ipo_data_js(synced_ipos, iso_time):
+def update_ipo_data_js(synced_ipos, synced_recent_ipos=None, iso_time=None):
     """Updates active IPO GMPs and listing prices inside data/ipo-data.js."""
     if not os.path.exists(IPO_DATA_FILE):
         return
@@ -722,6 +1090,7 @@ def update_ipo_data_js(synced_ipos, iso_time):
         records = data.get("records", [])
 
         ipo_map = {item["slug"]: item for item in synced_ipos}
+        recent_map = {item["slug"]: item for item in (synced_recent_ipos or []) if item.get("slug")}
 
         updated_count = 0
         for r in records:
@@ -736,6 +1105,16 @@ def update_ipo_data_js(synced_ipos, iso_time):
                 r["dayHighGmp"] = update_info["gmp"] + 2
                 r["dayLowGmp"] = max(1, update_info["gmp"] - 2)
                 r["trend"] = "bullish" if update_info["gmp"] > 0 else "neutral"
+                updated_count += 1
+            elif slug in recent_map:
+                recent_info = recent_map[slug]
+                r["currentPrice"] = recent_info["rawPrice"]
+                r["dayChange"] = recent_info["rawChange"]
+                r["dayChangePerc"] = recent_info["pct"]
+                r["dayHigh"] = recent_info["high"]
+                r["dayLow"] = recent_info["low"]
+                r["volume"] = recent_info["volume"]
+                r["lastPriceUpdate"] = iso_time
                 updated_count += 1
 
         data["updatedAt"] = iso_time
