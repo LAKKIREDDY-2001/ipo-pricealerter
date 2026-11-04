@@ -6598,7 +6598,7 @@
     if (!recordsList || recordsList.length === 0) {
       return `
         <tr>
-          <td colspan="10" style="text-align:center; padding:36px; color:#64748B;">
+          <td colspan="11" style="text-align:center; padding:36px; color:#64748B;">
             No listed companies found matching your criteria. Try adjusting the search query or selecting another year.
           </td>
         </tr>
@@ -6640,7 +6640,8 @@
           </td>
           <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${formatDate(r.listedDate)}</span></td>
           <td><span class="fig1-val-price">${r.issuePrice ? '₹' + Number(r.issuePrice).toLocaleString('en-IN') : '—'}</span></td>
-          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice != null ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingDayClose != null ? '₹' + Number(r.listingDayClose).toLocaleString('en-IN') : '—'}</span></td>
           <td>
             <span class="fig1-return-tag ${gainClass}">${gainText}</span>
           </td>
@@ -6709,14 +6710,18 @@
             <span class="fig1-return-tag ${gainClass}">${gainText}</span>
           </div>
 
-          <div class="mobile-open-specs-grid" style="grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <div class="mobile-open-specs-grid" style="grid-template-columns:repeat(4, 1fr); gap:8px;">
             <div class="mobile-spec-item">
               <span class="mobile-spec-label">Issue Price</span>
               <span class="mobile-spec-val">${r.issuePrice ? '₹' + r.issuePrice : '—'}</span>
             </div>
             <div class="mobile-spec-item">
-              <span class="mobile-spec-label">Listing Price</span>
-              <span class="mobile-spec-val">${r.listingPrice ? '₹' + r.listingPrice : '—'}</span>
+              <span class="mobile-spec-label">Listing Open</span>
+              <span class="mobile-spec-val">${r.listingPrice != null ? '₹' + r.listingPrice : '—'}</span>
+            </div>
+            <div class="mobile-spec-item">
+              <span class="mobile-spec-label">Listing Close</span>
+              <span class="mobile-spec-val">${r.listingDayClose != null ? '₹' + r.listingDayClose : '—'}</span>
             </div>
             <div class="mobile-spec-item">
               <span class="mobile-spec-label">Subscribed</span>
@@ -6985,8 +6990,9 @@
                   <th>SEGMENT</th>
                   <th>LISTING DATE</th>
                   <th>ISSUE PRICE</th>
-                  <th>LISTING PRICE</th>
-                  <th>LISTING GAIN</th>
+                  <th>LISTING OPEN</th>
+                  <th>LISTING DAY CLOSE</th>
+                  <th>OPENING GAIN</th>
                   <th>SUBSCRIPTION</th>
                   <th>ISSUE SIZE</th>
                   <th>CURRENT PRICE</th>
