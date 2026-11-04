@@ -42,34 +42,13 @@ window.IpoData = {
       "listingDate": "2026-11-05",
       "expectedListingPrice": 90.5,
       "estProfitPerLot": 1547,
-      "gmp": 8.5,
-      "gmpPercentage": 10.37,
-      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
-      "dayHighGmp": 9,
-      "dayLowGmp": 8,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "28 Oct",
-          "value": 6
-        },
-        {
-          "date": "29 Oct",
-          "value": 6
-        },
-        {
-          "date": "30 Oct",
-          "value": 7
-        },
-        {
-          "date": "31 Oct",
-          "value": 8
-        },
-        {
-          "date": "01 Nov",
-          "value": 8.5
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 3.98,
       "subscriptionSummary": {
         "qib": 6.89,
@@ -151,7 +130,8 @@ window.IpoData = {
       "volume": 1594,
       "priceSource": "Groww (BSE: 544264)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "returnSinceIssuePct": 389.57
+      "returnSinceIssuePct": 389.57,
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "antala-industries",
@@ -194,46 +174,13 @@ window.IpoData = {
       "listingDate": "2026-11-11",
       "expectedListingPrice": 66,
       "estProfitPerLot": 0,
-      "gmp": 0,
-      "gmpPercentage": 0,
-      "gmpUpdatedAt": "2026-11-03T18:21:00+05:30",
-      "dayHighGmp": 0,
-      "dayLowGmp": 0,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "neutral",
-      "gmpHistory": [
-        {
-          "date": "27 Oct",
-          "value": 0
-        },
-        {
-          "date": "28 Oct",
-          "value": 0
-        },
-        {
-          "date": "29 Oct",
-          "value": 0
-        },
-        {
-          "date": "30 Oct",
-          "value": 0
-        },
-        {
-          "date": "31 Oct",
-          "value": 0
-        },
-        {
-          "date": "01 Nov",
-          "value": 0
-        },
-        {
-          "date": "02 Nov",
-          "value": 0
-        },
-        {
-          "date": "03 Nov",
-          "value": 0
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 1.33,
       "subscriptionOverall": 1.33,
       "subscriptionRetail": 0.5,
@@ -351,7 +298,8 @@ window.IpoData = {
           "url": "https://www.bigshareonline.com/ipo_Allotment.html"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AntalaIndustriesLtd_76186824_97526.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AntalaIndustriesLtd_76186824_97526.png",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vectras-enprocon",
@@ -384,30 +332,13 @@ window.IpoData = {
       "listingDate": "2026-11-06",
       "expectedListingPrice": 110,
       "estProfitPerLot": 6000,
-      "gmp": 5,
-      "gmpPercentage": 4.76,
-      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
-      "dayHighGmp": 8,
-      "dayLowGmp": 5,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "down",
-      "gmpHistory": [
-        {
-          "date": "29 Oct",
-          "value": 4
-        },
-        {
-          "date": "30 Oct",
-          "value": 5
-        },
-        {
-          "date": "31 Oct",
-          "value": 5
-        },
-        {
-          "date": "01 Nov",
-          "value": 5
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 1.25,
       "subscriptionSummary": {
         "qib": 1.05,
@@ -452,7 +383,8 @@ window.IpoData = {
           "type": "PDF"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VectrasEnproconLimited_61797189_95968.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VectrasEnproconLimited_61797189_95968.png",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "maxwell-engineering",
@@ -485,30 +417,13 @@ window.IpoData = {
       "listingDate": "2026-11-06",
       "expectedListingPrice": 228,
       "estProfitPerLot": 56000,
-      "gmp": 70,
-      "gmpPercentage": 44.3,
-      "gmpUpdatedAt": "2026-10-31T11:45:00+05:30",
-      "dayHighGmp": 72,
-      "dayLowGmp": 50,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "28 Oct",
-          "value": 50
-        },
-        {
-          "date": "29 Oct",
-          "value": 58
-        },
-        {
-          "date": "30 Oct",
-          "value": 65
-        },
-        {
-          "date": "31 Oct",
-          "value": 70
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 4.67,
       "subscriptionSummary": {
         "qib": 0,
@@ -554,7 +469,8 @@ window.IpoData = {
           "type": "PDF"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MAXWELLENGINEERINGSOLUTIONSLIMITED_60428710_95974.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MAXWELLENGINEERINGSOLUTIONSLIMITED_60428710_95974.png",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "johnsoncab-electricals",
@@ -587,30 +503,13 @@ window.IpoData = {
       "listingDate": "2026-11-06",
       "expectedListingPrice": 215,
       "estProfitPerLot": 9000,
-      "gmp": 15,
-      "gmpPercentage": 7.5,
-      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
-      "dayHighGmp": 13,
-      "dayLowGmp": 10,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "29 Oct",
-          "value": 10
-        },
-        {
-          "date": "30 Oct",
-          "value": 12
-        },
-        {
-          "date": "31 Oct",
-          "value": 13
-        },
-        {
-          "date": "01 Nov",
-          "value": 15
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 2.25,
       "subscriptionSummary": {
         "qib": 1.5,
@@ -676,7 +575,8 @@ window.IpoData = {
           "url": "https://maashitla.com"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JohnsoncabElectricalsLtd_34165819_97524.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JohnsoncabElectricalsLtd_34165819_97524.png",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "hgs-india",
@@ -709,30 +609,13 @@ window.IpoData = {
       "listingDate": "2026-11-06",
       "expectedListingPrice": 134,
       "estProfitPerLot": 16800,
-      "gmp": 14,
-      "gmpPercentage": 11.67,
-      "gmpUpdatedAt": "2026-11-01T00:30:00+05:30",
-      "dayHighGmp": 12,
-      "dayLowGmp": 8,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "29 Oct",
-          "value": 10
-        },
-        {
-          "date": "30 Oct",
-          "value": 11
-        },
-        {
-          "date": "31 Oct",
-          "value": 12
-        },
-        {
-          "date": "01 Nov",
-          "value": 14
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 1.35,
       "subscriptionSummary": {
         "qib": 1.1,
@@ -777,7 +660,8 @@ window.IpoData = {
           "type": "PDF"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HGSIndiaLtd_57251763_75413.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HGSIndiaLtd_57251763_75413.png",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "waaree-energies",
@@ -809,7 +693,7 @@ window.IpoData = {
       "listingDate": "2026-10-28",
       "gmp": null,
       "gmpPercentage": null,
-      "gmpUpdatedAt": "2026-10-28T10:00:00+05:30",
+      "gmpUpdatedAt": null,
       "gmpHistory": [],
       "subscriptionTotal": 76.34,
       "subscriptionSummary": {
@@ -876,7 +760,10 @@ window.IpoData = {
       "yearLow": 2161.5,
       "volume": 398632,
       "priceSource": "Groww (NSE: WAAREEENER)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "godavari-biorefineries",
@@ -908,7 +795,7 @@ window.IpoData = {
       "listingDate": "2026-10-30",
       "gmp": null,
       "gmpPercentage": null,
-      "gmpUpdatedAt": "2026-10-30T10:00:00+05:30",
+      "gmpUpdatedAt": null,
       "gmpHistory": [],
       "subscriptionTotal": 1.83,
       "subscriptionSummary": {
@@ -974,7 +861,10 @@ window.IpoData = {
       "yearLow": 193.6,
       "volume": 55064,
       "priceSource": "Groww (NSE: GODAVARIB)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "afcons-infrastructure",
@@ -1004,33 +894,12 @@ window.IpoData = {
       "refundDate": "2026-11-01",
       "dematDate": "2026-11-01",
       "listingDate": "2026-11-04",
-      "gmp": 5,
-      "gmpPercentage": 1.08,
-      "gmpUpdatedAt": "2026-10-30T10:00:00+05:30",
-      "gmpHistory": [
-        {
-          "date": "25 Oct",
-          "value": 25
-        },
-        {
-          "date": "26 Oct",
-          "value": 22
-        },
-        {
-          "date": "27 Oct",
-          "value": 20
-        },
-        {
-          "date": "28 Oct",
-          "value": 16
-        },
-        {
-          "date": "29 Oct",
-          "value": 15
-        }
-      ],
-      "dayHighGmp": 25,
-      "dayLowGmp": 12,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "gmpHistory": [],
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "stable",
       "subscriptionTotal": 2.63,
       "subscriptionSummary": {
@@ -1116,7 +985,8 @@ window.IpoData = {
       "yearLow": 203.6,
       "volume": 783398,
       "priceSource": "Groww (NSE: AFCONS)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "carver-roboweld",
@@ -1140,8 +1010,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_Allotment.html",
       "growwUrl": "https://groww.in/ipo/carver-roboweld-ipo",
       "subscriptionTotal": 25.8,
-      "gmp": 8,
-      "gmpPercentage": 10.53,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Carver Roboweld manufactures welding consumables, flux-cored wires, and provides robotic die refurbishment engineering services.",
       "documents": [
         {
@@ -1156,28 +1026,11 @@ window.IpoData = {
       "openDate": "2026-10-28",
       "refundDate": "2026-11-03",
       "dematDate": "2026-11-03",
-      "gmpHistory": [
-        {
-          "date": "26 Oct",
-          "value": 5
-        },
-        {
-          "date": "27 Oct",
-          "value": 6
-        },
-        {
-          "date": "28 Oct",
-          "value": 7
-        },
-        {
-          "date": "29 Oct",
-          "value": 8
-        },
-        {
-          "date": "30 Oct",
-          "value": 8
-        }
-      ]
+      "gmpHistory": [],
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "mksons-fine-jewels",
@@ -1201,8 +1054,8 @@ window.IpoData = {
       "allotmentUrl": "https://www.bigshareonline.com/ipo_allotment.html",
       "growwUrl": "https://groww.in/ipo/mksons-fine-jewels-ipo",
       "subscriptionTotal": 5.09,
-      "gmp": 6,
-      "gmpPercentage": 5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "M. K. Sons Fine Jewels operates retail showrooms across western India showcasing gold, diamond, and designer lifestyle jewellery.",
       "documents": [
         {
@@ -1217,28 +1070,11 @@ window.IpoData = {
       "openDate": "2026-10-28",
       "refundDate": "2026-11-03",
       "dematDate": "2026-11-03",
-      "gmpHistory": [
-        {
-          "date": "27 Oct",
-          "value": 4
-        },
-        {
-          "date": "28 Oct",
-          "value": 5
-        },
-        {
-          "date": "29 Oct",
-          "value": 5
-        },
-        {
-          "date": "30 Oct",
-          "value": 6
-        },
-        {
-          "date": "31 Oct",
-          "value": 6
-        }
-      ]
+      "gmpHistory": [],
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "ajwa-projects",
@@ -1262,8 +1098,8 @@ window.IpoData = {
       "allotmentUrl": "https://ipostatus.kfintech.com/",
       "growwUrl": "https://groww.in/ipo/ajwa-projects-ipo",
       "subscriptionTotal": 6.9,
-      "gmp": 6,
-      "gmpPercentage": 5,
+      "gmp": null,
+      "gmpPercentage": null,
       "about": "Ajwa Projects is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -1279,7 +1115,12 @@ window.IpoData = {
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AJWAPROJECTSLIMITED_92182746_96155.png",
       "openDate": "2026-10-24",
       "refundDate": "2026-10-30",
-      "dematDate": "2026-10-30"
+      "dematDate": "2026-10-30",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "bls-polymers",
@@ -1323,7 +1164,12 @@ window.IpoData = {
       "listingGainPct": 65.33,
       "currentPrice": 268.8,
       "returnSinceIssuePct": 79.2,
-      "issuePrice": 150
+      "issuePrice": 150,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sfc-environmental-technologies",
@@ -1367,7 +1213,12 @@ window.IpoData = {
       "listingPrice": 355.1,
       "listingGainPct": 7.61,
       "currentPrice": 426.1,
-      "returnSinceIssuePct": 29.12
+      "returnSinceIssuePct": 29.12,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "wiscon-industries",
@@ -1412,7 +1263,12 @@ window.IpoData = {
       "listingGainPct": 0,
       "currentPrice": 204,
       "returnSinceIssuePct": 0,
-      "issuePrice": 204
+      "issuePrice": 204,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "eaaa-india-alternatives",
@@ -1466,7 +1322,12 @@ window.IpoData = {
       "yearLow": 1601,
       "volume": 659064,
       "priceSource": "Groww (NSE: EDELALTS)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "core4-engineers",
@@ -1520,7 +1381,12 @@ window.IpoData = {
       "yearLow": 74.4,
       "volume": 180000,
       "priceSource": "Groww (BSE: 545007)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "paras-healthcare",
@@ -1574,7 +1440,12 @@ window.IpoData = {
       "yearLow": 706,
       "volume": 577138,
       "priceSource": "Groww (NSE: PARASHLTH)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "reliance-jio",
@@ -1628,7 +1499,12 @@ window.IpoData = {
       "yearLow": 1357,
       "volume": 10314943,
       "priceSource": "Groww (NSE: JPL)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "zetwerk",
@@ -1679,7 +1555,12 @@ window.IpoData = {
       "volume": 5214645,
       "priceSource": "Groww (NSE: ZETWERK)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "issuePrice": 500
+      "issuePrice": 500,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sahajanand-medical-technologies",
@@ -1733,7 +1614,12 @@ window.IpoData = {
       "yearLow": 346.65,
       "volume": 423221,
       "priceSource": "Groww (NSE: SMT)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "tonbo-imaging",
@@ -1787,7 +1673,12 @@ window.IpoData = {
       "yearLow": 1013.7,
       "volume": 640826,
       "priceSource": "Groww (NSE: TONBO)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shellz-india",
@@ -1838,7 +1729,12 @@ window.IpoData = {
       "volume": 8000,
       "priceSource": "Groww (BSE: 544998)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "issuePrice": 226
+      "issuePrice": 226,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "bonfiglioli-transmissions",
@@ -1891,7 +1787,12 @@ window.IpoData = {
       "yearLow": 527.4,
       "volume": 1655569,
       "priceSource": "Groww (NSE: BONFIG)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "ravita-engineering-services",
@@ -1944,7 +1845,12 @@ window.IpoData = {
       "yearLow": 101.25,
       "volume": 48000,
       "priceSource": "Groww (NSE: RAVITA)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "fusion-cx",
@@ -1998,7 +1904,12 @@ window.IpoData = {
       "yearLow": 262.3,
       "volume": 67044,
       "priceSource": "Groww (NSE: FUSIONCX)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "hd-fire-protect",
@@ -2052,7 +1963,12 @@ window.IpoData = {
       "yearLow": 254.55,
       "volume": 546666,
       "priceSource": "Groww (NSE: HDFIRE)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vaibhav-vyapaar",
@@ -2103,7 +2019,12 @@ window.IpoData = {
       "volume": 148000,
       "priceSource": "Groww (NSE: LOANFRONT)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "issuePrice": 126
+      "issuePrice": 126,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "rkfashion-accessories",
@@ -2154,7 +2075,12 @@ window.IpoData = {
       "volume": 254400,
       "priceSource": "Groww (NSE: RKFAL)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "issuePrice": 136
+      "issuePrice": 136,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "paramount-syntex",
@@ -2208,7 +2134,12 @@ window.IpoData = {
       "yearLow": 48.3,
       "volume": 1094000,
       "priceSource": "Groww (BSE: 544982)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "acme-india-industries",
@@ -2262,7 +2193,12 @@ window.IpoData = {
       "yearLow": 195.9,
       "volume": 577564,
       "priceSource": "Groww (NSE: ACMESOLAR)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "tna-solutions",
@@ -2316,7 +2252,12 @@ window.IpoData = {
       "yearLow": 40,
       "volume": 28000,
       "priceSource": "Groww (BSE: 544983)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "everestims-technologies",
@@ -2370,7 +2311,12 @@ window.IpoData = {
       "yearLow": 86.01,
       "volume": 68800,
       "priceSource": "Groww (BSE: 544979)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shree-tnb-polymers",
@@ -2424,7 +2370,12 @@ window.IpoData = {
       "yearLow": 51.3,
       "volume": 10000,
       "priceSource": "Groww (BSE: 544978)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "dove-soft",
@@ -2478,7 +2429,12 @@ window.IpoData = {
       "yearLow": 81.5,
       "volume": 92400,
       "priceSource": "Groww (BSE: 544975)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "omara-ventures-india",
@@ -2532,7 +2488,12 @@ window.IpoData = {
       "yearLow": 306,
       "volume": 6400,
       "priceSource": "Groww (BSE: 544976)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "nityas-gems-jewellery",
@@ -2586,7 +2547,12 @@ window.IpoData = {
       "yearLow": 58.1,
       "volume": 243414,
       "priceSource": "Groww (NSE: NITYAS)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sollfege-smart-electronics",
@@ -2640,7 +2606,12 @@ window.IpoData = {
       "yearLow": 49.31,
       "volume": 4000,
       "priceSource": "Groww (BSE: 544977)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sjp-ultrasonic",
@@ -2694,7 +2665,12 @@ window.IpoData = {
       "yearLow": 73,
       "volume": 34000,
       "priceSource": "Groww (BSE: 544980)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "eventions",
@@ -2748,7 +2724,12 @@ window.IpoData = {
       "yearLow": 50.05,
       "volume": 518400,
       "priceSource": "Groww (NSE: EVENTIONS)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vishal-nirmiti",
@@ -2802,7 +2783,12 @@ window.IpoData = {
       "yearLow": 89.19,
       "volume": 208250,
       "priceSource": "Groww (NSE: VNL)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "green-asia-impex",
@@ -2855,7 +2841,12 @@ window.IpoData = {
       "yearLow": 57,
       "volume": 4800,
       "priceSource": "Groww (NSE: GREENASIA)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "black-opal-consultants",
@@ -2909,7 +2900,12 @@ window.IpoData = {
       "yearLow": 128.8,
       "volume": 27000,
       "priceSource": "Groww (BSE: 544972)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "papadmalji-agro",
@@ -2960,7 +2956,12 @@ window.IpoData = {
       "volume": 145600,
       "priceSource": "Groww (NSE: PAPADMALJI)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "issuePrice": 136
+      "issuePrice": 136,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vans-electroengineerings",
@@ -3014,7 +3015,12 @@ window.IpoData = {
       "yearLow": 224.2,
       "volume": 74400,
       "priceSource": "Groww (BSE: 544971)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "srit-india",
@@ -3065,7 +3071,12 @@ window.IpoData = {
       "volume": 969186,
       "priceSource": "Groww (NSE: SRIT)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "issuePrice": 156
+      "issuePrice": 156,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shivchem-agro",
@@ -3118,7 +3129,12 @@ window.IpoData = {
       "yearLow": 28,
       "volume": 22000,
       "priceSource": "Groww (BSE: 544967)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "acme-universal-safezone-9",
@@ -3172,7 +3188,12 @@ window.IpoData = {
       "yearLow": 94,
       "volume": 145600,
       "priceSource": "Groww (BSE: 544964)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "pind-hospitality",
@@ -3226,7 +3247,12 @@ window.IpoData = {
       "yearLow": 25.84,
       "volume": 30000,
       "priceSource": "Groww (BSE: 544966)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shah-investors-home",
@@ -3280,7 +3306,12 @@ window.IpoData = {
       "yearLow": 129.64,
       "volume": 32686,
       "priceSource": "Groww (NSE: SHAHINVEST)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sai-urja-indo",
@@ -3334,7 +3365,12 @@ window.IpoData = {
       "yearLow": 106.4,
       "volume": 21600,
       "priceSource": "Groww (BSE: 544958)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "bench-mark-infotech-services",
@@ -3377,7 +3413,12 @@ window.IpoData = {
       "issuePrice": 110,
       "listingPrice": 110,
       "currentPrice": 189,
-      "returnSinceIssuePct": 71.82
+      "returnSinceIssuePct": 71.82,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "himalayan-solar",
@@ -3421,7 +3462,12 @@ window.IpoData = {
       "listingPrice": 85,
       "listingGainPct": -17.48,
       "currentPrice": 83.25,
-      "returnSinceIssuePct": -19.17
+      "returnSinceIssuePct": -19.17,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "acevector",
@@ -3465,7 +3511,12 @@ window.IpoData = {
       "listingPrice": 28.32,
       "listingGainPct": -11.5,
       "currentPrice": 19.06,
-      "returnSinceIssuePct": -40.44
+      "returnSinceIssuePct": -40.44,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "german-green-steel-and-power",
@@ -3509,7 +3560,12 @@ window.IpoData = {
       "listingPrice": 142,
       "listingGainPct": 2.16,
       "currentPrice": 102.08,
-      "returnSinceIssuePct": -26.56
+      "returnSinceIssuePct": -26.56,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "runwal-enterprises",
@@ -3552,7 +3608,12 @@ window.IpoData = {
       "issuePrice": 305,
       "listingPrice": 305,
       "currentPrice": 205.09,
-      "returnSinceIssuePct": -32.76
+      "returnSinceIssuePct": -32.76,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "orient-cables",
@@ -3596,7 +3657,12 @@ window.IpoData = {
       "listingPrice": 450,
       "listingGainPct": 65.44,
       "currentPrice": 337.45,
-      "returnSinceIssuePct": 24.06
+      "returnSinceIssuePct": 24.06,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "dudani-retail",
@@ -3640,7 +3706,12 @@ window.IpoData = {
       "listingPrice": 25,
       "listingGainPct": -13.79,
       "currentPrice": 7.78,
-      "returnSinceIssuePct": -73.17
+      "returnSinceIssuePct": -73.17,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "a-one-steels",
@@ -3684,7 +3755,12 @@ window.IpoData = {
       "listingPrice": 455,
       "listingGainPct": 12.35,
       "currentPrice": 369.5,
-      "returnSinceIssuePct": -8.77
+      "returnSinceIssuePct": -8.77,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "moneyview",
@@ -3728,7 +3804,12 @@ window.IpoData = {
       "listingPrice": 55,
       "listingGainPct": 61.76,
       "currentPrice": 53.89,
-      "returnSinceIssuePct": 58.5
+      "returnSinceIssuePct": 58.5,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "peshwa-wheat",
@@ -3772,7 +3853,12 @@ window.IpoData = {
       "listingPrice": 100.05,
       "listingGainPct": -0.94,
       "currentPrice": 34.52,
-      "returnSinceIssuePct": -65.82
+      "returnSinceIssuePct": -65.82,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "roopa-screen",
@@ -3816,7 +3902,12 @@ window.IpoData = {
       "listingPrice": 121.6,
       "listingGainPct": 90,
       "currentPrice": 90.79,
-      "returnSinceIssuePct": 41.86
+      "returnSinceIssuePct": 41.86,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "skoffset",
@@ -3860,7 +3951,12 @@ window.IpoData = {
       "listingPrice": 126,
       "listingGainPct": 0.8,
       "currentPrice": 108,
-      "returnSinceIssuePct": -13.6
+      "returnSinceIssuePct": -13.6,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "armee-infotech",
@@ -3903,7 +3999,12 @@ window.IpoData = {
       "issuePrice": 375,
       "listingPrice": 375,
       "currentPrice": 286.2,
-      "returnSinceIssuePct": -23.68
+      "returnSinceIssuePct": -23.68,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "liqvd-digital",
@@ -3947,7 +4048,12 @@ window.IpoData = {
       "listingPrice": 53.73,
       "listingGainPct": -0.5,
       "currentPrice": 26.75,
-      "returnSinceIssuePct": -50.46
+      "returnSinceIssuePct": -50.46,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "swastika-infra",
@@ -3991,7 +4097,12 @@ window.IpoData = {
       "listingPrice": 200,
       "listingGainPct": 8.11,
       "currentPrice": 196.09,
-      "returnSinceIssuePct": 5.99
+      "returnSinceIssuePct": 5.99,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "elevate-campuses",
@@ -4035,7 +4146,12 @@ window.IpoData = {
       "listingPrice": 355.1,
       "listingGainPct": -1.91,
       "currentPrice": 275.6,
-      "returnSinceIssuePct": -23.87
+      "returnSinceIssuePct": -23.87,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "pooja-logistics",
@@ -4079,7 +4195,12 @@ window.IpoData = {
       "listingPrice": 118,
       "listingGainPct": 2.61,
       "currentPrice": 94.15,
-      "returnSinceIssuePct": -18.13
+      "returnSinceIssuePct": -18.13,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "unitec-fibres",
@@ -4123,7 +4244,12 @@ window.IpoData = {
       "listingPrice": 90,
       "listingGainPct": 2.27,
       "currentPrice": 90,
-      "returnSinceIssuePct": 2.27
+      "returnSinceIssuePct": 2.27,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "adroit-industries",
@@ -4167,7 +4293,12 @@ window.IpoData = {
       "listingPrice": 235,
       "listingGainPct": 75.37,
       "currentPrice": 171.52,
-      "returnSinceIssuePct": 28
+      "returnSinceIssuePct": 28,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "core-integra-consulting",
@@ -4211,7 +4342,12 @@ window.IpoData = {
       "listingPrice": 78.1,
       "listingGainPct": 0.13,
       "currentPrice": 110,
-      "returnSinceIssuePct": 41.03
+      "returnSinceIssuePct": 41.03,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "himalaya-nutravedics",
@@ -4255,7 +4391,12 @@ window.IpoData = {
       "listingPrice": 118,
       "listingGainPct": 11.32,
       "currentPrice": 127.95,
-      "returnSinceIssuePct": 20.71
+      "returnSinceIssuePct": 20.71,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "varmora-granito",
@@ -4299,7 +4440,12 @@ window.IpoData = {
       "listingPrice": 155,
       "listingGainPct": 4.73,
       "currentPrice": 123.27,
-      "returnSinceIssuePct": -16.71
+      "returnSinceIssuePct": -16.71,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "anand-seamless",
@@ -4343,7 +4489,12 @@ window.IpoData = {
       "listingPrice": 72.1,
       "listingGainPct": 0.14,
       "currentPrice": 70.5,
-      "returnSinceIssuePct": -2.08
+      "returnSinceIssuePct": -2.08,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "robokidz-eduventures",
@@ -4387,7 +4538,12 @@ window.IpoData = {
       "listingPrice": 201.4,
       "listingGainPct": 90,
       "currentPrice": 135.6,
-      "returnSinceIssuePct": 27.92
+      "returnSinceIssuePct": 27.92,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "fx-multitech",
@@ -4431,7 +4587,12 @@ window.IpoData = {
       "listingPrice": 123.05,
       "listingGainPct": 6.08,
       "currentPrice": 124.45,
-      "returnSinceIssuePct": 7.28
+      "returnSinceIssuePct": 7.28,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vivekanand-cotspin",
@@ -4475,7 +4636,12 @@ window.IpoData = {
       "listingPrice": 38,
       "listingGainPct": 2.7,
       "currentPrice": 63.99,
-      "returnSinceIssuePct": 72.95
+      "returnSinceIssuePct": 72.95,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "axiom-gas-engineering",
@@ -4519,7 +4685,12 @@ window.IpoData = {
       "listingPrice": 54.75,
       "listingGainPct": 1.39,
       "currentPrice": 39.5,
-      "returnSinceIssuePct": -26.85
+      "returnSinceIssuePct": -26.85,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sonaselection-india",
@@ -4559,7 +4730,12 @@ window.IpoData = {
       "openDate": "2026-09-01",
       "refundDate": "2026-09-08",
       "dematDate": "2026-09-08",
-      "issuePrice": 186
+      "issuePrice": 186,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "kheria-autocomp",
@@ -4603,7 +4779,12 @@ window.IpoData = {
       "listingPrice": 104.9,
       "listingGainPct": 3.86,
       "currentPrice": 97.55,
-      "returnSinceIssuePct": -3.42
+      "returnSinceIssuePct": -3.42,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "nse",
@@ -4643,7 +4824,12 @@ window.IpoData = {
       "openDate": "2026-08-31",
       "refundDate": "2026-09-07",
       "dematDate": "2026-09-07",
-      "issuePrice": 206
+      "issuePrice": 206,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "spectraa-technology-solutions",
@@ -4687,7 +4873,12 @@ window.IpoData = {
       "listingPrice": 224.2,
       "listingGainPct": 90,
       "currentPrice": 240,
-      "returnSinceIssuePct": 103.39
+      "returnSinceIssuePct": 103.39,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "jindal-supreme",
@@ -4731,7 +4922,12 @@ window.IpoData = {
       "listingPrice": 120,
       "listingGainPct": 29.03,
       "currentPrice": 159.01,
-      "returnSinceIssuePct": 70.98
+      "returnSinceIssuePct": 70.98,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "ss-retail",
@@ -4775,7 +4971,12 @@ window.IpoData = {
       "listingPrice": 624,
       "listingGainPct": 47.17,
       "currentPrice": 636,
-      "returnSinceIssuePct": 50
+      "returnSinceIssuePct": 50,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "hero-motors",
@@ -4819,7 +5020,12 @@ window.IpoData = {
       "listingPrice": 82,
       "listingGainPct": -2.38,
       "currentPrice": 118.22,
-      "returnSinceIssuePct": 40.74
+      "returnSinceIssuePct": 40.74,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "quanto-agroworld",
@@ -4863,7 +5069,12 @@ window.IpoData = {
       "listingPrice": 66.99,
       "listingGainPct": -0.01,
       "currentPrice": 59.08,
-      "returnSinceIssuePct": -11.82
+      "returnSinceIssuePct": -11.82,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shakti-polytarp",
@@ -4907,7 +5118,12 @@ window.IpoData = {
       "listingPrice": 58.9,
       "listingGainPct": -0.17,
       "currentPrice": 45,
-      "returnSinceIssuePct": -23.73
+      "returnSinceIssuePct": -23.73,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vama-wovenfab",
@@ -4950,7 +5166,12 @@ window.IpoData = {
       "issuePrice": 341,
       "listingPrice": 341,
       "currentPrice": 77.7,
-      "returnSinceIssuePct": -77.21
+      "returnSinceIssuePct": -77.21,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "manika-plastech",
@@ -4993,7 +5214,12 @@ window.IpoData = {
       "issuePrice": 43,
       "listingPrice": 43,
       "currentPrice": 50.32,
-      "returnSinceIssuePct": 17.02
+      "returnSinceIssuePct": 17.02,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "century-business",
@@ -5033,7 +5259,12 @@ window.IpoData = {
       "openDate": "2026-08-25",
       "refundDate": "2026-09-01",
       "dematDate": "2026-09-01",
-      "issuePrice": 146
+      "issuePrice": 146,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "injecto-polymers",
@@ -5077,7 +5308,12 @@ window.IpoData = {
       "listingPrice": 99,
       "listingGainPct": -1,
       "currentPrice": 93.49,
-      "returnSinceIssuePct": -6.51
+      "returnSinceIssuePct": -6.51,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "veegaland-developers",
@@ -5121,7 +5357,12 @@ window.IpoData = {
       "listingPrice": 154,
       "listingGainPct": 10,
       "currentPrice": 131.97,
-      "returnSinceIssuePct": -5.74
+      "returnSinceIssuePct": -5.74,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "panchatv-bharat",
@@ -5165,7 +5406,12 @@ window.IpoData = {
       "listingPrice": 128.95,
       "listingGainPct": -7.89,
       "currentPrice": 42.2,
-      "returnSinceIssuePct": -69.86
+      "returnSinceIssuePct": -69.86,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "raksan-transformers",
@@ -5208,7 +5454,12 @@ window.IpoData = {
       "issuePrice": 273,
       "listingPrice": 273,
       "currentPrice": 216.7,
-      "returnSinceIssuePct": -20.62
+      "returnSinceIssuePct": -20.62,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "om-galaxy",
@@ -5252,7 +5503,12 @@ window.IpoData = {
       "listingPrice": 90.2,
       "listingGainPct": 0.22,
       "currentPrice": 87,
-      "returnSinceIssuePct": -3.33
+      "returnSinceIssuePct": -3.33,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "maharaja--speedex-india",
@@ -5292,7 +5548,12 @@ window.IpoData = {
       "openDate": "2026-08-20",
       "refundDate": "2026-08-27",
       "dematDate": "2026-08-27",
-      "issuePrice": 206
+      "issuePrice": 206,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "amtech-esters",
@@ -5336,7 +5597,12 @@ window.IpoData = {
       "listingPrice": 100,
       "listingGainPct": 33.33,
       "currentPrice": 80.68,
-      "returnSinceIssuePct": 7.57
+      "returnSinceIssuePct": 7.57,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "asset-reconstruction",
@@ -5376,7 +5642,12 @@ window.IpoData = {
       "openDate": "2026-08-19",
       "refundDate": "2026-08-26",
       "dematDate": "2026-08-26",
-      "issuePrice": 226
+      "issuePrice": 226,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "steamhouse-india",
@@ -5416,7 +5687,12 @@ window.IpoData = {
       "openDate": "2026-08-18",
       "refundDate": "2026-08-25",
       "dematDate": "2026-08-25",
-      "issuePrice": 236
+      "issuePrice": 236,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "karamtara-engineering",
@@ -5460,7 +5736,12 @@ window.IpoData = {
       "listingPrice": 320,
       "listingGainPct": 25.98,
       "currentPrice": 369.65,
-      "returnSinceIssuePct": 45.53
+      "returnSinceIssuePct": 45.53,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "lcc-projects",
@@ -5504,7 +5785,12 @@ window.IpoData = {
       "listingPrice": 189,
       "listingGainPct": 29.45,
       "currentPrice": 136.5,
-      "returnSinceIssuePct": -6.51
+      "returnSinceIssuePct": -6.51,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vinod-texworld",
@@ -5547,7 +5833,12 @@ window.IpoData = {
       "issuePrice": 94,
       "listingPrice": 94,
       "currentPrice": 24.35,
-      "returnSinceIssuePct": -74.1
+      "returnSinceIssuePct": -74.1,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "infrax-renewable",
@@ -5590,7 +5881,12 @@ window.IpoData = {
       "issuePrice": 104,
       "listingPrice": 104,
       "currentPrice": 136.25,
-      "returnSinceIssuePct": 31.01
+      "returnSinceIssuePct": 31.01,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "manipal-payment-and-identity-solutions",
@@ -5634,7 +5930,12 @@ window.IpoData = {
       "listingPrice": 330,
       "listingGainPct": -2.65,
       "currentPrice": 330.25,
-      "returnSinceIssuePct": -2.58
+      "returnSinceIssuePct": -2.58,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "rentomojo",
@@ -5678,7 +5979,12 @@ window.IpoData = {
       "listingPrice": 482.45,
       "listingGainPct": 19.42,
       "currentPrice": 548.5,
-      "returnSinceIssuePct": 35.77
+      "returnSinceIssuePct": 35.77,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "kanohar-electricals",
@@ -5722,7 +6028,12 @@ window.IpoData = {
       "listingPrice": 685.5,
       "listingGainPct": 8.47,
       "currentPrice": 1025.6,
-      "returnSinceIssuePct": 62.28
+      "returnSinceIssuePct": 62.28,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "prasol-chemicals",
@@ -5766,7 +6077,12 @@ window.IpoData = {
       "listingPrice": 610,
       "listingGainPct": -9.76,
       "currentPrice": 754.65,
-      "returnSinceIssuePct": 11.63
+      "returnSinceIssuePct": 11.63,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "glass-wall-systems",
@@ -5810,7 +6126,12 @@ window.IpoData = {
       "listingPrice": 194,
       "listingGainPct": 6.59,
       "currentPrice": 230.72,
-      "returnSinceIssuePct": 26.77
+      "returnSinceIssuePct": 26.77,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "pranav-constructions",
@@ -5854,7 +6175,12 @@ window.IpoData = {
       "listingPrice": 165,
       "listingGainPct": 33.06,
       "currentPrice": 89.6,
-      "returnSinceIssuePct": -27.74
+      "returnSinceIssuePct": -27.74,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "apana-logistics",
@@ -5897,7 +6223,12 @@ window.IpoData = {
       "issuePrice": 60,
       "listingPrice": 60,
       "currentPrice": 18.26,
-      "returnSinceIssuePct": -69.57
+      "returnSinceIssuePct": -69.57,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "qualiance-international",
@@ -5941,7 +6272,12 @@ window.IpoData = {
       "listingPrice": 224.9,
       "listingGainPct": 77.09,
       "currentPrice": 127.65,
-      "returnSinceIssuePct": 0.51
+      "returnSinceIssuePct": 0.51,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "rays-of-belief",
@@ -5984,7 +6320,12 @@ window.IpoData = {
       "issuePrice": 239,
       "listingPrice": 239,
       "currentPrice": 247.56,
-      "returnSinceIssuePct": 3.58
+      "returnSinceIssuePct": 3.58,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "deepa-jewellers",
@@ -6028,7 +6369,12 @@ window.IpoData = {
       "listingPrice": 221,
       "listingGainPct": 24.86,
       "currentPrice": 202.45,
-      "returnSinceIssuePct": 14.38
+      "returnSinceIssuePct": 14.38,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "farm-peace",
@@ -6072,7 +6418,12 @@ window.IpoData = {
       "listingPrice": 112.1,
       "listingGainPct": 90,
       "currentPrice": 39.95,
-      "returnSinceIssuePct": -32.29
+      "returnSinceIssuePct": -32.29,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "fly-hi-maritime",
@@ -6112,7 +6463,12 @@ window.IpoData = {
       "openDate": "2026-08-06",
       "refundDate": "2026-08-13",
       "dematDate": "2026-08-13",
-      "issuePrice": 96
+      "issuePrice": 96,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shanti-inorganics",
@@ -6156,7 +6512,12 @@ window.IpoData = {
       "listingPrice": 157.7,
       "listingGainPct": 90,
       "currentPrice": 177,
-      "returnSinceIssuePct": 113.25
+      "returnSinceIssuePct": 113.25,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "phychem-technologies",
@@ -6200,7 +6561,12 @@ window.IpoData = {
       "listingPrice": 56,
       "listingGainPct": 3.7,
       "currentPrice": 43,
-      "returnSinceIssuePct": -20.37
+      "returnSinceIssuePct": -20.37,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "purple-style-labs",
@@ -6244,7 +6610,12 @@ window.IpoData = {
       "listingPrice": 535,
       "listingGainPct": -6.96,
       "currentPrice": 498.75,
-      "returnSinceIssuePct": -13.26
+      "returnSinceIssuePct": -13.26,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "ashutosh-fibre",
@@ -6288,7 +6659,12 @@ window.IpoData = {
       "listingPrice": 140,
       "listingGainPct": 52.17,
       "currentPrice": 129.65,
-      "returnSinceIssuePct": 40.92
+      "returnSinceIssuePct": 40.92,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "priority-jewels",
@@ -6332,7 +6708,12 @@ window.IpoData = {
       "listingPrice": 230,
       "listingGainPct": 15,
       "currentPrice": 270.8,
-      "returnSinceIssuePct": 35.4
+      "returnSinceIssuePct": 35.4,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "paluck-technologies",
@@ -6376,7 +6757,12 @@ window.IpoData = {
       "listingPrice": 46.8,
       "listingGainPct": -2.5,
       "currentPrice": 38.26,
-      "returnSinceIssuePct": -20.29
+      "returnSinceIssuePct": -20.29,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "complete-sports-and-management",
@@ -6416,7 +6802,12 @@ window.IpoData = {
       "openDate": "2026-08-03",
       "refundDate": "2026-08-10",
       "dematDate": "2026-08-10",
-      "issuePrice": 166
+      "issuePrice": 166,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "esds-software",
@@ -6460,7 +6851,12 @@ window.IpoData = {
       "listingPrice": 757,
       "listingGainPct": 76.46,
       "currentPrice": 1187.6,
-      "returnSinceIssuePct": 176.83
+      "returnSinceIssuePct": 176.83,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "kwick-forensic",
@@ -6500,7 +6896,12 @@ window.IpoData = {
       "openDate": "2026-07-31",
       "refundDate": "2026-08-07",
       "dematDate": "2026-08-07",
-      "issuePrice": 186
+      "issuePrice": 186,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "lumino-industries",
@@ -6544,7 +6945,12 @@ window.IpoData = {
       "listingPrice": 110,
       "listingGainPct": 34.15,
       "currentPrice": 94.28,
-      "returnSinceIssuePct": 14.98
+      "returnSinceIssuePct": 14.98,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sumax-engineering",
@@ -6588,7 +6994,12 @@ window.IpoData = {
       "listingPrice": 111,
       "listingGainPct": 9.9,
       "currentPrice": 95.5,
-      "returnSinceIssuePct": -5.45
+      "returnSinceIssuePct": -5.45,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "annu-projects",
@@ -6632,7 +7043,12 @@ window.IpoData = {
       "listingPrice": 72,
       "listingGainPct": -27.27,
       "currentPrice": 37.94,
-      "returnSinceIssuePct": -61.68
+      "returnSinceIssuePct": -61.68,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "skyways-air",
@@ -6676,7 +7092,12 @@ window.IpoData = {
       "listingPrice": 124,
       "listingGainPct": -10.14,
       "currentPrice": 97.52,
-      "returnSinceIssuePct": -29.33
+      "returnSinceIssuePct": -29.33,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "abh-healthcare",
@@ -6720,7 +7141,12 @@ window.IpoData = {
       "listingPrice": 99,
       "listingGainPct": -2.94,
       "currentPrice": 40.25,
-      "returnSinceIssuePct": -60.54
+      "returnSinceIssuePct": -60.54,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "madhur-knit",
@@ -6763,7 +7189,12 @@ window.IpoData = {
       "issuePrice": 100,
       "listingPrice": 100,
       "currentPrice": 65.2,
-      "returnSinceIssuePct": -34.8
+      "returnSinceIssuePct": -34.8,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "symbiotec-pharma",
@@ -6806,7 +7237,12 @@ window.IpoData = {
       "issuePrice": 988,
       "listingPrice": 988,
       "currentPrice": 1263,
-      "returnSinceIssuePct": 27.83
+      "returnSinceIssuePct": 27.83,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "hy-tech-engineers",
@@ -6850,7 +7286,12 @@ window.IpoData = {
       "listingPrice": 75,
       "listingGainPct": 41.51,
       "currentPrice": 80.03,
-      "returnSinceIssuePct": 51
+      "returnSinceIssuePct": 51,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "augmont-enterprises",
@@ -6894,7 +7335,12 @@ window.IpoData = {
       "listingPrice": 961,
       "listingGainPct": 21.95,
       "currentPrice": 972.5,
-      "returnSinceIssuePct": 23.41
+      "returnSinceIssuePct": 23.41,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "tempsens-instruments-india",
@@ -6938,7 +7384,12 @@ window.IpoData = {
       "listingPrice": 634,
       "listingGainPct": 111.33,
       "currentPrice": 552.25,
-      "returnSinceIssuePct": 84.08
+      "returnSinceIssuePct": 84.08,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "dhanwel-hybrid-seeds",
@@ -6981,7 +7432,12 @@ window.IpoData = {
       "issuePrice": 99,
       "listingPrice": 99,
       "currentPrice": 36.5,
-      "returnSinceIssuePct": -63.13
+      "returnSinceIssuePct": -63.13,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "gaja-alternative-asset-management",
@@ -7025,7 +7481,12 @@ window.IpoData = {
       "listingPrice": 185,
       "listingGainPct": 15.63,
       "currentPrice": 127.53,
-      "returnSinceIssuePct": -20.29
+      "returnSinceIssuePct": -20.29,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "mopshop-distribution",
@@ -7069,7 +7530,12 @@ window.IpoData = {
       "listingPrice": 137,
       "listingGainPct": -0.72,
       "currentPrice": 29.6,
-      "returnSinceIssuePct": -78.55
+      "returnSinceIssuePct": -78.55,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sunshine-pictures",
@@ -7113,7 +7579,12 @@ window.IpoData = {
       "listingPrice": 395.9,
       "listingGainPct": 9.97,
       "currentPrice": 390.45,
-      "returnSinceIssuePct": 8.46
+      "returnSinceIssuePct": 8.46,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shankesh-jewellers",
@@ -7157,7 +7628,12 @@ window.IpoData = {
       "listingPrice": 103.3,
       "listingGainPct": 11.08,
       "currentPrice": 90.56,
-      "returnSinceIssuePct": -2.62
+      "returnSinceIssuePct": -2.62,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "fascinate-textiles",
@@ -7201,7 +7677,12 @@ window.IpoData = {
       "listingPrice": 120.8,
       "listingGainPct": -20,
       "currentPrice": 109.15,
-      "returnSinceIssuePct": -27.72
+      "returnSinceIssuePct": -27.72,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "lalithaa-jewellery-mart",
@@ -7245,7 +7726,12 @@ window.IpoData = {
       "listingPrice": 265,
       "listingGainPct": 31.84,
       "currentPrice": 363,
-      "returnSinceIssuePct": 80.6
+      "returnSinceIssuePct": 80.6,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "horizon-industrial-parks",
@@ -7289,7 +7775,12 @@ window.IpoData = {
       "listingPrice": 60.25,
       "listingGainPct": 0.42,
       "currentPrice": 43.14,
-      "returnSinceIssuePct": -28.1
+      "returnSinceIssuePct": -28.1,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "ens-enterprises",
@@ -7333,7 +7824,12 @@ window.IpoData = {
       "listingPrice": 96,
       "listingGainPct": 4.35,
       "currentPrice": 125.8,
-      "returnSinceIssuePct": 36.74
+      "returnSinceIssuePct": 36.74,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "technocrats-plasma-systems",
@@ -7377,7 +7873,12 @@ window.IpoData = {
       "listingPrice": 230,
       "listingGainPct": 74.24,
       "currentPrice": 398,
-      "returnSinceIssuePct": 201.52
+      "returnSinceIssuePct": 201.52,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "skytech-infinite-platform",
@@ -7421,7 +7922,12 @@ window.IpoData = {
       "listingPrice": 74,
       "listingGainPct": -3.9,
       "currentPrice": 31.05,
-      "returnSinceIssuePct": -59.68
+      "returnSinceIssuePct": -59.68,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "credent-connect-n-care",
@@ -7465,7 +7971,12 @@ window.IpoData = {
       "listingPrice": 359.1,
       "listingGainPct": 90,
       "currentPrice": 396.1,
-      "returnSinceIssuePct": 109.58
+      "returnSinceIssuePct": 109.58,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "pramodini-medicare",
@@ -7509,7 +8020,12 @@ window.IpoData = {
       "listingPrice": 120,
       "listingGainPct": 1.69,
       "currentPrice": 108,
-      "returnSinceIssuePct": -8.47
+      "returnSinceIssuePct": -8.47,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "shiprocket",
@@ -7553,7 +8069,12 @@ window.IpoData = {
       "listingPrice": 131,
       "listingGainPct": 35.05,
       "currentPrice": 130.87,
-      "returnSinceIssuePct": 34.92
+      "returnSinceIssuePct": 34.92,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "behari-lal-engineering",
@@ -7597,7 +8118,12 @@ window.IpoData = {
       "listingPrice": 465,
       "listingGainPct": 63.16,
       "currentPrice": 442.95,
-      "returnSinceIssuePct": 55.42
+      "returnSinceIssuePct": 55.42,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "qt-foods",
@@ -7640,7 +8166,12 @@ window.IpoData = {
       "issuePrice": 115,
       "listingPrice": 115,
       "currentPrice": 31.03,
-      "returnSinceIssuePct": -73.02
+      "returnSinceIssuePct": -73.02,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "milky-mist",
@@ -7684,7 +8215,12 @@ window.IpoData = {
       "listingPrice": 165,
       "listingGainPct": 17.86,
       "currentPrice": 298.75,
-      "returnSinceIssuePct": 113.39
+      "returnSinceIssuePct": 113.39,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sham-foam",
@@ -7728,7 +8264,12 @@ window.IpoData = {
       "listingPrice": 104,
       "listingGainPct": -20,
       "currentPrice": 86.05,
-      "returnSinceIssuePct": -33.81
+      "returnSinceIssuePct": -33.81,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "dhoot-transmission",
@@ -7772,7 +8313,12 @@ window.IpoData = {
       "listingPrice": 1200,
       "listingGainPct": 37.77,
       "currentPrice": 1488.4,
-      "returnSinceIssuePct": 70.88
+      "returnSinceIssuePct": 70.88,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "molbio-diagnostics",
@@ -7816,7 +8362,12 @@ window.IpoData = {
       "listingPrice": 980,
       "listingGainPct": 21.44,
       "currentPrice": 1350.8,
-      "returnSinceIssuePct": 67.39
+      "returnSinceIssuePct": 67.39,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "technocraft-ventures",
@@ -7860,7 +8411,12 @@ window.IpoData = {
       "listingPrice": 284,
       "listingGainPct": 33.96,
       "currentPrice": 506.85,
-      "returnSinceIssuePct": 139.08
+      "returnSinceIssuePct": 139.08,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "optimystix-entertainment",
@@ -7904,7 +8460,12 @@ window.IpoData = {
       "listingPrice": 180,
       "listingGainPct": 2.86,
       "currentPrice": 132.35,
-      "returnSinceIssuePct": -24.37
+      "returnSinceIssuePct": -24.37,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "leap-india",
@@ -7944,7 +8505,12 @@ window.IpoData = {
       "openDate": "2026-07-08",
       "refundDate": "2026-07-15",
       "dematDate": "2026-07-15",
-      "issuePrice": 216
+      "issuePrice": 216,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "lapl-automotive",
@@ -7988,7 +8554,12 @@ window.IpoData = {
       "listingPrice": 135,
       "listingGainPct": 43.62,
       "currentPrice": 110,
-      "returnSinceIssuePct": 17.02
+      "returnSinceIssuePct": 17.02,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "gv-electricals",
@@ -8032,7 +8603,12 @@ window.IpoData = {
       "listingPrice": 158,
       "listingGainPct": 21.54,
       "currentPrice": 96.7,
-      "returnSinceIssuePct": -25.62
+      "returnSinceIssuePct": -25.62,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "ardee-industries",
@@ -8076,7 +8652,12 @@ window.IpoData = {
       "listingPrice": 72,
       "listingGainPct": 35.85,
       "currentPrice": 45.1,
-      "returnSinceIssuePct": -14.91
+      "returnSinceIssuePct": -14.91,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "aegeus-technologies",
@@ -8120,7 +8701,12 @@ window.IpoData = {
       "listingPrice": 124.5,
       "listingGainPct": 18.57,
       "currentPrice": 107,
-      "returnSinceIssuePct": 1.9
+      "returnSinceIssuePct": 1.9,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "anawil-wire-engieering",
@@ -8160,7 +8746,12 @@ window.IpoData = {
       "openDate": "2026-07-06",
       "refundDate": "2026-07-13",
       "dematDate": "2026-07-13",
-      "issuePrice": 116
+      "issuePrice": 116,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "fusion-klassroom-edutech",
@@ -8204,7 +8795,12 @@ window.IpoData = {
       "listingPrice": 170,
       "listingGainPct": 6.92,
       "currentPrice": 160.75,
-      "returnSinceIssuePct": 1.1
+      "returnSinceIssuePct": 1.1,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "dhaval-packaging",
@@ -8248,7 +8844,12 @@ window.IpoData = {
       "listingPrice": 110,
       "listingGainPct": 13.4,
       "currentPrice": 113,
-      "returnSinceIssuePct": 16.49
+      "returnSinceIssuePct": 16.49,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "juniper-green-energy",
@@ -8292,7 +8893,12 @@ window.IpoData = {
       "listingPrice": 245,
       "listingGainPct": 8.89,
       "currentPrice": 250,
-      "returnSinceIssuePct": 11.11
+      "returnSinceIssuePct": 11.11,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "mv-electrosystems",
@@ -8336,7 +8942,12 @@ window.IpoData = {
       "listingPrice": 520,
       "listingGainPct": 22.35,
       "currentPrice": 734.8,
-      "returnSinceIssuePct": 72.89
+      "returnSinceIssuePct": 72.89,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "oneindig-technologies",
@@ -8380,7 +8991,12 @@ window.IpoData = {
       "listingPrice": 120,
       "listingGainPct": 25,
       "currentPrice": 127.7,
-      "returnSinceIssuePct": 33.02
+      "returnSinceIssuePct": 33.02,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "manipal-health-enterprises",
@@ -8424,7 +9040,12 @@ window.IpoData = {
       "listingPrice": 652,
       "listingGainPct": 10.51,
       "currentPrice": 642,
-      "returnSinceIssuePct": 8.81
+      "returnSinceIssuePct": 8.81,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "hr-hygiene-products",
@@ -8464,7 +9085,12 @@ window.IpoData = {
       "openDate": "2026-06-30",
       "refundDate": "2026-07-07",
       "dematDate": "2026-07-07",
-      "issuePrice": 186
+      "issuePrice": 186,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "poojaa-precision-engg",
@@ -8508,7 +9134,12 @@ window.IpoData = {
       "listingPrice": 470,
       "listingGainPct": 56.15,
       "currentPrice": 931.9,
-      "returnSinceIssuePct": 209.6
+      "returnSinceIssuePct": 209.6,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "advance-technoforge",
@@ -8552,7 +9183,12 @@ window.IpoData = {
       "listingPrice": 94,
       "listingGainPct": -1.05,
       "currentPrice": 72,
-      "returnSinceIssuePct": -24.21
+      "returnSinceIssuePct": -24.21,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "propshop-events-exhibitions",
@@ -8592,7 +9228,12 @@ window.IpoData = {
       "openDate": "2026-06-29",
       "refundDate": "2026-07-06",
       "dematDate": "2026-07-06",
-      "issuePrice": 216
+      "issuePrice": 216,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "cube-highways-trust-invit",
@@ -8632,7 +9273,12 @@ window.IpoData = {
       "openDate": "2026-06-26",
       "refundDate": "2026-07-03",
       "dematDate": "2026-07-03",
-      "issuePrice": 226
+      "issuePrice": 226,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "silverstorm-parks-resorts",
@@ -8676,7 +9322,12 @@ window.IpoData = {
       "listingPrice": 132.9,
       "listingGainPct": -0.08,
       "currentPrice": 121,
-      "returnSinceIssuePct": -9.02
+      "returnSinceIssuePct": -9.02,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "niva-bupa-health",
@@ -8699,21 +9350,21 @@ window.IpoData = {
       "faceValue": 10,
       "registrar": "KFin Technologies Limited",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
-      "openDate": "2026-11-07",
-      "closeDate": "2026-11-11",
-      "allotDate": "2026-11-12",
-      "refundDate": "2026-11-13",
-      "dematDate": "2026-11-13",
-      "listingDate": "2026-11-14",
+      "openDate": "2024-11-07",
+      "closeDate": "2024-11-11",
+      "allotDate": "2024-11-12",
+      "refundDate": "2024-11-13",
+      "dematDate": "2024-11-13",
+      "listingDate": "2024-11-14",
       "issuePrice": 74,
       "listingPrice": 78.5,
       "listingGain": "+6.08%",
       "dayHighListing": 89.25,
       "dayLowListing": 73.85,
       "closeListing": 73.9,
-      "gmp": 2,
-      "gmpPercentage": 2.7,
-      "gmpUpdatedAt": "2026-11-14T10:00:00+05:30",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
       "dayHighGmp": null,
       "dayLowGmp": null,
       "trend": "up",
@@ -8767,7 +9418,9 @@ window.IpoData = {
           "url": "https://kosmic.kfintech.com/ipostatus/"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/NIVABUPA.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/NIVABUPA.png",
+      "allotmentDate": "2024-11-12",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "acme-solar-holdings",
@@ -8790,15 +9443,15 @@ window.IpoData = {
       "faceValue": 2,
       "registrar": "KFin Technologies Limited",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
-      "openDate": "2026-11-06",
-      "closeDate": "2026-11-08",
-      "allotDate": "2026-11-11",
-      "refundDate": "2026-11-12",
-      "dematDate": "2026-11-12",
-      "listingDate": "2026-11-13",
-      "gmp": 10,
-      "gmpPercentage": 3.46,
-      "gmpUpdatedAt": "2026-11-13T10:00:00+05:30",
+      "openDate": "2024-11-06",
+      "closeDate": "2024-11-08",
+      "allotDate": "2024-11-11",
+      "refundDate": "2024-11-12",
+      "dematDate": "2024-11-12",
+      "listingDate": "2024-11-13",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
       "dayHighGmp": null,
       "dayLowGmp": null,
       "trend": "up",
@@ -8869,7 +9522,9 @@ window.IpoData = {
       "yearLow": 195.9,
       "volume": 577564,
       "priceSource": "Groww (NSE: ACMESOLAR)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "allotmentDate": "2024-11-11",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "swiggy-limited",
@@ -8892,15 +9547,15 @@ window.IpoData = {
       "faceValue": 1,
       "registrar": "MUFG Intime India Private Limited",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
-      "openDate": "2026-11-06",
-      "closeDate": "2026-11-08",
-      "allotDate": "2026-11-11",
-      "refundDate": "2026-11-12",
-      "dematDate": "2026-11-12",
-      "listingDate": "2026-11-13",
-      "gmp": 12,
-      "gmpPercentage": 3.08,
-      "gmpUpdatedAt": "2026-11-13T10:00:00+05:30",
+      "openDate": "2024-11-06",
+      "closeDate": "2024-11-08",
+      "allotDate": "2024-11-11",
+      "refundDate": "2024-11-12",
+      "dematDate": "2024-11-12",
+      "listingDate": "2024-11-13",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
       "dayHighGmp": null,
       "dayLowGmp": null,
       "trend": "stable",
@@ -8973,7 +9628,9 @@ window.IpoData = {
       "volume": 18431663,
       "priceSource": "Groww (NSE: SWIGGY)",
       "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
-      "returnSinceIssuePct": -54.69
+      "returnSinceIssuePct": -54.69,
+      "allotmentDate": "2024-11-11",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "sagility-india",
@@ -8996,15 +9653,15 @@ window.IpoData = {
       "faceValue": 10,
       "registrar": "MUFG Intime India Private Limited",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
-      "openDate": "2026-11-05",
-      "closeDate": "2026-11-07",
-      "allotDate": "2026-11-08",
-      "refundDate": "2026-11-11",
-      "dematDate": "2026-11-11",
-      "listingDate": "2026-11-12",
-      "gmp": 3,
-      "gmpPercentage": 10,
-      "gmpUpdatedAt": "2026-11-12T10:00:00+05:30",
+      "openDate": "2024-11-05",
+      "closeDate": "2024-11-07",
+      "allotDate": "2024-11-08",
+      "refundDate": "2024-11-11",
+      "dematDate": "2024-11-11",
+      "listingDate": "2024-11-12",
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
       "dayHighGmp": null,
       "dayLowGmp": null,
       "trend": "up",
@@ -9075,7 +9732,9 @@ window.IpoData = {
       "yearLow": 35.83,
       "volume": 50514631,
       "priceSource": "Groww (NSE: SAGILITY)",
-      "priceUpdatedAt": "2026-11-03T17:35:23.405Z"
+      "priceUpdatedAt": "2026-11-03T17:35:23.405Z",
+      "allotmentDate": "2024-11-08",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "vedant-poly-fabs",
@@ -9113,22 +9772,13 @@ window.IpoData = {
       "listingDate": "2026-11-09",
       "expectedListingPrice": 109,
       "estProfitPerLot": 18000,
-      "gmp": 15,
-      "gmpPercentage": 15.96,
-      "gmpUpdatedAt": "2026-11-02T10:00:00+05:30",
-      "dayHighGmp": 15,
-      "dayLowGmp": 0,
+      "gmp": null,
+      "gmpPercentage": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
       "trend": "up",
-      "gmpHistory": [
-        {
-          "date": "01 Nov",
-          "value": 10
-        },
-        {
-          "date": "02 Nov",
-          "value": 15
-        }
-      ],
+      "gmpHistory": [],
       "subscriptionTotal": 1.12,
       "subscriptionSummary": {
         "qib": 1.05,
@@ -9189,7 +9839,8 @@ window.IpoData = {
           "url": "https://ipo.cameoindia.com/"
         }
       ],
-      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VedantPolyFabsLtd_22702370_96975.png"
+      "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VedantPolyFabsLtd_22702370_96975.png",
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "zepto",
@@ -9220,13 +9871,18 @@ window.IpoData = {
       "priceBandHigh": 405,
       "lotSize": 35,
       "issueSizeCr": 4500,
-      "gmp": 65,
-      "gmpPercentage": 16,
+      "gmp": null,
+      "gmpPercentage": null,
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/Zepto.png",
       "allotDate": null,
       "listingDate": null,
       "refundDate": null,
-      "dematDate": null
+      "dematDate": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "razorpay",
@@ -9249,13 +9905,18 @@ window.IpoData = {
       "priceBandHigh": 685,
       "lotSize": 21,
       "issueSizeCr": 6000,
-      "gmp": 95,
-      "gmpPercentage": 13.9,
+      "gmp": null,
+      "gmpPercentage": null,
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/Razorpay_logo.png",
       "allotDate": null,
       "listingDate": null,
       "refundDate": null,
-      "dematDate": null
+      "dematDate": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "truhome-finance",
@@ -9440,13 +10101,18 @@ window.IpoData = {
       "priceBandHigh": 445,
       "lotSize": 33,
       "issueSizeCr": 7200,
-      "gmp": 72,
-      "gmpPercentage": 16.2,
+      "gmp": null,
+      "gmpPercentage": null,
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/haldirams_logo.png",
       "allotDate": null,
       "listingDate": null,
       "refundDate": null,
-      "dematDate": null
+      "dematDate": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "prestige-hospitality-ventures",
@@ -9669,13 +10335,18 @@ window.IpoData = {
       "priceBandHigh": 900,
       "lotSize": 16,
       "issueSizeCr": 12000,
-      "gmp": 140,
-      "gmpPercentage": 15.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/flipkart-logo.png",
       "allotDate": null,
       "listingDate": null,
       "refundDate": null,
-      "dematDate": null
+      "dematDate": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "phonepe",
@@ -9706,13 +10377,18 @@ window.IpoData = {
       "priceBandHigh": 550,
       "lotSize": 27,
       "issueSizeCr": 8000,
-      "gmp": 80,
-      "gmpPercentage": 14.5,
+      "gmp": null,
+      "gmpPercentage": null,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/phonepe_logo.png",
       "allotDate": null,
       "listingDate": null,
       "refundDate": null,
-      "dematDate": null
+      "dematDate": null,
+      "gmpUpdatedAt": null,
+      "dayHighGmp": null,
+      "dayLowGmp": null,
+      "gmpHistory": [],
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
     },
     {
       "id": "fabindia",
@@ -10338,5 +11014,6 @@ window.IpoData = {
       "description": "Heavy civil infrastructure arm of Shapoorji Pallonji Group listed on stock exchanges on November 4, 2024 at ₹426.",
       "time": "Listed Nov 4, 2024 • Mainboard"
     }
-  ]
+  ],
+  "dataQualityNotice": "Historical GMP values without a named source and timestamp have been suppressed. IPO dates for Swiggy, Sagility India, ACME Solar Holdings and Niva Bupa were corrected against exchange/company records. Other records still require individual source verification."
 };
