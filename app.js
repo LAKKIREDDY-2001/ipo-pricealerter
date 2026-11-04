@@ -3905,7 +3905,17 @@
   // Dedicated Upcoming IPOs Page (#/upcoming)
   // ==========================================================================
   function getFilteredUpcomingIssues() {
-    let upcomingRecords = records.filter(r => r.status === "UPCOMING");
+    // Exclude IPOs that have already completed their exchange listing.
+    // Keep their records intact for the Listed IPOs and historical pages.
+    const alreadyListedIds = new Set([
+      "swiggy-limited",
+      "sagility-india",
+      "acme-solar-holdings",
+      "niva-bupa-health"
+    ]);
+    let upcomingRecords = records.filter(r =>
+      r.status === "UPCOMING" && !alreadyListedIds.has(r.id)
+    );
 
     if (state.upcomingBoard === "mainboard") {
       upcomingRecords = upcomingRecords.filter(r => (r.board || "").toUpperCase() === "MAINBOARD");
