@@ -1,0 +1,51 @@
+name: Sync Subscriber Emails to Excel in GitHub
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
+  repository_dispatch:
+    types: [sync-subscribers]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-excel:
+    name: Sync KV Subscribers to subscribers.xlsx
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install openpyxl
+
+      - name: Sync KV Subscribers into Excel File
+        run: |
+          python3 scripts/manage_subscribers.py --sync-kv https://pricealerter.in/api/subscribers-export?format=json
+
+      - name: Validate Strict Zero Duplicates
+        run: |
+          python3 scripts/manage_subscribers.py --validate
+
+      - name: Commit and Push Updated Excel File
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/subscribers.xlsx data/subscribers.csv data/subscribers.json
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-sync: update subscriber emails in subscribers.xlsx [skip ci]"
+            git push origin main
+            echo "✅ Successfully synced new subscriber emails to subscribers.xlsx in GitHub."
+          else
+            echo "ℹ️ No new subscriber emails to commit. Excel file is already up to date."
+          fi

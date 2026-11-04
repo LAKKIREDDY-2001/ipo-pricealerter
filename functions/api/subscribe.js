@@ -15,11 +15,11 @@ export async function onRequestPost({ request, env }) {
     return Response.json({ message: "Please enter a valid email address." }, { status: 400 });
   }
 
-  const source = String(body.source || "IPO Pricealerter Website").slice(0, 100);
-  const dateStr = new Date().toISOString();
+  const now = new Date();
+  const dateStr = now.toISOString();
   const key = "subscriber:" + await sha256(email);
 
-  // 1. Support both env.SUBSCRIBERS and env.KV
+  // 1. Cloudflare KV: Store ONLY mail details (email and subscribed date)
   const kv = env && (env.SUBSCRIBERS || env.KV);
   if (kv) {
     try {
@@ -27,12 +27,10 @@ export async function onRequestPost({ request, env }) {
       if (existing) {
         return Response.json({ message: "This email is already subscribed." }, { status: 409 });
       }
+      // Store only email details in the KV pair
       const record = {
-        email,
-        subscribedAt: dateStr,
-        source,
-        status: "active",
-        consent: true
+        email: email,
+        subscribedAt: dateStr
       };
       await kv.put(key, JSON.stringify(record));
     } catch (kvErr) {
@@ -40,7 +38,25 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
-  // 2. Automated notification delivery: Send immediate alert to site owner
+  // 2. Trigger automated GitHub sync if GITHUB_TOKEN is configured in Cloudflare environment
+  if (env && env.GITHUB_TOKEN) {
+    try {
+      fetch("https://api.github.com/repos/LAKKIREDDY-2001/ipo-pricealerter/dispatches", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + env.GITHUB_TOKEN,
+          "Accept": "application/vnd.github.v3+json",
+          "User-Agent": "PriceAlerter-Subscriber-Sync"
+        },
+        body: JSON.stringify({
+          event_type: "sync-subscribers",
+          client_payload: { email: email, subscribedAt: dateStr }
+        })
+      }).catch(() => {});
+    } catch (ghErr) {}
+  }
+
+  // 3. Automated notification delivery: Send immediate alert to site owner
   try {
     const notifyTask = fetch(NOTIFICATION_URL, {
       method: "POST",
@@ -50,7 +66,6 @@ export async function onRequestPost({ request, env }) {
       },
       body: JSON.stringify({
         email: email,
-        source: source,
         subscribed_at: dateStr,
         _subject: "🔔 [IPO Pricealerter] New Subscriber: " + email,
         _template: "table"
@@ -64,7 +79,7 @@ export async function onRequestPost({ request, env }) {
     }
   } catch (notifyErr) {}
 
-  // 3. Forward to external Google Sheets webhook if configured in Cloudflare environment variables
+  // 4. Forward to external Google Sheets webhook if configured
   if (env && env.SUBSCRIBER_WEBHOOK) {
     try {
       fetch(env.SUBSCRIBER_WEBHOOK, {
@@ -72,8 +87,6 @@ export async function onRequestPost({ request, env }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email,
-          name: "",
-          source: source,
           subscribed_at: dateStr,
           status: "Active"
         })
