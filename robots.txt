@@ -14,6 +14,11 @@ Allow: /*.svg$
 Allow: /*.webp$
 Allow: /*.jpg$
 
+User-agent: Google-Favicon
+Allow: /
+Allow: /*.ico$
+Allow: /*.png$
+
 User-agent: Mediapartners-Google
 Allow: /
 
