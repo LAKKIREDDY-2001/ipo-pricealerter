@@ -185,7 +185,24 @@
         <form id="signup-form-main" class="signup-form" onsubmit="handleSignupPageSubmit(event)">
           <input type="text" id="subscriber-name-input" class="form-input" placeholder="Your Name" required>
           <input type="email" id="subscriber-email-input" class="form-input" placeholder="Your Email Address (e.g. name@gmail.com)" required>
-          <button type="submit" class="btn-subscribe-main">Subscribe to Free IPO Alerts</button>
+          <button type="submit" id="signup-submit-btn" class="btn-subscribe-main">Subscribe to Free IPO Alerts</button>
+
+          <!-- Direct option to unsubscribe and delete user details -->
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding-top:8px; border-top:1px solid #E2E8F0;">
+            <div style="display:inline-flex; align-items:center; gap:12px;">
+              <label style="font-size:12.5px; color:#475569; display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="radio" name="signup_action_choice" value="subscribe" checked onchange="toggleSignupMode('subscribe')">
+                <span>Subscribe</span>
+              </label>
+              <label style="font-size:12.5px; color:#DC2626; font-weight:600; display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="radio" name="signup_action_choice" value="unsubscribe" onchange="toggleSignupMode('unsubscribe')">
+                <span>Unsubscribe (Delete details)</span>
+              </label>
+            </div>
+            <button type="button" onclick="handleDirectSignupUnsubscribe()" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer;">
+              🗑️ Delete Details &amp; Unsubscribe
+            </button>
+          </div>
         </form>
 
         <div id="signup-status-box" style="display:none; padding:14px 18px; border-radius:10px; margin-top:16px; font-size:14px; font-weight:600; line-height:1.5;"></div>
@@ -261,39 +278,82 @@
       }
       checkCookieConsent();
     </script>
-    <script src="subscribers.js?v=20261104_v39"></script>
+    <script src="subscribers.js?v=20261104_v43"></script>
     <script>
-      function handleSignupPageSubmit(e) {
+      function toggleSignupMode(mode) {
+        var submitBtn = document.getElementById("signup-submit-btn");
+        var nameInput = document.getElementById("subscriber-name-input");
+        if (mode === "unsubscribe") {
+          if (submitBtn) {
+            submitBtn.textContent = "Delete Details & Unsubscribe";
+            submitBtn.style.background = "#DC2626";
+          }
+          if (nameInput) nameInput.required = false;
+        } else {
+          if (submitBtn) {
+            submitBtn.textContent = "Subscribe to Free IPO Alerts";
+            submitBtn.style.background = "";
+          }
+          if (nameInput) nameInput.required = true;
+        }
+      }
+
+      function handleDirectSignupUnsubscribe() {
+        var emailInput = document.getElementById("subscriber-email-input");
+        if (!emailInput || !emailInput.value) {
+          if (emailInput) emailInput.focus();
+          alert("Please enter your email address to unsubscribe and delete your details.");
+          return;
+        }
+        var radios = document.querySelectorAll('input[name="signup_action_choice"]');
+        radios.forEach(function(r) { if (r.value === "unsubscribe") r.checked = true; });
+        toggleSignupMode("unsubscribe");
+        handleSignupPageSubmit();
+      }
+
+      async function handleSignupPageSubmit(e) {
         if (e && e.preventDefault) e.preventDefault();
         var emailInput = document.getElementById("subscriber-email-input");
         var nameInput = document.getElementById("subscriber-name-input");
         var statusBox = document.getElementById("signup-status-box");
+        var submitBtn = document.getElementById("signup-submit-btn");
         if (!emailInput || !emailInput.value) return;
 
         var email = emailInput.value.trim();
-        var name = nameInput ? nameInput.value.trim() : "";
+        var selectedMode = document.querySelector('input[name="signup_action_choice"]:checked');
+        var mode = selectedMode ? selectedMode.value : "subscribe";
 
-        if (window.SubscriberService) {
-          var res = window.SubscriberService.subscribe(email, name, "Signup Page");
-          statusBox.style.display = "block";
-          if (res.duplicate) {
-            statusBox.style.background = "#FEF3C7";
-            statusBox.style.color = "#92400E";
-            statusBox.style.border = "1px solid #F59E0B";
-            statusBox.innerHTML = "⚠️ <strong>Duplicate Email Detected:</strong> '" + email + "' is ALREADY subscribed!<br><span style='font-size:12.5px; font-weight:500; color:#78350F;'>Duplicates are strictly prohibited from being stored in GitHub or Excel.</span>";
-          } else if (res.success) {
+        if (submitBtn) submitBtn.disabled = true;
+        statusBox.style.display = "block";
+        statusBox.style.background = "#EFF6FF";
+        statusBox.style.color = "#1E40AF";
+        statusBox.style.border = "1px solid #3B82F6";
+        statusBox.innerHTML = mode === "unsubscribe" ? "Deleting your details..." : "Saving your subscription...";
+
+        try {
+          if (mode === "unsubscribe") {
+            var unRes = await window.SubscriberService.unsubscribe(email);
             statusBox.style.background = "#ECFDF5";
             statusBox.style.color = "#065F46";
             statusBox.style.border = "1px solid #10B981";
-            statusBox.innerHTML = "✅ <strong>Successfully Subscribed!</strong> '" + email + "' has been automatically recorded in the Excel database.";
+            statusBox.innerHTML = "✅ <strong>Deleted Successfully:</strong> " + (unRes.message || "Your details have been deleted and unsubscribed.");
+            emailInput.value = "";
+          } else {
+            var subRes = await window.SubscriberService.subscribe(email, "Signup Page");
+            statusBox.style.background = "#ECFDF5";
+            statusBox.style.color = "#065F46";
+            statusBox.style.border = "1px solid #10B981";
+            statusBox.innerHTML = "✅ <strong>Successfully Subscribed!</strong> '" + email + "' has been added to IPO alerts list.";
             emailInput.value = "";
             if (nameInput) nameInput.value = "";
-          } else {
-            statusBox.style.background = "#FEE2E2";
-            statusBox.style.color = "#991B1B";
-            statusBox.style.border = "1px solid #EF4444";
-            statusBox.innerHTML = "❌ " + res.message;
           }
+        } catch (err) {
+          statusBox.style.background = "#FEE2E2";
+          statusBox.style.color = "#991B1B";
+          statusBox.style.border = "1px solid #EF4444";
+          statusBox.innerHTML = "❌ " + (err.message || "An error occurred.");
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
         }
       }
     </script>
