@@ -22,6 +22,7 @@ Zero Human Involvement Pipeline:
 import sys
 import os
 import json
+import math
 import re
 import time
 import argparse
@@ -839,89 +840,83 @@ def fetch_market_quote(ticker):
                     low = meta.get("regularMarketDayLow")
                     vol = meta.get("regularMarketVolume")
                     
-                    if cmp is not None:
-                        change = round(cmp - prev, 2) if prev is not None else 0.0
-                        pct = round((change / prev) * 100, 2) if prev and prev > 0 else 0.0
+                    if cmp is not None and prev is not None and meta.get("regularMarketTime"):
+                        change = round(cmp - prev, 2)
+                        pct = round((change / prev) * 100, 2) if prev > 0 else 0.0
                         return {
-                            "cmp": float(cmp),
-                            "previousClose": float(prev) if prev else None,
-                            "change": float(change),
-                            "changePct": float(pct),
-                            "high": float(high) if high else cmp,
-                            "low": float(low) if low else cmp,
-                            "volume": int(vol) if vol else 0
+                            "cmp": float(cmp), "previousClose": float(prev),
+                            "change": float(change), "changePct": float(pct),
+                            "high": float(high) if high is not None else None,
+                            "low": float(low) if low is not None else None,
+                            "volume": int(vol) if vol is not None else None,
+                            "quoteTimestamp": int(meta["regularMarketTime"]),
+                            "source": "Yahoo Finance chart endpoint"
                         }
     except Exception:
         pass
     return None
 
 def resolve_stock_live(stock_def, tapetide_token=None):
-    """Resolves live quote prioritizing Tapetide, then direct market feeds, falling back to verified capture."""
+    """Return only a real, timestamped quote; never synthesize a fallback price."""
     symbol = stock_def.get("symbol")
     ticker = stock_def.get("ticker")
-    live = None
-
-    # 1. Try Tapetide if token available
-    if tapetide_token:
-        live = fetch_tapetide_quote(symbol, tapetide_token)
-
-    # 2. Try primary ticker
+    live = fetch_tapetide_quote(symbol, tapetide_token) if tapetide_token else None
+    provider = "Tapetide" if live else None
     if not live and ticker:
         live = fetch_market_quote(ticker)
-
-    # 3. Try alternative ticker
+        provider = "Yahoo Finance chart endpoint" if live else None
     if not live and stock_def.get("altTicker"):
         live = fetch_market_quote(stock_def["altTicker"])
-
-    # Extract or fallback
-    if live and "cmp" in live:
-        cmp = live["cmp"]
-        change = live["change"]
-        pct = live["changePct"]
-        vol_raw = live.get("volume") or stock_def.get("defaultVolRaw", 0)
-        high = live.get("high", cmp)
-        low = live.get("low", cmp)
-    else:
-        cmp = stock_def.get("defaultPrice")
-        change = stock_def.get("defaultChange")
-        pct = stock_def.get("defaultPct")
-        vol_raw = stock_def.get("defaultVolRaw", 0)
-        high = round(cmp * 1.015, 2)
-        low = round(cmp * 0.985, 2)
-
-    is_gain = change >= 0
-    change_str = f"{abs(change):,.2f} ({abs(pct):.2f}%)" if is_gain else f"-{abs(change):,.2f} ({abs(pct):.2f}%)"
-    if is_gain:
-        change_str = f"{change:,.2f} ({pct:.2f}%)"
-
-    vol_str = format_indian_num(vol_raw)
-
+        provider = "Yahoo Finance chart endpoint" if live else None
+    if not isinstance(live, dict):
+        return None
+    try:
+        cmp = float(live.get("cmp"))
+        previous_close = float(live.get("previousClose"))
+        change = float(live.get("change"))
+        pct = float(live.get("changePct"))
+    except (TypeError, ValueError):
+        return None
+    if not all(math.isfinite(v) for v in (cmp, previous_close, change, pct)):
+        return None
+    if cmp <= 0 or previous_close <= 0:
+        return None
+    quote_timestamp = live.get("quoteTimestamp")
+    if isinstance(quote_timestamp, (int, float)):
+        quote_timestamp = datetime.fromtimestamp(quote_timestamp, timezone.utc).isoformat()
+    if not quote_timestamp:
+        return None
+    high, low = live.get("high"), live.get("low")
+    try:
+        high = float(high) if high is not None else None
+        low = float(low) if low is not None else None
+    except (TypeError, ValueError):
+        high, low = None, None
+    if high is not None and (not math.isfinite(high) or high < cmp):
+        high = None
+    if low is not None and (not math.isfinite(low) or low > cmp or low <= 0):
+        low = None
+    vol_raw = live.get("volume")
+    try:
+        vol_raw = int(vol_raw) if vol_raw is not None else None
+    except (TypeError, ValueError):
+        vol_raw = None
     return {
-        "symbol": symbol,
-        "ticker": stock_def.get("ticker", f"{symbol}.NS"),
-        "name": stock_def["name"],
-        "subtitle": stock_def.get("subtitle", ""),
-        "category": stock_def.get("category", ""),
-        "catLabel": stock_def.get("catLabel", ""),
-        "logo": stock_def["logo"],
-        "initials": stock_def["initials"],
-        "gradient": stock_def["gradient"],
-        "price": f"₹{cmp:,.2f}",
-        "rawPrice": cmp,
-        "change": change_str,
-        "rawChange": change,
-        "pct": pct,
-        "isGain": is_gain,
-        "high": high,
-        "low": low,
-        "volRaw": vol_raw,
-        "volume": vol_str,
-        "volChange": stock_def.get("volChange", ""),
-        "issuePrice": stock_def.get("issuePrice"),
-        "lotSize": stock_def.get("lotSize"),
-        "slug": stock_def.get("slug"),
-        "exchange": stock_def.get("exchange", "NSE / BSE"),
-        "trend": stock_def.get("trend", [])
+        "symbol": symbol, "ticker": ticker or f"{symbol}.NS",
+        "name": stock_def["name"], "subtitle": stock_def.get("subtitle", ""),
+        "category": stock_def.get("category", ""), "catLabel": stock_def.get("catLabel", ""),
+        "logo": stock_def["logo"], "initials": stock_def["initials"],
+        "gradient": stock_def["gradient"], "price": f"₹{cmp:,.2f}",
+        "rawPrice": cmp, "previousClose": previous_close,
+        "change": f"{change:,.2f} ({pct:.2f}%)", "rawChange": change, "pct": pct,
+        "isGain": change >= 0, "high": high, "low": low,
+        "volRaw": vol_raw, "volume": format_indian_num(vol_raw) if vol_raw is not None else "—",
+        "volChange": "", "issuePrice": stock_def.get("issuePrice"),
+        "lotSize": stock_def.get("lotSize"), "slug": stock_def.get("slug"),
+        "exchange": stock_def.get("exchange", "NSE / BSE"), "trend": [],
+        "quoteVerified": True, "quoteTimestamp": quote_timestamp,
+        "quoteSource": live.get("source") or provider or "Unknown provider",
+        "quoteDelayNote": "Third-party quote; delay and redistribution rights depend on provider"
     }
 
 def run_sync(tapetide_token=None, dry_run=False, verbose=False):
@@ -946,7 +941,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         item["category"] = "GAINER"
         item["catLabel"] = "🏆 Top Gainer"
         res = resolve_stock_live(item, tapetide_token)
-        synced_gainers.append(res)
+        if res:
+            synced_gainers.append(res)
+        else:
+            print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
     # 2. Fetch Market Shakers (Volume Surge)
@@ -956,7 +954,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         item["category"] = "SHAKER"
         item["catLabel"] = "⚡ Market Shaker"
         res = resolve_stock_live(item, tapetide_token)
-        synced_shakers.append(res)
+        if res:
+            synced_shakers.append(res)
+        else:
+            print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Vol Chg: {res['volChange']:>8} | Vol: {res['volume']}")
 
     # 3. Fetch Losers
@@ -966,7 +967,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         item["category"] = "LOSER"
         item["catLabel"] = "🔻 Top Loser"
         res = resolve_stock_live(item, tapetide_token)
-        synced_losers.append(res)
+        if res:
+            synced_losers.append(res)
+        else:
+            print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
     # 4. Fetch Recent IPO Debuts
@@ -976,7 +980,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         item["category"] = "RECENT_IPO"
         item["catLabel"] = "🚀 Recent IPO Debut"
         res = resolve_stock_live(item, tapetide_token)
-        synced_recent_ipos.append(res)
+        if res:
+            synced_recent_ipos.append(res)
+        else:
+            print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Issue: ₹{res.get('issuePrice', '—')} | Vol: {res['volume']}")
 
     # 5. Fetch Nifty 50 Bluechips
@@ -986,40 +993,16 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         item["category"] = "BLUECHIP"
         item["catLabel"] = "🏛️ Nifty 50 Bluechip"
         res = resolve_stock_live(item, tapetide_token)
-        synced_bluechips.append(res)
+        if res:
+            synced_bluechips.append(res)
+        else:
+            print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
-    # 6. Active IPOs & Market Debuts
-    print("\n[6/6] Syncing Active IPOs & Grey Market Premiums...")
+    # Static GMP values are estimates without per-observation source evidence.
+    # Do not publish them as exchange-verified data.
     synced_ipos = []
-    for ipo in TRACKED_IPOS:
-        # Check if live ticker exists
-        live_quote = fetch_market_quote(f"{ipo['symbol']}.NS") if ipo.get("status") == "LISTED" else None
-        cmp = live_quote["cmp"] if live_quote else ipo.get("estListing", ipo.get("issuePrice", 100))
-        gmp = ipo.get("gmp", 0)
-        issue_price = ipo.get("issuePrice", 100)
-        lot = ipo.get("lotSize", 1)
-        est_profit = lot * gmp
-
-        synced_ipos.append({
-            "slug": ipo["slug"],
-            "symbol": ipo["symbol"],
-            "name": ipo["name"],
-            "exchange": ipo["exchange"],
-            "board": ipo["board"],
-            "status": ipo["status"],
-            "issuePrice": issue_price,
-            "cmp": cmp,
-            "gmp": gmp,
-            "gmpPct": ipo.get("gmpPct", round((gmp / issue_price) * 100, 1) if issue_price else 0),
-            "estListing": ipo.get("estListing", issue_price + gmp),
-            "lotSize": lot,
-            "profitPerLot": est_profit,
-            "qibSub": ipo.get("qibSub"),
-            "totalSub": ipo.get("totalSub"),
-            "updatedAt": iso_time
-        })
-        print(f"  ✓ {ipo['name']:<24}: Price: ₹{issue_price} | GMP: +₹{gmp} ({ipo.get('gmpPct')}%) | 1-Lot Profit: +₹{est_profit:,}")
+    print("\n[6/6] Skipping unverified static GMP estimates.\n")
 
     # Aggregate Unified All Live Stocks (32+ stocks)
     all_live_stocks = []
@@ -1035,14 +1018,15 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         "lastSyncFormatted": formatted_time,
         "nextSyncCountdownSeconds": 600,
         "syncIntervalMinutes": 10,
-        "source": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
+        "source": "Timestamped third-party quote feeds; not exchange-certified",
         "officialSources": {
             "dhan": "https://dhan.co/ipo/",
             "nse": "https://www.nseindia.com/static/market-data/real-time-data-subscription",
             "bse": "https://marketdata.bseindia.com/",
             "tapetide": "https://tapetide.com/"
         },
-        "status": "LIVE_SYNCHRONIZED",
+        "status": "PARTIAL_VERIFIED_QUOTES",
+        "dataQualityNotice": "Only timestamped provider quotes are included. Unavailable quotes are omitted; no hardcoded fallback prices, synthetic OHLC values, or generated trend points are used. Provider delay and redistribution rights must be confirmed.",
         "marketGainers": synced_gainers,
         "marketShakers": synced_shakers,
         "marketLosers": synced_losers,
@@ -1056,6 +1040,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
         print("\n🔍 DRY-RUN MODE: No files modified.")
         return True
 
+    if not all_live_stocks:
+        print("\n❌ No valid timestamped market quotes received; existing files left unchanged.")
+        return False
+
     # 1. Write data/live-market-data.json
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(LIVE_DATA_FILE, "w", encoding="utf-8") as f:
@@ -1063,10 +1051,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     print(f"\n✅ Updated {LIVE_DATA_FILE} ({len(all_live_stocks)} total real-time stocks)")
 
     # 2. Update data/ipo-data.js with active IPO GMPs and recent IPO CMPs
-    update_ipo_data_js(synced_ipos, synced_recent_ipos, iso_time)
+    # Do not overwrite IPO issue/listing prices or GMP from third-party CMPs or static estimates.
 
     # 3. Update app.js static fallbacks
-    update_app_js_constants(synced_gainers, synced_shakers, synced_losers)
+    # Static app.js quote fallbacks are not refreshed; the frontend uses the timestamped feed.
 
     print(f"\n✨ Market data sync complete! Next autonomous cycle in 10 minutes.")
     return True
