@@ -8241,3 +8241,22 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 
 
 
+
+
+/* IPO email subscription modal */
+#ipo-subscribe-modal{position:fixed;inset:0;z-index:10050;display:grid;place-items:center;padding:20px}
+#ipo-subscribe-modal[hidden]{display:none}
+.ipo-subscribe-backdrop{position:absolute;inset:0;background:rgba(8,18,34,.68);backdrop-filter:blur(4px)}
+.ipo-subscribe-dialog{position:relative;width:min(100%,440px);background:#fff;color:#172033;border-radius:18px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.28)}
+.ipo-subscribe-dialog h2{margin:0 34px 8px 0;font-size:23px;font-weight:750}
+.ipo-subscribe-dialog>p{margin:0 0 20px;color:#64748b;line-height:1.55}
+.ipo-subscribe-close{position:absolute;right:16px;top:12px;border:0;background:transparent;font-size:28px;line-height:1;cursor:pointer;color:#64748b}
+#ipo-subscribe-modal-form{display:grid;gap:11px}
+#ipo-subscribe-modal-form>label{font-size:13px;font-weight:650;color:#334155}
+#ipo-subscribe-modal-form input[type=email]{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px}
+#ipo-subscribe-modal-form .ipo-subscribe-consent{display:flex;gap:9px;align-items:flex-start;font-size:12px;font-weight:400;line-height:1.5;color:#475569}
+#ipo-subscribe-modal-form button[type=submit]{border:0;border-radius:10px;padding:13px 16px;background:#087f68;color:white;font-weight:700;font-size:15px;cursor:pointer}
+#ipo-subscribe-modal-form button[type=submit]:disabled{opacity:.6;cursor:wait}
+#ipo-subscribe-modal-form small{color:#64748b;font-size:11px;line-height:1.5}
+#ipo-subscribe-modal-form .ipo-subscribe-status{margin:0;font-size:13px;color:#0f766e;min-height:18px}
+@media(max-width:480px){.ipo-subscribe-dialog{padding:23px 19px;border-radius:15px}}
