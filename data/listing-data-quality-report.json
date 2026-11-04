@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-11-05",
+  "scope": "Internal consistency audit of the two IPO datasets. This is not exchange certification.",
+  "ipoRecordCount": 204,
+  "listedRecordCount": 172,
+  "verifiedListingCloseCount": 4,
+  "crossDatasetConflicts": [
+    {
+      "name": "Shah Investor's Home",
+      "field": "listingDate",
+      "ipoData": "2026-09-30",
+      "listedHistory": "2026-10-06"
+    },
+    {
+      "name": "A-One Steels",
+      "field": "listingDate",
+      "ipoData": "2026-09-23",
+      "listedHistory": "2026-10-01"
+    },
+    {
+      "name": "Sonaselection Limited",
+      "field": "listingDate",
+      "ipoData": "2026-09-09",
+      "listedHistory": "2026-09-24"
+    },
+    {
+      "name": "Sonaselection Limited",
+      "field": "issuePrice",
+      "ipoData": 186,
+      "listedHistory": 99
+    },
+    {
+      "name": "H.R.Hygiene Products",
+      "field": "listingDate",
+      "ipoData": "2026-07-08",
+      "listedHistory": "2026-08-05"
+    },
+    {
+      "name": "H.R.Hygiene Products",
+      "field": "issuePrice",
+      "ipoData": 186,
+      "listedHistory": 88
+    }
+  ],
+  "listedRowsMissingListingPrice": [
+    "Zetwerk",
+    "Shellz India",
+    "Vaibhav Vyapar",
+    "R K Fashion",
+    "Papadmalji Agro",
+    "SRIT India",
+    "Sonaselection Limited",
+    "NSE",
+    "Century Business",
+    "Maharaja & Speedex India",
+    "Asset Reconstruction",
+    "Steamhouse India",
+    "Fly-Hi Maritime",
+    "Complete Sports and Management",
+    "Kwick Forensic",
+    "LEAP India",
+    "Anawil Wire and Engineering",
+    "H.R.Hygiene Products",
+    "Propshop Events & Exhibitions",
+    "Cube Highways Trust InvIT"
+  ],
+  "listedRowsMissingSymbolAndIsin": 172,
+  "listingGainArithmeticErrors": 0,
+  "correctionsApplied": [
+    {
+      "company": "Waaree Energies",
+      "listingDate": "2024-10-28",
+      "nseOpen": 2500,
+      "bseOpen": 2550,
+      "nseClose": 2338.9,
+      "bseClose": 2336.8
+    },
+    {
+      "company": "Godavari Biorefineries",
+      "listingDate": "2024-10-30",
+      "nseOpen": 308,
+      "bseOpen": 310.55,
+      "nseClose": 343.2,
+      "bseClose": null
+    },
+    {
+      "company": "Afcons Infrastructure",
+      "listingDate": "2024-11-04",
+      "nseOpen": 426,
+      "bseOpen": 430.05,
+      "nseClose": 474.2,
+      "bseClose": 472.5
+    },
+    {
+      "company": "Swiggy Limited",
+      "listingDate": "2024-11-13",
+      "nseOpen": 420,
+      "bseOpen": 412,
+      "nseClose": 456,
+      "bseClose": 455.95
+    }
+  ],
+  "resolutionPolicy": "Do not infer missing values or pick between conflicting records automatically. Verify each item against the designated exchange's official listing notice and listing-day bhavcopy. Listing open, listing-day close and current market price are separate fields.",
+  "officialReferences": [
+    "https://www.nseindia.com/ipo-tracker?type=ipo_year",
+    "https://www.nseindia.com/historical/price-and-volume-data-per-security",
+    "https://www.nseindia.com/listing-opening-bells-events",
+    "https://www.sbicaps.com/wp-content/uploads/2026/04/Waaree-Energies-Limited.pdf",
+    "https://www.sbicaps.com/wp-content/uploads/2025/10/AFCONS-INFRASTRUCTURE-LTD.pdf"
+  ]
+}
