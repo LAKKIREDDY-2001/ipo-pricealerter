@@ -760,13 +760,12 @@
         </a>
 
         <nav class="main-nav" aria-label="Main Navigation">
-          <a href="#/" class="nav-tab-link ${currentView === "home" && !state.route.moversFilter ? "active" : ""}">Home</a>
+          <a href="#/" class="nav-tab-link ${currentView === "home" ? "active" : ""}">Home</a>
           <a href="#/open" class="nav-tab-link ${currentView === "open" ? "active" : ""}">Open IPOs</a>
           <a href="#/upcoming" class="nav-tab-link ${currentView === "upcoming" ? "active" : ""}">Upcoming</a>
           <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">Listed</a>
           <a href="#/calculator" class="nav-tab-link ${currentView === "calculator" ? "active" : ""}">Calculator</a>
           <a href="#/allotment" class="nav-tab-link ${currentView === "allotment" ? "active" : ""}">Allotment</a>
-          <a href="#/movers" class="nav-tab-link ${currentView === "home" && state.route.moversFilter ? "active" : ""}">Gainers &amp; Losers</a>
           <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP</a>
           <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">Calendar</a>
           <a href="#/guide" class="nav-tab-link ${currentView === "guide" ? "active" : ""}">Learn</a>
@@ -843,10 +842,6 @@
             <a href="#/allotment" class="mobile-drawer-link ${currentView === 'allotment' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">📋</span>
               <span>Allotment Router</span>
-            </a>
-            <a href="#/movers" class="mobile-drawer-link ${state.route.moversFilter ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">⚡</span>
-              <span>Top Gainers &amp; Losers</span>
             </a>
             <a href="#/gmp" class="mobile-drawer-link ${currentView === 'gmp' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">📊</span>
@@ -1362,70 +1357,70 @@
   // Define Top Gainers data exactly from verified reference capture
   const marketGainers = [
     {
-      name: "Britannia Industries",
-      logo: "assets/movers/britannia.png",
-      initials: "BI",
+      name: "Muthoot Finance",
+      logo: "assets/movers/muthoot-finance.png",
+      initials: "MF",
       gradient: "linear-gradient(135deg, #DC2626, #991B1B)",
-      price: "₹4,930.00",
-      change: "295.00 (6.36%)",
+      price: "₹2,709.80",
+      change: "181.60 (7.18%)",
       isGain: true,
-      volume: "5,91,547",
-      trend: [4635, 4640, 4625, 4645, 4630, 4638, 4620, 4750, 4890, 4875, 4910, 4895, 4930]
+      volume: "21,72,336",
+      trend: [2530, 2560, 2580, 2610, 2640, 2660, 2675, 2690, 2700, 2709.8]
     },
     {
-      name: "BSE",
-      logo: "assets/movers/bse.png",
-      initials: "BSE",
-      gradient: "linear-gradient(135deg, #2563EB, #1D4ED8)",
-      price: "₹3,665.70",
-      change: "175.70 (5.03%)",
+      name: "Hitachi Energy",
+      logo: "assets/movers/hitachi-energy.png",
+      initials: "HE",
+      gradient: "linear-gradient(135deg, #DC2626, #991B1B)",
+      price: "₹29,100.00",
+      change: "1,820.00 (6.67%)",
       isGain: true,
-      volume: "60,62,222",
-      trend: [3490, 3510, 3540, 3530, 3560, 3580, 3620, 3640, 3635, 3655, 3665.7]
+      volume: "1,80,043",
+      trend: [27280, 27600, 28300, 28600, 28750, 28900, 29000, 29050, 29100]
     },
     {
-      name: "Nestle India",
-      logo: "assets/movers/nestle.png",
-      initials: "NI",
+      name: "Vedanta Alumin Metal",
+      logo: "assets/movers/vedanta.png",
+      initials: "VAL",
       gradient: "linear-gradient(135deg, #0284C7, #0369A1)",
-      price: "₹1,248.40",
-      change: "53.40 (4.47%)",
+      price: "₹376.85",
+      change: "17.20 (4.78%)",
       isGain: true,
-      volume: "35,10,938",
-      trend: [1195, 1205, 1190, 1200, 1210, 1205, 1220, 1215, 1235, 1230, 1248.4]
+      volume: "1,05,38,796",
+      trend: [359.5, 361.0, 363.0, 365.5, 368.0, 371.0, 374.0, 377.5, 375.0, 376.85]
     },
     {
-      name: "Tata Consumer Prod.",
-      logo: "assets/movers/tata-consumer.png",
-      initials: "TC",
-      gradient: "linear-gradient(135deg, #0D9488, #0F766E)",
-      price: "₹1,073.00",
-      change: "44.10 (4.29%)",
+      name: "Bharat Electronics",
+      logo: "assets/movers/bel.png",
+      initials: "BEL",
+      gradient: "linear-gradient(135deg, #2563EB, #1D4ED8)",
+      price: "₹398.00",
+      change: "17.90 (4.71%)",
       isGain: true,
-      volume: "26,88,691",
-      trend: [1029, 1033, 1038, 1042, 1040, 1048, 1052, 1056, 1060, 1065, 1073]
+      volume: "2,35,41,317",
+      trend: [380.1, 388.0, 387.0, 391.0, 392.5, 393.0, 395.0, 396.5, 397.0, 398.0]
     },
     {
-      name: "Avenue Supermarts",
-      logo: "assets/movers/avenue-supermarts.png",
-      initials: "DM",
-      gradient: "linear-gradient(135deg, #16A34A, #15803D)",
-      price: "₹3,359.00",
-      change: "129.00 (3.99%)",
+      name: "Hindustan Zinc",
+      logo: "assets/movers/hindustan-zinc.png",
+      initials: "HZ",
+      gradient: "linear-gradient(135deg, #1E293B, #0F172A)",
+      price: "₹550.15",
+      change: "23.65 (4.49%)",
       isGain: true,
-      volume: "7,82,428",
-      trend: [3230, 3240, 3310, 3290, 3320, 3305, 3315, 3345, 3330, 3350, 3359]
+      volume: "47,80,415",
+      trend: [526.5, 529.0, 532.0, 535.0, 541.0, 544.0, 547.0, 548.5, 550.15]
     },
     {
-      name: "Asian Paints",
-      logo: "assets/movers/asian-paints.png",
-      initials: "AP",
-      gradient: "linear-gradient(135deg, #D97706, #B45309)",
-      price: "₹2,437.80",
-      change: "93.50 (3.99%)",
+      name: "Adani Enterprises",
+      logo: "assets/movers/adani-enterprises.png",
+      initials: "AE",
+      gradient: "linear-gradient(135deg, #7C3AED, #6D28D9)",
+      price: "₹2,709.20",
+      change: "115.90 (4.47%)",
       isGain: true,
-      volume: "20,08,963",
-      trend: [2344, 2360, 2410, 2430, 2405, 2390, 2400, 2415, 2410, 2430, 2437.8]
+      volume: "22,10,845",
+      trend: [2593.3, 2640.0, 2670.0, 2685.0, 2690.0, 2695.0, 2702.0, 2709.2]
     }
   ];
 
@@ -1452,17 +1447,6 @@
       isGain: false,
       volume: "1,09,94,586",
       trend: [267.7, 267.5, 267.0, 266.8, 267.2, 266.5, 266.8, 266.0, 265.5, 264.0, 260.0, 259.55]
-    },
-    {
-      name: "Hitachi Energy",
-      logo: "assets/movers/hitachi-energy.png",
-      initials: "HE",
-      gradient: "linear-gradient(135deg, #DC2626, #991B1B)",
-      price: "₹27,280.00",
-      change: "-800.00 (2.85%)",
-      isGain: false,
-      volume: "85,103",
-      trend: [28080, 27750, 27900, 27700, 27800, 27600, 27550, 27500, 27400, 27450, 27350, 27280]
     },
     {
       name: "PNB",
@@ -1496,6 +1480,99 @@
       isGain: false,
       volume: "1,40,40,640",
       trend: [186.0, 185.0, 186.2, 184.8, 184.0, 182.5, 183.8, 184.5, 184.0, 184.2, 183.5, 183.2]
+    },
+    {
+      name: "Asian Paints",
+      logo: "assets/movers/asian-paints.png",
+      initials: "AP",
+      gradient: "linear-gradient(135deg, #D97706, #B45309)",
+      price: "₹2,437.80",
+      change: "-34.20 (1.38%)",
+      isGain: false,
+      volume: "20,08,963",
+      trend: [2472.0, 2465.0, 2460.0, 2455.0, 2450.0, 2445.0, 2442.0, 2440.0, 2437.8]
+    }
+  ];
+
+  // Define Market Shakers (Vol weekly change 1D) exactly from verified Groww capture
+  const marketShakers = [
+    {
+      name: "Fractal Analytics",
+      subtitle: "Results yesterday",
+      logo: "assets/movers/fractal-analytics.png",
+      initials: "FA",
+      gradient: "linear-gradient(135deg, #0F172A, #334155)",
+      price: "₹835.65",
+      change: "102.85 (14.04%)",
+      isGain: true,
+      volChange: "10,981%",
+      volume: "1,94,24,579",
+      trend: [733, 755, 780, 805, 820, 830, 835.65]
+    },
+    {
+      name: "Awfis Space Solutions",
+      subtitle: "Results yesterday",
+      logo: "assets/movers/awfis.png",
+      initials: "AW",
+      gradient: "linear-gradient(135deg, #EF4444, #B91C1C)",
+      price: "₹256.19",
+      change: "14.99 (6.21%)",
+      isGain: true,
+      volChange: "6,662%",
+      volume: "1,44,66,829",
+      trend: [241, 248, 252, 250, 254, 256.19]
+    },
+    {
+      name: "Faze Three",
+      subtitle: "Results yesterday",
+      logo: "assets/movers/faze-three.png",
+      initials: "FT",
+      gradient: "linear-gradient(135deg, #DC2626, #7F1D1D)",
+      price: "₹541.80",
+      change: "90.30 (20.00%)",
+      isGain: true,
+      volChange: "5,585%",
+      volume: "17,96,686",
+      trend: [451.5, 470, 500, 520, 535, 541.8]
+    },
+    {
+      name: "Alembic Pharmaceuticals",
+      subtitle: "Results today",
+      logo: "assets/movers/alembic-pharma.png",
+      initials: "AP",
+      gradient: "linear-gradient(135deg, #0284C7, #0369A1)",
+      price: "₹906.70",
+      change: "103.90 (12.94%)",
+      isGain: true,
+      volChange: "4,513%",
+      volume: "41,62,581",
+      trend: [802.8, 810, 820, 850, 885, 906.7]
+    },
+    {
+      name: "Saregama India",
+      subtitle: "Results today",
+      logo: "assets/movers/saregama.png",
+      initials: "SI",
+      gradient: "linear-gradient(135deg, #10B981, #047857)",
+      price: "₹636.80",
+      change: "74.60 (13.27%)",
+      isGain: true,
+      volChange: "3,048%",
+      volume: "2,12,55,680",
+      trend: [562.2, 575, 590, 610, 625, 636.8]
+    },
+    {
+      name: "R Systems International",
+      subtitle: "Results yesterday",
+      logo: "assets/movers/r-systems.png",
+      initials: "RS",
+      gradient: "linear-gradient(135deg, #2563EB, #1E40AF)",
+      price: "₹269.70",
+      change: "21.40 (8.62%)",
+      isGain: true,
+      volChange: "2,888%",
+      volume: "86,37,136",
+      trend: [248.3, 252, 258, 263, 266, 269.7]
     }
   ];
 
@@ -1961,67 +2038,68 @@
     `;
   }
 
-  function renderFig1GmpTodayWidget() {
-    // Open stocks with live GMP ranked High to Low
-    const openStocksWithGmp = records
-      .filter(r => r.status === "OPEN" && r.gmp != null)
-      .sort((a, b) => Number(b.gmp || 0) - Number(a.gmp || 0));
-
-    // Pad with top active/upcoming unlisted issues if fewer than 5 (strictly exclude listed stocks)
-    const remainingNeeded = Math.max(0, 5 - openStocksWithGmp.length);
-    const fillerStocks = records
-      .filter(r => (r.status === "UPCOMING" || r.status === "CLOSED") && r.status !== "LISTED" && r.gmp != null && Number(r.gmp) > 0 && !openStocksWithGmp.some(o => o.slug === r.slug))
-      .sort((a, b) => Number(b.gmp || 0) - Number(a.gmp || 0))
-      .slice(0, remainingNeeded);
-
-    const rankedGmpList = [...openStocksWithGmp, ...fillerStocks].slice(0, 5);
-
+  function renderFig1MarketShakersWidget() {
     return `
-      <div class="fig1-panel-card">
-        <div class="fig1-panel-header">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <h3 class="fig1-panel-title">📊 GMP Today</h3>
-            <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
+      <div class="fig1-panel-card shakers-panel-card">
+        <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h3 class="fig1-panel-title">🌪️ Market Shakers</h3>
+              <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
+            </div>
+            <div class="widget-source-tag">Weekly Vol Surge</div>
           </div>
-          <div class="widget-source-tag">Ranked High to Low • Live IPO GMP</div>
+          <div style="font-size:11.5px; color:#64748B; display:flex; align-items:center; gap:5px;">
+            <span>Volume surge compared to 7-day average</span>
+          </div>
         </div>
-        <div class="fig1-gmp-list">
-          ${rankedGmpList.map((item, index) => {
-            const isPos = Number(item.gmp || 0) >= 0;
-            const gmpVal = isPos ? `+₹${item.gmp}` : `-₹${Math.abs(item.gmp)}`;
-            const pct = item.gmpPercentage ? `(+${item.gmpPercentage}%)` : '';
-            const statusLabel = item.status === 'OPEN'
-              ? '🟢 Open Now'
-              : item.status === 'CLOSED'
-                ? '⏳ Closed (Awaiting Listing)'
-                : '📅 Upcoming';
-            const statusColor = item.status === 'OPEN'
-              ? '#16A34A'
-              : item.status === 'CLOSED'
-                ? '#D97706'
-                : '#1D4ED8';
-            return `
-              <div class="fig1-gmp-row" onclick="window.location.hash='#/ipo/${item.slug}'">
-                <div class="fig1-gmp-left">
-                  <div style="font-size:11px; font-weight:800; color:#475569; min-width:18px;">#${index + 1}</div>
-                  ${renderCompanyLogo(item, 34)}
-                  <div style="display:flex; flex-direction:column;">
-                    <span class="fig1-company-name" style="font-size:13.5px;">${item.shortName}</span>
-                    <span style="font-size:10.5px; color:${statusColor}; font-weight:600;">
-                      ${statusLabel}
-                    </span>
-                  </div>
-                </div>
-                <div style="text-align:right;">
-                  <span class="fig1-gmp-val ${isPos ? 'pos' : 'neg'}">${gmpVal}</span>
-                  <div style="font-size:10.5px; color:#16A34A; font-weight:600;">${pct}</div>
-                </div>
-              </div>
-            `;
-          }).join("")}
+        <div class="movers-table-wrap" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+          <table class="shakers-table" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th class="th-company" style="font-size:11.5px; padding:10px 12px; text-align:left;">Company</th>
+                <th class="th-price" style="font-size:11.5px; padding:10px 12px; text-align:right;">Market price (1D)</th>
+                <th class="th-volume" style="font-size:11.5px; padding:10px 12px; text-align:right;">Vol weekly change (1D)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${marketShakers.map(item => `
+                <tr>
+                  <td style="padding:10px 12px;">
+                    <div class="movers-company-cell" style="gap:10px;">
+                      <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#0F172A'}; flex-shrink:0;">
+                        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">${item.initials}</div>
+                        <img src="${item.logo}" alt="${item.name} logo" width="38" height="38" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
+                      </div>
+                      <div style="display:flex; flex-direction:column;">
+                        <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">${item.name}</span>
+                        ${item.subtitle ? `<span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">${item.subtitle}</span>` : ''}
+                      </div>
+                    </div>
+                  </td>
+                  <td style="padding:10px 12px;">
+                    <div class="movers-price-cell" style="gap:10px; justify-content:flex-end;">
+                      <div class="movers-sparkline-wrap" style="width:70px; height:26px;">
+                        ${renderMoversSparkline(item.trend, '#00B386', true, 70, 26)}
+                      </div>
+                      <div class="movers-price-block" style="min-width:auto; text-align:right;">
+                        <div class="movers-cmp" style="font-size:13px;">${item.price}</div>
+                        <div class="movers-change gain" style="font-size:11.5px;">${item.change}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
+                    <div style="font-size:13px; font-weight:800; color:#00B386;">${item.volChange}</div>
+                    <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">${item.volume}</div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
         </div>
-        <div style="margin-top:10px; font-size:11px; color:#64748B; line-height:1.45; border-top:1px dashed #E2E8F0; padding-top:8px;">
-          *GMP is unofficial &amp; speculative. Past trends do not assure listing price.
+        <div style="margin-top:10px; font-size:11px; color:#64748B; line-height:1.45; border-top:1px dashed #E2E8F0; padding-top:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <span>*Real-time volume breakout surge from NSE/BSE books</span>
+          <a href="#/gmp" style="font-weight:700; color:#00897B; text-decoration:none;">Live GMP Tracker &rarr;</a>
         </div>
       </div>
     `;
@@ -2272,7 +2350,7 @@
             ${renderFig1PerformanceChart()}
           </div>
           <div class="fig1-right-col">
-            ${renderFig1GmpTodayWidget()}
+            ${renderFig1MarketShakersWidget()}
             ${renderFig1CalendarWidget()}
             ${renderFig1StayUpdatedWidget()}
             ${renderFig1QuickLinksWidget()}
