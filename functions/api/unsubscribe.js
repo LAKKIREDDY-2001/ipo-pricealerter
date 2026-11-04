@@ -1,6 +1,11 @@
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(context) {
+  const { request, env } = context;
+  const waitUntil = (context && typeof context.waitUntil === "function")
+    ? context.waitUntil.bind(context)
+    : (request && request.ctx && typeof request.ctx.waitUntil === "function" ? request.ctx.waitUntil.bind(request.ctx) : null);
+
   let body;
   try {
     body = await request.json();
@@ -19,6 +24,24 @@ export async function onRequestPost({ request, env }) {
       const key = "subscriber:" + await sha256(email);
       await kv.delete(key);
     } catch (e) {}
+  }
+
+  if (env && env.GITHUB_TOKEN) {
+    try {
+      const ghTask = fetch("https://api.github.com/repos/LAKKIREDDY-2001/ipo-pricealerter/dispatches", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + env.GITHUB_TOKEN,
+          "Accept": "application/vnd.github.v3+json",
+          "User-Agent": "PriceAlerter-Subscriber-Sync"
+        },
+        body: JSON.stringify({
+          event_type: "sync-subscribers",
+          client_payload: { email: email, action: "unsubscribe" }
+        })
+      }).catch(() => {});
+      if (waitUntil) waitUntil(ghTask);
+    } catch (ghErr) {}
   }
 
   return Response.json({

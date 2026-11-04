@@ -2,7 +2,8 @@ name: Sync Subscriber Emails to Excel in GitHub
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Every 6 hours
+    # Runs automatically every 10 minutes so all subscriber emails from KV appear in GitHub
+    - cron: '*/10 * * * *'
   repository_dispatch:
     types: [sync-subscribers]
   workflow_dispatch:

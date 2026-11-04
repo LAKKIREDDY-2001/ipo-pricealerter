@@ -2,7 +2,12 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const OWNER_EMAIL = "lakkistudy@gmail.com";
 const NOTIFICATION_URL = "https://formsubmit.co/ajax/" + OWNER_EMAIL;
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(context) {
+  const { request, env } = context;
+  const waitUntil = (context && typeof context.waitUntil === "function")
+    ? context.waitUntil.bind(context)
+    : (request && request.ctx && typeof request.ctx.waitUntil === "function" ? request.ctx.waitUntil.bind(request.ctx) : null);
+
   let body;
   try {
     body = await request.json();
@@ -41,7 +46,7 @@ export async function onRequestPost({ request, env }) {
   // 2. Trigger automated GitHub sync if GITHUB_TOKEN is configured in Cloudflare environment
   if (env && env.GITHUB_TOKEN) {
     try {
-      fetch("https://api.github.com/repos/LAKKIREDDY-2001/ipo-pricealerter/dispatches", {
+      const ghTask = fetch("https://api.github.com/repos/LAKKIREDDY-2001/ipo-pricealerter/dispatches", {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + env.GITHUB_TOKEN,
@@ -53,6 +58,7 @@ export async function onRequestPost({ request, env }) {
           client_payload: { email: email, subscribedAt: dateStr }
         })
       }).catch(() => {});
+      if (waitUntil) waitUntil(ghTask);
     } catch (ghErr) {}
   }
 
@@ -72,8 +78,8 @@ export async function onRequestPost({ request, env }) {
       })
     });
 
-    if (request.ctx && typeof request.ctx.waitUntil === "function") {
-      request.ctx.waitUntil(notifyTask);
+    if (waitUntil) {
+      waitUntil(notifyTask);
     } else {
       await Promise.race([notifyTask, new Promise(r => setTimeout(r, 1200))]).catch(() => {});
     }

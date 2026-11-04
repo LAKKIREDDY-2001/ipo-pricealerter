@@ -13,6 +13,7 @@ import re
 import csv
 import json
 import urllib.request
+import ssl
 from datetime import datetime
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -195,15 +196,34 @@ def sync_from_kv(export_url="https://pricealerter.in/api/subscribers-export?form
     print(f"🔄 Syncing KV subscriber pairs from {export_url}...")
     try:
         req = urllib.request.Request(export_url, headers={"User-Agent": "GitHub-Action-Excel-Sync"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+        try:
+            ctx = ssl.create_default_context()
+            with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+        except Exception as ssl_err:
+            insecure_ctx = ssl._create_unverified_context()
+            with urllib.request.urlopen(req, context=insecure_ctx, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
         
         kv_subscribers = data.get("subscribers", [])
         print(f"📥 Received {len(kv_subscribers)} subscriber records from KV.")
         
         existing_subs, seen_emails = get_existing_subscribers()
+        active_kv_emails = {normalize_email(item.get("email")) for item in kv_subscribers if normalize_email(item.get("email"))}
         new_count = 0
+        status_updated = 0
         
+        # Check if existing subscribers were removed/unsubscribed from KV
+        for sub in existing_subs:
+            e = normalize_email(sub.get("email"))
+            if e in active_kv_emails and sub.get("status") != "Active":
+                sub["status"] = "Active"
+                status_updated += 1
+            elif e not in active_kv_emails and sub.get("status") == "Active":
+                sub["status"] = "Unsubscribed"
+                status_updated += 1
+        
+        # Add new subscribers from KV
         for item in kv_subscribers:
             e = normalize_email(item.get("email"))
             if e and e not in seen_emails:
@@ -215,10 +235,10 @@ def sync_from_kv(export_url="https://pricealerter.in/api/subscribers-export?form
                 })
                 new_count += 1
                 
-        if new_count > 0:
+        if new_count > 0 or status_updated > 0:
             save_all_formats(existing_subs)
-            print(f"✅ Successfully added {new_count} new subscriber(s) to Excel. Total unique: {len(existing_subs)}")
-            return True, new_count
+            print(f"✅ Successfully updated Excel: {new_count} new subscriber(s), {status_updated} status update(s). Total unique: {len(existing_subs)}")
+            return True, new_count + status_updated
         else:
             print("ℹ️ All KV subscribers already present in Excel file. Zero duplicates added.")
             return False, 0
