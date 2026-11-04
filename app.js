@@ -94,7 +94,7 @@
     if (parts[0] === "calculator" || parts[0] === "profit-calculator") return { view: "calculator" };
     if (parts[0] === "live-prices" || parts[0] === "live" || parts[0] === "prices" || parts[0] === "market-pulse") return { view: "live-prices" };
     if (parts[0] === "allotment" || parts[0] === "allotment-status" || parts[0] === "allotment-checker") return { view: "allotment" };
-    if (parts[0] === "movers" || parts[0] === "gainers" || parts[0] === "losers" || parts[0] === "market-movers") {
+    if (parts[0] === "movers" || parts[0] === "gainers" || parts[0] === "losers" || parts[0] === "market-movers" || parts[0] === "shakers" || parts[0] === "market-shakers" || parts[0] === "volume-shakers") {
       return { view: "home", moversFilter: parts[0] };
     }
     if (parts[0] === "blog") {
@@ -1485,10 +1485,10 @@
       logo: "assets/movers/pnb.png",
       initials: "PNB",
       gradient: "linear-gradient(135deg, #B91C1C, #991B1B)",
-      price: "₹120.97",
-      change: "-2.09 (1.70%)",
-      isGain: false,
-      volume: "1,90,95,279",
+      price: "₹122.42",
+      change: "1.45 (1.20%)",
+      isGain: true,
+      volume: "1,86,68,106",
       trend: [123.06, 122.2, 121.8, 121.5, 122.5, 122.8, 122.4, 122.9, 121.6, 121.2, 121.0, 121.4, 120.97]
     },
     {
@@ -1647,7 +1647,90 @@
   };
   window.switchMoversTab = window.switchMoversView;
 
+  function renderMoversTableRows(list, isGain) {
+    return (list || []).map(item => `
+      <tr>
+        <td>
+          <div class="movers-company-cell">
+            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || (isGain ? '#2563EB' : '#DC2626')}; flex-shrink:0;">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">${item.initials}</div>
+              <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
+            </div>
+            <span class="movers-company-name">${item.name}</span>
+          </div>
+        </td>
+        <td>
+          <div class="movers-price-cell">
+            <div class="movers-sparkline-wrap">
+              ${renderMoversSparkline(item.trend, isGain ? '#00B386' : '#EB5B3C', isGain, 110, 30)}
+            </div>
+            <div class="movers-price-block">
+              <div class="movers-cmp">${item.price}</div>
+              <div class="movers-change ${isGain ? 'gain' : 'loss'}">${item.change}</div>
+            </div>
+          </div>
+        </td>
+        <td class="movers-volume-cell">${item.volume}</td>
+      </tr>
+    `).join("");
+  }
+
+  function renderShakersTableRows(list) {
+    return (list || []).map(item => `
+      <tr>
+        <td style="padding:10px 12px;">
+          <div class="movers-company-cell" style="gap:10px;">
+            <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#0F172A'}; flex-shrink:0;">
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">${item.initials}</div>
+              <img src="${item.logo}" alt="${item.name} logo" width="38" height="38" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
+            </div>
+            <div style="display:flex; flex-direction:column;">
+              <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">${item.name}</span>
+              ${item.subtitle ? `<span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">${item.subtitle}</span>` : ''}
+            </div>
+          </div>
+        </td>
+        <td style="padding:10px 12px;">
+          <div class="movers-price-cell" style="gap:10px; justify-content:flex-end;">
+            <div class="movers-sparkline-wrap" style="width:70px; height:26px;">
+              ${renderMoversSparkline(item.trend, '#00B386', true, 70, 26)}
+            </div>
+            <div class="movers-price-block" style="min-width:auto; text-align:right;">
+              <div class="movers-cmp" style="font-size:13px;">${item.price}</div>
+              <div class="movers-change gain" style="font-size:11.5px;">${item.change}</div>
+            </div>
+          </div>
+        </td>
+        <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
+          <div style="font-size:13px; font-weight:800; color:#00B386;">${item.volChange}</div>
+          <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">${item.volume}</div>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  function updateDashboardMoversInPlace() {
+    const data = state.liveMarketData;
+    if (!data) return;
+    const gainersList = (data.marketGainers && data.marketGainers.length) ? data.marketGainers : marketGainers;
+    const losersList = (data.marketLosers && data.marketLosers.length) ? data.marketLosers : marketLosers;
+    const shakersList = (data.marketShakers && data.marketShakers.length) ? data.marketShakers : marketShakers;
+
+    const gBody = document.getElementById("movers-gainers-tbody");
+    if (gBody) gBody.innerHTML = renderMoversTableRows(gainersList, true);
+
+    const lBody = document.getElementById("movers-losers-tbody");
+    if (lBody) lBody.innerHTML = renderMoversTableRows(losersList, false);
+
+    const sBody = document.getElementById("market-shakers-tbody");
+    if (sBody) sBody.innerHTML = renderShakersTableRows(shakersList);
+  }
+
   function renderFig1TrendingTable() {
+    const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
+    const gainersList = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : marketGainers;
+    const losersList = (data && data.marketLosers && data.marketLosers.length) ? data.marketLosers : marketLosers;
+
     return `
       <div class="movers-container" id="market-movers-section">
         <!-- Movers Master Filter Toolbar -->
@@ -1691,32 +1774,8 @@
                   <th class="th-volume">Volume</th>
                 </tr>
               </thead>
-              <tbody>
-                ${marketGainers.map(item => `
-                  <tr>
-                    <td>
-                      <div class="movers-company-cell">
-                        <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#2563EB'}; flex-shrink:0;">
-                          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">${item.initials}</div>
-                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                        </div>
-                        <span class="movers-company-name">${item.name}</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="movers-price-cell">
-                        <div class="movers-sparkline-wrap">
-                          ${renderMoversSparkline(item.trend, '#00B386', true, 110, 30)}
-                        </div>
-                        <div class="movers-price-block">
-                          <div class="movers-cmp">${item.price}</div>
-                          <div class="movers-change gain">${item.change}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="movers-volume-cell">${item.volume}</td>
-                  </tr>
-                `).join("")}
+              <tbody id="movers-gainers-tbody">
+                ${renderMoversTableRows(gainersList, true)}
               </tbody>
             </table>
           </div>
@@ -1744,32 +1803,8 @@
                   <th class="th-volume">Volume</th>
                 </tr>
               </thead>
-              <tbody>
-                ${marketLosers.map(item => `
-                  <tr>
-                    <td>
-                      <div class="movers-company-cell">
-                        <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#DC2626'}; flex-shrink:0;">
-                          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">${item.initials}</div>
-                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                        </div>
-                        <span class="movers-company-name">${item.name}</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="movers-price-cell">
-                        <div class="movers-sparkline-wrap">
-                          ${renderMoversSparkline(item.trend, '#EB5B3C', false, 110, 30)}
-                        </div>
-                        <div class="movers-price-block">
-                          <div class="movers-cmp">${item.price}</div>
-                          <div class="movers-change loss">${item.change}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="movers-volume-cell">${item.volume}</td>
-                  </tr>
-                `).join("")}
+              <tbody id="movers-losers-tbody">
+                ${renderMoversTableRows(losersList, false)}
               </tbody>
             </table>
           </div>
@@ -2071,6 +2106,9 @@
   }
 
   function renderFig1MarketShakersWidget() {
+    const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
+    const shakersList = (data && data.marketShakers && data.marketShakers.length) ? data.marketShakers : marketShakers;
+
     return `
       <div class="fig1-panel-card shakers-panel-card">
         <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:6px;">
@@ -2094,38 +2132,8 @@
                 <th class="th-volume" style="font-size:11.5px; padding:10px 12px; text-align:right;">Vol weekly change (1D)</th>
               </tr>
             </thead>
-            <tbody>
-              ${marketShakers.map(item => `
-                <tr>
-                  <td style="padding:10px 12px;">
-                    <div class="movers-company-cell" style="gap:10px;">
-                      <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#0F172A'}; flex-shrink:0;">
-                        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">${item.initials}</div>
-                        <img src="${item.logo}" alt="${item.name} logo" width="38" height="38" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                      </div>
-                      <div style="display:flex; flex-direction:column;">
-                        <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">${item.name}</span>
-                        ${item.subtitle ? `<span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">${item.subtitle}</span>` : ''}
-                      </div>
-                    </div>
-                  </td>
-                  <td style="padding:10px 12px;">
-                    <div class="movers-price-cell" style="gap:10px; justify-content:flex-end;">
-                      <div class="movers-sparkline-wrap" style="width:70px; height:26px;">
-                        ${renderMoversSparkline(item.trend, '#00B386', true, 70, 26)}
-                      </div>
-                      <div class="movers-price-block" style="min-width:auto; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px;">${item.price}</div>
-                        <div class="movers-change gain" style="font-size:11.5px;">${item.change}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                    <div style="font-size:13px; font-weight:800; color:#00B386;">${item.volChange}</div>
-                    <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">${item.volume}</div>
-                  </td>
-                </tr>
-              `).join("")}
+            <tbody id="market-shakers-tbody">
+              ${renderShakersTableRows(shakersList)}
             </tbody>
           </table>
         </div>
@@ -4419,8 +4427,8 @@
     const lotSize = ipo.lotSize || 100;
     const upperPrice = ipo.priceBandHigh || ipo.issuePrice || 100;
 
-    // Use custom user-entered GMP if set; otherwise use verified live GMP (or default to 14)
-    const marketGmp = (ipo.gmp != null && ipo.gmp > 0) ? ipo.gmp : 14;
+    // Use custom user-entered GMP if set; otherwise use verified live GMP (or default to 0)
+    const marketGmp = (ipo.gmp !== null && ipo.gmp !== undefined && !isNaN(ipo.gmp)) ? Number(ipo.gmp) : 0;
     const gmpVal = (state.calcCustomGmp !== null && state.calcCustomGmp !== undefined && !isNaN(state.calcCustomGmp))
       ? Number(state.calcCustomGmp)
       : marketGmp;
@@ -7088,12 +7096,17 @@
       renderDashboardView();
       if (state.route.moversFilter) {
         setTimeout(() => {
-          const target = state.route.moversFilter === "losers" ? "losers" : (state.route.moversFilter === "gainers" ? "gainers" : "both");
-          if (typeof window.switchMoversView === "function") {
-            window.switchMoversView(target);
+          if (state.route.moversFilter === "shakers" || state.route.moversFilter === "market-shakers" || state.route.moversFilter === "volume-shakers") {
+            const shakerEl = document.querySelector(".shakers-panel-card") || document.getElementById("market-shakers-tbody");
+            if (shakerEl) shakerEl.scrollIntoView({ behavior: "smooth" });
+          } else {
+            const target = state.route.moversFilter === "losers" ? "losers" : (state.route.moversFilter === "gainers" ? "gainers" : "both");
+            if (typeof window.switchMoversView === "function") {
+              window.switchMoversView(target);
+            }
+            const el = document.getElementById("market-movers-section");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
           }
-          const el = document.getElementById("market-movers-section");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
         }, 80);
       }
     }
@@ -7207,6 +7220,8 @@
         state.liveNextSyncSeconds = data.nextSyncCountdownSeconds || 600;
         if (state.route.view === "live-prices") {
           renderLivePricesPage();
+        } else {
+          updateDashboardMoversInPlace();
         }
         if (manual) {
           showToast("⚡ Real-time quotes synced from Tapetide / Exchange feeds!", "success");
@@ -7239,7 +7254,7 @@
       const ipo = getSelectedCalcIpo();
       const current = (state.calcCustomGmp !== null && state.calcCustomGmp !== undefined && !isNaN(state.calcCustomGmp))
         ? Number(state.calcCustomGmp)
-        : ((ipo.gmp != null && ipo.gmp > 0) ? ipo.gmp : 14);
+        : ((ipo.gmp !== null && ipo.gmp !== undefined && !isNaN(ipo.gmp)) ? Number(ipo.gmp) : 0);
       state.calcCustomGmp = Math.max(0, current + delta);
       renderCalculatorPage();
     },

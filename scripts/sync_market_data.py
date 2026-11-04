@@ -326,12 +326,16 @@ TRACKED_IPOS = [
         "priceBandLow": 62,
         "priceBandHigh": 66,
         "lotSize": 2000,
-        "gmp": 14,
-        "gmpPct": 21.2,
-        "estListing": 80,
-        "profitPerLot": 28000,
+        "gmp": 0,
+        "gmpPct": 0.0,
+        "estListing": 66,
+        "profitPerLot": 0,
         "qibSub": 67.0,
-        "totalSub": 1.33
+        "niiSub": 22.17,
+        "bNiiSub": 32.49,
+        "sNiiSub": 1.17,
+        "retailSub": 0.80,
+        "totalSub": 4.82
     },
     {
         "slug": "vedant-poly-fabs-ipo",

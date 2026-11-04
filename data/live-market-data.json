@@ -1,6 +1,6 @@
 {
-  "lastSyncTime": "2026-11-04T22:35:47.371353+05:30",
-  "lastSyncFormatted": "04 Nov 2026, 10:35 PM IST",
+  "lastSyncTime": "2026-11-04T22:56:22.293880+05:30",
+  "lastSyncFormatted": "04 Nov 2026, 10:56 PM IST",
   "nextSyncCountdownSeconds": 600,
   "syncIntervalMinutes": 10,
   "source": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE)",
@@ -433,16 +433,16 @@
       "logo": "assets/movers/pnb.png",
       "initials": "PNB",
       "gradient": "linear-gradient(135deg, #B91C1C, #991B1B)",
-      "price": "₹120.97",
-      "rawPrice": 120.97,
-      "change": "-2.09 (1.70%)",
-      "rawChange": -2.09,
-      "pct": -1.7,
-      "isGain": false,
-      "high": 122.78,
-      "low": 119.16,
-      "volRaw": 19095279,
-      "volume": "1,90,95,279",
+      "price": "₹122.42",
+      "rawPrice": 122.42,
+      "change": "1.45 (1.20%)",
+      "rawChange": 1.45,
+      "pct": 1.2,
+      "isGain": true,
+      "high": 123.14,
+      "low": 120.09,
+      "volRaw": 18668106,
+      "volume": "1,86,68,106",
       "volChange": "",
       "trend": [
         123.06,
@@ -567,15 +567,15 @@
       "board": "SME",
       "status": "OPEN",
       "issuePrice": 66,
-      "cmp": 80,
-      "gmp": 14,
-      "gmpPct": 21.2,
-      "estListing": 80,
+      "cmp": 66,
+      "gmp": 0,
+      "gmpPct": 0.0,
+      "estListing": 66,
       "lotSize": 2000,
-      "profitPerLot": 28000,
+      "profitPerLot": 0,
       "qibSub": 67.0,
-      "totalSub": 1.33,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "totalSub": 4.82,
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "vedant-poly-fabs-ipo",
@@ -593,7 +593,7 @@
       "profitPerLot": 18000,
       "qibSub": 1.05,
       "totalSub": 1.25,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "zepto-ipo",
@@ -611,7 +611,7 @@
       "profitPerLot": 2975,
       "qibSub": null,
       "totalSub": null,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "razorpay-ipo",
@@ -629,7 +629,7 @@
       "profitPerLot": 2940,
       "qibSub": null,
       "totalSub": null,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "haldirams-snacks-foods-ipo",
@@ -647,7 +647,7 @@
       "profitPerLot": 3135,
       "qibSub": null,
       "totalSub": null,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "flipkart-ipo",
@@ -665,7 +665,7 @@
       "profitPerLot": 2880,
       "qibSub": null,
       "totalSub": null,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "phonepe-ipo",
@@ -683,7 +683,7 @@
       "profitPerLot": 3105,
       "qibSub": null,
       "totalSub": null,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     },
     {
       "slug": "swiggy-limited-ipo",
@@ -701,7 +701,7 @@
       "profitPerLot": 1140,
       "qibSub": 6.02,
       "totalSub": 3.59,
-      "updatedAt": "2026-11-04T22:35:47.371353+05:30"
+      "updatedAt": "2026-11-04T22:56:22.293880+05:30"
     }
   ]
 }
