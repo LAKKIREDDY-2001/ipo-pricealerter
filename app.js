@@ -5019,12 +5019,6 @@
             <a href="https://marketdata.bseindia.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#0F766E; text-decoration:none; background:#F0FDFA; padding:4px 10px; border-radius:6px; border:1px solid #CCFBF1;">
               🏢 BSE Market Data Portal
             </a>
-            <a href="https://dhan.co/ipo/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#6D28D9; text-decoration:none; background:#F5F3FF; padding:4px 10px; border-radius:6px; border:1px solid #EDE9FE;">
-              📱 Dhan Primary Markets
-            </a>
-            <a href="https://tapetide.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#C2410C; text-decoration:none; background:#FFF7ED; padding:4px 10px; border-radius:6px; border:1px solid #FFEDD5;">
-              🌊 Tapetide Intelligence
-            </a>
           </div>
           <div style="font-size:11.5px; color:#64748B; font-weight:500;">
             Quotes are withheld until a licensed feed is connected and verified.
