@@ -8260,3 +8260,11 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 #ipo-subscribe-modal-form small{color:#64748b;font-size:11px;line-height:1.5}
 #ipo-subscribe-modal-form .ipo-subscribe-status{margin:0;font-size:13px;color:#0f766e;min-height:18px}
 @media(max-width:480px){.ipo-subscribe-dialog{padding:23px 19px;border-radius:15px}}
+
+/* Subscribe / unsubscribe mode controls */
+.ipo-subscribe-actions{display:flex;gap:10px;margin:18px 0 16px}
+.ipo-subscribe-mode{flex:1;padding:11px 12px;border:1px solid #CBD5E1;border-radius:9px;background:#F8FAFC;color:#334155;font-weight:700;cursor:pointer}
+.ipo-subscribe-mode.active{background:#0F766E;border-color:#0F766E;color:#fff}
+.ipo-subscribe-submit{width:100%;margin-top:14px;padding:12px 16px;border:0;border-radius:9px;background:#0F766E;color:#fff;font-weight:700;cursor:pointer}
+.ipo-subscribe-submit:disabled{opacity:.6;cursor:wait}
+.ipo-subscribe-consent[hidden]{display:none!important}
