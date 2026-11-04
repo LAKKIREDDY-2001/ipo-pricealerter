@@ -945,7 +945,8 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
             synced_gainers.append(res)
         else:
             print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
-        print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
+        if res:
+            print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
     # 2. Fetch Market Shakers (Volume Surge)
     synced_shakers = []
@@ -958,7 +959,8 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
             synced_shakers.append(res)
         else:
             print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
-        print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Vol Chg: {res['volChange']:>8} | Vol: {res['volume']}")
+        if res:
+            print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Vol Chg: {res['volChange']:>8} | Vol: {res['volume']}")
 
     # 3. Fetch Losers
     synced_losers = []
@@ -984,7 +986,8 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
             synced_recent_ipos.append(res)
         else:
             print(f"  ⚠️  {item['name']}: no valid timestamped quote; omitted")
-        print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Issue: ₹{res.get('issuePrice', '—')} | Vol: {res['volume']}")
+        if res:
+            print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Issue: ₹{res.get('issuePrice', '—')} | Vol: {res['volume']}")
 
     # 5. Fetch Nifty 50 Bluechips
     synced_bluechips = []
