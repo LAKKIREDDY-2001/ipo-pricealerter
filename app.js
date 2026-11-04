@@ -47,6 +47,7 @@
     liveMarketData: null,
     liveNextSyncSeconds: 600,
     alertsSubscribed: true,
+    notifSubMode: "subscribe",
     cardsLimit: 18,
     mobileMenuOpen: false,
     openBoard: "all",
@@ -827,6 +828,10 @@
               <span class="link-icon">🔍</span>
               <span>Search IPOs (⌘K)</span>
             </button>
+            <button class="mobile-drawer-link" onclick="window.IpoApp.handleGetAlertsClick(); window.IpoApp.toggleMobileMenu(false);" style="background:rgba(16, 185, 129, 0.12); color:#10B981; font-weight:700;">
+              <span class="link-icon">🔔</span>
+              <span>Get Alerts (Subscribe / Unsubscribe)</span>
+            </button>
             <a href="#/" class="mobile-drawer-link ${currentView === 'home' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">🏠</span>
               <span>Home</span>
@@ -885,12 +890,7 @@
     // Bind Header Events
     document.getElementById("open-search-pill")?.addEventListener("click", () => toggleSearchModal(true));
     document.getElementById("header-alerts-btn")?.addEventListener("click", () => {
-      if (window.SubscriberService && typeof window.SubscriberService.openSubscribeModal === "function") {
-        window.SubscriberService.openSubscribeModal();
-      } else {
-        state.alertsSubscribed = !state.alertsSubscribed;
-        showToast(state.alertsSubscribed ? "🔔 Real-time alerts enabled for IPOs" : "Alerts muted", "success");
-      }
+      window.IpoApp.handleGetAlertsClick();
     });
     document.getElementById("header-bell-btn")?.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -997,28 +997,48 @@
 
   function renderNotificationsPanel() {
     const alerts = getSmartNotifications();
+    const mode = state.notifSubMode || "subscribe";
     return `
       <div class="notif-backdrop" onclick="window.IpoApp.closeNotifications()"></div>
       <div class="notifications-panel" id="notifications-panel" onclick="event.stopPropagation()">
         <div class="notif-header">
           <div style="display:flex; align-items:center; gap:8px;">
-            <h4>Market Alerts & Updates</h4>
+            <h4>Market Alerts &amp; Notifications</h4>
             <span style="font-size:10px; background:rgba(37,99,235,0.18); color:var(--brand-blue-light); padding:2px 7px; border-radius:10px; font-weight:700;">
               ${alerts.length} Active
             </span>
           </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <button class="notif-toggle-alerts" id="toggle-alerts-feed-btn" title="Toggle alerts sound / push">
-              ${state.alertsSubscribed ? "Mute" : "Enable"}
-            </button>
+          <div style="display:flex; align-items:center; gap:8px;">
             <button class="notif-close-btn" onclick="window.IpoApp.closeNotifications()" aria-label="Close notifications">✕</button>
           </div>
         </div>
 
-        <div style="display:flex; align-items:center; gap:6px; margin:8px 0 4px; padding:0 2px;">
+        <!-- End-to-End Subscribe & Unsubscribe Email Alert Box -->
+        <div class="notif-email-sub-card">
+          <div class="notif-sub-tabs">
+            <button type="button" class="notif-sub-tab ${mode === 'subscribe' ? 'active' : ''}" id="notif-tab-sub" onclick="window.IpoApp.setNotifMode('subscribe')">
+              🔔 Subscribe Alerts
+            </button>
+            <button type="button" class="notif-sub-tab ${mode === 'unsubscribe' ? 'active unsub' : ''}" id="notif-tab-unsub" onclick="window.IpoApp.setNotifMode('unsubscribe')">
+              🚫 Unsubscribe / Delete
+            </button>
+          </div>
+          <form id="notif-sub-form" onsubmit="window.IpoApp.handleNotifFormSubmit(event)">
+            <div class="notif-input-group">
+              <input type="email" id="notif-email-input" placeholder="${mode === 'unsubscribe' ? 'Enter email to delete details...' : 'Enter email for live alerts...'}" required maxlength="254" />
+              <button type="submit" id="notif-sub-submit-btn" class="${mode === 'unsubscribe' ? 'unsub-mode' : ''}">${mode === 'unsubscribe' ? 'Delete & Unsubscribe' : 'Subscribe Now'}</button>
+            </div>
+            <div class="notif-sub-hint" id="notif-sub-hint">
+              <span>${mode === 'unsubscribe' ? '⚠️ Your email and details will be deleted immediately from subscribers list.' : '⚡ Instant alerts for bidding start, GMP spikes & allotment releases.'}</span>
+            </div>
+          </form>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; margin:8px 0 4px; padding:0 2px;">
           <span style="font-size:11px; color:var(--text-muted); display:inline-flex; align-items:center; gap:5px;">
-            <span>📌 Pinned New IPOs & Top GMP Movers</span>
+            <span>📌 Pinned New IPOs &amp; Top GMP Movers</span>
           </span>
+          <span style="font-size:10.5px; color:#10B981; font-weight:700;">● Live Push Feed</span>
         </div>
 
         <div class="notif-list">
@@ -7233,6 +7253,83 @@
     },
     refreshLiveMarketData: () => {
       loadLiveMarketData(true);
+    },
+    handleGetAlertsClick: () => {
+      // 1. If on the home page, scroll down smoothly to the Stay Updated form & highlight
+      const formEl = document.getElementById("fig1-subscribe-form") || document.querySelector(".fig1-stay-updated-card");
+      const isHome = window.location.hash === "" || window.location.hash === "#/" || window.location.hash.startsWith("#/?");
+
+      if (formEl && isHome) {
+        formEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        const input = document.getElementById("fig1-email-input");
+        if (input) {
+          input.focus();
+          input.classList.add("highlight-pulse");
+          setTimeout(() => input.classList.remove("highlight-pulse"), 3500);
+        }
+      }
+
+      // 2. Open the full Subscribe & Unsubscribe Email Alert Dialog for user
+      if (window.SubscriberService && typeof window.SubscriberService.openSubscribeModal === "function") {
+        window.SubscriberService.openSubscribeModal("subscribe");
+      } else {
+        state.notificationsOpen = true;
+        document.body.classList.add("notif-open");
+        renderHeader();
+      }
+    },
+    setNotifMode: (mode) => {
+      state.notifSubMode = mode;
+      const tabSub = document.getElementById("notif-tab-sub");
+      const tabUnsub = document.getElementById("notif-tab-unsub");
+      const btn = document.getElementById("notif-sub-submit-btn");
+      const inp = document.getElementById("notif-email-input");
+      const hint = document.getElementById("notif-sub-hint");
+      if (tabSub && tabUnsub && btn && inp && hint) {
+        if (mode === "unsubscribe") {
+          tabSub.classList.remove("active");
+          tabUnsub.classList.add("active", "unsub");
+          btn.textContent = "Delete Details & Unsubscribe";
+          btn.classList.add("unsub-mode");
+          inp.placeholder = "Enter email to delete details...";
+          hint.innerHTML = "<span>⚠️ Your email and details will be deleted immediately from subscribers list.</span>";
+        } else {
+          tabSub.classList.add("active");
+          tabUnsub.classList.remove("active", "unsub");
+          btn.textContent = "Subscribe Now";
+          btn.classList.remove("unsub-mode");
+          inp.placeholder = "Enter email for live alerts...";
+          hint.innerHTML = "<span>⚡ Instant alerts for bidding start, GMP spikes & allotment releases.</span>";
+        }
+        inp.focus();
+      }
+    },
+    handleNotifFormSubmit: async (e) => {
+      e.preventDefault();
+      const inp = document.getElementById("notif-email-input");
+      const email = inp ? inp.value.trim() : "";
+      if (!email) return;
+      const mode = state.notifSubMode || "subscribe";
+      const btn = document.getElementById("notif-sub-submit-btn");
+      if (btn) btn.disabled = true;
+      try {
+        if (window.SubscriberService) {
+          if (mode === "unsubscribe") {
+            const res = await window.SubscriberService.unsubscribe(email);
+            showToast(res.message || "Your details have been deleted.", "success");
+          } else {
+            const res = await window.SubscriberService.subscribe(email, "Notifications Panel");
+            showToast(res.message || "Subscribed for live alerts!", "success");
+          }
+          if (inp) inp.value = "";
+        } else {
+          showToast(mode === "unsubscribe" ? "Unsubscribe request processed" : "Subscribed for live alerts", "success");
+        }
+      } catch (err) {
+        showToast(err.message || "Operation failed. Please try again.", "warning");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
     },
     shareCalcWhatsApp: (name, lots, shares, issuePrice, gmp, estListing, profit, returnPct) => {
       const inv = Number(shares * issuePrice).toLocaleString('en-IN');

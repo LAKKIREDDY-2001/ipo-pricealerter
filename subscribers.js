@@ -156,7 +156,12 @@
     }
     var submit = modal.querySelector('button[type="submit"]');
     if (submit) {
-      submit.textContent = next === "subscribe" ? "Subscribe Now" : "Unsubscribe Now";
+      submit.textContent = next === "subscribe" ? "Subscribe Now (Free Live Alerts)" : "Delete User Details & Unsubscribe";
+      submit.style.background = next === "subscribe" ? "#0F766E" : "#DC2626";
+    }
+    var inp = modal.querySelector('input[type="email"]');
+    if (inp) {
+      inp.placeholder = next === "subscribe" ? "you@example.com" : "Enter email to delete details...";
     }
     var status = modal.querySelector(".ipo-subscribe-status");
     if (status) status.textContent = "";
@@ -186,20 +191,20 @@
       <div class="ipo-subscribe-backdrop"></div>
       <div class="ipo-subscribe-dialog">
         <button type="button" class="ipo-subscribe-close" aria-label="Close">&times;</button>
-        <h2>IPO Email Alerts</h2>
-        <p>Manage your real-time IPO intelligence, morning GMP updates, and registrar allotment email alerts.</p>
+        <h2>IPO Email Alert Notifications</h2>
+        <p>Subscribe for instant morning GMP updates, QIB subscription alerts, and allotment announcements, or unsubscribe anytime.</p>
         <div class="ipo-subscribe-actions">
-          <button type="button" class="ipo-subscribe-mode ${mode === "subscribe" ? "active" : ""}" data-mode="subscribe">Subscribe Now</button>
-          <button type="button" class="ipo-subscribe-mode ${mode === "unsubscribe" ? "active" : ""}" data-mode="unsubscribe">Unsubscribe Now</button>
+          <button type="button" class="ipo-subscribe-mode ${mode === "subscribe" ? "active" : ""}" data-mode="subscribe">🔔 Subscribe for Alerts</button>
+          <button type="button" class="ipo-subscribe-mode ${mode === "unsubscribe" ? "active" : ""}" data-mode="unsubscribe">🚫 Unsubscribe / Delete</button>
         </div>
         <form id="ipo-subscribe-modal-form">
-          <label for="ipo-alert-email">Email address</label>
-          <input id="ipo-alert-email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
+          <label for="ipo-alert-email">Your Email Address</label>
+          <input id="ipo-alert-email" type="email" autocomplete="email" placeholder="${mode === 'unsubscribe' ? 'Enter email to delete details...' : 'you@example.com'}" required maxlength="254">
           <label class="ipo-subscribe-consent" id="ipo-alert-consent" ${mode === "unsubscribe" ? "hidden" : ""}>
-            <input type="checkbox" ${mode === "subscribe" ? "required" : ""} checked> I agree to receive IPO update emails from PriceAlerter.
+            <input type="checkbox" ${mode === "subscribe" ? "required" : ""} checked> I agree to receive live IPO alerts from PriceAlerter.
           </label>
-          <button type="submit" class="ipo-subscribe-submit">${mode === "subscribe" ? "Subscribe Now" : "Unsubscribe Now"}</button>
-          <small class="ipo-subscribe-privacy">Your email is stored privately. You can remove your email or unsubscribe anytime with one click.</small>
+          <button type="submit" class="ipo-subscribe-submit" style="background:${mode === 'unsubscribe' ? '#DC2626' : '#0F766E'};">${mode === "subscribe" ? "Subscribe Now (Free Live Alerts)" : "Delete User Details & Unsubscribe"}</button>
+          <small class="ipo-subscribe-privacy">Your email is synchronized securely to KV and GitHub Excel. You can delete your details anytime with 1 click.</small>
           <p class="ipo-subscribe-status" aria-live="polite"></p>
         </form>
       </div>
