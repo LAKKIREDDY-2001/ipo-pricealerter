@@ -2846,9 +2846,9 @@
     }
     if (!ipo) ipo = records[0];
 
-    const upperPrice = ipo.priceBandHigh || ipo.issuePrice || 150;
-    const gmpVal = ipo.gmp || 15;
-    const gmpPct = ipo.gmpPercentage || 10.5;
+    const upperPrice = ipo.priceBandHigh || ipo.issuePrice || null;
+    const gmpVal = ipo.gmp;
+    const gmpPct = ipo.gmpPercentage;
 
     app.innerHTML = `
       <div class="detail-view-container">
@@ -3191,7 +3191,7 @@
                 <div class="gmp-large-val">
                   ${ipo.status === "LISTED"
                     ? `₹${Number(ipo.currentPrice || ipo.listingPrice || 0).toLocaleString('en-IN')} <span style="font-size:14px; font-weight:700; color:${Number(ipo.returnSinceIssuePct || 0) >= 0 ? '#16A34A' : '#DC2626'};">${Number(ipo.returnSinceIssuePct || 0) >= 0 ? '+' : ''}${ipo.returnSinceIssuePct || ipo.listingGainPct || 0}%</span>`
-                    : (ipo.gmp != null && ipo.gmp > 0 ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : (ipo.status === "UPCOMING" ? `Not Fixed (TBA)` : `₹0 (Flat)`))}
+                    : (ipo.gmp != null && ipo.gmp > 0 ? `₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : (ipo.gmp == null ? `No verified quote` : `₹0 (Flat)`))}
                 </div>
               </div>
               <span class="gmp-updated-time">${formatGmpLastUpdated(ipo)}</span>
