@@ -2447,6 +2447,8 @@ body.notif-open {
    Full Pages: GMP, Calendar, Listed
    ========================================================================== */
 .page-header-banner {
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 24px;
 }
 
@@ -2454,14 +2456,12 @@ body.notif-open {
 .page-header-banner h2 {
   font-size: 26px;
   font-weight: 800;
-  color: #142B49 !important;
   letter-spacing: -0.5px;
   margin: 0 0 6px;
 }
 
 .page-header-banner p {
   font-size: 14px;
-  color: #475569 !important;
   margin-top: 4px;
 }
 
@@ -6654,12 +6654,14 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 
 .ad-slot-leaderboard {
   min-height: 80px;
-  max-width: 1320px;
-  margin: 12px auto 20px;
+  width: 100%;
+  max-width: 100%;
+  margin: 10px 0 20px;
   padding: 10px 20px;
   background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
   border: 1px solid #E2E8F0;
   border-radius: 12px;
+  box-sizing: border-box;
 }
 
 .ad-slot-infeed {
@@ -8453,7 +8455,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 #ipo-subscribe-modal{position:fixed;inset:0;z-index:10050;display:grid;place-items:center;padding:20px}
 #ipo-subscribe-modal[hidden]{display:none}
 .ipo-subscribe-backdrop{position:absolute;inset:0;background:rgba(8,18,34,.68);backdrop-filter:blur(4px)}
-.ipo-subscribe-dialog{position:relative;width:min(100%,440px);background:#fff;color:#172033;border-radius:18px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.28)}
+.ipo-subscribe-dialog{position:relative;width:min(100%,480px);background:#fff;color:#172033;border-radius:18px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.28);box-sizing:border-box}
 .ipo-subscribe-dialog h2{margin:0 34px 8px 0;font-size:23px;font-weight:750}
 .ipo-subscribe-dialog>p{margin:0 0 20px;color:#64748b;line-height:1.55}
 .ipo-subscribe-close{position:absolute;right:16px;top:12px;border:0;background:transparent;font-size:28px;line-height:1;cursor:pointer;color:#64748b}
@@ -8465,7 +8467,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 #ipo-subscribe-modal-form button[type=submit]:disabled{opacity:.6;cursor:wait}
 #ipo-subscribe-modal-form small{color:#64748b;font-size:11px;line-height:1.5}
 #ipo-subscribe-modal-form .ipo-subscribe-status{margin:0;font-size:13px;color:#0f766e;min-height:18px}
-@media(max-width:480px){.ipo-subscribe-dialog{padding:23px 19px;border-radius:15px}}
+@media(max-width:520px){.ipo-subscribe-dialog{width:calc(100vw - 24px)!important;max-width:100%!important;padding:22px 18px!important;border-radius:16px!important}}
 
 /* Subscribe / unsubscribe mode controls */
 .ipo-subscribe-actions{display:flex;gap:10px;margin:18px 0 16px}
@@ -8479,9 +8481,11 @@ ins.adsbygoogle[data-ad-status="unfilled"],
    Interactive IPO Profit Estimator & Calculator
    ========================================================================== */
 .calc-container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 20px 16px 40px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 40px;
+  box-sizing: border-box;
 }
 .calc-grid-layout {
   display: grid;
@@ -8663,9 +8667,11 @@ ins.adsbygoogle[data-ad-status="unfilled"],
    Direct Allotment Routing Hub
    ========================================================================== */
 .allotment-hub-container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 20px 16px 40px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 40px;
+  box-sizing: border-box;
 }
 .allotment-featured-card {
   background: #FFFFFF;
@@ -8820,9 +8826,11 @@ ins.adsbygoogle[data-ad-status="unfilled"],
    Live Stock Prices & Market Pulse Hub (Tapetide Synchronized)
    ========================================================================== */
 .live-prices-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 16px 20px 48px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 48px;
+  box-sizing: border-box;
 }
 .live-pulse-badge {
   display: inline-flex;

@@ -7512,21 +7512,7 @@
       loadLiveMarketData(true);
     },
     handleGetAlertsClick: () => {
-      // 1. If on the home page, scroll down smoothly to the Stay Updated form & highlight
-      const formEl = document.getElementById("fig1-subscribe-form") || document.querySelector(".fig1-stay-updated-card");
-      const isHome = window.location.hash === "" || window.location.hash === "#/" || window.location.hash.startsWith("#/?");
-
-      if (formEl && isHome) {
-        formEl.scrollIntoView({ behavior: "smooth", block: "center" });
-        const input = document.getElementById("fig1-email-input");
-        if (input) {
-          input.focus();
-          input.classList.add("highlight-pulse");
-          setTimeout(() => input.classList.remove("highlight-pulse"), 3500);
-        }
-      }
-
-      // 2. Open the full Subscribe & Unsubscribe Email Alert Dialog for user
+      // Open the full Subscribe & Unsubscribe Email Alert Dialog for user
       if (window.SubscriberService && typeof window.SubscriberService.openSubscribeModal === "function") {
         window.SubscriberService.openSubscribeModal("subscribe");
       } else {
