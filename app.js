@@ -84,6 +84,8 @@
       if (parts[1]) state.listedYear = parts[1];
       return { view: "listed" };
     }
+    if (parts[0] === "calculator" || parts[0] === "profit-calculator") return { view: "calculator" };
+    if (parts[0] === "allotment" || parts[0] === "allotment-status" || parts[0] === "allotment-checker") return { view: "allotment" };
     if (parts[0] === "movers" || parts[0] === "gainers" || parts[0] === "losers" || parts[0] === "market-movers") {
       return { view: "home", moversFilter: parts[0] };
     }
@@ -762,6 +764,8 @@
           <a href="#/open" class="nav-tab-link ${currentView === "open" ? "active" : ""}">Open IPOs</a>
           <a href="#/upcoming" class="nav-tab-link ${currentView === "upcoming" ? "active" : ""}">Upcoming</a>
           <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">Listed</a>
+          <a href="#/calculator" class="nav-tab-link ${currentView === "calculator" ? "active" : ""}">Calculator</a>
+          <a href="#/allotment" class="nav-tab-link ${currentView === "allotment" ? "active" : ""}">Allotment</a>
           <a href="#/movers" class="nav-tab-link ${currentView === "home" && state.route.moversFilter ? "active" : ""}">Gainers &amp; Losers</a>
           <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP</a>
           <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">Calendar</a>
@@ -831,6 +835,14 @@
             <a href="#/listed" class="mobile-drawer-link ${currentView === 'listed' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">📈</span>
               <span>Listed IPOs</span>
+            </a>
+            <a href="#/calculator" class="mobile-drawer-link ${currentView === 'calculator' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">🧮</span>
+              <span>Profit Calculator</span>
+            </a>
+            <a href="#/allotment" class="mobile-drawer-link ${currentView === 'allotment' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">📋</span>
+              <span>Allotment Router</span>
             </a>
             <a href="#/movers" class="mobile-drawer-link ${state.route.moversFilter ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">⚡</span>
@@ -4270,6 +4282,339 @@
     tableBody.innerHTML = renderGmpRows(list);
   }
 
+  // ==========================================================================
+  // Dedicated Interactive IPO Profit Estimator & Calculator Page
+  // ==========================================================================
+  function getSelectedCalcIpo() {
+    const slug = state.calcSelectedSlug || "antala-industries-ipo";
+    return records.find(r => r.slug === slug || r.id === slug) || records[0];
+  }
+
+  function renderCalculatorPage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    const ipo = getSelectedCalcIpo();
+    const lots = state.calcLots || 1;
+    const lotSize = ipo.lotSize || 100;
+    const upperPrice = ipo.priceBandHigh || ipo.issuePrice || 100;
+    const gmpVal = (ipo.gmp != null && ipo.gmp > 0) ? ipo.gmp : 0;
+    const totalShares = lots * lotSize;
+    const totalInvestment = totalShares * upperPrice;
+    const estListingPrice = upperPrice + gmpVal;
+    const estProfit = totalShares * gmpVal;
+    const estReturnPct = upperPrice > 0 ? ((gmpVal / upperPrice) * 100).toFixed(1) : "0.0";
+
+    // Category determination
+    let category = "Retail (RII)";
+    let catDesc = "Retail Individual Investor quota (Bids up to ₹2,00,000). Computerized lottery if oversubscribed.";
+    let catColor = "#1D4ED8";
+    let catBg = "#EFF6FF";
+    if (totalInvestment > 1000000) {
+      category = "Big HNI (bHNI)";
+      catDesc = "Big High Net-Worth Investor Category (> ₹10,00,000). Allotted out of 2/3rd NII quota.";
+      catColor = "#7C3AED";
+      catBg = "#F5F3FF";
+    } else if (totalInvestment > 200000) {
+      category = "Small HNI (sHNI)";
+      catDesc = "Small High Net-Worth Category (₹2,00,000 – ₹10,00,000). Allotted out of 1/3rd NII quota.";
+      catColor = "#B45309";
+      catBg = "#FFFBEB";
+    }
+
+    const selectOptions = records.slice(0, 35).map(r => {
+      const gmpText = r.gmp != null ? (r.gmp > 0 ? `+₹${r.gmp}` : `₹0`) : `TBA`;
+      const isSel = (r.slug === ipo.slug || r.id === ipo.id) ? "selected" : "";
+      return `<option value="${r.slug}" ${isSel}>${escapeHtml(r.shortName)} (${r.board || 'MAINBOARD'}) • GMP: ${gmpText}</option>`;
+    }).join("");
+
+    app.innerHTML = `
+      <div class="calc-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="detail-breadcrumbs" aria-label="Breadcrumb" style="margin-bottom:16px;">
+          <a href="#/">Home</a>
+          <span>&gt;</span>
+          <span style="color:var(--text-primary); font-weight:600;">IPO Profit Calculator</span>
+        </nav>
+
+        <div class="page-header-banner" style="margin-bottom:20px;">
+          <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
+          <p style="font-size:14px; color:#64748B; margin:0;">
+            Simulate your application lots, required capital, and potential listing gains using live Grey Market Premiums (GMP).
+          </p>
+        </div>
+
+        <div class="calc-grid-layout">
+          <!-- Left: Controls Panel -->
+          <div class="calc-card-panel">
+            <h2 style="font-size:17px; font-weight:800; color:#0F172A; margin:0 0 16px;">1. Select IPO &amp; Enter Lots</h2>
+            
+            <div class="calc-control-group">
+              <label class="calc-label-row">
+                <span>Select Company</span>
+                <span style="font-size:11.5px; color:#16A34A; font-weight:600;">● Live Quotes</span>
+              </label>
+              <select id="profit-calc-ipo-select" class="calc-select-box" onchange="window.IpoApp.setCalcCompany(this.value)">
+                ${selectOptions}
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;">
+              <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px 12px;">
+                <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase;">Issue Price</span>
+                <div style="font-size:16px; font-weight:800; color:#0F172A; margin-top:2px;">₹${upperPrice}</div>
+              </div>
+              <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px 12px;">
+                <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase;">Lot Size</span>
+                <div style="font-size:16px; font-weight:800; color:#0F172A; margin-top:2px;">${lotSize} shares</div>
+              </div>
+            </div>
+
+            <div class="calc-control-group">
+              <div class="calc-label-row">
+                <span>Application Lots: <strong id="calc-lots-val-display" style="color:#0F766E; font-size:16px;">${lots} ${lots === 1 ? 'Lot' : 'Lots'}</strong></span>
+                <span style="font-size:12px; color:#64748B;">(${totalShares.toLocaleString('en-IN')} shares)</span>
+              </div>
+              <input type="range" id="profit-calc-slider" class="calc-range-slider" min="1" max="50" value="${lots}" oninput="window.IpoApp.setCalcLots(this.value)">
+              
+              <div class="calc-preset-pills">
+                <button type="button" class="calc-preset-chip ${lots === 1 ? 'active' : ''}" onclick="window.IpoApp.setCalcLots(1)">1 Lot (Min)</button>
+                <button type="button" class="calc-preset-chip ${lots === 2 ? 'active' : ''}" onclick="window.IpoApp.setCalcLots(2)">2 Lots</button>
+                <button type="button" class="calc-preset-chip ${lots === 5 ? 'active' : ''}" onclick="window.IpoApp.setCalcLots(5)">5 Lots</button>
+                <button type="button" class="calc-preset-chip ${lots === 13 ? 'active' : ''}" onclick="window.IpoApp.setCalcLots(13)">Retail Max (13 Lots)</button>
+                <button type="button" class="calc-preset-chip ${lots === 14 ? 'active' : ''}" onclick="window.IpoApp.setCalcLots(14)">sHNI (14 Lots)</button>
+              </div>
+            </div>
+
+            <div style="margin-top:20px; padding-top:16px; border-top:1px dashed #CBD5E1;">
+              <span class="calc-category-badge" style="background:${catBg}; color:${catColor};">
+                <span>${category}</span>
+              </span>
+              <p style="margin:0; font-size:12px; color:#64748B; line-height:1.5;">${catDesc}</p>
+            </div>
+          </div>
+
+          <!-- Right: Output & Results Panel -->
+          <div class="calc-card-panel">
+            <h2 style="font-size:17px; font-weight:800; color:#0F172A; margin:0 0 16px;">2. Estimated Returns Summary</h2>
+
+            <div class="calc-kpi-grid">
+              <div class="calc-kpi-card">
+                <span class="calc-kpi-label">Total Investment</span>
+                <span class="calc-kpi-val" style="color:#1E293B;">₹${Number(totalInvestment).toLocaleString('en-IN')}</span>
+                <span style="font-size:11px; color:#64748B;">UPI ASBA block amount</span>
+              </div>
+
+              <div class="calc-kpi-card">
+                <span class="calc-kpi-label">Est. Listing Price</span>
+                <span class="calc-kpi-val" style="color:#0284C7;">₹${estListingPrice.toLocaleString('en-IN')}</span>
+                <span style="font-size:11px; color:#64748B;">Issue ₹${upperPrice} + GMP ₹${gmpVal}</span>
+              </div>
+
+              <div class="calc-kpi-card highlight-profit" style="grid-column: span 2;">
+                <span class="calc-kpi-label" style="color:#166534;">Expected Listing Day Profit</span>
+                <span class="calc-kpi-val gain-green" style="font-size:26px;">+₹${Number(estProfit).toLocaleString('en-IN')}</span>
+                <span style="font-size:13px; font-weight:700; color:#16A34A;">+${estReturnPct}% estimated ROI</span>
+              </div>
+            </div>
+
+            <!-- 1-Click Viral Sharing Bar -->
+            <div class="calc-share-bar">
+              <button type="button" class="btn-whatsapp-share" onclick="window.IpoApp.shareCalcWhatsApp('${escapeAttr(ipo.shortName)}', ${lots}, ${totalShares}, ${upperPrice}, ${gmpVal}, ${estListingPrice}, ${estProfit}, '${estReturnPct}')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.072.043.419-.101.824z"/></svg>
+                <span>Share to WhatsApp</span>
+              </button>
+              <button type="button" class="btn-copy-report" onclick="window.IpoApp.copyCalcReport('${escapeAttr(ipo.shortName)}', ${lots}, ${totalShares}, ${upperPrice}, ${gmpVal}, ${estListingPrice}, ${estProfit}, '${estReturnPct}')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Summary</span>
+              </button>
+            </div>
+
+            <!-- Apply Now affiliate banner -->
+            <div style="margin-top:16px; text-align:center;">
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" style="display:block; padding:11px; background:#10B981; color:#fff; border-radius:10px; font-weight:700; text-decoration:none; font-size:13.5px; border:1px solid #059669;">
+                Apply for this IPO on Angel One (Zero Brokerage) &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Telegram & WhatsApp Broadcast Invite -->
+        <div class="community-invite-banner" style="margin-top:28px;">
+          <div class="community-invite-left">
+            <h3>⚡ Join 45,000+ Smart Investors for Instant Alerts</h3>
+            <p>Get real-time Grey Market Premium (GMP) alerts, live QIB subscription updates, and basis of allotment announcements on your phone.</p>
+          </div>
+          <div class="community-btn-group">
+            <a href="https://api.whatsapp.com/send?text=Check%20Live%20IPO%20GMP%20%26%20Allotment%20Status%20on%20https%3A%2F%2Fpricealerter.in" target="_blank" rel="noopener noreferrer" class="btn-community-wa">
+              <span>Join WhatsApp Group</span>
+            </a>
+            <a href="https://t.me/share/url?url=https%3A%2F%2Fpricealerter.in&text=Live%20IPO%20GMP%20Tracker%20and%20Allotment%20Status" target="_blank" rel="noopener noreferrer" class="btn-community-tg">
+              <span>Join Telegram Channel</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ==========================================================================
+  // Dedicated Direct Allotment Routing Hub Page
+  // ==========================================================================
+  function renderAllotmentHubPage() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    const selectedSlug = state.allotmentSelectedSlug || "vedant-poly-fabs-ipo";
+    const ipo = records.find(r => r.slug === selectedSlug || r.id === selectedSlug) || records[0];
+
+    const closedList = records.filter(r => r.status === "CLOSED" || r.status === "LISTED" || r.status === "OPEN").slice(0, 30);
+    const selectOptions = closedList.map(r => {
+      const isSel = (r.slug === ipo.slug || r.id === ipo.id) ? "selected" : "";
+      return `<option value="${r.slug}" ${isSel}>${escapeHtml(r.shortName)} • Registrar: ${escapeHtml(r.registrar || 'Assigned Registrar')}</option>`;
+    }).join("");
+
+    const regUrl = ipo.allotmentUrl || "https://linkintime.co.in/initial_offer/public-issues.html";
+    const regName = ipo.registrar || "Official Registrar";
+
+    app.innerHTML = `
+      <div class="allotment-hub-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="detail-breadcrumbs" aria-label="Breadcrumb" style="margin-bottom:16px;">
+          <a href="#/">Home</a>
+          <span>&gt;</span>
+          <span style="color:var(--text-primary); font-weight:600;">Allotment Status Checker</span>
+        </nav>
+
+        <div class="page-header-banner" style="margin-bottom:20px;">
+          <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">📋 Direct Allotment Status Routing Hub</h1>
+          <p style="font-size:14px; color:#64748B; margin:0;">
+            Instantly query your allotment status across official registrars (Link Intime, KFintech, Bigshare, Cameo) and stock exchanges.
+          </p>
+        </div>
+
+        <!-- 1. Featured Company Router Card -->
+        <div class="allotment-featured-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+            <div>
+              <span style="font-size:11.5px; font-weight:700; color:#0F766E; background:#F0FDFA; padding:3px 8px; border-radius:6px; border:1px solid #99F6E4;">INSTANT QUERY ROUTER</span>
+              <h2 style="font-size:18px; font-weight:800; color:#0F172A; margin:6px 0 0;">Check Allotment for Any Issue</h2>
+            </div>
+            <div style="min-width:260px; max-width:100%;">
+              <select id="allotment-company-select" class="calc-select-box" onchange="window.IpoApp.setAllotmentCompany(this.value)">
+                ${selectOptions}
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:14px; padding:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; flex-wrap:wrap;">
+            ${renderCompanyLogo(ipo, 48)}
+            <div style="flex:1; min-width:200px;">
+              <h3 style="font-size:16px; font-weight:800; color:#0F172A; margin:0 0 4px;">${escapeHtml(ipo.companyName || ipo.shortName)}</h3>
+              <div style="font-size:12.5px; color:#64748B;">
+                <strong>Designated Registrar:</strong> <span style="color:#0F172A; font-weight:700;">${escapeHtml(regName)}</span>
+                ${ipo.allotDate ? ` &bull; <strong>Allotment Date:</strong> ${formatDate(ipo.allotDate)}` : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="allotment-action-buttons">
+            <a href="${regUrl}" target="_blank" rel="noopener noreferrer" class="btn-registrar-direct" title="Launch Official Registrar Allotment Server">
+              <span>Open ${escapeHtml(regName)} Portal ↗</span>
+            </a>
+            <a href="https://www.bseindia.com/investors/appli_check.aspx" target="_blank" rel="noopener noreferrer" class="btn-exchange-verify" title="Verify directly on BSE India Official Portal">
+              <span>BSE India Verification ↗</span>
+            </a>
+            <a href="https://www.nseindia.com/invest/check-trades-bids-verify-ipo-bids" target="_blank" rel="noopener noreferrer" class="btn-exchange-verify" title="Verify on NSE India Bid Status Portal">
+              <span>NSE India Query ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Master Registrars Directory (All Major Indian Portals) -->
+        <h2 style="font-size:18px; font-weight:800; color:#0F172A; margin:28px 0 6px;">Official Primary Market Registrars</h2>
+        <p style="font-size:13.5px; color:#64748B; margin:0 0 16px;">Direct access links to all SEBI-registered registrar verification query servers.</p>
+
+        <div class="registrars-grid">
+          <div class="registrar-box-card">
+            <div>
+              <h3 class="registrar-box-title">Link Intime India</h3>
+              <div class="registrar-box-sub">Registrar for Afcons, Waaree, Swiggy, Sagility, Tata Technologies</div>
+            </div>
+            <div class="registrar-server-links">
+              <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 1 ↗</a>
+              <a href="https://web.linkintime.co.in/initial_offer/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 2 ↗</a>
+            </div>
+          </div>
+
+          <div class="registrar-box-card">
+            <div>
+              <h3 class="registrar-box-title">KFin Technologies</h3>
+              <div class="registrar-box-sub">Registrar for ACME Solar, Bajaj Housing, Premier Energies, Ajwa</div>
+            </div>
+            <div class="registrar-server-links">
+              <a href="https://ipostatus.kfintech.com/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 1 ↗</a>
+              <a href="https://kosmic.kfintech.com/ipostatus/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 2 ↗</a>
+              <a href="https://kcas.kfintech.com/ipostatus/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 3 ↗</a>
+            </div>
+          </div>
+
+          <div class="registrar-box-card">
+            <div>
+              <h3 class="registrar-box-title">Bigshare Services</h3>
+              <div class="registrar-box-sub">Registrar for Carver Roboweld, M.K. Sons, Antala, Bombay Coated</div>
+            </div>
+            <div class="registrar-server-links">
+              <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 1 ↗</a>
+              <a href="https://ipo.bigshareonline.com/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 2 ↗</a>
+            </div>
+          </div>
+
+          <div class="registrar-box-card">
+            <div>
+              <h3 class="registrar-box-title">Cameo Corporate Services</h3>
+              <div class="registrar-box-sub">Registrar for Vedant Poly Fabs Solutions and NSE SME offerings</div>
+            </div>
+            <div class="registrar-server-links">
+              <a href="https://ipostatus1.cameoindia.com/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 1 ↗</a>
+              <a href="https://ipo.cameoindia.com/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Server 2 ↗</a>
+            </div>
+          </div>
+
+          <div class="registrar-box-card">
+            <div>
+              <h3 class="registrar-box-title">Maashitla Instruments</h3>
+              <div class="registrar-box-sub">Designated registrar for key SME book-built public issues</div>
+            </div>
+            <div class="registrar-server-links">
+              <a href="https://maashitla.com/allotment-status/" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Query Server ↗</a>
+            </div>
+          </div>
+
+          <div class="registrar-box-card">
+            <div>
+              <h3 class="registrar-box-title">Skyline Financial Services</h3>
+              <div class="registrar-box-sub">Registrar for manufacturing and engineering industrial offerings</div>
+            </div>
+            <div class="registrar-server-links">
+              <a href="https://www.skylinerta.com/ipo.php" target="_blank" rel="noopener noreferrer" class="btn-reg-server">Query Server ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Walkthrough Guide Card -->
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:20px; margin-top:24px;">
+          <h3 style="font-size:16px; font-weight:700; color:#0F172A; margin:0 0 10px;">📌 3 Easy Steps to Verify Allotment Online:</h3>
+          <ol style="margin:0; padding-left:20px; color:#475569; font-size:13.5px; line-height:1.7;">
+            <li><strong>Step 1:</strong> Select the designated registrar portal or BSE application status link above.</li>
+            <li><strong>Step 2:</strong> Select the IPO company name from the dropdown list.</li>
+            <li><strong>Step 3:</strong> Enter your 10-digit <strong>PAN Number</strong> (or DP Client ID / Application Number) and click <em>Search / Submit</em>.</li>
+          </ol>
+        </div>
+      </div>
+    `;
+  }
+
   function renderGmpPage() {
     const app = document.getElementById("app");
     if (!app) return;
@@ -6246,6 +6591,10 @@
       renderCalendarPage();
     } else if (state.route.view === "listed") {
       renderListedPage();
+    } else if (state.route.view === "calculator") {
+      renderCalculatorPage();
+    } else if (state.route.view === "allotment") {
+      renderAllotmentHubPage();
     } else if (state.route.view === "guide") {
       renderGuidePage();
     } else {
@@ -6347,6 +6696,47 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    setCalcCompany: (slug) => {
+      state.calcSelectedSlug = slug;
+      renderCalculatorPage();
+    },
+    setCalcLots: (lots) => {
+      state.calcLots = parseInt(lots, 10) || 1;
+      renderCalculatorPage();
+    },
+    shareCalcWhatsApp: (name, lots, shares, issuePrice, gmp, estListing, profit, returnPct) => {
+      const inv = Number(shares * issuePrice).toLocaleString('en-IN');
+      const text = `📊 *IPO Profit Estimation for ${name}*\n` +
+        `💰 Investment: ₹${inv} (${lots} Lots / ${Number(shares).toLocaleString('en-IN')} Shares)\n` +
+        `🎯 Issue Price: ₹${issuePrice} | Live GMP: +₹${gmp}\n` +
+        `🚀 Est. Listing: ₹${estListing} / share\n` +
+        `💵 Expected Profit: +₹${Number(profit).toLocaleString('en-IN')} (+${returnPct}%)\n\n` +
+        `👉 Check live IPO GMP & calculations on: https://pricealerter.in/#/calculator`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
+    },
+    copyCalcReport: (name, lots, shares, issuePrice, gmp, estListing, profit, returnPct) => {
+      const inv = Number(shares * issuePrice).toLocaleString('en-IN');
+      const text = `📊 IPO Profit Estimation for ${name}\n` +
+        `• Lots Applied: ${lots} Lots (${Number(shares).toLocaleString('en-IN')} Shares)\n` +
+        `• Total Investment: ₹${inv}\n` +
+        `• Issue Price: ₹${issuePrice} | Current GMP: +₹${gmp}\n` +
+        `• Est. Listing Price: ₹${estListing}\n` +
+        `• Expected Listing Profit: +₹${Number(profit).toLocaleString('en-IN')} (+${returnPct}%)\n` +
+        `Source: https://pricealerter.in/#/calculator`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast("Profit estimation summary copied to clipboard!", "success");
+        }).catch(() => {
+          showToast("Copied to clipboard", "success");
+        });
+      } else {
+        showToast("Summary copied to clipboard", "success");
+      }
+    },
+    setAllotmentCompany: (slug) => {
+      state.allotmentSelectedSlug = slug;
+      renderAllotmentHubPage();
+    },
     acceptCookieConsent: (accepted) => acceptCookieConsent(accepted),
     toggleOpenIpoDetail: (slug) => {
       // Desktop Drawer & Button
