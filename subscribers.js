@@ -58,9 +58,4 @@
       document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
     }
   };
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".fig1-subscribe-form").forEach(function (form) {
-      form.addEventListener("submit", function (event) { window.handleSubscribeForm(event, "Homepage Stay Updated"); });
-    });
-  });
 })(window);
