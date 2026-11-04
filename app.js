@@ -1713,9 +1713,10 @@
   function updateDashboardMoversInPlace() {
     const data = state.liveMarketData;
     if (!data) return;
-    const gainersList = (data.marketGainers && data.marketGainers.length) ? data.marketGainers : marketGainers;
-    const losersList = (data.marketLosers && data.marketLosers.length) ? data.marketLosers : marketLosers;
-    const shakersList = (data.marketShakers && data.marketShakers.length) ? data.marketShakers : marketShakers;
+    const isUsableQuote = stock => stock && stock.quoteVerified === true && stock.quoteTimestamp && stock.quoteSource && Number.isFinite(Number(stock.rawPrice)) && Number(stock.rawPrice) > 0;
+    const gainersList = (Array.isArray(data.marketGainers) ? data.marketGainers : []).filter(isUsableQuote);
+    const losersList = (Array.isArray(data.marketLosers) ? data.marketLosers : []).filter(isUsableQuote);
+    const shakersList = (Array.isArray(data.marketShakers) ? data.marketShakers : []).filter(isUsableQuote);
 
     const gBody = document.getElementById("movers-gainers-tbody");
     if (gBody) gBody.innerHTML = renderMoversTableRows(gainersList, true);
@@ -1729,8 +1730,9 @@
 
   function renderFig1TrendingTable() {
     const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
-    const gainersList = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : marketGainers;
-    const losersList = (data && data.marketLosers && data.marketLosers.length) ? data.marketLosers : marketLosers;
+    const isUsableQuote = stock => stock && stock.quoteVerified === true && stock.quoteTimestamp && stock.quoteSource && Number.isFinite(Number(stock.rawPrice)) && Number(stock.rawPrice) > 0;
+    const gainersList = (data && Array.isArray(data.marketGainers) ? data.marketGainers : []).filter(isUsableQuote);
+    const losersList = (data && Array.isArray(data.marketLosers) ? data.marketLosers : []).filter(isUsableQuote);
 
     return `
       <div class="movers-container" id="market-movers-section">
@@ -1738,7 +1740,7 @@
         <div class="movers-filter-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
           <div style="display:flex; align-items:center; gap:8px;">
             <h2 class="fig1-panel-title" style="margin:0; font-size:18px;">📊 Today's Market Movers</h2>
-            <div class="widget-source-tag">Groww &amp; Tapetide Synced</div>
+            <div class="widget-source-tag">Timestamped provider quotes</div>
           </div>
           <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers View Selection">
             <button type="button" class="movers-tab-btn active" id="tab-btn-both" onclick="window.switchMoversView('both')" role="tab" aria-selected="true">
@@ -7440,7 +7442,7 @@
           updateDashboardMoversInPlace();
         }
         if (manual) {
-          showToast("⚡ Real-time quotes synced from Tapetide / Exchange feeds!", "success");
+          showToast("Market feed refreshed; check each quote's source and timestamp.", "success");
         }
       })
       .catch(() => {});
