@@ -3,9 +3,9 @@ window.IpoData = {
   "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
   "stats": {
     "openCount": 2,
-    "closedCount": 10,
-    "upcomingCount": 21,
-    "listedCount": 171
+    "closedCount": 9,
+    "upcomingCount": 25,
+    "listedCount": 168
   },
   "records": [
     {
