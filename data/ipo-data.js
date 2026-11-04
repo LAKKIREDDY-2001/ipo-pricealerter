@@ -840,10 +840,18 @@ window.IpoData = {
       "dayLowGmp": null,
       "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
       "lastPriceUpdate": "2026-11-05T00:21:14.217709+05:30",
-      "listingDayClose": 2339,
+      "listingDayClose": 2338.9,
       "listingDayCloseGainPct": 55.62,
       "listingDataSource": "NSE listing event; listing-day close cross-checked",
-      "listingDataStatus": "CROSS_CHECKED"
+      "listingDataStatus": "CROSS_CHECKED",
+      "listingOpenNSE": 2500,
+      "listingOpenBSE": 2550,
+      "listingCloseNSE": 2338.9,
+      "listingCloseBSE": 2336.8,
+      "listingSourceUrls": [
+        "https://nsearchives.nseindia.com/web/sites/default/files/2024-10/PR_LIST_25102024.pdf",
+        "https://www.sbicaps.com/wp-content/uploads/2026/04/Waaree-Energies-Limited.pdf"
+      ]
     },
     {
       "id": "godavari-biorefineries",
@@ -948,7 +956,15 @@ window.IpoData = {
       "listingDayClose": 343.2,
       "listingDayCloseGainPct": -2.5,
       "listingDataSource": "NSE listing date; listing-day close cross-checked",
-      "listingDataStatus": "CROSS_CHECKED"
+      "listingDataStatus": "CROSS_CHECKED",
+      "listingOpenNSE": 308,
+      "listingOpenBSE": 310.55,
+      "listingCloseNSE": 343.2,
+      "listingCloseBSE": null,
+      "listingSourceUrls": [
+        "https://www.godavaribiorefineries.com/sites/default/files/Investor_Presentation_Sep_2024.pdf",
+        "https://www.ndtvprofit.com/markets/godavari-biorefineries-share-price-debuts-at-12-discount-over-ipo-price-9967664"
+      ]
     },
     {
       "id": "afcons-infrastructure",
@@ -1076,7 +1092,15 @@ window.IpoData = {
       "listingDayClose": 474.2,
       "listingDayCloseGainPct": 2.42,
       "listingDataSource": "NSE designated-exchange pricing disclosure",
-      "listingDataStatus": "CROSS_CHECKED"
+      "listingDataStatus": "CROSS_CHECKED",
+      "listingOpenNSE": 426,
+      "listingOpenBSE": 430.05,
+      "listingCloseNSE": 474.2,
+      "listingCloseBSE": 472.5,
+      "listingSourceUrls": [
+        "https://www.sbicaps.com/wp-content/uploads/2025/10/AFCONS-INFRASTRUCTURE-LTD.pdf",
+        "https://www.ndtvprofit.com/markets/shapoorji-pallonji-group-afcons-infra-debuts-at-8-percentdiscount-9968058"
+      ]
     },
     {
       "id": "carver-roboweld",
@@ -9741,7 +9765,18 @@ window.IpoData = {
       "allotmentDate": "2024-11-11",
       "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
       "expectedListingPrice": 420,
-      "estProfitPerLot": 1140
+      "estProfitPerLot": 1140,
+      "listingOpenNSE": 420,
+      "listingOpenBSE": 412,
+      "listingCloseNSE": 456,
+      "listingCloseBSE": 455.95,
+      "listingDayClose": 456,
+      "listingDayCloseGainPct": 16.92,
+      "listingGainPct": 7.69,
+      "listingSourceUrls": [
+        "https://www.avendus.com/Upload/Misc/swiggy-limited.pdf",
+        "https://www.livemint.com/market/ipo/swiggy-share-price-live-update-check-latest-gmp-experts-view-on-share-listing-premium-11731466273909.html"
+      ]
     },
     {
       "id": "sagility-india",
