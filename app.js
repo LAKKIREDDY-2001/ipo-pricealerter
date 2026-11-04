@@ -2080,7 +2080,12 @@
         </form>
         <div class="fig1-subscribe-note">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <span>No spam. Unsubscribe anytime.</span>
+          <span>No spam. Duplicate emails strictly rejected.</span>
+        </div>
+        <div style="margin-top:8px; text-align:center;">
+          <button type="button" class="btn-unsubscribe-text" onclick="window.SubscriberService && window.SubscriberService.openUnsubscribeModal()" style="background:none; border:none; color:#64748B; font-size:12px; cursor:pointer; text-decoration:underline; padding:4px;">
+            Want to stop alerts? Unsubscribe / Remove Email
+          </button>
         </div>
       </div>
     `;

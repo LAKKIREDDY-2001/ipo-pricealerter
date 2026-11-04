@@ -189,8 +189,11 @@
         </form>
 
         <div id="signup-status-box" style="display:none; padding:14px 18px; border-radius:10px; margin-top:16px; font-size:14px; font-weight:600; line-height:1.5;"></div>
-        <div style="margin-top:12px; text-align:center;">
+        <div style="margin-top:12px; text-align:center; display:flex; flex-direction:column; gap:8px; align-items:center;">
           <a href="javascript:void(0)" onclick="if(window.SubscriberService) window.SubscriberService.downloadExcel()" style="color:#64748B; font-size:12px; text-decoration:none; font-weight:600;">📥 Export All Unique Subscribers to Excel (.xlsx/.csv)</a>
+          <button type="button" onclick="if(window.SubscriberService) window.SubscriberService.openUnsubscribeModal()" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA; border-radius:8px; padding:7px 16px; font-size:12.5px; font-weight:600; cursor:pointer; margin-top:4px;">
+            🚫 Want to stop alerts? Unsubscribe / Remove My Email
+          </button>
         </div>
 
         <p class="signup-footer-note">
@@ -212,6 +215,8 @@
           <a href="contact.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Contact</a>
           <span style="color:rgba(255,255,255,0.3)">|</span>
           <a href="disclaimer.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Disclaimer</a>
+          <span style="color:rgba(255,255,255,0.3)">|</span>
+          <a href="javascript:void(0)" onclick="if(window.SubscriberService) window.SubscriberService.openUnsubscribeModal()" style="color:#FCA5A5; text-decoration:none; font-weight:600;">Unsubscribe</a>
         </div>
       </div>
     </footer>
@@ -256,7 +261,7 @@
       }
       checkCookieConsent();
     </script>
-    <script src="subscribers.js?v=20261104_v36"></script>
+    <script src="subscribers.js?v=20261104_v39"></script>
     <script>
       function handleSignupPageSubmit(e) {
         if (e && e.preventDefault) e.preventDefault();

@@ -46,6 +46,15 @@
     return true;
   }
 
+  function removeLocalSubscriber(email) {
+    var norm = String(email || "").trim().toLowerCase();
+    if (!norm) return;
+    var list = getLocalSubscribers().filter(function (item) {
+      return String(item.email || "").trim().toLowerCase() !== norm;
+    });
+    saveLocalSubscribers(list);
+  }
+
   async function request(url, email, source) {
     var cleanEmail = String(email || "").trim().toLowerCase();
     if (!cleanEmail || !EMAIL_RE.test(cleanEmail)) {
@@ -119,8 +128,11 @@
     return request("/api/subscribe", email, source);
   }
 
-  function unsubscribe(email) {
-    return request("/api/unsubscribe", email);
+  async function unsubscribe(email) {
+    var cleanEmail = String(email || "").trim().toLowerCase();
+    var result = await request("/api/unsubscribe", cleanEmail);
+    removeLocalSubscriber(cleanEmail);
+    return result;
   }
 
   function notify(message, type) {
@@ -131,12 +143,37 @@
     }
   }
 
-  function openSubscribeModal() {
+  function setModalMode(modal, next) {
+    if (!modal) return;
+    modal.querySelectorAll("[data-mode]").forEach(function (button) {
+      button.classList.toggle("active", button.getAttribute("data-mode") === next);
+    });
+    var consent = modal.querySelector("#ipo-alert-consent");
+    if (consent) {
+      consent.hidden = next === "unsubscribe";
+      var chk = consent.querySelector("input");
+      if (chk) chk.required = next === "subscribe";
+    }
+    var submit = modal.querySelector('button[type="submit"]');
+    if (submit) {
+      submit.textContent = next === "subscribe" ? "Subscribe Now" : "Unsubscribe Now";
+    }
+    var status = modal.querySelector(".ipo-subscribe-status");
+    if (status) status.textContent = "";
+    modal.dataset.currentMode = next;
+  }
+
+  function openSubscribeModal(initialMode, defaultEmail) {
+    var mode = (initialMode === "unsubscribe") ? "unsubscribe" : "subscribe";
     var existing = document.getElementById("ipo-subscribe-modal");
     if (existing) {
       existing.hidden = false;
+      setModalMode(existing, mode);
       var inp = existing.querySelector('input[type="email"]');
-      if (inp) inp.focus();
+      if (inp) {
+        if (defaultEmail) inp.value = defaultEmail;
+        inp.focus();
+      }
       return;
     }
 
@@ -144,50 +181,40 @@
     modal.id = "ipo-subscribe-modal";
     modal.setAttribute("role", "dialog");
     modal.setAttribute("aria-modal", "true");
+    modal.dataset.currentMode = mode;
     modal.innerHTML = `
       <div class="ipo-subscribe-backdrop"></div>
       <div class="ipo-subscribe-dialog">
         <button type="button" class="ipo-subscribe-close" aria-label="Close">&times;</button>
         <h2>IPO Email Alerts</h2>
-        <p>Receive live IPO opening dates, daily morning GMP updates, and registrar allotment results directly in your inbox.</p>
+        <p>Manage your real-time IPO intelligence, morning GMP updates, and registrar allotment email alerts.</p>
         <div class="ipo-subscribe-actions">
-          <button type="button" class="ipo-subscribe-mode active" data-mode="subscribe">Subscribe Now</button>
-          <button type="button" class="ipo-subscribe-mode" data-mode="unsubscribe">Unsubscribe Now</button>
+          <button type="button" class="ipo-subscribe-mode ${mode === "subscribe" ? "active" : ""}" data-mode="subscribe">Subscribe Now</button>
+          <button type="button" class="ipo-subscribe-mode ${mode === "unsubscribe" ? "active" : ""}" data-mode="unsubscribe">Unsubscribe Now</button>
         </div>
         <form id="ipo-subscribe-modal-form">
           <label for="ipo-alert-email">Email address</label>
           <input id="ipo-alert-email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
-          <label class="ipo-subscribe-consent" id="ipo-alert-consent">
-            <input type="checkbox" checked required> I agree to receive IPO update emails from PriceAlerter.
+          <label class="ipo-subscribe-consent" id="ipo-alert-consent" ${mode === "unsubscribe" ? "hidden" : ""}>
+            <input type="checkbox" ${mode === "subscribe" ? "required" : ""} checked> I agree to receive IPO update emails from PriceAlerter.
           </label>
-          <button type="submit" class="ipo-subscribe-submit">Subscribe Now</button>
-          <small class="ipo-subscribe-privacy">Your email is stored privately and used only for IPO updates. You can unsubscribe anytime.</small>
+          <button type="submit" class="ipo-subscribe-submit">${mode === "subscribe" ? "Subscribe Now" : "Unsubscribe Now"}</button>
+          <small class="ipo-subscribe-privacy">Your email is stored privately. You can remove your email or unsubscribe anytime with one click.</small>
           <p class="ipo-subscribe-status" aria-live="polite"></p>
         </form>
       </div>
     `;
     document.body.appendChild(modal);
 
-    var mode = "subscribe";
     var form = modal.querySelector("form");
     var submit = form.querySelector('button[type="submit"]');
-    var consent = modal.querySelector("#ipo-alert-consent");
 
     function close() { modal.hidden = true; }
 
-    function setMode(next) {
-      mode = next;
-      modal.querySelectorAll("[data-mode]").forEach(function (button) {
-        button.classList.toggle("active", button.getAttribute("data-mode") === mode);
-      });
-      consent.hidden = mode === "unsubscribe";
-      consent.querySelector("input").required = mode === "subscribe";
-      submit.textContent = mode === "subscribe" ? "Subscribe Now" : "Unsubscribe Now";
-      modal.querySelector(".ipo-subscribe-status").textContent = "";
-    }
-
     modal.querySelectorAll("[data-mode]").forEach(function (button) {
-      button.addEventListener("click", function () { setMode(button.getAttribute("data-mode")); });
+      button.addEventListener("click", function () {
+        setModalMode(modal, button.getAttribute("data-mode"));
+      });
     });
 
     modal.querySelector(".ipo-subscribe-backdrop").addEventListener("click", close);
@@ -196,12 +223,13 @@
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
       submit.disabled = true;
+      var curMode = modal.dataset.currentMode || "subscribe";
       var status = form.querySelector(".ipo-subscribe-status");
-      status.textContent = mode === "subscribe" ? "Saving your subscription…" : "Processing your unsubscribe request…";
+      status.textContent = curMode === "subscribe" ? "Saving your subscription…" : "Processing your unsubscribe request…";
 
       try {
         var emailVal = form.querySelector('input[type="email"]').value;
-        var result = mode === "subscribe"
+        var result = curMode === "subscribe"
           ? await subscribe(emailVal, "Get Alerts Modal")
           : await unsubscribe(emailVal);
 
@@ -219,8 +247,15 @@
 
     setTimeout(function() {
       var inp = modal.querySelector('input[type="email"]');
-      if (inp) inp.focus();
+      if (inp) {
+        if (defaultEmail) inp.value = defaultEmail;
+        inp.focus();
+      }
     }, 100);
+  }
+
+  function openUnsubscribeModal(defaultEmail) {
+    openSubscribeModal("unsubscribe", defaultEmail);
   }
 
   function downloadLocalCsv() {
@@ -304,6 +339,7 @@
     unsubscribe: unsubscribe,
     openSubscribeModal: openSubscribeModal,
     openAlertsModal: openSubscribeModal,
+    openUnsubscribeModal: openUnsubscribeModal,
     downloadExcel: downloadExcel,
     getAllSubscribers: getLocalSubscribers
   };
