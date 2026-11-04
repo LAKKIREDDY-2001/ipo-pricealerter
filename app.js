@@ -42,6 +42,7 @@
     calcLots: 1,
     calcSelectedSlug: null,
     calcCustomGmp: null,
+    calcLivePrice: null,
     livePricesFilter: "all",
     livePricesSearch: "",
     liveMarketData: null,
@@ -4407,10 +4408,35 @@
     if (state.calcSelectedSlug) {
       const found = records.find(r => r.slug === state.calcSelectedSlug || r.id === state.calcSelectedSlug);
       if (found) return found;
+
+      // Also support stocks from Live Market Movers / Shakers
+      if (state.liveMarketData) {
+        const mover = [
+          ...(state.liveMarketData.marketGainers || []),
+          ...(state.liveMarketData.marketShakers || []),
+          ...(state.liveMarketData.marketLosers || [])
+        ].find(m => m.symbol === state.calcSelectedSlug || m.name === state.calcSelectedSlug);
+
+        if (mover) {
+          const estimatedCost = Math.round(mover.rawPrice * 0.92);
+          return {
+            slug: mover.symbol,
+            shortName: mover.name,
+            companyName: mover.name,
+            issuePrice: estimatedCost,
+            priceBandHigh: estimatedCost,
+            currentPrice: mover.rawPrice,
+            cmp: mover.rawPrice,
+            lotSize: mover.rawPrice > 1000 ? 10 : 50,
+            gmp: Math.round(mover.rawPrice - estimatedCost),
+            status: "LISTED"
+          };
+        }
+      }
     }
-    // 1. Prioritize open IPO with positive live GMP
-    const openWithGmp = records.find(r => r.status === "OPEN" && r.gmp != null && r.gmp > 0);
-    if (openWithGmp) return openWithGmp;
+    // 1. Prioritize open IPO (e.g. Antala Industries)
+    const openIpo = records.find(r => r.status === "OPEN");
+    if (openIpo) return openIpo;
     // 2. Prioritize upcoming or any IPO with positive live GMP
     const anyWithGmp = records.find(r => r.gmp != null && r.gmp > 0);
     if (anyWithGmp) return anyWithGmp;
@@ -4427,20 +4453,51 @@
     const lotSize = ipo.lotSize || 100;
     const upperPrice = ipo.priceBandHigh || ipo.issuePrice || 100;
 
-    // Use custom user-entered GMP if set; otherwise use verified live GMP (or default to 0)
+    // 1. Live GMP (Grey Market Premium)
     const marketGmp = (ipo.gmp !== null && ipo.gmp !== undefined && !isNaN(ipo.gmp)) ? Number(ipo.gmp) : 0;
     const gmpVal = (state.calcCustomGmp !== null && state.calcCustomGmp !== undefined && !isNaN(state.calcCustomGmp))
       ? Number(state.calcCustomGmp)
       : marketGmp;
 
+    // 2. Live Market Price (CMP / Real-Time Trading Price)
+    let defaultLivePrice = 0;
+    if (state.liveMarketData && state.liveMarketData.trackedIpos) {
+      const tracked = state.liveMarketData.trackedIpos.find(t => t.slug === ipo.slug || t.id === ipo.id);
+      if (tracked) {
+        if (tracked.cmp && tracked.cmp > 0) defaultLivePrice = Number(tracked.cmp);
+        else if (tracked.livePrice && tracked.livePrice > 0) defaultLivePrice = Number(tracked.livePrice);
+        else if (tracked.estListing && tracked.estListing > 0) defaultLivePrice = Number(tracked.estListing);
+      }
+    }
+    if (!defaultLivePrice && ipo.currentPrice && ipo.currentPrice > 0) defaultLivePrice = Number(ipo.currentPrice);
+    if (!defaultLivePrice && ipo.cmp && ipo.cmp > 0) defaultLivePrice = Number(ipo.cmp);
+    if (!defaultLivePrice && ipo.expectedListingPrice && ipo.expectedListingPrice > 0) defaultLivePrice = Number(ipo.expectedListingPrice);
+    if (!defaultLivePrice && ipo.listingPrice && ipo.listingPrice > 0) defaultLivePrice = Number(ipo.listingPrice);
+    if (!defaultLivePrice || defaultLivePrice <= 0) defaultLivePrice = upperPrice + marketGmp;
+
+    const livePrice = (state.calcLivePrice !== null && state.calcLivePrice !== undefined && !isNaN(state.calcLivePrice) && state.calcLivePrice > 0)
+      ? Number(state.calcLivePrice)
+      : defaultLivePrice;
+
+    // 3. Financial Quantities & Outlay
     const totalShares = lots * lotSize;
     const totalInvestment = totalShares * upperPrice;
-    const estListingPrice = upperPrice + gmpVal;
-    const estProfit = totalShares * gmpVal;
-    const estReturnPct = upperPrice > 0 ? ((gmpVal / upperPrice) * 100).toFixed(1) : "0.0";
-    const profitPerLot = lotSize * gmpVal;
+    const totalLiveValue = totalShares * livePrice;
 
-    // Category determination
+    // 4. PROFIT BASED ON LIVE PRICE (Primary Real-Time Metric)
+    const liveGainPerShare = livePrice - upperPrice;
+    const liveProfit = totalShares * liveGainPerShare;
+    const liveReturnPct = upperPrice > 0 ? ((liveGainPerShare / upperPrice) * 100).toFixed(2) : "0.00";
+    const liveProfitPerLot = lotSize * liveGainPerShare;
+    const isLiveGain = liveGainPerShare >= 0;
+
+    // 5. Estimated Listing Day Profit based on Unofficial GMP
+    const estListingPrice = upperPrice + gmpVal;
+    const estGmpProfit = totalShares * gmpVal;
+    const estGmpReturnPct = upperPrice > 0 ? ((gmpVal / upperPrice) * 100).toFixed(1) : "0.0";
+    const gmpProfitPerLot = lotSize * gmpVal;
+
+    // Investor Category Determination
     let category = "Retail (RII)";
     let catDesc = "Retail Individual Investor quota (Bids up to ₹2,00,000). Computerized lottery if oversubscribed.";
     let catColor = "#1D4ED8";
@@ -4457,21 +4514,47 @@
       catBg = "#FFFBEB";
     }
 
-    // Sort select options: active IPOs with positive live GMP first
-    const sortedOptionsList = [...records].sort((a, b) => {
-      const aGmp = a.gmp != null ? a.gmp : -1;
-      const bGmp = b.gmp != null ? b.gmp : -1;
-      if (a.status === "OPEN" && b.status !== "OPEN") return -1;
-      if (b.status === "OPEN" && a.status !== "OPEN") return 1;
-      return bGmp - aGmp;
-    }).slice(0, 40);
+    // Select options grouped into clean optgroups
+    const openIpos = records.filter(r => r.status === "OPEN");
+    const upcomingIpos = records.filter(r => r.status === "UPCOMING").slice(0, 15);
+    const listedIpos = records.filter(r => r.status === "LISTED").slice(0, 20);
+    const moverStocks = [
+      ...(state.liveMarketData?.marketGainers || marketGainers || []).slice(0, 4),
+      ...(state.liveMarketData?.marketShakers || marketShakers || []).slice(0, 4)
+    ];
 
-    const selectOptions = sortedOptionsList.map(r => {
-      const gmpText = r.gmp != null ? (r.gmp > 0 ? `+₹${r.gmp} (+${r.gmpPercentage || ((r.gmp/(r.priceBandHigh||r.issuePrice||100))*100).toFixed(1)}%)` : `₹0`) : `TBA`;
-      const isSel = (r.slug === ipo.slug || r.id === ipo.id) ? "selected" : "";
-      const statusTag = r.status === "OPEN" ? "🟢 OPEN" : r.status === "UPCOMING" ? "⏳ UPCOMING" : "CLOSED";
-      return `<option value="${r.slug}" ${isSel}>${escapeHtml(r.shortName)} [${statusTag}] • GMP: ${gmpText}</option>`;
-    }).join("");
+    const isMatch = (slugOrId) => (slugOrId === ipo.slug || slugOrId === ipo.id);
+
+    const selectOptionsHtml = `
+      <optgroup label="🟢 Open for Bidding (Live GMP & Bids)">
+        ${openIpos.map(r => `
+          <option value="${r.slug}" ${isMatch(r.slug) ? 'selected' : ''}>
+            ${escapeHtml(r.shortName)} [OPEN] • Issue: ₹${r.priceBandHigh || r.issuePrice} • GMP: ${r.gmp > 0 ? '+₹' + r.gmp : '₹0'}
+          </option>
+        `).join("")}
+      </optgroup>
+      <optgroup label="⏳ Upcoming IPOs (Live GMP)">
+        ${upcomingIpos.map(r => `
+          <option value="${r.slug}" ${isMatch(r.slug) ? 'selected' : ''}>
+            ${escapeHtml(r.shortName)} [UPCOMING] • Issue: ₹${r.priceBandHigh || r.issuePrice} • GMP: ${r.gmp > 0 ? '+₹' + r.gmp : '₹0'}
+          </option>
+        `).join("")}
+      </optgroup>
+      <optgroup label="📈 Recently Listed IPOs (Real-Time Live CMP)">
+        ${listedIpos.map(r => `
+          <option value="${r.slug}" ${isMatch(r.slug) ? 'selected' : ''}>
+            ${escapeHtml(r.shortName)} [LISTED] • Issue: ₹${r.issuePrice || r.priceBandHigh} • Live CMP: ₹${r.currentPrice || r.cmp || r.listingPrice}
+          </option>
+        `).join("")}
+      </optgroup>
+      <optgroup label="⚡ Today's Market Movers & Shakers (Live NSE/BSE)">
+        ${moverStocks.map(m => `
+          <option value="${m.symbol}" ${isMatch(m.symbol) ? 'selected' : ''}>
+            ${escapeHtml(m.name)} • Live CMP: ${m.price} (${m.change})
+          </option>
+        `).join("")}
+      </optgroup>
+    `;
 
     app.innerHTML = `
       <div class="calc-container">
@@ -4488,13 +4571,13 @@
           <div>
             <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
             <p style="font-size:14px; color:#64748B; margin:0;">
-              Simulate application lots, capital requirements, and live potential listing profits synchronized with real-time Tapetide market GMP feeds.
+              Calculate exact profit based on real-time live stock prices (CMP) and simulate estimated listing returns synchronized with Tapetide market feeds.
             </p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
             <a href="#/live-prices" class="live-pulse-badge" style="text-decoration:none; padding:7px 14px; font-size:12px;">
               <span class="live-dot-pulse"></span>
-              <span>⚡ View All Live Stock Prices</span>
+              <span>⚡ View All 18+ Live Stock Prices</span>
             </a>
           </div>
         </div>
@@ -4507,17 +4590,17 @@
             <div class="calc-control-group">
               <label class="calc-label-row">
                 <span>Select Company</span>
-                <span style="font-size:11.5px; color:#16A34A; font-weight:700;">● Live Quotes</span>
+                <span style="font-size:11.5px; color:#16A34A; font-weight:700;">● Live Exchange Quotes</span>
               </label>
               <select id="profit-calc-ipo-select" class="calc-select-box" onchange="window.IpoApp.setCalcCompany(this.value)">
-                ${selectOptions}
+                ${selectOptionsHtml}
               </select>
             </div>
 
             <!-- Issue Specs -->
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
               <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px 12px;">
-                <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase;">Issue Price</span>
+                <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase;">Issue / Base Price</span>
                 <div style="font-size:18px; font-weight:800; color:#0F172A; margin-top:2px;">₹${upperPrice}</div>
               </div>
               <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px 12px;">
@@ -4526,25 +4609,56 @@
               </div>
             </div>
 
-            <!-- Live GMP Adjustment Box -->
-            <div class="calc-control-group" style="background:#F0FDF4; border:1.5px solid #86EFAC; border-radius:12px; padding:14px; margin-bottom:18px;">
+            <!-- 1. Live Market Price (CMP) Control Box (Primary Requirement) -->
+            <div class="calc-control-group" style="background:#F0FDF4; border:1.5px solid #86EFAC; border-radius:12px; padding:14px; margin-bottom:16px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                 <label style="font-size:13px; font-weight:800; color:#166534; display:flex; align-items:center; gap:6px;">
                   <span class="live-dot-pulse"></span>
-                  <span>Live Grey Market Premium (GMP):</span>
+                  <span>Live Market Price (CMP) / Live Target:</span>
                 </label>
-                <span style="font-size:12px; font-weight:800; color:#15803D; background:#DCFCE7; padding:2px 8px; border-radius:12px;">
-                  +${estReturnPct}% ROI
+                <span style="font-size:11.5px; font-weight:800; color:${isLiveGain ? '#15803D' : '#DC2626'}; background:${isLiveGain ? '#DCFCE7' : '#FEE2E2'}; padding:2px 8px; border-radius:12px;">
+                  ${isLiveGain ? '+' : ''}${liveReturnPct}% Return
                 </span>
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
                 <div style="position:relative; flex:1;">
                   <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:#166534; font-size:17px;">₹</span>
-                  <input type="number" id="profit-calc-gmp-input" value="${gmpVal}" min="0" max="10000" step="1" 
+                  <input type="number" id="profit-calc-liveprice-input" value="${livePrice.toFixed(2)}" min="0.01" step="0.05"
                     style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:#0F172A; border:1.5px solid #86EFAC; border-radius:8px; background:#FFFFFF;"
+                    oninput="window.IpoApp.setCalcLivePrice(this.value)" />
+                </div>
+                <button type="button" onclick="window.IpoApp.resetCalcLivePrice()" style="padding:9px 14px; background:#DCFCE7; border:1px solid #86EFAC; border-radius:8px; font-size:12px; font-weight:700; color:#166534; cursor:pointer;" title="Reset to live market CMP">
+                  Reset CMP
+                </button>
+              </div>
+              <div class="calc-preset-pills" style="margin-top:10px;">
+                <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(5)">+5%</button>
+                <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(10)">+10%</button>
+                <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(25)">+25%</button>
+                <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(50)">+50%</button>
+                <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(100)">2X Double</button>
+                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Tapetide / Exchange Synced</span>
+              </div>
+            </div>
+
+            <!-- 2. Live Grey Market Premium (GMP) Adjustment Box -->
+            <div class="calc-control-group" style="background:#F8FAFC; border:1px solid #CBD5E1; border-radius:12px; padding:14px; margin-bottom:18px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <label style="font-size:12.5px; font-weight:700; color:#334155; display:flex; align-items:center; gap:6px;">
+                  <span>Unofficial Grey Market Premium (GMP):</span>
+                </label>
+                <span style="font-size:11px; font-weight:700; color:#0F766E; background:#E6FFFA; padding:2px 8px; border-radius:12px;">
+                  +${estGmpReturnPct}% Listing ROI
+                </span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="position:relative; flex:1;">
+                  <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:#475569; font-size:17px;">₹</span>
+                  <input type="number" id="profit-calc-gmp-input" value="${gmpVal}" min="0" max="10000" step="1" 
+                    style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:#0F172A; border:1px solid #CBD5E1; border-radius:8px; background:#FFFFFF;"
                     oninput="window.IpoApp.setCustomGmp(this.value)" />
                 </div>
-                <button type="button" onclick="window.IpoApp.resetCustomGmp()" style="padding:9px 14px; background:#DCFCE7; border:1px solid #86EFAC; border-radius:8px; font-size:12px; font-weight:700; color:#166534; cursor:pointer;" title="Reset to live market GMP">
+                <button type="button" onclick="window.IpoApp.resetCustomGmp()" style="padding:9px 14px; background:#F1F5F9; border:1px solid #CBD5E1; border-radius:8px; font-size:12px; font-weight:700; color:#475569; cursor:pointer;" title="Reset to live market GMP">
                   Reset
                 </button>
               </div>
@@ -4553,7 +4667,7 @@
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(10)">+₹10</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(25)">+₹25</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(50)">+₹50</button>
-                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Tapetide Synced</span>
+                <span style="font-size:11px; color:#64748B; font-weight:500; margin-left:auto; align-self:center;">Est. Listing: ₹${estListingPrice}</span>
               </div>
             </div>
 
@@ -4591,65 +4705,107 @@
               <div class="calc-kpi-card">
                 <span class="calc-kpi-label">Total Investment</span>
                 <span class="calc-kpi-val" style="color:#1E293B;">₹${Number(totalInvestment).toLocaleString('en-IN')}</span>
-                <span style="font-size:11px; color:#64748B;">UPI ASBA block amount</span>
+                <span style="font-size:11px; color:#64748B;">${lots} ${lots === 1 ? 'lot' : 'lots'} (${totalShares.toLocaleString('en-IN')} shares)</span>
               </div>
 
               <div class="calc-kpi-card">
-                <span class="calc-kpi-label">Est. Listing Price</span>
-                <span class="calc-kpi-val" style="color:#0284C7;">₹${estListingPrice.toLocaleString('en-IN')}</span>
-                <span style="font-size:11px; color:#64748B;">Issue ₹${upperPrice} + Live GMP ₹${gmpVal}</span>
+                <span class="calc-kpi-label">Live Holding Value</span>
+                <span class="calc-kpi-val" style="color:#0284C7;">₹${Number(Math.round(totalLiveValue)).toLocaleString('en-IN')}</span>
+                <span style="font-size:11px; color:#64748B;">At Live CMP ₹${livePrice.toFixed(2)}</span>
               </div>
 
-              <!-- Main Expected Listing Day Profit Highlight Card -->
-              <div class="calc-kpi-card highlight-profit" style="grid-column: span 2; background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); border: 2px solid #34D399; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.16); padding: 18px 20px;">
+              <!-- HERO HIGHLIGHT CARD: PROFIT BASED ON LIVE PRICE -->
+              <div class="calc-kpi-card highlight-profit" style="grid-column: span 2; background: ${isLiveGain ? 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)' : 'linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)'}; border: 2px solid ${isLiveGain ? '#10B981' : '#EF4444'}; box-shadow: 0 4px 14px ${isLiveGain ? 'rgba(16, 185, 129, 0.18)' : 'rgba(239, 68, 68, 0.18)'}; padding: 18px 20px; border-radius:14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                  <span class="calc-kpi-label" style="color:#065F46; font-weight:800; font-size:12.5px; text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; gap:6px;">
-                    <span class="live-dot-pulse"></span>
-                    <span>Expected Listing Day Profit (Live)</span>
+                  <span class="calc-kpi-label" style="color:${isLiveGain ? '#065F46' : '#991B1B'}; font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; gap:6px;">
+                    <span class="live-dot-pulse" style="background:${isLiveGain ? '#10B981' : '#EF4444'};"></span>
+                    <span>⚡ LIVE PRICE PROFIT (BASED ON LIVE CMP)</span>
                   </span>
-                  <span style="background:#10B981; color:#fff; font-size:11px; font-weight:800; padding:3px 9px; border-radius:20px;">
-                    +${estReturnPct}% ROI
+                  <span style="background:${isLiveGain ? '#10B981' : '#EF4444'}; color:#fff; font-size:12px; font-weight:800; padding:3px 10px; border-radius:20px;">
+                    ${isLiveGain ? '+' : ''}${liveReturnPct}% Live Gain
                   </span>
                 </div>
-                <div class="calc-kpi-val gain-green" style="font-size:32px; font-weight:900; color:#047857; margin:6px 0;">
-                  +₹${Number(estProfit).toLocaleString('en-IN')}
+                
+                <div class="calc-kpi-val" style="font-size:36px; font-weight:900; color:${isLiveGain ? '#047857' : '#DC2626'}; margin:8px 0;">
+                  ${isLiveGain ? '+' : ''}₹${Number(Math.round(liveProfit)).toLocaleString('en-IN')}
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:#065F46; font-weight:600; border-top:1px dashed #A7F3D0; padding-top:8px; margin-top:6px;">
-                  <span>Profit Per 1 Lot: <strong>+₹${profitPerLot.toLocaleString('en-IN')}</strong></span>
-                  <span>Total Shares: <strong>${totalShares.toLocaleString('en-IN')}</strong></span>
+
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; border-top:1px dashed ${isLiveGain ? '#A7F3D0' : '#FECACA'}; padding-top:10px; margin-top:8px; font-size:12px; color:${isLiveGain ? '#065F46' : '#991B1B'};">
+                  <div>
+                    <div style="color:#64748B; font-size:11px; font-weight:600;">Profit Per 1 Lot</div>
+                    <strong style="font-size:13px;">${isLiveGain ? '+' : ''}₹${Number(Math.round(liveProfitPerLot)).toLocaleString('en-IN')}</strong>
+                  </div>
+                  <div>
+                    <div style="color:#64748B; font-size:11px; font-weight:600;">Gain Per Share</div>
+                    <strong style="font-size:13px;">${isLiveGain ? '+' : ''}₹${liveGainPerShare.toFixed(2)}</strong>
+                  </div>
+                  <div>
+                    <div style="color:#64748B; font-size:11px; font-weight:600;">Live Price vs Issue</div>
+                    <strong style="font-size:13px;">₹${livePrice.toFixed(2)} vs ₹${upperPrice}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECONDARY ESTIMATOR: UNOFFICIAL GMP LISTING ESTIMATE -->
+              <div class="calc-kpi-card" style="grid-column: span 2; background:#F8FAFC; border:1px solid #E2E8F0; padding:12px 16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                  <span style="font-size:12px; font-weight:700; color:#475569;">
+                    📊 Unofficial GMP Listing Estimate:
+                  </span>
+                  <strong style="color:#0F766E; font-size:13px;">
+                    Est. Listing: ₹${estListingPrice} (+${estGmpReturnPct}%) • GMP Profit: +₹${Number(Math.round(estGmpProfit)).toLocaleString('en-IN')}
+                  </strong>
                 </div>
               </div>
             </div>
 
-            <!-- Quick Lots Comparison Grid -->
+            <!-- Multi-Lot Live Price Profit Breakdown Grid -->
             <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:12px;">
-              <div style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:8px;">Lot Size Comparison Table</div>
-              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; text-align:center; font-size:12px;">
-                <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:6px; padding:8px 4px;">
-                  <div style="color:#64748B; font-size:11px;">1 Lot (Min)</div>
-                  <div style="font-weight:700; color:#0F172A; margin:2px 0;">₹${Number(lotSize * upperPrice).toLocaleString('en-IN')}</div>
-                  <div style="font-weight:800; color:#16A34A;">+₹${Number(profitPerLot).toLocaleString('en-IN')}</div>
-                </div>
-                <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:6px; padding:8px 4px;">
-                  <div style="color:#64748B; font-size:11px;">5 Lots</div>
-                  <div style="font-weight:700; color:#0F172A; margin:2px 0;">₹${Number(5 * lotSize * upperPrice).toLocaleString('en-IN')}</div>
-                  <div style="font-weight:800; color:#16A34A;">+₹${Number(5 * profitPerLot).toLocaleString('en-IN')}</div>
-                </div>
-                <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:6px; padding:8px 4px;">
-                  <div style="color:#64748B; font-size:11px;">13 Lots (Max Retail)</div>
-                  <div style="font-weight:700; color:#0F172A; margin:2px 0;">₹${Number(13 * lotSize * upperPrice).toLocaleString('en-IN')}</div>
-                  <div style="font-weight:800; color:#16A34A;">+₹${Number(13 * profitPerLot).toLocaleString('en-IN')}</div>
-                </div>
+              <div style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:8px;">
+                Multi-Lot Live Price Profit Breakdown (At Live CMP ₹${livePrice.toFixed(2)})
+              </div>
+              <div style="overflow-x:auto;">
+                <table style="width:100%; font-size:12px; border-collapse:collapse; text-align:right;">
+                  <thead>
+                    <tr style="border-bottom:1px solid #CBD5E1; color:#64748B; font-size:11px;">
+                      <th style="text-align:left; padding:6px 8px;">Quota / Lots</th>
+                      <th style="padding:6px 8px;">Shares</th>
+                      <th style="padding:6px 8px;">Investment</th>
+                      <th style="padding:6px 8px; color:${isLiveGain ? '#15803D' : '#DC2626'};">Live Price Profit</th>
+                      <th style="padding:6px 8px;">Live Holding Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${[1, 2, 5, 13, 14].map(l => {
+                      const s = l * lotSize;
+                      const inv = s * upperPrice;
+                      const prof = s * liveGainPerShare;
+                      const val = s * livePrice;
+                      const label = l === 1 ? '1 Lot (Min)' : (l === 13 ? '13 Lots (Max Retail)' : (l === 14 ? '14 Lots (sHNI)' : `${l} Lots`));
+                      return `
+                        <tr style="border-bottom:1px solid #F1F5F9; ${l === lots ? 'background:#ECFDF5; font-weight:700;' : ''}">
+                          <td style="text-align:left; padding:6px 8px; color:#0F172A;">${label}</td>
+                          <td style="padding:6px 8px; color:#475569;">${s.toLocaleString('en-IN')}</td>
+                          <td style="padding:6px 8px; color:#0F172A;">₹${inv.toLocaleString('en-IN')}</td>
+                          <td style="padding:6px 8px; font-weight:800; color:${prof >= 0 ? '#16A34A' : '#DC2626'};">
+                            ${prof >= 0 ? '+' : ''}₹${Number(Math.round(prof)).toLocaleString('en-IN')}
+                          </td>
+                          <td style="padding:6px 8px; color:#0284C7; font-weight:600;">₹${Number(Math.round(val)).toLocaleString('en-IN')}</td>
+                        </tr>
+                      `;
+                    }).join("")}
+                  </tbody>
+                </table>
               </div>
             </div>
 
             <!-- 1-Click Viral Sharing Bar -->
             <div class="calc-share-bar">
-              <button type="button" class="btn-whatsapp-share" onclick="window.IpoApp.shareCalcWhatsApp('${escapeAttr(ipo.shortName)}', ${lots}, ${totalShares}, ${upperPrice}, ${gmpVal}, ${estListingPrice}, ${estProfit}, '${estReturnPct}')">
+              <button type="button" class="btn-whatsapp-share" onclick="window.IpoApp.shareCalcWhatsApp('${escapeAttr(ipo.shortName)}', ${lots}, ${totalShares}, ${upperPrice}, ${livePrice.toFixed(2)}, ${Math.round(liveProfit)}, '${liveReturnPct}', ${gmpVal}, ${estListingPrice})">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.072.043.419-.101.824z"/></svg>
-                <span>Share to WhatsApp</span>
+                <span>Share Live Profit Report</span>
               </button>
-              <button type="button" class="btn-copy-report" onclick="window.IpoApp.copyCalcReport('${escapeAttr(ipo.shortName)}', ${lots}, ${totalShares}, ${upperPrice}, ${gmpVal}, ${estListingPrice}, ${estProfit}, '${estReturnPct}')">
+              <button type="button" class="btn-copy-report" onclick="window.IpoApp.copyCalcReport('${escapeAttr(ipo.shortName)}', ${lots}, ${totalShares}, ${upperPrice}, ${livePrice.toFixed(2)}, ${Math.round(liveProfit)}, '${liveReturnPct}', ${gmpVal}, ${estListingPrice})">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span>Copy Summary</span>
               </button>
@@ -4664,7 +4820,7 @@
           </div>
         </div>
 
-        <!-- Live Ticker Bar Below Calculator -->
+        <!-- Live Ticker Bar Below Calculator with 1-Click Load Buttons -->
         <div style="margin-top:24px; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
             <div style="display:flex; align-items:center; gap:8px;">
@@ -4672,22 +4828,26 @@
                 <span class="live-dot-pulse"></span>
                 <span>⚡ Real-Time Market Ticker</span>
               </span>
-              <span style="font-size:13px; font-weight:700; color:#0F172A;">Trending Stocks Today (10-Min Sync)</span>
+              <span style="font-size:13px; font-weight:700; color:#0F172A;">Trending Stocks Today (Tap to Simulate Live Profit)</span>
             </div>
             <a href="#/live-prices" style="font-size:12.5px; font-weight:700; color:#2563EB; text-decoration:none;">
               View All 18+ Live Stock Prices &rarr;
             </a>
           </div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:10px;">
-            ${marketGainers.slice(0, 3).concat(marketShakers.slice(0, 3)).map(item => `
-              <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">
+            ${(state.liveMarketData?.marketGainers || marketGainers || []).slice(0, 3).concat((state.liveMarketData?.marketShakers || marketShakers || []).slice(0, 3)).map(item => `
+              <div onclick="window.IpoApp.loadStockIntoCalc('${item.symbol}', '${escapeAttr(item.name)}', ${item.rawPrice}, ${Math.round(item.rawPrice * 0.92)})"
+                style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all 0.2s;"
+                onmouseover="this.style.borderColor='#10B981'; this.style.background='#F0FDF4';"
+                onmouseout="this.style.borderColor='#E2E8F0'; this.style.background='#F8FAFC';"
+                title="Click to calculate profit on ${escapeAttr(item.name)}">
                 <div>
                   <div style="font-size:12.5px; font-weight:700; color:#0F172A;">${escapeHtml(item.name)}</div>
                   <div style="font-size:11px; color:#16A34A; font-weight:700;">${item.change}</div>
                 </div>
                 <div style="text-align:right;">
                   <div style="font-size:13px; font-weight:800; color:#0F172A;">${item.price}</div>
-                  <div style="font-size:10.5px; color:#64748B;">${item.volume}</div>
+                  <div style="font-size:10.5px; color:#2563EB; font-weight:600;">Simulate &rarr;</div>
                 </div>
               </div>
             `).join("")}
@@ -7235,11 +7395,36 @@
     setCalcCompany: (slug) => {
       state.calcSelectedSlug = slug;
       state.calcCustomGmp = null;
+      state.calcLivePrice = null;
       renderCalculatorPage();
     },
     setCalcLots: (lots) => {
       state.calcLots = parseInt(lots, 10) || 1;
       renderCalculatorPage();
+    },
+    setCalcLivePrice: (val) => {
+      const num = parseFloat(val);
+      state.calcLivePrice = (isNaN(num) || num <= 0) ? null : num;
+      renderCalculatorPage();
+    },
+    resetCalcLivePrice: () => {
+      state.calcLivePrice = null;
+      renderCalculatorPage();
+    },
+    adjustLivePricePct: (pct) => {
+      const ipo = getSelectedCalcIpo();
+      const upperPrice = ipo.priceBandHigh || ipo.issuePrice || 100;
+      state.calcLivePrice = Math.round(upperPrice * (1 + pct / 100) * 100) / 100;
+      renderCalculatorPage();
+    },
+    loadStockIntoCalc: (symbol, name, livePrice, issuePrice) => {
+      state.calcSelectedSlug = symbol;
+      state.calcLivePrice = Number(livePrice);
+      state.calcCustomGmp = Math.max(0, Math.round(livePrice - (issuePrice || livePrice * 0.92)));
+      renderCalculatorPage();
+      const el = document.getElementById("app");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      showToast(`⚡ Loaded ${name} (Live Price: ₹${Number(livePrice).toFixed(2)}) into calculator!`, "success");
     },
     setCustomGmp: (val) => {
       const num = parseFloat(val);
@@ -7346,28 +7531,32 @@
         if (btn) btn.disabled = false;
       }
     },
-    shareCalcWhatsApp: (name, lots, shares, issuePrice, gmp, estListing, profit, returnPct) => {
+    shareCalcWhatsApp: (name, lots, shares, issuePrice, livePrice, liveProfit, liveReturnPct, gmpVal, estListingPrice) => {
       const inv = Number(shares * issuePrice).toLocaleString('en-IN');
-      const text = `📊 *IPO Profit Estimation for ${name}*\n` +
-        `💰 Investment: ₹${inv} (${lots} Lots / ${Number(shares).toLocaleString('en-IN')} Shares)\n` +
-        `🎯 Issue Price: ₹${issuePrice} | Live GMP: +₹${gmp}\n` +
-        `🚀 Est. Listing: ₹${estListing} / share\n` +
-        `💵 Expected Profit: +₹${Number(profit).toLocaleString('en-IN')} (+${returnPct}%)\n\n` +
-        `👉 Check live IPO GMP & calculations on: https://pricealerter.in/#/calculator`;
+      const isProf = Number(liveProfit) >= 0;
+      const text = `📊 *IPO Profit & Live Gain Estimate for ${name}*\n` +
+        `💰 Total Investment: ₹${inv} (${lots} Lots / ${Number(shares).toLocaleString('en-IN')} Shares)\n` +
+        `🎯 Issue / Base Price: ₹${issuePrice}\n` +
+        `📈 Live Market Price (CMP): ₹${livePrice}\n` +
+        `⚡ *Live Price Profit:* ${isProf ? '+' : ''}₹${Number(Math.round(liveProfit)).toLocaleString('en-IN')} (${isProf ? '+' : ''}${liveReturnPct}% ROI)\n` +
+        (gmpVal ? `🚀 Unofficial GMP: +₹${gmpVal} (Est. Listing: ₹${estListingPrice})\n\n` : `\n`) +
+        `👉 Check real-time live price profits & IPO GMP at https://pricealerter.in/#/calculator`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
     },
-    copyCalcReport: (name, lots, shares, issuePrice, gmp, estListing, profit, returnPct) => {
+    copyCalcReport: (name, lots, shares, issuePrice, livePrice, liveProfit, liveReturnPct, gmpVal, estListingPrice) => {
       const inv = Number(shares * issuePrice).toLocaleString('en-IN');
-      const text = `📊 IPO Profit Estimation for ${name}\n` +
+      const isProf = Number(liveProfit) >= 0;
+      const text = `📊 IPO Profit & Live Gain Estimate for ${name}\n` +
         `• Lots Applied: ${lots} Lots (${Number(shares).toLocaleString('en-IN')} Shares)\n` +
         `• Total Investment: ₹${inv}\n` +
-        `• Issue Price: ₹${issuePrice} | Current GMP: +₹${gmp}\n` +
-        `• Est. Listing Price: ₹${estListing}\n` +
-        `• Expected Listing Profit: +₹${Number(profit).toLocaleString('en-IN')} (+${returnPct}%)\n` +
+        `• Issue / Base Price: ₹${issuePrice}\n` +
+        `• Live Market Price (CMP): ₹${livePrice}\n` +
+        `• ⚡ Live Price Profit: ${isProf ? '+' : ''}₹${Number(Math.round(liveProfit)).toLocaleString('en-IN')} (${isProf ? '+' : ''}${liveReturnPct}% ROI)\n` +
+        (gmpVal ? `• Unofficial GMP: +₹${gmpVal} (Est. Listing: ₹${estListingPrice})\n` : '') +
         `Source: https://pricealerter.in/#/calculator`;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          showToast("Profit estimation summary copied to clipboard!", "success");
+          showToast("Live price profit summary copied to clipboard!", "success");
         }).catch(() => {
           showToast("Copied to clipboard", "success");
         });
