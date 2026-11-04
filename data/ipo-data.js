@@ -4,8 +4,8 @@ window.IpoData = {
   "stats": {
     "openCount": 2,
     "closedCount": 10,
-    "upcomingCount": 25,
-    "listedCount": 167
+    "upcomingCount": 21,
+    "listedCount": 171
   },
   "records": [
     {
@@ -1202,7 +1202,7 @@ window.IpoData = {
       "growwUrl": "https://groww.in/ipo/mksons-fine-jewels-ipo",
       "subscriptionTotal": 5.09,
       "gmp": 6,
-      "gmpPercentage": 5.0,
+      "gmpPercentage": 5,
       "about": "M. K. Sons Fine Jewels operates retail showrooms across western India showcasing gold, diamond, and designer lifestyle jewellery.",
       "documents": [
         {
@@ -1263,7 +1263,7 @@ window.IpoData = {
       "growwUrl": "https://groww.in/ipo/ajwa-projects-ipo",
       "subscriptionTotal": 6.9,
       "gmp": 6,
-      "gmpPercentage": 5.0,
+      "gmpPercentage": 5,
       "about": "Ajwa Projects is an established Indian enterprise operating in the infrastructure & real estate sector.",
       "documents": [
         {
@@ -8686,7 +8686,7 @@ window.IpoData = {
       "initials": "NB",
       "logoColor": "#EC4899",
       "iconType": "health",
-      "status": "UPCOMING",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Standalone Health Insurance",
@@ -8777,7 +8777,7 @@ window.IpoData = {
       "initials": "AS",
       "logoColor": "#EAB308",
       "iconType": "energy",
-      "status": "UPCOMING",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Renewable Energy & Solar Power",
@@ -8879,7 +8879,7 @@ window.IpoData = {
       "initials": "SW",
       "logoColor": "#FC8019",
       "iconType": "tech",
-      "status": "UPCOMING",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Food Delivery & Quick Commerce",
@@ -8983,7 +8983,7 @@ window.IpoData = {
       "initials": "SI",
       "logoColor": "#3B82F6",
       "iconType": "health",
-      "status": "UPCOMING",
+      "status": "LISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
       "sector": "Healthcare BPO & Technology Services",
@@ -9003,7 +9003,7 @@ window.IpoData = {
       "dematDate": "2026-11-11",
       "listingDate": "2026-11-12",
       "gmp": 3,
-      "gmpPercentage": 10.0,
+      "gmpPercentage": 10,
       "gmpUpdatedAt": "2026-11-12T10:00:00+05:30",
       "dayHighGmp": null,
       "dayLowGmp": null,
