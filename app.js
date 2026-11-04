@@ -2074,18 +2074,32 @@
       <div class="fig1-stay-updated-card">
         <h3 class="fig1-stay-updated-title">📧 Stay Updated!</h3>
         <p class="fig1-stay-updated-text">Get IPO alerts &amp; GMP updates directly in your inbox. Join 45,000+ investors.</p>
-        <form class="fig1-subscribe-form" onsubmit="window.IpoApp.handleFig1Subscribe(event)">
-          <input type="email" class="fig1-subscribe-input" placeholder="your@email.com" required>
-          <button type="submit" class="fig1-subscribe-btn">Subscribe Now</button>
+        <form class="fig1-subscribe-form" id="fig1-subscribe-form" onsubmit="window.handleFig1FormSubmit ? window.handleFig1FormSubmit(event) : (window.IpoApp && window.IpoApp.handleFig1Subscribe(event))">
+          <div class="fig1-form-row">
+            <input type="email" class="fig1-subscribe-input" id="fig1-email-input" placeholder="your@email.com" required maxlength="254">
+            <button type="submit" class="fig1-subscribe-btn" id="fig1-subscribe-btn">Subscribe Now</button>
+          </div>
+          
+          <div class="fig1-action-options-bar">
+            <div class="fig1-options-toggle">
+              <label class="fig1-option-radio">
+                <input type="radio" name="fig1_action_mode" value="subscribe" checked onchange="window.setFig1ActionMode && window.setFig1ActionMode('subscribe')">
+                <span>Subscribe</span>
+              </label>
+              <label class="fig1-option-radio">
+                <input type="radio" name="fig1_action_mode" value="unsubscribe" onchange="window.setFig1ActionMode && window.setFig1ActionMode('unsubscribe')">
+                <span>Unsubscribe (Delete details)</span>
+              </label>
+            </div>
+            <button type="button" class="fig1-unsubscribe-link-btn" onclick="window.handleDirectUnsubscribe && window.handleDirectUnsubscribe(this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Unsubscribe &amp; Delete</span>
+            </button>
+          </div>
         </form>
         <div class="fig1-subscribe-note">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <span>No spam. Duplicate emails strictly rejected.</span>
-        </div>
-        <div style="margin-top:8px; text-align:center;">
-          <button type="button" class="btn-unsubscribe-text" onclick="window.SubscriberService && window.SubscriberService.openUnsubscribeModal()" style="background:none; border:none; color:#64748B; font-size:12px; cursor:pointer; text-decoration:underline; padding:4px;">
-            Want to stop alerts? Unsubscribe / Remove Email
-          </button>
+          <span>Zero spam. User details deleted instantly on unsubscribe.</span>
         </div>
       </div>
     `;
@@ -6383,6 +6397,9 @@
       renderHeader();
     },
     handleFig1Subscribe: (e) => {
+      if (window.handleFig1FormSubmit) {
+        return window.handleFig1FormSubmit(e);
+      }
       if (window.handleSubscribeForm) {
         return window.handleSubscribeForm(e, "Stay Updated Form");
       }

@@ -312,11 +312,105 @@
     downloadLocalCsv();
   }
 
+  window.setFig1ActionMode = function (mode) {
+    var form = document.getElementById("fig1-subscribe-form");
+    var btn = form ? form.querySelector(".fig1-subscribe-btn") : document.getElementById("fig1-subscribe-btn");
+    var inp = form ? form.querySelector('input[type="email"]') : document.getElementById("fig1-email-input");
+    var radios = document.querySelectorAll('input[name="fig1_action_mode"]');
+    
+    radios.forEach(function (r) {
+      r.checked = (r.value === mode);
+    });
+
+    if (btn) {
+      if (mode === "unsubscribe") {
+        btn.textContent = "Delete Details & Unsubscribe";
+        btn.classList.add("unsub-mode");
+      } else {
+        btn.textContent = "Subscribe Now";
+        btn.classList.remove("unsub-mode");
+      }
+    }
+    if (inp) {
+      inp.placeholder = mode === "unsubscribe" 
+        ? "Enter email to delete details..." 
+        : "your@email.com";
+      inp.focus();
+    }
+  };
+
+  window.handleDirectUnsubscribe = async function (btnEl) {
+    var form = (btnEl && btnEl.closest) ? btnEl.closest("form") : document.getElementById("fig1-subscribe-form");
+    var inp = form ? form.querySelector('input[type="email"]') : document.getElementById("fig1-email-input");
+    var email = inp ? inp.value.trim() : "";
+
+    if (!email) {
+      if (inp) inp.focus();
+      notify("Please enter your email address to unsubscribe and delete your details.", "info");
+      return;
+    }
+
+    if (!EMAIL_RE.test(email)) {
+      notify("Please enter a valid email address.", "warning");
+      if (inp) inp.focus();
+      return;
+    }
+
+    if (btnEl) btnEl.disabled = true;
+    try {
+      var res = await unsubscribe(email);
+      notify(res.message || "You have been unsubscribed and your details have been deleted successfully.", "success");
+      if (inp) inp.value = "";
+      window.setFig1ActionMode("subscribe");
+    } catch (err) {
+      notify(err.message || "Error processing unsubscribe request.", "warning");
+    } finally {
+      if (btnEl) btnEl.disabled = false;
+    }
+  };
+
+  window.handleFig1FormSubmit = async function (event) {
+    if (event && event.preventDefault) event.preventDefault();
+    var form = event.target || event;
+    var inp = form.querySelector('input[type="email"]') || document.getElementById("fig1-email-input");
+    var email = inp ? inp.value.trim() : "";
+    if (!email) return false;
+
+    var selectedRadio = form.querySelector('input[name="fig1_action_mode"]:checked');
+    var mode = selectedRadio ? selectedRadio.value : "subscribe";
+    var btn = form.querySelector('button[type="submit"]') || form.querySelector(".fig1-subscribe-btn");
+    if (btn) btn.disabled = true;
+
+    try {
+      if (mode === "unsubscribe") {
+        var unRes = await unsubscribe(email);
+        notify(unRes.message || "You have been unsubscribed and your details have been deleted successfully.", "success");
+        if (inp) inp.value = "";
+        window.setFig1ActionMode("subscribe");
+      } else {
+        var subRes = await subscribe(email, "Homepage Stay Updated");
+        notify(subRes.message || "Thank you! Your email has been added to the IPO alerts list.", "success");
+        if (inp) inp.value = "";
+      }
+      return true;
+    } catch (err) {
+      notify(err.message, "warning");
+      return false;
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  };
+
   window.handleSubscribeForm = async function (event, source) {
     if (event && event.preventDefault) event.preventDefault();
     var form = event.target || event;
     var input = form.querySelector('input[type="email"]') || form.querySelector("input");
     if (!input || !input.value) return false;
+
+    var selectedRadio = form.querySelector('input[name="fig1_action_mode"]:checked');
+    if (selectedRadio && selectedRadio.value === "unsubscribe") {
+      return window.handleFig1FormSubmit(event);
+    }
 
     var button = form.querySelector('button[type="submit"]') || form.querySelector("button");
     if (button) button.disabled = true;
@@ -337,6 +431,7 @@
   window.SubscriberService = {
     subscribe: subscribe,
     unsubscribe: unsubscribe,
+    removeSubscriber: unsubscribe,
     openSubscribeModal: openSubscribeModal,
     openAlertsModal: openSubscribeModal,
     openUnsubscribeModal: openUnsubscribeModal,

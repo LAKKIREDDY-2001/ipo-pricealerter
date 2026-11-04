@@ -46,7 +46,7 @@ export async function onRequestPost(context) {
 
   return Response.json({
     success: true,
-    message: "Your unsubscribe request has been processed. If this email was subscribed, it has been removed from IPO alerts."
+    message: "You have been unsubscribed and your details have been deleted successfully."
   });
 }
 

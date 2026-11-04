@@ -191,8 +191,25 @@ def add_subscriber(email, subscribed_at=None):
     print(f"\n✅ [SUCCESS] Subscriber '{norm_email}' successfully added to Excel.")
     return True, "Subscribed successfully"
 
+def remove_subscriber(email):
+    """Deletes user details completely from Excel, CSV, and JSON."""
+    norm_email = normalize_email(email)
+    if not norm_email:
+        print(f"❌ [INVALID EMAIL] '{email}'")
+        return False, "Invalid email address"
+
+    existing_subs, seen_emails = get_existing_subscribers()
+    if norm_email not in seen_emails:
+        print(f"ℹ️ Email '{norm_email}' not found in subscribers list.")
+        return False, "Email not found"
+
+    filtered = [s for s in existing_subs if normalize_email(s.get("email")) != norm_email]
+    save_all_formats(filtered)
+    print(f"🗑️ [DELETED] User details for '{norm_email}' successfully deleted from Excel, CSV, and JSON.")
+    return True, "User details deleted successfully"
+
 def sync_from_kv(export_url="https://pricealerter.in/api/subscribers-export?format=json"):
-    """Fetches KV subscriber pairs and syncs them into the GitHub Excel file with deduplication."""
+    """Fetches KV subscriber pairs and syncs them into the GitHub Excel file with deduplication and deletion."""
     print(f"🔄 Syncing KV subscriber pairs from {export_url}...")
     try:
         req = urllib.request.Request(export_url, headers={"User-Agent": "GitHub-Action-Excel-Sync"})
@@ -210,35 +227,36 @@ def sync_from_kv(export_url="https://pricealerter.in/api/subscribers-export?form
         
         existing_subs, seen_emails = get_existing_subscribers()
         active_kv_emails = {normalize_email(item.get("email")) for item in kv_subscribers if normalize_email(item.get("email"))}
-        new_count = 0
-        status_updated = 0
         
-        # Check if existing subscribers were removed/unsubscribed from KV
+        # 1. Filter existing subscribers: Keep only those present in KV, delete unsubscribed user details
+        retained_subs = []
+        deleted_count = 0
         for sub in existing_subs:
             e = normalize_email(sub.get("email"))
-            if e in active_kv_emails and sub.get("status") != "Active":
-                sub["status"] = "Active"
-                status_updated += 1
-            elif e not in active_kv_emails and sub.get("status") == "Active":
-                sub["status"] = "Unsubscribed"
-                status_updated += 1
-        
-        # Add new subscribers from KV
+            if e in active_kv_emails:
+                retained_subs.append(sub)
+            else:
+                print(f"🗑️ Deleting user details from Excel for unsubscribed email: {e}")
+                deleted_count += 1
+                
+        # 2. Add any new subscribers from KV
+        retained_emails = {normalize_email(s.get("email")) for s in retained_subs}
+        new_count = 0
         for item in kv_subscribers:
             e = normalize_email(item.get("email"))
-            if e and e not in seen_emails:
-                seen_emails.add(e)
-                existing_subs.append({
+            if e and e not in retained_emails:
+                retained_emails.add(e)
+                retained_subs.append({
                     "email": e,
                     "subscribed_at": item.get("subscribedAt") or datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "status": "Active"
                 })
                 new_count += 1
                 
-        if new_count > 0 or status_updated > 0:
-            save_all_formats(existing_subs)
-            print(f"✅ Successfully updated Excel: {new_count} new subscriber(s), {status_updated} status update(s). Total unique: {len(existing_subs)}")
-            return True, new_count + status_updated
+        if new_count > 0 or deleted_count > 0:
+            save_all_formats(retained_subs)
+            print(f"✅ Successfully updated Excel: {new_count} added, {deleted_count} deleted. Total current: {len(retained_subs)}")
+            return True, new_count + deleted_count
         else:
             print("ℹ️ All KV subscribers already present in Excel file. Zero duplicates added.")
             return False, 0
@@ -304,6 +322,11 @@ if __name__ == "__main__":
             success, msg = add_subscriber(email_arg)
             if not success:
                 sys.exit(2 if "DUPLICATE" in msg else 1)
+        elif command == "--remove" and len(sys.argv) > 2:
+            email_arg = sys.argv[2]
+            success, msg = remove_subscriber(email_arg)
+            if not success:
+                sys.exit(1)
         elif command == "--init":
             subs, _ = get_existing_subscribers()
             save_all_formats(subs)
