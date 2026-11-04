@@ -84,6 +84,9 @@
       if (parts[1]) state.listedYear = parts[1];
       return { view: "listed" };
     }
+    if (parts[0] === "movers" || parts[0] === "gainers" || parts[0] === "losers" || parts[0] === "market-movers") {
+      return { view: "home", moversFilter: parts[0] };
+    }
     if (parts[0] === "blog") {
       window.location.href = "/blog/";
       return { view: "guide" };
@@ -216,22 +219,22 @@
 
     const isBBTC = (name.includes("Bombay Burmah") || (ipo.slug && ipo.slug.includes("bombay-burmah"))) || ipo.symbol === "500020" || ipo.bseCode === "500020";
 
-    if (logoUrl) {
-      return `
-        <div class="company-logo-img-wrap" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; background:#FFFFFF; border:1px solid #E2E8F0; flex-shrink:0;">
-          <img src="${logoUrl}" alt="${escapeAttr(name)} Logo" width="${size}" height="${size}" loading="lazy" decoding="async" class="company-logo-img" style="width:100%; height:100%; object-fit:contain; padding:2px;"
-               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">
-          <div class="company-avatar-box fallback-avatar" style="display:none; width:100%; height:100%; background:${gradient}; color:#FFFFFF; font-weight:800; font-size:${fontSize}px; border-radius:${borderRadius}px; align-items:center; justify-content:center; text-shadow:0 1px 2px rgba(0,0,0,0.35);">
-            ${initials}
-          </div>
-        </div>
-      `;
-    }
-
     if (isBBTC) {
       return `
         <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px; background:linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color:#FDE047; font-weight:900; font-size:${fontSize}px; display:inline-flex; align-items:center; justify-content:center; text-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0; border:1.5px solid #F59E0B; box-shadow:0 0 8px rgba(245, 158, 11, 0.35);" title="1st Stock in BSE History (1875)">
           BB
+        </div>
+      `;
+    }
+
+    if (logoUrl) {
+      return `
+        <div class="company-logo-img-wrap" style="position:relative; width:${size}px; height:${size}px; min-width:${size}px; border-radius:${borderRadius}px; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; background:${gradient}; border:1px solid #E2E8F0; flex-shrink:0;">
+          <div class="company-avatar-box fallback-avatar" style="position:absolute; inset:0; width:100%; height:100%; background:${gradient}; color:#FFFFFF; font-weight:800; font-size:${fontSize}px; display:flex; align-items:center; justify-content:center; text-shadow:0 1px 2px rgba(0,0,0,0.35); z-index:1;">
+            ${initials}
+          </div>
+          <img src="${logoUrl}" alt="${escapeAttr(name)} Logo" width="${size}" height="${size}" loading="lazy" decoding="async" referrerpolicy="no-referrer" class="company-logo-img" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; padding:2px; background:#FFFFFF;"
+               onerror="this.style.display='none';">
         </div>
       `;
     }
@@ -755,10 +758,11 @@
         </a>
 
         <nav class="main-nav" aria-label="Main Navigation">
-          <a href="#/" class="nav-tab-link ${currentView === "home" ? "active" : ""}">Home</a>
+          <a href="#/" class="nav-tab-link ${currentView === "home" && !state.route.moversFilter ? "active" : ""}">Home</a>
           <a href="#/open" class="nav-tab-link ${currentView === "open" ? "active" : ""}">Open IPOs</a>
           <a href="#/upcoming" class="nav-tab-link ${currentView === "upcoming" ? "active" : ""}">Upcoming</a>
           <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">Listed</a>
+          <a href="#/movers" class="nav-tab-link ${currentView === "home" && state.route.moversFilter ? "active" : ""}">Gainers &amp; Losers</a>
           <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP</a>
           <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">Calendar</a>
           <a href="#/guide" class="nav-tab-link ${currentView === "guide" ? "active" : ""}">Learn</a>
@@ -827,6 +831,10 @@
             <a href="#/listed" class="mobile-drawer-link ${currentView === 'listed' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">📈</span>
               <span>Listed IPOs</span>
+            </a>
+            <a href="#/movers" class="mobile-drawer-link ${state.route.moversFilter ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <span class="link-icon">⚡</span>
+              <span>Top Gainers &amp; Losers</span>
             </a>
             <a href="#/gmp" class="mobile-drawer-link ${currentView === 'gmp' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <span class="link-icon">📊</span>
@@ -1344,6 +1352,8 @@
     {
       name: "Britannia Industries",
       logo: "assets/movers/britannia.png",
+      initials: "BI",
+      gradient: "linear-gradient(135deg, #DC2626, #991B1B)",
       price: "₹4,930.00",
       change: "295.00 (6.36%)",
       isGain: true,
@@ -1353,6 +1363,8 @@
     {
       name: "BSE",
       logo: "assets/movers/bse.png",
+      initials: "BSE",
+      gradient: "linear-gradient(135deg, #2563EB, #1D4ED8)",
       price: "₹3,665.70",
       change: "175.70 (5.03%)",
       isGain: true,
@@ -1362,6 +1374,8 @@
     {
       name: "Nestle India",
       logo: "assets/movers/nestle.png",
+      initials: "NI",
+      gradient: "linear-gradient(135deg, #0284C7, #0369A1)",
       price: "₹1,248.40",
       change: "53.40 (4.47%)",
       isGain: true,
@@ -1371,6 +1385,8 @@
     {
       name: "Tata Consumer Prod.",
       logo: "assets/movers/tata-consumer.png",
+      initials: "TC",
+      gradient: "linear-gradient(135deg, #0D9488, #0F766E)",
       price: "₹1,073.00",
       change: "44.10 (4.29%)",
       isGain: true,
@@ -1380,6 +1396,8 @@
     {
       name: "Avenue Supermarts",
       logo: "assets/movers/avenue-supermarts.png",
+      initials: "DM",
+      gradient: "linear-gradient(135deg, #16A34A, #15803D)",
       price: "₹3,359.00",
       change: "129.00 (3.99%)",
       isGain: true,
@@ -1389,6 +1407,8 @@
     {
       name: "Asian Paints",
       logo: "assets/movers/asian-paints.png",
+      initials: "AP",
+      gradient: "linear-gradient(135deg, #D97706, #B45309)",
       price: "₹2,437.80",
       change: "93.50 (3.99%)",
       isGain: true,
@@ -1402,6 +1422,8 @@
     {
       name: "Siemens Energy India",
       logo: "assets/movers/siemens-energy.png",
+      initials: "SE",
+      gradient: "linear-gradient(135deg, #0284C7, #0369A1)",
       price: "₹2,846.60",
       change: "-92.80 (3.16%)",
       isGain: false,
@@ -1411,6 +1433,8 @@
     {
       name: "Power Grid Corpn.",
       logo: "assets/movers/power-grid.png",
+      initials: "PG",
+      gradient: "linear-gradient(135deg, #7C3AED, #6D28D9)",
       price: "₹259.55",
       change: "-8.15 (3.04%)",
       isGain: false,
@@ -1420,6 +1444,8 @@
     {
       name: "Hitachi Energy",
       logo: "assets/movers/hitachi-energy.png",
+      initials: "HE",
+      gradient: "linear-gradient(135deg, #DC2626, #991B1B)",
       price: "₹27,280.00",
       change: "-800.00 (2.85%)",
       isGain: false,
@@ -1429,6 +1455,8 @@
     {
       name: "PNB",
       logo: "assets/movers/pnb.png",
+      initials: "PNB",
+      gradient: "linear-gradient(135deg, #B91C1C, #991B1B)",
       price: "₹120.97",
       change: "-2.09 (1.70%)",
       isGain: false,
@@ -1438,6 +1466,8 @@
     {
       name: "State Bank Of India",
       logo: "assets/movers/sbi.png",
+      initials: "SBI",
+      gradient: "linear-gradient(135deg, #0284C7, #075985)",
       price: "₹970.25",
       change: "-16.75 (1.70%)",
       isGain: false,
@@ -1447,6 +1477,8 @@
     {
       name: "Union Bank of India",
       logo: "assets/movers/union-bank.png",
+      initials: "UBI",
+      gradient: "linear-gradient(135deg, #D97706, #B45309)",
       price: "₹183.20",
       change: "-2.80 (1.51%)",
       isGain: false,
@@ -1543,8 +1575,9 @@
                   <tr>
                     <td>
                       <div class="movers-company-cell">
-                        <div class="movers-logo-box">
-                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                        <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#2563EB'}; flex-shrink:0;">
+                          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">${item.initials}</div>
+                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                         </div>
                         <span class="movers-company-name">${item.name}</span>
                       </div>
@@ -1595,8 +1628,9 @@
                   <tr>
                     <td>
                       <div class="movers-company-cell">
-                        <div class="movers-logo-box">
-                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                        <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${item.gradient || '#DC2626'}; flex-shrink:0;">
+                          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">${item.initials}</div>
+                          <img src="${item.logo}" alt="${item.name} logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                         </div>
                         <span class="movers-company-name">${item.name}</span>
                       </div>
@@ -6216,6 +6250,16 @@
       renderGuidePage();
     } else {
       renderDashboardView();
+      if (state.route.moversFilter) {
+        setTimeout(() => {
+          const target = state.route.moversFilter === "losers" ? "losers" : (state.route.moversFilter === "gainers" ? "gainers" : "both");
+          if (typeof window.switchMoversView === "function") {
+            window.switchMoversView(target);
+          }
+          const el = document.getElementById("market-movers-section");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 80);
+      }
     }
 
     window.scrollTo({ top: 0, behavior: "instant" });

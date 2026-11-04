@@ -18,7 +18,7 @@
         }
 
         // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
-        var CURRENT_VERSION = 'v20261104_v36';
+        var CURRENT_VERSION = 'v20261104_v45';
         try {
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -209,7 +209,7 @@
               "name": "Which IPOs are currently open for bidding?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Currently, 5 SME IPOs are open for bidding: Vectras Enprocon (BSE SME), Maxwell Engineering Solutions (NSE SME), Johnsoncab Electricals (BSE SME), HGS India (NSE SME), and Vedant Poly Fabs Solutions (NSE SME). Bombay Coated & Special Steels is listed on BSE & NSE."
+                "text": "Currently, Antala Industries (BSE SME) is open for public bidding until November 5, 2026. Vedant Poly Fabs Solutions concluded bidding on November 4 at 5:00 PM IST with 1.90x total subscription and is awaiting basis of allotment on November 5 via Cameo Corporate Services. Bombay Coated & Special Steels lists on November 5, while Swiggy and ACME Solar Holdings open on November 6, 2026."
               }
             },
             {
@@ -329,7 +329,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261104_v43">
+    <link rel="stylesheet" href="styles.css?v=20261104_v45">
 
     <!-- Google tag (gtag.js) - Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
@@ -363,6 +363,7 @@
           <a href="#/open" class="nav-tab-link">Open IPOs</a>
           <a href="#/upcoming" class="nav-tab-link">Upcoming</a>
           <a href="#/listed" class="nav-tab-link">Listed</a>
+          <a href="#/movers" class="nav-tab-link">Gainers &amp; Losers</a>
           <a href="#/gmp" class="nav-tab-link">GMP</a>
           <a href="#/calendar" class="nav-tab-link">Calendar</a>
           <a href="#/guide" class="nav-tab-link">Learn</a>
@@ -432,7 +433,7 @@
         <section class="fig1-summary-grid" aria-label="IPO Market Overview">
           <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" title="Click to view Open IPOs">
             <div class="fig1-card-content">
-              <div class="fig1-stat-num">2</div>
+              <div class="fig1-stat-num">1</div>
               <div class="fig1-stat-label">Open IPOs</div>
             </div>
             <div class="fig1-icon-badge fig1-badge-green">
@@ -442,7 +443,7 @@
 
           <div class="fig1-summary-card fig1-border-blue clickable" id="fig1-card-upcoming" title="Click to view Upcoming IPOs">
             <div class="fig1-card-content">
-              <div class="fig1-stat-num">26</div>
+              <div class="fig1-stat-num">25</div>
               <div class="fig1-stat-label">Upcoming IPOs</div>
             </div>
             <div class="fig1-icon-badge fig1-badge-blue">
@@ -462,7 +463,7 @@
 
           <div class="fig1-summary-card fig1-border-orange clickable" id="fig1-card-listed" title="Click to view All Listed IPOs">
             <div class="fig1-card-content">
-              <div class="fig1-stat-num">167+</div>
+              <div class="fig1-stat-num">172+</div>
               <div class="fig1-stat-label">Total Listed</div>
             </div>
             <div class="fig1-icon-badge fig1-badge-orange">
@@ -521,8 +522,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/britannia.png" alt="Britannia Industries logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #DC2626, #991B1B); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">BI</div>
+                              <img src="assets/movers/britannia.png" alt="Britannia Industries logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Britannia Industries</span>
                           </div>
@@ -543,8 +545,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/bse.png" alt="BSE logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #2563EB, #1D4ED8); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">BSE</div>
+                              <img src="assets/movers/bse.png" alt="BSE logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">BSE</span>
                           </div>
@@ -565,8 +568,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/nestle.png" alt="Nestle India logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #0369A1); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">NI</div>
+                              <img src="assets/movers/nestle.png" alt="Nestle India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Nestle India</span>
                           </div>
@@ -587,8 +591,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/tata-consumer.png" alt="Tata Consumer Prod. logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0D9488, #0F766E); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">TC</div>
+                              <img src="assets/movers/tata-consumer.png" alt="Tata Consumer Prod. logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Tata Consumer Prod.</span>
                           </div>
@@ -609,8 +614,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/avenue-supermarts.png" alt="Avenue Supermarts logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #16A34A, #15803D); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">DM</div>
+                              <img src="assets/movers/avenue-supermarts.png" alt="Avenue Supermarts logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Avenue Supermarts</span>
                           </div>
@@ -631,8 +637,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/asian-paints.png" alt="Asian Paints logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #D97706, #B45309); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">AP</div>
+                              <img src="assets/movers/asian-paints.png" alt="Asian Paints logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Asian Paints</span>
                           </div>
@@ -681,8 +688,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/siemens-energy.png" alt="Siemens Energy India logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #0369A1); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">SE</div>
+                              <img src="assets/movers/siemens-energy.png" alt="Siemens Energy India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Siemens Energy India</span>
                           </div>
@@ -703,8 +711,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/power-grid.png" alt="Power Grid Corpn. logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #7C3AED, #6D28D9); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">PG</div>
+                              <img src="assets/movers/power-grid.png" alt="Power Grid Corpn. logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Power Grid Corpn.</span>
                           </div>
@@ -725,8 +734,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/hitachi-energy.png" alt="Hitachi Energy logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #DC2626, #991B1B); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">HE</div>
+                              <img src="assets/movers/hitachi-energy.png" alt="Hitachi Energy logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Hitachi Energy</span>
                           </div>
@@ -747,8 +757,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/pnb.png" alt="PNB logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #B91C1C, #991B1B); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">PNB</div>
+                              <img src="assets/movers/pnb.png" alt="PNB logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">PNB</span>
                           </div>
@@ -769,8 +780,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/sbi.png" alt="State Bank Of India logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #075985); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">SBI</div>
+                              <img src="assets/movers/sbi.png" alt="State Bank Of India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">State Bank Of India</span>
                           </div>
@@ -791,8 +803,9 @@
                       <tr>
                         <td>
                           <div class="movers-company-cell">
-                            <div class="movers-logo-box">
-                              <img src="assets/movers/union-bank.png" alt="Union Bank of India logo" width="44" height="44" class="movers-logo-img" loading="lazy" />
+                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #D97706, #B45309); flex-shrink:0;">
+                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">UBI</div>
+                              <img src="assets/movers/union-bank.png" alt="Union Bank of India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
                             </div>
                             <span class="movers-company-name">Union Bank of India</span>
                           </div>
@@ -962,7 +975,7 @@
                     <div class="fig1-avatar" style="width:34px; height:34px; font-size:12px; background:linear-gradient(135deg, #0EA5E9, #0284C7); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">VP</div>
                     <div style="display:flex; flex-direction:column;">
                       <span class="fig1-company-name" style="font-size:13.5px;">Vedant Poly Fabs Solutions</span>
-                      <span style="font-size:10.5px; color:#16A34A; font-weight:600;">🟢 Open Now</span>
+                      <span style="font-size:10.5px; color:#DC2626; font-weight:600;">🔴 Bidding Closed</span>
                     </div>
                   </div>
                   <div style="text-align:right;">
@@ -1078,15 +1091,15 @@
                   </div>
                 </div>
                 <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/vedant-poly-fabs-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-open">
+                  <div class="fig1-cal-date-badge date-badge-closed">
                     <span class="fig1-cal-day">04</span>
                     <span class="fig1-cal-month">NOV</span>
                   </div>
                   <div class="fig1-cal-info">
                     <span class="fig1-cal-name">Vedant Poly Fabs Solutions</span>
                     <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill open">Closes Soon</span>
-                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
+                      <span class="fig1-cal-status-pill closed" style="background:#FEF2F2; color:#DC2626;">Bidding Closed</span>
+                      <span style="font-size:11px; color:#64748B;">Allotment: 05 Nov</span>
                     </div>
                   </div>
                 </div>
@@ -1187,7 +1200,7 @@
                   <span class="live-pulse" style="margin-left:4px;"></span>
                   <span style="font-size:11.5px; font-weight:700; color:#14532D; background:#DCFCE7; padding:2px 8px; border-radius:12px; border:1px solid #86EFAC;">ACTIVE BIDDING</span>
                 </div>
-                <a href="#/open" class="fig1-header-link">View All (2) &rarr;</a>
+                <a href="#/open" class="fig1-header-link">View All (1) &rarr;</a>
               </div>
               <div class="widget-source-tag">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -1264,62 +1277,6 @@
                     </td>
                   </tr>
 
-                  <!-- Vedant Poly Fabs Solutions -->
-                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/vedant-poly-fabs-ipo'">
-                    <td>
-                      <div class="fig1-company-cell">
-                        <div class="fig1-avatar" style="width:36px; height:36px; font-size:13px; background:linear-gradient(135deg, #0EA5E9, #0284C7); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">VP</div>
-                        <div class="fig1-company-name-wrap">
-                          <span class="fig1-company-name">Vedant Poly Fabs Solutions</span>
-                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div style="font-size:12.5px; font-weight:600; color:#111827;">02 Nov 2026</div>
-                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 04 Nov 2026</div>
-                    </td>
-                    <td><span class="fig1-val-price">₹88 – 94</span></td>
-                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">1200 shares</span></td>
-                    <td><span class="fig1-return-tag positive">+₹15 (15.96%)</span></td>
-                    <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-vedant-poly-fabs-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('vedant-poly-fabs-ipo') : (window.location.hash='#/ipo/vedant-poly-fabs-ipo')">More Details ▾</button></td>
-                  </tr>
-                  <tr id="open-ipo-expand-vedant-poly-fabs-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
-                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
-                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹56.68 Cr</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹2,11,200 (2400 shares)</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">05 Nov 2026</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">07 Nov 2026</div>
-                          </div>
-                        </div>
-                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
-                          <div style="font-size:13px; color:#475569;">
-                            <strong>Registrar:</strong> Cameo Corporate Services Limited • <strong style="color:#16A34A;">Est. Listing:</strong> ₹109 (+15.96%)
-                          </div>
-                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                            <a href="#/ipo/vedant-poly-fabs-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
-                            <a href="https://ipo.cameoindia.com/" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
-                            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:700; border-radius:8px;">Apply Now</a>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-
                 </tbody>
               </table>
             </div>
@@ -1372,57 +1329,6 @@
                   <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
                     <a href="#/ipo/antala-industries-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
                     <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
-                    <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply Now</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Vedant Poly Fabs Solutions -->
-              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/vedant-poly-fabs-ipo'" style="cursor:pointer;">
-                <div class="mobile-open-top-row">
-                  <div class="mobile-open-brand">
-                    <div class="fig1-avatar" style="width:36px; height:36px; font-size:13px; background:linear-gradient(135deg, #0EA5E9, #0284C7); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">VP</div>
-                    <div>
-                      <h3 class="mobile-open-name">Vedant Poly Fabs Solutions</h3>
-                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
-                    </div>
-                  </div>
-                  <span class="status-badge open">Open</span>
-                </div>
-                <div class="mobile-open-specs-grid">
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Bidding Window</span>
-                    <span class="mobile-spec-val">02 Nov &ndash; 04 Nov</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Price Band</span>
-                    <span class="mobile-spec-val">&inr;88 &ndash; 94</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Lot Size</span>
-                    <span class="mobile-spec-val">1200 shares</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Live GMP</span>
-                    <span class="fig1-return-tag positive">+&inr;15 (15.96%)</span>
-                  </div>
-                </div>
-                <button id="mobile-open-btn-vedant-poly-fabs-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('vedant-poly-fabs-ipo') : null">
-                  More Details &blacktriangledown;
-                </button>
-                <div id="mobile-open-expand-vedant-poly-fabs-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
-                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
-                    <div><span style="color:#64748B;">Issue Size:</span> <strong>&inr;56.68 Cr</strong></div>
-                    <div><span style="color:#64748B;">Min Inv:</span> <strong>&inr;2,11,200</strong></div>
-                    <div><span style="color:#64748B;">Allotment:</span> <strong>05 Nov 2026</strong></div>
-                    <div><span style="color:#64748B;">Listing:</span> <strong>07 Nov 2026</strong></div>
-                  </div>
-                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
-                    <strong>Registrar:</strong> Cameo Corporate Services Limited &bull; <strong style="color:#16A34A;">Est. Listing:</strong> &inr;109 (+15.96%)
-                  </div>
-                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
-                    <a href="#/ipo/vedant-poly-fabs-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
-                    <a href="https://ipo.cameoindia.com/" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
                     <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply Now</a>
                   </div>
                 </div>
@@ -1701,10 +1607,10 @@
         });
       }
     </script>
-    <script src="subscribers.js?v=20261104_v43"></script>
-    <script src="data/ipo-data.js?v=20261104_v43" defer></script>
-    <script src="data/listed-gains-data.js?v=20261104_v43" defer></script>
-    <script src="app.js?v=20261104_v43" defer></script>
+    <script src="subscribers.js?v=20261104_v45"></script>
+    <script src="data/ipo-data.js?v=20261104_v45" defer></script>
+    <script src="data/listed-gains-data.js?v=20261104_v45" defer></script>
+    <script src="app.js?v=20261104_v45" defer></script>
 
     <!-- Infolinks Monetization -->
     <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>
