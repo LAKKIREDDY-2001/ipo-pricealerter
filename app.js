@@ -1527,7 +1527,7 @@
     }
   ];
 
-  // Define Market Shakers (Vol weekly change 1D) exactly from verified Groww capture
+  // Define the market-shaker display dataset
   const marketShakers = [
     {
       name: "Fractal Analytics",
@@ -3414,7 +3414,7 @@
             <!-- Investor Advisory Note -->
             <div class="gmp-card-note">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE &amp; BSE. Current price &amp; return are synchronized with Groww and exchange disclosures.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
+              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE &amp; BSE. Current market prices are shown only when a timestamped quote is available.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
             </div>
           </div>
         </div>
@@ -4577,7 +4577,7 @@
           <div>
             <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
             <p style="font-size:14px; color:#64748B; margin:0;">
-              Calculate exact profit based on real-time live stock prices (CMP) and simulate estimated listing returns synchronized with Tapetide market feeds.
+              Calculate indicative profit using available timestamped market prices and estimated listing returns.
             </p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
@@ -4643,7 +4643,7 @@
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(25)">+25%</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(50)">+50%</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(100)">2X Double</button>
-                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Tapetide / Exchange Synced</span>
+                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Timestamped Market Quotes</span>
               </div>
             </div>
 
@@ -5705,7 +5705,7 @@
             <div>
               <span style="font-size:11px; font-weight:700; color:#047857; background:#ECFDF5; padding:2px 8px; border-radius:10px;">Step-by-Step Tutorial</span>
               <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">How to Apply for an IPO (UPI &amp; ASBA)</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Step-by-step bidding tutorial via Zerodha, Groww, Upstox, and net banking without broker commissions.</p>
+              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Step-by-step bidding tutorial using your broker's platform or bank net banking.</p>
             </div>
             <a href="/blog/how-to-apply-for-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
@@ -5777,7 +5777,7 @@
             <div>
               <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:#EFF6FF; padding:2px 8px; border-radius:10px;">Account Setup</span>
               <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Open a Demat Account for IPOs</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Best discount brokers (Zerodha, Groww, AngelOne), KYC documents, and UPI handle setup.</p>
+              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">How to choose a registered broker, prepare KYC documents, and set up a UPI handle.</p>
             </div>
             <a href="/blog/how-to-open-demat-account-for-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
