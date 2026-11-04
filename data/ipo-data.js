@@ -1,6 +1,6 @@
 window.IpoData = {
-  "updatedAt": "2026-11-15T18:00:00+05:30",
-  "source": "Verified Live Feeds (Chittorgarh, NSE India, BSE India, Groww, IPO Watch, IPO Gyani, InvestorGain)",
+  "updatedAt": "2026-11-04T18:00:00+05:30",
+  "source": "Partial manual audit against NSE India and issuer records; individual source links and per-record timestamps still required for full verification.",
   "stats": {
     "openCount": 2,
     "closedCount": 9,
