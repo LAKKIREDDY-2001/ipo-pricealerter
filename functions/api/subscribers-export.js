@@ -5,13 +5,14 @@ export async function onRequestGet({ request, env }) {
   }
 
   const rows = [["Email", "Subscribed At (UTC)", "Source", "Status", "Consent"]];
+  const kv = env && (env.SUBSCRIBERS || env.KV);
 
-  if (env && env.SUBSCRIBERS) {
+  if (kv) {
     let cursor;
     do {
-      const page = await env.SUBSCRIBERS.list({ prefix: "subscriber:", cursor, limit: 1000 });
+      const page = await kv.list({ prefix: "subscriber:", cursor, limit: 1000 });
       for (const item of page.keys) {
-        const raw = await env.SUBSCRIBERS.get(item.name);
+        const raw = await kv.get(item.name);
         if (!raw) continue;
         try {
           const r = JSON.parse(raw);

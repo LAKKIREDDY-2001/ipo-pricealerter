@@ -19,10 +19,11 @@ export async function onRequestPost({ request, env }) {
   const dateStr = new Date().toISOString();
   const key = "subscriber:" + await sha256(email);
 
-  // 1. If Cloudflare KV is bound, check for duplicate and store securely
-  if (env && env.SUBSCRIBERS) {
+  // 1. Support both env.SUBSCRIBERS and env.KV
+  const kv = env && (env.SUBSCRIBERS || env.KV);
+  if (kv) {
     try {
-      const existing = await env.SUBSCRIBERS.get(key);
+      const existing = await kv.get(key);
       if (existing) {
         return Response.json({ message: "This email is already subscribed." }, { status: 409 });
       }
@@ -33,7 +34,7 @@ export async function onRequestPost({ request, env }) {
         status: "active",
         consent: true
       };
-      await env.SUBSCRIBERS.put(key, JSON.stringify(record));
+      await kv.put(key, JSON.stringify(record));
     } catch (kvErr) {
       console.warn("KV storage warning:", kvErr);
     }

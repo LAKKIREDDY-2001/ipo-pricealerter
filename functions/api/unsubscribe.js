@@ -13,10 +13,11 @@ export async function onRequestPost({ request, env }) {
     return Response.json({ message: "Please enter a valid email address." }, { status: 400 });
   }
 
-  if (env && env.SUBSCRIBERS) {
+  const kv = env && (env.SUBSCRIBERS || env.KV);
+  if (kv) {
     try {
       const key = "subscriber:" + await sha256(email);
-      await env.SUBSCRIBERS.delete(key);
+      await kv.delete(key);
     } catch (e) {}
   }
 
