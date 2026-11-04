@@ -1527,7 +1527,7 @@
     }
   ];
 
-  // Define Market Shakers (Vol weekly change 1D) exactly from verified Groww capture
+  // Define the market-shaker display dataset
   const marketShakers = [
     {
       name: "Fractal Analytics",
@@ -1713,9 +1713,10 @@
   function updateDashboardMoversInPlace() {
     const data = state.liveMarketData;
     if (!data) return;
-    const gainersList = (data.marketGainers && data.marketGainers.length) ? data.marketGainers : marketGainers;
-    const losersList = (data.marketLosers && data.marketLosers.length) ? data.marketLosers : marketLosers;
-    const shakersList = (data.marketShakers && data.marketShakers.length) ? data.marketShakers : marketShakers;
+    const isUsableQuote = stock => stock && stock.quoteVerified === true && stock.quoteTimestamp && stock.quoteSource && Number.isFinite(Number(stock.rawPrice)) && Number(stock.rawPrice) > 0;
+    const gainersList = (Array.isArray(data.marketGainers) ? data.marketGainers : []).filter(isUsableQuote);
+    const losersList = (Array.isArray(data.marketLosers) ? data.marketLosers : []).filter(isUsableQuote);
+    const shakersList = (Array.isArray(data.marketShakers) ? data.marketShakers : []).filter(isUsableQuote);
 
     const gBody = document.getElementById("movers-gainers-tbody");
     if (gBody) gBody.innerHTML = renderMoversTableRows(gainersList, true);
@@ -1729,8 +1730,9 @@
 
   function renderFig1TrendingTable() {
     const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
-    const gainersList = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : marketGainers;
-    const losersList = (data && data.marketLosers && data.marketLosers.length) ? data.marketLosers : marketLosers;
+    const isUsableQuote = stock => stock && stock.quoteVerified === true && stock.quoteTimestamp && stock.quoteSource && Number.isFinite(Number(stock.rawPrice)) && Number(stock.rawPrice) > 0;
+    const gainersList = (data && Array.isArray(data.marketGainers) ? data.marketGainers : []).filter(isUsableQuote);
+    const losersList = (data && Array.isArray(data.marketLosers) ? data.marketLosers : []).filter(isUsableQuote);
 
     return `
       <div class="movers-container" id="market-movers-section">
@@ -1738,7 +1740,7 @@
         <div class="movers-filter-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
           <div style="display:flex; align-items:center; gap:8px;">
             <h2 class="fig1-panel-title" style="margin:0; font-size:18px;">📊 Today's Market Movers</h2>
-            <div class="widget-source-tag">Groww &amp; Tapetide Synced</div>
+            <div class="widget-source-tag">Timestamped provider quotes</div>
           </div>
           <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers View Selection">
             <button type="button" class="movers-tab-btn active" id="tab-btn-both" onclick="window.switchMoversView('both')" role="tab" aria-selected="true">
@@ -3412,7 +3414,7 @@
             <!-- Investor Advisory Note -->
             <div class="gmp-card-note">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE &amp; BSE. Current price &amp; return are synchronized with Groww and exchange disclosures.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
+              <span><strong>Advisory Note:</strong> ${ipo.status === 'LISTED' ? 'This stock is officially listed on NSE &amp; BSE. Current market prices are shown only when a timestamped quote is available.' : 'GMP is an unregulated sentiment indicator and subject to rapid market changes. It is NOT guaranteed listing returns. Always refer to official RHP filings.'}</span>
             </div>
           </div>
         </div>
@@ -4575,7 +4577,7 @@
           <div>
             <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
             <p style="font-size:14px; color:#64748B; margin:0;">
-              Calculate exact profit based on real-time live stock prices (CMP) and simulate estimated listing returns synchronized with Tapetide market feeds.
+              Calculate indicative profit using available timestamped market prices and estimated listing returns.
             </p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
@@ -4641,7 +4643,7 @@
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(25)">+25%</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(50)">+50%</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(100)">2X Double</button>
-                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Tapetide / Exchange Synced</span>
+                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Timestamped Market Quotes</span>
               </div>
             </div>
 
@@ -5016,12 +5018,6 @@
             </a>
             <a href="https://marketdata.bseindia.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#0F766E; text-decoration:none; background:#F0FDFA; padding:4px 10px; border-radius:6px; border:1px solid #CCFBF1;">
               🏢 BSE Market Data Portal
-            </a>
-            <a href="https://dhan.co/ipo/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#6D28D9; text-decoration:none; background:#F5F3FF; padding:4px 10px; border-radius:6px; border:1px solid #EDE9FE;">
-              📱 Dhan Primary Markets
-            </a>
-            <a href="https://tapetide.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#C2410C; text-decoration:none; background:#FFF7ED; padding:4px 10px; border-radius:6px; border:1px solid #FFEDD5;">
-              🌊 Tapetide Intelligence
             </a>
           </div>
           <div style="font-size:11.5px; color:#64748B; font-weight:500;">
@@ -5703,7 +5699,7 @@
             <div>
               <span style="font-size:11px; font-weight:700; color:#047857; background:#ECFDF5; padding:2px 8px; border-radius:10px;">Step-by-Step Tutorial</span>
               <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">How to Apply for an IPO (UPI &amp; ASBA)</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Step-by-step bidding tutorial via Zerodha, Groww, Upstox, and net banking without broker commissions.</p>
+              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Step-by-step bidding tutorial using your broker's platform or bank net banking.</p>
             </div>
             <a href="/blog/how-to-apply-for-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
@@ -5775,7 +5771,7 @@
             <div>
               <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:#EFF6FF; padding:2px 8px; border-radius:10px;">Account Setup</span>
               <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Open a Demat Account for IPOs</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Best discount brokers (Zerodha, Groww, AngelOne), KYC documents, and UPI handle setup.</p>
+              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">How to choose a registered broker, prepare KYC documents, and set up a UPI handle.</p>
             </div>
             <a href="/blog/how-to-open-demat-account-for-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
@@ -6596,7 +6592,7 @@
     if (!recordsList || recordsList.length === 0) {
       return `
         <tr>
-          <td colspan="10" style="text-align:center; padding:36px; color:#64748B;">
+          <td colspan="11" style="text-align:center; padding:36px; color:#64748B;">
             No listed companies found matching your criteria. Try adjusting the search query or selecting another year.
           </td>
         </tr>
@@ -6638,7 +6634,8 @@
           </td>
           <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${formatDate(r.listedDate)}</span></td>
           <td><span class="fig1-val-price">${r.issuePrice ? '₹' + Number(r.issuePrice).toLocaleString('en-IN') : '—'}</span></td>
-          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice != null ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingDayClose != null ? '₹' + Number(r.listingDayClose).toLocaleString('en-IN') : '—'}</span></td>
           <td>
             <span class="fig1-return-tag ${gainClass}">${gainText}</span>
           </td>
@@ -6707,14 +6704,18 @@
             <span class="fig1-return-tag ${gainClass}">${gainText}</span>
           </div>
 
-          <div class="mobile-open-specs-grid" style="grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <div class="mobile-open-specs-grid" style="grid-template-columns:repeat(4, 1fr); gap:8px;">
             <div class="mobile-spec-item">
               <span class="mobile-spec-label">Issue Price</span>
               <span class="mobile-spec-val">${r.issuePrice ? '₹' + r.issuePrice : '—'}</span>
             </div>
             <div class="mobile-spec-item">
-              <span class="mobile-spec-label">Listing Price</span>
-              <span class="mobile-spec-val">${r.listingPrice ? '₹' + r.listingPrice : '—'}</span>
+              <span class="mobile-spec-label">Listing Open</span>
+              <span class="mobile-spec-val">${r.listingPrice != null ? '₹' + r.listingPrice : '—'}</span>
+            </div>
+            <div class="mobile-spec-item">
+              <span class="mobile-spec-label">Listing Close</span>
+              <span class="mobile-spec-val">${r.listingDayClose != null ? '₹' + r.listingDayClose : '—'}</span>
             </div>
             <div class="mobile-spec-item">
               <span class="mobile-spec-label">Subscribed</span>
@@ -6983,8 +6984,9 @@
                   <th>SEGMENT</th>
                   <th>LISTING DATE</th>
                   <th>ISSUE PRICE</th>
-                  <th>LISTING PRICE</th>
-                  <th>LISTING GAIN</th>
+                  <th>LISTING OPEN</th>
+                  <th>LISTING DAY CLOSE</th>
+                  <th>OPENING GAIN</th>
                   <th>SUBSCRIPTION</th>
                   <th>ISSUE SIZE</th>
                   <th>CURRENT PRICE</th>
@@ -7440,7 +7442,7 @@
           updateDashboardMoversInPlace();
         }
         if (manual) {
-          showToast("⚡ Real-time quotes synced from Tapetide / Exchange feeds!", "success");
+          showToast("Market feed refreshed; check each quote's source and timestamp.", "success");
         }
       })
       .catch(() => {});
