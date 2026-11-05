@@ -76,6 +76,16 @@ function getChromeBinary() {
   return 'google-chrome';
 }
 
+async function waitForCondition(checkFn, timeoutMs = 15000, intervalMs = 250) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const val = await checkFn();
+    if (val) return val;
+    await new Promise(r => setTimeout(r, intervalMs));
+  }
+  return await checkFn();
+}
+
 async function run() {
   let server = null;
   let chromeProc = null;
@@ -141,7 +151,6 @@ async function run() {
       }
       if (msg.method === 'Console.messageAdded' && msg.params.message.level === 'error') {
         const txt = msg.params.message.text;
-        // Ignore known benign external ad/analytics tracker blocks in headless CI
         if (!txt.includes('infolinks') && !txt.includes('googletagmanager') && !txt.includes('adsbygoogle')) {
           consoleErrors.push(txt);
           console.error('[Browser Console Error]:', txt);
@@ -163,27 +172,32 @@ async function run() {
 
     console.log('\n--- Test 1: Validate #/listed Route ---');
     await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/#/listed` });
-    await new Promise(r => setTimeout(r, 3000));
 
     const checkListed = `
       (() => {
         const rows = document.querySelectorAll("#listed-table-body tr").length;
         const cards = document.querySelectorAll("#listed-cards-body .mobile-open-card").length;
         const kpi = document.getElementById("listed-kpi-total-val")?.innerText?.trim() || "";
-        return { rows, cards, kpi };
+        const readyState = document.readyState;
+        return { rows, cards, kpi, readyState };
       })()
     `;
-    const resListed = await send('Runtime.evaluate', { expression: checkListed, returnByValue: true });
-    const listedData = resListed?.result?.value || {};
-    console.log(`[SmokeTest] #/listed result: Rows = ${listedData.rows}, Cards = ${listedData.cards}, KPI = ${listedData.kpi}`);
 
-    if (!listedData.rows || listedData.rows === 0) {
-      throw new Error(`CRITICAL FAIL: #/listed rendered 0 table rows!`);
+    const listedData = await waitForCondition(async () => {
+      const res = await send('Runtime.evaluate', { expression: checkListed, returnByValue: true });
+      const val = res?.result?.value || {};
+      if (val.rows > 0) return val;
+      return null;
+    }, 15000, 300);
+
+    console.log(`[SmokeTest] #/listed result: Rows = ${listedData?.rows || 0}, Cards = ${listedData?.cards || 0}, KPI = ${listedData?.kpi || 'N/A'}`);
+
+    if (!listedData || !listedData.rows || listedData.rows === 0) {
+      throw new Error(`CRITICAL FAIL: #/listed rendered 0 table rows after timeout!`);
     }
 
     console.log('\n--- Test 2: Validate #/live-prices Route ---');
     await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/#/live-prices` });
-    await new Promise(r => setTimeout(r, 3000));
 
     const checkLive = `
       (() => {
@@ -192,17 +206,22 @@ async function run() {
         return { cards, searchInput };
       })()
     `;
-    const resLive = await send('Runtime.evaluate', { expression: checkLive, returnByValue: true });
-    const liveData = resLive?.result?.value || {};
-    console.log(`[SmokeTest] #/live-prices result: Cards = ${liveData.cards}, SearchBox = ${liveData.searchInput}`);
 
-    if (!liveData.cards || liveData.cards === 0) {
-      throw new Error(`CRITICAL FAIL: #/live-prices rendered 0 stock cards!`);
+    const liveData = await waitForCondition(async () => {
+      const res = await send('Runtime.evaluate', { expression: checkLive, returnByValue: true });
+      const val = res?.result?.value || {};
+      if (val.cards > 0) return val;
+      return null;
+    }, 15000, 300);
+
+    console.log(`[SmokeTest] #/live-prices result: Cards = ${liveData?.cards || 0}, SearchBox = ${liveData?.searchInput || false}`);
+
+    if (!liveData || !liveData.cards || liveData.cards === 0) {
+      throw new Error(`CRITICAL FAIL: #/live-prices rendered 0 stock cards after timeout!`);
     }
 
     console.log('\n--- Test 3: Validate Home Page & Performance Widget ---');
     await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/#/` });
-    await new Promise(r => setTimeout(r, 2000));
 
     const checkHome = `
       (() => {
@@ -211,11 +230,17 @@ async function run() {
         return { hasOpenSection, hasPerfSection };
       })()
     `;
-    const resHome = await send('Runtime.evaluate', { expression: checkHome, returnByValue: true });
-    const homeData = resHome?.result?.value || {};
-    console.log(`[SmokeTest] Home result: OpenSection = ${homeData.hasOpenSection}, PerfSection = ${homeData.hasPerfSection}`);
 
-    if (!homeData.hasOpenSection) {
+    const homeData = await waitForCondition(async () => {
+      const res = await send('Runtime.evaluate', { expression: checkHome, returnByValue: true });
+      const val = res?.result?.value || {};
+      if (val.hasOpenSection) return val;
+      return null;
+    }, 15000, 300);
+
+    console.log(`[SmokeTest] Home result: OpenSection = ${homeData?.hasOpenSection}, PerfSection = ${homeData?.hasPerfSection}`);
+
+    if (!homeData || !homeData.hasOpenSection) {
       throw new Error(`CRITICAL FAIL: Home page did not render open IPOs section!`);
     }
 
