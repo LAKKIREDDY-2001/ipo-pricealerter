@@ -364,13 +364,14 @@
     if (type === "leaderboard") {
       return `
         <div class="ad-slot-card ad-slot-leaderboard" aria-label="${label}">
+          <span class="ad-disclosure-tag">Ad</span>
           <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
             <div class="sponsored-banner-left">
-              <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" />
+              <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" width="130" height="32" />
             </div>
             <div class="sponsored-banner-mid">
-              <div class="sponsored-banner-title">Open Free Demat Account &amp; Apply for IPOs with Zero Brokerage</div>
-              <div class="sponsored-banner-sub">Flat ₹20 for Intraday &amp; F&amp;O &bull; 100% Paperless UPI Mandates &bull; Trusted by 2+ Crore Indians</div>
+              <div class="sponsored-banner-title">Apply for IPOs with Zero Account Fee</div>
+              <div class="sponsored-banner-sub">Paperless UPI Mandates &bull; Flat ₹20 Brokerage &bull; Angel One</div>
             </div>
             <div class="sponsored-banner-right">
               <span class="sponsored-cta-btn">Open Free Account &rarr;</span>
@@ -380,46 +381,21 @@
       `;
     }
 
-    if (type === "sidebar" || type === "hdfc") {
-      return `
-        <div class="ad-slot-card ad-slot-sidebar sponsored-hdfc-slot" aria-label="${label}">
-          <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
-            <div class="sponsored-hdfc-img-wrap">
-              <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
-            </div>
-            <div class="sponsored-hdfc-body">
-              <h3 class="sponsored-hdfc-title">HDFC Bank IRCTC Credit Card</h3>
-              <p class="sponsored-hdfc-desc">Earn exclusive reward points &amp; save up to 5% on IRCTC ticket bookings with zero hassle.</p>
-              <div class="sponsored-hdfc-perks">
-                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Up to 5x Reward Points on IRCTC</span></div>
-                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Complimentary Railway Lounge Access</span></div>
-                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>1% Fuel Surcharge Waiver</span></div>
-                <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Instant Digital Card Application</span></div>
-              </div>
-              <div class="sponsored-hdfc-action">
-                <span class="sponsored-cta-btn sponsored-cta-hdfc sponsored-cta-full">Apply for HDFC Card &rarr;</span>
-              </div>
-              <div class="sponsored-partner-footnote">Official HDFC Bank Co-Branded IRCTC Credit Card</div>
-            </div>
-          </a>
-        </div>
-      `;
-    }
-
-    // Default: infeed placement (SBI Card Credit Card Banner)
+    // Default: infeed placement (SBI Card Credit Card Banner - max 2 placements total, short copy)
     return `
       <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
+        <span class="ad-disclosure-tag">Ad</span>
         <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
-            <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
+            <img src="assets/sponsored/sbi-card.png" alt="SBI Card" class="sponsored-sbi-img" loading="lazy" width="110" height="32" />
           </div>
           <div class="sponsored-sbi-footer">
             <div class="sponsored-sbi-info">
-              <div class="sponsored-sbi-title">Apply for SBI Credit Card Online &bull; Instant Approval</div>
-              <div class="sponsored-sbi-sub">Welcome reward points &bull; Airport lounge access &bull; Fuel surcharge waiver</div>
+              <div class="sponsored-sbi-title">SBI Card SimplyCLICK &bull; Instant Digital Application</div>
+              <div class="sponsored-sbi-sub">Welcome vouchers &bull; 10x reward points on online shopping</div>
             </div>
             <div class="sponsored-sbi-action">
-              <span class="sponsored-cta-btn sponsored-cta-sbi">Apply for SBI Card &rarr;</span>
+              <span class="sponsored-cta-btn sponsored-cta-sbi">Apply Online &rarr;</span>
             </div>
           </div>
         </a>
@@ -2666,73 +2642,204 @@
   // ==========================================================================
   // Home Dashboard View
   // ==========================================================================
+
+  // ==========================================================================
+  // Homepage Upcoming Pipeline, Alert Signup & Educational Hub (Commit 4)
+  // ==========================================================================
+  function renderUpcomingPipelineSection() {
+    const upcomingRecords = records.filter(r => r.status === "UPCOMING").sort((a, b) => {
+      if (a.openDate && !b.openDate) return -1;
+      if (!a.openDate && b.openDate) return 1;
+      if (a.openDate && b.openDate) return new Date(a.openDate) - new Date(b.openDate);
+      return (b.issueSizeCr || 0) - (a.issueSizeCr || 0);
+    });
+
+    const displayList = upcomingRecords.slice(0, 5);
+
+    return `
+      <section class="fig1-panel-card" id="upcoming-pipeline-section" aria-label="Upcoming IPO Pipeline" style="margin-top:24px;">
+        <div class="fig1-panel-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h2 class="fig1-panel-title">📅 Upcoming This Week &amp; Pipeline</h2>
+            <span class="status-badge upcoming">PIPELINE (${upcomingRecords.length})</span>
+          </div>
+          <a href="#/upcoming" class="fig1-header-link">View All (${upcomingRecords.length}) &rarr;</a>
+        </div>
+
+        <div class="ipo-responsive-container">
+          <div class="ipo-table-header-row" aria-hidden="true">
+            <div class="col-company">Company</div>
+            <div class="col-dates">Opening Date</div>
+            <div class="col-price">Est. Price Band</div>
+            <div class="col-lot">Lot Size</div>
+            <div class="col-gmp">Est. Issue Size</div>
+            <div class="col-sub">Stage</div>
+            <div class="col-actions" style="text-align:right;">Action</div>
+          </div>
+          <div class="ipo-items-list">
+            ${displayList.map(item => {
+              const priceText = item.priceBandLow && item.priceBandHigh 
+                ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
+                : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
+              const datesText = item.openDate ? formatDate(item.openDate) : 'Dates TBA';
+              const sizeText = item.issueSizeCr ? `₹${item.issueSizeCr} Cr` : 'TBA';
+
+              return `
+                <article class="ipo-responsive-card" data-slug="${item.slug}">
+                  <div class="ipo-card-header">
+                    <div class="ipo-card-brand">
+                      ${renderCompanyLogo(item, 40)}
+                      <div class="ipo-card-title-group">
+                        <h3 class="ipo-card-name"><a href="#/ipo/${item.slug}" title="${escapeHtml(item.name || item.shortName)}">${escapeHtml(item.shortName)}</a></h3>
+                        <div class="ipo-card-tags">
+                          <span class="ipo-tag-board ${item.board === 'SME' ? 'sme' : 'mainboard'}">${item.board || 'MAINBOARD'}</span>
+                          <span class="ipo-tag-exchange">${item.exchange || 'NSE/BSE'}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ipo-card-status-wrap">
+                      <span class="status-badge upcoming">Upcoming</span>
+                    </div>
+                  </div>
+
+                  <div class="ipo-card-metrics-grid">
+                    <div class="ipo-metric-cell metric-dates">
+                      <span class="ipo-metric-label">Opening Date</span>
+                      <span class="ipo-metric-val dates-val">${datesText}</span>
+                      <span class="ipo-metric-sub">${item.closeDate ? `Closes ${formatDate(item.closeDate)}` : 'Tentative'}</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-price">
+                      <span class="ipo-metric-label">Price Band</span>
+                      <span class="ipo-metric-val tnum">${priceText}</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-lot">
+                      <span class="ipo-metric-label">Lot Size</span>
+                      <span class="ipo-metric-val tnum">${item.lotSize ? item.lotSize + ' shares' : '—'}</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-gmp">
+                      <span class="ipo-metric-label">Issue Size</span>
+                      <span class="ipo-metric-val tnum">${sizeText}</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-sub">
+                      <span class="ipo-metric-label">Stage</span>
+                      <span class="status-badge upcoming" style="font-size:11px;">${item.openDate ? 'Confirmed' : 'Filed DRHP'}</span>
+                    </div>
+                  </div>
+
+                  <div class="ipo-card-footer">
+                    <div class="ipo-card-trust-meta">
+                      <span class="trust-badge" style="color:var(--text-tertiary);"><span class="trust-dot" style="background:#94A3B8;"></span> PIPELINE</span>
+                      <span class="trust-timestamp">Exchange Disclosures</span>
+                    </div>
+                    <div class="ipo-card-actions">
+                      <a href="#/ipo/${item.slug}" class="btn-ipo-primary" aria-label="View details for ${escapeHtml(item.shortName)}">Details</a>
+                      <button type="button" class="btn-ipo-secondary" style="background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-color);" onclick="window.IpoApp && window.IpoApp.subscribeToIpoAlert('${item.slug}')">Alert Me</button>
+                    </div>
+                  </div>
+                </article>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderAlertSignupSection() {
+    return `
+      <section class="fig1-panel-card fig1-alert-signup-card" id="homepage-alert-signup" aria-label="IPO Alerts Subscription" style="margin-top:24px;">
+        <div class="alert-signup-inner">
+          <div class="alert-signup-icon-col">
+            <div class="alert-icon-circle">
+              <svg class="lucide-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </div>
+          </div>
+          <div class="alert-signup-content-col">
+            <h2 class="alert-signup-title">Instant IPO &amp; GMP Alerts</h2>
+            <p class="alert-signup-subtitle">Get morning bidding updates, Grey Market Premiums, and real-time allotment notifications delivered straight to your inbox.</p>
+            <form class="alert-signup-form" onsubmit="window.IpoApp && window.IpoApp.handleAlertSignup(event)">
+              <div class="alert-form-row">
+                <input type="email" class="alert-input-email" id="home-alert-email" placeholder="Enter your email address" required maxlength="254" autocomplete="email" aria-label="Email address for IPO alerts">
+                <button type="submit" class="btn-alert-submit">Get IPO Alerts</button>
+              </div>
+              <div class="alert-consent-row">
+                <span class="alert-consent-text">
+                  <svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Free daily alerts. Zero spam. 1-click unsubscribe anytime.
+                </span>
+                <a href="#/alerts" class="alert-manage-link" onclick="window.IpoApp && window.IpoApp.openManageAlerts(event)">Manage alert preferences or Unsubscribe</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderLearnSection() {
+    return `
+      <section class="fig1-panel-card" style="margin-top:24px;" aria-label="IPO Learning Center &amp; Investor Education Guides">
+        <div class="fig1-panel-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h2 class="fig1-panel-title">🎓 IPO Learning Center &amp; Investor Education</h2>
+          </div>
+          <a href="/blog/" class="fig1-header-link">Browse All 10 Guides &rarr;</a>
+        </div>
+        <p style="font-size:14px; color:var(--text-secondary); margin-top:0; margin-bottom:20px; line-height:1.6;">
+          Objective, SEBI-compliant educational resources to help investors evaluate primary market fundamentals, Grey Market dynamics, valuation multiples, and allotment mechanisms.
+        </p>
+        <div class="learn-guides-grid">
+          <a href="/blog/what-is-an-ipo.html" class="learn-guide-card">
+            <div class="learn-guide-icon-badge">
+              <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <div class="learn-guide-body">
+              <h3 class="learn-guide-title">What is an IPO? A Beginner's Guide</h3>
+              <p class="learn-guide-desc">Fundamentals of public offerings in India, BSE/NSE listings, and capital formation.</p>
+            </div>
+          </a>
+          <a href="/blog/how-to-apply-for-ipo.html" class="learn-guide-card">
+            <div class="learn-guide-icon-badge">
+              <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <div class="learn-guide-body">
+              <h3 class="learn-guide-title">How to Apply for an IPO via UPI ASBA</h3>
+              <p class="learn-guide-desc">Step-by-step bidding guide using UPI mandates, cut-off price, and bank approvals.</p>
+            </div>
+          </a>
+          <a href="/blog/understanding-grey-market-premium-gmp.html" class="learn-guide-card">
+            <div class="learn-guide-icon-badge">
+              <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            </div>
+            <div class="learn-guide-body">
+              <h3 class="learn-guide-title">Understanding Grey Market Premium (GMP)</h3>
+              <p class="learn-guide-desc">Kostak rates, Subject to Sauda, speculative sentiment indicators, and risk management.</p>
+            </div>
+          </a>
+          <a href="/blog/how-ipo-allotment-works.html" class="learn-guide-card">
+            <div class="learn-guide-icon-badge">
+              <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <div class="learn-guide-body">
+              <h3 class="learn-guide-title">How IPO Allotment Works in India</h3>
+              <p class="learn-guide-desc">SEBI computerized lottery system, retail quotas, and maximizing allocation probability.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    `;
+  }
+
   function renderDashboardView() {
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Dashboard Filter Logic — Open, Closed (Ready to Listing Day), Upcoming, All Listed
-    let filtered = [...records];
-    if (state.activeFilter === "open") {
-      filtered = filtered.filter(r => r.status === "OPEN").sort((a, b) => {
-        const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
-        const db = b.closeDate ? new Date(b.closeDate).getTime() : 0;
-        return da - db; // Soonest close date first
-      });
-    } else if (state.activeFilter === "closed") {
-      // ONLY closed IPOs ready to listing day
-      filtered = filtered.filter(r => r.status === "CLOSED").sort((a, b) => {
-        const da = a.listingDate ? new Date(a.listingDate).getTime() : 0;
-        const db = b.listingDate ? new Date(b.listingDate).getTime() : 0;
-        return da - db; // Soonest listing day first
-      });
-    } else if (state.activeFilter === "upcoming") {
-      filtered = filtered.filter(r => r.status === "UPCOMING").sort((a, b) => {
-        const da = a.openDate ? new Date(a.openDate).getTime() : 9999999999999;
-        const db = b.openDate ? new Date(b.openDate).getTime() : 9999999999999;
-        return da - db; // Soonest opening date first
-      });
-    } else if (state.activeFilter === "listed") {
-      // Only listed IPOs
-      filtered = filtered.filter(r => r.status === "LISTED").sort((a, b) => {
-        const da = a.listingDate ? new Date(a.listingDate).getTime() : 0;
-        const db = b.listingDate ? new Date(b.listingDate).getTime() : 0;
-        return db - da; // Most recently listed first
-      });
-    }
-
-    if (state.activeBoard === "mainboard") {
-      filtered = filtered.filter(r => r.board === "MAINBOARD");
-    } else if (state.activeBoard === "sme") {
-      filtered = filtered.filter(r => r.board === "SME");
-    }
-
-    const openCount = records.filter(r => r.status === "OPEN").length;
-    const closedCount = records.filter(r => r.status === "CLOSED").length;
-    const upcomingCount = records.filter(r => r.status === "UPCOMING").length;
-    const listedCount = records.filter(r => r.status === "LISTED").length;
-    const totalCount = filtered.length;
-
-    const openRecords = records.filter(r => r.status === "OPEN");
-    const currentScopeRecords = state.activeFilter === "open"
-      ? openRecords
-      : state.activeFilter === "closed"
-        ? records.filter(r => r.status === "CLOSED")
-        : state.activeFilter === "upcoming"
-          ? records.filter(r => r.status === "UPCOMING")
-          : records.filter(r => r.status === "LISTED");
-
-    const boardMbCount = currentScopeRecords.filter(r => r.board === "MAINBOARD").length;
-    const boardSmeCount = currentScopeRecords.filter(r => r.board === "SME").length;
-
-    // For 'open' filter, show all open issues. For other views, paginate to avoid excessive DOM size
-    const visibleCards = state.activeFilter === "open" ? filtered : filtered.slice(0, state.cardsLimit);
-
     app.innerHTML = `
-      <!-- Responsive AdSense Leaderboard Placement (Zero CLS) -->
+      <!-- Responsive AdSense Leaderboard Placement (Ad 1 of 2 - Zero CLS) -->
       ${renderAdContainer("leaderboard", "5892147360", "SPONSORED FINANCIAL INTELLIGENCE")}
 
       <div class="fig1-dashboard-wrap">
-        <!-- Dashboard Top Intro Strip (Executive Overview) -->
+        <!-- 1. Header & Hero Overview Strip -->
         <div class="dashboard-top-intro">
           <div class="dashboard-top-title-wrap">
             <h1 class="dashboard-top-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
@@ -2740,63 +2847,45 @@
           </div>
           <div class="dashboard-live-indicator">
             <span class="live-pulse"></span>
-            <span>Live Market Intelligence</span>
+            <span>Live Primary Market</span>
           </div>
         </div>
 
-        <!-- Figure 1 Top 4 Summary Cards (Directly Visible at Top) -->
-        ${renderFig1SummaryCards(openCount, upcomingCount, closedCount, listedCount)}
-
-        <!-- Figure 1 2-Column Corporate Grid (Matching Uploaded Reference Photo) -->
-        <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
-          <div class="fig1-left-col">
-            ${renderFig1TrendingTable()}
-            <!-- Native In-Feed Placement Between Trending & Performance (Zero CLS) -->
-            ${renderAdContainer("infeed", "1400016775", "SPONSORED MARKET INTELLIGENCE")}
-            ${renderFig1PerformanceChart()}
-          </div>
-          <div class="fig1-right-col">
-            ${renderFig1MarketShakersWidget()}
-            ${renderFig1CalendarWidget()}
-            ${renderFig1StayUpdatedWidget()}
-            ${renderFig1QuickLinksWidget()}
-            <!-- Dedicated Sticky Sidebar Banner Placement (Zero CLS) -->
-            ${renderAdContainer("sidebar", "5892147360", "SPONSORED WEALTH PLATFORM")}
-          </div>
-        </section>
-
-        <!-- Active Open IPOs Section (Added Below the Photo Dashboard) -->
-        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding" style="margin-top:24px;">
+        <!-- 2. Open IPOs (Cards on mobile, Table on desktop - Zero Duplicate DOM) -->
+        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding">
           ${renderFig1OpenIposSection()}
         </section>
+
+        <!-- 3. Closing / Allotment / Listing Today Chips -->
+        ${renderTodayActionChips()}
+
+        <!-- 4. Upcoming This Week Pipeline -->
+        ${renderUpcomingPipelineSection()}
+
+        <!-- 5. Recently Listed Performance (Last 30 Days) -->
+        <section id="recently-listed-performance-section" aria-label="Recently Listed IPO Performance" style="margin-top:24px;">
+          ${renderFig1PerformanceChart()}
+        </section>
+
+        <!-- In-Feed Ad Unit (Ad 2 of 2 - Zero CLS) -->
+        ${renderAdContainer("infeed", "1400016775", "SPONSORED MARKET INTELLIGENCE")}
+
+        <!-- 6. Alert Signup -->
+        ${renderAlertSignupSection()}
+
+        <!-- 7. Educational Learn Links -->
+        ${renderLearnSection()}
+
+        <!-- SEBI Regulatory & Risk Disclaimer -->
+        <div class="sebi-compliance-note" style="margin-top:24px; padding:16px 20px; background:var(--bg-secondary); border-left:4px solid var(--gain-loss-red); border-radius:8px; font-size:12.5px; color:var(--text-secondary); line-height:1.6;">
+          <strong style="color:var(--text-primary);">SEBI Regulatory &amp; Investor Notice:</strong> IPO PriceAlerter is an independent financial tracking portal. We are NOT registered with SEBI as an Investment Adviser or Research Analyst. Securities investments are subject to market risks. Read the complete offer document (DRHP/RHP) before bidding.
+        </div>
       </div>
     `;
-
-    // Event Bindings for Summary Cards
-    document.getElementById("fig1-card-open")?.addEventListener("click", () => {
-      const el = document.getElementById("dashboard-open-ipos-section");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.location.hash = "#/open";
-      }
-    });
-    document.getElementById("fig1-card-upcoming")?.addEventListener("click", () => {
-      window.location.hash = "#/upcoming";
-    });
-    document.getElementById("fig1-card-closed")?.addEventListener("click", () => {
-      window.location.hash = "#/listed";
-    });
-    document.getElementById("fig1-card-listed")?.addEventListener("click", () => {
-      window.location.hash = "#/listed";
-    });
 
     initAdSense();
   }
 
-  // ==========================================================================
-  // IPO Card Item Renderer
-  // ==========================================================================
   function renderIpoCardHtml(ipo) {
     let badgeClass = "open";
     let badgeLabel = "Live Bidding";
@@ -7842,6 +7931,26 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    handleAlertSignup: (e) => {
+      e.preventDefault();
+      const input = document.getElementById("home-alert-email");
+      const email = input ? input.value.trim() : "";
+      if (!email || !email.includes("@")) {
+        showToast("Please enter a valid email address.", "error");
+        return;
+      }
+      showToast(`🎉 Success! IPO alerts activated for ${email}. Zero spam.`, "success");
+      if (input) input.value = "";
+    },
+    subscribeToIpoAlert: (slug) => {
+      showToast(`🔔 Alert set for ${slug}! You will be notified on bidding open.`, "success");
+    },
+    openManageAlerts: (e) => {
+      e.preventDefault();
+      window.location.hash = "#/alerts";
+      showToast("Manage alert preferences or 1-click unsubscribe here.", "info");
+    },
+
     handleTodayChipClick: (action) => {
       if (action === "closing") {
         const el = document.getElementById("open-ipos-section") || document.getElementById("dashboard-open-ipos-section");

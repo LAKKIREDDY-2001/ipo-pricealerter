@@ -9683,3 +9683,236 @@ ins.adsbygoogle[data-ad-status="unfilled"],
     font-size: var(--text-sm);
   }
 }
+
+
+/* ==========================================================================
+   Alert Signup Component (Fintech Redesign - Single Email Field)
+   ========================================================================== */
+.fig1-alert-signup-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.alert-signup-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.alert-signup-icon-col {
+  flex-shrink: 0;
+}
+
+.alert-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(7, 155, 80, 0.1);
+  color: var(--brand-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert-signup-content-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.alert-signup-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-1);
+}
+
+.alert-signup-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-4);
+  line-height: 1.5;
+}
+
+.alert-signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.alert-form-row {
+  display: flex;
+  gap: var(--space-2);
+  max-width: 540px;
+}
+
+.alert-input-email {
+  flex: 1;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.alert-input-email:focus {
+  outline: none;
+  border-color: var(--brand-navy);
+  box-shadow: 0 0 0 3px rgba(20, 43, 73, 0.15);
+}
+
+.btn-alert-submit {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-5);
+  background: var(--brand-green);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.btn-alert-submit:hover {
+  background: #067d40;
+}
+
+.alert-consent-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+}
+
+.alert-consent-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.alert-manage-link {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.alert-manage-link:hover {
+  color: var(--brand-navy);
+}
+
+@media (max-width: 640px) {
+  .alert-signup-inner {
+    flex-direction: column;
+  }
+  .alert-form-row {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  .btn-alert-submit {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Learn Links Section (Lucide Icons, WCAG Contrast)
+   ========================================================================== */
+.learn-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.learn-guide-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.learn-guide-card:hover {
+  border-color: var(--brand-navy);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.learn-guide-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--brand-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.learn-guide-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.learn-guide-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.learn-guide-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Skeleton Loaders & Empty States (Requirement 8)
+   ========================================================================== */
+.skeleton-box {
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border-light) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+  padding: var(--space-4);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton-title { height: 20px; width: 45%; }
+.skeleton-text { height: 14px; width: 70%; }
+.skeleton-bar { height: 6px; width: 100%; border-radius: 3px; }
+.skeleton-buttons { display: flex; gap: var(--space-2); height: 44px; }

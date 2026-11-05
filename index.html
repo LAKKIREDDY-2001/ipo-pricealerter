@@ -422,15 +422,16 @@
 
     <!-- Dynamic Main Application Shell -->
     <main id="app" class="app-root" role="main">
-      <!-- Responsive Leaderboard Placement (Zero CLS) -->
+      <!-- Responsive Leaderboard Placement (Ad 1 of 2 - Zero CLS) -->
       <div class="ad-slot-card ad-slot-leaderboard" aria-label="Angel One">
+        <span class="ad-disclosure-tag">Ad</span>
         <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
           <div class="sponsored-banner-left">
-            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" />
+            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" width="130" height="32" />
           </div>
           <div class="sponsored-banner-mid">
-            <div class="sponsored-banner-title">Open Free Demat Account &amp; Apply for IPOs with Zero Brokerage</div>
-            <div class="sponsored-banner-sub">Flat ₹20 for Intraday &amp; F&amp;O &bull; 100% Paperless UPI Mandates &bull; Trusted by 2+ Crore Indians</div>
+            <div class="sponsored-banner-title">Apply for IPOs with Zero Account Fee</div>
+            <div class="sponsored-banner-sub">Paperless UPI Mandates &bull; Flat ₹20 Brokerage &bull; Angel One</div>
           </div>
           <div class="sponsored-banner-right">
             <span class="sponsored-cta-btn">Open Free Account &rarr;</span>
@@ -439,7 +440,7 @@
       </div>
 
       <div class="fig1-dashboard-wrap">
-        <!-- Dashboard Top Intro Strip (Executive Overview) -->
+        <!-- 1. Header & Hero Overview Strip -->
         <div class="dashboard-top-intro">
           <div class="dashboard-top-title-wrap">
             <h1 class="dashboard-top-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
@@ -447,856 +448,12 @@
           </div>
           <div class="dashboard-live-indicator">
             <span class="live-pulse"></span>
-            <span>Live Market Intelligence</span>
+            <span>Live Primary Market</span>
           </div>
         </div>
 
-        <!-- Figure 1 Top 4 Summary Cards -->
-        <section class="fig1-summary-grid" aria-label="IPO Market Overview">
-          <div class="fig1-summary-card fig1-border-green clickable" id="fig1-card-open" title="Click to view Open IPOs">
-            <div class="fig1-card-content">
-              <div class="fig1-stat-num">1</div>
-              <div class="fig1-stat-label">Open IPOs</div>
-            </div>
-            <div class="fig1-icon-badge fig1-badge-green">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-            </div>
-          </div>
-
-          <div class="fig1-summary-card fig1-border-blue clickable" id="fig1-card-upcoming" title="Click to view Upcoming IPOs">
-            <div class="fig1-card-content">
-              <div class="fig1-stat-num">25</div>
-              <div class="fig1-stat-label">Upcoming IPOs</div>
-            </div>
-            <div class="fig1-icon-badge fig1-badge-blue">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A237E" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            </div>
-          </div>
-
-          <div class="fig1-summary-card fig1-border-red clickable" id="fig1-card-closed" title="Click to view Recently Closed IPOs">
-            <div class="fig1-card-content">
-              <div class="fig1-stat-num">10</div>
-              <div class="fig1-stat-label">Recently Closed</div>
-            </div>
-            <div class="fig1-icon-badge fig1-badge-red">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5"><line x1="7" y1="7" x2="17" y2="17"></line><polyline points="17 7 17 17 7 17"></polyline></svg>
-            </div>
-          </div>
-
-          <div class="fig1-summary-card fig1-border-orange clickable" id="fig1-card-listed" title="Click to view All Listed IPOs">
-            <div class="fig1-card-content">
-              <div class="fig1-stat-num">172+</div>
-              <div class="fig1-stat-label">Total Listed</div>
-            </div>
-            <div class="fig1-icon-badge fig1-badge-orange">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-            </div>
-          </div>
-        </section>
-
-        <!-- Figure 1 2-Column Corporate Grid -->
-        <section class="fig1-two-col-layout" aria-label="IPO Market Dashboard">
-          <div class="fig1-left-col">
-            <!-- Market Movers: Dual Cards (Gainers & Losers Directly Visible) -->
-            <div class="movers-container" id="market-movers-section">
-              <!-- Movers Master Filter Toolbar -->
-              <div class="movers-filter-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <h2 class="fig1-panel-title" style="margin:0; font-size:18px;">📊 Today's Market Movers</h2>
-                  <div class="widget-source-tag">PriceAlerter Market Data</div>
-                </div>
-                <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers View Selection">
-                  <button type="button" class="movers-tab-btn active" id="tab-btn-both" onclick="window.switchMoversView('both')" role="tab" aria-selected="true">
-                    Show Both
-                  </button>
-                  <button type="button" class="movers-tab-btn" id="tab-btn-gainers" onclick="window.switchMoversView('gainers')" role="tab" aria-selected="false">
-                    <span class="movers-tab-dot green"></span> Top Gainers
-                  </button>
-                  <button type="button" class="movers-tab-btn" id="tab-btn-losers" onclick="window.switchMoversView('losers')" role="tab" aria-selected="false">
-                    <span class="movers-tab-dot red"></span> Top Losers
-                  </button>
-                </div>
-              </div>
-
-              <!-- 1. Top Gainers Card -->
-              <div class="movers-panel-card" id="movers-card-gainers" style="margin-bottom:20px;">
-                <div class="movers-panel-header">
-                  <div class="movers-title-wrap">
-                    <h3 class="movers-card-title">
-                      <span>🏆 Top Gainers Today</span>
-                      <span class="movers-badge gain">Bullish Surge</span>
-                    </h3>
-                  </div>
-                  <div style="display:flex; align-items:center; gap:10px;">
-                    <button type="button" class="fig1-header-link" style="background:none; border:none; cursor:pointer;" onclick="window.switchMoversView('losers')">View Top Losers &darr;</button>
-                  </div>
-                </div>
-                <div class="movers-table-wrap">
-                  <table class="movers-table">
-                    <thead>
-                      <tr>
-                        <th class="th-company">Company</th>
-                        <th class="th-price">Market price (1D)</th>
-                        <th class="th-volume">Volume</th>
-                      </tr>
-                    </thead>
-                    <tbody id="movers-gainers-tbody">
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #DC2626, #991B1B); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">MF</div>
-                              <img src="assets/movers/muthoot-finance.png" alt="Muthoot Finance logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Muthoot Finance</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="26.0" x2="110" y2="26.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#00B386" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.0 12.2,22.3 24.4,19.9 36.7,16.2 48.9,12.5 61.1,10.1 73.3,8.3 85.6,6.4 97.8,5.2 110.0,4.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹2,709.80</div>
-                              <div class="movers-change gain">181.60 (7.18%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">21,72,336</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #DC2626, #991B1B); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">HE</div>
-                              <img src="assets/movers/hitachi-energy.png" alt="Hitachi Energy logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Hitachi Energy</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="26.0" x2="110" y2="26.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#00B386" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.0 13.8,22.1 27.5,13.7 41.2,10.0 55.0,8.2 68.8,6.4 82.5,5.2 96.2,4.6 110.0,4.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹29,100.00</div>
-                              <div class="movers-change gain">1,820.00 (6.67%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">1,80,043</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #0369A1); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">VAL</div>
-                              <img src="assets/movers/vedanta.png" alt="Vedanta Alumin Metal logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Vedanta Alumin Metal</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="26.0" x2="110" y2="26.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#00B386" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.0 12.2,24.2 24.4,21.7 36.7,18.7 48.9,15.6 61.1,11.9 73.3,8.3 85.6,4.0 97.8,7.1 110.0,4.8" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹376.85</div>
-                              <div class="movers-change gain">17.20 (4.78%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">1,05,38,796</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #2563EB, #1D4ED8); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">BEL</div>
-                              <img src="assets/movers/bel.png" alt="Bharat Electronics logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Bharat Electronics</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="26.0" x2="110" y2="26.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#00B386" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.0 12.2,16.3 24.4,17.5 36.7,12.6 48.9,10.8 61.1,10.1 73.3,7.7 85.6,5.8 97.8,5.2 110.0,4.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹398.00</div>
-                              <div class="movers-change gain">17.90 (4.71%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">2,35,41,317</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #1E293B, #0F172A); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">HZ</div>
-                              <img src="assets/movers/hindustan-zinc.png" alt="Hindustan Zinc logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Hindustan Zinc</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="26.0" x2="110" y2="26.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#00B386" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.0 13.8,23.7 27.5,20.9 41.2,18.1 55.0,12.5 68.8,9.7 82.5,6.9 96.2,5.5 110.0,4.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹550.15</div>
-                              <div class="movers-change gain">23.65 (4.49%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">47,80,415</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #7C3AED, #6D28D9); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">AE</div>
-                              <img src="assets/movers/adani-enterprises.png" alt="Adani Enterprises logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Adani Enterprises</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="26.0" x2="110" y2="26.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#00B386" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,26.0 15.7,17.1 31.4,11.4 47.1,8.6 62.9,7.6 78.6,6.7 94.3,5.4 110.0,4.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹2,709.20</div>
-                              <div class="movers-change gain">115.90 (4.47%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">22,10,845</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- 2. Top Losers Card (Directly Visible) -->
-              <div class="movers-panel-card" id="movers-card-losers">
-                <div class="movers-panel-header">
-                  <div class="movers-title-wrap">
-                    <h3 class="movers-card-title">
-                      <span>🔻 Top Losers Today</span>
-                      <span class="movers-badge loss">Intraday Pullback</span>
-                    </h3>
-                  </div>
-                  <div style="display:flex; align-items:center; gap:10px;">
-                    <button type="button" class="fig1-header-link" style="background:none; border:none; cursor:pointer;" onclick="window.switchMoversView('gainers')">View Top Gainers &uarr;</button>
-                  </div>
-                </div>
-                <div class="movers-table-wrap">
-                  <table class="movers-table">
-                    <thead>
-                      <tr>
-                        <th class="th-company">Company</th>
-                        <th class="th-price">Market price (1D)</th>
-                        <th class="th-volume">Volume</th>
-                      </tr>
-                    </thead>
-                    <tbody id="movers-losers-tbody">
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #0369A1); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">SE</div>
-                              <img src="assets/movers/siemens-energy.png" alt="Siemens Energy India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Siemens Energy India</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="6.0" x2="110" y2="6.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#EB5B3C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,4.0 7.9,6.8 15.7,5.9 23.6,9.9 31.4,7.5 39.3,13.4 47.1,14.6 55.0,12.2 62.9,19.3 70.7,20.5 78.6,21.7 86.4,20.5 94.3,24.0 102.1,23.3 110.0,26.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹2,846.60</div>
-                              <div class="movers-change loss">-92.80 (3.16%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">4,86,507</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #7C3AED, #6D28D9); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">PG</div>
-                              <img src="assets/movers/power-grid.png" alt="Power Grid Corpn. logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Power Grid Corpn.</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="6.0" x2="110" y2="6.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#EB5B3C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,4.0 10.0,4.5 20.0,5.8 30.0,6.2 40.0,5.2 50.0,6.9 60.0,6.2 70.0,8.1 80.0,9.3 90.0,12.9 100.0,22.0 110.0,26.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹259.55</div>
-                              <div class="movers-change loss">-8.15 (3.04%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">1,09,94,586</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #D97706, #B45309); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">AP</div>
-                              <img src="assets/movers/asian-paints.png" alt="Asian Paints logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Asian Paints</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="6.0" x2="110" y2="6.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#EB5B3C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,4.0 13.8,8.5 27.5,11.7 41.2,14.9 55.0,18.2 68.8,21.4 82.5,23.3 96.2,24.6 110.0,26.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹2,437.80</div>
-                              <div class="movers-change loss">-34.20 (1.38%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">20,08,963</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #B91C1C, #991B1B); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">PNB</div>
-                              <img src="assets/movers/pnb.png" alt="PNB logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">PNB</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="6.0" x2="110" y2="6.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#EB5B3C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,4.0 9.2,13.1 18.3,17.3 27.5,20.5 36.7,9.9 45.8,6.8 55.0,11.0 64.2,5.7 73.3,19.4 82.5,23.6 91.7,25.7 100.8,21.5 110.0,26.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹120.97</div>
-                              <div class="movers-change loss">-2.09 (1.70%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">1,90,95,279</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #075985); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">SBI</div>
-                              <img src="assets/movers/sbi.png" alt="State Bank Of India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">State Bank Of India</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="6.0" x2="110" y2="6.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#EB5B3C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,5.2 9.2,5.9 18.3,6.5 27.5,4.6 36.7,4.0 45.8,5.2 55.0,5.9 64.2,4.0 73.3,7.8 82.5,16.8 91.7,20.7 100.8,15.5 110.0,26.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹970.25</div>
-                              <div class="movers-change loss">-16.75 (1.70%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">2,79,59,412</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="movers-company-cell">
-                            <div class="movers-logo-box" style="position:relative; width:44px; height:44px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #D97706, #B45309); flex-shrink:0;">
-                              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:14px; z-index:1;">UBI</div>
-                              <img src="assets/movers/union-bank.png" alt="Union Bank of India logo" width="44" height="44" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
-                            </div>
-                            <span class="movers-company-name">Union Bank of India</span>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="movers-price-cell">
-                            <div class="movers-sparkline-wrap">
-                              <svg width="110" height="30" viewBox="0 0 110 30" fill="none" style="overflow:visible;"><line x1="0" y1="6.0" x2="110" y2="6.0" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" /><polyline fill="none" stroke="#EB5B3C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" points="0.0,5.5 9.2,12.8 18.3,4.0 27.5,14.3 36.7,20.1 45.8,26.0 55.0,21.6 64.2,16.5 73.3,20.1 82.5,18.7 91.7,23.8 100.8,24.5 110.0,26.0" /></svg>
-                            </div>
-                            <div class="movers-price-block">
-                              <div class="movers-cmp">₹183.20</div>
-                              <div class="movers-change loss">-2.80 (1.51%)</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="movers-volume-cell">1,40,40,640</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dedicated Layout Break: In-Feed Native Unit (Zero CLS Fixed Height) -->
-            <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
-              <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
-                <div class="sponsored-sbi-img-wrap">
-                  <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
-                </div>
-                <div class="sponsored-sbi-footer">
-                  <div class="sponsored-sbi-info">
-                    <div class="sponsored-sbi-title">Apply for SBI Credit Card Online &bull; Instant Approval</div>
-                    <div class="sponsored-sbi-sub">Welcome reward points &bull; Airport lounge access &bull; Fuel surcharge waiver</div>
-                  </div>
-                  <div class="sponsored-sbi-action">
-                    <span class="sponsored-cta-btn sponsored-cta-sbi">Apply for SBI Card &rarr;</span>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Listing Performance Chart -->
-            <div class="fig1-panel-card">
-              <div class="fig1-panel-header">
-                <h2 class="fig1-panel-title">📊 IPO Listing Performance (Last 30 Days)</h2>
-                <div class="fig1-chart-legend">
-                  <span class="legend-item"><span class="legend-color-box legend-gain"></span> Gain</span>
-                  <span class="legend-item"><span class="legend-color-box legend-loss"></span> Loss</span>
-                </div>
-              </div>
-              <div class="fig1-bar-chart-wrap">
-                <div class="fig1-chart-layout">
-                  <div class="fig1-chart-yaxis">
-                    <span>80%</span>
-                    <span>0%</span>
-                    <span>-20%</span>
-                  </div>
-                  <div class="fig1-chart-stage">
-                    <div class="fig1-chart-gridlines">
-                      <div class="gridline top"></div>
-                      <div class="gridline baseline"></div>
-                      <div class="gridline bottom"></div>
-                    </div>
-                    <div class="fig1-bar-columns">
-                      <div class="fig1-chart-col" title="Carver Roboweld: Issue ₹80 → Listing ₹90 (+12.5% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">+12.5%</span>
-                          <div class="fig1-bar-fill gain" style="height:16px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="Carver Roboweld">Carver</span>
-                      </div>
-                      <div class="fig1-chart-col" title="M.K. Sons Fine Jewels: Issue ₹162 → Listing ₹171.6 (+5.9% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">+5.9%</span>
-                          <div class="fig1-bar-fill gain" style="height:8px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="M.K. Sons Fine Jewels">MK Sons</span>
-                      </div>
-                      <div class="fig1-chart-col" title="Ajwa Projects: Issue ₹203 → Listing ₹203 (0.0% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">0.0%</span>
-                          <div class="fig1-bar-fill gain" style="height:4px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="Ajwa Projects">Ajwa</span>
-                      </div>
-                      <div class="fig1-chart-col" title="BLS Polymers: Issue ₹150 → Listing ₹248 (+65.3% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">+65.3%</span>
-                          <div class="fig1-bar-fill gain" style="height:80px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="BLS Polymers">BLS Poly</span>
-                      </div>
-                      <div class="fig1-chart-col" title="SFC Environmental: Issue ₹330 → Listing ₹355.1 (+7.6% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">+7.6%</span>
-                          <div class="fig1-bar-fill gain" style="height:10px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="SFC Environmental">SFC Envir</span>
-                      </div>
-                      <div class="fig1-chart-col" title="Wiscon Industries: Issue ₹204 → Listing ₹204 (0.0% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">0.0%</span>
-                          <div class="fig1-bar-fill gain" style="height:4px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="Wiscon Industries">Wiscon</span>
-                      </div>
-                      <div class="fig1-chart-col" title="EAAA India Alternatives: Issue ₹1665 → Listing ₹1675.5 (+0.6% debut return)">
-                        <div class="fig1-bar-upper">
-                          <span class="fig1-bar-val positive">+0.6%</span>
-                          <div class="fig1-bar-fill gain" style="height:6px;"></div>
-                        </div>
-                        <div class="fig1-bar-lower"></div>
-                        <span class="fig1-col-label" title="EAAA India Alternatives">EAAA Ind</span>
-                      </div>
-                      <div class="fig1-chart-col" title="Core4 Engineers: Issue ₹93 → Listing ₹74.4 (-20.0% debut return)">
-                        <div class="fig1-bar-upper"></div>
-                        <div class="fig1-bar-lower">
-                          <div class="fig1-bar-fill loss" style="height:25px;"></div>
-                          <span class="fig1-bar-val negative">-20.0%</span>
-                        </div>
-                        <span class="fig1-col-label" title="Core4 Engineers">Core4</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="fig1-right-col">
-            <!-- Debut IPO Movers Widget (CMP vs Listing Price) -->
-            <div class="fig1-panel-card shakers-panel-card">
-              <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <h3 class="fig1-panel-title">🚀 Debut IPO Movers</h3>
-                    <span class="fig1-live-badge"><span class="live-pulse"></span> LIVE</span>
-                  </div>
-                  <div class="widget-source-tag">CMP vs Listing</div>
-                </div>
-                <div style="font-size:11.5px; color:#64748B; display:flex; align-items:center; gap:5px;">
-                  <span>Recently listed stocks: live CMP vs debut listing price</span>
-                </div>
-              </div>
-              <div class="movers-table-wrap" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
-                <table class="shakers-table" style="width:100%; border-collapse:collapse;">
-                  <thead>
-                    <tr>
-                      <th class="th-company" style="font-size:11.5px; padding:10px 12px; text-align:left;">Company &amp; Listing</th>
-                      <th class="th-price" style="font-size:11.5px; padding:10px 12px; text-align:right;">Debut &amp; CMP</th>
-                      <th class="th-volume" style="font-size:11.5px; padding:10px 12px; text-align:right;">Return Since Listing</th>
-                    </tr>
-                  </thead>
-                  <tbody id="market-shakers-tbody">
-                    <tr onclick="window.location.hash='#/ipo/sahajanand-medical-technologies-ipo-2026'" style="cursor:pointer;">
-                      <td style="padding:10px 12px;">
-                        <div class="movers-company-cell" style="gap:10px;">
-                          <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0284C7, #0369A1); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">SM</div>
-                          </div>
-                          <div style="display:flex; flex-direction:column;">
-                            <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">Sahajanand Med</span>
-                            <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed 23 Oct 2026</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td style="padding:10px 12px; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹458.60</div>
-                        <div style="font-size:11px; color:#64748B;">Debut: ₹371.15</div>
-                      </td>
-                      <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                        <div style="font-size:13px; font-weight:800; color:#00B386;">+23.56%</div>
-                        <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">Mainboard</div>
-                      </td>
-                    </tr>
-                    <tr onclick="window.location.hash='#/ipo/sfc-environmental-technologies-ipo-2026'" style="cursor:pointer;">
-                      <td style="padding:10px 12px;">
-                        <div class="movers-company-cell" style="gap:10px;">
-                          <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #10B981, #047857); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">SE</div>
-                          </div>
-                          <div style="display:flex; flex-direction:column;">
-                            <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">SFC Environmental</span>
-                            <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed 03 Nov 2026</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td style="padding:10px 12px; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹426.10</div>
-                        <div style="font-size:11px; color:#64748B;">Debut: ₹355.10</div>
-                      </td>
-                      <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                        <div style="font-size:13px; font-weight:800; color:#00B386;">+19.99%</div>
-                        <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">Mainboard</div>
-                      </td>
-                    </tr>
-                    <tr onclick="window.location.hash='#/ipo/core4-engineers-ipo-2026'" style="cursor:pointer;">
-                      <td style="padding:10px 12px;">
-                        <div class="movers-company-cell" style="gap:10px;">
-                          <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #F59E0B, #B45309); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">C4</div>
-                          </div>
-                          <div style="display:flex; flex-direction:column;">
-                            <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">Core4 Engineers</span>
-                            <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed 30 Oct 2026</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td style="padding:10px 12px; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹86.12</div>
-                        <div style="font-size:11px; color:#64748B;">Debut: ₹74.40</div>
-                      </td>
-                      <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                        <div style="font-size:13px; font-weight:800; color:#00B386;">+15.75%</div>
-                        <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">SME</div>
-                      </td>
-                    </tr>
-                    <tr onclick="window.location.hash='#/ipo/bonfiglioli-transmissions-ipo-2026'" style="cursor:pointer;">
-                      <td style="padding:10px 12px;">
-                        <div class="movers-company-cell" style="gap:10px;">
-                          <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #6366F1, #4338CA); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">BT</div>
-                          </div>
-                          <div style="display:flex; flex-direction:column;">
-                            <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">Bonfiglioli Trans</span>
-                            <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed 23 Oct 2026</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td style="padding:10px 12px; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹657.00</div>
-                        <div style="font-size:11px; color:#64748B;">Debut: ₹586.00</div>
-                      </td>
-                      <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                        <div style="font-size:13px; font-weight:800; color:#00B386;">+12.12%</div>
-                        <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">Mainboard</div>
-                      </td>
-                    </tr>
-                    <tr onclick="window.location.hash='#/ipo/bls-polymers-ipo-2026'" style="cursor:pointer;">
-                      <td style="padding:10px 12px;">
-                        <div class="movers-company-cell" style="gap:10px;">
-                          <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #EC4899, #BE185D); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">BP</div>
-                          </div>
-                          <div style="display:flex; flex-direction:column;">
-                            <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">BLS Polymers</span>
-                            <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed 03 Nov 2026</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td style="padding:10px 12px; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹268.80</div>
-                        <div style="font-size:11px; color:#64748B;">Debut: ₹248.00</div>
-                      </td>
-                      <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                        <div style="font-size:13px; font-weight:800; color:#00B386;">+8.39%</div>
-                        <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">Mainboard</div>
-                      </td>
-                    </tr>
-                    <tr onclick="window.location.hash='#/ipo/carver-roboweld-ipo-2026'" style="cursor:pointer;">
-                      <td style="padding:10px 12px;">
-                        <div class="movers-company-cell" style="gap:10px;">
-                          <div class="movers-logo-box" style="position:relative; width:38px; height:38px; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #0D9488, #0F766E); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:12px; z-index:1;">CR</div>
-                          </div>
-                          <div style="display:flex; flex-direction:column;">
-                            <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">Carver Roboweld</span>
-                            <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed 04 Nov 2026</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td style="padding:10px 12px; text-align:right;">
-                        <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹90.00</div>
-                        <div style="font-size:11px; color:#64748B;">Debut: ₹90.00</div>
-                      </td>
-                      <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
-                        <div style="font-size:13px; font-weight:800; color:#64748B;">0.00%</div>
-                        <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">SME</div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div style="margin-top:10px; font-size:11px; color:#64748B; line-height:1.45; border-top:1px dashed #E2E8F0; padding-top:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-                <span>*CMP vs official exchange debut listing price (NSE/BSE)</span>
-                <a href="#/listed" style="font-weight:700; color:#00897B; text-decoration:none;">All Listed IPOs &rarr;</a>
-              </div>
-            </div>
-
-            <!-- IPO Calendar Widget -->
-            <div class="fig1-panel-card">
-              <div class="fig1-panel-header">
-                <h3 class="fig1-panel-title">📅 IPO Calendar</h3>
-                <a href="#/calendar" class="fig1-header-link" style="font-size:12px; color:var(--primary-green); text-decoration:none; font-weight:600;">Full Calendar &rarr;</a>
-              </div>
-              <div class="fig1-calendar-list">
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/antala-industries-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-open">
-                    <span class="fig1-cal-day">05</span>
-                    <span class="fig1-cal-month">NOV</span>
-                  </div>
-                  <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">Antala Industries</span>
-                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill open">Closes Today</span>
-                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/vectras-enprocon-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-listed">
-                    <span class="fig1-cal-day">06</span>
-                    <span class="fig1-cal-month">NOV</span>
-                  </div>
-                  <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">Vectras Enprocon</span>
-                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill listed">Listing Soon</span>
-                      <span style="font-size:11px; color:#64748B;">Listing Day</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/maxwell-engineering-solutions-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-open">
-                    <span class="fig1-cal-day">03</span>
-                    <span class="fig1-cal-month">NOV</span>
-                  </div>
-                  <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">Maxwell Engineering</span>
-                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill open">Closes Soon</span>
-                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/johnsoncab-electricals-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-open">
-                    <span class="fig1-cal-day">03</span>
-                    <span class="fig1-cal-month">NOV</span>
-                  </div>
-                  <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">Johnsoncab Electricals</span>
-                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill open">Closes Soon</span>
-                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/hgs-india-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-open">
-                    <span class="fig1-cal-day">03</span>
-                    <span class="fig1-cal-month">NOV</span>
-                  </div>
-                  <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">HGS India</span>
-                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill open">Closes Soon</span>
-                      <span style="font-size:11px; color:#64748B;">Bidding Closes</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="fig1-calendar-row" onclick="window.location.hash='#/ipo/vedant-poly-fabs-ipo'" style="cursor:pointer;">
-                  <div class="fig1-cal-date-badge date-badge-closed">
-                    <span class="fig1-cal-day">04</span>
-                    <span class="fig1-cal-month">NOV</span>
-                  </div>
-                  <div class="fig1-cal-info">
-                    <span class="fig1-cal-name">Vedant Poly Fabs Solutions</span>
-                    <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
-                      <span class="fig1-cal-status-pill closed" style="background:#FEF2F2; color:#DC2626;">Bidding Closed</span>
-                      <span style="font-size:11px; color:#64748B;">Allotment: 05 Nov</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Stay Updated Card -->
-            <div class="fig1-stay-updated-card">
-              <h3 class="fig1-stay-updated-title">📧 Stay Updated!</h3>
-              <p class="fig1-stay-updated-text">Get verified IPO alerts, GMP trends &amp; allotment updates directly in your inbox.</p>
-              <form class="fig1-subscribe-form" id="fig1-subscribe-form" onsubmit="window.handleFig1FormSubmit ? window.handleFig1FormSubmit(event) : (window.handleSubscribeForm && window.handleSubscribeForm(event, 'Homepage Stay Updated'))">
-                <div class="fig1-form-row">
-                  <input type="email" class="fig1-subscribe-input" id="fig1-email-input" placeholder="your@email.com" required maxlength="254">
-                  <button type="submit" class="fig1-subscribe-btn" id="fig1-subscribe-btn">Subscribe Now</button>
-                </div>
-                
-                <!-- Option below Subscribe Now for Unsubscribe and delete user details -->
-                <div class="fig1-action-options-bar">
-                  <div class="fig1-options-toggle">
-                    <label class="fig1-option-radio">
-                      <input type="radio" name="fig1_action_mode" value="subscribe" checked onchange="window.setFig1ActionMode && window.setFig1ActionMode('subscribe')">
-                      <span>Subscribe</span>
-                    </label>
-                    <label class="fig1-option-radio">
-                      <input type="radio" name="fig1_action_mode" value="unsubscribe" onchange="window.setFig1ActionMode && window.setFig1ActionMode('unsubscribe')">
-                      <span>Unsubscribe (Delete details)</span>
-                    </label>
-                  </div>
-                  <button type="button" class="fig1-unsubscribe-link-btn" onclick="window.handleDirectUnsubscribe && window.handleDirectUnsubscribe(this)">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    <span>Unsubscribe &amp; Delete</span>
-                  </button>
-                </div>
-              </form>
-              <div class="fig1-subscribe-note">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Zero spam. User details deleted instantly on unsubscribe.</span>
-              </div>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="fig1-panel-card">
-              <div class="fig1-panel-header">
-                <h3 class="fig1-panel-title">⚡ Quick Links</h3>
-              </div>
-              <div class="fig1-quick-links-grid">
-                <a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer" class="fig1-quick-link-btn">
-                  <span class="quick-icon">📄</span>
-                  <span>IPO Forms</span>
-                </a>
-                <a href="https://www.bseindia.com/investors/appli_check.aspx" target="_blank" rel="noopener noreferrer" class="fig1-quick-link-btn">
-                  <span class="quick-icon">📊</span>
-                  <span>Allotment</span>
-                </a>
-                <a href="/blog/" class="fig1-quick-link-btn">
-                  <span class="quick-icon">🎓</span>
-                  <span>IPO Guide</span>
-                </a>
-                <a href="#/gmp" class="fig1-quick-link-btn">
-                  <span class="quick-icon">🔔</span>
-                  <span>Set Alert</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Dedicated Sticky Sidebar Half-Page / Partner Unit (Zero CLS) -->
-            <div class="ad-slot-card ad-slot-sidebar sponsored-hdfc-slot" aria-label="HDFC Bank">
-              <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
-                <div class="sponsored-hdfc-img-wrap">
-                  <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
-                </div>
-                <div class="sponsored-hdfc-body">
-                  <h3 class="sponsored-hdfc-title">HDFC Bank IRCTC Credit Card</h3>
-                  <p class="sponsored-hdfc-desc">Earn exclusive reward points &amp; save up to 5% on IRCTC ticket bookings with zero hassle.</p>
-                  <div class="sponsored-hdfc-perks">
-                    <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Up to 5x Reward Points on IRCTC</span></div>
-                    <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Complimentary Railway Lounge Access</span></div>
-                    <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>1% Fuel Surcharge Waiver</span></div>
-                    <div class="sponsored-hdfc-perk-item"><span class="perk-check">✓</span> <span>Instant Digital Card Application</span></div>
-                  </div>
-                  <div class="sponsored-hdfc-action">
-                    <span class="sponsored-cta-btn sponsored-cta-hdfc sponsored-cta-full">Apply for HDFC Card &rarr;</span>
-                  </div>
-                  <div class="sponsored-partner-footnote">Official HDFC Bank Co-Branded IRCTC Credit Card</div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Active Open IPOs Section (Single-DOM Responsive Component: Cards on Mobile, Table on Desktop) -->
-        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding" style="margin-top:24px;">
+        <!-- 2. Open IPOs (Cards on mobile, Table on desktop - Zero Duplicate DOM) -->
+        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding">
           <div class="fig1-panel-card" id="open-ipos-section">
             <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:8px;">
               <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:8px;">
@@ -1396,46 +553,346 @@
           </div>
         </section>
 
-        <!-- Pre-rendered Educational Learning Hub Section (Guarantees Content Depth for Crawlers) -->
-        <section class="fig1-panel-card" style="margin-top:24px;" aria-label="IPO Learning Center & Educational Guides">
-          <div class="fig1-panel-header">
-            <h2 class="fig1-panel-title">🎓 IPO Learning Center &amp; Investor Education Guides</h2>
-            <a href="/blog/" class="fig1-header-link">Browse All 10 Guides &rarr;</a>
+        <!-- 3. Closing / Allotment / Listing Today Chips -->
+        <section class="today-action-chips-section" aria-label="Today's Primary Market Events">
+          <div class="today-chips-header">
+            <div class="today-chips-title-wrap">
+              <span class="live-pulse"></span>
+              <h2 class="today-chips-heading">Today's Market Pulse &bull; <span class="today-date-text">05 Nov 2026</span></h2>
+            </div>
+            <span class="today-market-badge live">IST MARKET HOURS</span>
           </div>
-          <p style="font-size:14px; color:#64748B; margin-top:0; margin-bottom:20px; line-height:1.6;">
-            Objective, SEBI-compliant educational guides designed to help retail investors master primary market research, valuation metrics, allotment probability, and risk management.
-          </p>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
-            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
-              <h3 style="font-size:15px; margin:0 0 6px;"><a href="/blog/what-is-an-ipo.html" style="color:#1A237E; text-decoration:none;">What is an IPO? A Beginner's Guide &rarr;</a></h3>
-              <p style="font-size:13px; color:#64748B; margin:0;">Complete fundamentals of Initial Public Offerings in India, NSE/BSE listings, and how companies raise capital.</p>
+          <div class="today-chips-row">
+            <button type="button" class="action-chip closing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('closing')" aria-label="View Closing Today IPOs">
+              <div class="chip-left">
+                <span class="chip-dot red"></span>
+                <span class="chip-label">Closing Today</span>
+              </div>
+              <span class="chip-count">1</span>
+            </button>
+            <button type="button" class="action-chip allotment-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('allotment')" aria-label="Check Allotment Today">
+              <div class="chip-left">
+                <span class="chip-dot yellow"></span>
+                <span class="chip-label">Allotment Today</span>
+              </div>
+              <span class="chip-count">1</span>
+            </button>
+            <button type="button" class="action-chip listing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('listing')" aria-label="View Today's Listings">
+              <div class="chip-left">
+                <span class="chip-dot green"></span>
+                <span class="chip-label">Listing Today</span>
+              </div>
+              <span class="chip-count">1</span>
+            </button>
+            <button type="button" class="action-chip upcoming-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('upcoming')" aria-label="View Upcoming Pipeline">
+              <div class="chip-left">
+                <span class="chip-dot blue"></span>
+                <span class="chip-label">Upcoming Pipeline</span>
+              </div>
+              <span class="chip-count">25</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 4. Upcoming This Week Pipeline -->
+        <section class="fig1-panel-card" id="upcoming-pipeline-section" aria-label="Upcoming IPO Pipeline" style="margin-top:24px;">
+          <div class="fig1-panel-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h2 class="fig1-panel-title">📅 Upcoming This Week &amp; Pipeline</h2>
+              <span class="status-badge upcoming">PIPELINE (25)</span>
             </div>
-            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
-              <h3 style="font-size:15px; margin:0 0 6px;"><a href="/blog/how-to-apply-for-ipo.html" style="color:#1A237E; text-decoration:none;">How to Apply for an IPO via UPI ASBA &rarr;</a></h3>
-              <p style="font-size:13px; color:#64748B; margin:0;">Step-by-step tutorial on bidding via discount brokers, cut-off prices, and UPI mandate authorizations.</p>
+            <a href="#/upcoming" class="fig1-header-link">View All (25) &rarr;</a>
+          </div>
+
+          <div class="ipo-responsive-container">
+            <div class="ipo-table-header-row" aria-hidden="true">
+              <div class="col-company">Company</div>
+              <div class="col-dates">Opening Date</div>
+              <div class="col-price">Est. Price Band</div>
+              <div class="col-lot">Lot Size</div>
+              <div class="col-gmp">Est. Issue Size</div>
+              <div class="col-sub">Stage</div>
+              <div class="col-actions" style="text-align:right;">Action</div>
             </div>
-            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
-              <h3 style="font-size:15px; margin:0 0 6px;"><a href="/blog/understanding-grey-market-premium-gmp.html" style="color:#1A237E; text-decoration:none;">Understanding Grey Market Premium (GMP) &rarr;</a></h3>
-              <p style="font-size:13px; color:#64748B; margin:0;">Detailed analysis of Kostak rates, Subject to Sauda, off-market sentiment, and critical investment risks.</p>
-            </div>
-            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
-              <h3 style="font-size:15px; margin:0 0 6px;"><a href="/blog/how-ipo-allotment-works.html" style="color:#1A237E; text-decoration:none;">How IPO Allotment Works in India &rarr;</a></h3>
-              <p style="font-size:13px; color:#64748B; margin:0;">SEBI's computerized proportionate lottery system, retail quotas, and maximizing allotment odds legally.</p>
-            </div>
-            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
-              <h3 style="font-size:15px; margin:0 0 6px;"><a href="/blog/top-10-ipo-investing-tips.html" style="color:#1A237E; text-decoration:none;">Top 10 IPO Investing Tips for Retail Investors &rarr;</a></h3>
-              <p style="font-size:13px; color:#64748B; margin:0;">Checklist on DRHP reading, evaluating valuation multiples, monitoring QIB subscriptions, and exit rules.</p>
-            </div>
-            <div style="padding:16px; border:1px solid #E2E8F0; border-radius:12px; background:#F8FAFC;">
-              <h3 style="font-size:15px; margin:0 0 6px;"><a href="/blog/how-to-check-ipo-allotment-status.html" style="color:#1A237E; text-decoration:none;">How to Check IPO Allotment Status Online &rarr;</a></h3>
-              <p style="font-size:13px; color:#64748B; margin:0;">Verified portals for Link Intime, KFintech, Bigshare, BSE, NSE, and bank mandate debit signals.</p>
+            <div class="ipo-items-list">
+              <!-- Zepto -->
+              <article class="ipo-responsive-card" data-slug="zepto-ipo">
+                <div class="ipo-card-header">
+                  <div class="ipo-card-brand">
+                    <div class="fig1-avatar" style="width:40px; height:40px; font-size:13px; background:linear-gradient(135deg, #7C3AED, #6D28D9); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">ZP</div>
+                    <div class="ipo-card-title-group">
+                      <h3 class="ipo-card-name"><a href="#/ipo/zepto-ipo" title="Zepto Online Grocery">Zepto</a></h3>
+                      <div class="ipo-card-tags">
+                        <span class="ipo-tag-board mainboard">MAINBOARD</span>
+                        <span class="ipo-tag-exchange">NSE/BSE</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ipo-card-status-wrap">
+                    <span class="status-badge upcoming">Upcoming</span>
+                  </div>
+                </div>
+                <div class="ipo-card-metrics-grid">
+                  <div class="ipo-metric-cell metric-dates">
+                    <span class="ipo-metric-label">Opening Date</span>
+                    <span class="ipo-metric-val dates-val">Dates TBA</span>
+                    <span class="ipo-metric-sub">Tentative</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-price">
+                    <span class="ipo-metric-label">Price Band</span>
+                    <span class="ipo-metric-val tnum">₹385 – 405</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-lot">
+                    <span class="ipo-metric-label">Lot Size</span>
+                    <span class="ipo-metric-val tnum">35 shares</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-gmp">
+                    <span class="ipo-metric-label">Issue Size</span>
+                    <span class="ipo-metric-val tnum">₹2,500 Cr</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-sub">
+                    <span class="ipo-metric-label">Stage</span>
+                    <span class="status-badge upcoming" style="font-size:11px;">Filed DRHP</span>
+                  </div>
+                </div>
+                <div class="ipo-card-footer">
+                  <div class="ipo-card-trust-meta">
+                    <span class="trust-badge" style="color:var(--text-tertiary);"><span class="trust-dot" style="background:#94A3B8;"></span> PIPELINE</span>
+                    <span class="trust-timestamp">Exchange Disclosures</span>
+                  </div>
+                  <div class="ipo-card-actions">
+                    <a href="#/ipo/zepto-ipo" class="btn-ipo-primary" aria-label="View details for Zepto">Details</a>
+                    <button type="button" class="btn-ipo-secondary" style="background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-color);" onclick="window.IpoApp && window.IpoApp.subscribeToIpoAlert('zepto-ipo')">Alert Me</button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Razorpay -->
+              <article class="ipo-responsive-card" data-slug="razorpay-ipo">
+                <div class="ipo-card-header">
+                  <div class="ipo-card-brand">
+                    <div class="fig1-avatar" style="width:40px; height:40px; font-size:13px; background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">RZ</div>
+                    <div class="ipo-card-title-group">
+                      <h3 class="ipo-card-name"><a href="#/ipo/razorpay-ipo" title="Razorpay Software">Razorpay</a></h3>
+                      <div class="ipo-card-tags">
+                        <span class="ipo-tag-board mainboard">MAINBOARD</span>
+                        <span class="ipo-tag-exchange">NSE/BSE</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ipo-card-status-wrap">
+                    <span class="status-badge upcoming">Upcoming</span>
+                  </div>
+                </div>
+                <div class="ipo-card-metrics-grid">
+                  <div class="ipo-metric-cell metric-dates">
+                    <span class="ipo-metric-label">Opening Date</span>
+                    <span class="ipo-metric-val dates-val">Dates TBA</span>
+                    <span class="ipo-metric-sub">Tentative</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-price">
+                    <span class="ipo-metric-label">Price Band</span>
+                    <span class="ipo-metric-val tnum">₹650 – 685</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-lot">
+                    <span class="ipo-metric-label">Lot Size</span>
+                    <span class="ipo-metric-val tnum">21 shares</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-gmp">
+                    <span class="ipo-metric-label">Issue Size</span>
+                    <span class="ipo-metric-val tnum">₹3,200 Cr</span>
+                  </div>
+                  <div class="ipo-metric-cell metric-sub">
+                    <span class="ipo-metric-label">Stage</span>
+                    <span class="status-badge upcoming" style="font-size:11px;">Filed DRHP</span>
+                  </div>
+                </div>
+                <div class="ipo-card-footer">
+                  <div class="ipo-card-trust-meta">
+                    <span class="trust-badge" style="color:var(--text-tertiary);"><span class="trust-dot" style="background:#94A3B8;"></span> PIPELINE</span>
+                    <span class="trust-timestamp">Exchange Disclosures</span>
+                  </div>
+                  <div class="ipo-card-actions">
+                    <a href="#/ipo/razorpay-ipo" class="btn-ipo-primary" aria-label="View details for Razorpay">Details</a>
+                    <button type="button" class="btn-ipo-secondary" style="background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-color);" onclick="window.IpoApp && window.IpoApp.subscribeToIpoAlert('razorpay-ipo')">Alert Me</button>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </section>
 
-        <!-- SEBI & YMYL Regulatory Disclaimer -->
-        <div style="margin-top:24px; padding:18px 22px; background:#FEF3C7; border-left:4px solid #F59E0B; border-radius:8px; font-size:13px; color:#92400E; line-height:1.6;">
-          <strong>SEBI Regulatory &amp; Financial Advisory Notice:</strong> IPO Pricealerter is an independent financial tracking and educational portal. We are NOT registered with SEBI as an Investment Adviser or Research Analyst. Securities investments are subject to market risks. Read the complete offer document (DRHP/RHP) before bidding.
+        <!-- 5. Recently Listed Performance (Last 30 Days) -->
+        <section id="recently-listed-performance-section" aria-label="Recently Listed IPO Performance" style="margin-top:24px;">
+          <div class="fig1-panel-card">
+            <div class="fig1-panel-header">
+              <div>
+                <h2 class="fig1-panel-title">📊 IPO Listing Performance (Last 30 Days)</h2>
+                <div style="font-size:11px; color:#64748B; margin-top:2px;">Debut listing gain vs issue price &bull; Official exchange disclosures</div>
+              </div>
+              <div class="fig1-chart-legend">
+                <span class="legend-item"><span class="legend-color-box legend-gain"></span> Gain</span>
+                <span class="legend-item"><span class="legend-color-box legend-loss"></span> Loss</span>
+              </div>
+            </div>
+            <div class="fig1-bar-chart-wrap">
+              <div class="fig1-chart-layout">
+                <div class="fig1-chart-yaxis">
+                  <span>+67%</span>
+                  <span>0%</span>
+                  <span>-20%</span>
+                </div>
+                <div class="fig1-chart-stage">
+                  <div class="fig1-chart-gridlines">
+                    <div class="gridline top"></div>
+                    <div class="gridline baseline"></div>
+                    <div class="gridline bottom"></div>
+                  </div>
+                  <div class="fig1-bar-columns">
+                    <div class="fig1-chart-col" title="Carver Roboweld: Issue ₹125 → Listing ₹208.75 (+67.0% return)">
+                      <div class="fig1-bar-upper">
+                        <span class="fig1-bar-val positive">+67.0%</span>
+                        <div class="fig1-bar-fill gain" style="height:80px;"></div>
+                      </div>
+                      <div class="fig1-bar-lower"></div>
+                      <span class="fig1-col-label">Carver</span>
+                    </div>
+                    <div class="fig1-chart-col" title="M.K. Sons: Issue ₹55 → Listing ₹88.0 (+60.0% return)">
+                      <div class="fig1-bar-upper">
+                        <span class="fig1-bar-val positive">+60.0%</span>
+                        <div class="fig1-bar-fill gain" style="height:72px;"></div>
+                      </div>
+                      <div class="fig1-bar-lower"></div>
+                      <span class="fig1-col-label">M.K. Sons</span>
+                    </div>
+                    <div class="fig1-chart-col" title="Ajwa: Issue ₹90 → Listing ₹135.0 (+50.0% return)">
+                      <div class="fig1-bar-upper">
+                        <span class="fig1-bar-val positive">+50.0%</span>
+                        <div class="fig1-bar-fill gain" style="height:60px;"></div>
+                      </div>
+                      <div class="fig1-bar-lower"></div>
+                      <span class="fig1-col-label">Ajwa</span>
+                    </div>
+                    <div class="fig1-chart-col" title="BLS Polymers: Issue ₹71 → Listing ₹101.9 (+43.5% return)">
+                      <div class="fig1-bar-upper">
+                        <span class="fig1-bar-val positive">+43.5%</span>
+                        <div class="fig1-bar-fill gain" style="height:52px;"></div>
+                      </div>
+                      <div class="fig1-bar-lower"></div>
+                      <span class="fig1-col-label">BLS Poly</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:10px; font-size:11px; color:#64748B; border-top:1px dashed #E2E8F0; padding-top:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+              <span>Source: Official exchange debut disclosures (NSE &amp; BSE)</span>
+              <span>Updated 11:40 AM IST</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- In-Feed Ad Unit (Ad 2 of 2 - Zero CLS) -->
+        <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
+          <span class="ad-disclosure-tag">Ad</span>
+          <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+            <div class="sponsored-sbi-img-wrap">
+              <img src="assets/sponsored/sbi-card.png" alt="SBI Card" class="sponsored-sbi-img" loading="lazy" width="110" height="32" />
+            </div>
+            <div class="sponsored-sbi-footer">
+              <div class="sponsored-sbi-info">
+                <div class="sponsored-sbi-title">SBI Card SimplyCLICK &bull; Instant Digital Application</div>
+                <div class="sponsored-sbi-sub">Welcome vouchers &bull; 10x reward points on online shopping</div>
+              </div>
+              <div class="sponsored-sbi-action">
+                <span class="sponsored-cta-btn sponsored-cta-sbi">Apply Online &rarr;</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- 6. Alert Signup -->
+        <section class="fig1-panel-card fig1-alert-signup-card" id="homepage-alert-signup" aria-label="IPO Alerts Subscription" style="margin-top:24px;">
+          <div class="alert-signup-inner">
+            <div class="alert-signup-icon-col">
+              <div class="alert-icon-circle">
+                <svg class="lucide-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              </div>
+            </div>
+            <div class="alert-signup-content-col">
+              <h2 class="alert-signup-title">Instant IPO &amp; GMP Alerts</h2>
+              <p class="alert-signup-subtitle">Get morning bidding updates, Grey Market Premiums, and real-time allotment notifications delivered straight to your inbox.</p>
+              <form class="alert-signup-form" onsubmit="window.IpoApp && window.IpoApp.handleAlertSignup(event)">
+                <div class="alert-form-row">
+                  <input type="email" class="alert-input-email" id="home-alert-email" placeholder="Enter your email address" required maxlength="254" autocomplete="email" aria-label="Email address for IPO alerts">
+                  <button type="submit" class="btn-alert-submit">Get IPO Alerts</button>
+                </div>
+                <div class="alert-consent-row">
+                  <span class="alert-consent-text">
+                    <svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Free daily alerts. Zero spam. 1-click unsubscribe anytime.
+                  </span>
+                  <a href="#/alerts" class="alert-manage-link" onclick="window.IpoApp && window.IpoApp.openManageAlerts(event)">Manage alert preferences or Unsubscribe</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Educational Learn Links -->
+        <section class="fig1-panel-card" style="margin-top:24px;" aria-label="IPO Learning Center &amp; Investor Education Guides">
+          <div class="fig1-panel-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h2 class="fig1-panel-title">🎓 IPO Learning Center &amp; Investor Education</h2>
+            </div>
+            <a href="/blog/" class="fig1-header-link">Browse All 10 Guides &rarr;</a>
+          </div>
+          <p style="font-size:14px; color:var(--text-secondary); margin-top:0; margin-bottom:20px; line-height:1.6;">
+            Objective, SEBI-compliant educational resources to help investors evaluate primary market fundamentals, Grey Market dynamics, valuation multiples, and allotment mechanisms.
+          </p>
+          <div class="learn-guides-grid">
+            <a href="/blog/what-is-an-ipo.html" class="learn-guide-card">
+              <div class="learn-guide-icon-badge">
+                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              </div>
+              <div class="learn-guide-body">
+                <h3 class="learn-guide-title">What is an IPO? A Beginner's Guide</h3>
+                <p class="learn-guide-desc">Fundamentals of public offerings in India, BSE/NSE listings, and capital formation.</p>
+              </div>
+            </a>
+            <a href="/blog/how-to-apply-for-ipo.html" class="learn-guide-card">
+              <div class="learn-guide-icon-badge">
+                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </div>
+              <div class="learn-guide-body">
+                <h3 class="learn-guide-title">How to Apply for an IPO via UPI ASBA</h3>
+                <p class="learn-guide-desc">Step-by-step bidding guide using UPI mandates, cut-off price, and bank approvals.</p>
+              </div>
+            </a>
+            <a href="/blog/understanding-grey-market-premium-gmp.html" class="learn-guide-card">
+              <div class="learn-guide-icon-badge">
+                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
+              <div class="learn-guide-body">
+                <h3 class="learn-guide-title">Understanding Grey Market Premium (GMP)</h3>
+                <p class="learn-guide-desc">Kostak rates, Subject to Sauda, speculative sentiment indicators, and risk management.</p>
+              </div>
+            </a>
+            <a href="/blog/how-ipo-allotment-works.html" class="learn-guide-card">
+              <div class="learn-guide-icon-badge">
+                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <div class="learn-guide-body">
+                <h3 class="learn-guide-title">How IPO Allotment Works in India</h3>
+                <p class="learn-guide-desc">SEBI computerized lottery system, retail quotas, and maximizing allocation probability.</p>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- SEBI Regulatory & Risk Notice -->
+        <div class="sebi-compliance-note" style="margin-top:24px; padding:16px 20px; background:var(--bg-secondary); border-left:4px solid var(--gain-loss-red); border-radius:8px; font-size:12.5px; color:var(--text-secondary); line-height:1.6;">
+          <strong style="color:var(--text-primary);">SEBI Regulatory &amp; Investor Notice:</strong> IPO PriceAlerter is an independent financial tracking portal. We are NOT registered with SEBI as an Investment Adviser or Research Analyst. Securities investments are subject to market risks. Read the complete offer document (DRHP/RHP) before bidding.
         </div>
       </div>
     </main>
