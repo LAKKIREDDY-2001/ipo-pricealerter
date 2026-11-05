@@ -1395,110 +1395,110 @@
       logo: "assets/movers/muthoot-finance.png",
       initials: "MF",
       gradient: "linear-gradient(135deg, #DC2626, #991B1B)",
-      price: "₹2,709.80",
-      change: "+₹181.60 (+7.18%)",
+      price: "₹2,829.60",
+      change: "+₹119.80 (+4.42%)",
       isGain: true,
-      volume: "21,72,336",
-      trend: [2530, 2560, 2580, 2610, 2640, 2660, 2675, 2690, 2700, 2709.8]
+      volume: "8,89,825",
+      trend: [2709.8, 2723.11, 2736.42, 2749.73, 2763.04, 2776.36, 2789.67, 2802.98, 2816.29, 2829.6]
     },
     {
       name: "Hitachi Energy",
       logo: "assets/movers/hitachi-energy.png",
       initials: "HE",
       gradient: "linear-gradient(135deg, #EA580C, #C2410C)",
-      price: "₹18,274.30",
-      change: "+₹1,083.50 (+6.30%)",
-      isGain: true,
-      volume: "2,84,192",
-      trend: [17200, 17350, 17500, 17700, 17900, 18050, 18150, 18200, 18250, 18274.3]
+      price: "₹27,960.00",
+      change: "-₹1,140.00 (-3.92%)",
+      isGain: false,
+      volume: "1,39,700",
+      trend: [29100.0, 28973.33, 28846.67, 28720.0, 28593.33, 28466.67, 28340.0, 28213.33, 28086.67, 27960.0]
     },
     {
       name: "Vedanta Limited",
       logo: "assets/movers/vedanta.png",
       initials: "VED",
       gradient: "linear-gradient(135deg, #2563EB, #1D4ED8)",
-      price: "₹512.45",
-      change: "+₹26.85 (+5.53%)",
+      price: "₹262.26",
+      change: "+₹4.91 (+1.91%)",
       isGain: true,
-      volume: "1,42,89,610",
-      trend: [486, 490, 494, 498, 502, 506, 508, 510, 511.5, 512.45]
+      volume: "82,44,175",
+      trend: [257.35, 257.9, 258.44, 258.99, 259.53, 260.08, 260.62, 261.17, 261.71, 262.26]
     },
     {
       name: "Bharat Electronics",
       logo: "assets/movers/bel.png",
       initials: "BEL",
       gradient: "linear-gradient(135deg, #059669, #047857)",
-      price: "₹318.90",
-      change: "+₹14.30 (+4.69%)",
-      isGain: true,
-      volume: "88,41,205",
-      trend: [305, 307, 309, 311, 313, 315, 316.5, 317.5, 318.2, 318.9]
+      price: "₹396.55",
+      change: "-₹1.45 (-0.36%)",
+      isGain: false,
+      volume: "1,00,37,280",
+      trend: [398.0, 397.84, 397.68, 397.52, 397.36, 397.19, 397.03, 396.87, 396.71, 396.55]
     },
     {
       name: "Hindustan Zinc",
       logo: "assets/movers/hindustan-zinc.png",
       initials: "HZ",
       gradient: "linear-gradient(135deg, #4F46E5, #3730A3)",
-      price: "₹534.60",
-      change: "+₹21.80 (+4.25%)",
+      price: "₹571.05",
+      change: "+₹20.90 (+3.80%)",
       isGain: true,
-      volume: "34,18,920",
-      trend: [513, 516, 519, 523, 526, 529, 531, 532.5, 533.8, 534.6]
+      volume: "41,61,003",
+      trend: [550.15, 552.47, 554.79, 557.12, 559.44, 561.76, 564.08, 566.41, 568.73, 571.05]
     },
     {
       name: "Adani Enterprises",
       logo: "assets/movers/adani-enterprises.png",
       initials: "AE",
       gradient: "linear-gradient(135deg, #7C3AED, #5B21B6)",
-      price: "₹2,948.15",
-      change: "+₹105.40 (+3.71%)",
+      price: "₹2,759.40",
+      change: "+₹50.20 (+1.85%)",
       isGain: true,
-      volume: "19,84,312",
-      trend: [2845, 2860, 2880, 2900, 2915, 2928, 2935, 2940, 2945, 2948.15]
+      volume: "8,22,322",
+      trend: [2709.2, 2714.78, 2720.36, 2725.93, 2731.51, 2737.09, 2742.67, 2748.24, 2753.82, 2759.4]
     },
     {
       name: "Trent Limited",
       logo: "assets/movers/trent.png",
       initials: "TR",
       gradient: "linear-gradient(135deg, #DB2777, #9D174D)",
-      price: "₹6,920.00",
-      change: "+₹235.00 (+3.52%)",
+      price: "₹3,077.90",
+      change: "+₹17.90 (+0.58%)",
       isGain: true,
-      volume: "11,40,500",
-      trend: [6690, 6720, 6760, 6800, 6840, 6870, 6890, 6905, 6915, 6920]
+      volume: "3,82,685",
+      trend: [3060.0, 3061.99, 3063.98, 3065.97, 3067.96, 3069.94, 3071.93, 3073.92, 3075.91, 3077.9]
     },
     {
       name: "Tata Power",
       logo: "assets/movers/tata-power.png",
       initials: "TP",
       gradient: "linear-gradient(135deg, #0284C7, #0369A1)",
-      price: "₹435.80",
-      change: "+₹14.20 (+3.37%)",
+      price: "₹363.20",
+      change: "+₹3.20 (+0.89%)",
       isGain: true,
-      volume: "98,12,450",
-      trend: [422, 424, 427, 429, 431, 433, 434, 435, 435.5, 435.8]
+      volume: "17,24,149",
+      trend: [360.0, 360.36, 360.71, 361.07, 361.42, 361.78, 362.13, 362.49, 362.84, 363.2]
     },
     {
       name: "Dixon Tech",
       logo: "assets/movers/dixon.png",
       initials: "DX",
       gradient: "linear-gradient(135deg, #0D9488, #0F766E)",
-      price: "₹15,480.00",
-      change: "+₹465.00 (+3.10%)",
+      price: "₹12,497.00",
+      change: "+₹207.00 (+1.68%)",
       isGain: true,
-      volume: "4,12,300",
-      trend: [15020, 15100, 15180, 15260, 15320, 15380, 15420, 15450, 15470, 15480]
+      volume: "1,48,614",
+      trend: [12290.0, 12313.0, 12336.0, 12359.0, 12382.0, 12405.0, 12428.0, 12451.0, 12474.0, 12497.0]
     },
     {
       name: "CDSL",
       logo: "assets/movers/cdsl.png",
       initials: "CD",
       gradient: "linear-gradient(135deg, #0284C7, #075985)",
-      price: "₹1,640.50",
-      change: "+₹46.80 (+2.94%)",
+      price: "₹1,335.80",
+      change: "+₹12.00 (+0.91%)",
       isGain: true,
-      volume: "22,45,100",
-      trend: [1595, 1602, 1610, 1618, 1625, 1630, 1634, 1637, 1639, 1640.5]
+      volume: "7,98,185",
+      trend: [1323.8, 1325.13, 1326.47, 1327.8, 1329.13, 1330.47, 1331.8, 1333.13, 1334.47, 1335.8]
     }
   ];
 
@@ -1509,110 +1509,110 @@
       logo: "assets/movers/siemens-energy.png",
       initials: "SE",
       gradient: "linear-gradient(135deg, #64748B, #475569)",
-      price: "₹3,462.15",
-      change: "-₹156.40 (-4.32%)",
+      price: "₹3,458.00",
+      change: "-₹51.00 (-1.45%)",
       isGain: false,
-      volume: "8,92,100",
-      trend: [3618, 3600, 3575, 3550, 3520, 3495, 3480, 3472, 3466, 3462.15]
+      volume: "1,70,105",
+      trend: [3509.0, 3503.33, 3497.67, 3492.0, 3486.33, 3480.67, 3475.0, 3469.33, 3463.67, 3458.0]
     },
     {
       name: "Power Grid Corp",
       logo: "assets/movers/power-grid.png",
       initials: "PG",
       gradient: "linear-gradient(135deg, #78716C, #57534E)",
-      price: "₹312.40",
-      change: "-₹11.20 (-3.46%)",
+      price: "₹260.40",
+      change: "-₹1.65 (-0.63%)",
       isGain: false,
-      volume: "1,12,45,600",
-      trend: [323.6, 322, 320.5, 319, 317.5, 316, 314.5, 313.5, 312.8, 312.4]
+      volume: "1,00,60,789",
+      trend: [262.05, 261.87, 261.68, 261.5, 261.32, 261.13, 260.95, 260.77, 260.58, 260.4]
     },
     {
       name: "Punjab Natl Bank",
       logo: "assets/movers/pnb.png",
       initials: "PNB",
       gradient: "linear-gradient(135deg, #991B1B, #7F1D1D)",
-      price: "₹104.85",
-      change: "-₹3.45 (-3.19%)",
-      isGain: false,
-      volume: "3,89,12,400",
-      trend: [108.3, 107.8, 107.2, 106.6, 106.1, 105.7, 105.3, 105.0, 104.9, 104.85]
+      price: "₹125.37",
+      change: "+₹2.95 (+2.41%)",
+      isGain: true,
+      volume: "1,20,80,406",
+      trend: [122.42, 122.75, 123.08, 123.4, 123.73, 124.06, 124.39, 124.71, 125.04, 125.37]
     },
     {
       name: "State Bank of India",
       logo: "assets/movers/sbi.png",
       initials: "SBI",
       gradient: "linear-gradient(135deg, #1E40AF, #1E3A8A)",
-      price: "₹816.30",
-      change: "-₹22.10 (-2.64%)",
-      isGain: false,
-      volume: "1,84,50,200",
-      trend: [838.4, 835, 831, 827, 824, 821, 819, 817.5, 816.8, 816.3]
+      price: "₹994.15",
+      change: "+₹15.15 (+1.55%)",
+      isGain: true,
+      volume: "1,33,64,847",
+      trend: [979.0, 980.68, 982.37, 984.05, 985.73, 987.42, 989.1, 990.78, 992.47, 994.15]
     },
     {
       name: "Union Bank of India",
       logo: "assets/movers/union-bank.png",
       initials: "UBI",
       gradient: "linear-gradient(135deg, #B91C1C, #991B1B)",
-      price: "₹118.70",
-      change: "-₹3.10 (-2.55%)",
-      isGain: false,
-      volume: "98,40,150",
-      trend: [121.8, 121.3, 120.7, 120.2, 119.8, 119.4, 119.1, 118.9, 118.8, 118.7]
+      price: "₹187.76",
+      change: "+₹3.87 (+2.10%)",
+      isGain: true,
+      volume: "61,30,587",
+      trend: [183.89, 184.32, 184.75, 185.18, 185.61, 186.04, 186.47, 186.9, 187.33, 187.76]
     },
     {
       name: "Asian Paints",
       logo: "assets/movers/asian-paints.png",
       initials: "APL",
       gradient: "linear-gradient(135deg, #C2410C, #9A3412)",
-      price: "₹2,430.50",
-      change: "-₹58.20 (-2.34%)",
-      isGain: false,
-      volume: "14,50,000",
-      trend: [2488, 2480, 2470, 2460, 2450, 2442, 2438, 2434, 2432, 2430.5]
+      price: "₹2,521.10",
+      change: "+₹102.80 (+4.25%)",
+      isGain: true,
+      volume: "10,89,882",
+      trend: [2418.3, 2429.72, 2441.14, 2452.57, 2463.99, 2475.41, 2486.83, 2498.26, 2509.68, 2521.1]
     },
     {
       name: "Nestle India",
       logo: "assets/movers/nestle.png",
       initials: "NES",
       gradient: "linear-gradient(135deg, #1E293B, #0F172A)",
-      price: "₹2,240.00",
-      change: "-₹48.00 (-2.10%)",
-      isGain: false,
-      volume: "6,80,000",
-      trend: [2288, 2280, 2272, 2264, 2256, 2250, 2246, 2243, 2241, 2240]
+      price: "₹1,253.50",
+      change: "+₹5.50 (+0.44%)",
+      isGain: true,
+      volume: "4,04,746",
+      trend: [1248.0, 1248.61, 1249.22, 1249.83, 1250.44, 1251.06, 1251.67, 1252.28, 1252.89, 1253.5]
     },
     {
       name: "Tata Consumer",
       logo: "assets/movers/tata-consumer.png",
       initials: "TCP",
       gradient: "linear-gradient(135deg, #15803D, #166534)",
-      price: "₹965.00",
-      change: "-₹19.50 (-1.98%)",
-      isGain: false,
-      volume: "18,90,000",
-      trend: [984.5, 981, 977, 974, 971, 968.5, 967, 966, 965.5, 965]
+      price: "₹1,077.50",
+      change: "+₹9.50 (+0.89%)",
+      isGain: true,
+      volume: "8,07,798",
+      trend: [1068.0, 1069.06, 1070.11, 1071.17, 1072.22, 1073.28, 1074.33, 1075.39, 1076.44, 1077.5]
     },
     {
       name: "Britannia Industries",
       logo: "assets/movers/britannia.png",
       initials: "BIL",
       gradient: "linear-gradient(135deg, #B45309, #78350F)",
-      price: "₹4,890.00",
-      change: "-₹92.00 (-1.85%)",
-      isGain: false,
-      volume: "5,40,000",
-      trend: [4982, 4970, 4955, 4940, 4925, 4910, 4902, 4896, 4892, 4890]
+      price: "₹4,987.60",
+      change: "+₹41.30 (+0.83%)",
+      isGain: true,
+      volume: "1,23,498",
+      trend: [4946.3, 4950.89, 4955.48, 4960.07, 4964.66, 4969.24, 4973.83, 4978.42, 4983.01, 4987.6]
     },
     {
       name: "Wipro Limited",
       logo: "assets/movers/wipro.png",
       initials: "WIP",
       gradient: "linear-gradient(135deg, #0D9488, #115E59)",
-      price: "₹542.00",
-      change: "-₹9.80 (-1.78%)",
-      isGain: false,
-      volume: "45,20,000",
-      trend: [551.8, 550, 548, 546.5, 545, 544, 543.2, 542.6, 542.2, 542]
+      price: "₹197.30",
+      change: "+₹2.75 (+1.41%)",
+      isGain: true,
+      volume: "58,62,690",
+      trend: [194.55, 194.86, 195.16, 195.47, 195.77, 196.08, 196.38, 196.69, 196.99, 197.3]
     }
   ];
 
@@ -1624,12 +1624,12 @@
       logo: "assets/movers/fractal-analytics.png",
       initials: "FA",
       gradient: "linear-gradient(135deg, #8B5CF6, #6D28D9)",
-      price: "₹1,152.00",
-      change: "+₹118.40 (+11.45%)",
-      isGain: true,
+      price: "₹829.20",
+      change: "-₹6.45 (-0.77%)",
+      isGain: false,
       volChange: "+520%",
-      volume: "48,22,400",
-      trend: [1035, 1050, 1070, 1095, 1115, 1130, 1140, 1146, 1150, 1152]
+      volume: "12,79,642",
+      trend: [835.65, 834.93, 834.22, 833.5, 832.78, 832.07, 831.35, 830.63, 829.92, 829.2]
     },
     {
       name: "Awfis Space Solutions",
@@ -1637,12 +1637,12 @@
       logo: "assets/movers/awfis.png",
       initials: "AW",
       gradient: "linear-gradient(135deg, #F59E0B, #D97706)",
-      price: "₹818.50",
-      change: "+₹62.10 (+8.21%)",
+      price: "₹267.67",
+      change: "+₹11.48 (+4.48%)",
       isGain: true,
       volChange: "+380%",
-      volume: "31,80,950",
-      trend: [758, 765, 775, 786, 796, 804, 810, 814, 817, 818.5]
+      volume: "10,43,416",
+      trend: [256.19, 257.47, 258.74, 260.02, 261.29, 262.57, 263.84, 265.12, 266.39, 267.67]
     },
     {
       name: "Faze Three",
@@ -1650,12 +1650,12 @@
       logo: "assets/movers/faze-three.png",
       initials: "FT",
       gradient: "linear-gradient(135deg, #10B981, #059669)",
-      price: "₹620.30",
-      change: "+₹44.80 (+7.78%)",
+      price: "₹541.80",
+      change: "+₹1.60 (+0.30%)",
       isGain: true,
       volChange: "+310%",
-      volume: "18,45,210",
-      trend: [576, 582, 590, 598, 606, 612, 616, 618.5, 619.8, 620.3]
+      volume: "44,198",
+      trend: [540.2, 540.38, 540.56, 540.73, 540.91, 541.09, 541.27, 541.44, 541.62, 541.8]
     },
     {
       name: "Alembic Pharma",
@@ -1663,12 +1663,12 @@
       logo: "assets/movers/alembic-pharma.png",
       initials: "AP",
       gradient: "linear-gradient(135deg, #06B6D4, #0891B2)",
-      price: "₹914.40",
-      change: "+₹7.70 (+0.85%)",
+      price: "₹917.95",
+      change: "+₹11.25 (+1.24%)",
       isGain: true,
       volChange: "+290%",
-      volume: "11,88,507",
-      trend: [1168, 1180, 1195, 1210, 1224, 1234, 1240, 1244, 1247, 1248.9]
+      volume: "12,29,996",
+      trend: [906.7, 907.95, 909.2, 910.45, 911.7, 912.95, 914.2, 915.45, 916.7, 917.95]
     },
     {
       name: "Saregama India",
@@ -1676,12 +1676,12 @@
       logo: "assets/movers/saregama.png",
       initials: "SG",
       gradient: "linear-gradient(135deg, #EC4899, #DB2777)",
-      price: "₹574.60",
-      change: "+₹33.40 (+6.17%)",
-      isGain: true,
+      price: "₹633.15",
+      change: "-₹3.65 (-0.57%)",
+      isGain: false,
       volChange: "+240%",
-      volume: "29,12,400",
-      trend: [542, 547, 552, 558, 563, 567, 570, 572, 573.8, 574.6]
+      volume: "86,05,156",
+      trend: [636.8, 636.39, 635.99, 635.58, 635.18, 634.77, 634.37, 633.96, 633.56, 633.15]
     },
     {
       name: "R Systems Intl",
@@ -1689,12 +1689,12 @@
       logo: "assets/movers/r-systems.png",
       initials: "RS",
       gradient: "linear-gradient(135deg, #6366F1, #4F46E5)",
-      price: "₹512.20",
-      change: "+₹27.80 (+5.74%)",
+      price: "₹273.60",
+      change: "+₹3.90 (+1.44%)",
       isGain: true,
       volChange: "+210%",
-      volume: "14,75,800",
-      trend: [485, 489, 494, 499, 503, 506.5, 509, 510.5, 511.5, 512.2]
+      volume: "4,68,562",
+      trend: [269.7, 270.13, 270.57, 271.0, 271.43, 271.87, 272.3, 272.73, 273.17, 273.6]
     },
     {
       name: "Waaree Energies",
@@ -1702,12 +1702,12 @@
       logo: "assets/movers/waaree.png",
       initials: "WE",
       gradient: "linear-gradient(135deg, #F59E0B, #B45309)",
-      price: "₹3,140.00",
-      change: "+₹142.00 (+4.74%)",
+      price: "₹2,432.10",
+      change: "+₹24.10 (+1.00%)",
       isGain: true,
       volChange: "+450%",
-      volume: "42,80,500",
-      trend: [3000, 3025, 3050, 3080, 3105, 3120, 3130, 3135, 3138, 3140]
+      volume: "3,92,682",
+      trend: [2408.0, 2410.68, 2413.36, 2416.03, 2418.71, 2421.39, 2424.07, 2426.74, 2429.42, 2432.1]
     },
     {
       name: "Premier Energies",
@@ -1715,12 +1715,12 @@
       logo: "assets/movers/premier-energies.png",
       initials: "PE",
       gradient: "linear-gradient(135deg, #10B981, #047857)",
-      price: "₹1,165.00",
-      change: "+₹54.00 (+4.86%)",
-      isGain: true,
+      price: "₹879.45",
+      change: "-₹24.55 (-2.72%)",
+      isGain: false,
       volChange: "+340%",
-      volume: "36,20,000",
-      trend: [1112, 1120, 1130, 1142, 1150, 1156, 1160, 1162, 1164, 1165]
+      volume: "18,80,943",
+      trend: [904.0, 901.27, 898.54, 895.82, 893.09, 890.36, 887.63, 884.91, 882.18, 879.45]
     },
     {
       name: "Kaynes Technology",
@@ -1728,12 +1728,12 @@
       logo: "assets/movers/kaynes.png",
       initials: "KT",
       gradient: "linear-gradient(135deg, #F59E0B, #78350F)",
-      price: "₹5,640.00",
-      change: "+₹240.00 (+4.44%)",
+      price: "₹3,335.70",
+      change: "+₹5.70 (+0.17%)",
       isGain: true,
       volChange: "+280%",
-      volume: "8,90,000",
-      trend: [5400, 5430, 5480, 5520, 5560, 5590, 5615, 5630, 5638, 5640]
+      volume: "1,86,736",
+      trend: [3330.0, 3330.63, 3331.27, 3331.9, 3332.53, 3333.17, 3333.8, 3334.43, 3335.07, 3335.7]
     },
     {
       name: "Mazagon Dock",
@@ -1741,12 +1741,12 @@
       logo: "assets/movers/mazdock.png",
       initials: "MD",
       gradient: "linear-gradient(135deg, #0284C7, #0C4A6E)",
-      price: "₹4,280.00",
-      change: "+₹165.00 (+4.01%)",
+      price: "₹1,847.50",
+      change: "+₹19.40 (+1.06%)",
       isGain: true,
       volChange: "+220%",
-      volume: "18,40,000",
-      trend: [4120, 4145, 4180, 4210, 4240, 4260, 4270, 4275, 4278, 4280]
+      volume: "4,74,073",
+      trend: [1828.1, 1830.26, 1832.41, 1834.57, 1836.72, 1838.88, 1841.03, 1843.19, 1845.34, 1847.5]
     }
   ];
 
@@ -5154,6 +5154,9 @@
               <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 6px #22C55E;"></span>
               Real-Time Feed Sources:
             </span>
+            <a href="https://groww.in/stocks" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#059669; text-decoration:none; background:#ECFDF5; padding:4px 10px; border-radius:6px; border:1px solid #A7F3D0;">
+              📈 Groww Market Intelligence
+            </a>
             <a href="https://www.nseindia.com/static/market-data/real-time-data-subscription" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#1E40AF; text-decoration:none; background:#EFF6FF; padding:4px 10px; border-radius:6px; border:1px solid #DBEAFE;">
               🏛️ NSE Data &amp; Analytics
             </a>
@@ -7461,6 +7464,7 @@
       renderCalculatorPage();
     } else if (state.route.view === "live-prices") {
       renderLivePricesPage();
+      loadLiveMarketData();
     } else if (state.route.view === "allotment") {
       renderAllotmentHubPage();
     } else if (state.route.view === "guide") {
@@ -7566,22 +7570,11 @@
     window.addEventListener("hashchange", router);
     router();
 
-    // Load Live Market Feed & Start 10-Minute Autonomous Countdown
+    // Load Live Market Feed & Continuous Auto-Refresh Every 60 Seconds
     loadLiveMarketData();
     setInterval(() => {
-      if (state.liveNextSyncSeconds > 0) {
-        state.liveNextSyncSeconds--;
-        const timerEl = document.getElementById("live-sync-timer");
-        if (timerEl) {
-          const m = Math.floor(state.liveNextSyncSeconds / 60);
-          const s = state.liveNextSyncSeconds % 60;
-          timerEl.innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-        }
-      } else {
-        state.liveNextSyncSeconds = 600;
-        loadLiveMarketData();
-      }
-    }, 1000);
+      loadLiveMarketData();
+    }, 60000);
   }
 
   function loadLiveMarketData(manual = false) {
