@@ -3439,6 +3439,32 @@
   // ==========================================================================
   // Detailed IPO View (Faithfully matching BLS Polymers mock-up)
   // ==========================================================================
+
+  // ==========================================================================
+  // Skeleton Loaders & Empty States (Requirement 8)
+  // ==========================================================================
+  function renderSkeletonIpoCards(count = 3) {
+    return Array.from({ length: count }).map(() => `
+      <div class="skeleton-card" aria-hidden="true">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:12px; width:60%;">
+            <div class="skeleton-box" style="width:40px; height:40px; border-radius:50%;"></div>
+            <div style="flex:1;">
+              <div class="skeleton-box skeleton-title" style="margin-bottom:6px;"></div>
+              <div class="skeleton-box skeleton-text" style="width:40%;"></div>
+            </div>
+          </div>
+          <div class="skeleton-box" style="width:60px; height:24px; border-radius:12px;"></div>
+        </div>
+        <div class="skeleton-box skeleton-bar" style="margin:8px 0;"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div class="skeleton-box" style="height:36px; border-radius:8px;"></div>
+          <div class="skeleton-box" style="height:36px; border-radius:8px;"></div>
+        </div>
+      </div>
+    `).join("");
+  }
+
   function renderDetailView(slug) {
     const app = document.getElementById("app");
     if (!app) return;
@@ -3579,15 +3605,16 @@
           ` : `
             <div class="key-metric-box">
               <span class="key-metric-label">Issue Price</span>
-              <span class="key-metric-val">${ipo.priceBandLow && ipo.priceBandHigh ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
+              <span class="key-metric-val tnum">${ipo.priceBandLow && ipo.priceBandHigh ? `₹${ipo.priceBandLow} – ${ipo.priceBandHigh}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
             </div>
             <div class="key-metric-box">
-              <span class="key-metric-label">GMP Today</span>
-              <span class="key-metric-val positive">${ipo.gmp ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : '—'}</span>
+              <span class="key-metric-label">GMP Today <span class="gmp-info-icon" title="Unofficial grey-market indicator">ⓘ</span></span>
+              <span class="key-metric-val tnum ${ipo.gmp && ipo.gmp > 0 ? 'positive' : ''}">${(ipo.gmp !== null && ipo.gmp !== undefined && !isNaN(ipo.gmp)) ? (ipo.gmp > 0 ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : `₹0 (Flat)`) : '<span title="Unofficial grey-market indicator">N/A</span>'}</span>
+              <span style="font-size:10px; color:var(--text-tertiary);" title="Unofficial grey-market indicator">Unofficial Indicator</span>
             </div>
             <div class="key-metric-box">
               <span class="key-metric-label">Est. Listing Price</span>
-              <span class="key-metric-val">${ipo.gmp && upperPrice ? `₹${Number(upperPrice) + Number(ipo.gmp)}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
+              <span class="key-metric-val tnum">${(ipo.gmp !== null && ipo.gmp !== undefined && upperPrice) ? `₹${Number(upperPrice) + Number(ipo.gmp)}` : (ipo.issuePrice ? `₹${ipo.issuePrice}` : 'TBA')}</span>
             </div>
             <div class="key-metric-box">
               <span class="key-metric-label">Listing Date</span>
@@ -3595,7 +3622,7 @@
             </div>
             <div class="key-metric-box">
               <span class="key-metric-label">Subscription Multiple</span>
-              <span class="key-metric-val">${ipo.subscriptionOverall ? ipo.subscriptionOverall + 'x' : (ipo.subscriptionRetail ? ipo.subscriptionRetail + 'x' : 'N/A')}</span>
+              <span class="key-metric-val tnum">${ipo.subscriptionOverall ? ipo.subscriptionOverall + 'x' : (ipo.subscriptionRetail ? ipo.subscriptionRetail + 'x' : 'TBA')}</span>
             </div>
           `}
         </div>
@@ -4449,12 +4476,12 @@
   }
 
   function updateOpenIposDomInPlace() {
-    const tableBody = document.getElementById("open-ipos-table-body");
-    const cardsBody = document.getElementById("open-ipos-mobile-cards");
-    if (!tableBody || !cardsBody) return;
+    const container = document.getElementById("open-ipos-items-list");
+    if (!container) return;
     const issues = getFilteredOpenIssues();
-    tableBody.innerHTML = renderOpenRows(issues);
-    cardsBody.innerHTML = renderOpenCards(issues);
+    container.innerHTML = issues.length > 0
+      ? issues.map(item => renderSingleDomIpoCard(item)).join("")
+      : `<div class="fig1-empty-state" style="padding:48px 20px; text-align:center; color:#64748B;"><div style="font-size:28px; margin-bottom:8px;">🔍</div><div style="font-size:15px; font-weight:700; color:#1E293B;">No open IPOs match your search or filter criteria</div><div style="font-size:13px; margin-top:4px;">Try selecting 'All Issues' or clearing the search query.</div></div>`;
   }
 
   function renderOpenIposPage() {
@@ -4508,31 +4535,22 @@
           </div>
         </div>
 
-        <!-- Desktop Data Table -->
-        <div class="data-table-card desktop-only-table">
-          <table class="dedicated-data-table full-data-table">
-            <thead>
-              <tr>
-                <th>COMPANY</th>
-                <th>CATEGORY</th>
-                <th>BIDDING WINDOW</th>
-                <th>PRICE BAND</th>
-                <th>LOT SIZE</th>
-                <th>ISSUE SIZE</th>
-                <th>LIVE GMP</th>
-                <th>SUBSCRIPTION</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody id="open-ipos-table-body">
-              ${renderOpenRows(openIssues)}
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Mobile Card View -->
-        <div class="mobile-only-cards" id="open-ipos-mobile-cards">
-          ${renderOpenCards(openIssues)}
+        <!-- Single-DOM Responsive IPO Component (Cards on Mobile, Table on Desktop - Zero Duplicate DOM) -->
+        <div class="ipo-responsive-container">
+          <div class="ipo-table-header-row" aria-hidden="true">
+            <div class="col-company">Company</div>
+            <div class="col-dates">Bidding Window</div>
+            <div class="col-price">Price Band</div>
+            <div class="col-lot">Lot &amp; Min Inv</div>
+            <div class="col-gmp">Live GMP</div>
+            <div class="col-sub">Subscription</div>
+            <div class="col-actions" style="text-align:right;">Action</div>
+          </div>
+          <div class="ipo-items-list" id="open-ipos-items-list">
+            ${openIssues.length > 0 
+              ? openIssues.map(item => renderSingleDomIpoCard(item)).join("") 
+              : `<div class="fig1-empty-state" style="padding:48px 20px; text-align:center; color:#64748B;"><div style="font-size:28px; margin-bottom:8px;">🔍</div><div style="font-size:15px; font-weight:700; color:#1E293B;">No open IPOs match your search or filter criteria</div><div style="font-size:13px; margin-top:4px;">Try selecting 'All Issues' or clearing the search query.</div></div>`}
+          </div>
         </div>
 
         <!-- Regulatory Notice -->
