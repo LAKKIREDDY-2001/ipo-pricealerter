@@ -8,6 +8,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { spawn } = require('child_process');
 
 const PORT = 8089;
@@ -86,6 +87,28 @@ async function waitForCondition(checkFn, timeoutMs = 15000, intervalMs = 250) {
   return await checkFn();
 }
 
+async function getCdpTargets(retries = 20) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const list = await new Promise((resolve, reject) => {
+        const req = http.get(`http://127.0.0.1:${CDP_PORT}/json/list`, (res) => {
+          let d = '';
+          res.on('data', c => d += c);
+          res.on('end', () => {
+            try { resolve(JSON.parse(d)); } catch (e) { reject(e); }
+          });
+        });
+        req.on('error', reject);
+        req.setTimeout(1200, () => req.destroy(new Error('timeout')));
+      });
+      if (list && list.length && list[0].webSocketDebuggerUrl) return list;
+    } catch (e) {
+      await new Promise(r => setTimeout(r, 350));
+    }
+  }
+  throw new Error(`CDP port ${CDP_PORT} not ready after ${retries} retries`);
+}
+
 async function run() {
   let server = null;
   let chromeProc = null;
@@ -95,14 +118,16 @@ async function run() {
   try {
     server = await startServer();
     const chromePath = getChromeBinary();
+    const tmpProfile = fs.mkdtempSync(path.join(os.tmpdir(), 'chrome-smoke-'));
     console.log(`[SmokeTest] Launching Chrome executable: ${chromePath}`);
 
     chromeProc = spawn(chromePath, [
-      '--headless',
+      '--headless=new',
       `--remote-debugging-port=${CDP_PORT}`,
       '--no-sandbox',
       '--disable-gpu',
       '--disable-dev-shm-usage',
+      `--user-data-dir=${tmpProfile}`,
       'about:blank'
     ]);
 
@@ -110,28 +135,15 @@ async function run() {
       throw new Error(`Failed to launch Chrome: ${err.message}`);
     });
 
-    // Wait for CDP to initialize
-    await new Promise(r => setTimeout(r, 1500));
-
-    // Connect to CDP target
-    const listRes = await new Promise((resolve, reject) => {
-      http.get(`http://127.0.0.1:${CDP_PORT}/json/list`, (res) => {
-        let d = '';
-        res.on('data', c => d += c);
-        res.on('end', () => {
-          try {
-            resolve(JSON.parse(d));
-          } catch (e) {
-            reject(e);
-          }
-        });
-      }).on('error', reject);
+    chromeProc.stderr.on('data', (d) => {
+      const s = d.toString();
+      if (!s.includes('GL') && !s.includes('angle') && !s.includes('font_service')) {
+        // Log unexpected Chrome warnings if useful
+      }
     });
 
-    if (!listRes || !listRes[0] || !listRes[0].webSocketDebuggerUrl) {
-      throw new Error('CDP target page not available from Chrome');
-    }
-
+    // Poll until CDP target is alive
+    const listRes = await getCdpTargets();
     const wsUrl = listRes[0].webSocketDebuggerUrl;
     const ws = new WebSocket(wsUrl);
 
