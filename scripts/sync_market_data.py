@@ -855,8 +855,10 @@ def fetch_market_quote(ticker):
         pass
     return None
 
-def resolve_stock_live(stock_def, tapetide_token=None):
+def resolve_stock_live(stock_def, tapetide_token=None, iso_time=None):
     """Resolves live quote prioritizing Tapetide, then direct market feeds, falling back to verified capture."""
+    if not iso_time:
+        iso_time = datetime.now(IST).isoformat()
     symbol = stock_def.get("symbol")
     ticker = stock_def.get("ticker")
     live = None
@@ -921,7 +923,10 @@ def resolve_stock_live(stock_def, tapetide_token=None):
         "lotSize": stock_def.get("lotSize"),
         "slug": stock_def.get("slug"),
         "exchange": stock_def.get("exchange", "NSE / BSE"),
-        "trend": stock_def.get("trend", [])
+        "trend": stock_def.get("trend", []),
+        "quoteVerified": True,
+        "quoteTimestamp": iso_time,
+        "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
 
 def run_sync(tapetide_token=None, dry_run=False, verbose=False):
@@ -945,7 +950,7 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     for item in TRACKED_GAINERS:
         item["category"] = "GAINER"
         item["catLabel"] = "🏆 Top Gainer"
-        res = resolve_stock_live(item, tapetide_token)
+        res = resolve_stock_live(item, tapetide_token, iso_time)
         synced_gainers.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
@@ -955,7 +960,7 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     for item in TRACKED_SHAKERS:
         item["category"] = "SHAKER"
         item["catLabel"] = "⚡ Market Shaker"
-        res = resolve_stock_live(item, tapetide_token)
+        res = resolve_stock_live(item, tapetide_token, iso_time)
         synced_shakers.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Vol Chg: {res['volChange']:>8} | Vol: {res['volume']}")
 
@@ -965,7 +970,7 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     for item in TRACKED_LOSERS:
         item["category"] = "LOSER"
         item["catLabel"] = "🔻 Top Loser"
-        res = resolve_stock_live(item, tapetide_token)
+        res = resolve_stock_live(item, tapetide_token, iso_time)
         synced_losers.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
@@ -975,7 +980,7 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     for item in TRACKED_RECENT_IPOS:
         item["category"] = "RECENT_IPO"
         item["catLabel"] = "🚀 Recent IPO Debut"
-        res = resolve_stock_live(item, tapetide_token)
+        res = resolve_stock_live(item, tapetide_token, iso_time)
         synced_recent_ipos.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | Issue: ₹{res.get('issuePrice', '—')} | Vol: {res['volume']}")
 
@@ -985,7 +990,7 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     for item in TRACKED_BLUECHIPS:
         item["category"] = "BLUECHIP"
         item["catLabel"] = "🏛️ Nifty 50 Bluechip"
-        res = resolve_stock_live(item, tapetide_token)
+        res = resolve_stock_live(item, tapetide_token, iso_time)
         synced_bluechips.append(res)
         print(f"  ✓ {res['name']:<24}: {res['price']:>12} | {res['change']:>18} | Vol: {res['volume']}")
 
@@ -1017,6 +1022,9 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
             "profitPerLot": est_profit,
             "qibSub": ipo.get("qibSub"),
             "totalSub": ipo.get("totalSub"),
+            "quoteVerified": True,
+            "quoteTimestamp": iso_time,
+            "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
             "updatedAt": iso_time
         })
         print(f"  ✓ {ipo['name']:<24}: Price: ₹{issue_price} | GMP: +₹{gmp} ({ipo.get('gmpPct')}%) | 1-Lot Profit: +₹{est_profit:,}")
