@@ -2071,6 +2071,204 @@
     `;
   }
 
+
+  // ==========================================================================
+  // Single-DOM Responsive IPO Component & Today Action Chips (Commit 3)
+  // ==========================================================================
+  function getBiddingProgress(ipo) {
+    if (ipo.status !== "OPEN" && ipo.status !== "CLOSED") return null;
+    const today = getTodayIST();
+    const openDate = ipo.openDate;
+    const closeDate = ipo.closeDate;
+    if (!openDate || !closeDate) return null;
+
+    if (today < openDate) {
+      return { percent: 10, text: `Bidding Opens ${formatDate(openDate)}`, isFinalDay: false };
+    }
+    if (today > closeDate || ipo.status === "CLOSED") {
+      return { percent: 100, text: "Bidding Closed", isFinalDay: false };
+    }
+    if (today === closeDate) {
+      return { percent: 100, text: "Day 3 of 3 • Final Bidding Day (Closes 5:00 PM IST)", isFinalDay: true };
+    }
+    if (today === openDate) {
+      return { percent: 33, text: "Day 1 of 3 • Bidding Started", isFinalDay: false };
+    }
+    return { percent: 66, text: "Day 2 of 3 • Bidding Active", isFinalDay: false };
+  }
+
+  function getTodayActionStats() {
+    const todayStr = getTodayIST();
+    const closingToday = records.filter(r => r.closeDate === todayStr && (r.status === "OPEN" || r.status === "CLOSED"));
+    const allotmentToday = records.filter(r => r.allotmentDate === todayStr);
+    const listingToday = records.filter(r => r.listingDate === todayStr);
+    const upcomingPipeline = records.filter(r => r.status === "UPCOMING");
+
+    return {
+      todayStr,
+      closingToday,
+      allotmentToday,
+      listingToday,
+      upcomingPipeline
+    };
+  }
+
+  function renderTodayActionChips() {
+    const stats = getTodayActionStats();
+    const istDateFormatted = new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    }).format(new Date());
+
+    return `
+      <section class="today-action-chips-section" aria-label="Today's Primary Market Events">
+        <div class="today-chips-header">
+          <div class="today-chips-title-wrap">
+            <span class="live-pulse"></span>
+            <h2 class="today-chips-heading">Today's Market Pulse &bull; <span class="today-date-text">${istDateFormatted}</span></h2>
+          </div>
+          <span class="today-market-badge live">IST MARKET HOURS</span>
+        </div>
+        <div class="today-chips-row">
+          <button type="button" class="action-chip closing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('closing')" aria-label="View Closing Today IPOs">
+            <div class="chip-left">
+              <span class="chip-dot red"></span>
+              <span class="chip-label">Closing Today</span>
+            </div>
+            <span class="chip-count">${stats.closingToday.length}</span>
+          </button>
+          <button type="button" class="action-chip allotment-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('allotment')" aria-label="Check Allotment Today">
+            <div class="chip-left">
+              <span class="chip-dot yellow"></span>
+              <span class="chip-label">Allotment Today</span>
+            </div>
+            <span class="chip-count">${stats.allotmentToday.length}</span>
+          </button>
+          <button type="button" class="action-chip listing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('listing')" aria-label="View Today's Listings">
+            <div class="chip-left">
+              <span class="chip-dot green"></span>
+              <span class="chip-label">Listing Today</span>
+            </div>
+            <span class="chip-count">${stats.listingToday.length}</span>
+          </button>
+          <button type="button" class="action-chip upcoming-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('upcoming')" aria-label="View Upcoming Pipeline">
+            <div class="chip-left">
+              <span class="chip-dot blue"></span>
+              <span class="chip-label">Upcoming Pipeline</span>
+            </div>
+            <span class="chip-count">${stats.upcomingPipeline.length}</span>
+          </button>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderSingleDomIpoCard(item) {
+    const priceText = item.priceBandLow && item.priceBandHigh 
+      ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
+      : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
+    
+    const hasGmp = item.gmp !== null && item.gmp !== undefined && !isNaN(item.gmp);
+    const gmpText = hasGmp
+      ? (item.gmp > 0 ? `+₹${item.gmp}` : `₹${item.gmp}`)
+      : 'N/A';
+    const gmpPct = (hasGmp && item.gmpPercentage !== null && item.gmpPercentage !== undefined)
+      ? `(${item.gmpPercentage}%)`
+      : '';
+    const gmpClass = hasGmp ? (item.gmp > 0 ? 'positive' : 'neutral') : 'neutral';
+
+    const minInvFormatted = item.minimumInvestment 
+      ? `₹${Number(item.minimumInvestment).toLocaleString('en-IN')}` 
+      : (item.lotSize && item.priceBandHigh ? `₹${(item.lotSize * item.priceBandHigh).toLocaleString('en-IN')}` : '—');
+
+    const subText = item.subscriptionOverall ? `${item.subscriptionOverall}x` : (item.subscriptionRetail ? `${item.subscriptionRetail}x` : 'Open');
+    const bProgress = getBiddingProgress(item);
+    const closesSubText = item.closeDate ? `Closes: ${formatDate(item.closeDate)}` : 'Dates TBA';
+
+    return `
+      <article class="ipo-responsive-card" data-slug="${item.slug}">
+        <!-- Header / Brand (Cell 1 on desktop, Card top on mobile) -->
+        <div class="ipo-card-header">
+          <div class="ipo-card-brand">
+            ${renderCompanyLogo(item, 40)}
+            <div class="ipo-card-title-group">
+              <h3 class="ipo-card-name"><a href="#/ipo/${item.slug}" title="${escapeHtml(item.name || item.shortName)}">${escapeHtml(item.shortName)}</a></h3>
+              <div class="ipo-card-tags">
+                <span class="ipo-tag-board ${item.board === 'SME' ? 'sme' : 'mainboard'}">${item.board || 'MAINBOARD'}</span>
+                <span class="ipo-tag-exchange">${item.exchange || 'NSE/BSE'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="ipo-card-status-wrap">
+            <span class="status-badge ${item.status.toLowerCase()}">${item.status}</span>
+          </div>
+        </div>
+
+        <!-- Metrics Grid (Cells 2-6 on desktop, 2x3 grid on mobile via display:contents) -->
+        <div class="ipo-card-metrics-grid">
+          <div class="ipo-metric-cell metric-dates">
+            <span class="ipo-metric-label">Bidding Window</span>
+            <span class="ipo-metric-val dates-val">${formatDate(item.openDate)}</span>
+            <span class="ipo-metric-sub red">${closesSubText}</span>
+          </div>
+          <div class="ipo-metric-cell metric-price">
+            <span class="ipo-metric-label">Price Band</span>
+            <span class="ipo-metric-val tnum">${priceText}</span>
+          </div>
+          <div class="ipo-metric-cell metric-lot">
+            <span class="ipo-metric-label">Lot / Min Inv</span>
+            <span class="ipo-metric-val tnum">${item.lotSize ? item.lotSize + ' shares' : '—'}</span>
+            <span class="ipo-metric-sub tnum">${minInvFormatted}</span>
+          </div>
+          <div class="ipo-metric-cell metric-gmp">
+            <span class="ipo-metric-label">Live GMP <span class="gmp-info-icon" title="Unofficial grey-market indicator">ⓘ</span></span>
+            <span class="ipo-metric-val gmp-val tnum ${gmpClass}">
+              ${gmpText} <span style="font-size:11px; font-weight:600;">${gmpPct}</span>
+            </span>
+            <span class="ipo-metric-sub" title="Unofficial grey-market indicator">Unofficial</span>
+          </div>
+          <div class="ipo-metric-cell metric-sub">
+            <span class="ipo-metric-label">Subscription</span>
+            <span class="ipo-metric-val sub-val tnum">${subText}</span>
+          </div>
+        </div>
+
+        <!-- Bidding Progress Bar (Shown on Mobile) -->
+        ${bProgress ? `
+          <div class="ipo-card-progress">
+            <div class="bidding-progress-wrap" aria-label="Bidding timeline">
+              <div class="bidding-progress-header">
+                <span class="bidding-progress-step">${bProgress.text}</span>
+                <span class="bidding-progress-closes">${bProgress.isFinalDay ? 'Closing Day' : 'Active'}</span>
+              </div>
+              <div class="bidding-progress-track">
+                <div class="bidding-progress-fill ${bProgress.isFinalDay ? 'final' : ''}" style="width: ${bProgress.percent}%;"></div>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Actions & Trust Footer (Cell 7 on desktop, Card footer on mobile) -->
+        <div class="ipo-card-footer">
+          <div class="ipo-card-trust-meta">
+            <span class="trust-badge live"><span class="trust-dot"></span> LIVE</span>
+            <span class="trust-timestamp">${formatGmpLastUpdated()}</span>
+          </div>
+          <div class="ipo-card-actions">
+            <a href="#/ipo/${item.slug}" class="btn-ipo-primary" aria-label="View details for ${escapeHtml(item.shortName)}">Details</a>
+            ${item.allotmentUrl ? `
+              <a href="${item.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-ipo-secondary" aria-label="Check allotment for ${escapeHtml(item.shortName)}">Check Allotment</a>
+            ` : `
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-ipo-secondary" aria-label="Apply for ${escapeHtml(item.shortName)}">Apply Now</a>
+            `}
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
   function renderFig1OpenIposSection() {
     const openRecords = records.filter(r => r.status === "OPEN").sort((a, b) => {
       const da = a.closeDate ? new Date(a.closeDate).getTime() : 0;
@@ -2078,8 +2276,26 @@
       return da - db;
     });
 
+    if (openRecords.length === 0) {
+      return `
+        <div class="fig1-panel-card" id="open-ipos-section">
+          <div class="fig1-panel-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
+              <span class="status-badge open">ACTIVE BIDDING</span>
+            </div>
+          </div>
+          <div class="fig1-empty-state" style="padding: 40px 20px; text-align: center; color: #64748B;">
+            <div style="font-size: 28px; margin-bottom: 6px;">📅</div>
+            <div style="font-size: 15px; font-weight: 700; color: #1E293B;">No IPOs currently open for bidding</div>
+            <div style="font-size: 13px; margin-top: 4px; color: #64748B;">Check the Upcoming IPOs pipeline for new issues opening soon.</div>
+          </div>
+        </div>
+      `;
+    }
+
     return `
-      <div class="fig1-panel-card">
+      <div class="fig1-panel-card" id="open-ipos-section">
         <div class="fig1-panel-header">
           <div style="display:flex; align-items:center; gap:8px;">
             <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
@@ -2092,212 +2308,20 @@
           </div>
         </div>
 
-        <!-- Desktop Table View -->
-        <div class="fig1-table-responsive desktop-only-table">
-          <table class="fig1-trending-table">
-            <thead>
-              <tr>
-                <th>COMPANY</th>
-                <th>BIDDING WINDOW</th>
-                <th>PRICE BAND</th>
-                <th>LOT SIZE</th>
-                <th>LIVE GMP</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${openRecords.map(item => {
-                const priceText = item.priceBandLow && item.priceBandHigh 
-                  ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
-                  : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
-                const gmpText = (item.gmp !== null && item.gmp !== undefined)
-                  ? (item.gmp > 0 ? `+₹${item.gmp}` : `₹${item.gmp}`) 
-                  : 'N/A';
-                const gmpPct = (item.gmpPercentage !== null && item.gmpPercentage !== undefined) ? `(${item.gmpPercentage}%)` : '';
-                const estListing = (item.gmp !== null && item.gmp !== undefined && (item.priceBandHigh || item.issuePrice)) 
-                  ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp) 
-                  : null;
-                const minInvFormatted = item.minimumInvestment 
-                  ? `₹${Number(item.minimumInvestment).toLocaleString('en-IN')}` 
-                  : (item.lotSize && item.priceBandHigh ? `₹${(item.lotSize * item.priceBandHigh).toLocaleString('en-IN')}` : '—');
-
-                return `
-                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${item.slug}'">
-                    <td>
-                      <div class="fig1-company-cell">
-                        ${renderCompanyLogo(item, 34)}
-                        <div class="fig1-company-name-wrap">
-                          <span class="fig1-company-name">${item.shortName}</span>
-                          <span class="fig1-sub-tag listed" style="background:${item.board === 'MAINBOARD' ? '#EBF5FF' : '#F1F5F9'}; color:${item.board === 'MAINBOARD' ? '#1D4ED8' : '#475569'};">${item.board || 'MAINBOARD'}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div style="font-size:12.5px; font-weight:600; color:#111827;">${formatDate(item.openDate)}</div>
-                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: ${formatDate(item.closeDate)}</div>
-                    </td>
-                    <td><span class="fig1-val-price">${priceText}</span></td>
-                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">${item.lotSize ? item.lotSize + ' shares' : '—'}</span></td>
-                    <td>
-                      <span class="fig1-return-tag ${item.gmp ? 'positive' : ''}" style="${!item.gmp ? 'background:#F1F5F9; color:#64748B;' : ''}">
-                        ${gmpText} ${gmpPct}
-                      </span>
-                    </td>
-                    <td><span class="status-badge open">Open</span></td>
-                    <td>
-                      <button id="open-ipo-btn-${item.slug}" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp.toggleOpenIpoDetail('${item.slug}')">
-                        More Details ▾
-                      </button>
-                    </td>
-                  </tr>
-                  <tr id="open-ipo-expand-${item.slug}" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
-                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
-                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹${item.issueSizeCr || '—'} Cr</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">${minInvFormatted} (${item.lotSize || 0} shares)</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">${formatDate(item.allotmentDate)}</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">${formatDate(item.listingDate)}</div>
-                          </div>
-                        </div>
-                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
-                          <div style="font-size:13px; color:#475569;">
-                            <strong>Registrar:</strong> ${item.registrar || 'TBA'}
-                            ${estListing ? ` • <strong style="color:#16A34A;">Est. Listing:</strong> ₹${estListing} (+${item.gmpPercentage || 0}%)` : ''}
-                          </div>
-                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                            <a href="#/ipo/${item.slug}" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">
-                              Full Analysis &rarr;
-                            </a>
-                            ${item.allotmentUrl ? `
-                              <a href="${item.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">
-                                Check Allotment
-                              </a>
-                            ` : ''}
-                            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:700; border-radius:8px;">
-                              Apply Now
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                `;
-              }).join("")}
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Mobile Card Accordion View (Accessible & Clean Layout) -->
-        <div class="mobile-only-cards mobile-open-ipos-cards">
-          ${openRecords.map(item => {
-            const priceText = item.priceBandLow && item.priceBandHigh 
-              ? `₹${item.priceBandLow} – ${item.priceBandHigh}` 
-              : (item.issuePrice ? `₹${item.issuePrice}` : 'TBA');
-            const gmpText = (item.gmp !== null && item.gmp !== undefined)
-              ? (item.gmp > 0 ? `+₹${item.gmp}` : `₹${item.gmp}`) 
-              : 'N/A';
-            const gmpPct = (item.gmpPercentage !== null && item.gmpPercentage !== undefined) ? `(${item.gmpPercentage}%)` : '';
-            const estListing = (item.gmp !== null && item.gmp !== undefined && (item.priceBandHigh || item.issuePrice)) 
-              ? Number(item.priceBandHigh || item.issuePrice) + Number(item.gmp) 
-              : null;
-            const minInvFormatted = item.minimumInvestment 
-              ? `₹${Number(item.minimumInvestment).toLocaleString('en-IN')}` 
-              : (item.lotSize && item.priceBandHigh ? `₹${(item.lotSize * item.priceBandHigh).toLocaleString('en-IN')}` : '—');
-
-            return `
-              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${item.slug}'">
-                <div class="mobile-open-head">
-                  <div class="fig1-company-cell">
-                    ${renderCompanyLogo(item, 36)}
-                    <div class="fig1-company-name-wrap">
-                      <span class="fig1-company-name">${item.shortName}</span>
-                      <span class="fig1-sub-tag listed" style="background:${item.board === 'MAINBOARD' ? '#EBF5FF' : '#F1F5F9'}; color:${item.board === 'MAINBOARD' ? '#1D4ED8' : '#475569'};">${item.board || 'MAINBOARD'}</span>
-                    </div>
-                  </div>
-                  <span class="status-badge open">Open</span>
-                </div>
-                
-                <div class="mobile-open-specs-grid">
-                  <div class="mobile-spec-col">
-                    <span class="mobile-spec-label">Bidding Window</span>
-                    <span class="mobile-spec-val">${formatDate(item.openDate)} – ${formatDate(item.closeDate)}</span>
-                  </div>
-                  <div class="mobile-spec-col">
-                    <span class="mobile-spec-label">Price Band</span>
-                    <span class="mobile-spec-val" style="color:#079B50; font-weight:700;">${priceText}</span>
-                  </div>
-                  <div class="mobile-spec-col">
-                    <span class="mobile-spec-label">Lot Size</span>
-                    <span class="mobile-spec-val">${item.lotSize ? item.lotSize + ' shares' : '—'}</span>
-                  </div>
-                  <div class="mobile-spec-col">
-                    <span class="mobile-spec-label">Live GMP</span>
-                    <span class="mobile-spec-val ${item.gmp ? 'positive' : ''}" style="font-weight:700; color:${item.gmp ? '#16A34A' : '#64748B'};">
-                      ${gmpText} ${gmpPct}
-                    </span>
-                  </div>
-                </div>
-
-                <div class="mobile-open-actions">
-                  <button type="button" id="mobile-open-btn-${item.slug}" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp.toggleOpenIpoDetail('${item.slug}')">
-                    View Details ▾
-                  </button>
-                  <a href="#/ipo/${item.slug}" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:12px; font-weight:600; border-radius:8px;" onclick="event.stopPropagation();">
-                    Full Analysis &rarr;
-                  </a>
-                </div>
-
-                <!-- Mobile Expandable Accordion Drawer -->
-                <div id="mobile-open-expand-${item.slug}" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation();">
-                  <div class="mobile-drawer-grid">
-                    <div class="mobile-drawer-item">
-                      <span class="mobile-spec-label">Issue Size</span>
-                      <strong style="color:#111827; font-size:13px;">₹${item.issueSizeCr || '—'} Cr</strong>
-                    </div>
-                    <div class="mobile-drawer-item">
-                      <span class="mobile-spec-label">Min Investment</span>
-                      <strong style="color:#111827; font-size:13px;">${minInvFormatted}</strong>
-                    </div>
-                    <div class="mobile-drawer-item">
-                      <span class="mobile-spec-label">Allotment Date</span>
-                      <strong style="color:#111827; font-size:13px;">${formatDate(item.allotmentDate)}</strong>
-                    </div>
-                    <div class="mobile-drawer-item">
-                      <span class="mobile-spec-label">Listing Date</span>
-                      <strong style="color:#111827; font-size:13px;">${formatDate(item.listingDate)}</strong>
-                    </div>
-                  </div>
-                  <div style="font-size:12px; color:#475569; margin:10px 0 12px; padding-top:8px; border-top:1px dashed #E2E8F0;">
-                    <strong>Registrar:</strong> ${item.registrar || 'TBA'}
-                    ${estListing ? ` • <strong style="color:#16A34A;">Est. Listing:</strong> ₹${estListing} (+${item.gmpPercentage || 0}%)` : ''}
-                  </div>
-                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    ${item.allotmentUrl ? `
-                      <a href="${item.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:6px 12px; font-size:12px; font-weight:600; border-radius:8px; flex:1; text-align:center;">
-                        Check Allotment
-                      </a>
-                    ` : ''}
-                    <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:6px 12px; font-size:12px; font-weight:700; border-radius:8px; flex:1; text-align:center;">
-                      Apply Now
-                    </a>
-                  </div>
-                </div>
-              </div>
-            `;
-          }).join("")}
+        <!-- Single-DOM Responsive IPO Component (Cards on Mobile, Table on Desktop - Zero Duplicate DOM) -->
+        <div class="ipo-responsive-container">
+          <div class="ipo-table-header-row" aria-hidden="true">
+            <div class="col-company">Company</div>
+            <div class="col-dates">Bidding Window</div>
+            <div class="col-price">Price Band</div>
+            <div class="col-lot">Lot &amp; Min Inv</div>
+            <div class="col-gmp">Live GMP</div>
+            <div class="col-sub">Subscription</div>
+            <div class="col-actions" style="text-align:right;">Action</div>
+          </div>
+          <div class="ipo-items-list">
+            ${openRecords.map(item => renderSingleDomIpoCard(item)).join("")}
+          </div>
         </div>
       </div>
     `;
@@ -7818,6 +7842,24 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    handleTodayChipClick: (action) => {
+      if (action === "closing") {
+        const el = document.getElementById("open-ipos-section") || document.getElementById("dashboard-open-ipos-section");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        else window.location.hash = "#/open";
+      } else if (action === "allotment") {
+        window.location.hash = "#/allotment";
+      } else if (action === "listing") {
+        const el = document.getElementById("recently-listed-performance-section") || document.querySelector(".fig1-bar-chart-wrap");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        else window.location.hash = "#/listed";
+      } else if (action === "upcoming") {
+        const el = document.getElementById("upcoming-pipeline-section");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        else window.location.hash = "#/upcoming";
+      }
+    },
+
     toggleTheme: toggleTheme,
     setCalcCompany: (slug) => {
       state.calcSelectedSlug = slug;

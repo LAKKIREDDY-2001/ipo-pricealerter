@@ -1295,9 +1295,9 @@
           </div>
         </section>
 
-        <!-- Active Open IPOs Section (Added Below the Photo Dashboard) -->
+        <!-- Active Open IPOs Section (Single-DOM Responsive Component: Cards on Mobile, Table on Desktop) -->
         <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding" style="margin-top:24px;">
-          <div class="fig1-panel-card">
+          <div class="fig1-panel-card" id="open-ipos-section">
             <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:8px;">
               <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:8px;">
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -1312,133 +1312,86 @@
                 <span>Verified live bidding window compiled from exchange order books &amp; designated SEBI registrars.</span>
               </div>
             </div>
-            <div class="fig1-table-responsive desktop-only-table">
-              <table class="fig1-trending-table">
-                <thead>
-                  <tr>
-                    <th>COMPANY</th>
-                    <th>BIDDING WINDOW</th>
-                    <th>PRICE BAND</th>
-                    <th>LOT SIZE</th>
-                    <th>LIVE GMP</th>
-                    <th>STATUS</th>
-                    <th>ACTION</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Antala Industries -->
-                  <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/antala-industries-ipo'">
-                    <td>
-                      <div class="fig1-company-cell">
-                        <div class="fig1-avatar" style="width:36px; height:36px; font-size:13px; background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">AI</div>
-                        <div class="fig1-company-name-wrap">
-                          <span class="fig1-company-name">Antala Industries</span>
-                          <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+
+            <!-- Single-DOM Responsive IPO Component (No Duplicate DOM) -->
+            <div class="ipo-responsive-container">
+              <div class="ipo-table-header-row" aria-hidden="true">
+                <div class="col-company">Company</div>
+                <div class="col-dates">Bidding Window</div>
+                <div class="col-price">Price Band</div>
+                <div class="col-lot">Lot &amp; Min Inv</div>
+                <div class="col-gmp">Live GMP</div>
+                <div class="col-sub">Subscription</div>
+                <div class="col-actions" style="text-align:right;">Action</div>
+              </div>
+              <div class="ipo-items-list">
+                <article class="ipo-responsive-card" data-slug="antala-industries-ipo">
+                  <div class="ipo-card-header">
+                    <div class="ipo-card-brand">
+                      <div class="fig1-avatar" style="width:40px; height:40px; font-size:13px; background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">AI</div>
+                      <div class="ipo-card-title-group">
+                        <h3 class="ipo-card-name"><a href="#/ipo/antala-industries-ipo" title="Antala Industries Limited">Antala Industries</a></h3>
+                        <div class="ipo-card-tags">
+                          <span class="ipo-tag-board sme">SME</span>
+                          <span class="ipo-tag-exchange">BSE SME</span>
                         </div>
                       </div>
-                    </td>
-                    <td>
-                      <div style="font-size:12.5px; font-weight:600; color:#111827;">29 Oct 2026</div>
-                      <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: 05 Nov 2026</div>
-                    </td>
-                    <td><span class="fig1-val-price">₹62 – 66</span></td>
-                    <td><span style="font-size:12.5px; font-weight:600; color:#111827;">2000 shares</span></td>
-                    <td><span class="fig1-return-tag" style="background:#F1F5F9; color:#64748B;">₹0 (0.00%)</span></td>
-                    <td><span class="status-badge open">Open</span></td>
-                    <td><button id="open-ipo-btn-antala-industries-ipo" class="btn-table-action" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('antala-industries-ipo') : (window.location.hash='#/ipo/antala-industries-ipo')">More Details ▾</button></td>
-                  </tr>
-                  <tr id="open-ipo-expand-antala-industries-ipo" class="open-ipo-detail-drawer" style="display:none; background:#F8FAFC;">
-                    <td colspan="7" style="padding:14px 18px; border-bottom:1px solid #E2E8F0;">
-                      <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.03);">
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:14px; margin-bottom:14px;">
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Issue Size</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹23.33 Cr</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Min Investment</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">₹1,32,000 (2000 shares)</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Allotment Date</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">06 Nov 2026</div>
-                          </div>
-                          <div>
-                            <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Listing Date</span>
-                            <div style="font-size:14px; font-weight:700; color:#111827; margin-top:2px;">11 Nov 2026</div>
-                          </div>
-                        </div>
-                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px dashed #E2E8F0;">
-                          <div style="font-size:13px; color:#475569;">
-                            <strong>Registrar:</strong> Bigshare Services Pvt. Ltd. • <strong style="color:#64748B;">Est. Listing:</strong> ₹66 (0.00%)
-                          </div>
-                          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                            <a href="#/ipo/antala-industries-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Full Analysis &rarr;</a>
-                            <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:8px;">Check Allotment</a>
-                            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:700; border-radius:8px;">Apply Now</a>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Mobile-Optimized Accordion Cards (WCAG AAA Compliant) -->
-            <div class="mobile-open-ipos-cards mobile-only-cards">
-              <!-- Antala Industries -->
-              <div class="mobile-open-card" onclick="window.location.hash='#/ipo/antala-industries-ipo'" style="cursor:pointer;">
-                <div class="mobile-open-top-row">
-                  <div class="mobile-open-brand">
-                    <div class="fig1-avatar" style="width:36px; height:36px; font-size:13px; background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">AI</div>
-                    <div>
-                      <h3 class="mobile-open-name">Antala Industries</h3>
-                      <span class="fig1-sub-tag listed" style="background:#F1F5F9; color:#475569;">SME</span>
+                    </div>
+                    <div class="ipo-card-status-wrap">
+                      <span class="status-badge open">Open</span>
                     </div>
                   </div>
-                  <span class="status-badge open">Open</span>
-                </div>
-                <div class="mobile-open-specs-grid">
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Bidding Window</span>
-                    <span class="mobile-spec-val">29 Oct &ndash; 05 Nov</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Price Band</span>
-                    <span class="mobile-spec-val">₹62 &ndash; 66</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Lot Size</span>
-                    <span class="mobile-spec-val">2000 shares</span>
-                  </div>
-                  <div class="mobile-spec-item">
-                    <span class="mobile-spec-label">Live GMP</span>
-                    <span class="fig1-return-tag" style="background:#F1F5F9; color:#64748B;">₹0 (Flat)</span>
-                  </div>
-                </div>
-                <button id="mobile-open-btn-antala-industries-ipo" class="btn-mobile-toggle" onclick="event.stopPropagation(); window.IpoApp ? window.IpoApp.toggleOpenIpoDetail('antala-industries-ipo') : null">
-                  More Details &blacktriangledown;
-                </button>
-                <div id="mobile-open-expand-antala-industries-ipo" class="mobile-open-drawer" style="display:none;" onclick="event.stopPropagation()">
-                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
-                    <div><span style="color:#64748B;">Issue Size:</span> <strong>₹23.33 Cr</strong></div>
-                    <div><span style="color:#64748B;">Min Inv:</span> <strong>₹1,32,000</strong></div>
-                    <div><span style="color:#64748B;">Allotment:</span> <strong>06 Nov 2026</strong></div>
-                    <div><span style="color:#64748B;">Listing:</span> <strong>11 Nov 2026</strong></div>
-                  </div>
-                  <div style="font-size:12px; color:#475569; padding-top:6px; border-top:1px dashed #E2E8F0;">
-                    <strong>Registrar:</strong> Bigshare Services Pvt. Ltd. &bull; <strong style="color:#64748B;">Est. Listing:</strong> ₹66 (0.00%)
-                  </div>
-                  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;">
-                    <a href="#/ipo/antala-industries-ipo" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Full Analysis &rarr;</a>
-                    <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#079B50; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Check Allotment</a>
-                    <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; border:1px solid #059669; color:#FFFFFF; text-decoration:none; padding:7px 12px; font-size:11.5px; font-weight:700; border-radius:8px;">Apply Now</a>
-                  </div>
-                </div>
-              </div>
 
+                  <div class="ipo-card-metrics-grid">
+                    <div class="ipo-metric-cell metric-dates">
+                      <span class="ipo-metric-label">Bidding Window</span>
+                      <span class="ipo-metric-val dates-val">29 Oct 2026</span>
+                      <span class="ipo-metric-sub red">Closes: 05 Nov 2026</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-price">
+                      <span class="ipo-metric-label">Price Band</span>
+                      <span class="ipo-metric-val tnum">₹62 – 66</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-lot">
+                      <span class="ipo-metric-label">Lot / Min Inv</span>
+                      <span class="ipo-metric-val tnum">2000 shares</span>
+                      <span class="ipo-metric-sub tnum">₹1,32,000</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-gmp">
+                      <span class="ipo-metric-label">Live GMP <span class="gmp-info-icon" title="Unofficial grey-market indicator">ⓘ</span></span>
+                      <span class="ipo-metric-val gmp-val tnum neutral">₹0 <span style="font-size:11px; font-weight:600;">(0.00%)</span></span>
+                      <span class="ipo-metric-sub" title="Unofficial grey-market indicator">Unofficial</span>
+                    </div>
+                    <div class="ipo-metric-cell metric-sub">
+                      <span class="ipo-metric-label">Subscription</span>
+                      <span class="ipo-metric-val sub-val tnum">4.82x</span>
+                    </div>
+                  </div>
+
+                  <div class="ipo-card-progress">
+                    <div class="bidding-progress-wrap" aria-label="Bidding timeline">
+                      <div class="bidding-progress-header">
+                        <span class="bidding-progress-step">Day 3 of 3 • Final Bidding Day (Closes 5:00 PM IST)</span>
+                        <span class="bidding-progress-closes">Closing Day</span>
+                      </div>
+                      <div class="bidding-progress-track">
+                        <div class="bidding-progress-fill final" style="width: 100%;"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ipo-card-footer">
+                    <div class="ipo-card-trust-meta">
+                      <span class="trust-badge live"><span class="trust-dot"></span> LIVE</span>
+                      <span class="trust-timestamp">Updated 11:40 AM IST</span>
+                    </div>
+                    <div class="ipo-card-actions">
+                      <a href="#/ipo/antala-industries-ipo" class="btn-ipo-primary" aria-label="View details for Antala Industries">Details</a>
+                      <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-ipo-secondary" aria-label="Check allotment for Antala Industries">Check Allotment</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
             </div>
           </div>
         </section>
