@@ -65,6 +65,27 @@
   --radius-xl: 20px;
   --radius-full: 9999px;
 
+  /* 8px Spacing Grid System */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Typography Scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+
   --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.05);
   --shadow-card: 0 4px 16px rgba(17, 24, 39, 0.05);
   --shadow-glow: 0 4px 20px rgba(20, 43, 73, 0.15);
@@ -74,6 +95,117 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark Theme Support (Auto System Preference + Manual Toggle) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg-main: #0B132B;
+    --bg-surface: #141E33;
+    --bg-surface-raised: #1C2A47;
+    --bg-card: #141E33;
+    --bg-card-hover: #1A2640;
+    --bg-input: #10192A;
+    --text-primary: #F8FAFC;
+    --text-heading: #FFFFFF;
+    --text-body: #E2E8F0;
+    --text-muted: #94A3B8;
+    --text-dim: #64748B;
+    --border-subtle: #24324D;
+    --border-hover: #384C70;
+    --border-focus: #079B50;
+
+    --status-open-bg: rgba(7, 155, 80, 0.15);
+    --status-open-border: rgba(7, 155, 80, 0.35);
+    --status-closing-bg: rgba(249, 115, 22, 0.15);
+    --status-closing-border: rgba(249, 115, 22, 0.35);
+    --status-upcoming-bg: rgba(30, 41, 59, 0.5);
+    --status-upcoming-border: rgba(71, 85, 105, 0.5);
+    --status-listed-bg: rgba(51, 65, 85, 0.5);
+    --status-listed-border: rgba(71, 85, 105, 0.5);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
+    --shadow-glow: 0 4px 20px rgba(7, 155, 80, 0.2);
+    --shadow-dropdown: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-main: #0B132B;
+  --bg-surface: #141E33;
+  --bg-surface-raised: #1C2A47;
+  --bg-card: #141E33;
+  --bg-card-hover: #1A2640;
+  --bg-input: #10192A;
+  --text-primary: #F8FAFC;
+  --text-heading: #FFFFFF;
+  --text-body: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --border-subtle: #24324D;
+  --border-hover: #384C70;
+  --border-focus: #079B50;
+
+  --status-open-bg: rgba(7, 155, 80, 0.15);
+  --status-open-border: rgba(7, 155, 80, 0.35);
+  --status-closing-bg: rgba(249, 115, 22, 0.15);
+  --status-closing-border: rgba(249, 115, 22, 0.35);
+  --status-upcoming-bg: rgba(30, 41, 59, 0.5);
+  --status-upcoming-border: rgba(71, 85, 105, 0.5);
+  --status-listed-bg: rgba(51, 65, 85, 0.5);
+  --status-listed-border: rgba(71, 85, 105, 0.5);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 4px 20px rgba(7, 155, 80, 0.2);
+  --shadow-dropdown: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Tabular Numbers for Financial Realignment */
+body, table, th, td,
+.tabular-nums, .price-val, .gmp-val, .fig1-stat-num,
+.mobile-spec-val, .fig1-val-price, .key-metric-val,
+.movers-cmp, .movers-change, .sub-bar-labels {
+  font-feature-settings: "tnum" 1, "cv05" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Accessible Focus States (WCAG AA) */
+:focus-visible {
+  outline: 2px solid var(--primary-green) !important;
+  outline-offset: 2px !important;
+}
+
+/* Lucide SVG Icons Utility */
+.lucide-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
+  vertical-align: middle;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.lucide-icon.icon-sm { width: 14px; height: 14px; }
+.lucide-icon.icon-lg { width: 22px; height: 22px; }
+.lucide-icon.icon-xl { width: 28px; height: 28px; }
+
+/* 44px Minimum Touch Target Size */
+.btn-touch-target,
+.nav-link,
+.fig1-header-link,
+.status-action-chip,
+.tab-btn,
+.btn-table-action {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Base Reset & Typography */
