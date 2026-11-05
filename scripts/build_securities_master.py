@@ -48,18 +48,20 @@ HISTORIC_ALIASES = {
     "asian paints": {"symbol": "ASIANPAINT", "bseCode": "500820", "isin": "INE021A01026", "name": "Asian Paints Limited"},
     "larsen & toubro (l&t)": {"symbol": "LT", "bseCode": "500510", "isin": "INE018A01030", "name": "Larsen & Toubro Limited"},
     "afcons infrastructure": {"symbol": "AFCONS", "bseCode": "544280", "isin": "INE101I01011", "name": "Afcons Infrastructure Limited"},
-    "carver roboweld": {"bseCode": "544281", "isin": "INE0XYZ01012", "name": "Carver Roboweld Limited"},
-    "m.k. sons fine jewels": {"bseCode": "544282", "isin": "INE0W1201018", "name": "M.K. Sons Fine Jewels Limited"},
-    "m. k. sons fine jewels": {"bseCode": "544282", "isin": "INE0W1201018", "name": "M.K. Sons Fine Jewels Limited"},
-    "bombay coated and special steels": {"symbol": "BOMCOAT", "bseCode": "544285", "name": "Bombay Coated and Special Steels Limited"},
-    "core4 engineers": {"bseCode": "545007", "symbol": "CORE4", "name": "Core4 Engineers Limited"},
-    "core4 engineer": {"bseCode": "545007", "symbol": "CORE4", "name": "Core4 Engineers Limited"},
-    "papadmalji agro": {"symbol": "PAPADMALJI", "name": "Papadmalji Agro Limited"},
-    "papadmalji agro foods": {"symbol": "PAPADMALJI", "name": "Papadmalji Agro Limited"},
-    "ravita engineering services": {"symbol": "RAVITA", "name": "Ravita Engineering Services Limited"},
-    "eventions": {"symbol": "EVENTIONS", "name": "Eventions Limited"},
-    "dove soft": {"bseCode": "544975", "symbol": "DSL", "name": "Dove Soft Limited"},
-    "acme india industries": {"bseCode": "544283", "symbol": "ACMESOLAR", "name": "ACME Solar Holdings Limited"}
+    "carver roboweld": {"bseCode": "545015", "symbol": "CRL", "isin": "INE1FY301017", "name": "Carver Roboweld Limited"},
+    "m.k. sons fine jewels": {"bseCode": "545017", "symbol": "MKJEWELS", "isin": "INE2IXO01012", "name": "M.K. Sons Fine Jewels Limited"},
+    "m. k. sons fine jewels": {"bseCode": "545017", "symbol": "MKJEWELS", "isin": "INE2IXO01012", "name": "M.K. Sons Fine Jewels Limited"},
+    "bombay coated and special steels": {"symbol": "BCSSL", "bseCode": "545018", "isin": "INE0XFY01011", "name": "Bombay Coated and Special Steels Limited"},
+    "core4 engineers": {"bseCode": "545007", "symbol": "CORE4", "isin": "INE1RY601016", "name": "Core4 Engineers Limited"},
+    "core4 engineer": {"bseCode": "545007", "symbol": "CORE4", "isin": "INE1RY601016", "name": "Core4 Engineers Limited"},
+    "papadmalji agro": {"symbol": "PAPADMALJI", "isin": "INE1V7901010", "name": "Papadmalji Agro Foods Limited"},
+    "papadmalji agro foods": {"symbol": "PAPADMALJI", "isin": "INE1V7901010", "name": "Papadmalji Agro Foods Limited"},
+    "ravita engineering services": {"symbol": "RAVITA", "bseCode": "96742", "isin": "INE1UEL01023", "name": "Ravita Engineering Services Limited"},
+    "eventions": {"symbol": "EVENTIONS", "isin": "INE20M201019", "name": "Eventions Limited"},
+    "dove soft": {"bseCode": "544975", "symbol": "DSL", "isin": "INE0NXJ01016", "name": "Dove Soft Limited"},
+    "acme solar holdings": {"bseCode": "544283", "symbol": "ACMESOLAR", "isin": "INE622W01025", "name": "ACME Solar Holdings Limited"},
+    "acme solar": {"bseCode": "544283", "symbol": "ACMESOLAR", "isin": "INE622W01025", "name": "ACME Solar Holdings Limited"},
+    "swiggy": {"bseCode": "544285", "symbol": "SWIGGY", "isin": "INE00H001014", "name": "Swiggy Limited"}
 }
 
 
@@ -323,6 +325,7 @@ def main():
     # Master securities registry
     master_securities = []
     seen_ids = set()
+    matched_ipo_slugs = set()
     unmapped_records = []
     mapped_count = 0
 
@@ -338,8 +341,16 @@ def main():
         # Merge with matching ipo_record if exists
         matched_ipo = ipo_by_slug.get(slug)
         if not matched_ipo:
+            base_slug = re.sub(r'-(19|20)\d\d$', '', slug)
+            matched_ipo = ipo_by_slug.get(base_slug)
+        if not matched_ipo:
             n_name = norm_string(name)
             matched_ipo = ipo_by_norm.get(n_name)
+
+        if matched_ipo:
+            if matched_ipo.get("slug"):
+                matched_ipo_slugs.add(matched_ipo["slug"])
+                seen_ids.add(f"sec-{matched_ipo['slug']}")
 
         # Basic fields
         short_name = name
@@ -563,8 +574,9 @@ def main():
     # Now add any OPEN, UPCOMING, or CLOSED IPOs from ipo-data.js that are not in ListedGainsData
     for r in ipo_records:
         slug = r.get("slug")
+        base_slug = re.sub(r'-(19|20)\d\d$', '', slug) if slug else ""
         sid = f"sec-{slug}"
-        if sid in seen_ids:
+        if sid in seen_ids or slug in matched_ipo_slugs or base_slug in matched_ipo_slugs:
             continue
         seen_ids.add(sid)
 

@@ -1799,13 +1799,51 @@
     const finalGainers = gainersList.length ? gainersList : ((data && data.marketGainers) || marketGainers);
     const finalLosers = losersList.length ? losersList : ((data && data.marketLosers) || marketLosers);
 
+    const bm = data?.benchmarks || {
+      nifty50: { name: "NIFTY 50", price: 27601.75, change: 576.0, pct: 4.14, isGain: true },
+      sensex: { name: "SENSEX", price: 84150.25, change: 2008.61, pct: 2.45, isGain: true }
+    };
+    const niftyChg = (bm.nifty50.isGain ? "+" : "") + Number(bm.nifty50.pct || 0).toFixed(2) + "%";
+    const sensexChg = (bm.sensex.isGain ? "+" : "") + Number(bm.sensex.pct || 0).toFixed(2) + "%";
+    const lastSyncStr = data?.lastSyncFormatted || "Recently Updated";
+    const marketStatusLabel = data?.marketStatus === "OPEN" ? "MARKET LIVE" : "CLOSING / EOD";
+
     return `
       <div class="movers-container" id="market-movers-section">
+        <!-- Benchmark Strip (Nifty 50 & Sensex) -->
+        <div class="benchmark-strip" aria-label="Key Indian Market Benchmarks">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="live-pulse-badge" style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; padding:2px 7px; border-radius:4px; background:rgba(37,99,235,0.1); color:#2563EB; font-weight:700;">
+              <span class="live-dot-pulse" style="width:6px; height:6px;"></span>
+              <span>${marketStatusLabel}</span>
+            </span>
+          </div>
+          <div class="benchmark-item">
+            <span class="benchmark-name">NIFTY 50:</span>
+            <span class="benchmark-val">₹${Number(bm.nifty50.price).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            <span class="benchmark-chg" style="color:${bm.nifty50.isGain ? '#16A34A' : '#DC2626'};">${niftyChg}</span>
+          </div>
+          <div style="color:var(--border-subtle); padding:0 2px;">•</div>
+          <div class="benchmark-item">
+            <span class="benchmark-name">SENSEX:</span>
+            <span class="benchmark-val">₹${Number(bm.sensex.price).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            <span class="benchmark-chg" style="color:${bm.sensex.isGain ? '#16A34A' : '#DC2626'};">${sensexChg}</span>
+          </div>
+          <div style="margin-left:auto; font-size:11px; color:var(--text-muted); white-space:nowrap;">
+            Universe: <strong style="color:var(--text-heading);">IPO Debuts (Last 12M)</strong>
+          </div>
+        </div>
+
         <!-- Movers Master Filter Toolbar -->
         <div class="movers-filter-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <h2 class="fig1-panel-title" style="margin:0; font-size:18px;">📊 Today's Market Movers</h2>
-            <div class="widget-source-tag">Timestamped provider quotes</div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h2 class="fig1-panel-title" style="margin:0; font-size:18px;">📊 IPO Debut Movers</h2>
+              <div class="widget-source-tag">12-Month Listings • ${lastSyncStr}</div>
+            </div>
+            <p style="margin:3px 0 0; font-size:12px; color:var(--text-muted);">
+              Performance of Mainboard &amp; SME IPOs listed within the last 12 months.
+            </p>
           </div>
           <div class="movers-tabs-nav" role="tablist" aria-label="Market Movers View Selection">
             <button type="button" class="movers-tab-btn active" id="tab-btn-both" onclick="window.switchMoversView('both')" role="tab" aria-selected="true">

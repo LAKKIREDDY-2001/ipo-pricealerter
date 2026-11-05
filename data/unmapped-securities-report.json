@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-11-05T13:14:54.197342+05:30",
+  "generatedAt": "2026-11-05T16:11:08.220082+05:30",
   "stats": {
-    "totalSecurities": 2035,
-    "mappedCount": 1349,
+    "totalSecurities": 1872,
+    "mappedCount": 1186,
     "unmappedCount": 686,
-    "matchRatePct": 66.29,
-    "tier1Count": 577,
+    "matchRatePct": 63.35,
+    "tier1Count": 414,
     "tier2Count": 874,
     "tier3Count": 584,
     "twelveMonthCutoff": "2025-11-05",
-    "updatedAt": "2026-11-05T13:14:54.167536+05:30",
+    "updatedAt": "2026-11-05T16:11:08.193184+05:30",
     "byYear": {
       "2026": {
         "year": 2026,
-        "avgGainPct": 14.44,
-        "medGainPct": 3.9,
-        "totalListed": 475,
-        "aboveIssue": 280,
-        "shareAbovePct": 64.1,
-        "totalIssueSizeCr": 359528.54
+        "avgGainPct": 12.6,
+        "medGainPct": 3.03,
+        "totalListed": 312,
+        "aboveIssue": 181,
+        "shareAbovePct": 59.9,
+        "totalIssueSizeCr": 190318.85
       },
       "2025": {
         "year": 2025,
