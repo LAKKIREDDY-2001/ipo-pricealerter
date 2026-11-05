@@ -39,6 +39,7 @@ function startServer() {
 
     fs.stat(filePath, (err, stats) => {
       if (err || !stats.isFile()) {
+        console.error(`[HTTP 404] ${req.method} ${req.url} -> File not found: ${filePath}`);
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         return res.end(`404 Not Found: ${reqPath}`);
       }
@@ -160,20 +161,30 @@ async function run() {
 
     // Wait until application completes initialization
     let appReady = false;
-    for (let i = 0; i < 30; i++) {
+    let lastState = {};
+    for (let i = 0; i < 40; i++) {
       const res = await send('Runtime.evaluate', {
-        expression: 'document.readyState === "complete" && typeof window.IpoApp === "object"',
+        expression: `
+          (() => {
+            return {
+              hasIpoApp: typeof window.IpoApp === "object",
+              readyState: document.readyState,
+              appHtmlLen: document.getElementById("app") ? document.getElementById("app").innerHTML.length : 0
+            };
+          })()
+        `,
         returnByValue: true
       });
-      if (res?.result?.value === true) {
+      lastState = res?.result?.value || {};
+      if (lastState.hasIpoApp && lastState.appHtmlLen > 50) {
         appReady = true;
         break;
       }
-      await new Promise(r => setTimeout(r, 400));
+      await new Promise(r => setTimeout(r, 350));
     }
 
     if (!appReady) {
-      throw new Error('Application failed to initialize within 12 seconds');
+      throw new Error(`Application failed to initialize within 14 seconds: ${JSON.stringify(lastState)}`);
     }
     console.log('[SmokeTest] Application initialized successfully.');
 
