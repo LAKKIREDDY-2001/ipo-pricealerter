@@ -46,8 +46,19 @@ function startServer() {
 
       const ext = path.extname(filePath).toLowerCase();
       const contentType = mimeTypes[ext] || 'application/octet-stream';
-      res.writeHead(200, { 'Content-Type': contentType });
-      fs.createReadStream(filePath).pipe(res);
+      fs.readFile(filePath, (readErr, data) => {
+        if (readErr) {
+          console.error(`[HTTP 500] Read error on ${filePath}`);
+          res.writeHead(500);
+          return res.end('Read error');
+        }
+        res.writeHead(200, {
+          'Content-Type': contentType,
+          'Content-Length': data.length,
+          'Cache-Control': 'no-cache'
+        });
+        res.end(data);
+      });
     });
   });
 
@@ -142,6 +153,23 @@ async function run() {
         uncaughtExceptions.push(desc);
         console.error('[Browser Exception]:', desc);
       }
+      if (msg.method === 'Console.messageAdded') {
+        const text = msg.params.message?.text;
+        const level = msg.params.message?.level;
+        if (level === 'error') console.error(`[Console ${level}]:`, text);
+        else console.log(`[Console ${level}]:`, text);
+      }
+      if (msg.method === 'Runtime.consoleAPICalled') {
+        const args = (msg.params.args || []).map(a => a.value || a.description || '').join(' ');
+        console.log(`[Console ${msg.params.type}]:`, args);
+      }
+      if (msg.method === 'Network.responseReceived') {
+        const status = msg.params.response?.status;
+        const url = msg.params.response?.url;
+        if (status >= 400 && !url.includes('infolinks') && !url.includes('google')) {
+          console.error(`[Network ${status}]:`, url);
+        }
+      }
     };
 
     function send(method, params = {}) {
@@ -155,6 +183,8 @@ async function run() {
     await new Promise(r => ws.onopen = r);
     await send('Page.enable');
     await send('Runtime.enable');
+    await send('Console.enable');
+    await send('Network.enable');
 
     console.log('[SmokeTest] Initializing application at root URL...');
     await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/` });
