@@ -5131,52 +5131,24 @@
     }
 
     const lastSyncStr = (data && data.lastSyncFormatted) ? data.lastSyncFormatted : "Live Feed Active";
-    const countdownSec = state.liveNextSyncSeconds || 600;
-    const mins = Math.floor(countdownSec / 60);
-    const secs = countdownSec % 60;
-    const timerDisplay = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
     app.innerHTML = `
       <div class="live-prices-container">
         <!-- Breadcrumb Navigation -->
-        <nav class="detail-breadcrumbs" aria-label="Breadcrumb" style="margin-bottom:16px;">
+        <nav class="detail-breadcrumbs" aria-label="Breadcrumb" style="margin-bottom:14px;">
           <a href="#/">Home</a>
           <span>&gt;</span>
-          <span style="color:var(--text-primary); font-weight:600;">⚡ Real-Time Stock Quotes &amp; Market Pulse</span>
+          <span style="color:var(--text-primary); font-weight:600;">⚡ Live Stock Prices</span>
         </nav>
 
-        <!-- Live Pulse Hero Banner -->
-        <div class="page-header-banner" style="background:linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color:#FFFFFF; border-radius:16px; padding:24px 28px; margin-bottom:16px; box-shadow:0 4px 16px rgba(15,23,42,0.15);">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
-            <div style="max-width:720px;">
-              <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.4); padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; color:#4ADE80; margin-bottom:10px;">
-                <span class="live-dot-pulse"></span>
-                <span>AUTONOMOUS 10-MIN SYNC PIPELINE ACTIVE</span>
-              </div>
-              <h1 style="font-size:28px; font-weight:900; margin:0 0 8px; color:#F8FAFC;">
-                ⚡ Live Indian Stock Prices &amp; Primary Market Pulse
-              </h1>
-              <p style="font-size:14px; color:#94A3B8; margin:0; line-height:1.5;">
-                Continuous real-time quotes, CMP, intraday % change, and volume breakouts synced autonomously from Tapetide intelligence &amp; official NSE/BSE books.
-              </p>
-            </div>
-
-            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-              <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:10px 14px; text-align:right;">
-                <div style="font-size:11px; color:#94A3B8; text-transform:uppercase; font-weight:700;">Auto-Sync Countdown</div>
-                <div style="font-size:22px; font-weight:900; color:#38BDF8; font-family:monospace;" id="live-sync-timer">${timerDisplay}</div>
-                <div style="font-size:10.5px; color:#CBD5E1; margin-top:2px;">Last: ${lastSyncStr}</div>
-              </div>
-              <button type="button" onclick="window.IpoApp.refreshLiveMarketData()" style="background:#2563EB; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                <span>Refresh Live Prices Now</span>
-              </button>
-            </div>
-          </div>
+        <!-- Clean Header -->
+        <div style="margin-bottom:18px;">
+          <h1 style="font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px;">Live Stock Prices &amp; Market Movers</h1>
+          <p style="font-size:13.5px; color:#64748B; margin:0;">Real-time quotes, CMP, intraday movements, and volume breakouts across Indian stock markets.</p>
         </div>
 
         <!-- Official Market Data Feeds Compliance Banner -->
-        <div class="exchange-compliance-bar" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:12px 18px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <div class="exchange-compliance-bar" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:10px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
           <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
             <span style="font-size:11.5px; font-weight:800; color:#0F172A; text-transform:uppercase; letter-spacing:0.5px; display:inline-flex; align-items:center; gap:6px;">
               <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 6px #22C55E;"></span>
@@ -5189,8 +5161,8 @@
               🏢 BSE Market Data Portal
             </a>
           </div>
-          <div style="font-size:11.5px; color:#64748B; font-weight:500;">
-            Continuous 10-minute automated stream • Non-stop live pricing
+          <div style="font-size:11.5px; color:#64748B; font-weight:600;">
+            Live Market Feed • ${lastSyncStr}
           </div>
         </div>
 
