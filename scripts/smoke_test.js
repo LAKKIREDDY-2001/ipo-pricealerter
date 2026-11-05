@@ -105,6 +105,7 @@ async function run() {
       '--no-sandbox',
       '--disable-gpu',
       '--disable-dev-shm-usage',
+      '--disable-extensions',
       '--no-proxy-server',
       '--proxy-bypass-list=<-loopback>',
       '--disable-web-security',
@@ -117,6 +118,7 @@ async function run() {
 
     // Wait for CDP port to open
     let listRes = null;
+    let targetPage = null;
     for (let i = 0; i < 20; i++) {
       try {
         listRes = await new Promise((resolve, reject) => {
@@ -130,17 +132,21 @@ async function run() {
           req.on('error', reject);
           req.setTimeout(800, () => req.destroy());
         });
-        if (listRes && listRes.length && listRes[0].webSocketDebuggerUrl) break;
+        targetPage = listRes?.find(t => t.type === 'page' && !t.url?.startsWith('chrome-extension://')) ||
+                     listRes?.find(t => t.type === 'page') ||
+                     listRes?.[0];
+        if (targetPage && targetPage.webSocketDebuggerUrl) break;
       } catch (e) {
         await new Promise(r => setTimeout(r, 400));
       }
     }
 
-    if (!listRes || !listRes[0] || !listRes[0].webSocketDebuggerUrl) {
+    if (!targetPage || !targetPage.webSocketDebuggerUrl) {
       throw new Error('CDP target page not available from Chrome');
     }
 
-    const wsUrl = listRes[0].webSocketDebuggerUrl;
+    console.log(`[SmokeTest] Connected to target page: [${targetPage.type}] ${targetPage.url || targetPage.title}`);
+    const wsUrl = targetPage.webSocketDebuggerUrl;
     const ws = new WebSocket(wsUrl);
 
     let id = 1;
