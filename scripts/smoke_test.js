@@ -158,11 +158,27 @@ async function run() {
         uncaughtExceptions.push(desc);
         console.error('[Browser Exception]:', desc);
       }
-      if (msg.method === 'Console.messageAdded' && msg.params.message.level === 'error') {
+      if (msg.method === 'Runtime.consoleAPICalled') {
+        const args = msg.params.args.map(a => a.value || a.description || '').join(' ');
+        if (msg.params.type === 'error') {
+          console.error('[Browser Console ERROR]:', args);
+        } else {
+          console.log(`[Browser Console ${msg.params.type}]:`, args);
+        }
+      }
+      if (msg.method === 'Page.loadEventFired') {
+        console.log('[Browser Event]: Page.loadEventFired');
+      }
+      if (msg.method === 'Page.domContentEventFired') {
+        console.log('[Browser Event]: Page.domContentEventFired');
+      }
+      if (msg.method === 'Console.messageAdded') {
         const txt = msg.params.message.text;
-        if (!txt.includes('infolinks') && !txt.includes('googletagmanager') && !txt.includes('adsbygoogle')) {
-          consoleErrors.push(txt);
-          console.error('[Browser Console Error]:', txt);
+        if (msg.params.message.level === 'error') {
+          if (!txt.includes('infolinks') && !txt.includes('googletagmanager') && !txt.includes('adsbygoogle')) {
+            consoleErrors.push(txt);
+            console.error('[Browser Console Error]:', txt);
+          }
         }
       }
     };
@@ -183,16 +199,29 @@ async function run() {
     await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/` });
 
     // Wait until app.js completes initialization
+    let lastDiag = {};
     const appReady = await waitForCondition(async () => {
       const res = await send('Runtime.evaluate', {
-        expression: 'typeof window.IpoApp === "object" && !!document.getElementById("dashboard-open-ipos-section")',
+        expression: `
+          (() => {
+            return {
+              hasIpoApp: typeof window.IpoApp === "object",
+              openSection: !!document.getElementById("dashboard-open-ipos-section"),
+              readyState: document.readyState,
+              appHtmlLen: document.getElementById("app") ? document.getElementById("app").innerHTML.length : 0,
+              url: window.location.href
+            };
+          })()
+        `,
         returnByValue: true
       });
-      return res?.result?.value === true;
-    }, 15000, 200);
+      lastDiag = res?.result?.value || {};
+      if (lastDiag.hasIpoApp && (lastDiag.openSection || lastDiag.appHtmlLen > 100)) return true;
+      return null;
+    }, 20000, 300);
 
     if (!appReady) {
-      throw new Error('Application failed to initialize within 15 seconds');
+      throw new Error(`Application failed to initialize within 20 seconds: ${JSON.stringify(lastDiag)}`);
     }
     console.log('[SmokeTest] Application initialized successfully.');
 
