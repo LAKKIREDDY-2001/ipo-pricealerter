@@ -11,14 +11,130 @@
   const records = dataset.records || [];
 
   // Canonical Single Source of Truth for all Securities & Market Data
+  let cachedNormalizedMaster = null;
+  let cachedMasterSource = null;
+  let masterDataSource = "LIVE"; // "LIVE" | "FALLBACK_LISTED_GAINS" | "FALLBACK_IPO_DATA"
+
+  function normalizeMasterSecurity(s, isFallback) {
+    if (!s) return null;
+    const name = s.name || s.companyName || s.shortName || "Unknown Security";
+    const shortName = s.shortName || name;
+    const symbol = s.symbol || s.bseCode || (s.ticker || "").replace(/\.(NS|BO)$/i, "") || (name || "").slice(0, 6).toUpperCase();
+    const bseCode = s.bseCode || (s.exchange && s.exchange.includes("BSE") && s.symbol ? s.symbol : null);
+    const slug = s.slug || (name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-ipo");
+    
+    // Dates
+    const listingDate = s.listingDate || s.listedDate || null;
+    const listedDate = s.listedDate || s.listingDate || null;
+    
+    // Year derivation
+    let year = s.year;
+    if (!year && listingDate) {
+      const yrNum = parseInt(String(listingDate).slice(0, 4), 10);
+      if (!isNaN(yrNum) && yrNum >= 1875) year = yrNum;
+    }
+    if (!year && s.isHistoric) year = 1875;
+    if (!year) year = 2026;
+    
+    // Segment / Board derivation
+    let segment = s.segment || s.board || "MAINBOARD";
+    if (typeof segment === "string" && segment.toUpperCase().includes("SME")) segment = "SME";
+    else segment = "MAINBOARD";
+    const board = segment;
+
+    // Prices
+    const issuePrice = s.issuePrice != null && !isNaN(s.issuePrice) ? Number(s.issuePrice) : null;
+    const listingPrice = s.listingPrice != null && !isNaN(s.listingPrice) ? Number(s.listingPrice) : null;
+    const listingDayClose = s.listingDayClose != null && !isNaN(s.listingDayClose) ? Number(s.listingDayClose) : null;
+    const currentPrice = s.currentPrice != null && !isNaN(s.currentPrice) ? Number(s.currentPrice) : (listingDayClose || listingPrice || null);
+    
+    // Returns & Gains
+    let listingGainPct = s.listingGainPct != null && !isNaN(s.listingGainPct) ? Number(s.listingGainPct) : null;
+    if (listingGainPct == null && issuePrice && listingPrice && issuePrice > 0) {
+      listingGainPct = Number((((listingPrice - issuePrice) / issuePrice) * 100).toFixed(2));
+    }
+
+    let returnSinceIssuePct = s.returnSinceIssuePct != null && !isNaN(s.returnSinceIssuePct) ? Number(s.returnSinceIssuePct) : null;
+    if (returnSinceIssuePct == null && issuePrice && currentPrice && issuePrice > 0) {
+      returnSinceIssuePct = Number((((currentPrice - issuePrice) / issuePrice) * 100).toFixed(2));
+    }
+
+    // Status: normalize to LISTED, SUSPENDED, DELISTED, UPCOMING, OPEN, CLOSED
+    let status = s.status;
+    if (!status) {
+      status = "LISTED";
+    }
+
+    // Tier
+    let tier = s.tier;
+    if (!tier) {
+      if (listingDate && listingDate >= "2025-01-01") tier = "tier1";
+      else if (status === "SUSPENDED" || status === "DELISTED") tier = "tier3";
+      else tier = "tier2";
+    }
+
+    const initials = s.initials || (name || "IP").replace(/[^a-zA-Z]/g, "").slice(0, 2).toUpperCase() || "IP";
+    const logoColor = s.logoColor || (board === "SME" ? "#0D9488" : "#2563EB");
+    const gradient = board === "SME" ? "linear-gradient(135deg, #0D9488, #115E59)" : "linear-gradient(135deg, #2563EB, #1E40AF)";
+
+    return {
+      id: s.id || slug,
+      slug: slug,
+      name: name,
+      shortName: shortName,
+      symbol: symbol,
+      bseCode: bseCode,
+      isin: s.isin || "",
+      exchange: s.exchange || (segment === "SME" ? "BSE SME" : "NSE, BSE"),
+      board: board,
+      segment: segment,
+      year: year,
+      isHistoric: !!s.isHistoric,
+      issuePrice: issuePrice,
+      listingPrice: listingPrice,
+      listingDayClose: listingDayClose,
+      listingGainPct: listingGainPct,
+      currentPrice: currentPrice,
+      returnSinceIssuePct: returnSinceIssuePct,
+      issueSizeCr: s.issueSizeCr != null && !isNaN(s.issueSizeCr) ? Number(s.issueSizeCr) : null,
+      subscription: s.subscription != null && !isNaN(s.subscription) ? Number(s.subscription) : null,
+      tier: tier,
+      status: status,
+      priceStatus: s.priceStatus || (currentPrice ? "LIVE" : "UNAVAILABLE"),
+      logo: s.logo || s.logoUrl || "",
+      initials: initials,
+      logoColor: logoColor,
+      gradient: gradient,
+      lastUpdated: s.lastUpdated || getTodayIST(),
+      priceSource: s.priceSource || (isFallback ? "Offline Fallback Cache" : "Exchange Master Feed"),
+      isFallback: !!isFallback
+    };
+  }
+
   function getMasterSecurities() {
+    let source = null;
+    let fallback = false;
     if (window.SecuritiesMaster && Array.isArray(window.SecuritiesMaster.records) && window.SecuritiesMaster.records.length) {
-      return window.SecuritiesMaster.records;
+      source = window.SecuritiesMaster.records;
+      masterDataSource = "LIVE";
+      fallback = false;
+    } else if (window.ListedGainsData && Array.isArray(window.ListedGainsData.records) && window.ListedGainsData.records.length) {
+      source = window.ListedGainsData.records;
+      masterDataSource = "FALLBACK_LISTED_GAINS";
+      fallback = true;
+    } else {
+      source = (records && records.length) ? records : ((window.IpoData && window.IpoData.records) || []);
+      masterDataSource = "FALLBACK_IPO_DATA";
+      fallback = true;
     }
-    if (window.ListedGainsData && Array.isArray(window.ListedGainsData.records) && window.ListedGainsData.records.length) {
-      return window.ListedGainsData.records;
+
+    if (cachedMasterSource === source && cachedNormalizedMaster) {
+      return cachedNormalizedMaster;
     }
-    return records;
+
+    cachedMasterSource = source;
+    cachedNormalizedMaster = source.map(s => normalizeMasterSecurity(s, fallback)).filter(Boolean);
+    return cachedNormalizedMaster;
   }
 
   function getTodayIST() {
@@ -290,7 +406,7 @@
     const borderRadius = size > 40 ? 10 : 8;
     const gradient = ipo.logoColor || getAvatarGradient(name);
 
-    let logoUrl = ipo.logoUrl || null;
+    let logoUrl = ipo.logoUrl || ipo.logo || null;
     if (!logoUrl) {
       const cleanKey = cleanCompanyName(name);
       if (ipoLogoMap.has(cleanKey)) {
@@ -1467,24 +1583,31 @@
   // Derived entirely from the single source of truth (window.SecuritiesMaster)
   function getIpoDebutMovers() {
     const securities = getMasterSecurities();
-    const tier1 = securities.filter(s => s.tier === "tier1" && s.status === "LISTED" && s.currentPrice && s.issuePrice);
-    const sorted = [...tier1].sort((a, b) => (Number(b.returnSinceIssuePct) || 0) - (Number(a.returnSinceIssuePct) || 0));
+    // Select recent IPOs (last 12-18 months) with valid current price & issue price
+    const recent = securities.filter(s => {
+      const lDate = s.listingDate || s.listedDate;
+      const isRecentYear = s.year >= 2025 || (lDate && lDate >= "2024-11-01");
+      const hasPrices = Number(s.currentPrice) > 0 && Number(s.issuePrice) > 0;
+      return (s.tier === "tier1" || isRecentYear) && hasPrices && s.status !== "DELISTED";
+    });
+    const candidateList = recent.length ? recent : securities.filter(s => Number(s.currentPrice) > 0 && Number(s.issuePrice) > 0);
+    const sorted = [...candidateList].sort((a, b) => (Number(b.returnSinceIssuePct) || 0) - (Number(a.returnSinceIssuePct) || 0));
 
     function toMover(s, isGain) {
       const cmpStr = "₹" + Number(s.currentPrice).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const changeVal = Number(s.currentPrice) - Number(s.issuePrice);
       const sign = changeVal >= 0 ? "+" : "";
-      const changeStr = sign + "₹" + Math.abs(changeVal).toFixed(2) + " (" + sign + (s.returnSinceIssuePct || "0") + "%)";
+      const changeStr = sign + "₹" + Math.abs(changeVal).toFixed(2) + " (" + sign + (s.returnSinceIssuePct != null ? s.returnSinceIssuePct : "0") + "%)";
       const p1 = Number(s.issuePrice);
       const p2 = Number(s.listingPrice) || p1;
       const p3 = Number(s.currentPrice);
       const trend = [p1, p1 + (p2 - p1) * 0.5, p2, p2 + (p3 - p2) * 0.5, p3];
-      const subLabel = (s.board === "SME" ? "SME Debut" : "Mainboard Debut") + " • Listed " + (s.listingDate || "");
+      const subLabel = (s.board === "SME" ? "SME Debut" : "Mainboard Debut") + " • Listed " + (s.listingDate || s.listedDate || "");
       return {
         name: s.shortName || s.name,
         symbol: s.symbol || s.bseCode || "IPO",
         subtitle: subLabel,
-        logo: s.logo || "",
+        logo: s.logo || s.logoUrl || "",
         initials: s.initials || "IP",
         gradient: s.board === "SME" ? "linear-gradient(135deg, #0D9488, #115E59)" : "linear-gradient(135deg, #2563EB, #1E40AF)",
         price: cmpStr,
@@ -1493,7 +1616,8 @@
         volChange: s.subscription ? ("+" + s.subscription + "x sub") : "+Debut",
         volume: s.subscription ? (s.subscription + "x") : "Debut Active",
         issuePrice: s.issuePrice,
-        trend: trend
+        trend: trend,
+        slug: s.slug
       };
     }
 
@@ -1501,7 +1625,11 @@
     const losers = sorted.slice(-10).reverse().map(s => toMover(s, false));
     const shakers = sorted.filter(s => s.subscription && Number(s.subscription) > 5).slice(0, 10).map(s => toMover(s, true));
 
-    return { gainers, losers, shakers };
+    return {
+      gainers: gainers.length ? gainers : sorted.slice(0, 5).map(s => toMover(s, true)),
+      losers: losers.length ? losers : sorted.slice(-5).reverse().map(s => toMover(s, false)),
+      shakers: shakers.length ? shakers : (gainers.length ? gainers : [])
+    };
   }
 
   const defaultMovers = getIpoDebutMovers();
@@ -2012,9 +2140,11 @@
     const thirtyDaysAgoDate = new Date(Date.now() + 5.5 * 3600 * 1000 - 30 * 24 * 3600 * 1000);
     const thirtyDaysAgoStr = thirtyDaysAgoDate.toISOString().slice(0, 10);
 
-    const allListed = (window.ListedGainsData && Array.isArray(window.ListedGainsData.records))
-      ? window.ListedGainsData.records
-      : records.filter(r => r.status === "LISTED");
+    const allListed = getMasterSecurities().filter(r => {
+      if (r.status === "LISTED" || r.status === "SUSPENDED" || r.status === "DELISTED") return true;
+      if (r.listedDate || r.listingDate || r.listingPrice != null) return true;
+      return false;
+    });
 
     // Filter for actual listings strictly within the last 30 days with valid issue & listing prices
     const recentListings = allListed.filter(r => {
@@ -2135,9 +2265,11 @@
   }
 
   function renderFig1MarketShakersWidget() {
-    const allListed = (window.ListedGainsData && Array.isArray(window.ListedGainsData.records))
-      ? window.ListedGainsData.records
-      : records.filter(r => r.status === "LISTED");
+    const allListed = getMasterSecurities().filter(r => {
+      if (r.status === "LISTED" || r.status === "SUSPENDED" || r.status === "DELISTED") return true;
+      if (r.listedDate || r.listingDate || r.listingPrice != null) return true;
+      return false;
+    });
 
     const debutMovers = allListed.filter(r => r.listingPrice && r.currentPrice && r.listedDate && r.listedDate >= "2024-01-01")
       .map(r => {
@@ -5060,21 +5192,24 @@
     const securities = getMasterSecurities();
     return securities.map(s => {
       const cmp = s.currentPrice;
-      const cmpStr = cmp != null
+      const cmpStr = (cmp != null && !isNaN(cmp) && Number(cmp) > 0)
         ? "₹" + Number(cmp).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-        : "N/A";
-      const isGain = s.returnSinceIssuePct != null ? (Number(s.returnSinceIssuePct) >= 0) : true;
-      const sign = isGain ? "+" : "";
-      const changeStr = s.returnSinceIssuePct != null
-        ? sign + s.returnSinceIssuePct + "%"
-        : "N/A";
+        : (s.listingPrice ? "₹" + Number(s.listingPrice).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "N/A");
+      
+      const retPct = (s.returnSinceIssuePct != null && !isNaN(s.returnSinceIssuePct))
+        ? Number(s.returnSinceIssuePct)
+        : ((s.listingGainPct != null && !isNaN(s.listingGainPct)) ? Number(s.listingGainPct) : null);
+
+      const isGain = retPct != null ? (retPct >= 0) : true;
+      const sign = (retPct != null && retPct > 0) ? "+" : "";
+      const changeStr = retPct != null ? (sign + retPct.toFixed(2) + "%") : "N/A";
       
       let category = "RECENT_IPO";
       let catLabel = "🚀 IPO Debut (12M)";
       if (s.tier === "tier1") {
         category = "RECENT_IPO";
         catLabel = "🚀 IPO Debut (12M)";
-      } else if (s.tier === "tier3") {
+      } else if (s.tier === "tier3" || s.status === "DELISTED" || s.status === "SUSPENDED") {
         category = "SUSPENDED";
         catLabel = s.status === "DELISTED" ? "⛔ Delisted Scrip" : "⚠️ Suspended / Inactive";
       } else {
@@ -5082,18 +5217,21 @@
         catLabel = "🏛️ Active Listed Equity";
       }
 
+      const board = s.board || (s.segment && s.segment.toUpperCase().includes("SME") ? "SME" : "MAINBOARD");
+      const name = s.shortName || s.name || "Unknown";
+
       return {
-        name: s.shortName || s.name,
-        symbol: s.symbol || s.bseCode || (s.name || "").slice(0, 6).toUpperCase(),
+        name: name,
+        symbol: s.symbol || s.bseCode || (name || "").slice(0, 6).toUpperCase(),
         bseCode: s.bseCode,
         isin: s.isin,
-        logo: s.logo || "",
-        initials: s.initials || "IP",
-        gradient: s.board === "SME" ? "linear-gradient(135deg, #0D9488, #115E59)" : "linear-gradient(135deg, #2563EB, #1E40AF)",
+        logo: s.logo || s.logoUrl || "",
+        initials: s.initials || (name || "IP").replace(/[^a-zA-Z]/g, "").slice(0, 2).toUpperCase() || "IP",
+        gradient: board === "SME" ? "linear-gradient(135deg, #0D9488, #115E59)" : "linear-gradient(135deg, #2563EB, #1E40AF)",
         price: cmpStr,
-        rawPrice: Number(cmp) || 0,
+        rawPrice: Number(cmp) || Number(s.listingPrice) || 0,
         change: changeStr,
-        pct: Number(s.returnSinceIssuePct) || 0,
+        pct: retPct || 0,
         isGain: isGain,
         volume: s.subscription ? (s.subscription + "x sub") : "Standard",
         volRaw: Number(s.subscription) || 0,
@@ -5101,10 +5239,11 @@
         category: category,
         catLabel: catLabel,
         tier: s.tier,
-        status: s.status,
-        priceStatus: s.priceStatus,
-        board: s.board,
-        slug: s.slug
+        status: s.status || "LISTED",
+        priceStatus: s.priceStatus || "STALE",
+        board: board,
+        slug: s.slug,
+        subtitle: (board === "SME" ? "SME" : "Mainboard") + (s.listingDate ? " • Listed " + s.listingDate : "")
       };
     });
   }
@@ -5182,6 +5321,10 @@
         (s.catLabel && s.catLabel.toLowerCase().includes(searchQuery))
       );
     }
+
+    const totalMatchingStocks = allStocks.length;
+    const limit = state.livePricesLimit || 48;
+    const visibleStocks = allStocks.slice(0, limit);
 
     const lastSyncStr = (data && data.lastSyncFormatted) ? data.lastSyncFormatted : "Bhavcopy Sync Complete";
 
@@ -5292,7 +5435,7 @@
 
         <!-- Live Stocks Grid -->
         <div class="live-stocks-grid">
-          ${allStocks.map(stock => {
+          ${visibleStocks.map(stock => {
             const isGain = stock.isGain !== false;
             const badgeClass = isGain ? "live-badge-gain" : "live-badge-loss";
             const symbolText = stock.symbol || "NSE";
@@ -5368,13 +5511,21 @@
           }).join("")}
         </div>
 
-        ${allStocks.length === 0 ? `
+        ${totalMatchingStocks > visibleStocks.length ? `
+          <div style="text-align:center; margin:32px 0 24px;">
+            <button type="button" class="btn-table-action" style="padding:12px 28px; font-size:14px; font-weight:700; background:#142B49; color:#FFFFFF; border:none; border-radius:8px; cursor:pointer; box-shadow:0 2px 8px rgba(20,43,73,0.25);" onclick="window.IpoApp.loadMoreLivePrices()">
+              Load Next 48 Stocks (Showing ${visibleStocks.length} of ${totalMatchingStocks})
+            </button>
+          </div>
+        ` : ''}
+
+        ${totalMatchingStocks === 0 ? `
           <div style="text-align:center; padding:48px 20px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; margin-top:20px;">
             <div style="font-size:28px; margin-bottom:8px;">🔍</div>
             <h3 style="font-size:16px; font-weight:800; color:#0F172A; margin:0 0 6px;">No stocks match your query</h3>
             <p style="font-size:13px; color:#64748B; margin:0 0 16px;">Try clearing your search query or switching filters.</p>
-            <button type="button" onclick="window.IpoApp.setLivePricesSearch(''); window.IpoApp.setLivePricesFilter('all');" style="padding:8px 16px; background:#2563EB; color:#fff; border:none; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
-              Clear Search Filter
+            <button type="button" onclick="window.IpoApp.resetLivePricesFilters();" style="padding:10px 20px; background:#142B49; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">
+              Reset Search &amp; Filters
             </button>
           </div>
         ` : ''}
@@ -6759,7 +6910,11 @@
   // Data Synchronized with NSE, BSE Reports & Bombay Stock Exchange Archives
   // ==========================================================================
   function getFilteredListedRecords() {
-    const allListingRecords = getMasterSecurities().filter(r => r.status === "LISTED");
+    const allListingRecords = getMasterSecurities().filter(r => {
+      if (r.status === "LISTED" || r.status === "SUSPENDED" || r.status === "DELISTED") return true;
+      if (r.listingDate || r.listedDate || r.listingPrice != null || r.listingGainPct != null) return true;
+      return false;
+    });
     const activeYear = state.listedYear || "2026";
     const activeSegment = state.listedSegment || "all";
     const query = (state.listedSearchQuery || "").toLowerCase().trim();
@@ -6789,9 +6944,10 @@
       if (query) {
         const name = (r.name || r.shortName || "").toLowerCase();
         const scrip = (r.bseCode || "").toLowerCase();
+        const symb = (r.symbol || "").toLowerCase();
         const notes = (r.notes || "").toLowerCase();
         const yr = String(r.year || "");
-        if (!name.includes(query) && !scrip.includes(query) && !notes.includes(query) && !yr.includes(query)) return false;
+        if (!name.includes(query) && !scrip.includes(query) && !symb.includes(query) && !notes.includes(query) && !yr.includes(query)) return false;
       }
 
       return true;
@@ -6828,7 +6984,12 @@
       return `
         <tr>
           <td colspan="11" style="text-align:center; padding:36px; color:#64748B;">
-            No listed companies found matching your criteria. Try adjusting the search query or selecting another year.
+            <div>No listed companies found matching your criteria. Try adjusting the search query or selecting another year.</div>
+            <div style="margin-top:12px;">
+              <button type="button" class="btn-table-action" style="padding:8px 18px; font-size:12.5px; font-weight:700; background:#142B49; color:#FFFFFF; border:none; border-radius:6px; cursor:pointer;" onclick="window.IpoApp.resetListedFilters()">
+                Reset Filters &amp; View All Years
+              </button>
+            </div>
           </td>
         </tr>
       `;
@@ -6848,13 +7009,20 @@
       const retPos = retSince !== null && retSince > 0;
       const retNeg = retSince !== null && retSince < 0;
 
+      let statusBadge = "";
+      if (r.status === "SUSPENDED") {
+        statusBadge = ` <span style="font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px; background:#FEF3C7; color:#92400E; vertical-align:middle;">⚠️ Suspended</span>`;
+      } else if (r.status === "DELISTED") {
+        statusBadge = ` <span style="font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px; background:#FEE2E2; color:#991B1B; vertical-align:middle;">⛔ Delisted</span>`;
+      }
+
       return `
         <tr style="cursor:pointer;" onclick="window.location.hash='#/ipo/${r.slug}'">
           <td>
             <div class="fig1-company-cell">
               ${renderCompanyLogo(r, 36)}
               <div class="fig1-company-name-wrap">
-                <span class="fig1-company-name" style="font-size:13.5px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}</span>
+                <span class="fig1-company-name" style="font-size:13.5px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}${statusBadge}</span>
                 <span style="font-size:11px; color:#64748B;">
                   ${r.bseCode ? 'BSE: ' + r.bseCode : (r.exchange || 'NSE, BSE')}
                   ${r.isHistoric ? ' &bull; <strong style="color:#B45309;">1875 Landmark</strong>' : ''}
@@ -6882,7 +7050,7 @@
             <div style="display:flex; flex-direction:column; gap:2px;">
               <div style="display:flex; align-items:center; gap:5px;">
                 <span class="fig1-val-price" style="font-weight:700; color:#0F172A;">${curText}</span>
-                ${r.currentPrice ? `<span class="live-cmp-pill" style="display:inline-flex; align-items:center; gap:3px; background:#DCFCE7; color:#15803D; font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px;"><span style="width:5px; height:5px; border-radius:50%; background:#16A34A; box-shadow:0 0 4px #16A34A;"></span>LIVE</span>` : ''}
+                ${r.currentPrice && r.status !== "DELISTED" && r.status !== "SUSPENDED" ? `<span class="live-cmp-pill" style="display:inline-flex; align-items:center; gap:3px; background:#DCFCE7; color:#15803D; font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px;"><span style="width:5px; height:5px; border-radius:50%; background:#16A34A; box-shadow:0 0 4px #16A34A;"></span>LIVE</span>` : (r.currentPrice ? `<span style="display:inline-flex; align-items:center; background:#F1F5F9; color:#475569; font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px;">LAST</span>` : '')}
               </div>
               <span style="font-size:10px; color:#64748B; font-weight:500;">NSE &bull; BSE Synced</span>
             </div>
@@ -6903,8 +7071,13 @@
   function renderListedCards(recordsList) {
     if (!recordsList || recordsList.length === 0) {
       return `
-        <div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px;">
-          No listed companies found matching the criteria.
+        <div style="text-align:center; padding:28px 20px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px;">
+          <div>No listed companies found matching the criteria.</div>
+          <div style="margin-top:12px;">
+            <button type="button" class="btn-table-action" style="padding:8px 18px; font-size:12.5px; font-weight:700; background:#142B49; color:#FFFFFF; border:none; border-radius:6px; cursor:pointer;" onclick="window.IpoApp.resetListedFilters()">
+              Reset Filters &amp; View All Years
+            </button>
+          </div>
         </div>
       `;
     }
@@ -6923,13 +7096,20 @@
       const retPos = retSince !== null && retSince > 0;
       const retNeg = retSince !== null && retSince < 0;
 
+      let statusBadge = "";
+      if (r.status === "SUSPENDED") {
+        statusBadge = ` <span style="font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px; background:#FEF3C7; color:#92400E; vertical-align:middle;">⚠️ Suspended</span>`;
+      } else if (r.status === "DELISTED") {
+        statusBadge = ` <span style="font-size:10px; font-weight:700; padding:1px 5px; border-radius:4px; background:#FEE2E2; color:#991B1B; vertical-align:middle;">⛔ Delisted</span>`;
+      }
+
       return `
         <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'">
           <div class="mobile-open-top-row">
             <div class="mobile-open-brand">
               ${renderCompanyLogo(r, 36)}
               <div>
-                <h3 class="mobile-open-name" style="font-size:14px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}</h3>
+                <h3 class="mobile-open-name" style="font-size:14px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}${statusBadge}</h3>
                 <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
                   <span class="fig1-sub-tag listed">${escapeHtml(r.segment || 'Mainboard')}</span>
                   <span style="font-size:11px; color:#64748B;">${formatDate(r.listedDate)}</span>
@@ -6963,7 +7143,7 @@
             <span>
               <strong>Current:</strong> <span style="font-weight:700; color:#0F172A;">${curText}</span>
               <span style="font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : '#64748B'}; margin-left:4px;">(${retText})</span>
-              ${r.currentPrice ? `<span style="background:#DCFCE7; color:#15803D; font-size:9.5px; font-weight:700; padding:1px 4px; border-radius:3px; margin-left:4px;">LIVE</span>` : ''}
+              ${r.currentPrice && r.status !== "DELISTED" && r.status !== "SUSPENDED" ? `<span style="background:#DCFCE7; color:#15803D; font-size:9.5px; font-weight:700; padding:1px 4px; border-radius:3px; margin-left:4px;">LIVE</span>` : ''}
             </span>
           </div>
         </div>
@@ -7806,15 +7986,37 @@
     },
     setLivePricesFilter: (filter) => {
       state.livePricesFilter = filter;
+      state.livePricesLimit = 48;
       renderLivePricesPage();
     },
     setLivePricesSearch: (query) => {
       state.livePricesSearch = query;
+      state.livePricesLimit = 48;
       renderLivePricesPage();
     },
     setLivePricesSort: (sort) => {
       state.livePricesSort = sort;
+      state.livePricesLimit = 48;
       renderLivePricesPage();
+    },
+    loadMoreLivePrices: () => {
+      state.livePricesLimit = (state.livePricesLimit || 48) + 48;
+      renderLivePricesPage();
+    },
+    resetLivePricesFilters: () => {
+      state.livePricesFilter = "all";
+      state.livePricesSearch = "";
+      state.livePricesSort = "default";
+      state.livePricesLimit = 48;
+      renderLivePricesPage();
+    },
+    resetListedFilters: () => {
+      state.listedYear = "all";
+      state.listedSegment = "all";
+      state.listedSearchQuery = "";
+      state.listedSort = "date-desc";
+      state.listedLimit = 50;
+      renderListedPage();
     },
     refreshLiveMarketData: () => {
       loadLiveMarketData(true);
@@ -8152,6 +8354,21 @@
       }
     }
   };
+
+  // Re-check and refresh if SecuritiesMaster finishes loading after initial DOM ready
+  if (typeof window.addEventListener === "function") {
+    window.addEventListener("load", () => {
+      if (window.SecuritiesMaster && Array.isArray(window.SecuritiesMaster.records) && masterDataSource !== "LIVE") {
+        cachedMasterSource = null;
+        cachedNormalizedMaster = null;
+        if (state.route.view === "listed") {
+          renderListedPage();
+        } else if (state.route.view === "live-prices") {
+          renderLivePricesPage();
+        }
+      }
+    });
+  }
 
   // Run on DOM Ready
   if (document.readyState === "loading") {

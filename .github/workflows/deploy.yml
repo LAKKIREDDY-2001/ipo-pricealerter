@@ -34,6 +34,8 @@ jobs:
           test -s _site/styles.css
           test -s _site/subscribers.js
           test -s _site/data/ipo-data.js
+          test -s _site/data/listed-gains-data.js
+          test -s _site/data/securities-master.js
           test -s _site/favicon.ico
           test -s _site/favicon-48x48.png
           test -s _site/favicon-192x192.png
@@ -43,6 +45,15 @@ jobs:
           test -s _site/assets/sponsored/angel-one-wide.png
           test -s _site/assets/sponsored/sbi-card.png
           test -s _site/assets/sponsored/hdfc-irctc-card.png
+
+      - name: Validate client script syntax
+        run: |
+          node --check app.js
+          node --check subscribers.js
+
+      - name: Run headless browser smoke test on #/listed & #/live-prices
+        run: |
+          node scripts/smoke_test.js
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
