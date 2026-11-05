@@ -820,6 +820,8 @@
   function renderHeader() {
     const header = document.getElementById("site-header");
     if (!header) return;
+    const isDark = (document.documentElement.getAttribute("data-theme") === "dark");
+    header.style.backgroundColor = isDark ? "#0B1728" : "#142B49";
     const currentView = state.route.view;
 
     header.innerHTML = `
@@ -7608,6 +7610,11 @@
           document.documentElement.setAttribute("data-theme", "dark");
         }
       }
+      const header = document.getElementById("site-header");
+      if (header) {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        header.style.backgroundColor = isDark ? "#0B1728" : "#142B49";
+      }
     } catch(e) {}
   }
 
@@ -7618,6 +7625,10 @@
       const next = current === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", next);
       localStorage.setItem("pricealerter_theme", next);
+      const header = document.getElementById("site-header");
+      if (header) {
+        header.style.backgroundColor = next === "dark" ? "#0B1728" : "#142B49";
+      }
       showToast(`Switched to ${next === "dark" ? "Dark" : "Light"} theme`, "info");
     } catch(e) {}
   }
