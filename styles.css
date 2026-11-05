@@ -194,6 +194,29 @@ body, table, th, td,
 .lucide-icon.icon-lg { width: 22px; height: 22px; }
 .lucide-icon.icon-xl { width: 28px; height: 28px; }
 
+/* Header Theme Toggle Button */
+.theme-toggle-btn {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+[data-theme="dark"] .icon-theme-moon { display: none !important; }
+[data-theme="dark"] .icon-theme-sun { display: inline-block !important; color: #F59E0B; }
+
 /* 44px Minimum Touch Target Size */
 .btn-touch-target,
 .nav-link,

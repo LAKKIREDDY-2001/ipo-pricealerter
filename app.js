@@ -7712,8 +7712,37 @@
     } catch(e) {}
   }
 
+  // Theme Manager (Auto System + User Preference)
+  function initTheme() {
+    try {
+      const saved = localStorage.getItem("pricealerter_theme");
+      if (saved === "dark" || saved === "light") {
+        document.documentElement.setAttribute("data-theme", saved);
+      } else {
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (prefersDark) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      }
+    } catch(e) {}
+  }
+
+  function toggleTheme() {
+    try {
+      const current = document.documentElement.getAttribute("data-theme") || 
+        ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pricealerter_theme", next);
+      showToast(`Switched to ${next === "dark" ? "Dark" : "Light"} theme`, "info");
+    } catch(e) {}
+  }
+
   // Initialize Application
   function init() {
+    // Initialize Theme (Auto System + Stored Preference)
+    initTheme();
+
     // Current year in footer
     const yr = document.getElementById("current-year");
     if (yr) yr.innerText = new Date().getFullYear();
@@ -7789,6 +7818,7 @@
 
   // Global Bridge for Inline Handlers
   window.IpoApp = {
+    toggleTheme: toggleTheme,
     setCalcCompany: (slug) => {
       state.calcSelectedSlug = slug;
       state.calcCustomGmp = null;
