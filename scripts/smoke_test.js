@@ -9,6 +9,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
+const os = require('os');
 
 const PORT = 8089;
 const CDP_PORT = 9225;
@@ -93,6 +94,7 @@ async function run() {
   let server = null;
   let chromeProc = null;
   const uncaughtExceptions = [];
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'chrome-smoke-'));
 
   try {
     server = await startServer();
@@ -102,6 +104,7 @@ async function run() {
     chromeProc = spawn(chromePath, [
       '--headless',
       `--remote-debugging-port=${CDP_PORT}`,
+      `--user-data-dir=${tmpDir}`,
       '--no-sandbox',
       '--disable-gpu',
       '--disable-dev-shm-usage',
@@ -135,6 +138,21 @@ async function run() {
         targetPage = listRes?.find(t => t.type === 'page' && !t.url?.startsWith('chrome-extension://')) ||
                      listRes?.find(t => t.type === 'page') ||
                      listRes?.[0];
+        if (!targetPage) {
+          try {
+            targetPage = await new Promise((resolve, reject) => {
+              const req = http.get(`http://127.0.0.1:${CDP_PORT}/json/new`, (res) => {
+                let d = '';
+                res.on('data', c => d += c);
+                res.on('end', () => {
+                  try { resolve(JSON.parse(d)); } catch (e) { reject(e); }
+                });
+              });
+              req.on('error', reject);
+              req.setTimeout(800, () => req.destroy());
+            });
+          } catch (e) {}
+        }
         if (targetPage && targetPage.webSocketDebuggerUrl) break;
       } catch (e) {
         await new Promise(r => setTimeout(r, 400));
@@ -334,6 +352,7 @@ async function run() {
   } finally {
     if (chromeProc) chromeProc.kill();
     if (server) server.close();
+    try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) {}
   }
 }
 
