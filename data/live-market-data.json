@@ -1,6 +1,6 @@
 {
-  "lastSyncTime": "2026-11-05T11:07:18.140193+05:30",
-  "lastSyncFormatted": "05 Nov 2026, 11:07 AM IST",
+  "lastSyncTime": "2026-11-05T11:15:32.116619+05:30",
+  "lastSyncFormatted": "05 Nov 2026, 11:15 AM IST",
   "nextSyncCountdownSeconds": 600,
   "syncIntervalMinutes": 10,
   "source": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
@@ -50,7 +50,7 @@
         2709.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -90,7 +90,7 @@
         29100
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -131,7 +131,7 @@
         376.85
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -172,7 +172,7 @@
         398.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -212,7 +212,7 @@
         550.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -225,16 +225,16 @@
       "logo": "assets/movers/adani-enterprises.png",
       "initials": "AE",
       "gradient": "linear-gradient(135deg, #7C3AED, #6D28D9)",
-      "price": "₹2,765.40",
-      "rawPrice": 2765.4,
-      "change": "56.20 (2.07%)",
-      "rawChange": 56.2,
-      "pct": 2.07,
+      "price": "₹2,709.20",
+      "rawPrice": 2709.2,
+      "change": "115.90 (4.47%)",
+      "rawChange": 115.9,
+      "pct": 4.47,
       "isGain": true,
-      "high": 2785.8,
-      "low": 2727.0,
-      "volRaw": 727575,
-      "volume": "7,27,575",
+      "high": 2749.84,
+      "low": 2668.56,
+      "volRaw": 2210845,
+      "volume": "22,10,845",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -251,7 +251,7 @@
         2709.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
   ],
@@ -291,7 +291,7 @@
         835.65
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -328,7 +328,7 @@
         256.19
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -365,7 +365,7 @@
         541.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -402,7 +402,7 @@
         906.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -440,7 +440,7 @@
         636.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -478,7 +478,7 @@
         269.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
   ],
@@ -526,7 +526,7 @@
         2846.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -569,7 +569,7 @@
         259.55
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -613,7 +613,7 @@
         120.97
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -657,7 +657,7 @@
         970.25
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -700,7 +700,7 @@
         183.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -740,7 +740,7 @@
         2437.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
   ],
@@ -780,7 +780,7 @@
         2408.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -817,7 +817,7 @@
         178.89
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -853,7 +853,7 @@
         2063.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -889,7 +889,7 @@
         904.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -925,7 +925,7 @@
         81.42
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -961,7 +961,7 @@
         35.04
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -997,7 +997,7 @@
         3601.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1033,7 +1033,7 @@
         115.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
   ],
@@ -1048,16 +1048,16 @@
       "logo": "assets/movers/reliance.png",
       "initials": "RIL",
       "gradient": "linear-gradient(135deg, #0284C7, #075985)",
-      "price": "₹1,313.70",
-      "rawPrice": 1313.7,
-      "change": "2.70 (0.21%)",
-      "rawChange": 2.7,
-      "pct": 0.21,
+      "price": "₹1,311.00",
+      "rawPrice": 1311.0,
+      "change": "14.50 (1.12%)",
+      "rawChange": 14.5,
+      "pct": 1.12,
       "isGain": true,
-      "high": 1325.0,
-      "low": 1303.7,
-      "volRaw": 6551693,
-      "volume": "65,51,693",
+      "high": 1330.66,
+      "low": 1291.34,
+      "volRaw": 19444018,
+      "volume": "1,94,44,018",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -1071,7 +1071,7 @@
         1311.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1107,7 +1107,7 @@
         2436.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1143,7 +1143,7 @@
         1128.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1179,7 +1179,7 @@
         736.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1215,7 +1215,7 @@
         1424.1
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1251,7 +1251,7 @@
         994.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1264,16 +1264,16 @@
       "logo": "assets/movers/lt.png",
       "initials": "LT",
       "gradient": "linear-gradient(135deg, #D97706, #B45309)",
-      "price": "₹4,019.70",
-      "rawPrice": 4019.7,
-      "change": "75.30 (1.91%)",
-      "rawChange": 75.3,
-      "pct": 1.91,
+      "price": "₹3,944.40",
+      "rawPrice": 3944.4,
+      "change": "48.00 (1.23%)",
+      "rawChange": 48.0,
+      "pct": 1.23,
       "isGain": true,
-      "high": 4071.6,
-      "low": 4005.1,
-      "volRaw": 1328359,
-      "volume": "13,28,359",
+      "high": 4003.57,
+      "low": 3885.23,
+      "volRaw": 2493326,
+      "volume": "24,93,326",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -1287,7 +1287,7 @@
         3944.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1300,16 +1300,16 @@
       "logo": "assets/movers/itc.png",
       "initials": "ITC",
       "gradient": "linear-gradient(135deg, #B45309, #78350F)",
-      "price": "₹278.40",
-      "rawPrice": 278.4,
-      "change": "-1.60 (0.57%)",
-      "rawChange": -1.6,
-      "pct": -0.57,
-      "isGain": false,
-      "high": 283.9,
-      "low": 277.25,
-      "volRaw": 9772536,
-      "volume": "97,72,536",
+      "price": "₹280.00",
+      "rawPrice": 280.0,
+      "change": "3.10 (1.12%)",
+      "rawChange": 3.1,
+      "pct": 1.12,
+      "isGain": true,
+      "high": 284.2,
+      "low": 275.8,
+      "volRaw": 42446833,
+      "volume": "4,24,46,833",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -1323,7 +1323,7 @@
         280.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
   ],
@@ -1345,9 +1345,9 @@
       "qibSub": 67.0,
       "totalSub": 4.82,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "vedant-poly-fabs-ipo",
@@ -1366,9 +1366,9 @@
       "qibSub": 1.05,
       "totalSub": 1.25,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "zepto-ipo",
@@ -1387,9 +1387,9 @@
       "qibSub": null,
       "totalSub": null,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "razorpay-ipo",
@@ -1408,9 +1408,9 @@
       "qibSub": null,
       "totalSub": null,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "haldirams-snacks-foods-ipo",
@@ -1429,9 +1429,9 @@
       "qibSub": null,
       "totalSub": null,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "flipkart-ipo",
@@ -1450,9 +1450,9 @@
       "qibSub": null,
       "totalSub": null,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "phonepe-ipo",
@@ -1471,9 +1471,9 @@
       "qibSub": null,
       "totalSub": null,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     },
     {
       "slug": "swiggy-limited-ipo",
@@ -1492,9 +1492,9 @@
       "qibSub": 6.02,
       "totalSub": 3.59,
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)",
-      "updatedAt": "2026-11-05T11:07:18.140193+05:30"
+      "updatedAt": "2026-11-05T11:15:32.116619+05:30"
     }
   ],
   "allLiveStocks": [
@@ -1533,7 +1533,7 @@
         2408.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1570,7 +1570,7 @@
         178.89
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1606,7 +1606,7 @@
         2063.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1642,7 +1642,7 @@
         904.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1678,7 +1678,7 @@
         81.42
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1714,7 +1714,7 @@
         35.04
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1750,7 +1750,7 @@
         3601.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1786,7 +1786,7 @@
         115.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1827,7 +1827,7 @@
         2709.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1867,7 +1867,7 @@
         29100
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1908,7 +1908,7 @@
         376.85
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1949,7 +1949,7 @@
         398.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -1989,7 +1989,7 @@
         550.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2002,16 +2002,16 @@
       "logo": "assets/movers/adani-enterprises.png",
       "initials": "AE",
       "gradient": "linear-gradient(135deg, #7C3AED, #6D28D9)",
-      "price": "₹2,765.40",
-      "rawPrice": 2765.4,
-      "change": "56.20 (2.07%)",
-      "rawChange": 56.2,
-      "pct": 2.07,
+      "price": "₹2,709.20",
+      "rawPrice": 2709.2,
+      "change": "115.90 (4.47%)",
+      "rawChange": 115.9,
+      "pct": 4.47,
       "isGain": true,
-      "high": 2785.8,
-      "low": 2727.0,
-      "volRaw": 727575,
-      "volume": "7,27,575",
+      "high": 2749.84,
+      "low": 2668.56,
+      "volRaw": 2210845,
+      "volume": "22,10,845",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -2028,7 +2028,7 @@
         2709.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2066,7 +2066,7 @@
         835.65
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2103,7 +2103,7 @@
         256.19
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2140,7 +2140,7 @@
         541.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2177,7 +2177,7 @@
         906.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2215,7 +2215,7 @@
         636.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2253,7 +2253,7 @@
         269.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2299,7 +2299,7 @@
         2846.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2342,7 +2342,7 @@
         259.55
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2386,7 +2386,7 @@
         120.97
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2430,7 +2430,7 @@
         970.25
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2473,7 +2473,7 @@
         183.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2513,7 +2513,7 @@
         2437.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2526,16 +2526,16 @@
       "logo": "assets/movers/reliance.png",
       "initials": "RIL",
       "gradient": "linear-gradient(135deg, #0284C7, #075985)",
-      "price": "₹1,313.70",
-      "rawPrice": 1313.7,
-      "change": "2.70 (0.21%)",
-      "rawChange": 2.7,
-      "pct": 0.21,
+      "price": "₹1,311.00",
+      "rawPrice": 1311.0,
+      "change": "14.50 (1.12%)",
+      "rawChange": 14.5,
+      "pct": 1.12,
       "isGain": true,
-      "high": 1325.0,
-      "low": 1303.7,
-      "volRaw": 6551693,
-      "volume": "65,51,693",
+      "high": 1330.66,
+      "low": 1291.34,
+      "volRaw": 19444018,
+      "volume": "1,94,44,018",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -2549,7 +2549,7 @@
         1311.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2585,7 +2585,7 @@
         2436.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2621,7 +2621,7 @@
         1128.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2657,7 +2657,7 @@
         736.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2693,7 +2693,7 @@
         1424.1
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2729,7 +2729,7 @@
         994.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2742,16 +2742,16 @@
       "logo": "assets/movers/lt.png",
       "initials": "LT",
       "gradient": "linear-gradient(135deg, #D97706, #B45309)",
-      "price": "₹4,019.70",
-      "rawPrice": 4019.7,
-      "change": "75.30 (1.91%)",
-      "rawChange": 75.3,
-      "pct": 1.91,
+      "price": "₹3,944.40",
+      "rawPrice": 3944.4,
+      "change": "48.00 (1.23%)",
+      "rawChange": 48.0,
+      "pct": 1.23,
       "isGain": true,
-      "high": 4071.6,
-      "low": 4005.1,
-      "volRaw": 1328359,
-      "volume": "13,28,359",
+      "high": 4003.57,
+      "low": 3885.23,
+      "volRaw": 2493326,
+      "volume": "24,93,326",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -2765,7 +2765,7 @@
         3944.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     },
     {
@@ -2778,16 +2778,16 @@
       "logo": "assets/movers/itc.png",
       "initials": "ITC",
       "gradient": "linear-gradient(135deg, #B45309, #78350F)",
-      "price": "₹278.40",
-      "rawPrice": 278.4,
-      "change": "-1.60 (0.57%)",
-      "rawChange": -1.6,
-      "pct": -0.57,
-      "isGain": false,
-      "high": 283.9,
-      "low": 277.25,
-      "volRaw": 9772536,
-      "volume": "97,72,536",
+      "price": "₹280.00",
+      "rawPrice": 280.0,
+      "change": "3.10 (1.12%)",
+      "rawChange": 3.1,
+      "pct": 1.12,
+      "isGain": true,
+      "high": 284.2,
+      "low": 275.8,
+      "volRaw": 42446833,
+      "volume": "4,24,46,833",
       "volChange": "",
       "issuePrice": null,
       "lotSize": null,
@@ -2801,7 +2801,7 @@
         280.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-05T11:07:18.140193+05:30",
+      "quoteTimestamp": "2026-11-05T11:15:32.116619+05:30",
       "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
     }
   ]

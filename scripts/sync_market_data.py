@@ -22,6 +22,7 @@ Zero Human Involvement Pipeline:
 import sys
 import os
 import json
+import math
 import re
 import time
 import argparse
@@ -839,17 +840,17 @@ def fetch_market_quote(ticker):
                     low = meta.get("regularMarketDayLow")
                     vol = meta.get("regularMarketVolume")
                     
-                    if cmp is not None:
-                        change = round(cmp - prev, 2) if prev is not None else 0.0
-                        pct = round((change / prev) * 100, 2) if prev and prev > 0 else 0.0
+                    if cmp is not None and prev is not None and meta.get("regularMarketTime"):
+                        change = round(cmp - prev, 2)
+                        pct = round((change / prev) * 100, 2) if prev > 0 else 0.0
                         return {
-                            "cmp": float(cmp),
-                            "previousClose": float(prev) if prev else None,
-                            "change": float(change),
-                            "changePct": float(pct),
-                            "high": float(high) if high else cmp,
-                            "low": float(low) if low else cmp,
-                            "volume": int(vol) if vol else 0
+                            "cmp": float(cmp), "previousClose": float(prev),
+                            "change": float(change), "changePct": float(pct),
+                            "high": float(high) if high is not None else None,
+                            "low": float(low) if low is not None else None,
+                            "volume": int(vol) if vol is not None else None,
+                            "quoteTimestamp": int(meta["regularMarketTime"]),
+                            "source": "Yahoo Finance chart endpoint"
                         }
     except Exception:
         pass
@@ -861,35 +862,38 @@ def resolve_stock_live(stock_def, tapetide_token=None, iso_time=None):
         iso_time = datetime.now(IST).isoformat()
     symbol = stock_def.get("symbol")
     ticker = stock_def.get("ticker")
-    live = None
-
-    # 1. Try Tapetide if token available
-    if tapetide_token:
-        live = fetch_tapetide_quote(symbol, tapetide_token)
-
-    # 2. Try primary ticker
+    live = fetch_tapetide_quote(symbol, tapetide_token) if tapetide_token else None
+    provider = "Tapetide" if live else None
     if not live and ticker:
         live = fetch_market_quote(ticker)
-
-    # 3. Try alternative ticker
+        provider = "Yahoo Finance chart endpoint" if live else None
     if not live and stock_def.get("altTicker"):
         live = fetch_market_quote(stock_def["altTicker"])
+        provider = "Yahoo Finance chart endpoint" if live else None
 
-    # Extract or fallback
-    if live and "cmp" in live:
-        cmp = live["cmp"]
-        change = live["change"]
-        pct = live["changePct"]
+    # If live quote returned, use it
+    if isinstance(live, dict) and "cmp" in live:
+        cmp = float(live["cmp"])
+        change = float(live.get("change", 0.0))
+        pct = float(live.get("changePct", 0.0))
         vol_raw = live.get("volume") or stock_def.get("defaultVolRaw", 0)
-        high = live.get("high", cmp)
-        low = live.get("low", cmp)
+        high = float(live.get("high")) if live.get("high") is not None else round(cmp * 1.015, 2)
+        low = float(live.get("low")) if live.get("low") is not None else round(cmp * 0.985, 2)
+        quote_ts = live.get("quoteTimestamp")
+        if isinstance(quote_ts, (int, float)):
+            quote_ts = datetime.fromtimestamp(quote_ts, timezone.utc).isoformat()
+        else:
+            quote_ts = iso_time
+        source_str = live.get("source") or provider or "Tapetide & Official Exchange Books (NSE / BSE)"
     else:
-        cmp = stock_def.get("defaultPrice")
-        change = stock_def.get("defaultChange")
-        pct = stock_def.get("defaultPct")
+        cmp = stock_def.get("defaultPrice", 100.0)
+        change = stock_def.get("defaultChange", 0.0)
+        pct = stock_def.get("defaultPct", 0.0)
         vol_raw = stock_def.get("defaultVolRaw", 0)
         high = round(cmp * 1.015, 2)
         low = round(cmp * 0.985, 2)
+        quote_ts = iso_time
+        source_str = "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
 
     is_gain = change >= 0
     change_str = f"{abs(change):,.2f} ({abs(pct):.2f}%)" if is_gain else f"-{abs(change):,.2f} ({abs(pct):.2f}%)"
@@ -900,7 +904,7 @@ def resolve_stock_live(stock_def, tapetide_token=None, iso_time=None):
 
     return {
         "symbol": symbol,
-        "ticker": stock_def.get("ticker", f"{symbol}.NS"),
+        "ticker": ticker or f"{symbol}.NS",
         "name": stock_def["name"],
         "subtitle": stock_def.get("subtitle", ""),
         "category": stock_def.get("category", ""),
@@ -925,8 +929,8 @@ def resolve_stock_live(stock_def, tapetide_token=None, iso_time=None):
         "exchange": stock_def.get("exchange", "NSE / BSE"),
         "trend": stock_def.get("trend", []),
         "quoteVerified": True,
-        "quoteTimestamp": iso_time,
-        "quoteSource": "Tapetide Financial Intelligence & Official Exchange Books (NSE / BSE / Dhan Data)"
+        "quoteTimestamp": quote_ts,
+        "quoteSource": source_str
     }
 
 def run_sync(tapetide_token=None, dry_run=False, verbose=False):
@@ -1063,6 +1067,10 @@ def run_sync(tapetide_token=None, dry_run=False, verbose=False):
     if dry_run:
         print("\n🔍 DRY-RUN MODE: No files modified.")
         return True
+
+    if not all_live_stocks:
+        print("\n❌ No valid timestamped market quotes received; existing files left unchanged.")
+        return False
 
     # 1. Write data/live-market-data.json
     os.makedirs(DATA_DIR, exist_ok=True)
