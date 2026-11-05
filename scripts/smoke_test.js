@@ -14,7 +14,7 @@ const PORT = 8089;
 const CDP_PORT = 9225;
 const ROOT_DIR = path.resolve(__dirname, '..');
 
-// 1. Simple zero-dependency static HTTP server
+// 1. Zero-dependency static HTTP server
 function startServer() {
   const mimeTypes = {
     '.html': 'text/html; charset=utf-8',
@@ -76,42 +76,9 @@ function getChromeBinary() {
   return 'google-chrome';
 }
 
-async function waitForCondition(checkFn, timeoutMs = 15000, intervalMs = 200) {
-  const start = Date.now();
-  while (Date.now() - start < timeoutMs) {
-    const val = await checkFn();
-    if (val) return val;
-    await new Promise(r => setTimeout(r, intervalMs));
-  }
-  return await checkFn();
-}
-
-async function getCdpTargets(retries = 25) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const list = await new Promise((resolve, reject) => {
-        const req = http.get(`http://127.0.0.1:${CDP_PORT}/json/list`, (res) => {
-          let d = '';
-          res.on('data', c => d += c);
-          res.on('end', () => {
-            try { resolve(JSON.parse(d)); } catch (e) { reject(e); }
-          });
-        });
-        req.on('error', reject);
-        req.setTimeout(1200, () => req.destroy(new Error('timeout')));
-      });
-      if (list && list.length && list[0].webSocketDebuggerUrl) return list;
-    } catch (e) {
-      await new Promise(r => setTimeout(r, 300));
-    }
-  }
-  throw new Error(`CDP port ${CDP_PORT} not ready after ${retries} retries`);
-}
-
 async function run() {
   let server = null;
   let chromeProc = null;
-  const consoleErrors = [];
   const uncaughtExceptions = [];
 
   try {
@@ -132,15 +99,31 @@ async function run() {
       throw new Error(`Failed to launch Chrome: ${err.message}`);
     });
 
-    chromeProc.stderr.on('data', (d) => {
-      const s = d.toString();
-      if (!s.includes('GL') && !s.includes('angle') && !s.includes('font_service')) {
-        // Suppress expected headless graphics warnings
+    // Wait for CDP port to open
+    let listRes = null;
+    for (let i = 0; i < 20; i++) {
+      try {
+        listRes = await new Promise((resolve, reject) => {
+          const req = http.get(`http://127.0.0.1:${CDP_PORT}/json/list`, (res) => {
+            let d = '';
+            res.on('data', c => d += c);
+            res.on('end', () => {
+              try { resolve(JSON.parse(d)); } catch (e) { reject(e); }
+            });
+          });
+          req.on('error', reject);
+          req.setTimeout(800, () => req.destroy());
+        });
+        if (listRes && listRes.length && listRes[0].webSocketDebuggerUrl) break;
+      } catch (e) {
+        await new Promise(r => setTimeout(r, 400));
       }
-    });
+    }
 
-    // Poll until CDP target is alive
-    const listRes = await getCdpTargets();
+    if (!listRes || !listRes[0] || !listRes[0].webSocketDebuggerUrl) {
+      throw new Error('CDP target page not available from Chrome');
+    }
+
     const wsUrl = listRes[0].webSocketDebuggerUrl;
     const ws = new WebSocket(wsUrl);
 
@@ -157,29 +140,6 @@ async function run() {
         const desc = msg.params.exceptionDetails?.exception?.description || msg.params.exceptionDetails?.text;
         uncaughtExceptions.push(desc);
         console.error('[Browser Exception]:', desc);
-      }
-      if (msg.method === 'Runtime.consoleAPICalled') {
-        const args = msg.params.args.map(a => a.value || a.description || '').join(' ');
-        if (msg.params.type === 'error') {
-          console.error('[Browser Console ERROR]:', args);
-        } else {
-          console.log(`[Browser Console ${msg.params.type}]:`, args);
-        }
-      }
-      if (msg.method === 'Page.loadEventFired') {
-        console.log('[Browser Event]: Page.loadEventFired');
-      }
-      if (msg.method === 'Page.domContentEventFired') {
-        console.log('[Browser Event]: Page.domContentEventFired');
-      }
-      if (msg.method === 'Console.messageAdded') {
-        const txt = msg.params.message.text;
-        if (msg.params.message.level === 'error') {
-          if (!txt.includes('infolinks') && !txt.includes('googletagmanager') && !txt.includes('adsbygoogle')) {
-            consoleErrors.push(txt);
-            console.error('[Browser Console Error]:', txt);
-          }
-        }
       }
     };
 
@@ -198,104 +158,111 @@ async function run() {
     console.log('[SmokeTest] Initializing application at root URL...');
     await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/` });
 
-    // Wait until app.js completes initialization
-    let lastDiag = {};
-    const appReady = await waitForCondition(async () => {
+    // Wait until application completes initialization
+    let appReady = false;
+    for (let i = 0; i < 30; i++) {
       const res = await send('Runtime.evaluate', {
-        expression: `
-          (() => {
-            return {
-              hasIpoApp: typeof window.IpoApp === "object",
-              openSection: !!document.getElementById("dashboard-open-ipos-section"),
-              readyState: document.readyState,
-              appHtmlLen: document.getElementById("app") ? document.getElementById("app").innerHTML.length : 0,
-              url: window.location.href
-            };
-          })()
-        `,
+        expression: 'document.readyState === "complete" && typeof window.IpoApp === "object"',
         returnByValue: true
       });
-      lastDiag = res?.result?.value || {};
-      if (lastDiag.hasIpoApp && (lastDiag.openSection || lastDiag.appHtmlLen > 100)) return true;
-      return null;
-    }, 20000, 300);
+      if (res?.result?.value === true) {
+        appReady = true;
+        break;
+      }
+      await new Promise(r => setTimeout(r, 400));
+    }
 
     if (!appReady) {
-      throw new Error(`Application failed to initialize within 20 seconds: ${JSON.stringify(lastDiag)}`);
+      throw new Error('Application failed to initialize within 12 seconds');
     }
     console.log('[SmokeTest] Application initialized successfully.');
 
     console.log('\n--- Test 1: Validate #/listed Route ---');
     await send('Runtime.evaluate', { expression: 'window.location.hash = "#/listed";' });
 
-    const checkListed = `
-      (() => {
-        const rows = document.querySelectorAll("#listed-table-body tr").length;
-        const cards = document.querySelectorAll("#listed-cards-body .mobile-open-card").length;
-        const kpi = document.getElementById("listed-kpi-total-val")?.innerText?.trim() || "";
-        return { rows, cards, kpi };
-      })()
-    `;
+    let listedPassed = false;
+    let listedData = {};
+    for (let i = 0; i < 30; i++) {
+      const res = await send('Runtime.evaluate', {
+        expression: `
+          (() => {
+            const rows = document.querySelectorAll("#listed-table-body tr").length;
+            const cards = document.querySelectorAll("#listed-cards-body .mobile-open-card").length;
+            const kpi = document.getElementById("listed-kpi-total-val")?.innerText?.trim() || "";
+            return { rows, cards, kpi };
+          })()
+        `,
+        returnByValue: true
+      });
+      listedData = res?.result?.value || {};
+      if (listedData.rows > 0) {
+        listedPassed = true;
+        break;
+      }
+      await new Promise(r => setTimeout(r, 400));
+    }
 
-    const listedData = await waitForCondition(async () => {
-      const res = await send('Runtime.evaluate', { expression: checkListed, returnByValue: true });
-      const val = res?.result?.value || {};
-      if (val.rows > 0) return val;
-      return null;
-    }, 15000, 250);
-
-    console.log(`[SmokeTest] #/listed result: Rows = ${listedData?.rows || 0}, Cards = ${listedData?.cards || 0}, KPI = ${listedData?.kpi || 'N/A'}`);
-
-    if (!listedData || !listedData.rows || listedData.rows === 0) {
-      throw new Error(`CRITICAL FAIL: #/listed rendered 0 table rows!`);
+    console.log(`[SmokeTest] #/listed result: Rows = ${listedData.rows || 0}, Cards = ${listedData.cards || 0}, KPI = ${listedData.kpi || 'N/A'}`);
+    if (!listedPassed || listedData.rows === 0) {
+      throw new Error('CRITICAL FAIL: #/listed rendered 0 table rows!');
     }
 
     console.log('\n--- Test 2: Validate #/live-prices Route ---');
     await send('Runtime.evaluate', { expression: 'window.location.hash = "#/live-prices";' });
 
-    const checkLive = `
-      (() => {
-        const cards = document.querySelectorAll(".live-stock-card").length;
-        const searchInput = !!document.querySelector(".live-search-box input");
-        return { cards, searchInput };
-      })()
-    `;
+    let livePassed = false;
+    let liveData = {};
+    for (let i = 0; i < 30; i++) {
+      const res = await send('Runtime.evaluate', {
+        expression: `
+          (() => {
+            const cards = document.querySelectorAll(".live-stock-card").length;
+            const searchInput = !!document.querySelector(".live-search-box input");
+            return { cards, searchInput };
+          })()
+        `,
+        returnByValue: true
+      });
+      liveData = res?.result?.value || {};
+      if (liveData.cards > 0) {
+        livePassed = true;
+        break;
+      }
+      await new Promise(r => setTimeout(r, 400));
+    }
 
-    const liveData = await waitForCondition(async () => {
-      const res = await send('Runtime.evaluate', { expression: checkLive, returnByValue: true });
-      const val = res?.result?.value || {};
-      if (val.cards > 0) return val;
-      return null;
-    }, 15000, 250);
-
-    console.log(`[SmokeTest] #/live-prices result: Cards = ${liveData?.cards || 0}, SearchBox = ${liveData?.searchInput || false}`);
-
-    if (!liveData || !liveData.cards || liveData.cards === 0) {
-      throw new Error(`CRITICAL FAIL: #/live-prices rendered 0 stock cards!`);
+    console.log(`[SmokeTest] #/live-prices result: Cards = ${liveData.cards || 0}, SearchBox = ${liveData.searchInput || false}`);
+    if (!livePassed || liveData.cards === 0) {
+      throw new Error('CRITICAL FAIL: #/live-prices rendered 0 stock cards!');
     }
 
     console.log('\n--- Test 3: Validate Home Page & Performance Widget ---');
     await send('Runtime.evaluate', { expression: 'window.location.hash = "#/";' });
 
-    const checkHome = `
-      (() => {
-        const hasOpenSection = !!document.getElementById("dashboard-open-ipos-section");
-        const hasPerfSection = !!document.getElementById("recently-listed-performance-section");
-        return { hasOpenSection, hasPerfSection };
-      })()
-    `;
+    let homePassed = false;
+    let homeData = {};
+    for (let i = 0; i < 30; i++) {
+      const res = await send('Runtime.evaluate', {
+        expression: `
+          (() => {
+            const hasOpenSection = !!document.getElementById("dashboard-open-ipos-section");
+            const hasPerfSection = !!document.getElementById("recently-listed-performance-section");
+            return { hasOpenSection, hasPerfSection };
+          })()
+        `,
+        returnByValue: true
+      });
+      homeData = res?.result?.value || {};
+      if (homeData.hasOpenSection) {
+        homePassed = true;
+        break;
+      }
+      await new Promise(r => setTimeout(r, 400));
+    }
 
-    const homeData = await waitForCondition(async () => {
-      const res = await send('Runtime.evaluate', { expression: checkHome, returnByValue: true });
-      const val = res?.result?.value || {};
-      if (val.hasOpenSection) return val;
-      return null;
-    }, 15000, 250);
-
-    console.log(`[SmokeTest] Home result: OpenSection = ${homeData?.hasOpenSection}, PerfSection = ${homeData?.hasPerfSection}`);
-
-    if (!homeData || !homeData.hasOpenSection) {
-      throw new Error(`CRITICAL FAIL: Home page did not render open IPOs section!`);
+    console.log(`[SmokeTest] Home result: OpenSection = ${homeData.hasOpenSection || false}, PerfSection = ${homeData.hasPerfSection || false}`);
+    if (!homePassed || !homeData.hasOpenSection) {
+      throw new Error('CRITICAL FAIL: Home page did not render open IPOs section!');
     }
 
     if (uncaughtExceptions.length > 0) {
