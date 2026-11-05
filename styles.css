@@ -9283,21 +9283,29 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 .calc-grid-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 24px;
   margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 @media (max-width: 860px) {
   .calc-grid-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-top: 14px;
   }
 }
 .calc-card-panel {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border-subtle, #E2E8F0);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .calc-control-group {
   margin-bottom: 20px;
@@ -9455,6 +9463,127 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 .btn-copy-report:hover {
   background: #0F172A;
+}
+
+/* Tools / Calculator Mobile End-to-End Responsive Optimization */
+@media (max-width: 640px) {
+  .calc-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 0 32px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+  .calc-grid-layout {
+    gap: 14px !important;
+    margin-top: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .calc-card-panel {
+    padding: 16px 14px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+  .calc-kpi-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .calc-kpi-card {
+    grid-column: span 1 !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+  }
+  .calc-kpi-card.highlight-profit {
+    grid-column: span 1 !important;
+    padding: 14px 14px !important;
+  }
+  .calc-kpi-val {
+    font-size: 20px !important;
+  }
+  .hero-calc-metrics-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .calc-share-bar {
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .btn-whatsapp-share,
+  .btn-copy-report {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 12px 14px !important;
+    box-sizing: border-box !important;
+  }
+  .calc-select-box {
+    font-size: 13px !important;
+    padding: 10px 10px !important;
+    box-sizing: border-box !important;
+  }
+  .calc-preset-pills {
+    gap: 6px !important;
+  }
+  .calc-preset-chip {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+  .calc-adjuster-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+  .calc-table-scroll-wrapper {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 8px !important;
+    margin-top: 6px !important;
+  }
+  .calc-table-scroll-wrapper table {
+    min-width: 440px !important;
+  }
+  .calc-ticker-panel {
+    padding: 16px 14px !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+  .calc-specs-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px !important;
+  }
+  .community-invite-banner {
+    padding: 16px 14px !important;
+    gap: 14px !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+  .community-btn-group {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .btn-community-wa,
+  .btn-community-tg {
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .calc-card-panel {
+    padding: 12px 10px !important;
+  }
+  .calc-specs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
 }
 
 /* ==========================================================================

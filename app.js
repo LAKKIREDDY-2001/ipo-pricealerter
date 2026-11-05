@@ -1611,6 +1611,8 @@
         initials: s.initials || "IP",
         gradient: s.board === "SME" ? "linear-gradient(135deg, #0D9488, #115E59)" : "linear-gradient(135deg, #2563EB, #1E40AF)",
         price: cmpStr,
+        rawPrice: Number(s.currentPrice) || 0,
+        currentPrice: Number(s.currentPrice) || 0,
         change: changeStr,
         isGain: isGain,
         volChange: s.subscription ? ("+" + s.subscription + "x sub") : "+Debut",
@@ -4881,7 +4883,7 @@
 
         <div class="page-header-banner" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
           <div>
-            <h1 style="font-size:26px; font-weight:800; color:var(--text-heading); margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
+            <h1 class="calc-main-title" style="font-size:clamp(20px, 5.5vw, 26px); font-weight:800; color:var(--text-heading); margin:0 0 6px; line-height:1.25;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
             <p style="font-size:14px; color:var(--text-muted); margin:0;">
               Calculate indicative profit using available timestamped market prices and estimated listing returns.
             </p>
@@ -4910,20 +4912,20 @@
             </div>
 
             <!-- Issue Specs -->
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-              <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:10px 12px;">
+            <div class="calc-specs-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+              <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:10px 12px; min-width:0; overflow:hidden;">
                 <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Issue / Base Price</span>
                 <div style="font-size:18px; font-weight:800; color:var(--text-heading); margin-top:2px;">₹${upperPrice}</div>
               </div>
-              <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:10px 12px;">
+              <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:10px 12px; min-width:0; overflow:hidden;">
                 <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Lot Size</span>
-                <div style="font-size:18px; font-weight:800; color:var(--text-heading); margin-top:2px;">${lotSize.toLocaleString('en-IN')} shares</div>
+                <div style="font-size:18px; font-weight:800; color:var(--text-heading); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${lotSize.toLocaleString('en-IN')} shares</div>
               </div>
             </div>
 
             <!-- 1. Live Market Price (CMP) Control Box (Primary Requirement) -->
-            <div class="calc-control-group" style="background:rgba(16,185,129,0.08); border:1.5px solid rgba(16,185,129,0.3); border-radius:12px; padding:14px; margin-bottom:16px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div class="calc-control-group" style="background:rgba(16,185,129,0.08); border:1.5px solid rgba(16,185,129,0.3); border-radius:12px; padding:14px; margin-bottom:16px; box-sizing:border-box;">
+              <div class="calc-adjuster-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
                 <label style="font-size:13px; font-weight:800; color:#166534; display:flex; align-items:center; gap:6px;">
                   <span class="live-dot-pulse"></span>
                   <span>Live Market Price (CMP) / Live Target:</span>
@@ -4933,13 +4935,13 @@
                 </span>
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
-                <div style="position:relative; flex:1;">
+                <div style="position:relative; flex:1; min-width:0;">
                   <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:#166534; font-size:17px;">₹</span>
                   <input type="number" id="profit-calc-liveprice-input" value="${livePrice.toFixed(2)}" min="0.01" step="0.05"
                     style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:var(--text-heading); border:1.5px solid var(--border-subtle); border-radius:8px; background:var(--bg-input);"
                     oninput="window.IpoApp.setCalcLivePrice(this.value)" />
                 </div>
-                <button type="button" onclick="window.IpoApp.resetCalcLivePrice()" style="padding:9px 14px; background:#DCFCE7; border:1px solid #86EFAC; border-radius:8px; font-size:12px; font-weight:700; color:#166534; cursor:pointer;" title="Reset to live market CMP">
+                <button type="button" onclick="window.IpoApp.resetCalcLivePrice()" style="padding:9px 14px; background:#DCFCE7; border:1px solid #86EFAC; border-radius:8px; font-size:12px; font-weight:700; color:#166534; cursor:pointer; flex-shrink:0;" title="Reset to live market CMP">
                   Reset CMP
                 </button>
               </div>
@@ -4949,13 +4951,13 @@
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(25)">+25%</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(50)">+50%</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustLivePricePct(100)">2X Double</button>
-                <span style="font-size:11px; color:#15803D; font-weight:600; margin-left:auto; align-self:center;">⚡ Timestamped Market Quotes</span>
+                <span style="font-size:11px; color:#15803D; font-weight:600; align-self:center;">⚡ Timestamped Market Quotes</span>
               </div>
             </div>
 
             <!-- 2. Live Grey Market Premium (GMP) Adjustment Box -->
-            <div class="calc-control-group" style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:12px; padding:14px; margin-bottom:18px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div class="calc-control-group" style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:12px; padding:14px; margin-bottom:18px; box-sizing:border-box;">
+              <div class="calc-adjuster-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
                 <label style="font-size:12.5px; font-weight:700; color:var(--text-heading); display:flex; align-items:center; gap:6px;">
                   <span>Unofficial Grey Market Premium (GMP):</span>
                 </label>
@@ -4964,13 +4966,13 @@
                 </span>
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
-                <div style="position:relative; flex:1;">
+                <div style="position:relative; flex:1; min-width:0;">
                   <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:var(--text-muted); font-size:17px;">₹</span>
                   <input type="number" id="profit-calc-gmp-input" value="${gmpVal}" min="0" max="10000" step="1" 
                     style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:var(--text-heading); border:1px solid var(--border-subtle); border-radius:8px; background:var(--bg-input);"
                     oninput="window.IpoApp.setCustomGmp(this.value)" />
                 </div>
-                <button type="button" onclick="window.IpoApp.resetCustomGmp()" style="padding:9px 14px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:8px; font-size:12px; font-weight:700; color:var(--text-heading); cursor:pointer;" title="Reset to live market GMP">
+                <button type="button" onclick="window.IpoApp.resetCustomGmp()" style="padding:9px 14px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:8px; font-size:12px; font-weight:700; color:var(--text-heading); cursor:pointer; flex-shrink:0;" title="Reset to live market GMP">
                   Reset
                 </button>
               </div>
@@ -4979,7 +4981,7 @@
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(10)">+₹10</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(25)">+₹25</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(50)">+₹50</button>
-                <span style="font-size:11px; color:var(--text-muted); font-weight:500; margin-left:auto; align-self:center;">Est. Listing: ₹${estListingPrice}</span>
+                <span style="font-size:11px; color:var(--text-muted); font-weight:500; align-self:center;">Est. Listing: ₹${estListingPrice}</span>
               </div>
             </div>
 
@@ -5038,33 +5040,33 @@
                   </span>
                 </div>
                 
-                <div class="calc-kpi-val" style="font-size:36px; font-weight:900; color:${isLiveGain ? '#047857' : '#DC2626'}; margin:8px 0;">
+                <div class="calc-kpi-val" style="font-size:clamp(26px, 7vw, 36px); font-weight:900; color:${isLiveGain ? '#047857' : '#DC2626'}; margin:8px 0; word-break:break-word;">
                   ${isLiveGain ? '+' : ''}₹${Number(Math.round(liveProfit)).toLocaleString('en-IN')}
                 </div>
 
-                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; border-top:1px dashed ${isLiveGain ? '#A7F3D0' : '#FECACA'}; padding-top:10px; margin-top:8px; font-size:12px; color:${isLiveGain ? '#065F46' : '#991B1B'};">
+                <div class="hero-calc-metrics-row" style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; border-top:1px dashed ${isLiveGain ? '#A7F3D0' : '#FECACA'}; padding-top:10px; margin-top:8px; font-size:12px; color:${isLiveGain ? '#065F46' : '#991B1B'};">
                   <div>
                     <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Profit Per 1 Lot</div>
-                    <strong style="font-size:13px;">${isLiveGain ? '+' : ''}₹${Number(Math.round(liveProfitPerLot)).toLocaleString('en-IN')}</strong>
+                    <strong style="font-size:13px; white-space:nowrap;">${isLiveGain ? '+' : ''}₹${Number(Math.round(liveProfitPerLot)).toLocaleString('en-IN')}</strong>
                   </div>
                   <div>
                     <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Gain Per Share</div>
-                    <strong style="font-size:13px;">${isLiveGain ? '+' : ''}₹${liveGainPerShare.toFixed(2)}</strong>
+                    <strong style="font-size:13px; white-space:nowrap;">${isLiveGain ? '+' : ''}₹${liveGainPerShare.toFixed(2)}</strong>
                   </div>
                   <div>
-                    <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Live Price vs Issue</div>
-                    <strong style="font-size:13px;">₹${livePrice.toFixed(2)} vs ₹${upperPrice}</strong>
+                    <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Live vs Issue</div>
+                    <strong style="font-size:13px; white-space:nowrap;">₹${livePrice.toFixed(2)} / ₹${upperPrice}</strong>
                   </div>
                 </div>
               </div>
 
               <!-- SECONDARY ESTIMATOR: UNOFFICIAL GMP LISTING ESTIMATE -->
-              <div class="calc-kpi-card" style="grid-column: span 2; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); padding:12px 16px;">
+              <div class="calc-kpi-card" style="grid-column: span 2; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); padding:12px 16px; box-sizing:border-box;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
                   <span style="font-size:12px; font-weight:700; color:var(--text-muted);">
                     📊 Unofficial GMP Listing Estimate:
                   </span>
-                  <strong style="color:#0F766E; font-size:13px;">
+                  <strong style="color:#0F766E; font-size:13px; word-break:break-word;">
                     Est. Listing: ₹${estListingPrice} (+${estGmpReturnPct}%) • GMP Profit: +₹${Number(Math.round(estGmpProfit)).toLocaleString('en-IN')}
                   </strong>
                 </div>
@@ -5072,12 +5074,12 @@
             </div>
 
             <!-- Multi-Lot Live Price Profit Breakdown Grid -->
-            <div style="margin-top:16px; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:12px;">
-              <div style="font-size:11.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+            <div style="margin-top:16px; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:12px; box-sizing:border-box; overflow:hidden;">
+              <div style="font-size:11.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px; line-height:1.4;">
                 Multi-Lot Live Price Profit Breakdown (At Live CMP ₹${livePrice.toFixed(2)})
               </div>
-              <div style="overflow-x:auto;">
-                <table style="width:100%; font-size:12px; border-collapse:collapse; text-align:right;">
+              <div class="calc-table-scroll-wrapper" style="width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:6px;">
+                <table style="min-width:440px; width:100%; font-size:12px; border-collapse:collapse; text-align:right;">
                   <thead>
                     <tr style="border-bottom:1px solid var(--border-subtle); color:var(--text-muted); font-size:11px;">
                       <th style="text-align:left; padding:6px 8px;">Quota / Lots</th>
@@ -5096,7 +5098,7 @@
                       const label = l === 1 ? '1 Lot (Min)' : (l === 13 ? '13 Lots (Max Retail)' : (l === 14 ? '14 Lots (sHNI)' : `${l} Lots`));
                       return `
                         <tr style="border-bottom:1px solid var(--border-subtle); ${l === lots ? 'background:rgba(16,185,129,0.12); font-weight:700;' : ''}">
-                          <td style="text-align:left; padding:6px 8px; color:var(--text-heading);">${label}</td>
+                          <td style="text-align:left; padding:6px 8px; color:var(--text-heading); white-space:nowrap;">${label}</td>
                           <td style="padding:6px 8px; color:var(--text-muted);">${s.toLocaleString('en-IN')}</td>
                           <td style="padding:6px 8px; color:var(--text-heading);">₹${inv.toLocaleString('en-IN')}</td>
                           <td style="padding:6px 8px; font-weight:800; color:${prof >= 0 ? '#16A34A' : '#DC2626'};">
@@ -5133,7 +5135,7 @@
         </div>
 
         <!-- Live Ticker Bar Below Calculator with 1-Click Load Buttons -->
-        <div style="margin-top:24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+        <div class="calc-ticker-panel" style="margin-top:24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.03); box-sizing:border-box;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
             <div style="display:flex; align-items:center; gap:8px;">
               <span class="live-pulse-badge">
@@ -5147,20 +5149,25 @@
             </a>
           </div>
           <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">
-            ${(state.liveMarketData?.marketGainers || marketGainers || []).slice(0, 3).concat((state.liveMarketData?.marketShakers || marketShakers || []).slice(0, 3)).map(item => `
-              <div onclick="window.IpoApp.loadStockIntoCalc('${item.symbol}', '${escapeAttr(item.name)}', ${item.rawPrice}, ${Math.round(item.rawPrice * 0.92)})"
-                style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all 0.2s;"
-                title="Click to calculate profit on ${escapeAttr(item.name)}">
-                <div>
-                  <div style="font-size:12.5px; font-weight:700; color:var(--text-heading);">${escapeHtml(item.name)}</div>
-                  <div style="font-size:11px; color:#16A34A; font-weight:700;">${item.change}</div>
+            ${(state.liveMarketData?.marketGainers || marketGainers || []).slice(0, 3).concat((state.liveMarketData?.marketShakers || marketShakers || []).slice(0, 3)).map(item => {
+              const numericPrice = Number(item.rawPrice || item.currentPrice || (typeof item.price === 'string' ? parseFloat(item.price.replace(/[^0-9.]/g, '')) : item.price) || 0);
+              const numericIssue = Number(item.issuePrice || (numericPrice > 0 ? Math.round(numericPrice * 0.92) : 100));
+              const displayPrice = numericPrice > 0 ? numericPrice.toFixed(2) : (item.price || 'N/A');
+              return `
+                <div onclick="window.IpoApp.loadStockIntoCalc('${item.symbol}', '${escapeAttr(item.name)}', ${numericPrice}, ${numericIssue})"
+                  style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all 0.2s;"
+                  title="Click to calculate profit on ${escapeAttr(item.name)}">
+                  <div>
+                    <div style="font-size:12.5px; font-weight:700; color:var(--text-heading);">${escapeHtml(item.name)}</div>
+                    <div style="font-size:11px; color:#16A34A; font-weight:700;">${item.change}</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:13.5px; font-weight:800; color:var(--text-heading);">₹${displayPrice}</div>
+                    <span style="font-size:10px; font-weight:700; color:#2563EB;">Tap to Load &rarr;</span>
+                  </div>
                 </div>
-                <div style="text-align:right;">
-                  <div style="font-size:13.5px; font-weight:800; color:var(--text-heading);">₹${Number(item.currentPrice || item.price || item.rawPrice).toFixed(2)}</div>
-                  <span style="font-size:10px; font-weight:700; color:#2563EB;">Tap to Load &rarr;</span>
-                </div>
-              </div>
-            `).join("")}
+              `;
+            }).join("")}
           </div>
         </div>
 
