@@ -821,38 +821,59 @@
               <line x1="6" y1="20" x2="6" y2="14"></line>
             </svg>
           </div>
-          <span>IPO PriceAlerter</span>
+          <span class="brand-text">IPO PriceAlerter</span>
         </a>
 
+        <!-- 6-Item Streamlined Navigation (Centered End-to-End) -->
         <nav class="main-nav" aria-label="Main Navigation">
-          <a href="#/" class="nav-tab-link ${currentView === "home" ? "active" : ""}">Home</a>
-          <a href="#/open" class="nav-tab-link ${currentView === "open" ? "active" : ""}">Open IPOs</a>
-          <a href="#/upcoming" class="nav-tab-link ${currentView === "upcoming" ? "active" : ""}">Upcoming</a>
-          <a href="#/listed" class="nav-tab-link ${currentView === "listed" ? "active" : ""}">Listed</a>
-          <a href="#/calculator" class="nav-tab-link ${currentView === "calculator" ? "active" : ""}">Calculator</a>
-          <a href="#/live-prices" class="nav-tab-link ${currentView === "live-prices" ? "active" : ""}">⚡ Live Prices</a>
-          <a href="#/allotment" class="nav-tab-link ${currentView === "allotment" ? "active" : ""}">Allotment</a>
-          <a href="#/gmp" class="nav-tab-link ${currentView === "gmp" ? "active" : ""}">GMP</a>
-          <a href="#/calendar" class="nav-tab-link ${currentView === "calendar" ? "active" : ""}">Calendar</a>
-          <a href="#/guide" class="nav-tab-link ${currentView === "guide" ? "active" : ""}">Learn</a>
-          <a href="/blog/" class="nav-tab-link">Blog</a>
+          <a href="#/open" class="nav-tab-link ${currentView === 'open' || currentView === 'home' || currentView === 'upcoming' || currentView === 'listed' ? 'active' : ''}" data-nav="ipos">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path></svg>
+            <span>IPOs</span>
+          </a>
+          <a href="#/gmp" class="nav-tab-link ${currentView === 'gmp' ? 'active' : ''}" data-nav="gmp">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+            <span>GMP</span>
+          </a>
+          <a href="#/allotment" class="nav-tab-link ${currentView === 'allotment' ? 'active' : ''}" data-nav="allotment">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span>Allotment</span>
+          </a>
+          <a href="#/calculator" class="nav-tab-link ${currentView === 'calculator' || currentView === 'calendar' ? 'active' : ''}" data-nav="tools">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg>
+            <span>Tools</span>
+          </a>
+          <a href="#/guide" class="nav-tab-link ${currentView === 'guide' ? 'active' : ''}" data-nav="learn">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            <span>Learn</span>
+          </a>
+          <a href="#homepage-alert-signup" class="nav-tab-link" data-nav="alerts" onclick="event.preventDefault(); document.getElementById('homepage-alert-signup')?.scrollIntoView({behavior:'smooth'});">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span>Alerts</span>
+          </a>
         </nav>
 
+        <!-- Header Right Utilities (Anchored at Right End) -->
         <div class="header-right">
           <button class="header-search-btn" id="open-search-pill" aria-label="Search IPOs">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg class="lucide-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <span>Search IPOs...</span>
             <kbd>⌘K</kbd>
           </button>
 
+          <!-- Theme Toggle (Light / Dark) -->
+          <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Light/Dark Theme" title="Toggle Light/Dark Theme">
+            <svg class="lucide-icon icon-theme-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+            <svg class="lucide-icon icon-theme-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+          </button>
+
           <button class="btn-header-alerts" id="header-alerts-btn" aria-label="Get IPO Alerts">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             <span>Get Alerts</span>
           </button>
 
           <div class="bell-btn-wrap">
             <button class="bell-btn" id="header-bell-btn" aria-label="View IPO Notifications">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg class="lucide-icon" viewBox="0 0 24 24">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
               </svg>
@@ -863,7 +884,7 @@
           </div>
 
           <button class="mobile-hamburger-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <svg class="lucide-icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
         </div>
       </div>
@@ -876,67 +897,59 @@
               <div class="brand-icon-box" style="width:28px; height:28px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
               </div>
-              <strong style="font-size:16px;">PriceAlerter</strong>
+              <strong style="font-size:16px;">IPO PriceAlerter</strong>
             </div>
-            <button id="close-drawer-btn" style="color:#FFFFFF; font-size:24px; padding:4px; line-height:1;">&times;</button>
+            <button id="close-drawer-btn" style="color:#FFFFFF; font-size:24px; padding:4px; line-height:1; background:none; border:none; cursor:pointer;" aria-label="Close menu">&times;</button>
           </div>
           <div class="mobile-drawer-links">
             <button class="mobile-drawer-link" onclick="window.IpoApp.toggleSearchModal(true); window.IpoApp.toggleMobileMenu(false);">
-              <span class="link-icon">🔍</span>
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               <span>Search IPOs (⌘K)</span>
             </button>
-            <button class="mobile-drawer-link" onclick="window.IpoApp.handleGetAlertsClick(); window.IpoApp.toggleMobileMenu(false);" style="background:rgba(16, 185, 129, 0.12); color:#10B981; font-weight:700;">
-              <span class="link-icon">🔔</span>
-              <span>Get Alerts (Subscribe / Unsubscribe)</span>
+            <button class="mobile-drawer-link" onclick="window.IpoApp.handleGetAlertsClick(); window.IpoApp.toggleMobileMenu(false);" style="background:rgba(7, 155, 80, 0.12); color:#079B50; font-weight:700;">
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <span>Get IPO Alerts (Free)</span>
             </button>
-            <a href="#/" class="mobile-drawer-link ${currentView === 'home' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">🏠</span>
-              <span>Home</span>
-            </a>
-            <a href="#/open" class="mobile-drawer-link ${currentView === 'open' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">🟢</span>
+            <a href="#/open" class="mobile-drawer-link ${currentView === 'open' || currentView === 'home' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path></svg>
               <span>Open IPOs</span>
             </a>
             <a href="#/upcoming" class="mobile-drawer-link ${currentView === 'upcoming' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">⏳</span>
-              <span>Upcoming IPOs</span>
-            </a>
-            <a href="#/listed" class="mobile-drawer-link ${currentView === 'listed' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">📈</span>
-              <span>Listed IPOs</span>
-            </a>
-            <a href="#/calculator" class="mobile-drawer-link ${currentView === 'calculator' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">🧮</span>
-              <span>Profit Calculator</span>
-            </a>
-            <a href="#/live-prices" class="mobile-drawer-link ${currentView === 'live-prices' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">⚡</span>
-              <span>Live Stock Prices</span>
-            </a>
-            <a href="#/allotment" class="mobile-drawer-link ${currentView === 'allotment' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">📋</span>
-              <span>Allotment Router</span>
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>Upcoming Pipeline</span>
             </a>
             <a href="#/gmp" class="mobile-drawer-link ${currentView === 'gmp' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">📊</span>
-              <span>GMP Tracker</span>
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+              <span>Live GMP Tracker</span>
+            </a>
+            <a href="#/allotment" class="mobile-drawer-link ${currentView === 'allotment' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>Allotment Status</span>
+            </a>
+            <a href="#/calculator" class="mobile-drawer-link ${currentView === 'calculator' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg>
+              <span>Profit Calculator</span>
             </a>
             <a href="#/calendar" class="mobile-drawer-link ${currentView === 'calendar' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">📅</span>
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
               <span>IPO Calendar</span>
             </a>
+            <a href="#/listed" class="mobile-drawer-link ${currentView === 'listed' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span>Listing Performance</span>
+            </a>
             <a href="#/guide" class="mobile-drawer-link ${currentView === 'guide' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">🎓</span>
-              <span>Learn &amp; FAQ</span>
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              <span>Learning Center</span>
             </a>
             <a href="/blog/" class="mobile-drawer-link" onclick="window.IpoApp.toggleMobileMenu(false)">
-              <span class="link-icon">📝</span>
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
               <span>Educational Blog</span>
             </a>
             <div style="margin-top:16px; padding-top:16px; border-top:1px solid #E2E8F0; display:flex; flex-direction:column; gap:8px;">
               <a href="about.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">About Us</a>
               <a href="privacy.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Privacy Policy</a>
-              <a href="terms.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Terms &amp; Conditions</a>
+              <a href="terms.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Terms of Service</a>
               <a href="contact.html" class="mobile-drawer-link" style="font-size:13px; color:#64748B;">Contact Us</a>
             </div>
           </div>
@@ -946,20 +959,14 @@
 
     // Bind Header Events
     document.getElementById("open-search-pill")?.addEventListener("click", () => toggleSearchModal(true));
+    document.getElementById("theme-toggle-btn")?.addEventListener("click", () => toggleTheme());
     document.getElementById("header-alerts-btn")?.addEventListener("click", () => {
-      window.IpoApp.handleGetAlertsClick();
+      window.IpoApp.handleGetAlertsClick ? window.IpoApp.handleGetAlertsClick() : window.location.hash = "#homepage-alert-signup";
     });
     document.getElementById("header-bell-btn")?.addEventListener("click", (e) => {
       e.stopPropagation();
       state.notificationsOpen = !state.notificationsOpen;
       document.body.classList.toggle("notif-open", state.notificationsOpen);
-      renderHeader();
-    });
-
-    document.getElementById("toggle-alerts-feed-btn")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      state.alertsSubscribed = !state.alertsSubscribed;
-      showToast(state.alertsSubscribed ? "Live IPO alerts enabled" : "IPO alerts muted", "info");
       renderHeader();
     });
 
@@ -983,7 +990,7 @@
     // Sync Mobile Bottom Navigation
     document.querySelectorAll(".bottom-nav-item").forEach(item => {
       const navTarget = item.getAttribute("data-nav");
-      if (navTarget === currentView) {
+      if (navTarget === currentView || (navTarget === "ipos" && (currentView === "open" || currentView === "home"))) {
         item.classList.add("active");
       } else {
         item.classList.remove("active");
