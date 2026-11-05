@@ -92,7 +92,7 @@ def main():
         "note": "Do not infer missing values. Resolve each flag against the designated exchange's listing-day bhavcopy or official IPO tracker. Listing open and listing-day close are separate values."
     }
     out = ROOT / "data/listing-data-quality-report.json"
-    out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\\n", encoding="utf-8")
+    out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({k: v for k, v in report.items() if not isinstance(v, list)}, indent=2))
     print(f"Conflicts: {len(conflicts)}; missing listing prices: {len(missing)}; arithmetic errors: {len(math_errors)}")
     return 1 if conflicts or math_errors else 0

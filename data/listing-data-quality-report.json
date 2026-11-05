@@ -2,45 +2,8 @@
   "generatedAt": "2026-11-05",
   "scope": "Internal consistency only; not an exchange verification",
   "ipoRecordCount": 204,
-  "listedRecordCount": 172,
-  "crossDatasetConflicts": [
-    {
-      "name": "Shah Investor's Home Limited",
-      "field": "listingDate",
-      "ipoData": "2026-09-30",
-      "listedHistory": "2026-10-06"
-    },
-    {
-      "name": "A-One Steels Limited",
-      "field": "listingDate",
-      "ipoData": "2026-09-23",
-      "listedHistory": "2026-10-01"
-    },
-    {
-      "name": "Sonaselection Limited",
-      "field": "listingDate",
-      "ipoData": "2026-09-09",
-      "listedHistory": "2026-09-24"
-    },
-    {
-      "name": "Sonaselection Limited",
-      "field": "issuePrice",
-      "ipoData": 186,
-      "listedHistory": 99
-    },
-    {
-      "name": "H.R.Hygiene Products Limited",
-      "field": "listingDate",
-      "ipoData": "2026-07-08",
-      "listedHistory": "2026-08-05"
-    },
-    {
-      "name": "H.R.Hygiene Products Limited",
-      "field": "issuePrice",
-      "ipoData": 186,
-      "listedHistory": 88
-    }
-  ],
+  "listedRecordCount": 173,
+  "crossDatasetConflicts": [],
   "listedRowsMissingListingPrice": [
     {
       "name": "Zetwerk Limited",
@@ -70,11 +33,6 @@
     {
       "name": "SRIT India Limited",
       "listingDate": "2026-10-02",
-      "field": "listingPrice"
-    },
-    {
-      "name": "Sonaselection Limited",
-      "listingDate": "2026-09-09",
       "field": "listingPrice"
     },
     {
@@ -128,11 +86,6 @@
       "field": "listingPrice"
     },
     {
-      "name": "H.R.Hygiene Products Limited",
-      "listingDate": "2026-07-08",
-      "field": "listingPrice"
-    },
-    {
       "name": "Propshop Events & Exhibitions Limited",
       "listingDate": "2026-07-07",
       "field": "listingPrice"
@@ -144,6 +97,7 @@
     }
   ],
   "listedRowsMissingSymbolAndIsin": [
+    "Bombay Coated and Special Steels Limited",
     "Waaree Energies Limited",
     "Godavari Biorefineries Limited",
     "Afcons Infrastructure Limited",
@@ -320,4 +274,4 @@
   "listingGainArithmeticErrors": [],
   "verifiedListingCloseCount": 4,
   "note": "Do not infer missing values. Resolve each flag against the designated exchange's listing-day bhavcopy or official IPO tracker. Listing open and listing-day close are separate values."
-}\n
+}

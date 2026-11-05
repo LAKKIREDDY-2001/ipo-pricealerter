@@ -1258,6 +1258,31 @@ def update_ipo_data_js(synced_ipos, synced_recent_ipos=None, iso_time=None):
                 r["lastPriceUpdate"] = iso_time
                 updated_count += 1
 
+        # Auto-derive status from dates in IST and recalculate stats
+        today_str = datetime.now(IST).strftime("%Y-%m-%d")
+        for r in records:
+            listing_date = r.get("listingDate") or r.get("listDate")
+            close_date = r.get("closeDate")
+            open_date = r.get("openDate")
+
+            if listing_date and today_str >= listing_date:
+                r["status"] = "LISTED"
+            elif close_date and today_str > close_date:
+                r["status"] = "CLOSED"
+            elif open_date and close_date and open_date <= today_str <= close_date:
+                r["status"] = "OPEN"
+            elif open_date and today_str < open_date:
+                r["status"] = "UPCOMING"
+            elif not open_date:
+                r["status"] = "UPCOMING"
+
+        data["stats"] = {
+            "openCount": sum(1 for r in records if r.get("status") == "OPEN"),
+            "closedCount": sum(1 for r in records if r.get("status") == "CLOSED"),
+            "upcomingCount": sum(1 for r in records if r.get("status") == "UPCOMING"),
+            "listedCount": sum(1 for r in records if r.get("status") == "LISTED")
+        }
+
         data["updatedAt"] = iso_time
         new_content = "window.IpoData = " + json.dumps(data, indent=2, ensure_ascii=False) + ";\n"
 

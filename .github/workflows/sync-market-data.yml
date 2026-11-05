@@ -1,9 +1,13 @@
-name: Autonomous 10-Minute Market Data Sync
+name: Autonomous Market Data & IPO Pipeline Sync
 
 on:
   schedule:
-    # Automatically triggers every 10 minutes, 24/7 without human involvement
-    - cron: '*/10 * * * *'
+    # Every 15 minutes during Indian market hours (09:00 to 16:00 IST = 03:30 to 10:30 UTC, Mon-Fri)
+    - cron: '*/15 3-10 * * 1-5'
+    # Hourly during off-market weekday hours
+    - cron: '0 0-2,11-23 * * 1-5'
+    # Hourly on weekends
+    - cron: '0 * * * 0,6'
   workflow_dispatch:
 
 permissions:
