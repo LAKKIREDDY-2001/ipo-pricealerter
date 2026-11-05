@@ -27,6 +27,7 @@ function startServer() {
   };
 
   const server = http.createServer((req, res) => {
+    console.log(`[HTTP INCOMING] ${req.method} ${req.url}`);
     const parsedUrl = new URL(req.url, `http://127.0.0.1:${PORT}`);
     let reqPath = parsedUrl.pathname;
     if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
@@ -104,6 +105,9 @@ async function run() {
       '--no-sandbox',
       '--disable-gpu',
       '--disable-dev-shm-usage',
+      '--no-proxy-server',
+      '--proxy-bypass-list=<-loopback>',
+      '--disable-web-security',
       'about:blank'
     ]);
 
@@ -199,7 +203,9 @@ async function run() {
             return {
               hasIpoApp: typeof window.IpoApp === "object",
               readyState: document.readyState,
-              appHtmlLen: document.getElementById("app") ? document.getElementById("app").innerHTML.length : 0
+              appHtmlLen: document.getElementById("app") ? document.getElementById("app").innerHTML.length : 0,
+              url: window.location.href,
+              title: document.title
             };
           })()
         `,
