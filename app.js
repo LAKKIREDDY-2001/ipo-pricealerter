@@ -1706,12 +1706,12 @@
 
   function renderDebutMoversTableRows(list) {
     if (!list || !list.length) {
-      return `<tr><td colspan="3" style="text-align:center; padding:18px; color:#64748B;">No recent debut movers available</td></tr>`;
+      return `<tr><td colspan="3" style="text-align:center; padding:18px; color:var(--text-muted);">No recent debut movers available</td></tr>`;
     }
     return list.map(item => {
       const isPos = item.gainSinceList > 0;
       const isNeg = item.gainSinceList < 0;
-      const color = isPos ? '#00B386' : isNeg ? '#EF4444' : '#64748B';
+      const color = isPos ? '#00B386' : isNeg ? '#EF4444' : 'var(--text-muted)';
       const sign = isPos ? '+' : '';
       const initials = (item.name || "IP").split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
@@ -1723,18 +1723,18 @@
                 ${initials}
               </div>
               <div style="display:flex; flex-direction:column;">
-                <span class="movers-company-name" style="font-size:13px; font-weight:700; color:#0F172A; line-height:1.25;">${escapeHtml(item.name)}</span>
+                <span class="movers-company-name" style="font-size:13px; font-weight:700; color:var(--text-heading); line-height:1.25;">${escapeHtml(item.name)}</span>
                 <span style="font-size:10.5px; color:#2563EB; font-weight:600; margin-top:2px;">Listed ${formatDate(item.listedDate)}</span>
               </div>
             </div>
           </td>
           <td style="padding:10px 12px; text-align:right;">
-            <div class="movers-cmp" style="font-size:13px; font-weight:700; color:#0F172A;">₹${Number(item.currentPrice).toLocaleString('en-IN')}</div>
-            <div style="font-size:11px; color:#64748B;">Debut: ₹${Number(item.listingPrice).toLocaleString('en-IN')}</div>
+            <div class="movers-cmp" style="font-size:13px; font-weight:700; color:var(--text-heading);">₹${Number(item.currentPrice).toLocaleString('en-IN')}</div>
+            <div style="font-size:11px; color:var(--text-muted);">Debut: ₹${Number(item.listingPrice).toLocaleString('en-IN')}</div>
           </td>
           <td class="movers-volume-cell" style="padding:10px 12px; text-align:right;">
             <div style="font-size:13px; font-weight:800; color:${color};">${sign}${item.gainSinceList}%</div>
-            <div style="font-size:11px; color:#64748B; font-weight:500; margin-top:2px;">${item.segment || 'Mainboard'}</div>
+            <div style="font-size:11px; color:var(--text-muted); font-weight:500; margin-top:2px;">${item.segment || 'Mainboard'}</div>
           </td>
         </tr>
       `;
@@ -2093,10 +2093,10 @@
               <span class="status-badge open">ACTIVE BIDDING</span>
             </div>
           </div>
-          <div class="fig1-empty-state" style="padding: 40px 20px; text-align: center; color: #64748B;">
+          <div class="fig1-empty-state" style="padding: 40px 20px; text-align: center; color: var(--text-muted);">
             <div style="font-size: 28px; margin-bottom: 6px;">📅</div>
-            <div style="font-size: 15px; font-weight: 700; color: #1E293B;">No IPOs currently open for bidding</div>
-            <div style="font-size: 13px; margin-top: 4px; color: #64748B;">Check the Upcoming IPOs pipeline for new issues opening soon.</div>
+            <div style="font-size: 15px; font-weight: 700; color: var(--text-heading);">No IPOs currently open for bidding</div>
+            <div style="font-size: 13px; margin-top: 4px; color: var(--text-muted);">Check the Upcoming IPOs pipeline for new issues opening soon.</div>
           </div>
         </div>
       `;
@@ -2159,10 +2159,10 @@
           <div class="fig1-panel-header">
             <h2 class="fig1-panel-title">📊 IPO Listing Performance (Last 30 Days)</h2>
           </div>
-          <div class="fig1-empty-state" style="padding: 48px 20px; text-align: center; color: #64748B;">
+          <div class="fig1-empty-state" style="padding: 48px 20px; text-align: center; color: var(--text-muted);">
             <div style="font-size: 32px; margin-bottom: 8px;">📋</div>
-            <div style="font-size: 15px; font-weight: 700; color: #1E293B;">No new IPOs listed in the last 30 days</div>
-            <div style="font-size: 13px; margin-top: 4px; color: #64748B;">Explore currently open and upcoming pipeline issues on the IPO Calendar.</div>
+            <div style="font-size: 15px; font-weight: 700; color: var(--text-heading);">No new IPOs listed in the last 30 days</div>
+            <div style="font-size: 13px; margin-top: 4px; color: var(--text-muted);">Explore currently open and upcoming pipeline issues on the IPO Calendar.</div>
           </div>
         </div>
       `;
@@ -2214,7 +2214,7 @@
         <div class="fig1-panel-header">
           <div>
             <h2 class="fig1-panel-title">📊 IPO Listing Performance (Last 30 Days)</h2>
-            <div style="font-size:11px; color:#64748B; margin-top:2px;">Debut listing gain vs issue price • Official exchange disclosures</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Debut listing gain vs issue price • Official exchange disclosures</div>
           </div>
           <div class="fig1-chart-legend">
             <span class="legend-item"><span class="legend-color-box legend-gain"></span> Gain</span>
@@ -2256,7 +2256,7 @@
             </div>
           </div>
         </div>
-        <div style="margin-top:10px; font-size:11px; color:#64748B; border-top:1px dashed #E2E8F0; padding-top:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <div style="margin-top:10px; font-size:11px; color:var(--text-muted); border-top:1px dashed var(--border-subtle); padding-top:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <span>Source: Official exchange debut disclosures (NSE &amp; BSE)</span>
           <span>${formatGmpLastUpdated()}</span>
         </div>
@@ -2297,7 +2297,7 @@
             </div>
             <div class="widget-source-tag">CMP vs Listing</div>
           </div>
-          <div style="font-size:11.5px; color:#64748B; display:flex; align-items:center; gap:5px;">
+          <div style="font-size:11.5px; color:var(--text-muted); display:flex; align-items:center; gap:5px;">
             <span>Recently listed stocks: live CMP vs debut listing price</span>
           </div>
         </div>
@@ -2315,7 +2315,7 @@
             </tbody>
           </table>
         </div>
-        <div style="margin-top:10px; font-size:11px; color:#64748B; line-height:1.45; border-top:1px dashed #E2E8F0; padding-top:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <div style="margin-top:10px; font-size:11px; color:var(--text-muted); line-height:1.45; border-top:1px dashed var(--border-subtle); padding-top:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <span>*Live CMP vs exchange debut listing price (NSE/BSE)</span>
           <a href="#/listed" style="font-weight:700; color:#00897B; text-decoration:none;">All Listed IPOs &rarr;</a>
         </div>
@@ -2400,7 +2400,7 @@
                   <span class="fig1-cal-name">${ev.name}</span>
                   <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
                     <span class="fig1-cal-status-pill ${ev.statusClass}">${ev.status}</span>
-                    <span style="font-size:11px; color:#64748B;">${ev.eventLabel}</span>
+                    <span style="font-size:11px; color:var(--text-muted);">${ev.eventLabel}</span>
                   </div>
                 </div>
               </div>
@@ -3583,10 +3583,10 @@
           </p>
 
           <div class="editorial-highlight-box">
-            <h4 style="margin:0 0 6px 0; font-size:13px; font-weight:700; color:#1E3A8A; display:flex; align-items:center; gap:6px;">
+            <h4 class="editorial-highlight-title" style="margin:0 0 6px 0; font-size:13px; font-weight:700; display:flex; align-items:center; gap:6px;">
               <span>💡</span> Key Issue Snapshot &amp; Structure
             </h4>
-            <div style="font-size:12.5px; color:#1E293B; line-height:1.6;">
+            <div class="editorial-highlight-body" style="font-size:12.5px; line-height:1.6;">
               ${company} is offered at a price band of <strong>${priceBand}</strong> with a minimum application lot of <strong>${minLot}</strong>. Official registrar verification and allotment processing are conducted by <strong>${registrar}</strong>. All bids must be verified via designated ASBA syndicate banks or authorized UPI payment handles before the scheduled bidding deadline.
             </div>
           </div>
@@ -4242,7 +4242,7 @@
 
   function renderOpenRows(openIssues) {
     if (openIssues.length === 0) {
-      return `<tr><td colspan="9" style="text-align:center; padding:32px; color:#64748B;">No open IPOs match your filter criteria. Try clearing the search query.</td></tr>`;
+      return `<tr><td colspan="9" style="text-align:center; padding:32px; color:var(--text-muted);">No open IPOs match your filter criteria. Try clearing the search query.</td></tr>`;
     }
     return openIssues.map(r => {
       const priceText = r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA');
@@ -4255,16 +4255,16 @@
               ${renderCompanyLogo(r, 36)}
               <div class="fig1-company-name-wrap">
                 <span class="fig1-company-name">${escapeHtml(r.shortName)}</span>
-                <span style="font-size:11px; color:#64748B;">${escapeHtml(r.sector || 'Industrial')}</span>
+                <span style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.sector || 'Industrial')}</span>
               </div>
             </div>
           </td>
           <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${escapeHtml(r.board || 'MAINBOARD')}</span></td>
           <td>
-            <div style="font-size:12.5px; font-weight:600; color:#111827;">${formatDate(r.openDate)}</div>
+            <div style="font-size:12.5px; font-weight:600; color:var(--text-heading);">${formatDate(r.openDate)}</div>
             <div style="font-size:11px; color:#DC2626; font-weight:600;">Closes: ${formatDate(r.closeDate)}</div>
           </td>
-          <td><span style="font-weight:700; color:#111827;">${priceText}</span></td>
+          <td><span style="font-weight:700; color:var(--text-heading);">${priceText}</span></td>
           <td><span style="font-weight:600;">${r.lotSize ? r.lotSize + ' shares' : '—'}</span></td>
           <td><span style="font-weight:600;">${formatCrore(r.issueSizeCr)}</span></td>
           <td><span style="color:#16A34A; font-weight:700;">${gmpText}</span></td>
@@ -4283,25 +4283,25 @@
 
   function renderOpenCards(openIssues) {
     if (openIssues.length === 0) {
-      return `<div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px;">No open IPOs match your filter criteria.</div>`;
+      return `<div style="text-align:center; padding:24px; color:var(--text-muted); background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:10px;">No open IPOs match your filter criteria.</div>`;
     }
     return openIssues.map(r => `
-      <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
+      <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
           <div style="display:flex; align-items:center; gap:10px;">
             ${renderCompanyLogo(r, 40)}
             <div>
-              <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${escapeHtml(r.shortName)}</h3>
-              <span style="font-size:11px; color:#64748B;">${escapeHtml(r.board)} • ${escapeHtml(r.exchange)}</span>
+              <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:var(--text-heading);">${escapeHtml(r.shortName)}</h3>
+              <span style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.board)} • ${escapeHtml(r.exchange)}</span>
             </div>
           </div>
           <span class="status-badge open">Open</span>
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
-          <div><span style="color:#64748B;">Price Band:</span> <strong style="display:block; color:#111827;">${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow}–${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA')}</strong></div>
-          <div><span style="color:#64748B;">Lot Size:</span> <strong style="display:block; color:#111827;">${r.lotSize ? r.lotSize + ' shares' : '—'}</strong></div>
-          <div><span style="color:#64748B;">Closes:</span> <strong style="display:block; color:#DC2626;">${formatDate(r.closeDate)}</strong></div>
-          <div><span style="color:#64748B;">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle); padding:10px 0; margin-bottom:12px;">
+          <div><span style="color:var(--text-muted);">Price Band:</span> <strong style="display:block; color:var(--text-heading);">${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow}–${r.priceBandHigh}` : (r.issuePrice ? `₹${r.issuePrice}` : 'TBA')}</strong></div>
+          <div><span style="color:var(--text-muted);">Lot Size:</span> <strong style="display:block; color:var(--text-heading);">${r.lotSize ? r.lotSize + ' shares' : '—'}</strong></div>
+          <div><span style="color:var(--text-muted);">Closes:</span> <strong style="display:block; color:#DC2626;">${formatDate(r.closeDate)}</strong></div>
+          <div><span style="color:var(--text-muted);">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
         </div>
         <div style="display:flex; gap:8px;">
           <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="flex:1; justify-content:center; text-align:center; background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;" onclick="event.stopPropagation()">Apply Now</a>
@@ -4317,7 +4317,7 @@
     const issues = getFilteredOpenIssues();
     container.innerHTML = issues.length > 0
       ? issues.map(item => renderSingleDomIpoCard(item)).join("")
-      : `<div class="fig1-empty-state" style="padding:48px 20px; text-align:center; color:#64748B;"><div style="font-size:28px; margin-bottom:8px;">🔍</div><div style="font-size:15px; font-weight:700; color:#1E293B;">No open IPOs match your search or filter criteria</div><div style="font-size:13px; margin-top:4px;">Try selecting 'All Issues' or clearing the search query.</div></div>`;
+      : `<div class="fig1-empty-state" style="padding:48px 20px; text-align:center; color:var(--text-muted);"><div style="font-size:28px; margin-bottom:8px;">🔍</div><div style="font-size:15px; font-weight:700; color:var(--text-heading);">No open IPOs match your search or filter criteria</div><div style="font-size:13px; margin-top:4px;">Try selecting 'All Issues' or clearing the search query.</div></div>`;
   }
 
   function renderOpenIposPage() {
@@ -4340,8 +4340,8 @@
 
         <div class="page-header-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
           <div>
-            <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">Active &amp; Open IPOs (${allOpenCount})</h1>
-            <p style="margin:0; font-size:14px; color:#475569;">Live initial public offerings currently accepting retail and HNI bids via ASBA / UPI.</p>
+            <h1 style="font-size:26px; font-weight:800; color:var(--text-heading); margin:0 0 6px;">Active &amp; Open IPOs (${allOpenCount})</h1>
+            <p style="margin:0; font-size:14px; color:var(--text-muted);">Live initial public offerings currently accepting retail and HNI bids via ASBA / UPI.</p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
             <span class="live-pulse"></span>
@@ -4361,11 +4361,11 @@
             <input type="text" 
                    id="open-search-input"
                    class="fig1-subscribe-input" 
-                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
+                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:var(--bg-input); border:1px solid var(--border-subtle); color:var(--text-heading);" 
                    placeholder="Search open issues..." 
                    value="${escapeHtml(state.openSearchQuery || '')}"
                    oninput="window.IpoApp.setOpenSearch(this.value)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position:absolute; left:11px; top:11px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; left:11px; top:11px; color:var(--text-muted);">
               <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </div>
@@ -4385,12 +4385,12 @@
           <div class="ipo-items-list" id="open-ipos-items-list">
             ${openIssues.length > 0 
               ? openIssues.map(item => renderSingleDomIpoCard(item)).join("") 
-              : `<div class="fig1-empty-state" style="padding:48px 20px; text-align:center; color:#64748B;"><div style="font-size:28px; margin-bottom:8px;">🔍</div><div style="font-size:15px; font-weight:700; color:#1E293B;">No open IPOs match your search or filter criteria</div><div style="font-size:13px; margin-top:4px;">Try selecting 'All Issues' or clearing the search query.</div></div>`}
+              : `<div class="fig1-empty-state" style="padding:48px 20px; text-align:center; color:var(--text-muted);"><div style="font-size:28px; margin-bottom:8px;">🔍</div><div style="font-size:15px; font-weight:700; color:var(--text-heading);">No open IPOs match your search or filter criteria</div><div style="font-size:13px; margin-top:4px;">Try selecting 'All Issues' or clearing the search query.</div></div>`}
           </div>
         </div>
 
         <!-- Regulatory Notice -->
-        <div style="margin-top:24px; padding:14px 18px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; font-size:12px; color:#475569; line-height:1.5;">
+        <div style="margin-top:24px; padding:14px 18px; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:8px; font-size:12px; color:var(--text-muted); line-height:1.5;">
           <strong>Disclaimer:</strong> Sourced from BSE and NSE exchange circulars. PriceAlerter is an informational platform and does not provide financial or trading recommendations. Always consult a certified financial adviser before bidding via ASBA.
         </div>
       </div>
@@ -4440,7 +4440,7 @@
 
   function renderUpcomingRows(upcomingRecords) {
     if (upcomingRecords.length === 0) {
-      return `<tr><td colspan="8" style="text-align:center; padding:32px; color:#64748B;">No upcoming IPOs found matching this query. Try clearing the search query.</td></tr>`;
+      return `<tr><td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">No upcoming IPOs found matching this query. Try clearing the search query.</td></tr>`;
     }
     return upcomingRecords.map(r => {
       const isConfirmed = Boolean(r.openDate);
@@ -4451,7 +4451,7 @@
               ${renderCompanyLogo(r, 36)}
               <div class="fig1-company-name-wrap">
                 <span class="fig1-company-name">${escapeHtml(r.shortName)}</span>
-                <span style="font-size:11px; color:#64748B;">${escapeHtml(r.exchange || 'BSE / NSE')}</span>
+                <span style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.exchange || 'BSE / NSE')}</span>
               </div>
             </div>
           </td>
@@ -4461,11 +4461,11 @@
             </span>
           </td>
           <td><span class="board-badge ${(r.board || 'MAINBOARD').toLowerCase()}">${escapeHtml(r.board || 'MAINBOARD')}</span></td>
-          <td><span style="font-weight:700; color:#111827;">${formatCrore(r.issueSizeCr)}</span></td>
+          <td><span style="font-weight:700; color:var(--text-heading);">${formatCrore(r.issueSizeCr)}</span></td>
           <td>
-            <div style="font-weight:600; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative (2026–2027)'}</div>
+            <div style="font-weight:600; color:var(--text-heading);">${r.openDate ? formatDate(r.openDate) : 'Tentative (2026–2027)'}</div>
           </td>
-          <td><span style="font-size:12px; color:#475569;">${escapeHtml(r.sector || 'Diversified')}</span></td>
+          <td><span style="font-size:12px; color:var(--text-muted);">${escapeHtml(r.sector || 'Diversified')}</span></td>
           <td>
             ${r.docUrl ? `
               <a href="${r.docUrl}" target="_blank" rel="noopener noreferrer" class="btn-doc-subtle" onclick="event.stopPropagation()" style="font-size:11px; padding:4px 8px;">
@@ -4487,25 +4487,25 @@
 
   function renderUpcomingCards(upcomingRecords) {
     if (upcomingRecords.length === 0) {
-      return `<div style="text-align:center; padding:24px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px;">No upcoming IPOs found matching this query.</div>`;
+      return `<div style="text-align:center; padding:24px; color:var(--text-muted); background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:10px;">No upcoming IPOs found matching this query.</div>`;
     }
     return upcomingRecords.map(r => `
-      <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
+      <div class="mobile-open-card" onclick="window.location.hash='#/ipo/${r.slug}'" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:10px; padding:16px; margin-bottom:12px; cursor:pointer;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
           <div style="display:flex; align-items:center; gap:10px;">
             ${renderCompanyLogo(r, 40)}
             <div>
-              <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:#111827;">${escapeHtml(r.shortName)}</h3>
-              <span style="font-size:11px; color:#64748B;">${escapeHtml(r.board)} • ${escapeHtml(r.sector || 'Diversified')}</span>
+              <h3 style="font-size:15px; font-weight:700; margin:0 0 2px; color:var(--text-heading);">${escapeHtml(r.shortName)}</h3>
+              <span style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.board)} • ${escapeHtml(r.sector || 'Diversified')}</span>
             </div>
           </div>
           <span class="${r.openDate ? 'pipeline-badge-announced' : 'pipeline-badge-tentative'}">
             ${r.openDate ? 'Confirmed' : 'Pipeline'}
           </span>
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9; padding:10px 0; margin-bottom:12px;">
-          <div><span style="color:#64748B;">Est. Issue Size:</span> <strong style="display:block; color:#111827;">${formatCrore(r.issueSizeCr)}</strong></div>
-          <div><span style="color:#64748B;">Expected Date:</span> <strong style="display:block; color:#111827;">${r.openDate ? formatDate(r.openDate) : 'Tentative'}</strong></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle); padding:10px 0; margin-bottom:12px;">
+          <div><span style="color:var(--text-muted);">Est. Issue Size:</span> <strong style="display:block; color:var(--text-heading);">${formatCrore(r.issueSizeCr)}</strong></div>
+          <div><span style="color:var(--text-muted);">Expected Date:</span> <strong style="display:block; color:var(--text-heading);">${r.openDate ? formatDate(r.openDate) : 'Tentative'}</strong></div>
         </div>
         <div style="display:flex; gap:8px; margin-top:8px;">
           <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Details &amp; Analysis</button>
@@ -4543,10 +4543,10 @@
 
         <div class="page-header-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
           <div>
-            <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">Upcoming IPOs Pipeline (${totalUpcoming})</h1>
-            <p style="margin:0; font-size:14px; color:#475569;">Companies with SEBI DRHP approval awaiting opening dates and tentative pipeline.</p>
+            <h1 style="font-size:26px; font-weight:800; color:var(--text-heading); margin:0 0 6px;">Upcoming IPOs Pipeline (${totalUpcoming})</h1>
+            <p style="margin:0; font-size:14px; color:var(--text-muted);">Companies with SEBI DRHP approval awaiting opening dates and tentative pipeline.</p>
           </div>
-          <div style="background:#EFF6FF; border:1px solid #BFDBFE; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600; color:#1D4ED8;">
+          <div style="background:rgba(37,99,235,0.12); border:1px solid rgba(37,99,235,0.25); padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600; color:#3B82F6;">
             ${confirmedCount} Confirmed Dates · ${tentativeCount} Pipeline
           </div>
         </div>
@@ -4563,11 +4563,11 @@
             <input type="text" 
                    id="upcoming-search-input"
                    class="fig1-subscribe-input" 
-                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:#FFFFFF; border:1px solid #CBD5E1; color:#111827;" 
+                   style="width:100%; padding:8px 12px 8px 34px; font-size:13px; background:var(--bg-input); border:1px solid var(--border-subtle); color:var(--text-heading);" 
                    placeholder="Search upcoming IPOs..." 
                    value="${escapeHtml(state.upcomingSearchQuery || '')}"
                    oninput="window.IpoApp.setUpcomingSearch(this.value)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position:absolute; left:11px; top:11px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; left:11px; top:11px; color:var(--text-muted);">
               <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </div>
@@ -4600,12 +4600,12 @@
         </div>
 
         <!-- Pipeline Editorial Overview -->
-        <article class="guide-section-card" style="margin-top:24px; padding:20px 24px; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px;">
-          <h3 style="font-size:16px; color:#142B49; margin-bottom:10px;">📋 Indian IPO Pipeline &amp; SEBI Scrutiny Highlights</h3>
-          <p style="font-size:13.5px; line-height:1.6; color:#475569; margin-bottom:10px;">
+        <article class="guide-section-card" style="margin-top:24px; padding:20px 24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:10px;">
+          <h3 style="font-size:16px; color:var(--text-heading); margin-bottom:10px;">📋 Indian IPO Pipeline &amp; SEBI Scrutiny Highlights</h3>
+          <p style="font-size:13.5px; line-height:1.6; color:var(--text-muted); margin-bottom:10px;">
             The primary market in India maintains a healthy pipeline of over ₹1,00,000 Cr in draft red herring prospectuses (DRHPs) filed with the Securities and Exchange Board of India (SEBI). Key sectors leading the upcoming pipeline include quick commerce, fintech, consumer tech, renewable energy, and financial infrastructure.
           </p>
-          <p style="font-size:13.5px; line-height:1.6; color:#475569; margin:0;">
+          <p style="font-size:13.5px; line-height:1.6; color:var(--text-muted); margin:0;">
             Issuers with confirmed dates are scheduled based on exchange clearance and anchor book completion. Dates are subject to market conditions and merchant banker roadshows.
           </p>
         </article>
@@ -4647,7 +4647,7 @@
 
   function renderGmpRows(gmpList) {
     if (gmpList.length === 0) {
-      return `<tr><td colspan="8" style="text-align:center; padding:32px; color:#64748B;">No IPOs found matching the GMP filter criteria.</td></tr>`;
+      return `<tr><td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">No IPOs found matching the GMP filter criteria.</td></tr>`;
     }
     return gmpList.map(r => {
       const upper = r.priceBandHigh || r.issuePrice || 100;
@@ -4677,7 +4677,7 @@
             </div>
           </td>
           <td>
-            <span style="font-size:12px; font-weight:600; color:#111827;">${dateStr}</span>
+            <span style="font-size:12px; font-weight:600; color:var(--text-heading);">${dateStr}</span>
           </td>
           <td>${r.priceBandLow && r.priceBandHigh ? `₹${r.priceBandLow} – ${r.priceBandHigh}` : `₹${r.issuePrice || '—'}`}</td>
           <td>
@@ -4881,8 +4881,8 @@
 
         <div class="page-header-banner" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
           <div>
-            <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
-            <p style="font-size:14px; color:#64748B; margin:0;">
+            <h1 style="font-size:26px; font-weight:800; color:var(--text-heading); margin:0 0 6px;">🧮 IPO Profit Estimator &amp; Listing Gain Calculator</h1>
+            <p style="font-size:14px; color:var(--text-muted); margin:0;">
               Calculate indicative profit using available timestamped market prices and estimated listing returns.
             </p>
           </div>
@@ -4897,7 +4897,7 @@
         <div class="calc-grid-layout">
           <!-- Left: Controls Panel -->
           <div class="calc-card-panel">
-            <h2 style="font-size:17px; font-weight:800; color:#0F172A; margin:0 0 16px;">1. Select IPO &amp; Lots</h2>
+            <h2 style="font-size:17px; font-weight:800; color:var(--text-heading); margin:0 0 16px;">1. Select IPO &amp; Lots</h2>
             
             <div class="calc-control-group">
               <label class="calc-label-row">
@@ -4911,18 +4911,18 @@
 
             <!-- Issue Specs -->
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-              <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px 12px;">
-                <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase;">Issue / Base Price</span>
-                <div style="font-size:18px; font-weight:800; color:#0F172A; margin-top:2px;">₹${upperPrice}</div>
+              <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:10px 12px;">
+                <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Issue / Base Price</span>
+                <div style="font-size:18px; font-weight:800; color:var(--text-heading); margin-top:2px;">₹${upperPrice}</div>
               </div>
-              <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:10px 12px;">
-                <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase;">Lot Size</span>
-                <div style="font-size:18px; font-weight:800; color:#0F172A; margin-top:2px;">${lotSize.toLocaleString('en-IN')} shares</div>
+              <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:10px 12px;">
+                <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Lot Size</span>
+                <div style="font-size:18px; font-weight:800; color:var(--text-heading); margin-top:2px;">${lotSize.toLocaleString('en-IN')} shares</div>
               </div>
             </div>
 
             <!-- 1. Live Market Price (CMP) Control Box (Primary Requirement) -->
-            <div class="calc-control-group" style="background:#F0FDF4; border:1.5px solid #86EFAC; border-radius:12px; padding:14px; margin-bottom:16px;">
+            <div class="calc-control-group" style="background:rgba(16,185,129,0.08); border:1.5px solid rgba(16,185,129,0.3); border-radius:12px; padding:14px; margin-bottom:16px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                 <label style="font-size:13px; font-weight:800; color:#166534; display:flex; align-items:center; gap:6px;">
                   <span class="live-dot-pulse"></span>
@@ -4936,7 +4936,7 @@
                 <div style="position:relative; flex:1;">
                   <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:#166534; font-size:17px;">₹</span>
                   <input type="number" id="profit-calc-liveprice-input" value="${livePrice.toFixed(2)}" min="0.01" step="0.05"
-                    style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:#0F172A; border:1.5px solid #86EFAC; border-radius:8px; background:#FFFFFF;"
+                    style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:var(--text-heading); border:1.5px solid var(--border-subtle); border-radius:8px; background:var(--bg-input);"
                     oninput="window.IpoApp.setCalcLivePrice(this.value)" />
                 </div>
                 <button type="button" onclick="window.IpoApp.resetCalcLivePrice()" style="padding:9px 14px; background:#DCFCE7; border:1px solid #86EFAC; border-radius:8px; font-size:12px; font-weight:700; color:#166534; cursor:pointer;" title="Reset to live market CMP">
@@ -4954,9 +4954,9 @@
             </div>
 
             <!-- 2. Live Grey Market Premium (GMP) Adjustment Box -->
-            <div class="calc-control-group" style="background:#F8FAFC; border:1px solid #CBD5E1; border-radius:12px; padding:14px; margin-bottom:18px;">
+            <div class="calc-control-group" style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:12px; padding:14px; margin-bottom:18px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <label style="font-size:12.5px; font-weight:700; color:#334155; display:flex; align-items:center; gap:6px;">
+                <label style="font-size:12.5px; font-weight:700; color:var(--text-heading); display:flex; align-items:center; gap:6px;">
                   <span>Unofficial Grey Market Premium (GMP):</span>
                 </label>
                 <span style="font-size:11px; font-weight:700; color:#0F766E; background:#E6FFFA; padding:2px 8px; border-radius:12px;">
@@ -4965,12 +4965,12 @@
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
                 <div style="position:relative; flex:1;">
-                  <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:#475569; font-size:17px;">₹</span>
+                  <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:800; color:var(--text-muted); font-size:17px;">₹</span>
                   <input type="number" id="profit-calc-gmp-input" value="${gmpVal}" min="0" max="10000" step="1" 
-                    style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:#0F172A; border:1px solid #CBD5E1; border-radius:8px; background:#FFFFFF;"
+                    style="width:100%; box-sizing:border-box; padding:9px 12px 9px 30px; font-size:17px; font-weight:800; color:var(--text-heading); border:1px solid var(--border-subtle); border-radius:8px; background:var(--bg-input);"
                     oninput="window.IpoApp.setCustomGmp(this.value)" />
                 </div>
-                <button type="button" onclick="window.IpoApp.resetCustomGmp()" style="padding:9px 14px; background:#F1F5F9; border:1px solid #CBD5E1; border-radius:8px; font-size:12px; font-weight:700; color:#475569; cursor:pointer;" title="Reset to live market GMP">
+                <button type="button" onclick="window.IpoApp.resetCustomGmp()" style="padding:9px 14px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:8px; font-size:12px; font-weight:700; color:var(--text-heading); cursor:pointer;" title="Reset to live market GMP">
                   Reset
                 </button>
               </div>
@@ -4979,7 +4979,7 @@
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(10)">+₹10</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(25)">+₹25</button>
                 <button type="button" class="calc-preset-chip" onclick="window.IpoApp.adjustGmp(50)">+₹50</button>
-                <span style="font-size:11px; color:#64748B; font-weight:500; margin-left:auto; align-self:center;">Est. Listing: ₹${estListingPrice}</span>
+                <span style="font-size:11px; color:var(--text-muted); font-weight:500; margin-left:auto; align-self:center;">Est. Listing: ₹${estListingPrice}</span>
               </div>
             </div>
 
@@ -4987,7 +4987,7 @@
             <div class="calc-control-group">
               <div class="calc-label-row">
                 <span>Application Lots: <strong id="calc-lots-val-display" style="color:#0F766E; font-size:16px;">${lots} ${lots === 1 ? 'Lot' : 'Lots'}</strong></span>
-                <span style="font-size:12px; color:#64748B;">(${totalShares.toLocaleString('en-IN')} shares)</span>
+                <span style="font-size:12px; color:var(--text-muted);">(${totalShares.toLocaleString('en-IN')} shares)</span>
               </div>
               <input type="range" id="profit-calc-slider" class="calc-range-slider" min="1" max="50" value="${lots}" oninput="window.IpoApp.setCalcLots(this.value)">
               
@@ -5001,29 +5001,29 @@
             </div>
 
             <!-- Investor Category -->
-            <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #CBD5E1;">
+            <div style="margin-top:16px; padding-top:14px; border-top:1px dashed var(--border-subtle);">
               <span class="calc-category-badge" style="background:${catBg}; color:${catColor};">
                 <span>${category}</span>
               </span>
-              <p style="margin:0; font-size:12px; color:#64748B; line-height:1.5;">${catDesc}</p>
+              <p style="margin:0; font-size:12px; color:var(--text-muted); line-height:1.5;">${catDesc}</p>
             </div>
           </div>
 
           <!-- Right: Output & Results Panel -->
           <div class="calc-card-panel">
-            <h2 style="font-size:17px; font-weight:800; color:#0F172A; margin:0 0 16px;">2. Real-Time Return Estimates</h2>
+            <h2 style="font-size:17px; font-weight:800; color:var(--text-heading); margin:0 0 16px;">2. Real-Time Return Estimates</h2>
 
             <div class="calc-kpi-grid">
               <div class="calc-kpi-card">
                 <span class="calc-kpi-label">Total Investment</span>
-                <span class="calc-kpi-val" style="color:#1E293B;">₹${Number(totalInvestment).toLocaleString('en-IN')}</span>
-                <span style="font-size:11px; color:#64748B;">${lots} ${lots === 1 ? 'lot' : 'lots'} (${totalShares.toLocaleString('en-IN')} shares)</span>
+                <span class="calc-kpi-val" style="color:var(--text-heading);">₹${Number(totalInvestment).toLocaleString('en-IN')}</span>
+                <span style="font-size:11px; color:var(--text-muted);">${lots} ${lots === 1 ? 'lot' : 'lots'} (${totalShares.toLocaleString('en-IN')} shares)</span>
               </div>
 
               <div class="calc-kpi-card">
                 <span class="calc-kpi-label">Live Holding Value</span>
                 <span class="calc-kpi-val" style="color:#0284C7;">₹${Number(Math.round(totalLiveValue)).toLocaleString('en-IN')}</span>
-                <span style="font-size:11px; color:#64748B;">At Live CMP ₹${livePrice.toFixed(2)}</span>
+                <span style="font-size:11px; color:var(--text-muted);">At Live CMP ₹${livePrice.toFixed(2)}</span>
               </div>
 
               <!-- HERO HIGHLIGHT CARD: PROFIT BASED ON LIVE PRICE -->
@@ -5044,24 +5044,24 @@
 
                 <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; border-top:1px dashed ${isLiveGain ? '#A7F3D0' : '#FECACA'}; padding-top:10px; margin-top:8px; font-size:12px; color:${isLiveGain ? '#065F46' : '#991B1B'};">
                   <div>
-                    <div style="color:#64748B; font-size:11px; font-weight:600;">Profit Per 1 Lot</div>
+                    <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Profit Per 1 Lot</div>
                     <strong style="font-size:13px;">${isLiveGain ? '+' : ''}₹${Number(Math.round(liveProfitPerLot)).toLocaleString('en-IN')}</strong>
                   </div>
                   <div>
-                    <div style="color:#64748B; font-size:11px; font-weight:600;">Gain Per Share</div>
+                    <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Gain Per Share</div>
                     <strong style="font-size:13px;">${isLiveGain ? '+' : ''}₹${liveGainPerShare.toFixed(2)}</strong>
                   </div>
                   <div>
-                    <div style="color:#64748B; font-size:11px; font-weight:600;">Live Price vs Issue</div>
+                    <div style="color:var(--text-muted); font-size:11px; font-weight:600;">Live Price vs Issue</div>
                     <strong style="font-size:13px;">₹${livePrice.toFixed(2)} vs ₹${upperPrice}</strong>
                   </div>
                 </div>
               </div>
 
               <!-- SECONDARY ESTIMATOR: UNOFFICIAL GMP LISTING ESTIMATE -->
-              <div class="calc-kpi-card" style="grid-column: span 2; background:#F8FAFC; border:1px solid #E2E8F0; padding:12px 16px;">
+              <div class="calc-kpi-card" style="grid-column: span 2; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); padding:12px 16px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-                  <span style="font-size:12px; font-weight:700; color:#475569;">
+                  <span style="font-size:12px; font-weight:700; color:var(--text-muted);">
                     📊 Unofficial GMP Listing Estimate:
                   </span>
                   <strong style="color:#0F766E; font-size:13px;">
@@ -5072,14 +5072,14 @@
             </div>
 
             <!-- Multi-Lot Live Price Profit Breakdown Grid -->
-            <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:12px;">
-              <div style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:8px;">
+            <div style="margin-top:16px; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:10px; padding:12px;">
+              <div style="font-size:11.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
                 Multi-Lot Live Price Profit Breakdown (At Live CMP ₹${livePrice.toFixed(2)})
               </div>
               <div style="overflow-x:auto;">
                 <table style="width:100%; font-size:12px; border-collapse:collapse; text-align:right;">
                   <thead>
-                    <tr style="border-bottom:1px solid #CBD5E1; color:#64748B; font-size:11px;">
+                    <tr style="border-bottom:1px solid var(--border-subtle); color:var(--text-muted); font-size:11px;">
                       <th style="text-align:left; padding:6px 8px;">Quota / Lots</th>
                       <th style="padding:6px 8px;">Shares</th>
                       <th style="padding:6px 8px;">Investment</th>
@@ -5095,10 +5095,10 @@
                       const val = s * livePrice;
                       const label = l === 1 ? '1 Lot (Min)' : (l === 13 ? '13 Lots (Max Retail)' : (l === 14 ? '14 Lots (sHNI)' : `${l} Lots`));
                       return `
-                        <tr style="border-bottom:1px solid #F1F5F9; ${l === lots ? 'background:#ECFDF5; font-weight:700;' : ''}">
-                          <td style="text-align:left; padding:6px 8px; color:#0F172A;">${label}</td>
-                          <td style="padding:6px 8px; color:#475569;">${s.toLocaleString('en-IN')}</td>
-                          <td style="padding:6px 8px; color:#0F172A;">₹${inv.toLocaleString('en-IN')}</td>
+                        <tr style="border-bottom:1px solid var(--border-subtle); ${l === lots ? 'background:rgba(16,185,129,0.12); font-weight:700;' : ''}">
+                          <td style="text-align:left; padding:6px 8px; color:var(--text-heading);">${label}</td>
+                          <td style="padding:6px 8px; color:var(--text-muted);">${s.toLocaleString('en-IN')}</td>
+                          <td style="padding:6px 8px; color:var(--text-heading);">₹${inv.toLocaleString('en-IN')}</td>
                           <td style="padding:6px 8px; font-weight:800; color:${prof >= 0 ? '#16A34A' : '#DC2626'};">
                             ${prof >= 0 ? '+' : ''}₹${Number(Math.round(prof)).toLocaleString('en-IN')}
                           </td>
@@ -5133,14 +5133,14 @@
         </div>
 
         <!-- Live Ticker Bar Below Calculator with 1-Click Load Buttons -->
-        <div style="margin-top:24px; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+        <div style="margin-top:24px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
             <div style="display:flex; align-items:center; gap:8px;">
               <span class="live-pulse-badge">
                 <span class="live-dot-pulse"></span>
                 <span>⚡ Real-Time Market Ticker</span>
               </span>
-              <span style="font-size:13px; font-weight:700; color:#0F172A;">Trending Stocks Today (Tap to Simulate Live Profit)</span>
+              <span style="font-size:13px; font-weight:700; color:var(--text-heading);">Trending Stocks Today (Tap to Simulate Live Profit)</span>
             </div>
             <a href="#/live-prices" style="font-size:12.5px; font-weight:700; color:#2563EB; text-decoration:none;">
               View All 18+ Live Stock Prices &rarr;
@@ -5149,17 +5149,15 @@
           <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">
             ${(state.liveMarketData?.marketGainers || marketGainers || []).slice(0, 3).concat((state.liveMarketData?.marketShakers || marketShakers || []).slice(0, 3)).map(item => `
               <div onclick="window.IpoApp.loadStockIntoCalc('${item.symbol}', '${escapeAttr(item.name)}', ${item.rawPrice}, ${Math.round(item.rawPrice * 0.92)})"
-                style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all 0.2s;"
-                onmouseover="this.style.borderColor='#10B981'; this.style.background='#F0FDF4';"
-                onmouseout="this.style.borderColor='#E2E8F0'; this.style.background='#F8FAFC';"
+                style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all 0.2s;"
                 title="Click to calculate profit on ${escapeAttr(item.name)}">
                 <div>
-                  <div style="font-size:12.5px; font-weight:700; color:#0F172A;">${escapeHtml(item.name)}</div>
+                  <div style="font-size:12.5px; font-weight:700; color:var(--text-heading);">${escapeHtml(item.name)}</div>
                   <div style="font-size:11px; color:#16A34A; font-weight:700;">${item.change}</div>
                 </div>
                 <div style="text-align:right;">
-                  <div style="font-size:13px; font-weight:800; color:#0F172A;">${item.price}</div>
-                  <div style="font-size:10.5px; color:#2563EB; font-weight:600;">Simulate &rarr;</div>
+                  <div style="font-size:13.5px; font-weight:800; color:var(--text-heading);">₹${Number(item.currentPrice || item.price || item.rawPrice).toFixed(2)}</div>
+                  <span style="font-size:10px; font-weight:700; color:#2563EB;">Tap to Load &rarr;</span>
                 </div>
               </div>
             `).join("")}
@@ -5339,39 +5337,39 @@
 
         <!-- Clean Header -->
         <div style="margin-bottom:18px;">
-          <h1 style="font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px;">Live Stock Prices &amp; IPO Market Movers</h1>
-          <p style="font-size:13.5px; color:#64748B; margin:0;">Real-time quotes, CMP, issue-vs-listing performance, and official exchange data across 2,035 Indian securities (Mainboard + SME).</p>
+          <h1 style="font-size:24px; font-weight:800; color:var(--text-heading); margin:0 0 4px;">Live Stock Prices &amp; IPO Market Movers</h1>
+          <p style="font-size:13.5px; color:var(--text-muted); margin:0;">Real-time quotes, CMP, issue-vs-listing performance, and official exchange data across 2,035 Indian securities (Mainboard + SME).</p>
         </div>
 
         <!-- Benchmark Strip (Nifty 50, Sensex, Nifty SME) -->
-        <div class="benchmark-strip" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:12px 16px; margin-bottom:18px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
-          <div style="display:flex; align-items:center; justify-content:space-between; padding-right:12px; border-right:1px solid #F1F5F9;">
+        <div class="benchmark-strip" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; padding:12px 16px; margin-bottom:18px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding-right:12px; border-right:1px solid var(--border-subtle);">
             <div>
-              <div style="font-size:11px; font-weight:800; color:#64748B; text-transform:uppercase;">NIFTY 50</div>
-              <div style="font-size:16px; font-weight:800; color:#0F172A;">24,195.40</div>
+              <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">NIFTY 50</div>
+              <div style="font-size:16px; font-weight:800; color:var(--text-heading);">24,195.40</div>
             </div>
             <span style="font-size:11.5px; font-weight:700; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">▲ +0.35%</span>
           </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding-right:12px; border-right:1px solid #F1F5F9;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding-right:12px; border-right:1px solid var(--border-subtle);">
             <div>
-              <div style="font-size:11px; font-weight:800; color:#64748B; text-transform:uppercase;">BSE SENSEX</div>
-              <div style="font-size:16px; font-weight:800; color:#0F172A;">79,486.32</div>
+              <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">BSE SENSEX</div>
+              <div style="font-size:16px; font-weight:800; color:var(--text-heading);">79,486.32</div>
             </div>
             <span style="font-size:11.5px; font-weight:700; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">▲ +0.28%</span>
           </div>
           <div style="display:flex; align-items:center; justify-content:space-between;">
             <div>
-              <div style="font-size:11px; font-weight:800; color:#64748B; text-transform:uppercase;">NIFTY SME EMERGE</div>
-              <div style="font-size:16px; font-weight:800; color:#0F172A;">14,820.15</div>
+              <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">NIFTY SME EMERGE</div>
+              <div style="font-size:16px; font-weight:800; color:var(--text-heading);">14,820.15</div>
             </div>
             <span style="font-size:11.5px; font-weight:700; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">▲ +0.84%</span>
           </div>
         </div>
 
         <!-- Official Market Data Feeds Compliance Banner -->
-        <div class="exchange-compliance-bar" style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:10px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+        <div class="exchange-compliance-bar" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; padding:10px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
           <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-            <span style="font-size:11.5px; font-weight:800; color:#0F172A; text-transform:uppercase; letter-spacing:0.5px; display:inline-flex; align-items:center; gap:6px;">
+            <span style="font-size:11.5px; font-weight:800; color:var(--text-heading); text-transform:uppercase; letter-spacing:0.5px; display:inline-flex; align-items:center; gap:6px;">
               <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 6px #22C55E;"></span>
               Tracked Universe (Option B):
             </span>
@@ -5385,7 +5383,7 @@
               ⚠️ Tier 3: Suspended / Delisted Status
             </span>
           </div>
-          <div style="font-size:11.5px; color:#64748B; font-weight:600;">
+          <div style="font-size:11.5px; color:var(--text-muted); font-weight:600;">
             Source: Official NSE &amp; BSE Bhavcopy Books • ${lastSyncStr}
           </div>
         </div>
@@ -5579,8 +5577,8 @@
         </nav>
 
         <div class="page-header-banner" style="margin-bottom:20px;">
-          <h1 style="font-size:26px; font-weight:800; color:#142B49; margin:0 0 6px;">📋 Direct Allotment Status Routing Hub</h1>
-          <p style="font-size:14px; color:#64748B; margin:0;">
+          <h1 style="font-size:26px; font-weight:800; color:var(--text-heading); margin:0 0 6px;">📋 Direct Allotment Status Routing Hub</h1>
+          <p style="font-size:14px; color:var(--text-muted); margin:0;">
             Instantly query your allotment status across official registrars (Link Intime, KFintech, Bigshare, Cameo) and stock exchanges.
           </p>
         </div>
@@ -5590,7 +5588,7 @@
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
             <div>
               <span style="font-size:11.5px; font-weight:700; color:#0F766E; background:#F0FDFA; padding:3px 8px; border-radius:6px; border:1px solid #99F6E4;">INSTANT QUERY ROUTER</span>
-              <h2 style="font-size:18px; font-weight:800; color:#0F172A; margin:6px 0 0;">Check Allotment for Any Issue</h2>
+              <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin:6px 0 0;">Check Allotment for Any Issue</h2>
             </div>
             <div style="min-width:260px; max-width:100%;">
               <select id="allotment-company-select" class="calc-select-box" onchange="window.IpoApp.setAllotmentCompany(this.value)">
@@ -5599,12 +5597,12 @@
             </div>
           </div>
 
-          <div style="display:flex; align-items:center; gap:14px; padding:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:14px; padding:16px; background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:12px; flex-wrap:wrap;">
             ${renderCompanyLogo(ipo, 48)}
             <div style="flex:1; min-width:200px;">
-              <h3 style="font-size:16px; font-weight:800; color:#0F172A; margin:0 0 4px;">${escapeHtml(ipo.companyName || ipo.shortName)}</h3>
-              <div style="font-size:12.5px; color:#64748B;">
-                <strong>Designated Registrar:</strong> <span style="color:#0F172A; font-weight:700;">${escapeHtml(regName)}</span>
+              <h3 style="font-size:16px; font-weight:800; color:var(--text-heading); margin:0 0 4px;">${escapeHtml(ipo.companyName || ipo.shortName)}</h3>
+              <div style="font-size:12.5px; color:var(--text-muted);">
+                <strong>Designated Registrar:</strong> <span style="color:var(--text-heading); font-weight:700;">${escapeHtml(regName)}</span>
                 ${ipo.allotDate ? ` &bull; <strong>Allotment Date:</strong> ${formatDate(ipo.allotDate)}` : ''}
               </div>
             </div>
@@ -5624,8 +5622,8 @@
         </div>
 
         <!-- 2. Master Registrars Directory (All Major Indian Portals) -->
-        <h2 style="font-size:18px; font-weight:800; color:#0F172A; margin:28px 0 6px;">Official Primary Market Registrars</h2>
-        <p style="font-size:13.5px; color:#64748B; margin:0 0 16px;">Direct access links to all SEBI-registered registrar verification query servers.</p>
+        <h2 style="font-size:18px; font-weight:800; color:var(--text-heading); margin:28px 0 6px;">Official Primary Market Registrars</h2>
+        <p style="font-size:13.5px; color:var(--text-muted); margin:0 0 16px;">Direct access links to all SEBI-registered registrar verification query servers.</p>
 
         <div class="registrars-grid">
           <div class="registrar-box-card">
@@ -5695,9 +5693,9 @@
         </div>
 
         <!-- 3. Walkthrough Guide Card -->
-        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:20px; margin-top:24px;">
-          <h3 style="font-size:16px; font-weight:700; color:#0F172A; margin:0 0 10px;">📌 3 Easy Steps to Verify Allotment Online:</h3>
-          <ol style="margin:0; padding-left:20px; color:#475569; font-size:13.5px; line-height:1.7;">
+        <div style="background:var(--bg-surface-raised); border:1px solid var(--border-subtle); border-radius:14px; padding:20px; margin-top:24px;">
+          <h3 style="font-size:16px; font-weight:700; color:var(--text-heading); margin:0 0 10px;">📌 3 Easy Steps to Verify Allotment Online:</h3>
+          <ol style="margin:0; padding-left:20px; color:var(--text-muted); font-size:13.5px; line-height:1.7;">
             <li><strong>Step 1:</strong> Select the designated registrar portal or BSE application status link above.</li>
             <li><strong>Step 2:</strong> Select the IPO company name from the dropdown list.</li>
             <li><strong>Step 3:</strong> Enter your 10-digit <strong>PAN Number</strong> (or DP Client ID / Application Number) and click <em>Search / Submit</em>.</li>
@@ -6073,94 +6071,94 @@
 
         <!-- Featured Guide Articles Grid -->
         <div class="guide-articles-grid" id="guide-articles-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:16px; margin-bottom:30px;">
-          <div class="guide-article-card" data-category="beginner" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="beginner" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:#EFF6FF; padding:2px 8px; border-radius:10px;">Beginner Guide</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">What is an IPO? A Beginner's Guide</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Understand how Initial Public Offerings work in India, NSE/BSE listings, and how private firms raise capital.</p>
+              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:rgba(37,99,235,0.12); padding:2px 8px; border-radius:10px;">Beginner Guide</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">What is an IPO? A Beginner's Guide</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Understand how Initial Public Offerings work in India, NSE/BSE listings, and how private firms raise capital.</p>
             </div>
-            <a href="/blog/what-is-an-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/what-is-an-ipo.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="asba" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="asba" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#047857; background:#ECFDF5; padding:2px 8px; border-radius:10px;">Step-by-Step Tutorial</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">How to Apply for an IPO (UPI &amp; ASBA)</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Step-by-step bidding tutorial using your broker's platform or bank net banking.</p>
+              <span style="font-size:11px; font-weight:700; color:#047857; background:rgba(16,185,129,0.12); padding:2px 8px; border-radius:10px;">Step-by-Step Tutorial</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">How to Apply for an IPO (UPI &amp; ASBA)</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Step-by-step bidding tutorial using your broker's platform or bank net banking.</p>
             </div>
-            <a href="/blog/how-to-apply-for-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/how-to-apply-for-ipo.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="gmp" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="gmp" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#B45309; background:#FFFBEB; padding:2px 8px; border-radius:10px;">Market Analysis</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Understanding Grey Market Premium (GMP)</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Kostak rates, Subject to Sauda terms, how off-market sentiments work, and why GMP is speculative.</p>
+              <span style="font-size:11px; font-weight:700; color:#B45309; background:rgba(245,158,11,0.12); padding:2px 8px; border-radius:10px;">Market Analysis</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">Understanding Grey Market Premium (GMP)</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Kostak rates, Subject to Sauda terms, how off-market sentiments work, and why GMP is speculative.</p>
             </div>
-            <a href="/blog/understanding-grey-market-premium-gmp.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/understanding-grey-market-premium-gmp.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="sme" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="sme" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#6D28D9; background:#F5F3FF; padding:2px 8px; border-radius:10px;">Comparison Guide</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">IPO vs FPO vs OFS Comparison</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Side-by-side breakdown of Initial Public Offerings, Follow-on Offers, and Offer for Sale dilution.</p>
+              <span style="font-size:11px; font-weight:700; color:#6D28D9; background:rgba(124,58,237,0.12); padding:2px 8px; border-radius:10px;">Comparison Guide</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">IPO vs FPO vs OFS Comparison</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Side-by-side breakdown of Initial Public Offerings, Follow-on Offers, and Offer for Sale dilution.</p>
             </div>
-            <a href="/blog/ipo-vs-fpo-vs-ofs.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/ipo-vs-fpo-vs-ofs.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="asba" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="asba" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#047857; background:#ECFDF5; padding:2px 8px; border-radius:10px;">SEBI Regulations</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">How IPO Allotment Works in India</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Demystifying SEBI's computerized lottery allotment process and maximizing allotment chances legally.</p>
+              <span style="font-size:11px; font-weight:700; color:#047857; background:rgba(16,185,129,0.12); padding:2px 8px; border-radius:10px;">SEBI Regulations</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">How IPO Allotment Works in India</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Demystifying SEBI's computerized lottery allotment process and maximizing allotment chances legally.</p>
             </div>
-            <a href="/blog/how-ipo-allotment-works.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/how-ipo-allotment-works.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="beginner gmp" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="beginner gmp" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:#EFF6FF; padding:2px 8px; border-radius:10px;">Strategy</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Top 10 IPO Investing Tips</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Essential checklist for reading DRHP/RHP filings, peer P/E valuations, and listing-day exit strategy.</p>
+              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:rgba(37,99,235,0.12); padding:2px 8px; border-radius:10px;">Strategy</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">Top 10 IPO Investing Tips</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Essential checklist for reading DRHP/RHP filings, peer P/E valuations, and listing-day exit strategy.</p>
             </div>
-            <a href="/blog/top-10-ipo-investing-tips.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/top-10-ipo-investing-tips.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="asba" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="asba" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#047857; background:#ECFDF5; padding:2px 8px; border-radius:10px;">Verification Portal</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Check IPO Allotment Status Online</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Direct verification methods on Link Intime, KFintech, Bigshare, BSE, and NSE using PAN &amp; DP ID.</p>
+              <span style="font-size:11px; font-weight:700; color:#047857; background:rgba(16,185,129,0.12); padding:2px 8px; border-radius:10px;">Verification Portal</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">Check IPO Allotment Status Online</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Direct verification methods on Link Intime, KFintech, Bigshare, BSE, and NSE using PAN &amp; DP ID.</p>
             </div>
-            <a href="/blog/how-to-check-ipo-allotment-status.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/how-to-check-ipo-allotment-status.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="sme" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="sme" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#6D28D9; background:#F5F3FF; padding:2px 8px; border-radius:10px;">Exchange Comparison</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Mainboard vs SME IPO Guide</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Comparing BSE SME / NSE Emerge with Mainboard: lot sizes (₹1L+), liquidity, and migration rules.</p>
+              <span style="font-size:11px; font-weight:700; color:#6D28D9; background:rgba(124,58,237,0.12); padding:2px 8px; border-radius:10px;">Exchange Comparison</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">Mainboard vs SME IPO Guide</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Comparing BSE SME / NSE Emerge with Mainboard: lot sizes (₹1L+), liquidity, and migration rules.</p>
             </div>
-            <a href="/blog/mainboard-vs-sme-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/mainboard-vs-sme-ipo.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="beginner" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="beginner" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:#EFF6FF; padding:2px 8px; border-radius:10px;">Market Mechanics</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">What is Book Building in IPO?</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">Price discovery mechanics, cut-off prices, compilation of bidding books, and price band caps.</p>
+              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:rgba(37,99,235,0.12); padding:2px 8px; border-radius:10px;">Market Mechanics</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">What is Book Building in IPO?</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">Price discovery mechanics, cut-off prices, compilation of bidding books, and price band caps.</p>
             </div>
-            <a href="/blog/what-is-book-building-process.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/what-is-book-building-process.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
 
-          <div class="guide-article-card" data-category="beginner" style="padding:18px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <div class="guide-article-card" data-category="beginner" style="padding:18px; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
-              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:#EFF6FF; padding:2px 8px; border-radius:10px;">Account Setup</span>
-              <h3 style="font-size:15px; font-weight:700; color:#111827; margin:8px 0 6px;">Open a Demat Account for IPOs</h3>
-              <p style="font-size:12.5px; color:#64748B; margin:0 0 12px; line-height:1.5;">How to choose a registered broker, prepare KYC documents, and set up a UPI handle.</p>
+              <span style="font-size:11px; font-weight:700; color:#1D4ED8; background:rgba(37,99,235,0.12); padding:2px 8px; border-radius:10px;">Account Setup</span>
+              <h3 style="font-size:15px; font-weight:700; color:var(--text-heading); margin:8px 0 6px;">Open a Demat Account for IPOs</h3>
+              <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px; line-height:1.5;">How to choose a registered broker, prepare KYC documents, and set up a UPI handle.</p>
             </div>
-            <a href="/blog/how-to-open-demat-account-for-ipo.html" class="btn-table-action" style="background:#142B49; color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
+            <a href="/blog/how-to-open-demat-account-for-ipo.html" class="btn-table-action" style="background:var(--primary-navy); color:#FFFFFF; text-decoration:none; padding:7px 14px; font-size:12px; font-weight:600; border-radius:6px; text-align:center;">Read Full Guide &rarr;</a>
           </div>
         </div>
 
@@ -7022,8 +7020,8 @@
             <div class="fig1-company-cell">
               ${renderCompanyLogo(r, 36)}
               <div class="fig1-company-name-wrap">
-                <span class="fig1-company-name" style="font-size:13.5px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}${statusBadge}</span>
-                <span style="font-size:11px; color:#64748B;">
+                <span class="fig1-company-name" style="font-size:13.5px; font-weight:700; color:var(--text-heading);">${escapeHtml(r.name)}${statusBadge}</span>
+                <span style="font-size:11px; color:var(--text-muted);">
                   ${r.bseCode ? 'BSE: ' + r.bseCode : (r.exchange || 'NSE, BSE')}
                   ${r.isHistoric ? ' &bull; <strong style="color:#B45309;">1875 Landmark</strong>' : ''}
                 </span>
@@ -7031,21 +7029,21 @@
             </div>
           </td>
           <td>
-            <span class="fig1-sub-tag listed" style="background:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#EBF5FF' : '#F1F5F9'}; color:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#1D4ED8' : '#475569'};">
+            <span class="fig1-sub-tag listed" style="background:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? 'rgba(37,99,235,0.1)' : 'var(--bg-surface-raised)'}; color:${(r.segment || 'Mainboard').toLowerCase() === 'mainboard' ? '#3B82F6' : 'var(--text-muted)'};">
               ${escapeHtml(r.segment || 'Mainboard')}
             </span>
           </td>
-          <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${formatDate(r.listedDate)}</span></td>
+          <td><span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">${formatDate(r.listedDate)}</span></td>
           <td><span class="fig1-val-price">${r.issuePrice ? '₹' + Number(r.issuePrice).toLocaleString('en-IN') : '—'}</span></td>
-          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingPrice != null ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
-          <td><span class="fig1-val-price" style="font-weight:700; color:#111827;">${r.listingDayClose != null ? '₹' + Number(r.listingDayClose).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:var(--text-heading);">${r.listingPrice != null ? '₹' + Number(r.listingPrice).toLocaleString('en-IN') : '—'}</span></td>
+          <td><span class="fig1-val-price" style="font-weight:700; color:var(--text-heading);">${r.listingDayClose != null ? '₹' + Number(r.listingDayClose).toLocaleString('en-IN') : '—'}</span></td>
           <td>
             <span class="fig1-return-tag ${gainClass}">${gainText}</span>
           </td>
           <td>
             <span class="fig1-sub-pill">${subText}</span>
           </td>
-          <td><span style="font-size:12.5px; font-weight:600; color:#334155;">${sizeText}</span></td>
+          <td><span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">${sizeText}</span></td>
           <td>
             <div style="display:flex; flex-direction:column; gap:2px;">
               <div style="display:flex; align-items:center; gap:5px;">
@@ -7071,10 +7069,10 @@
   function renderListedCards(recordsList) {
     if (!recordsList || recordsList.length === 0) {
       return `
-        <div style="text-align:center; padding:28px 20px; color:#64748B; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px;">
+        <div style="text-align:center; padding:28px 20px; color:var(--text-muted); background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px;">
           <div>No listed companies found matching the criteria.</div>
           <div style="margin-top:12px;">
-            <button type="button" class="btn-table-action" style="padding:8px 18px; font-size:12.5px; font-weight:700; background:#142B49; color:#FFFFFF; border:none; border-radius:6px; cursor:pointer;" onclick="window.IpoApp.resetListedFilters()">
+            <button type="button" class="btn-table-action" style="padding:8px 18px; font-size:12.5px; font-weight:700; background:var(--primary-navy); color:#FFFFFF; border:none; border-radius:6px; cursor:pointer;" onclick="window.IpoApp.resetListedFilters()">
               Reset Filters &amp; View All Years
             </button>
           </div>
@@ -7109,10 +7107,10 @@
             <div class="mobile-open-brand">
               ${renderCompanyLogo(r, 36)}
               <div>
-                <h3 class="mobile-open-name" style="font-size:14px; font-weight:700; color:#0F172A;">${escapeHtml(r.name)}${statusBadge}</h3>
+                <h3 class="mobile-open-name" style="font-size:14px; font-weight:700; color:var(--text-heading);">${escapeHtml(r.name)}${statusBadge}</h3>
                 <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
                   <span class="fig1-sub-tag listed">${escapeHtml(r.segment || 'Mainboard')}</span>
-                  <span style="font-size:11px; color:#64748B;">${formatDate(r.listedDate)}</span>
+                  <span style="font-size:11px; color:var(--text-muted);">${formatDate(r.listedDate)}</span>
                 </div>
               </div>
             </div>
@@ -7138,11 +7136,11 @@
             </div>
           </div>
 
-          <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#475569; padding-top:8px; border-top:1px dashed #E2E8F0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--text-muted); padding-top:8px; border-top:1px dashed var(--border-subtle);">
             <span><strong>Issue:</strong> ${sizeText}</span>
             <span>
-              <strong>Current:</strong> <span style="font-weight:700; color:#0F172A;">${curText}</span>
-              <span style="font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : '#64748B'}; margin-left:4px;">(${retText})</span>
+              <strong>Current:</strong> <span style="font-weight:700; color:var(--text-heading);">${curText}</span>
+              <span style="font-weight:700; color:${retPos ? '#15803D' : retNeg ? '#DC2626' : 'var(--text-muted)'}; margin-left:4px;">(${retText})</span>
               ${r.currentPrice && r.status !== "DELISTED" && r.status !== "SUSPENDED" ? `<span style="background:#DCFCE7; color:#15803D; font-size:9.5px; font-weight:700; padding:1px 4px; border-radius:3px; margin-left:4px;">LIVE</span>` : ''}
             </span>
           </div>
@@ -7251,7 +7249,7 @@
               <h1 class="listed-title">
                 <span>🏛️ Historical Listed IPOs &amp; Listing Gains (1875 &ndash; 2026)</span>
               </h1>
-              <p style="margin:4px 0 0; font-size:14px; color:#475569;">
+              <p style="margin:4px 0 0; font-size:14px; color:var(--text-muted);">
                 Comprehensive listing-day performance directory for 1,827+ Indian public offerings across BSE &amp; NSE, from current 2026 issues down to India's 1st stock (The Bombay Burmah Trading Corporation, listed 1875).
               </p>
             </div>
@@ -7336,7 +7334,7 @@
         <div class="listed-controls-bar">
           <!-- Year Tabs Strip -->
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-            <div style="font-size:12px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">Filter by Year:</div>
+            <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Filter by Year:</div>
             <div class="listed-year-tabs">
               <button type="button" class="btn-year-pill ${activeYear === 'all' ? 'active' : ''}" onclick="window.IpoApp.setListedYear('all')">All Years (1875–2026)</button>
               <button type="button" class="btn-year-pill ${activeYear === '2026' ? 'active' : ''}" onclick="window.IpoApp.setListedYear('2026')">2026</button>
