@@ -5428,7 +5428,7 @@
       let tradingDate = "";
       for (const date of dates) {
         try {
-          const url = "https://mtf.trading/api/v1/bhavcopy?date=" + date + "&exchange=all&series=EQ&limit=100000";
+          const url = "https://mtf.trading/api/v1/bhavcopy?date=" + date + "&exchange=all&instr=STK&limit=100000";
           const response = await fetch(url, { headers: { "Accept": "application/json" } });
           if (!response.ok) continue;
           const payload = await response.json();
@@ -5439,6 +5439,7 @@
       if (!rows) throw new Error("No recent bhavcopy available");
       const quotes = {};
       rows.forEach(row => {
+        if (row.FinInstrmTp && String(row.FinInstrmTp).toUpperCase() !== "STK") return;
         const symbol = String(row.TckrSymb || row.ticker || row.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
         const isin = String(row.ISIN || row.ISINCode || row.ISINCd || row.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
         const close = Number(row.ClsPric ?? row.close ?? row.closePrice ?? row.lastPrice);
@@ -5455,7 +5456,7 @@
           open: open > 0 ? open : null, high: high > 0 ? high : null, low: low > 0 ? low : null,
           tradedVolume: volume > 0 ? volume : null, volume: volume > 0 ? volume : null,
           dayChangePct: dayPct, quoteVerified: true, priceType: "EOD",
-          quoteDate: tradingDate, quoteTimestamp: tradingDate + "T18:00:00+05:30",
+          quoteDate: tradingDate, quoteTimestamp: tradingDate + "T15:30:00+05:30",
           quoteSource: "MTF Analytics compiled NSE/BSE official bhavcopy · " + tradingDate,
           priceSource: "MTF Analytics / NSE-BSE bhavcopy"
         };
