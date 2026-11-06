@@ -39,15 +39,21 @@
     const pending = (stocks || []).filter(stock => !stock.logo && stock.name).slice(0, 24);
     pending.forEach(stock => {
       const key = String(stock.slug || stock.symbol || stock.name);
-      const image = document.querySelector('[data-stock-logo="' + CSS.escape(key) + '"]');
-      if (!image || image.dataset.logoResolved === "true") return;
-      if (stockLogoSearchCache.has(key)) {
-        const cached = stockLogoSearchCache.get(key);
-        if (cached) {
-          image.src = cached;
+      const findImage = () => Array.from(document.querySelectorAll("[data-stock-logo]"))
+        .find(node => node.dataset.stockLogo === key);
+      const applyLogo = url => {
+        const image = findImage();
+        if (!image) return;
+        if (url) {
+          image.src = url;
           image.style.display = "block";
         }
         image.dataset.logoResolved = "true";
+      };
+      const image = findImage();
+      if (!image || image.dataset.logoResolved === "true") return;
+      if (stockLogoSearchCache.has(key)) {
+        Promise.resolve(stockLogoSearchCache.get(key)).then(applyLogo);
         return;
       }
       const lookup = fetch("https://logoapi.sh/search?q=" + encodeURIComponent(stock.name))
@@ -56,23 +62,11 @@
           const targetName = normalizeLogoMatchName(stock.name);
           const results = payload && Array.isArray(payload.results) ? payload.results : [];
           const match = results.find(item => normalizeLogoMatchName(item.name) === targetName);
-          const url = match ? (match.icon || match.logo || "") : "";
-          stockLogoSearchCache.set(key, url);
-          if (url) {
-            const current = document.querySelector('[data-stock-logo="' + CSS.escape(key) + '"]');
-            if (current) {
-              current.src = url;
-              current.style.display = "block";
-              current.dataset.logoResolved = "true";
-            }
-          }
-          return url;
+          return match ? (match.icon || match.logo || "") : "";
         })
-        .catch(() => {
-          stockLogoSearchCache.set(key, "");
-          return "";
-        });
+        .catch(() => "");
       stockLogoSearchCache.set(key, lookup);
+      lookup.then(applyLogo);
     });
   }
 
