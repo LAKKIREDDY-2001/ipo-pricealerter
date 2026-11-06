@@ -15,6 +15,18 @@
   let cachedMasterSource = null;
   let masterDataSource = "LIVE"; // "LIVE" | "FALLBACK_LISTED_GAINS" | "FALLBACK_IPO_DATA"
 
+  function resolveStockLogo(stock) {
+    if (!stock) return "";
+    if (stock.logo || stock.logoUrl) return stock.logo || stock.logoUrl;
+    const isin = String(stock.isin || "").trim().toUpperCase();
+    if (/^[A-Z]{2}[A-Z0-9]{9}[0-9]$/.test(isin)) return "https://company-logo.shareperks.in/logo/" + encodeURIComponent(isin) + "/icon.svg";
+    const ticker = String(stock.symbol || stock.ticker || "").trim().replace(/\.(NS|BO)$/i, "");
+    if (ticker && !/^\d+$/.test(ticker)) return "https://logoapi.sh/ticker/NSE:" + encodeURIComponent(ticker) + ".svg";
+    const bseCode = String(stock.bseCode || (/^\d{5,6}$/.test(ticker) ? ticker : "")).trim();
+    if (bseCode) return "https://logoapi.sh/ticker/BSE:" + encodeURIComponent(bseCode) + ".svg";
+    return "";
+  }
+
   function normalizeMasterSecurity(s, isFallback) {
     if (!s) return null;
     const name = s.name || s.companyName || s.shortName || "Unknown Security";
@@ -46,7 +58,9 @@
     const issuePrice = s.issuePrice != null && !isNaN(s.issuePrice) ? Number(s.issuePrice) : null;
     const listingPrice = s.listingPrice != null && !isNaN(s.listingPrice) ? Number(s.listingPrice) : null;
     const listingDayClose = s.listingDayClose != null && !isNaN(s.listingDayClose) ? Number(s.listingDayClose) : null;
-    const currentPrice = s.currentPrice != null && !isNaN(s.currentPrice) ? Number(s.currentPrice) : (listingDayClose || listingPrice || null);
+    const lastRecordedPrice = s.currentPrice != null && !isNaN(s.currentPrice) ? Number(s.currentPrice) : null;
+    const quoteVerified = s.quoteVerified === true && !!s.quoteTimestamp && !!s.quoteSource && Number(lastRecordedPrice) > 0;
+    const currentPrice = quoteVerified ? Number(lastRecordedPrice) : null;
     
     // Returns & Gains
     let listingGainPct = s.listingGainPct != null && !isNaN(s.listingGainPct) ? Number(s.listingGainPct) : null;
@@ -100,13 +114,17 @@
       subscription: s.subscription != null && !isNaN(s.subscription) ? Number(s.subscription) : null,
       tier: tier,
       status: status,
-      priceStatus: s.priceStatus || (currentPrice ? "LIVE" : "UNAVAILABLE"),
-      logo: s.logo || s.logoUrl || "",
+      priceStatus: quoteVerified ? "LIVE" : (s.priceStatus || "UNVERIFIED"),
+      quoteVerified: quoteVerified,
+      quoteTimestamp: quoteVerified ? s.quoteTimestamp : "",
+      quoteSource: quoteVerified ? s.quoteSource : "",
+      lastRecordedPrice: lastRecordedPrice,
+      logo: resolveStockLogo(s),
       initials: initials,
       logoColor: logoColor,
       gradient: gradient,
       lastUpdated: s.lastUpdated || getTodayIST(),
-      priceSource: s.priceSource || (isFallback ? "Offline Fallback Cache" : "Exchange Master Feed"),
+      priceSource: quoteVerified ? s.quoteSource : (s.priceSource || (isFallback ? "Historical IPO dataset (not a live feed)" : "Unverified source")),
       isFallback: !!isFallback
     };
   }
@@ -944,11 +962,7 @@
       <div class="nav-container">
         <a href="#/" class="brand-wrap" aria-label="IPO PriceAlerter Home">
           <div class="brand-icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
+            <img src="/favicon-48x48.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
           </div>
           <span class="brand-text">IPO PriceAlerter</span>
         </a>
@@ -958,6 +972,10 @@
           <a href="#/open" class="nav-tab-link ${currentView === 'open' || currentView === 'home' || currentView === 'upcoming' || currentView === 'listed' ? 'active' : ''}" data-nav="ipos">
             <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path></svg>
             <span>IPOs</span>
+          </a>
+          <a href="#/live-prices" class="nav-tab-link ${currentView === 'live-prices' ? 'active' : ''}" data-nav="live-prices" aria-label="Live Stock Prices">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline></svg>
+            <span>Live Prices</span>
           </a>
           <a href="#/gmp" class="nav-tab-link ${currentView === 'gmp' ? 'active' : ''}" data-nav="gmp">
             <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
@@ -1024,7 +1042,7 @@
           <div class="mobile-drawer-header">
             <div style="display:flex; align-items:center; gap:8px;">
               <div class="brand-icon-box" style="width:28px; height:28px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <img src="/favicon-48x48.png" alt="" width="24" height="24" style="border-radius:6px;" />
               </div>
               <strong style="font-size:16px;">IPO PriceAlerter</strong>
             </div>
@@ -1046,6 +1064,10 @@
             <a href="#/upcoming" class="mobile-drawer-link ${currentView === 'upcoming' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
               <span>Upcoming Pipeline</span>
+            </a>
+            <a href="#/live-prices" class="mobile-drawer-link ${currentView === 'live-prices' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
+              <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline></svg>
+              <span>Live Stock Prices</span>
             </a>
             <a href="#/gmp" class="mobile-drawer-link ${currentView === 'gmp' ? 'active' : ''}" onclick="window.IpoApp.toggleMobileMenu(false)">
               <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
@@ -1119,7 +1141,7 @@
     // Sync Mobile Bottom Navigation
     document.querySelectorAll(".bottom-nav-item").forEach(item => {
       const navTarget = item.getAttribute("data-nav");
-      if (navTarget === currentView || (navTarget === "ipos" && (currentView === "open" || currentView === "home"))) {
+      if (navTarget === currentView || (navTarget === "ipos" && (currentView === "open" || currentView === "home")) || (navTarget === "live-prices" && currentView === "live-prices")) {
         item.classList.add("active");
       } else {
         item.classList.remove("active");
@@ -5234,18 +5256,14 @@
   function buildLiveStocksFromMaster() {
     const securities = getMasterSecurities();
     return securities.map(s => {
-      const cmp = s.currentPrice;
-      const cmpStr = (cmp != null && !isNaN(cmp) && Number(cmp) > 0)
-        ? "₹" + Number(cmp).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-        : (s.listingPrice ? "₹" + Number(s.listingPrice).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "N/A");
+      const quoteVerified = s.quoteVerified === true && !!s.quoteTimestamp && !!s.quoteSource && Number(s.currentPrice) > 0;
+      const cmp = quoteVerified ? Number(s.currentPrice) : null;
+      const cmpStr = quoteVerified ? "₹" + Number(cmp).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "Quote unavailable";
       
-      const retPct = (s.returnSinceIssuePct != null && !isNaN(s.returnSinceIssuePct))
-        ? Number(s.returnSinceIssuePct)
-        : ((s.listingGainPct != null && !isNaN(s.listingGainPct)) ? Number(s.listingGainPct) : null);
-
-      const isGain = retPct != null ? (retPct >= 0) : true;
-      const sign = (retPct != null && retPct > 0) ? "+" : "";
-      const changeStr = retPct != null ? (sign + retPct.toFixed(2) + "%") : "N/A";
+      const dayPct = quoteVerified && s.dayChangePct != null && Number.isFinite(Number(s.dayChangePct)) ? Number(s.dayChangePct) : null;
+      const isGain = dayPct != null ? dayPct >= 0 : true;
+      const sign = dayPct != null && dayPct > 0 ? "+" : "";
+      const changeStr = dayPct != null ? (sign + dayPct.toFixed(2) + "%") : "—";
       
       let category = "RECENT_IPO";
       let catLabel = "🚀 IPO Debut (12M)";
@@ -5268,22 +5286,27 @@
         symbol: s.symbol || s.bseCode || (name || "").slice(0, 6).toUpperCase(),
         bseCode: s.bseCode,
         isin: s.isin,
-        logo: s.logo || s.logoUrl || "",
+        logo: resolveStockLogo(s),
         initials: s.initials || (name || "IP").replace(/[^a-zA-Z]/g, "").slice(0, 2).toUpperCase() || "IP",
         gradient: board === "SME" ? "linear-gradient(135deg, #0D9488, #115E59)" : "linear-gradient(135deg, #2563EB, #1E40AF)",
         price: cmpStr,
-        rawPrice: Number(cmp) || Number(s.listingPrice) || 0,
+        rawPrice: Number(cmp) || 0,
         change: changeStr,
-        pct: retPct || 0,
+        pct: dayPct == null ? 0 : dayPct,
         isGain: isGain,
-        volume: s.subscription ? (s.subscription + "x sub") : "Standard",
-        volRaw: Number(s.subscription) || 0,
+        volume: quoteVerified ? (s.tradedVolume || s.volume || "—") : "—",
+        volRaw: quoteVerified ? (Number(s.tradedVolume || s.volume) || 0) : 0,
         issuePrice: s.issuePrice,
         category: category,
         catLabel: catLabel,
         tier: s.tier,
         status: s.status || "LISTED",
-        priceStatus: s.priceStatus || "STALE",
+        priceStatus: quoteVerified ? "LIVE" : "UNVERIFIED",
+        quoteVerified: quoteVerified,
+        quoteTimestamp: quoteVerified ? s.quoteTimestamp : "",
+        quoteSource: quoteVerified ? s.quoteSource : "",
+        priceLabel: quoteVerified ? "Verified market quote" : "Live quote unavailable",
+        listingPrice: s.listingPrice || null,
         board: board,
         slug: s.slug,
         subtitle: (board === "SME" ? "SME" : "Mainboard") + (s.listingDate ? " • Listed " + s.listingDate : "")
@@ -5296,9 +5319,27 @@
     if (!app) return;
 
     const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
-    const allLiveStocks = (data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500)
-      ? data.allLiveStocks
-      : buildLiveStocksFromMaster();
+    const rawLiveStocks = (data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500) ? data.allLiveStocks : buildLiveStocksFromMaster();
+    const allLiveStocks = rawLiveStocks.map(stock => {
+      const quoteValue = Number(stock.rawPrice || stock.currentPrice || 0);
+      const quoteVerified = stock.quoteVerified === true && !!stock.quoteTimestamp && !!stock.quoteSource && quoteValue > 0;
+      const dayPct = quoteVerified && stock.dayChangePct != null ? Number(stock.dayChangePct)
+        : (quoteVerified && stock.changePct != null ? Number(stock.changePct) : (quoteVerified ? Number(stock.pct || 0) : null));
+      return {
+        ...stock,
+        logo: resolveStockLogo(stock),
+        quoteVerified,
+        rawPrice: quoteVerified ? quoteValue : 0,
+        price: quoteVerified ? ("₹" + quoteValue.toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2})) : "Quote unavailable",
+        change: dayPct == null ? "—" : ((dayPct > 0 ? "+" : "") + dayPct.toFixed(2) + "%"),
+        pct: dayPct == null ? 0 : dayPct,
+        isGain: dayPct == null ? true : dayPct >= 0,
+        volume: quoteVerified ? (stock.volume || stock.tradedVolume || "—") : "—",
+        volRaw: quoteVerified ? Number(stock.volRaw || stock.tradedVolume || stock.volume || 0) : 0,
+        priceLabel: quoteVerified ? "Verified market quote" : "Live quote unavailable",
+        priceStatus: quoteVerified ? "LIVE" : "UNVERIFIED"
+      };
+    });
 
     const debutMovers = getIpoDebutMovers();
     const gainers = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : debutMovers.gainers;
@@ -5369,7 +5410,12 @@
     const limit = state.livePricesLimit || 48;
     const visibleStocks = allStocks.slice(0, limit);
 
-    const lastSyncStr = (data && data.lastSyncFormatted) ? data.lastSyncFormatted : "Bhavcopy Sync Complete";
+    const lastSyncStr = (data && data.lastSyncFormatted) ? data.lastSyncFormatted : "No verified live quote feed connected";
+    const benchmarkFallback = [
+      { name: "NIFTY 50", value: 25030.35, changePct: 2.01, asOf: "06 Nov 2026 close", source: "Times of India market close report" },
+      { name: "BSE SENSEX", value: 81028.02, changePct: 2.17, asOf: "06 Nov 2026 close", source: "Times of India market close report" }
+    ];
+    const benchmarks = data && Array.isArray(data.benchmarks) && data.benchmarks.length ? data.benchmarks : benchmarkFallback;
 
     app.innerHTML = `
       <div class="live-prices-container">
@@ -5383,53 +5429,48 @@
         <!-- Clean Header -->
         <div style="margin-bottom:18px;">
           <h1 style="font-size:24px; font-weight:800; color:var(--text-heading); margin:0 0 4px;">Live Stock Prices &amp; IPO Market Movers</h1>
-          <p style="font-size:13.5px; color:var(--text-muted); margin:0;">Real-time quotes, CMP, issue-vs-listing performance, and official exchange data across 2,035 Indian securities (Mainboard + SME).</p>
+          <p style="font-size:13.5px; color:var(--text-muted); margin:0;">Indian listed shares and IPO securities. A price is marked live only when its source and quote timestamp are verified; otherwise the card clearly shows that a live quote is unavailable.</p>
         </div>
 
-        <!-- Benchmark Strip (Nifty 50, Sensex, Nifty SME) -->
+        <!-- Last confirmed market close; dated values are not intraday quotes -->
         <div class="benchmark-strip" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; padding:12px 16px; margin-bottom:18px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
-          <div style="display:flex; align-items:center; justify-content:space-between; padding-right:12px; border-right:1px solid var(--border-subtle);">
-            <div>
-              <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">NIFTY 50</div>
-              <div style="font-size:16px; font-weight:800; color:var(--text-heading);">24,195.40</div>
-            </div>
-            <span style="font-size:11.5px; font-weight:700; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">▲ +0.35%</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding-right:12px; border-right:1px solid var(--border-subtle);">
-            <div>
-              <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">BSE SENSEX</div>
-              <div style="font-size:16px; font-weight:800; color:var(--text-heading);">79,486.32</div>
-            </div>
-            <span style="font-size:11.5px; font-weight:700; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">▲ +0.28%</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between;">
-            <div>
-              <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">NIFTY SME EMERGE</div>
-              <div style="font-size:16px; font-weight:800; color:var(--text-heading);">14,820.15</div>
-            </div>
-            <span style="font-size:11.5px; font-weight:700; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">▲ +0.84%</span>
-          </div>
+          ${benchmarks.map(item => {
+            const value = Number(item.value ?? item.ltp ?? item.close);
+            const pct = Number(item.changePct ?? item.changePercent ?? 0);
+            const positive = pct >= 0;
+            const formatted = Number.isFinite(value) ? value.toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2}) : "—";
+            return `
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-right:12px; border-right:1px solid var(--border-subtle);">
+                <div>
+                  <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">${escapeHtml(item.name || item.symbol || "INDEX")}</div>
+                  <div style="font-size:16px; font-weight:800; color:var(--text-heading);">${formatted}</div>
+                  <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">${escapeHtml(item.asOf || item.timestamp || "Timestamp unavailable")}</div>
+                </div>
+                <span style="font-size:11.5px; font-weight:700; color:${positive ? "#059669" : "#DC2626"}; background:${positive ? "#ECFDF5" : "#FEF2F2"}; padding:3px 8px; border-radius:6px;">${positive ? "▲" : "▼"} ${pct > 0 ? "+" : ""}${pct.toFixed(2)}%</span>
+              </div>
+            `;
+          }).join("")}
         </div>
 
         <!-- Official Market Data Feeds Compliance Banner -->
         <div class="exchange-compliance-bar" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; padding:10px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
           <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
             <span style="font-size:11.5px; font-weight:800; color:var(--text-heading); text-transform:uppercase; letter-spacing:0.5px; display:inline-flex; align-items:center; gap:6px;">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 6px #22C55E;"></span>
-              Tracked Universe (Option B):
+              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#F59E0B;"></span>
+              Quote verification:
             </span>
             <span style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#059669; background:#ECFDF5; padding:4px 10px; border-radius:6px; border:1px solid #A7F3D0;">
-              ⚡ Tier 1: 5-Min Live (Last 12M IPOs)
+              Live quotes only when source + timestamp are verified
             </span>
-            <span style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#1E40AF; text-decoration:none; background:#EFF6FF; padding:4px 10px; border-radius:6px; border:1px solid #DBEAFE;">
-              🏛️ Tier 2: 15-Min / Bhavcopy Daily Close
+            <span style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#1E40AF; background:#EFF6FF; padding:4px 10px; border-radius:6px; border:1px solid #DBEAFE;">
+              Historical prices are not live quotes
             </span>
-            <span style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#D97706; text-decoration:none; background:#FEF3C7; padding:4px 10px; border-radius:6px; border:1px solid #FDE68A;">
-              ⚠️ Tier 3: Suspended / Delisted Status
+            <span style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:#D97706; background:#FEF3C7; padding:4px 10px; border-radius:6px; border:1px solid #FDE68A;">
+              Suspended / delisted status
             </span>
           </div>
           <div style="font-size:11.5px; color:var(--text-muted); font-weight:600;">
-            Source: Official NSE &amp; BSE Bhavcopy Books • ${lastSyncStr}
+            Quote feed: awaiting authorized provider • ${lastSyncStr}
           </div>
         </div>
 
@@ -5490,7 +5531,7 @@
                   <div class="live-card-company">
                     <div class="movers-logo-box" style="position:relative; width:42px; height:42px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${stock.gradient || '#2563EB'}; flex-shrink:0;">
                       <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:13px; z-index:1;">${stock.initials || 'EQ'}</div>
-                      <img src="${stock.logo}" alt="${escapeAttr(stock.name)} logo" width="42" height="42" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />
+${stock.logo ? `<img src="${escapeAttr(stock.logo)}" alt="${escapeAttr(stock.name)} logo" width="42" height="42" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />` : ""}
                     </div>
                     <div>
                       <div class="live-card-name">${escapeHtml(stock.name)}</div>
@@ -5504,13 +5545,16 @@
 
                 <div class="live-card-price-row">
                   <div>
-                    <span style="font-size:10.5px; color:#64748B; font-weight:700; text-transform:uppercase;">Current Market Price</span>
+                    <span style="font-size:10.5px; color:#64748B; font-weight:700; text-transform:uppercase;">${escapeHtml(stock.priceLabel || "Market Price")}</span>
                     <div class="live-card-cmp">${stock.price}</div>
                   </div>
-                  <div class="${badgeClass}">
-                    <span>${isGain ? '▲' : '▼'}</span>
-                    <span>${stock.change}</span>
+                  <div class="${stock.quoteVerified ? badgeClass : "live-badge-neutral"}">
+                    <span>${stock.quoteVerified ? (isGain ? "▲" : "▼") : "•"}</span>
+                    <span>${stock.quoteVerified ? stock.change : "No verified quote"}</span>
                   </div>
+                </div>
+                <div style="font-size:10.5px;color:var(--text-muted);margin-top:-5px;margin-bottom:8px;">
+                  ${stock.quoteVerified ? ("As of " + escapeHtml(stock.quoteTimestamp) + " • " + escapeHtml(stock.quoteSource)) : "A current price is not published until a source and timestamp are verified."}
                 </div>
 
                 <!-- Stats: Volume & Surge / Issue Price -->
