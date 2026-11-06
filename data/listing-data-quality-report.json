@@ -1,10 +1,30 @@
 {
-  "generatedAt": "2026-11-05",
+  "generatedAt": "2026-11-06",
   "scope": "Internal consistency only; not an exchange verification",
   "ipoRecordCount": 204,
-  "listedRecordCount": 173,
+  "listedRecordCount": 177,
   "crossDatasetConflicts": [],
   "listedRowsMissingListingPrice": [
+    {
+      "name": "Vectras Enprocon Limited",
+      "listingDate": "2026-11-06",
+      "field": "listingPrice"
+    },
+    {
+      "name": "Maxwell Engineering Solutions Limited",
+      "listingDate": "2026-11-06",
+      "field": "listingPrice"
+    },
+    {
+      "name": "Johnsoncab Electricals Limited",
+      "listingDate": "2026-11-06",
+      "field": "listingPrice"
+    },
+    {
+      "name": "HGS (India) Limited",
+      "listingDate": "2026-11-06",
+      "field": "listingPrice"
+    },
     {
       "name": "Zetwerk Limited",
       "listingDate": "2026-10-21",
@@ -98,6 +118,10 @@
   ],
   "listedRowsMissingSymbolAndIsin": [
     "Bombay Coated and Special Steels Limited",
+    "Vectras Enprocon Limited",
+    "Maxwell Engineering Solutions Limited",
+    "Johnsoncab Electricals Limited",
+    "HGS (India) Limited",
     "Waaree Energies Limited",
     "Godavari Biorefineries Limited",
     "Afcons Infrastructure Limited",
