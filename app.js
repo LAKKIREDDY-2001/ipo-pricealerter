@@ -5438,7 +5438,7 @@
         priceLabel: quoteVerified ? "Verified market quote" : "Live quote unavailable",
         priceStatus: quoteVerified ? "LIVE" : "UNVERIFIED"
       };
-    });
+    }).filter(stock => stock.quoteVerified); // Only render stocks with a positive price, source and timestamp verified.
 
     const debutMovers = getIpoDebutMovers();
     const gainers = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : debutMovers.gainers;
@@ -5510,11 +5510,7 @@
     const visibleStocks = allStocks.slice(0, limit);
 
     const lastSyncStr = (data && data.lastSyncFormatted) ? data.lastSyncFormatted : "No verified live quote feed connected";
-    const benchmarkFallback = [
-      { name: "NIFTY 50", value: 25030.35, changePct: 2.01, asOf: "06 Nov 2026 close", source: "Times of India market close report" },
-      { name: "BSE SENSEX", value: 81028.02, changePct: 2.17, asOf: "06 Nov 2026 close", source: "Times of India market close report" }
-    ];
-    const benchmarks = data && Array.isArray(data.benchmarks) && data.benchmarks.length ? data.benchmarks : benchmarkFallback;
+    const benchmarks = data && Array.isArray(data.benchmarks) ? data.benchmarks : [];
 
     app.innerHTML = `
       <div class="live-prices-container">
@@ -5719,8 +5715,8 @@
         ${totalMatchingStocks === 0 ? `
           <div style="text-align:center; padding:48px 20px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; margin-top:20px;">
             <div style="font-size:28px; margin-bottom:8px;">🔍</div>
-            <h3 style="font-size:16px; font-weight:800; color:#0F172A; margin:0 0 6px;">No stocks match your query</h3>
-            <p style="font-size:13px; color:#64748B; margin:0 0 16px;">Try clearing your search query or switching filters.</p>
+            <h3 style="font-size:16px; font-weight:800; color:#0F172A; margin:0 0 6px;">${allLiveStocks.length === 0 ? 'No verified stock prices available' : 'No stocks match your query'}</h3>
+            <p style="font-size:13px; color:#64748B; margin:0 0 16px;">${allLiveStocks.length === 0 ? 'Prices appear here only after a valid exchange quote, positive price, source and timestamp are verified. No placeholder or historical listing price is shown as live.' : 'Try clearing your search query or switching filters.'}</p>
             <button type="button" onclick="window.IpoApp.resetLivePricesFilters();" style="padding:10px 20px; background:#142B49; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">
               Reset Search &amp; Filters
             </button>
