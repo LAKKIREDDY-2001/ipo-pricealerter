@@ -24,7 +24,8 @@ const subscribers = read("subscribers.js");
 const ads = read("ads.txt");
 const sitemap = read("sitemap.xml");
 
-if (!home.includes('ca-pub-1181608933401999') || !home.includes('adsbygoogle.js')) fail("Homepage AdSense publisher code is missing.");
+if (!home.includes('<meta name="google-adsense-account" content="ca-pub-1181608933401999">')) fail("Homepage AdSense publisher verification meta tag is missing.");
+if (home.includes("adsbygoogle.js")) fail("Auto ads should not load on interactive app routes; AdSense code is reserved for editorial content pages.");
 if (!ads.split(/\r?\n/).some(line => /^google\.com, pub-1181608933401999, DIRECT, f08c47fec0942fa0$/.test(line.trim()))) fail("ads.txt publisher declaration is missing or malformed.");
 if (!privacy.includes("Google AdSense") || !privacy.includes("Google Analytics 4") || !privacy.includes("FormSubmit") || !privacy.toLowerCase().includes("third parties may place")) fail("Privacy policy is missing an actual service/data disclosure.");
 if (!contact.includes("mailto:lakkistudy@gmail.com") || !contact.includes("Your message has not been sent until you send it")) fail("Contact page must clearly explain the email handoff.");
@@ -54,6 +55,7 @@ const articles = [
 for (const file of articles) {
   const html = read("blog/"+file);
   if (!html.includes('name="description"') || !html.includes('rel="canonical"')) fail("Missing SEO metadata in blog/"+file);
+  if (!html.includes("adsbygoogle.js")) fail("AdSense content-page code missing in blog/"+file);
   if (!html.includes("PriceAlerter Editorial Desk") || html.includes("Lead Financial Analyst")) fail("Unverified author credential in blog/"+file);
   if (!html.includes("Official sources and verification")) fail("Missing official verification links in blog/"+file);
   if (!html.includes("editorial-policy.html")) fail("Missing editorial standards link in blog/"+file);
