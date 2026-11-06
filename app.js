@@ -8063,11 +8063,9 @@
     window.addEventListener("hashchange", router);
     router();
 
-    // Load Live Market Feed & Continuous Auto-Refresh Every 60 Seconds
+    // Load the last saved, source-checked market snapshot once.
+    // Repeatedly downloading the same static JSON does not create live market data.
     loadLiveMarketData();
-    setInterval(() => {
-      loadLiveMarketData();
-    }, 60000);
   }
 
   function loadLiveMarketData(manual = false) {
