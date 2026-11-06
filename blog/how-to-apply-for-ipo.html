@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>How to Apply for an IPO in India — Step by Step (UPI & ASBA Guide) — PriceAlerter.in</title>
     <meta name="description" content="Learn how to bid for Mainboard and SME IPOs using UPI ASBA through a registered broker or Net Banking without facing mandate rejection.">
-    <meta name="author" content="Venkata Madhava Reddy">
+    <meta name="author" content="PriceAlerter Editorial Desk">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://pricealerter.in/blog/how-to-apply-for-ipo.html">
 
@@ -129,7 +129,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css?v=20261115_v25">
+    <link rel="stylesheet" href="../styles.css?v=20261106_v85">
   </head>
   <body>
     <header class="site-header" style="background:#142B49; border-bottom:1px solid rgba(255,255,255,0.1); padding:12px 0;">
@@ -167,7 +167,7 @@
           <span class="article-badge" style="background:#DCFCE7; color:#15803D; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Step-by-Step Tutorial</span>
           <h1 style="margin-top:14px;">How to Apply for an IPO in India — Step by Step (UPI & ASBA Guide)</h1>
           <div class="byline" style="display:flex; align-items:center; gap:10px; color:#64748B; font-size:13px; margin-top:12px; flex-wrap:wrap;">
-            <span>By <strong>Venkata Madhava Reddy</strong> (Lead Financial Analyst)</span>
+            <span>By <strong>PriceAlerter Editorial Desk</strong></span>
             <span>•</span>
             <span>13 min read</span>
             <span>•</span>
@@ -322,51 +322,31 @@
           <span style="color:rgba(255,255,255,0.3)">|</span>
           <a href="../contact.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Contact</a>
           <span style="color:rgba(255,255,255,0.3)">|</span>
-          <a href="../disclaimer.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Disclaimer</a>
+          <a href="../disclaimer.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Disclaimer</a> <span>|</span> <a href="../editorial-policy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Editorial Standards</a>
         </div>
       </div>
     </footer>
 
-    <!-- GDPR & Google AdSense Compliant Privacy & Cookie Consent Banner -->
-    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy and Cookie Consent">
+    <!-- Privacy notice: see the Privacy Policy for advertising and analytics details. -->
+    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy notice">
       <div class="cookie-consent-inner">
         <div class="cookie-consent-text">
-          <div class="cookie-consent-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00897B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>Privacy &amp; Cookie Consent</span>
-          </div>
-          <p>
-            We use cookies, device identifiers, and synchronized exchange data to optimize your market tracking experience, measure analytics, and deliver personalized financial advertisements per our <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms.html" target="_blank" rel="noopener">Terms of Service</a>.
-          </p>
+          <div class="cookie-consent-title"><span>Privacy notice</span></div>
+          <p>We use Google Analytics and Google AdSense. These services may use cookies or similar technologies. Read our <a href="/privacy.html">Privacy Policy</a>. This notice is informational and does not replace a consent-management tool where one is legally required.</p>
         </div>
-        <div class="cookie-consent-actions">
-          <button id="btn-cookie-accept" class="btn-cookie-accept" onclick="acceptCookieConsent(true)">Accept All</button>
-          <button id="btn-cookie-decline" class="btn-cookie-decline" onclick="acceptCookieConsent(false)">Essential Only</button>
-        </div>
+        <div class="cookie-consent-actions"><button id="btn-cookie-accept" class="btn-cookie-accept" type="button">Dismiss</button></div>
       </div>
     </div>
     <script>
-      function checkCookieConsent() {
-        try {
-          if (localStorage.getItem("ipo_cookie_consent")) {
-            var b = document.getElementById("cookie-consent-banner");
-            if (b) b.style.display = "none";
-          }
-        } catch(e) {}
-      }
-      function acceptCookieConsent(accepted) {
-        try {
-          localStorage.setItem("ipo_cookie_consent", accepted ? "accepted" : "declined");
-          var b = document.getElementById("cookie-consent-banner");
-          if (b) {
-            b.style.opacity = "0";
-            b.style.transform = "translateY(20px)";
-            b.style.transition = "all 0.3s ease";
-            setTimeout(function() { b.style.display = "none"; }, 300);
-          }
-        } catch(e) {}
-      }
-      checkCookieConsent();
+      (function(){
+        var banner=document.getElementById("cookie-consent-banner");
+        try { if(localStorage.getItem("ipo_privacy_notice_dismissed")==="yes" && banner) banner.style.display="none"; } catch(e){}
+        var button=document.getElementById("btn-cookie-accept");
+        if(button) button.addEventListener("click",function(){
+          try { localStorage.setItem("ipo_privacy_notice_dismissed","yes"); } catch(e){}
+          if(banner) banner.style.display="none";
+        });
+      })();
     </script>
   </body>
 </html>
