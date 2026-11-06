@@ -27,7 +27,7 @@ jobs:
           cp index.html app.js styles.css subscribers.js sw.js service-worker.js favicon* logo* apple-touch-icon* site.webmanifest manifest.json _site/ 2>/dev/null || true
           cp -r data/. _site/data/
           cp -r assets _site/ 2>/dev/null || true
-          cp -f ads.txt sitemap.xml sitemap.xsl robots.txt llms.txt og-image.svg og-image.png amp.html 404.html about.html contact.html signup.html privacy.html privacy-policy.html terms.html disclaimer.html dmca.html CNAME _headers _redirects _site/ 2>/dev/null || true
+          cp -f ads.txt sitemap.xml sitemap.xsl robots.txt llms.txt og-image.svg og-image.png amp.html 404.html about.html contact.html signup.html privacy.html privacy-policy.html terms.html disclaimer.html editorial-policy.html dmca.html CNAME _headers _redirects _site/ 2>/dev/null || true
           cp -f blog/*.html _site/blog/ 2>/dev/null || true
           test -s _site/index.html
           test -s _site/app.js
