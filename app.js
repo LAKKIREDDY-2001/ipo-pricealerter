@@ -574,7 +574,7 @@
       setTimeout(() => {
         document.querySelectorAll("ins.adsbygoogle[data-ad-status='unfilled'], ins.adsbygoogle:empty").forEach(ins => {
           if (!ins.querySelector("iframe")) {
-            const parent = ins.closest(".adsense-slot-card, .adsense-infeed-card");
+            const parent = ins.closest(".ad-slot-card, .adsense-infeed-card");
             if (parent && !parent.classList.contains("ad-slot-card") && !parent.querySelector("iframe")) {
               parent.style.display = "none";
             }
@@ -3872,7 +3872,7 @@
                 <span>${ipo.status === "LISTED" ? "Day Change" : "Trend"}</span>
                 <strong class="${(ipo.status === 'LISTED' ? (Number(ipo.dayChangePerc || 0) >= 0 ? 'trend-green' : 'trend-red') : (!ipo.gmp ? 'trend-neutral' : ipo.trend === 'down' ? 'trend-red' : 'trend-green'))}">
                   ${ipo.status === "LISTED"
-                    ? (ipo.dayChangePerc !== undefined ? `${ipo.dayChangePerc >= 0 ? '▲ +' : '▼ '}${ipo.dayChangePerc}%` : "Verified Live")
+                    ? (ipo.dayChangePerc !== undefined ? `${ipo.dayChangePerc >= 0 ? '▲ +' : '▼ '}${ipo.dayChangePerc}%` : "Quote unavailable")
                     : (ipo.gmp != null && ipo.gmp > 0 ? (ipo.trend === 'down' ? '↓ Bearish' : ipo.trend === 'flat' ? '— Neutral' : '↑ Bullish') : '— Awaiting Quotes')}
                 </strong>
               </div>
@@ -8155,7 +8155,7 @@
     openManageAlerts: (e) => {
       e.preventDefault();
       window.location.hash = "#/alerts";
-      showToast("Manage alert preferences or 1-click unsubscribe here.", "info");
+      showToast("Manage alert preferences or request unsubscribe help here.", "info");
     },
 
     handleTodayChipClick: (action) => {
