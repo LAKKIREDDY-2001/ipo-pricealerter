@@ -615,7 +615,7 @@
     // Default: infeed placement (SBI Card Credit Card Banner - max 2 placements total, short copy)
     return `
       <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
-        <span class="ad-disclosure-tag">Ad</span>
+        <span class="ad-disclosure-tag">Sponsored</span>
         <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
             <img src="assets/sponsored/sbi-card.png" alt="SBI Card" class="sponsored-sbi-img" loading="lazy" width="110" height="32" />
@@ -662,7 +662,8 @@
 
   function renderSbiCardUnit() {
     return `
-      <div class="ad-slot-card sponsored-sbi-slot" aria-label="SBI Card">
+      <div class="ad-slot-card sponsored-sbi-slot" aria-label="Sponsored SBI Card placement">
+        <span class="ad-disclosure-tag">Sponsored · Affiliate link</span>
         <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
             <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
@@ -683,7 +684,8 @@
 
   function renderHdfcCardUnit() {
     return `
-      <div class="ad-slot-card sponsored-hdfc-slot" aria-label="HDFC Bank">
+      <div class="ad-slot-card sponsored-hdfc-slot" aria-label="Sponsored HDFC Bank placement">
+        <span class="ad-disclosure-tag">Sponsored · Affiliate link</span>
         <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
           <div class="sponsored-hdfc-img-wrap">
             <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
@@ -709,7 +711,8 @@
 
   function renderAngelOneUnit() {
     return `
-      <div class="ad-slot-card ad-slot-sidebar" aria-label="Angel One">
+      <div class="ad-slot-card ad-slot-sidebar" aria-label="Sponsored Angel One placement">
+        <span class="ad-disclosure-tag">Sponsored · Affiliate link</span>
         <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
           <div class="sponsored-sidebar-logo-wrap">
             <img src="assets/sponsored/angel-one-square.png" alt="Angel One Logo" class="sponsored-logo-square" loading="lazy" />
@@ -3188,7 +3191,7 @@
           </p>
         </div>
 
-        <!-- AdSense Native Slot -->
+        <!-- Sponsored affiliate placement -->
         ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Primary Market Official Directory -->
@@ -3638,7 +3641,7 @@
           ${renderDetailTabBody(ipo)}
         </div>
 
-        <!-- AdSense Slot inside Detail View -->
+        <!-- Sponsored affiliate placement -->
         ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Community Investor Discussion & Real-Time Comments -->
@@ -6408,7 +6411,7 @@
           </div>
         </div>
 
-        <!-- AdSense Top Leaderboard Slot -->
+        <!-- Sponsored affiliate placement -->
         ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Section 1: What Is an IPO? -->
@@ -7081,7 +7084,7 @@
         <!-- Official Directory Card -->
         ${renderPortalDirectoryWidget()}
 
-        <!-- AdSense Bottom Slot -->
+        <!-- Sponsored affiliate placement -->
         ${renderAngelOneSponsoredUnit("5892147360", "auto")}
       </div>
     `;
