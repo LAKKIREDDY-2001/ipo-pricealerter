@@ -1550,7 +1550,7 @@
             <span>India's Leading IPO Intelligence Platform</span>
           </div>
           <h1 class="fintech-hero-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
-          <p class="fintech-hero-desc">Real-time IPO updates, Grey Market Premium (GMP), subscription status, listing gains and expert insights.</p>
+          <p class="fintech-hero-desc">IPO schedules, unofficial Grey Market Premium (GMP) indicators, subscription status, listing records and educational explanations.</p>
           <div class="fintech-hero-actions">
             <a href="#dashboard-open-ipos-section" class="btn-hero-primary" onclick="const el=document.getElementById('dashboard-open-ipos-section'); if(el){ el.scrollIntoView({behavior:'smooth'}); }">Explore IPOs</a>
             <a href="#/guide" class="btn-hero-secondary">How It Works</a>
@@ -2593,7 +2593,7 @@
         </form>
         <div class="fig1-subscribe-note">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <span>Zero spam. User details deleted instantly on unsubscribe.</span>
+          <span>Your email is used for the alert request. Contact support to request deletion or unsubscribe.</span>
         </div>
       </div>
     `;
@@ -2744,7 +2744,7 @@
           </div>
           <div class="alert-signup-content-col">
             <h2 class="alert-signup-title">Instant IPO &amp; GMP Alerts</h2>
-            <p class="alert-signup-subtitle">Get morning bidding updates, Grey Market Premiums, and real-time allotment notifications delivered straight to your inbox.</p>
+            <p class="alert-signup-subtitle">Request email updates about IPO schedules and GMP indicators. Availability and timing depend on the update service.</p>
             <form class="alert-signup-form" onsubmit="window.IpoApp && window.IpoApp.handleAlertSignup(event)">
               <div class="alert-form-row">
                 <input type="email" class="alert-input-email" id="home-alert-email" placeholder="Enter your email address" required maxlength="254" autocomplete="email" aria-label="Email address for IPO alerts">
@@ -2753,7 +2753,7 @@
               <div class="alert-consent-row">
                 <span class="alert-consent-text">
                   <svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Free daily alerts. Zero spam. 1-click unsubscribe anytime.
+                  Your email is used for the alert request. Contact us to request deletion or unsubscribe.
                 </span>
                 <a href="#/alerts" class="alert-manage-link" onclick="window.IpoApp && window.IpoApp.openManageAlerts(event)">Manage alert preferences or Unsubscribe</a>
               </div>
@@ -2774,7 +2774,7 @@
           <a href="/blog/" class="fig1-header-link">Browse All 10 Guides &rarr;</a>
         </div>
         <p style="font-size:14px; color:var(--text-secondary); margin-top:0; margin-bottom:20px; line-height:1.6;">
-          Objective, SEBI-compliant educational resources to help investors evaluate primary market fundamentals, Grey Market dynamics, valuation multiples, and allotment mechanisms.
+          Independent educational guides explaining primary-market fundamentals, Grey Market indicators, valuation concepts and allotment processes.
         </p>
         <div class="learn-guides-grid">
           <a href="/blog/what-is-an-ipo.html" class="learn-guide-card">
@@ -2831,7 +2831,7 @@
         <div class="dashboard-top-intro">
           <div class="dashboard-top-title-wrap">
             <h1 class="dashboard-top-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
-            <p class="dashboard-top-subtitle">Official primary market data compiled from official NSE &amp; BSE exchange disclosures. Unregulated Grey Market Premium (GMP) estimates are speculative sentiment indicators provided solely for educational tracking.</p>
+            <p class="dashboard-top-subtitle">IPO schedules and issue details are compiled from publicly available issuer and exchange disclosures. GMP estimates are unofficial and speculative; check sources and timestamps before relying on displayed information.</p>
           </div>
           <div class="dashboard-live-indicator">
             <span class="live-pulse"></span>
@@ -8146,7 +8146,7 @@
         showToast("Please enter a valid email address.", "error");
         return;
       }
-      showToast(`🎉 Success! IPO alerts activated for ${email}. Zero spam.`, "success");
+      showToast(`🎉 Success! IPO alerts activated for ${email}. Email alert requests are handled according to the website's Privacy Policy.`, "success");
       if (input) input.value = "";
     },
     subscribeToIpoAlert: (slug) => {
