@@ -27,6 +27,55 @@
     return "";
   }
 
+  const stockLogoSearchCache = new Map();
+
+  function normalizeLogoMatchName(value) {
+    return String(value || "").toLowerCase()
+      .replace(/\\b(limited|ltd|private|pvt|company|co|india)\\b/g, "")
+      .replace(/[^a-z0-9]/g, "");
+  }
+
+  function hydrateStockLogos(stocks) {
+    const pending = (stocks || []).filter(stock => !stock.logo && stock.name).slice(0, 24);
+    pending.forEach(stock => {
+      const key = String(stock.slug || stock.symbol || stock.name);
+      const image = document.querySelector('[data-stock-logo="' + CSS.escape(key) + '"]');
+      if (!image || image.dataset.logoResolved === "true") return;
+      if (stockLogoSearchCache.has(key)) {
+        const cached = stockLogoSearchCache.get(key);
+        if (cached) {
+          image.src = cached;
+          image.style.display = "block";
+        }
+        image.dataset.logoResolved = "true";
+        return;
+      }
+      const lookup = fetch("https://logoapi.sh/search?q=" + encodeURIComponent(stock.name))
+        .then(response => response.ok ? response.json() : null)
+        .then(payload => {
+          const targetName = normalizeLogoMatchName(stock.name);
+          const results = payload && Array.isArray(payload.results) ? payload.results : [];
+          const match = results.find(item => normalizeLogoMatchName(item.name) === targetName);
+          const url = match ? (match.icon || match.logo || "") : "";
+          stockLogoSearchCache.set(key, url);
+          if (url) {
+            const current = document.querySelector('[data-stock-logo="' + CSS.escape(key) + '"]');
+            if (current) {
+              current.src = url;
+              current.style.display = "block";
+              current.dataset.logoResolved = "true";
+            }
+          }
+          return url;
+        })
+        .catch(() => {
+          stockLogoSearchCache.set(key, "");
+          return "";
+        });
+      stockLogoSearchCache.set(key, lookup);
+    });
+  }
+
   function normalizeMasterSecurity(s, isFallback) {
     if (!s) return null;
     const name = s.name || s.companyName || s.shortName || "Unknown Security";
@@ -5587,7 +5636,7 @@
                   <div class="live-card-company">
                     <div class="movers-logo-box" style="position:relative; width:42px; height:42px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:${stock.gradient || '#2563EB'}; flex-shrink:0;">
                       <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:13px; z-index:1;">${stock.initials || 'EQ'}</div>
-${stock.logo ? `<img src="${escapeAttr(stock.logo)}" alt="${escapeAttr(stock.name)} logo" width="42" height="42" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF;" onerror="this.style.display='none';" />` : ""}
+<img data-stock-logo="${escapeAttr(stock.slug || stock.symbol || stock.name)}" ${stock.logo ? `src="${escapeAttr(stock.logo)}"` : ""} alt="${escapeAttr(stock.name)} logo" width="42" height="42" class="movers-logo-img" loading="lazy" referrerpolicy="no-referrer" style="position:relative; z-index:2; width:100%; height:100%; object-fit:contain; background:#FFFFFF; display:${stock.logo ? "block" : "none"};" onerror="this.style.display='none';" />
                     </div>
                     <div>
                       <div class="live-card-name">${escapeHtml(stock.name)}</div>
@@ -5701,6 +5750,7 @@ ${stock.logo ? `<img src="${escapeAttr(stock.logo)}" alt="${escapeAttr(stock.nam
         </div>
       </div>
     `;
+    hydrateStockLogos(visibleStocks);
   }
 
 
