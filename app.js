@@ -5442,6 +5442,7 @@
         if (row.FinInstrmTp && String(row.FinInstrmTp).toUpperCase() !== "STK") return;
         const symbol = String(row.TckrSymb || row.ticker || row.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
         const isin = String(row.ISIN || row.ISINCode || row.ISINCd || row.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+        const nameKey = String(row.FininstrmNm || row.FinInstrmNm || row.companyName || "").toUpperCase().replace(/\\b(LIMITED|LTD|INDIA|INDUSTRIES|INDUSTRY|COMPANY|CO)\\b/g, " ").replace(/[^A-Z0-9]/g, " ").trim().replace(/\\s+/g, " ");
         const close = Number(row.ClsPric ?? row.close ?? row.closePrice ?? row.lastPrice);
         if (!(close > 0) || (!symbol && !isin)) return;
         const previous = Number(row.PrvsClsgPric ?? row.previousClose ?? row.prevClose);
@@ -5462,6 +5463,7 @@
         };
         if (isin) quotes["ISIN:" + isin] = quote;
         if (symbol) quotes["SYMBOL:" + symbol] = quote;
+        if (nameKey) quotes["NAME:" + nameKey] = quote;
       });
       if (!Object.keys(quotes).length) throw new Error("Bhavcopy contained no usable equity quotes");
       state.externalQuotesByKey = quotes;
@@ -5487,7 +5489,8 @@
     const allLiveStocks = rawLiveStocks.map(stock => {
       const quoteKeyIsin = String(stock.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
       const quoteKeySymbol = String(stock.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
-      const exchangeQuote = externalQuotes["ISIN:" + quoteKeyIsin] || externalQuotes["SYMBOL:" + quoteKeySymbol] || null;
+      const quoteKeyName = String(stock.name || stock.companyName || stock.shortName || "").toUpperCase().replace(/\\b(LIMITED|LTD|INDIA|INDUSTRIES|INDUSTRY|COMPANY|CO)\\b/g, " ").replace(/[^A-Z0-9]/g, " ").trim().replace(/\\s+/g, " ");
+      const exchangeQuote = externalQuotes["ISIN:" + quoteKeyIsin] || externalQuotes["SYMBOL:" + quoteKeySymbol] || externalQuotes["NAME:" + quoteKeyName] || null;
       const quoteStock = exchangeQuote ? { ...stock, ...exchangeQuote, symbol: stock.symbol, isin: stock.isin } : stock;
       const quoteValue = Number(quoteStock.rawPrice || quoteStock.currentPrice || 0);
       const quoteVerified = quoteStock.quoteVerified === true && !!quoteStock.quoteTimestamp && !!quoteStock.quoteSource && quoteValue > 0;
