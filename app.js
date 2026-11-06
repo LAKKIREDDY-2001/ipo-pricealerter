@@ -5484,17 +5484,17 @@
     const rawLiveStocks = (data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500) ? data.allLiveStocks : buildLiveStocksFromMaster();
     const externalQuotes = state.externalQuotesByKey || {};
     const allLiveStocks = rawLiveStocks.map(stock => {
-      const quoteKeyIsin = String(quoteStock.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
-      const quoteKeySymbol = String(quoteStock.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+      const quoteKeyIsin = String(stock.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+      const quoteKeySymbol = String(stock.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
       const exchangeQuote = externalQuotes["ISIN:" + quoteKeyIsin] || externalQuotes["SYMBOL:" + quoteKeySymbol] || null;
-      const quoteStock = exchangeQuote ? { ...stock, ...exchangeQuote, symbol: quoteStock.symbol, isin: quoteStock.isin } : stock;
+      const quoteStock = exchangeQuote ? { ...stock, ...exchangeQuote, symbol: stock.symbol, isin: stock.isin } : stock;
       const quoteValue = Number(quoteStock.rawPrice || quoteStock.currentPrice || 0);
       const quoteVerified = quoteStock.quoteVerified === true && !!quoteStock.quoteTimestamp && !!quoteStock.quoteSource && quoteValue > 0;
       const dayPct = quoteVerified && quoteStock.dayChangePct != null ? Number(quoteStock.dayChangePct)
         : (quoteVerified && quoteStock.changePct != null ? Number(quoteStock.changePct) : (quoteVerified ? Number(quoteStock.pct || 0) : null));
       return {
-        ...stock,
-        logo: resolveStockLogo(stock),
+        ...quoteStock,
+        logo: resolveStockLogo(quoteStock),
         quoteVerified,
         rawPrice: quoteVerified ? quoteValue : 0,
         price: quoteVerified ? ("₹" + quoteValue.toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2})) : "Quote unavailable",
@@ -5503,10 +5503,10 @@
         isGain: dayPct == null ? true : dayPct >= 0,
         volume: quoteVerified ? (quoteStock.volume || quoteStock.tradedVolume || "—") : "—",
         volRaw: quoteVerified ? Number(quoteStock.volRaw || quoteStock.tradedVolume || quoteStock.volume || 0) : 0,
-        priceLabel: quoteVerified ? "Verified market quote" : "Live quote unavailable",
-        priceStatus: quoteVerified ? "LIVE" : "UNVERIFIED"
+        priceLabel: quoteVerified ? "Verified EOD quote" : "Quote unavailable",
+        priceStatus: quoteVerified ? "EOD" : "UNVERIFIED"
       };
-    }).filter(stock => quoteStock.quoteVerified); // Only render stocks with a positive price, source and timestamp verified.
+    }).filter(stock => stock.quoteVerified); // Only render stocks with a positive price, source and timestamp verified.
 
     const debutMovers = getIpoDebutMovers();
     const gainers = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : debutMovers.gainers;
