@@ -1,11 +1,11 @@
 window.IpoData = {
-  "updatedAt": "2026-11-05T12:19:36.247279+05:30",
-  "source": "Official primary market disclosure audit against NSE India and BSE India issuer records.",
+  "updatedAt": "2026-11-06T01:50:00+05:30",
+  "source": "IPO lifecycle and final subscription data cross-checked against NSE/BSE bidding data aggregation; status snapshot 6 Nov 2026.",
   "stats": {
-    "openCount": 1,
-    "closedCount": 5,
+    "openCount": 0,
+    "closedCount": 2,
     "upcomingCount": 25,
-    "listedCount": 173
+    "listedCount": 177
   },
   "records": [
     {
@@ -141,7 +141,7 @@ window.IpoData = {
       "initials": "AI",
       "logoColor": "#0284C7",
       "iconType": "packaging",
-      "status": "OPEN",
+      "status": "CLOSED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Plastic Packaging & BOPP Bags",
@@ -175,7 +175,7 @@ window.IpoData = {
       "expectedListingPrice": 66,
       "estProfitPerLot": 0,
       "gmp": 0,
-      "gmpPercentage": 0.0,
+      "gmpPercentage": 0,
       "gmpUpdatedAt": "2026-11-05T12:19:36.247279+05:30",
       "dayHighGmp": 2,
       "dayLowGmp": 1,
@@ -245,16 +245,16 @@ window.IpoData = {
           "pct": 0
         }
       ],
-      "subscriptionTotal": 4.82,
-      "subscriptionOverall": 4.82,
+      "subscriptionTotal": 12.79,
+      "subscriptionOverall": 12.79,
       "subscriptionRetail": 0.8,
       "subscriptionSummary": {
-        "qib": 67,
-        "nii": 22.17,
+        "qib": 66.72,
+        "nii": 49.94,
         "bNii": 32.49,
         "sNii": 1.17,
-        "retail": 0.8,
-        "total": 4.82
+        "retail": 5.22,
+        "total": 12.79
       },
       "bidsReceived": {
         "qibSharesOffered": 36000,
@@ -374,7 +374,9 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/AntalaIndustriesLtd_76186824_97526.png",
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
+      "subscriptionSource": "NSE/BSE bidding data aggregation (OpenIPO)",
+      "subscriptionUpdatedAt": "2026-11-06T01:50:00+05:30"
     },
     {
       "id": "vectras-enprocon",
@@ -384,7 +386,7 @@ window.IpoData = {
       "initials": "VE",
       "logoColor": "#F59E0B",
       "iconType": "energy",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Engineering & Procurement",
@@ -414,12 +416,12 @@ window.IpoData = {
       "dayLowGmp": null,
       "trend": "down",
       "gmpHistory": [],
-      "subscriptionTotal": 1.25,
+      "subscriptionTotal": 4.2,
       "subscriptionSummary": {
-        "qib": 1.05,
-        "nii": 0.75,
-        "retail": 1.65,
-        "total": 1.2
+        "qib": 1.88,
+        "nii": 6.69,
+        "retail": 4.45,
+        "total": 4.2
       },
       "financials": [
         {
@@ -459,7 +461,10 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VectrasEnproconLimited_61797189_95968.png",
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
+      "subscriptionOverall": 4.2,
+      "subscriptionSource": "NSE/BSE bidding data aggregation (OpenIPO)",
+      "subscriptionUpdatedAt": "2026-11-06T01:50:00+05:30"
     },
     {
       "id": "maxwell-engineering",
@@ -469,7 +474,7 @@ window.IpoData = {
       "initials": "ME",
       "logoColor": "#38BDF8",
       "iconType": "tech",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "SME",
       "exchange": "NSE SME",
       "sector": "Industrial Automation & Robotics",
@@ -499,13 +504,13 @@ window.IpoData = {
       "dayLowGmp": null,
       "trend": "up",
       "gmpHistory": [],
-      "subscriptionTotal": 4.67,
+      "subscriptionTotal": 536.8,
       "subscriptionSummary": {
-        "qib": 0,
-        "nii": 4.35,
-        "retail": 7.47,
+        "qib": 259.45,
+        "nii": 857.65,
+        "retail": 556.09,
         "employee": 0,
-        "total": 4.67
+        "total": 536.8
       },
       "financials": [
         {
@@ -545,7 +550,10 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/MAXWELLENGINEERINGSOLUTIONSLIMITED_60428710_95974.png",
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
+      "subscriptionOverall": 536.8,
+      "subscriptionSource": "NSE/BSE bidding data aggregation (OpenIPO)",
+      "subscriptionUpdatedAt": "2026-11-06T01:50:00+05:30"
     },
     {
       "id": "johnsoncab-electricals",
@@ -555,7 +563,7 @@ window.IpoData = {
       "initials": "JE",
       "logoColor": "#EC4899",
       "iconType": "energy",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "SME",
       "exchange": "BSE SME",
       "sector": "Cables, Wires & Electrical Equipment",
@@ -585,12 +593,12 @@ window.IpoData = {
       "dayLowGmp": null,
       "trend": "up",
       "gmpHistory": [],
-      "subscriptionTotal": 2.25,
+      "subscriptionTotal": 23.82,
       "subscriptionSummary": {
-        "qib": 1.5,
-        "nii": 1.5,
-        "retail": 2.8,
-        "total": 2.15
+        "qib": 20.19,
+        "nii": 42.27,
+        "retail": 17.98,
+        "total": 23.82
       },
       "financials": [
         {
@@ -651,7 +659,10 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/JohnsoncabElectricalsLtd_34165819_97524.png",
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
+      "subscriptionOverall": 23.82,
+      "subscriptionSource": "NSE/BSE bidding data aggregation (OpenIPO)",
+      "subscriptionUpdatedAt": "2026-11-06T01:50:00+05:30"
     },
     {
       "id": "hgs-india",
@@ -661,7 +672,7 @@ window.IpoData = {
       "initials": "HG",
       "logoColor": "#8B5CF6",
       "iconType": "tech",
-      "status": "CLOSED",
+      "status": "LISTED",
       "board": "SME",
       "exchange": "NSE SME",
       "sector": "Geophysical & Seismic Sensors",
@@ -691,12 +702,12 @@ window.IpoData = {
       "dayLowGmp": null,
       "trend": "up",
       "gmpHistory": [],
-      "subscriptionTotal": 1.35,
+      "subscriptionTotal": 248.58,
       "subscriptionSummary": {
-        "qib": 1.1,
-        "nii": 0.92,
-        "retail": 1.4,
-        "total": 1.16
+        "qib": 137.92,
+        "nii": 424.67,
+        "retail": 235.72,
+        "total": 248.58
       },
       "financials": [
         {
@@ -736,7 +747,10 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/HGSIndiaLtd_57251763_75413.png",
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
+      "subscriptionOverall": 248.58,
+      "subscriptionSource": "NSE/BSE bidding data aggregation (OpenIPO)",
+      "subscriptionUpdatedAt": "2026-11-06T01:50:00+05:30"
     },
     {
       "id": "waaree-energies",
@@ -824,10 +838,10 @@ window.IpoData = {
       "refundDate": "2026-10-25",
       "dematDate": "2026-10-25",
       "listingGainPct": 66.33,
-      "currentPrice": 2431.0,
+      "currentPrice": 2431,
       "returnSinceIssuePct": 54.22,
       "closePrice": 2324,
-      "dayChange": 23.0,
+      "dayChange": 23,
       "dayChangePerc": 0.96,
       "dayHigh": 2473.8,
       "dayLow": 2424.1,
@@ -9932,7 +9946,7 @@ window.IpoData = {
       "gmpHistory": [],
       "subscriptionTotal": 1.9,
       "subscriptionSummary": {
-        "qib": 1,
+        "qib": 327.27,
         "nii": 1.38,
         "retail": 2.26,
         "total": 1.9
@@ -9991,7 +10005,10 @@ window.IpoData = {
         }
       ],
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/VedantPolyFabsLtd_22702370_96975.png",
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED",
+      "subscriptionOverall": 1.9,
+      "subscriptionSource": "NSE/BSE bidding data aggregation (OpenIPO)",
+      "subscriptionUpdatedAt": "2026-11-06T01:50:00+05:30"
     },
     {
       "id": "zepto",
@@ -10023,7 +10040,7 @@ window.IpoData = {
       "lotSize": 35,
       "issueSizeCr": 4500,
       "gmp": 180,
-      "gmpPercentage": 72.0,
+      "gmpPercentage": 72,
       "logoUrl": "https://assets-netstorage.groww.in/stock-assets/logos2/Zepto.png",
       "allotDate": null,
       "listingDate": null,
@@ -10496,7 +10513,7 @@ window.IpoData = {
       "lotSize": 16,
       "issueSizeCr": 12000,
       "gmp": 250,
-      "gmpPercentage": 50.0,
+      "gmpPercentage": 50,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/flipkart-logo.png",
       "allotDate": null,
       "listingDate": null,
@@ -10541,7 +10558,7 @@ window.IpoData = {
       "lotSize": 27,
       "issueSizeCr": 8000,
       "gmp": 190,
-      "gmpPercentage": 50.0,
+      "gmpPercentage": 50,
       "logoUrl": "https://assets-netstorage.groww.in/stocks-ipo/logos/phonepe_logo.png",
       "allotDate": null,
       "listingDate": null,
