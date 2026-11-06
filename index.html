@@ -1008,8 +1008,6 @@
             <span>|</span>
             <a href="editorial-policy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Editorial Standards</a>
             <span>|</span>
-            <a href="editorial-policy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Editorial Standards</a>
-            <span>|</span>
             <a href="blog/" style="color:rgba(255,255,255,0.85); text-decoration:none;">Learning Centre</a>
             <span>|</span>
             <a href="javascript:void(0)" onclick="window.SubscriberService && window.SubscriberService.openUnsubscribeModal()" style="color:#FCA5A5; text-decoration:none; font-weight:600;">Unsubscribe</a>
@@ -1032,12 +1030,12 @@
     </footer>
 
     <!-- GDPR & Google AdSense Compliant Privacy & Cookie Consent Banner -->
-    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy and Cookie Consent">
+    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy notice">
       <div class="cookie-consent-inner">
         <div class="cookie-consent-text">
           <div class="cookie-consent-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00897B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>Privacy &amp; Cookie Consent</span>
+            <span>Privacy notice</span>
           </div>
           <p>
             We use Google Analytics and Google AdSense. These services may use cookies or similar technologies to measure usage and serve ads. Read our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> for details and choices. This notice is informational; it does not replace a consent-management tool where one is legally required.</p>
@@ -1050,7 +1048,7 @@
     <script>
       (function(){
         try {
-          if (localStorage.getItem("ipo_cookie_consent")) {
+          if (localStorage.getItem("ipo_privacy_notice_dismissed")) {
             var b = document.getElementById("cookie-consent-banner");
             if (b) b.style.display = "none";
           }
@@ -1058,7 +1056,7 @@
       })();
       function acceptCookieFallback(accepted) {
         try {
-          localStorage.setItem("ipo_cookie_consent", accepted ? "accepted" : "declined");
+          localStorage.setItem("ipo_privacy_notice_dismissed", "yes");
           var b = document.getElementById("cookie-consent-banner");
           if (b) b.style.display = "none";
         } catch(e){}
