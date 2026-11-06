@@ -18,7 +18,7 @@
         }
 
         // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
-        var CURRENT_VERSION = 'v20261106_v84';
+        var CURRENT_VERSION = 'v20261106_v85';
         try {
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -324,7 +324,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261106_v84">
+    <link rel="stylesheet" href="styles.css?v=20261106_v85">
 
     <!-- Google tag (gtag.js) - Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
@@ -1008,6 +1008,8 @@
             <span>|</span>
             <a href="editorial-policy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Editorial Standards</a>
             <span>|</span>
+            <a href="editorial-policy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Editorial Standards</a>
+            <span>|</span>
             <a href="blog/" style="color:rgba(255,255,255,0.85); text-decoration:none;">Learning Centre</a>
             <span>|</span>
             <a href="javascript:void(0)" onclick="window.SubscriberService && window.SubscriberService.openUnsubscribeModal()" style="color:#FCA5A5; text-decoration:none; font-weight:600;">Unsubscribe</a>
@@ -1038,12 +1040,10 @@
             <span>Privacy &amp; Cookie Consent</span>
           </div>
           <p>
-            We use cookies, localized storage, and synchronized exchange data to optimize your primary market tracking experience, measure analytics, and deliver personalized financial intelligence per our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a>.
-          </p>
+            We use Google Analytics and Google AdSense. These services may use cookies or similar technologies to measure usage and serve ads. Read our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> for details and choices. This notice is informational; it does not replace a consent-management tool where one is legally required.</p>
         </div>
         <div class="cookie-consent-actions">
-          <button id="btn-cookie-accept" class="btn-cookie-accept" onclick="window.IpoApp ? window.IpoApp.acceptCookieConsent(true) : acceptCookieFallback(true)">Accept All</button>
-          <button id="btn-cookie-decline" class="btn-cookie-decline" onclick="window.IpoApp ? window.IpoApp.acceptCookieConsent(false) : acceptCookieFallback(false)">Essential Only</button>
+          <button id="btn-cookie-accept" class="btn-cookie-accept" onclick="acceptCookieFallback(true)">Dismiss</button>
         </div>
       </div>
     </div>
@@ -1123,8 +1123,6 @@
     <script src="data/securities-master.js?v=20261106_v84" defer></script>
     <script src="app.js?v=20261106_v84" defer></script>
 
-    <!-- Infolinks Monetization -->
-    <script type="text/javascript"> var infolinks_pid = 3449127; var infolinks_wsid = 0; </script>
-    <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
+    
   </body>
 </html>
