@@ -120,7 +120,23 @@
         <p>Please email us at <code>lakkistudy@gmail.com</code> with the subject line <em>"Data Correction: [Company Name]"</em> and include the relevant section of the official DRHP or exchange circular for rapid verification.</p>
       </div>
 
-<footer class="site-footer" style="background:#1A237E; border-top:1px solid rgba(255,255,255,0.1); padding:24px 0; margin-top:40px;">
+<script>
+      function handleContactSubmit(event) {
+        event.preventDefault();
+        const status = document.getElementById("formStatus");
+        const name = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("emailAddress").value.trim();
+        const category = document.getElementById("subjectCategory").value;
+        const message = document.getElementById("messageText").value.trim();
+        const subject = encodeURIComponent("PriceAlerter enquiry: " + category);
+        const body = encodeURIComponent("Name: " + name + "\nReply email: " + email + "\nCategory: " + category + "\n\n" + message);
+        status.style.display = "block";
+        status.style.color = "#0F766E";
+        status.textContent = "Your email application should open with your message. It has not been sent until you send it from your email application. If it does not open, email lakkistudy@gmail.com directly.";
+        window.location.href = "mailto:lakkistudy@gmail.com?subject=" + subject + "&body=" + body;
+      }
+    </script>
+    <footer class="site-footer" style="background:#1A237E; border-top:1px solid rgba(255,255,255,0.1); padding:24px 0; margin-top:40px;">
       <div class="footer-inner" style="max-width:1320px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
         <div style="display:flex; align-items:center; gap:8px;">
           <div style="width:24px; height:24px; border-radius:6px; background:#00897B; display:grid; place-items:center; flex-shrink:0;">
