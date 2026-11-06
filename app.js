@@ -5444,7 +5444,7 @@
         const isin = String(row.ISIN || row.ISINCode || row.ISINCd || row.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
         const nameKey = String(row.FininstrmNm || row.FinInstrmNm || row.companyName || "").toUpperCase().replace(/\b(LIMITED|LTD|INDIA|INDUSTRIES|INDUSTRY|COMPANY|CO)\b/g, " ").replace(/[^A-Z0-9]/g, " ").trim().replace(/\s+/g, " ");
         const close = Number(row.ClsPric ?? row.close ?? row.closePrice ?? row.lastPrice);
-        if (!(close > 0) || (!symbol && !isin)) return;
+        if (!(close > 0) || (!symbol && !isin && !nameKey)) return;
         const previous = Number(row.PrvsClsgPric ?? row.previousClose ?? row.prevClose);
         const open = Number(row.OpnPric ?? row.open);
         const high = Number(row.HghPric ?? row.high);
@@ -5466,6 +5466,30 @@
         if (nameKey) quotes["NAME:" + nameKey] = quote;
       });
       if (!Object.keys(quotes).length) throw new Error("Bhavcopy contained no usable equity quotes");
+      // Build the Live Prices universe from the exchange bhavcopy itself so it includes
+      // every currently traded equity, not only IPO records already in the local database.
+      const liveByIsin = new Map();
+      const liveBySymbol = new Map();
+      rows.forEach(row => {
+        if (row.FinInstrmTp && String(row.FinInstrmTp).toUpperCase() !== "STK") return;
+        const symbol = String(row.TckrSymb || row.ticker || row.symbol || "").trim().toUpperCase();
+        const isin = String(row.ISIN || row.ISINCode || row.ISINCd || row.isin || "").trim().toUpperCase();
+        const name = String(row.FininstrmNm || row.FinInstrmNm || row.companyName || symbol).trim();
+        const close = Number(row.ClsPric ?? row.close ?? row.closePrice ?? row.lastPrice);
+        if (!(close > 0) || (!symbol && !isin)) return;
+        const key = isin || (String(row.exchange || "NSE").toUpperCase() + ":" + symbol);
+        const item = {
+          name, companyName: name, shortName: name, symbol, isin,
+          exchange: String(row.exchange || row.Exch || "NSE").toUpperCase(),
+          slug: (symbol || name).toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-stock",
+          category: "LISTED_STOCK", tier: "listed",
+          ...quotes["ISIN:" + isin] || quotes["SYMBOL:" + symbol]
+        };
+        const previous = liveByIsin.get(key);
+        // Prefer NSE when the same ISIN is present on both exchanges.
+        if (!previous || (item.exchange === "NSE" && previous.exchange !== "NSE")) liveByIsin.set(key, item);
+      });
+      state.externalLiveStocks = Array.from(liveByIsin.values());
       state.externalQuotesByKey = quotes;
       state.externalQuotesLoaded = true;
       state.externalQuotesDate = tradingDate;
@@ -5484,7 +5508,7 @@
 
     const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
     if (!state.externalQuotesLoading && !state.externalQuotesLoaded) loadLatestExchangeBhavcopy();
-    const rawLiveStocks = (data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500) ? data.allLiveStocks : buildLiveStocksFromMaster();
+    const rawLiveStocks = (Array.isArray(state.externalLiveStocks) && state.externalLiveStocks.length) ? state.externalLiveStocks : ((data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500) ? data.allLiveStocks : buildLiveStocksFromMaster());
     const externalQuotes = state.externalQuotesByKey || {};
     const allLiveStocks = rawLiveStocks.map(stock => {
       const quoteKeyIsin = String(stock.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
