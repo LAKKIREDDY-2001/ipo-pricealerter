@@ -142,7 +142,7 @@
         const category = document.getElementById('subjectCategory').value;
         const message = document.getElementById('messageText').value.trim();
         const subject = encodeURIComponent('PriceAlerter enquiry: ' + category);
-        const body = encodeURIComponent('Name: ' + name + '\\nReply email: ' + email + '\\nCategory: ' + category + '\\n\\n' + message);
+        const body = encodeURIComponent('Name: ' + name + '\nReply email: ' + email + '\nCategory: ' + category + '\n\n' + message);
         status.style.display = 'block';
         status.style.color = '#0F766E';
         status.textContent = 'Your email application should open with your message. If it does not, email lakkistudy@gmail.com directly. Your message has not been sent until you send it from your email application.';
