@@ -20,7 +20,7 @@
     if (stock.logo || stock.logoUrl) return stock.logo || stock.logoUrl;
     const isin = String(stock.isin || "").trim().toUpperCase();
     if (/^[A-Z]{2}[A-Z0-9]{9}[0-9]$/.test(isin)) return "https://company-logo.shareperks.in/logo/" + encodeURIComponent(isin) + "/icon.svg";
-    const ticker = String(stock.symbol || stock.ticker || "").trim().replace(/\.(NS|BO)$/i, "");
+    const ticker = String((stock.symbolIsSynthetic ? "" : stock.symbol) || stock.ticker || "").trim().replace(/\.(NS|BO)$/i, "");
     if (ticker && !/^\d+$/.test(ticker)) return "https://logoapi.sh/ticker/NSE:" + encodeURIComponent(ticker) + ".svg";
     const bseCode = String(stock.bseCode || (/^\d{5,6}$/.test(ticker) ? ticker : "")).trim();
     if (bseCode) return "https://logoapi.sh/ticker/BSE:" + encodeURIComponent(bseCode) + ".svg";
@@ -97,6 +97,7 @@
       name: name,
       shortName: shortName,
       symbol: symbol,
+      symbolIsSynthetic: !s.symbol && !s.ticker && !s.bseCode,
       bseCode: bseCode,
       isin: s.isin || "",
       exchange: s.exchange || (segment === "SME" ? "BSE SME" : "NSE, BSE"),
@@ -424,7 +425,7 @@
     const borderRadius = size > 40 ? 10 : 8;
     const gradient = ipo.logoColor || getAvatarGradient(name);
 
-    let logoUrl = ipo.logoUrl || ipo.logo || null;
+    let logoUrl = ipo.logoUrl || ipo.logo || resolveStockLogo(ipo) || null;
     if (!logoUrl) {
       const cleanKey = cleanCompanyName(name);
       if (ipoLogoMap.has(cleanKey)) {
