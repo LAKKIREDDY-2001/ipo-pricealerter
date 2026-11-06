@@ -6198,80 +6198,21 @@
   }
 
   function renderDiscussionWidget(ipo) {
-    const comments = getIpoComments(ipo.slug);
-    const bullishCount = comments.filter(c => c.sentiment === "bullish").length;
-    const neutralCount = comments.filter(c => c.sentiment === "neutral").length;
-    const bearishCount = comments.filter(c => c.sentiment === "bearish").length;
-    const total = comments.length || 1;
-    const bullishPct = Math.round((bullishCount / total) * 100);
-    const userLikes = getUserLikedComments();
-
     return `
-      <section class="discussion-section" id="discussion-section" aria-label="Investor Community Discussion">
+      <section class="discussion-section" id="discussion-section" aria-label="Investor discussion information">
         <div class="discussion-head">
           <div>
-            <h3 class="discussion-title">Investor Community Discussion (${comments.length})</h3>
-            <span style="font-size:12px; color:var(--text-muted);">Real-time crowdsourced analysis, GMP sentiment, and allotment discussion</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:12px; font-weight:700; color:#16A34A;">${bullishPct}% Bullish (Apply)</span>
-            <span style="font-size:11px; color:var(--text-muted);">• ${neutralCount} Neutral • ${bearishCount} Avoid</span>
+            <h3 class="discussion-title">Investor Discussion</h3>
+            <span style="font-size:12px;color:var(--text-muted);">Community submissions are temporarily paused.</span>
           </div>
         </div>
-
-        <!-- Add Comment Form -->
-        <div class="comment-form-box">
-          <div class="comment-input-row">
-            <input type="text" id="comment-author-input" class="comment-name-input" placeholder="Your Name or Alias (e.g. Ramesh K.)" maxlength="40">
-            <select id="comment-sentiment-select" class="comment-sentiment-select" aria-label="Select investor sentiment">
-              <option value="bullish">🟢 Bullish — Applying for Listing Gains</option>
-              <option value="neutral">⚪ Neutral — Tracking Day 3 Demand</option>
-              <option value="bearish">🔴 Bearish — High Valuation / Avoid</option>
-            </select>
-          </div>
-          <textarea id="comment-text-input" class="comment-textarea" placeholder="Share your perspective on ${ipo.shortName}'s financials, GMP, anchor list, or allotment chances..." rows="3"></textarea>
-          <div style="display:flex; justify-content:flex-end;">
-            <button class="comment-submit-btn" id="submit-comment-btn" data-slug="${ipo.slug}">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-              <span>Post Discussion</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Comments List -->
-        <div class="comment-list" id="comments-container">
-          ${comments.map(c => {
-            const isLiked = userLikes.includes(`${ipo.slug}_${c.id}`);
-            return `
-              <div class="comment-item-card">
-                <div class="comment-item-head">
-                  <div class="comment-author-wrap">
-                    <div class="comment-avatar">${c.author.substring(0, 1).toUpperCase()}</div>
-                    <div>
-                      <span class="comment-author-name">${c.author}</span>
-                      <span class="comment-time-text"> • ${c.time}</span>
-                    </div>
-                  </div>
-                  <span class="comment-sentiment-badge ${c.sentiment}">${c.sentiment === 'bullish' ? '🟢 Bullish' : c.sentiment === 'neutral' ? '⚪ Neutral' : '🔴 Bearish'}</span>
-                </div>
-                <p class="comment-text-body">${c.text}</p>
-                <div class="comment-item-foot">
-                  <button class="comment-like-btn ${isLiked ? 'liked' : ''}" onclick="window.IpoApp.likeComment('${ipo.slug}', '${c.id}', this)" title="${isLiked ? 'Click to unlike' : 'Click if helpful'}">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="${isLiked ? '#2563EB' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                    <span>Helpful (${c.likes})</span>
-                  </button>
-                </div>
-              </div>
-            `;
-          }).join("")}
+        <div style="padding:16px;border:1px solid var(--border-subtle);border-radius:12px;background:var(--bg-card);">
+          <p style="margin:0;color:var(--text-body);">We are improving our review and moderation process before accepting public comments. No sample or fabricated investor comments are displayed. Please use official company and exchange documents when evaluating an IPO.</p>
         </div>
       </section>
     `;
   }
 
-  // ==========================================================================
-  // Calendar Day-by-Day Detailed Schedule Panel
-  // ==========================================================================
   function renderDayScheduleDetailed(dateStr) {
     const events = dataset.calendarEvents?.[dateStr] || [];
     const dateFormatted = formatDate(dateStr);
