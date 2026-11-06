@@ -26,7 +26,7 @@ const sitemap = read("sitemap.xml");
 
 if (!home.includes('ca-pub-1181608933401999') || !home.includes('adsbygoogle.js')) fail("Homepage AdSense publisher code is missing.");
 if (!ads.split(/\r?\n/).some(line => /^google\.com, pub-1181608933401999, DIRECT, f08c47fec0942fa0$/.test(line.trim()))) fail("ads.txt publisher declaration is missing or malformed.");
-if (!privacy.includes("Google AdSense") || !privacy.includes("Google Analytics 4") || !privacy.includes("FormSubmit") || !privacy.includes("third parties may place")) fail("Privacy policy is missing an actual service/data disclosure.");
+if (!privacy.includes("Google AdSense") || !privacy.includes("Google Analytics 4") || !privacy.includes("FormSubmit") || !privacy.toLowerCase().includes("third parties may place")) fail("Privacy policy is missing an actual service/data disclosure.");
 if (!contact.includes("mailto:lakkistudy@gmail.com") || !contact.includes("Your message has not been sent until you send it")) fail("Contact page must clearly explain the email handoff.");
 if (/contact@pricealerter\.in|privacy@pricealerter\.in|legal@pricealerter\.in/.test([home,privacy,contact,editorial].join("\n"))) fail("An unverified mailbox is still published.");
 if (/(Accept All|Essential Only)/.test([home, ...fs.readdirSync(path.join(root,"blog")).filter(x=>x.endsWith(".html")).map(x=>read("blog/"+x))].join("\n"))) fail("A cosmetic consent button is still presented as a consent choice.");
