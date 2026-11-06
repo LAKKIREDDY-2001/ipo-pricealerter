@@ -5483,7 +5483,7 @@
           exchange: String(row.exchange || row.Exch || "NSE").toUpperCase(),
           slug: (symbol || name).toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-stock",
           category: "LISTED_STOCK", tier: "listed",
-          ...quotes["ISIN:" + isin] || quotes["SYMBOL:" + symbol]
+          ...(quotes["ISIN:" + isin] || quotes["SYMBOL:" + symbol] || {})
         };
         const previous = liveByIsin.get(key);
         // Prefer NSE when the same ISIN is present on both exchanges.
