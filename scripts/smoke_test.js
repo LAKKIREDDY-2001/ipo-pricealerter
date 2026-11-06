@@ -287,9 +287,12 @@ async function run() {
       const res = await send('Runtime.evaluate', {
         expression: `
           (() => {
-            const cards = document.querySelectorAll(".live-stock-card").length;
+            const cardNodes = Array.from(document.querySelectorAll(".live-stock-card"));
+            const cards = cardNodes.length;
+            const names = cardNodes.map(card => (card.querySelector(".live-card-name")?.textContent || "").trim()).filter(Boolean);
+            const uniqueNames = new Set(names.map(name => name.toLowerCase())).size;
             const searchInput = !!document.querySelector(".live-search-box input");
-            return { cards, searchInput };
+            return { cards, uniqueNames, sampleNames: names.slice(0, 5), searchInput };
           })()
         `,
         returnByValue: true
@@ -302,9 +305,12 @@ async function run() {
       await new Promise(r => setTimeout(r, 400));
     }
 
-    console.log(`[SmokeTest] #/live-prices result: Cards = ${liveData.cards || 0}, SearchBox = ${liveData.searchInput || false}`);
+    console.log(`[SmokeTest] #/live-prices result: Cards = ${liveData.cards || 0}, Unique names = ${liveData.uniqueNames || 0}, SearchBox = ${liveData.searchInput || false}`);
     if (!livePassed || liveData.cards === 0) {
       throw new Error('CRITICAL FAIL: #/live-prices rendered 0 stock cards!');
+    }
+    if ((liveData.uniqueNames || 0) < Math.min(3, liveData.cards || 0)) {
+      throw new Error('CRITICAL FAIL: Live Prices is repeating one company name instead of mapping distinct securities.');
     }
 
     console.log('\n--- Test 3: Validate Home Page & Performance Widget ---');
