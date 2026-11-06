@@ -1,24 +1,9 @@
 {
-  "updatedAt": "2026-11-06T15:30:00+05:30",
-  "lastSyncFormatted": "Last official close: 06 Nov 2026, 3:30 PM IST",
-  "quoteFeedStatus": "NOT_CONNECTED",
-  "quoteFeedNote": "No authorized real-time market data provider is configured. Historical listing prices must not be presented as live quotes.",
-  "benchmarks": [
-    {
-      "name": "NIFTY 50",
-      "value": 25030.35,
-      "changePct": 2.01,
-      "asOf": "06 Nov 2026 close",
-      "source": "Times of India market close report"
-    },
-    {
-      "name": "BSE SENSEX",
-      "value": 81028.02,
-      "changePct": 2.17,
-      "asOf": "06 Nov 2026 close",
-      "source": "Times of India market close report"
-    }
-  ],
+  "updatedAt": "2026-11-06T00:00:00+05:30",
+  "lastSyncFormatted": "No verified stock quotes in the current snapshot",
+  "quoteFeedStatus": "NO_VERIFIED_QUOTES",
+  "quoteFeedNote": "Only stocks with a positive quote, identifiable source and quote timestamp are displayed. No verified individual stock quote was available in the current snapshot; do not substitute IPO listing prices or estimates.",
+  "benchmarks": [],
   "allLiveStocks": [],
   "marketGainers": [],
   "marketLosers": [],
