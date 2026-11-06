@@ -5508,7 +5508,19 @@
 
     const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
     if (!state.externalQuotesLoading && !state.externalQuotesLoaded) loadLatestExchangeBhavcopy();
-    const rawLiveStocks = (Array.isArray(state.externalLiveStocks) && state.externalLiveStocks.length) ? state.externalLiveStocks : ((data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500) ? data.allLiveStocks : buildLiveStocksFromMaster());
+    // Keep the IPO/listed-company directory as the display universe even when the quote feed is empty.
+    // Exchange bhavcopy rows are merged in as additional securities, not used to replace IPO names.
+    const masterLiveStocks = buildLiveStocksFromMaster();
+    const directoryLiveStocks = (data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500)
+      ? data.allLiveStocks : masterLiveStocks;
+    const exchangeLiveStocks = Array.isArray(state.externalLiveStocks) ? state.externalLiveStocks : [];
+    const liveIdentity = stock => String(stock.isin || "").trim().toUpperCase()
+      || String(stock.symbol || "").trim().toUpperCase()
+      || String(stock.name || stock.companyName || "").trim().toUpperCase();
+    const knownLiveIdentities = new Set(directoryLiveStocks.map(liveIdentity));
+    const rawLiveStocks = directoryLiveStocks.concat(
+      exchangeLiveStocks.filter(stock => !knownLiveIdentities.has(liveIdentity(stock)))
+    );
     const externalQuotes = state.externalQuotesByKey || {};
     const allLiveStocks = rawLiveStocks.map(stock => {
       const quoteKeyIsin = String(stock.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
@@ -5534,7 +5546,7 @@
         priceLabel: quoteVerified ? "Verified EOD quote" : "Quote unavailable",
         priceStatus: quoteVerified ? "EOD" : "UNVERIFIED"
       };
-    }).filter(stock => stock.quoteVerified); // Only render stocks with a positive price, source and timestamp verified.
+    }); // Keep security names visible even when no verified quote is available; price fields remain explicitly unavailable.
 
     const debutMovers = getIpoDebutMovers();
     const gainers = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : debutMovers.gainers;
