@@ -595,8 +595,8 @@
     if (type === "leaderboard") {
       return `
         <div class="ad-slot-card ad-slot-leaderboard" aria-label="${label}">
-          <span class="ad-disclosure-tag">Ad</span>
-          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
+          <span class="ad-disclosure-tag">Sponsored</span>
+          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
             <div class="sponsored-banner-left">
               <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" width="130" height="32" />
             </div>
@@ -616,7 +616,7 @@
     return `
       <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
         <span class="ad-disclosure-tag">Ad</span>
-        <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+        <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
             <img src="assets/sponsored/sbi-card.png" alt="SBI Card" class="sponsored-sbi-img" loading="lazy" width="110" height="32" />
           </div>
@@ -641,7 +641,7 @@
     return `
       <div class="adsense-infeed-card ${isGridSpan ? 'infeed-grid-span' : ''}" aria-label="SBI Card">
         <div class="ad-slot-card sponsored-sbi-slot" style="margin: 8px 0; border-radius: 12px;">
-          <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+          <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
             <div class="sponsored-sbi-img-wrap">
               <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
             </div>
@@ -663,7 +663,7 @@
   function renderSbiCardUnit() {
     return `
       <div class="ad-slot-card sponsored-sbi-slot" aria-label="SBI Card">
-        <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
+        <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
           <div class="sponsored-sbi-img-wrap">
             <img src="assets/sponsored/sbi-card.png" alt="SBI Card Credit Card - Apply Online" class="sponsored-sbi-img" loading="lazy" />
           </div>
@@ -684,7 +684,7 @@
   function renderHdfcCardUnit() {
     return `
       <div class="ad-slot-card sponsored-hdfc-slot" aria-label="HDFC Bank">
-        <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
+        <a href="https://mdeal.in/c_10MA6LqN" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-hdfc-link" title="Apply for HDFC Bank IRCTC Credit Card">
           <div class="sponsored-hdfc-img-wrap">
             <img src="assets/sponsored/hdfc-irctc-card.png" alt="HDFC Bank IRCTC Card - Apply Online" class="sponsored-hdfc-img" loading="lazy" />
           </div>
@@ -710,7 +710,7 @@
   function renderAngelOneUnit() {
     return `
       <div class="ad-slot-card ad-slot-sidebar" aria-label="Angel One">
-        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
+        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sidebar-banner" title="Start Investing with Angel One">
           <div class="sponsored-sidebar-logo-wrap">
             <img src="assets/sponsored/angel-one-square.png" alt="Angel One Logo" class="sponsored-logo-square" loading="lazy" />
           </div>
@@ -733,10 +733,11 @@
     `;
   }
 
-  function renderAdSenseUnit(slot = "5892147360", format = "auto") {
+  function renderAngelOneSponsoredUnit(slot = "5892147360", format = "auto") {
     return `
-      <div class="adsense-slot-card sponsored-detail-slot" aria-label="Angel One">
-        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="sponsored-banner-link sponsored-detail-banner" title="Apply for this IPO via Angel One">
+      <div class="ad-slot-card sponsored-detail-slot" aria-label="Sponsored Angel One affiliate placement">
+        <span class="ad-disclosure-tag">Sponsored · Affiliate link</span>
+        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-detail-banner" title="Apply for this IPO via Angel One">
           <div class="sponsored-detail-logo-wrap">
             <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-detail" loading="lazy" />
           </div>
@@ -2217,7 +2218,7 @@
             ${item.allotmentUrl ? `
               <a href="${item.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-ipo-secondary" aria-label="Check allotment for ${escapeHtml(item.shortName)}">Check Allotment</a>
             ` : `
-              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-ipo-secondary" aria-label="Apply for ${escapeHtml(item.shortName)}">Apply Now</a>
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="btn-ipo-secondary" aria-label="Apply for ${escapeHtml(item.shortName)}">Apply Now</a>
             `}
           </div>
         </div>
@@ -3000,7 +3001,7 @@
           </div>
 
           <div class="card-btn-action-row" style="display:flex; gap:8px;">
-            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="card-btn-action" style="background:#10B981; color:#FFFFFF; text-decoration:none; font-weight:700; flex:1; text-align:center; padding:7px 12px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; gap:4px;" onclick="event.stopPropagation()">
+            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="card-btn-action" style="background:#10B981; color:#FFFFFF; text-decoration:none; font-weight:700; flex:1; text-align:center; padding:7px 12px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; gap:4px;" onclick="event.stopPropagation()">
               <span>Apply Now</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
             </a>
@@ -3071,7 +3072,7 @@
               <span>View Details</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
-            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="card-btn-action" style="background:#10B981; color:#FFFFFF; text-decoration:none; font-weight:700; padding:7px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:4px; font-size:12px;" onclick="event.stopPropagation()">
+            <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="card-btn-action" style="background:#10B981; color:#FFFFFF; text-decoration:none; font-weight:700; padding:7px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:4px; font-size:12px;" onclick="event.stopPropagation()">
               <span>${ipo.status === "LISTED" ? "Invest" : "Apply"}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
             </a>
@@ -3188,7 +3189,7 @@
         </div>
 
         <!-- AdSense Native Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Primary Market Official Directory -->
         ${renderPortalDirectoryWidget()}
@@ -3272,7 +3273,7 @@
         </div>
 
         <!-- AdSense Native Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Primary Market Official Directory -->
         ${renderPortalDirectoryWidget()}
@@ -3534,15 +3535,15 @@
               <span>${isBookmarked(ipo.slug) ? 'Bookmarked' : 'Add to Watchlist'}</span>
             </button>
             ${ipo.status === 'OPEN' ? `
-              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
                 Apply Now &rarr;
               </a>
             ` : (ipo.status === 'UPCOMING' ? `
-              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
                 Apply / Pre-Apply &rarr;
               </a>
             ` : `
-              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="btn-hero-primary" style="padding:8px 18px; font-size:13px; text-decoration:none; background:#10B981; border-color:#059669;">
                 Apply / Trade Stock &rarr;
               </a>
             `)}
@@ -3638,7 +3639,7 @@
         </div>
 
         <!-- AdSense Slot inside Detail View -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Community Investor Discussion & Real-Time Comments -->
         ${renderDiscussionWidget(ipo)}
@@ -4130,7 +4131,7 @@
         </div>
 
         <!-- AdSense Native Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Primary Market Official Directory -->
         ${renderPortalDirectoryWidget()}
@@ -4231,7 +4232,7 @@
         ` : ''}
 
         <!-- AdSense Native Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Primary Market Official Directory -->
         ${renderPortalDirectoryWidget()}
@@ -4419,7 +4420,7 @@
           <td><span class="fig1-sub-pill">${subText}</span></td>
           <td>
             <div style="display:flex; gap:6px;" onclick="event.stopPropagation()">
-              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;">Apply</a>
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="btn-table-action" style="background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;">Apply</a>
               <button class="btn-table-action" onclick="window.location.hash='#/ipo/${r.slug}'">Details</button>
               ${r.allotmentUrl ? `<a href="${r.allotmentUrl}" target="_blank" rel="noopener noreferrer" class="btn-table-allotment" title="Registrar">Registrar</a>` : ''}
             </div>
@@ -4452,7 +4453,7 @@
           <div><span style="color:var(--text-muted);">GMP Today:</span> <strong style="display:block; color:#16A34A;">${r.gmp ? `+₹${r.gmp} (${r.gmpPercentage}%)` : '—'}</strong></div>
         </div>
         <div style="display:flex; gap:8px;">
-          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" class="btn-table-action" style="flex:1; justify-content:center; text-align:center; background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;" onclick="event.stopPropagation()">Apply Now</a>
+          <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="btn-table-action" style="flex:1; justify-content:center; text-align:center; background:#10B981; color:#FFFFFF; border:1px solid #059669; font-weight:700; text-decoration:none;" onclick="event.stopPropagation()">Apply Now</a>
           <button class="btn-table-action" style="flex:1; justify-content:center;" onclick="event.stopPropagation(); window.location.hash='#/ipo/${r.slug}'">View Details</button>
         </div>
       </div>
@@ -5273,7 +5274,7 @@
 
             <!-- Apply Now affiliate banner -->
             <div style="margin-top:16px; text-align:center;">
-              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" style="display:block; padding:11px; background:#10B981; color:#fff; border-radius:10px; font-weight:700; text-decoration:none; font-size:13.5px; border:1px solid #059669;">
+              <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" style="display:block; padding:11px; background:#10B981; color:#fff; border-radius:10px; font-weight:700; text-decoration:none; font-size:13.5px; border:1px solid #059669;">
                 Apply for this IPO on Angel One (Zero Brokerage) &rarr;
               </a>
             </div>
@@ -6093,7 +6094,7 @@
         </article>
 
         <!-- AdSense Native Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Primary Market Official Directory -->
         ${renderPortalDirectoryWidget()}
@@ -6278,7 +6279,7 @@
                     <div style="font-size:11px; color:var(--text-muted);">₹${o.priceBandLow}–${o.priceBandHigh} • Closes ${formatDate(o.closeDate)}</div>
                   </div>
                 </div>
-                <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="noopener noreferrer" style="font-size:11px; font-weight:700; color:#10B981; background:rgba(16,185,129,0.15); padding:4px 8px; border-radius:4px; text-decoration:none;">Apply &rarr;</a>
+                <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" style="font-size:11px; font-weight:700; color:#10B981; background:rgba(16,185,129,0.15); padding:4px 8px; border-radius:4px; text-decoration:none;">Apply &rarr;</a>
               </div>
             `).join("")}
           </div>
@@ -6408,7 +6409,7 @@
         </div>
 
         <!-- AdSense Top Leaderboard Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
 
         <!-- Section 1: What Is an IPO? -->
         <article class="guide-section-card">
@@ -7081,7 +7082,7 @@
         ${renderPortalDirectoryWidget()}
 
         <!-- AdSense Bottom Slot -->
-        ${renderAdSenseUnit("5892147360", "auto")}
+        ${renderAngelOneSponsoredUnit("5892147360", "auto")}
       </div>
     `;
   }
