@@ -5413,17 +5413,85 @@
     });
   }
 
+  // Fetch the latest available NSE/BSE end-of-day bhavcopy from a public, attributed dataset.
+  // This is an EOD snapshot, not an intraday streaming feed.
+  async function loadLatestExchangeBhavcopy() {
+    state.externalQuotesLoading = true;
+    const today = new Date();
+    const dates = [];
+    for (let offset = 0; offset < 8; offset++) {
+      const d = new Date(today.getTime() - offset * 86400000);
+      dates.push(d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"));
+    }
+    try {
+      let rows = null;
+      let tradingDate = "";
+      for (const date of dates) {
+        try {
+          const url = "https://mtf.trading/api/v1/bhavcopy?date=" + date + "&exchange=all&series=EQ&limit=100000";
+          const response = await fetch(url, { headers: { "Accept": "application/json" } });
+          if (!response.ok) continue;
+          const payload = await response.json();
+          const candidate = Array.isArray(payload) ? payload : (payload.data || payload.rows || payload.results || []);
+          if (Array.isArray(candidate) && candidate.length) { rows = candidate; tradingDate = date; break; }
+        } catch (_) {}
+      }
+      if (!rows) throw new Error("No recent bhavcopy available");
+      const quotes = {};
+      rows.forEach(row => {
+        const symbol = String(row.TckrSymb || row.ticker || row.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+        const isin = String(row.ISIN || row.ISINCode || row.ISINCd || row.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+        const close = Number(row.ClsPric ?? row.close ?? row.closePrice ?? row.lastPrice);
+        if (!(close > 0) || (!symbol && !isin)) return;
+        const previous = Number(row.PrvsClsgPric ?? row.previousClose ?? row.prevClose);
+        const open = Number(row.OpnPric ?? row.open);
+        const high = Number(row.HghPric ?? row.high);
+        const low = Number(row.LwPric ?? row.low);
+        const volume = Number(row.TtlTradgVol ?? row.totalTradedVolume ?? row.volume);
+        const dayPct = previous > 0 ? Number((((close - previous) / previous) * 100).toFixed(2)) : null;
+        const quote = {
+          currentPrice: close, rawPrice: close, close, last: close,
+          previousClose: previous > 0 ? previous : null,
+          open: open > 0 ? open : null, high: high > 0 ? high : null, low: low > 0 ? low : null,
+          tradedVolume: volume > 0 ? volume : null, volume: volume > 0 ? volume : null,
+          dayChangePct: dayPct, quoteVerified: true, priceType: "EOD",
+          quoteDate: tradingDate, quoteTimestamp: tradingDate + "T18:00:00+05:30",
+          quoteSource: "MTF Analytics compiled NSE/BSE official bhavcopy · " + tradingDate,
+          priceSource: "MTF Analytics / NSE-BSE bhavcopy"
+        };
+        if (isin) quotes["ISIN:" + isin] = quote;
+        if (symbol) quotes["SYMBOL:" + symbol] = quote;
+      });
+      if (!Object.keys(quotes).length) throw new Error("Bhavcopy contained no usable equity quotes");
+      state.externalQuotesByKey = quotes;
+      state.externalQuotesLoaded = true;
+      state.externalQuotesDate = tradingDate;
+      if (state.route && state.route.view === "live-prices") renderLivePricesPage();
+    } catch (error) {
+      state.externalQuotesLoaded = true;
+      state.externalQuotesError = String(error && error.message || error);
+    } finally {
+      state.externalQuotesLoading = false;
+    }
+  }
+
   function renderLivePricesPage() {
     const app = document.getElementById("app");
     if (!app) return;
 
     const data = state.liveMarketData || (window.IpoData && window.IpoData.liveData) || null;
+    if (!state.externalQuotesLoading && !state.externalQuotesLoaded) loadLatestExchangeBhavcopy();
     const rawLiveStocks = (data && Array.isArray(data.allLiveStocks) && data.allLiveStocks.length > 500) ? data.allLiveStocks : buildLiveStocksFromMaster();
+    const externalQuotes = state.externalQuotesByKey || {};
     const allLiveStocks = rawLiveStocks.map(stock => {
-      const quoteValue = Number(stock.rawPrice || stock.currentPrice || 0);
-      const quoteVerified = stock.quoteVerified === true && !!stock.quoteTimestamp && !!stock.quoteSource && quoteValue > 0;
-      const dayPct = quoteVerified && stock.dayChangePct != null ? Number(stock.dayChangePct)
-        : (quoteVerified && stock.changePct != null ? Number(stock.changePct) : (quoteVerified ? Number(stock.pct || 0) : null));
+      const quoteKeyIsin = String(quoteStock.isin || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+      const quoteKeySymbol = String(quoteStock.symbol || "").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+      const exchangeQuote = externalQuotes["ISIN:" + quoteKeyIsin] || externalQuotes["SYMBOL:" + quoteKeySymbol] || null;
+      const quoteStock = exchangeQuote ? { ...stock, ...exchangeQuote, symbol: quoteStock.symbol, isin: quoteStock.isin } : stock;
+      const quoteValue = Number(quoteStock.rawPrice || quoteStock.currentPrice || 0);
+      const quoteVerified = quoteStock.quoteVerified === true && !!quoteStock.quoteTimestamp && !!quoteStock.quoteSource && quoteValue > 0;
+      const dayPct = quoteVerified && quoteStock.dayChangePct != null ? Number(quoteStock.dayChangePct)
+        : (quoteVerified && quoteStock.changePct != null ? Number(quoteStock.changePct) : (quoteVerified ? Number(quoteStock.pct || 0) : null));
       return {
         ...stock,
         logo: resolveStockLogo(stock),
@@ -5433,12 +5501,12 @@
         change: dayPct == null ? "—" : ((dayPct > 0 ? "+" : "") + dayPct.toFixed(2) + "%"),
         pct: dayPct == null ? 0 : dayPct,
         isGain: dayPct == null ? true : dayPct >= 0,
-        volume: quoteVerified ? (stock.volume || stock.tradedVolume || "—") : "—",
-        volRaw: quoteVerified ? Number(stock.volRaw || stock.tradedVolume || stock.volume || 0) : 0,
+        volume: quoteVerified ? (quoteStock.volume || quoteStock.tradedVolume || "—") : "—",
+        volRaw: quoteVerified ? Number(quoteStock.volRaw || quoteStock.tradedVolume || quoteStock.volume || 0) : 0,
         priceLabel: quoteVerified ? "Verified market quote" : "Live quote unavailable",
         priceStatus: quoteVerified ? "LIVE" : "UNVERIFIED"
       };
-    }).filter(stock => stock.quoteVerified); // Only render stocks with a positive price, source and timestamp verified.
+    }).filter(stock => quoteStock.quoteVerified); // Only render stocks with a positive price, source and timestamp verified.
 
     const debutMovers = getIpoDebutMovers();
     const gainers = (data && data.marketGainers && data.marketGainers.length) ? data.marketGainers : debutMovers.gainers;
