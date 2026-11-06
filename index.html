@@ -55,8 +55,8 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "IPO Pricealerter",
-      "alternateName": ["IPO", "Pricealerter", "IPO Price Alerter", "pricealerter.in"],
+      "name": "PriceAlerter",
+      "alternateName": ["IPO PriceAlerter", "PriceAlerter", "pricealerter.in"],
       "url": "https://pricealerter.in/"
     }
     </script>
@@ -114,7 +114,7 @@
           "@type": "Organization",
           "@id": "https://pricealerter.in/#organization",
           "name": "IPO Pricealerter",
-          "alternateName": ["Pricealerter", "IPO Price Alerter", "pricealerter.in"],
+          "alternateName": ["IPO PriceAlerter", "PriceAlerter", "pricealerter.in"],
           "url": "https://pricealerter.in/",
           "logo": {
             "@type": "ImageObject",
@@ -310,14 +310,8 @@
       ]
     }
     </script>
-    <!-- Google Search Canonical Favicon & Multi-DPI Standard (Multiples of 48px for Googlebot-Image) -->
-    <link rel="shortcut icon" href="https://pricealerter.in/favicon.ico">
-    <link rel="icon" type="image/x-icon" href="https://pricealerter.in/favicon.ico">
+    <!-- Stable square PNG favicon for Google Search -->
     <link rel="icon" type="image/png" sizes="48x48" href="https://pricealerter.in/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="https://pricealerter.in/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://pricealerter.in/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://pricealerter.in/favicon-512x512.png">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" sizes="180x180" href="https://pricealerter.in/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="msapplication-TileColor" content="#079B50">
@@ -350,11 +344,7 @@
       <div class="nav-container">
         <a href="#/" class="brand-wrap" aria-label="PriceAlerter Home">
           <div class="brand-icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
+            <img src="/favicon-48x48.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
           </div>
           <span class="brand-text">IPO PriceAlerter</span>
         </a>
@@ -363,6 +353,10 @@
           <a href="#/open" class="nav-tab-link active" data-nav="ipos">
             <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path></svg>
             <span>IPOs</span>
+          </a>
+          <a href="#/live-prices" class="nav-tab-link" data-nav="live-prices" aria-label="Live Stock Prices">
+            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline></svg>
+            <span>Live Prices</span>
           </a>
           <a href="#/gmp" class="nav-tab-link" data-nav="gmp">
             <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
@@ -926,9 +920,9 @@
         <svg class="lucide-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         <span>Allotment</span>
       </a>
-      <a href="#/calculator" class="bottom-nav-item" data-nav="tools" aria-label="IPO Calculators">
-        <svg class="lucide-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg>
-        <span>Tools</span>
+      <a href="#/live-prices" class="bottom-nav-item" data-nav="live-prices" aria-label="Live Stock Prices">
+        <svg class="lucide-icon" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline></svg>
+        <span>Live</span>
       </a>
       <button type="button" class="bottom-nav-item" id="mobile-bottom-search-btn" onclick="window.IpoApp && window.IpoApp.toggleSearchModal(true)" aria-label="Search IPOs">
         <svg class="lucide-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
