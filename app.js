@@ -5445,7 +5445,7 @@
                 <div>
                   <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">${escapeHtml(item.name || item.symbol || "INDEX")}</div>
                   <div style="font-size:16px; font-weight:800; color:var(--text-heading);">${formatted}</div>
-                  <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">${escapeHtml(item.asOf || item.timestamp || "Timestamp unavailable")}</div>
+                  <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">${escapeHtml(item.asOf || item.timestamp || "Timestamp unavailable")} • ${escapeHtml(item.source || "Source unavailable")}</div>
                 </div>
                 <span style="font-size:11.5px; font-weight:700; color:${positive ? "#059669" : "#DC2626"}; background:${positive ? "#ECFDF5" : "#FEF2F2"}; padding:3px 8px; border-radius:6px;">${positive ? "▲" : "▼"} ${pct > 0 ? "+" : ""}${pct.toFixed(2)}%</span>
               </div>
