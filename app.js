@@ -58,7 +58,8 @@
     const issuePrice = s.issuePrice != null && !isNaN(s.issuePrice) ? Number(s.issuePrice) : null;
     const listingPrice = s.listingPrice != null && !isNaN(s.listingPrice) ? Number(s.listingPrice) : null;
     const listingDayClose = s.listingDayClose != null && !isNaN(s.listingDayClose) ? Number(s.listingDayClose) : null;
-    const lastRecordedPrice = s.currentPrice != null && !isNaN(s.currentPrice) ? Number(s.currentPrice) : null;
+    const lastRecordedPrice = s.currentPrice != null && !isNaN(s.currentPrice) ? Number(s.currentPrice)
+      : (s.last != null && !isNaN(s.last) ? Number(s.last) : (s.close != null && !isNaN(s.close) ? Number(s.close) : null));
     const quoteVerified = s.quoteVerified === true && !!s.quoteTimestamp && !!s.quoteSource && Number(lastRecordedPrice) > 0;
     const currentPrice = quoteVerified ? Number(lastRecordedPrice) : null;
     
@@ -119,6 +120,19 @@
       quoteVerified: quoteVerified,
       quoteTimestamp: quoteVerified ? s.quoteTimestamp : "",
       quoteSource: quoteVerified ? s.quoteSource : "",
+      priceType: quoteVerified ? (s.priceType || "EOD") : "",
+      quoteDate: quoteVerified ? (s.quoteDate || s.date || s.tradingDate || "") : "",
+      open: quoteVerified && s.open != null ? Number(s.open) : null,
+      high: quoteVerified && s.high != null ? Number(s.high) : null,
+      low: quoteVerified && s.low != null ? Number(s.low) : null,
+      previousClose: quoteVerified && (s.previousClose ?? s.prev_close) != null ? Number(s.previousClose ?? s.prev_close) : null,
+      close: quoteVerified && s.close != null ? Number(s.close) : null,
+      last: quoteVerified && s.last != null ? Number(s.last) : null,
+      tradedVolume: quoteVerified && (s.tradedVolume ?? s.volume) != null ? Number(s.tradedVolume ?? s.volume) : null,
+      turnover: quoteVerified && s.turnover != null ? Number(s.turnover) : null,
+      trades: quoteVerified && s.trades != null ? Number(s.trades) : null,
+      week52High: s.week52High ?? s.high52 ?? null,
+      week52Low: s.week52Low ?? s.low52 ?? null,
       lastRecordedPrice: lastRecordedPrice,
       logo: resolveStockLogo(s),
       initials: initials,
@@ -131,28 +145,56 @@
   }
 
   function getMasterSecurities() {
-    let source = null;
-    let fallback = false;
-    if (window.SecuritiesMaster && Array.isArray(window.SecuritiesMaster.records) && window.SecuritiesMaster.records.length) {
-      source = window.SecuritiesMaster.records;
-      masterDataSource = "LIVE";
-      fallback = false;
-    } else if (window.ListedGainsData && Array.isArray(window.ListedGainsData.records) && window.ListedGainsData.records.length) {
-      source = window.ListedGainsData.records;
-      masterDataSource = "FALLBACK_LISTED_GAINS";
-      fallback = true;
-    } else {
-      source = (records && records.length) ? records : ((window.IpoData && window.IpoData.records) || []);
-      masterDataSource = "FALLBACK_IPO_DATA";
-      fallback = true;
-    }
+    // Merge the exchange/security master, historical listed-company directory and current IPO dataset.
+    // The old single-source fallback could hide securities when one feed was empty or incomplete.
+    const masterRecords = window.SecuritiesMaster && Array.isArray(window.SecuritiesMaster.records)
+      ? window.SecuritiesMaster.records : [];
+    const listedRecords = window.ListedGainsData && Array.isArray(window.ListedGainsData.records)
+      ? window.ListedGainsData.records : [];
+    const ipoRecords = Array.isArray(records) ? records : [];
+    const sources = [
+      { records: masterRecords, fallback: false },
+      { records: listedRecords, fallback: true },
+      { records: ipoRecords, fallback: true }
+    ];
+    const combined = new Map();
 
-    if (cachedMasterSource === source && cachedNormalizedMaster) {
-      return cachedNormalizedMaster;
-    }
+    sources.forEach(source => {
+      source.records.forEach(raw => {
+        if (!raw) return;
+        const normalized = normalizeMasterSecurity(raw, source.fallback);
+        if (!normalized || !normalized.name || normalized.name === "Unknown Security") return;
+        const identity = normalized.isin
+          ? "ISIN:" + normalized.isin.toUpperCase()
+          : (normalized.bseCode ? "BSE:" + String(normalized.bseCode) :
+             (normalized.symbolIsSynthetic ? "SLUG:" + normalized.slug : "NSE:" + String(normalized.symbol).toUpperCase()));
+        const existing = combined.get(identity);
+        if (!existing) {
+          combined.set(identity, normalized);
+        } else {
+          // Preserve the authoritative name/symbol, but fill gaps from the other source.
+          combined.set(identity, {
+            ...normalized,
+            ...existing,
+            isin: existing.isin || normalized.isin,
+            bseCode: existing.bseCode || normalized.bseCode,
+            logo: existing.logo || normalized.logo,
+            issuePrice: existing.issuePrice || normalized.issuePrice,
+            listingPrice: existing.listingPrice || normalized.listingPrice,
+            listingDayClose: existing.listingDayClose || normalized.listingDayClose,
+            issueSizeCr: existing.issueSizeCr || normalized.issueSizeCr
+          });
+        }
+      });
+    });
 
-    cachedMasterSource = source;
-    cachedNormalizedMaster = source.map(s => normalizeMasterSecurity(s, fallback)).filter(Boolean);
+    const result = Array.from(combined.values());
+    masterDataSource = masterRecords.length ? "MERGED_SECURITY_MASTER" :
+      (listedRecords.length ? "MERGED_LISTED_DIRECTORY" : "IPO_DATA_FALLBACK");
+    const sourceKey = [masterRecords.length, listedRecords.length, ipoRecords.length].join(":");
+    if (cachedMasterSource === sourceKey && cachedNormalizedMaster) return cachedNormalizedMaster;
+    cachedMasterSource = sourceKey;
+    cachedNormalizedMaster = result;
     return cachedNormalizedMaster;
   }
 
@@ -5306,7 +5348,20 @@
         quoteVerified: quoteVerified,
         quoteTimestamp: quoteVerified ? s.quoteTimestamp : "",
         quoteSource: quoteVerified ? s.quoteSource : "",
-        priceLabel: quoteVerified ? "Verified market quote" : "Live quote unavailable",
+        priceType: s.priceType || "",
+        quoteDate: s.quoteDate || "",
+        open: s.open,
+        high: s.high,
+        low: s.low,
+        previousClose: s.previousClose,
+        close: s.close,
+        last: s.last,
+        tradedVolume: s.tradedVolume,
+        turnover: s.turnover,
+        trades: s.trades,
+        week52High: s.week52High,
+        week52Low: s.week52Low,
+        priceLabel: quoteVerified ? (s.priceType === "EOD" ? "Latest official close" : "Verified market quote") : "Last price unavailable",
         listingPrice: s.listingPrice || null,
         board: board,
         slug: s.slug,
@@ -5571,6 +5626,17 @@ ${stock.logo ? `<img src="${escapeAttr(stock.logo)}" alt="${escapeAttr(stock.nam
                     </span>
                   </div>
                 </div>
+                ${stock.quoteVerified ? `
+                  <div class="live-card-stats" style="margin-top:6px;">
+                    <div class="live-card-stat-item"><span class="live-card-stat-label">Open</span><span class="live-card-stat-val">${stock.open != null ? "₹" + Number(stock.open).toFixed(2) : "—"}</span></div>
+                    <div class="live-card-stat-item"><span class="live-card-stat-label">High</span><span class="live-card-stat-val">${stock.high != null ? "₹" + Number(stock.high).toFixed(2) : "—"}</span></div>
+                    <div class="live-card-stat-item"><span class="live-card-stat-label">Low</span><span class="live-card-stat-val">${stock.low != null ? "₹" + Number(stock.low).toFixed(2) : "—"}</span></div>
+                    <div class="live-card-stat-item"><span class="live-card-stat-label">Prev. Close</span><span class="live-card-stat-val">${stock.previousClose != null ? "₹" + Number(stock.previousClose).toFixed(2) : "—"}</span></div>
+                    <div class="live-card-stat-item"><span class="live-card-stat-label">Turnover</span><span class="live-card-stat-val">${stock.turnover != null ? "₹" + Number(stock.turnover).toLocaleString("en-IN") : "—"}</span></div>
+                    <div class="live-card-stat-item"><span class="live-card-stat-label">Trades</span><span class="live-card-stat-val">${stock.trades != null ? Number(stock.trades).toLocaleString("en-IN") : "—"}</span></div>
+                  </div>
+                  <div style="font-size:10px;color:var(--text-muted);margin-top:5px;">${stock.week52High != null ? "52W High ₹" + Number(stock.week52High).toFixed(2) : ""}${stock.week52Low != null ? " • 52W Low ₹" + Number(stock.week52Low).toFixed(2) : ""}</div>
+                ` : ""}
 
                 <!-- Sparkline Trend if present -->
                 ${stock.trend && stock.trend.length ? `
