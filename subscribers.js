@@ -81,46 +81,54 @@
         return data;
       }
 
-      // If server returned non-409 error (e.g. 503 or 500), fall back to graceful client-side collection
-      console.warn("Backend notice:", data.message || response.statusText);
-      return fallbackSubscribe(cleanEmail, source);
+      if (url.indexOf("/api/subscribe") !== -1) {
+        console.warn("Subscription API unavailable; trying the email notification fallback.");
+        return await fallbackSubscribe(cleanEmail, source);
+      }
+      throw new Error(data.message || "We could not process this request. Please email lakkistudy@gmail.com for help.");
 
     } catch (error) {
       if (error && error.status === 409) {
         throw error;
       }
-      // Network failure / offline fallback
-      return fallbackSubscribe(cleanEmail, source);
+      // Only new subscriptions may use the email-notification fallback. Never turn an unsubscribe request into a new subscription.
+      if (url.indexOf("/api/subscribe") !== -1) {
+        return await fallbackSubscribe(cleanEmail, source);
+      }
+      throw new Error("Automatic unsubscribe is temporarily unavailable. Please email lakkistudy@gmail.com from your subscribed address.");
     }
   }
 
-  function fallbackSubscribe(cleanEmail, source) {
+  async function fallbackSubscribe(cleanEmail, source) {
     if (isLocalDuplicate(cleanEmail)) {
       var err = new Error("This email is already subscribed.");
       err.status = 409;
       throw err;
     }
 
-    saveLocalSubscriber(cleanEmail, source);
-
-    // Dispatch background email notification to owner
+    var notificationResponse;
     try {
-      fetch(FALLBACK_NOTIFICATION_URL, {
+      notificationResponse = await fetch(FALLBACK_NOTIFICATION_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
           email: cleanEmail,
-          source: source || "IPO Pricealerter Website",
+          source: source || "IPO PriceAlerter Website",
           subscribed_at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
-          _subject: "🔔 [IPO Pricealerter] New Subscriber: " + cleanEmail,
+          _subject: "[PriceAlerter] New email alert request: " + cleanEmail,
           _template: "table"
         })
-      }).catch(function () {});
-    } catch (e) {}
-
+      });
+    } catch (e) {
+      throw new Error("Subscription could not be sent. Please try again later.");
+    }
+    if (!notificationResponse || !notificationResponse.ok) {
+      throw new Error("Subscription could not be confirmed. Please try again later.");
+    }
+    saveLocalSubscriber(cleanEmail, source);
     return {
       success: true,
-      message: "Thank you! Your email has been added to the IPO alerts list."
+      message: "Your email alert request was sent successfully."
     };
   }
 
