@@ -36,6 +36,7 @@ jobs:
           test -s _site/data/ipo-data.js
           test -s _site/data/listed-gains-data.js
           test -s _site/data/securities-master.js
+          test -s _site/editorial-policy.html
           test -s _site/favicon.ico
           test -s _site/favicon-48x48.png
           test -s _site/favicon-192x192.png
@@ -45,6 +46,9 @@ jobs:
           test -s _site/assets/sponsored/angel-one-wide.png
           test -s _site/assets/sponsored/sbi-card.png
           test -s _site/assets/sponsored/hdfc-irctc-card.png
+
+      - name: Validate AdSense readiness and content disclosures
+        run: node scripts/adsense_preflight.js
 
       - name: Validate client script syntax
         run: |
@@ -57,11 +61,9 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        continue-on-error: true
 
       - name: Upload website artifact
         uses: actions/upload-pages-artifact@v4
-        continue-on-error: true
         with:
           path: _site
 
@@ -74,5 +76,4 @@ jobs:
     steps:
       - name: Publish website
         id: deployment
-        continue-on-error: true
         uses: actions/deploy-pages@v5.0.1
