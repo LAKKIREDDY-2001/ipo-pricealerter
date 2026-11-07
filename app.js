@@ -2237,18 +2237,50 @@
     });
 
     if (openRecords.length === 0) {
+      const upcomingCount = records.filter(r => r.status === "UPCOMING").length;
       return `
         <div class="fig1-panel-card" id="open-ipos-section">
-          <div class="fig1-panel-header">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
-              <span class="status-badge open">ACTIVE BIDDING</span>
+          <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <h2 class="fig1-panel-title">🟢 Primary Market Bidding Status</h2>
+                <span style="font-size:11.5px; font-weight:700; color:#475569; background:#F1F5F9; padding:2px 8px; border-radius:12px; border:1px solid #CBD5E1;">INTERIM WINDOW • 0 ACTIVE TODAY</span>
+              </div>
+              <a href="#/upcoming" class="fig1-header-link">View Upcoming Pipeline (${upcomingCount}) &rarr;</a>
+            </div>
+            <div class="widget-source-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Official exchange circulars and DRHP filings verified against NSE and BSE order books.</span>
             </div>
           </div>
-          <div class="fig1-empty-state" style="padding: 40px 20px; text-align: center; color: var(--text-muted);">
-            <div style="font-size: 28px; margin-bottom: 6px;">📅</div>
-            <div style="font-size: 15px; font-weight: 700; color: var(--text-heading);">No IPOs currently open for bidding</div>
-            <div style="font-size: 13px; margin-top: 4px; color: var(--text-muted);">Check the Upcoming IPOs pipeline for new issues opening soon.</div>
+
+          <div class="market-status-hero-card" style="margin:12px 16px 20px; padding:24px; background:linear-gradient(135deg, rgba(26,35,126,0.03), rgba(0,137,123,0.04)); border:1px solid rgba(0,0,0,0.07); border-radius:14px;">
+            <div style="display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;">
+              <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, #1A237E, #00897B); color:#FFFFFF; display:grid; place-items:center; font-size:22px; flex-shrink:0; box-shadow:0 4px 12px rgba(26,35,126,0.15);">
+                🏛️
+              </div>
+              <div style="flex:1; min-width:260px;">
+                <div style="font-size:16.5px; font-weight:700; color:var(--text-heading); margin-bottom:6px; letter-spacing:-0.2px;">
+                  Public Bidding Window Is In Interim Transition
+                </div>
+                <p style="font-size:13.5px; color:var(--text-muted); line-height:1.65; margin:0 0 16px;">
+                  All recent Mainboard and SME public issues have officially concluded their 3-day bidding periods and are transitioning through basis of allotment and exchange listing. Explore upcoming issues preparing to launch or verify recent allotment results.
+                </p>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <a href="#/upcoming" class="btn-ipo-primary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none;">
+                    <span>📅 Upcoming IPO Pipeline (${upcomingCount} Issues)</span>
+                    <span>&rarr;</span>
+                  </a>
+                  <a href="#/allotment" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-subtle);">
+                    <span>📋 Check Allotment Status</span>
+                  </a>
+                  <a href="#/live-prices" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-subtle);">
+                    <span>📈 Live Traded Quotes</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       `;

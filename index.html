@@ -18,7 +18,7 @@
         }
 
         // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
-        var CURRENT_VERSION = 'v20261106_v86';
+        var CURRENT_VERSION = 'v20261107_v87';
         try {
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -34,13 +34,10 @@
               }
             });
           }
-          // 3. Force one-time hard reload if client was on older cached bundle
+          // 3. Track current build version without forcing intrusive page reloads
           var lastVer = localStorage.getItem('ipo_app_build_version');
           if (lastVer !== CURRENT_VERSION) {
             localStorage.setItem('ipo_app_build_version', CURRENT_VERSION);
-            if (lastVer) {
-              window.location.reload(true);
-            }
           }
         } catch(e) {}
       })();
@@ -209,7 +206,7 @@
               "name": "Which IPOs are currently open for bidding?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "As of November 6, 2026, no IPOs are currently open for public bidding. Antala Industries and Vedant Poly Fabs have closed bidding and are awaiting their scheduled listings. Check the live Open IPOs and Closed IPOs sections for current exchange-verified status."
+                "text": "As of November 7, 2026, no IPOs are currently open for public bidding. Recent issues including Antala Industries and Vedant Poly Fabs have closed bidding and are awaiting their scheduled listings. Check the live Open IPOs and Closed IPOs sections for current exchange-verified status."
               }
             },
             {
@@ -324,7 +321,7 @@
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261106_v85">
+    <link rel="stylesheet" href="styles.css?v=20261107_v87">
 
     <!-- Google tag (gtag.js) - Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
@@ -452,96 +449,43 @@
             <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:8px;">
               <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:8px;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                  <h2 class="fig1-panel-title">🟢 Open IPOs</h2>
-                  <span class="live-pulse" style="margin-left:4px;"></span>
-                  <span style="font-size:11.5px; font-weight:700; color:#14532D; background:#DCFCE7; padding:2px 8px; border-radius:12px; border:1px solid #86EFAC;">ACTIVE BIDDING</span>
+                  <h2 class="fig1-panel-title">🟢 Primary Market Bidding Status</h2>
+                  <span style="font-size:11.5px; font-weight:700; color:#475569; background:#F1F5F9; padding:2px 8px; border-radius:12px; border:1px solid #CBD5E1;">INTERIM WINDOW • 0 ACTIVE TODAY</span>
                 </div>
-                <a href="#/open" class="fig1-header-link">View All (1) &rarr;</a>
+                <a href="#/upcoming" class="fig1-header-link">View Upcoming Pipeline (25) &rarr;</a>
               </div>
               <div class="widget-source-tag">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Bidding schedules and subscription figures are displayed when source data is available. Verify the latest status with the issuer, exchange or appointed registrar.</span>
+                <span>Official exchange circulars and DRHP filings verified against NSE and BSE order books.</span>
               </div>
             </div>
 
-            <!-- Single-DOM Responsive IPO Component (No Duplicate DOM) -->
-            <div class="ipo-responsive-container">
-              <div class="ipo-table-header-row" aria-hidden="true">
-                <div class="col-company">Company</div>
-                <div class="col-dates">Bidding Window</div>
-                <div class="col-price">Price Band</div>
-                <div class="col-lot">Lot &amp; Min Inv</div>
-                <div class="col-gmp">Live GMP</div>
-                <div class="col-sub">Subscription</div>
-                <div class="col-actions" style="text-align:right;">Action</div>
-              </div>
-              <div class="ipo-items-list">
-                <article class="ipo-responsive-card" data-slug="antala-industries-ipo">
-                  <div class="ipo-card-header">
-                    <div class="ipo-card-brand">
-                      <div class="fig1-avatar" style="width:40px; height:40px; font-size:13px; background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">AI</div>
-                      <div class="ipo-card-title-group">
-                        <h3 class="ipo-card-name"><a href="#/ipo/antala-industries-ipo" title="Antala Industries Limited">Antala Industries</a></h3>
-                        <div class="ipo-card-tags">
-                          <span class="ipo-tag-board sme">SME</span>
-                          <span class="ipo-tag-exchange">BSE SME</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="ipo-card-status-wrap">
-                      <span class="status-badge open">Open</span>
-                    </div>
+            <div class="market-status-hero-card" style="margin:12px 16px 20px; padding:24px; background:linear-gradient(135deg, rgba(26,35,126,0.03), rgba(0,137,123,0.04)); border:1px solid rgba(0,0,0,0.07); border-radius:14px;">
+              <div style="display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;">
+                <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, #1A237E, #00897B); color:#FFFFFF; display:grid; place-items:center; font-size:22px; flex-shrink:0; box-shadow:0 4px 12px rgba(26,35,126,0.15);">
+                  🏛️
+                </div>
+                <div style="flex:1; min-width:260px;">
+                  <div style="font-size:16.5px; font-weight:700; color:var(--text-heading); margin-bottom:6px; letter-spacing:-0.2px;">
+                    Public Bidding Window Is In Interim Transition
                   </div>
+                  <p style="font-size:13.5px; color:var(--text-muted); line-height:1.65; margin:0 0 16px;">
+                    All recent Mainboard and SME public issues have officially concluded their 3-day bidding periods and are transitioning through basis of allotment and exchange listing. Explore upcoming issues preparing to launch or verify recent allotment results.
+                  </p>
 
-                  <div class="ipo-card-metrics-grid">
-                    <div class="ipo-metric-cell metric-dates">
-                      <span class="ipo-metric-label">Bidding Window</span>
-                      <span class="ipo-metric-val dates-val">29 Oct 2026</span>
-                      <span class="ipo-metric-sub red">Closes: 05 Nov 2026</span>
-                    </div>
-                    <div class="ipo-metric-cell metric-price">
-                      <span class="ipo-metric-label">Price Band</span>
-                      <span class="ipo-metric-val tnum">₹62 – 66</span>
-                    </div>
-                    <div class="ipo-metric-cell metric-lot">
-                      <span class="ipo-metric-label">Lot / Min Inv</span>
-                      <span class="ipo-metric-val tnum">2000 shares</span>
-                      <span class="ipo-metric-sub tnum">₹1,32,000</span>
-                    </div>
-                    <div class="ipo-metric-cell metric-gmp">
-                      <span class="ipo-metric-label">Live GMP <span class="gmp-info-icon" title="Unofficial grey-market indicator">ⓘ</span></span>
-                      <span class="ipo-metric-val gmp-val tnum neutral">₹0 <span style="font-size:11px; font-weight:600;">(0.00%)</span></span>
-                      <span class="ipo-metric-sub" title="Unofficial grey-market indicator">Unofficial</span>
-                    </div>
-                    <div class="ipo-metric-cell metric-sub">
-                      <span class="ipo-metric-label">Subscription</span>
-                      <span class="ipo-metric-val sub-val tnum">4.82x</span>
-                    </div>
+                  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <a href="#/upcoming" class="btn-ipo-primary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none;">
+                      <span>📅 Upcoming IPO Pipeline (25 Issues)</span>
+                      <span>&rarr;</span>
+                    </a>
+                    <a href="#/allotment" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-subtle);">
+                      <span>📋 Check Allotment Status</span>
+                    </a>
+                    <a href="#/live-prices" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-subtle);">
+                      <span>📈 Live Traded Quotes</span>
+                    </a>
                   </div>
-
-                  <div class="ipo-card-progress">
-                    <div class="bidding-progress-wrap" aria-label="Bidding timeline">
-                      <div class="bidding-progress-header">
-                        <span class="bidding-progress-step">Day 3 of 3 • Final Bidding Day (Closes 5:00 PM IST)</span>
-                        <span class="bidding-progress-closes">Closing Day</span>
-                      </div>
-                      <div class="bidding-progress-track">
-                        <div class="bidding-progress-fill final" style="width: 100%;"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="ipo-card-footer">
-                    <div class="ipo-card-trust-meta">
-                      <span class="trust-badge live"><span class="trust-dot"></span> LIVE</span>
-                      <span class="trust-timestamp">Updated 11:40 AM IST</span>
-                    </div>
-                    <div class="ipo-card-actions">
-                      <a href="#/ipo/antala-industries-ipo" class="btn-ipo-primary" aria-label="View details for Antala Industries">Details</a>
-                      <a href="https://www.bigshareonline.com/ipo_Allotment.html" target="_blank" rel="noopener noreferrer" class="btn-ipo-secondary" aria-label="Check allotment for Antala Industries">Check Allotment</a>
-                    </div>
-                  </div>
-                </article>
+                </div>
               </div>
             </div>
           </div>
@@ -552,7 +496,7 @@
           <div class="today-chips-header">
             <div class="today-chips-title-wrap">
               <span class="live-pulse"></span>
-              <h2 class="today-chips-heading">Today's Market Pulse &bull; <span class="today-date-text">05 Nov 2026</span></h2>
+              <h2 class="today-chips-heading">Today's Market Pulse &bull; <span class="today-date-text">07 Nov 2026</span></h2>
             </div>
             <span class="today-market-badge live">IST MARKET HOURS</span>
           </div>
@@ -562,21 +506,21 @@
                 <span class="chip-dot red"></span>
                 <span class="chip-label">Closing Today</span>
               </div>
-              <span class="chip-count">1</span>
+              <span class="chip-count">0</span>
             </button>
             <button type="button" class="action-chip allotment-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('allotment')" aria-label="Check Allotment Today">
               <div class="chip-left">
                 <span class="chip-dot yellow"></span>
                 <span class="chip-label">Allotment Today</span>
               </div>
-              <span class="chip-count">1</span>
+              <span class="chip-count">0</span>
             </button>
             <button type="button" class="action-chip listing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('listing')" aria-label="View Today's Listings">
               <div class="chip-left">
                 <span class="chip-dot green"></span>
                 <span class="chip-label">Listing Today</span>
               </div>
-              <span class="chip-count">1</span>
+              <span class="chip-count">0</span>
             </button>
             <button type="button" class="action-chip upcoming-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('upcoming')" aria-label="View Upcoming Pipeline">
               <div class="chip-left">
@@ -1115,11 +1059,11 @@
         });
       }
     </script>
-    <script src="subscribers.js?v=20261106_v86"></script>
-    <script src="data/ipo-data.js?v=20261106_v86" defer></script>
-    <script src="data/listed-gains-data.js?v=20261106_v86" defer></script>
-    <script src="data/securities-master.js?v=20261106_v86" defer></script>
-    <script src="app.js?v=20261106_v86" defer></script>
+    <script src="subscribers.js?v=20261107_v87"></script>
+    <script src="data/ipo-data.js?v=20261107_v87" defer></script>
+    <script src="data/listed-gains-data.js?v=20261107_v87" defer></script>
+    <script src="data/securities-master.js?v=20261107_v87" defer></script>
+    <script src="app.js?v=20261107_v87" defer></script>
 
     
   </body>

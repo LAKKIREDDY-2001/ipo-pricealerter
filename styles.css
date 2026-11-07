@@ -5853,6 +5853,19 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   border: 1px solid #E2E8F0;
 }
 
+.market-status-hero-card {
+  margin: 12px 0 16px;
+  padding: 22px 24px;
+  background: linear-gradient(135deg, rgba(26, 35, 126, 0.03), rgba(0, 137, 123, 0.05));
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+}
+
+[data-theme="dark"] .market-status-hero-card {
+  background: rgba(30, 41, 59, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .fig1-panel-header {
   display: flex;
   align-items: center;
