@@ -76,12 +76,45 @@
       <a href="/disclaimer.html">Financial Disclaimer</a>
       <a href="/contact.html">Contact Us</a>
       <a href="/blog/">Learning Centre</a>
+      <a href="/sitemap.xml" target="_blank" rel="noopener">Sitemap</a>
     </div>
     <p>These standards may be revised as our products, sources and processes evolve. Please revisit this page for the current version.</p>
   </main>
   <footer style="background:#142B49;color:#fff;padding:24px;text-align:center">
-    <p>© <span id="year">2026</span> PriceAlerter · <a style="color:#fff" href="/">Home</a> · <a style="color:#fff" href="/privacy.html">Privacy</a> · <a style="color:#fff" href="/contact.html">Contact</a></p>
+    <p>© <span id="year">2026</span> PriceAlerter · <a style="color:#fff" href="/">Home</a> · <a style="color:#fff" href="/privacy.html">Privacy</a> · <a style="color:#fff" href="/contact.html">Contact</a> · <a style="color:#fff" href="/sitemap.xml">Sitemap</a></p>
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- GDPR & Google AdSense Compliant Privacy & Cookie Notice Banner -->
+  <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy and cookies notice" style="display:none;">
+    <div class="cookie-consent-inner">
+      <div class="cookie-consent-text">
+        <div class="cookie-consent-title">
+          <span>Privacy &amp; Cookie Notice</span>
+        </div>
+        <p>
+          PriceAlerter uses cookies and standard web analytics (Google Analytics &amp; Google AdSense) to measure audience traffic and personalize relevant market content. Read our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms</a>.
+        </p>
+      </div>
+      <div class="cookie-consent-actions">
+        <button id="btn-cookie-accept" class="btn-cookie-accept" type="button" onclick="dismissCookieNotice(true)">Got It</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function dismissCookieNotice() {
+      try {
+        localStorage.setItem("ipo_privacy_acknowledged", "true");
+        var b = document.getElementById("cookie-consent-banner");
+        if (b) b.style.display = "none";
+      } catch(e){}
+    }
+    (function(){
+      try {
+        var acknowledged = localStorage.getItem("ipo_privacy_acknowledged");
+        var banner = document.getElementById("cookie-consent-banner");
+        if (banner && !acknowledged) banner.style.display = "block";
+      } catch(e){}
+    })();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

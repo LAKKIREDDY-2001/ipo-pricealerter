@@ -8,6 +8,9 @@
   /* Brand & Core Palette (Exact Specification) */
   --brand-navy: #142B49;
   --brand-green: #079B50;
+  --brand-blue: #2563EB;
+  --brand-blue-light: #3B82F6;
+  --brand-blue-hover: #1D4ED8;
   --primary-navy: #142B49;
   --secondary-navy: #1E293B;
   --primary-green: #079B50;
@@ -165,6 +168,9 @@
   --brand-navy: #93C5FD;
   --brand-navy-surface: #0B1728;
   --brand-green: #079B50;
+  --brand-blue: #3B82F6;
+  --brand-blue-light: #60A5FA;
+  --brand-blue-hover: #2563EB;
   --primary-navy: #93C5FD;
   --secondary-navy: #141E33;
   --primary-blue: #3B82F6;
@@ -1140,7 +1146,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   display: flex;
   gap: 6px;
   margin-bottom: 10px;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
   padding: 3px;
   border-radius: 8px;
 }
@@ -1180,7 +1187,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   font-size: 12.5px;
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--bg-input);
   color: var(--text-primary);
   outline: none;
 }
@@ -1865,6 +1872,7 @@ body.notif-open {
   width: 44px;
   height: 44px;
   border-radius: 12px;
+  background-color: #2563EB;
   display: grid;
   place-items: center;
   color: #FFFFFF;
@@ -2231,6 +2239,16 @@ body.notif-open {
 .widget-action-link:hover {
   background: rgba(56, 189, 248, 0.16);
   color: #FFFFFF;
+}
+
+[data-theme="light"] .widget-action-link {
+  color: #1D4ED8;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+[data-theme="light"] .widget-action-link:hover {
+  background: rgba(37, 99, 235, 0.14);
+  color: #1E40AF;
 }
 
 /* Subscription Details Widget */
@@ -2653,6 +2671,10 @@ body.notif-open {
 
 .broker-dropdown-item:hover {
   background: rgba(37, 99, 235, 0.15);
+  color: var(--brand-blue, #2563EB);
+}
+
+[data-theme="dark"] .broker-dropdown-item:hover {
   color: #FFFFFF;
 }
 
@@ -2951,7 +2973,7 @@ body.notif-open {
   border: 3px solid var(--border-hover);
   display: grid;
   place-items: center;
-  color: #FFFFFF;
+  color: var(--text-primary);
   font-size: 11px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -2961,12 +2983,14 @@ body.notif-open {
 .step-circle.completed {
   background: var(--primary-blue);
   border-color: var(--primary-blue);
+  color: #FFFFFF;
 }
 
 .step-circle.active {
   background: var(--primary-blue);
   border-color: #93C5FD;
   box-shadow: 0 0 12px var(--primary-blue);
+  color: #FFFFFF;
 }
 
 .step-title {
@@ -3429,6 +3453,10 @@ body.notif-open {
   place-items: center;
   font-weight: 700;
   font-size: 13px;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .broker-icon-sq {
   color: #FFFFFF;
 }
 
@@ -3462,6 +3490,7 @@ body.notif-open {
 .affiliate-demat-card {
   margin: 28px 0;
   padding: 24px 28px;
+  background-color: #0d121f;
   background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.18), transparent 60%),
               linear-gradient(135deg, rgba(19, 24, 38, 0.95), rgba(13, 18, 31, 0.98));
   border: 1px solid rgba(59, 130, 246, 0.35);
@@ -4584,6 +4613,11 @@ body.notif-open {
   border: 1px solid rgba(37, 99, 235, 0.4);
   color: #60A5FA;
 }
+[data-theme="light"] .card-btn-action.btn-allotment {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.3);
+  color: #1D4ED8;
+}
 .card-btn-action.btn-allotment:hover {
   background: rgba(37, 99, 235, 0.3);
   border-color: #3B82F6;
@@ -4591,17 +4625,32 @@ body.notif-open {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
+[data-theme="light"] .card-btn-action.btn-allotment:hover {
+  background: #2563EB;
+  border-color: #1D4ED8;
+  color: #FFFFFF;
+}
 
 .card-btn-action.btn-doc {
   background: rgba(139, 92, 246, 0.16);
   border: 1px solid rgba(139, 92, 246, 0.4);
   color: #C084FC;
 }
+[data-theme="light"] .card-btn-action.btn-doc {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.3);
+  color: #6D28D9;
+}
 .card-btn-action.btn-doc:hover {
   background: rgba(139, 92, 246, 0.3);
   border-color: #8B5CF6;
   color: #FFFFFF;
   transform: translateY(-1px);
+}
+[data-theme="light"] .card-btn-action.btn-doc:hover {
+  background: #7C3AED;
+  border-color: #6D28D9;
+  color: #FFFFFF;
 }
 
 .card-btn-action.btn-apply {
@@ -4781,11 +4830,23 @@ body.notif-open {
   transition: all 0.2s ease;
 }
 
+[data-theme="light"] .btn-allotment-exchange {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
 .btn-allotment-exchange:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
+}
+
+[data-theme="light"] .btn-allotment-exchange:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
 }
 
 .btn-doc-subtle {
@@ -4924,7 +4985,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   font-family: var(--font-display);
   font-size: 30px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--text-heading);
   margin-bottom: 10px;
 }
 .guide-hero p {
@@ -5303,8 +5364,11 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 .portal-chip-item:hover {
   border-color: var(--brand-blue);
   background: rgba(37, 99, 235, 0.12);
-  color: #fff;
+  color: var(--brand-blue, #2563EB);
   transform: translateY(-1px);
+}
+[data-theme="dark"] .portal-chip-item:hover {
+  color: #FFFFFF;
 }
 .portal-chip-icon {
   width: 24px;
@@ -6390,6 +6454,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 
 /* Right Column: Stay Updated Gradient Card */
 .fig1-stay-updated-card {
+  background-color: #142B49;
   background: linear-gradient(135deg, #142B49 0%, #064E3B 100%);
   border-radius: 16px;
   padding: 24px;
@@ -7429,6 +7494,31 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
 }
 
+.ad-disclosure-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #475569;
+  background: rgba(100, 116, 139, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+[data-theme="dark"] .ad-disclosure-tag {
+  color: #CBD5E1;
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.sponsored-sbi-slot .ad-disclosure-tag {
+  color: #E9D5FF !important;
+  background: rgba(168, 85, 247, 0.25) !important;
+}
+
 .ad-slot-leaderboard {
   min-height: 80px;
   width: 100%;
@@ -7485,6 +7575,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   justify-content: center;
   gap: 6px;
   padding: 8px 18px;
+  background-color: #1D4ED8;
   background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
   color: #FFFFFF !important;
   font-size: 13px;
@@ -7833,6 +7924,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 
 /* 6. Dedicated SBI Card Sponsored Unit */
 .sponsored-sbi-slot {
+  background-color: #180D30 !important;
   background: linear-gradient(135deg, #180D30 0%, #29154C 100%) !important;
   border: 1px solid #3E2173 !important;
   box-shadow: 0 4px 20px rgba(24, 13, 48, 0.25) !important;
@@ -7894,7 +7986,8 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   justify-content: space-between;
   gap: 14px;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.06);
+  background-color: #200E3D;
+  background: rgba(32, 14, 61, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   backdrop-filter: blur(8px);
@@ -7920,6 +8013,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 }
 
 .sponsored-cta-sbi {
+  background-color: #0284C7 !important;
   background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
   color: #FFFFFF !important;
   box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35) !important;
@@ -8573,9 +8667,10 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   color: var(--text-heading) !important;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cookie-consent-banner {
-    padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 14px 16px !important;
   }
   .cookie-consent-inner {
     flex-direction: column;
@@ -9745,6 +9840,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
    WhatsApp & Telegram Community Banner
    ========================================================================== */
 .community-invite-banner {
+  background-color: #0F172A;
   background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
   border: 1px solid #334155;
   border-radius: 16px;
@@ -10341,7 +10437,7 @@ ins.adsbygoogle[data-ad-status="unfilled"],
   min-height: 36px;
   padding: 6px 14px;
   background: var(--brand-green);
-  color: #FFFFFF !important;
+  color: #FFFFFF;
   font-size: 12px;
   font-weight: 600;
   border-radius: 8px;

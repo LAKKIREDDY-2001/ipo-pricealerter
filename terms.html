@@ -165,9 +165,41 @@
           <span style="color:rgba(255,255,255,0.3)">|</span>
           <a href="contact.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Contact</a>
           <span style="color:rgba(255,255,255,0.3)">|</span>
-          <a href="disclaimer.html">Disclaimer</a> <span>|</span> <a href="editorial-policy.html">Editorial Standards</a>
+          <a href="disclaimer.html">Disclaimer</a> <span>|</span> <a href="editorial-policy.html">Editorial Standards</a> <span>|</span> <a href="/sitemap.xml" target="_blank" rel="noopener">Sitemap</a>
         </div>
     </div>
     </footer>
+    <!-- GDPR & Google AdSense Compliant Privacy & Cookie Notice Banner -->
+    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy and cookies notice" style="display:none;">
+      <div class="cookie-consent-inner">
+        <div class="cookie-consent-text">
+          <div class="cookie-consent-title">
+            <span>Privacy &amp; Cookie Notice</span>
+          </div>
+          <p>
+            PriceAlerter uses cookies and standard web analytics (Google Analytics &amp; Google AdSense) to measure audience traffic and personalize relevant market content. Read our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms</a>.
+          </p>
+        </div>
+        <div class="cookie-consent-actions">
+          <button id="btn-cookie-accept" class="btn-cookie-accept" type="button" onclick="dismissCookieNotice(true)">Got It</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function dismissCookieNotice() {
+        try {
+          localStorage.setItem("ipo_privacy_acknowledged", "true");
+          var b = document.getElementById("cookie-consent-banner");
+          if (b) b.style.display = "none";
+        } catch(e){}
+      }
+      (function(){
+        try {
+          var acknowledged = localStorage.getItem("ipo_privacy_acknowledged");
+          var banner = document.getElementById("cookie-consent-banner");
+          if (banner && !acknowledged) banner.style.display = "block";
+        } catch(e){}
+      })();
+    </script>
     </body>
 </html>

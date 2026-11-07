@@ -164,20 +164,36 @@ def fetch_google_finance_quote(ticker_symbol, exchange="NSE", ctx=None):
     url = f"https://www.google.com/finance/quote/{urllib.parse.quote(ticker_symbol)}:{exchange}"
     try:
         req = urllib.request.Request(url, headers=BROWSER_HEADERS)
-        with urllib.request.urlopen(req, context=ctx, timeout=5) as r:
+        with urllib.request.urlopen(req, context=ctx, timeout=6) as r:
             html = r.read().decode("utf-8", errors="ignore")
 
-        m_p = re.search(r'<span jsname=\"Pdsbrc\"[^>]*><span>₹?([0-9,.]+)</span></span>', html)
+        # Extract quote specifically from the primary entity section (after class="gO24Ff")
+        # to prevent matching header carousel or market overview tickers
+        m_head = re.search(r'class=\"gO24Ff\"', html)
+        start = m_head.start() if m_head else 0
+        section = html[start:start+4000]
+
+        m_p = re.search(r'<div class=\"YMlKec fxKbKc\">₹?([0-9,.]+)</div>', section)
+        if not m_p:
+            m_p = re.search(r'<div class=\"N6SYTe\"[^>]*>\s*<span jsname=\"Pdsbrc\"[^>]*>\s*<span>₹?([0-9,.]+)</span>', section)
+        if not m_p:
+            m_p = re.search(r'<span jsname=\"Pdsbrc\"[^>]*>\s*<span>₹?([0-9,.]+)</span>', section)
         if not m_p:
             m_p = re.search(r'<div class=\"YMlKec fxKbKc\">₹?([0-9,.]+)</div>', html)
-        m_c = re.search(r'<span>([+-]?[0-9,.]+)</span></span>\)\s*Today', html)
-        m_pct = re.search(r'<span class=\"ougHge\">([+-]?[0-9,.]+\s*%)</span>', html)
+
+        m_c = re.search(r'jsname=\"vY9t3b\"[^>]*>.*?<span>([+-]?[0-9,.]+)</span>', section, re.DOTALL)
+        if not m_c:
+            m_c = re.search(r'<span>([+-]?[0-9,.]+)</span></span>\)\s*Today', section)
+
+        m_pct = re.search(r'class=\"[^\"]*ougHge[^\"]*\"[^>]*>.*?([+-]?[0-9,.]+\s*%)', section, re.DOTALL)
+        if not m_pct:
+            m_pct = re.search(r'<span class=\"ougHge\">([+-]?[0-9,.]+\s*%)</span>', section)
 
         price = float(m_p.group(1).replace(",", "")) if m_p else None
         change = float(m_c.group(1).replace(",", "")) if m_c else None
         pct_val = None
         if m_pct:
-            pct_clean = m_pct.group(1).replace("%", "").strip()
+            pct_clean = m_pct.group(1).replace("%", "").replace(",", "").strip()
             try:
                 pct_val = float(pct_clean)
             except Exception:

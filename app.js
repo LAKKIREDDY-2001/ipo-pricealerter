@@ -546,7 +546,7 @@
     }
 
     return `
-      <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background:${gradient}; color:#FFFFFF; font-weight:800; font-size:${fontSize}px; border-radius:${borderRadius}px; display:inline-flex; align-items:center; justify-content:center; text-shadow:0 1px 2px rgba(0,0,0,0.35); flex-shrink:0; border:1px solid rgba(0,0,0,0.08); ${ipo.isHistoric ? 'border:1.5px solid #F59E0B;' : ''}">
+      <div class="company-avatar-box" style="width:${size}px; height:${size}px; min-width:${size}px; background-color:#2563EB; background:${gradient}; color:#FFFFFF; font-weight:800; font-size:${fontSize}px; border-radius:${borderRadius}px; display:inline-flex; align-items:center; justify-content:center; text-shadow:0 1px 2px rgba(0,0,0,0.35); flex-shrink:0; border:1px solid rgba(0,0,0,0.08); ${ipo.isHistoric ? 'border:1.5px solid #F59E0B;' : ''}">
         ${initials}
       </div>
     `;
@@ -2256,7 +2256,7 @@
 
           <div class="market-status-hero-card" style="margin:12px 16px 20px; padding:24px; background:linear-gradient(135deg, rgba(26,35,126,0.03), rgba(0,137,123,0.04)); border:1px solid rgba(0,0,0,0.07); border-radius:14px;">
             <div style="display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;">
-              <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, #1A237E, #00897B); color:#FFFFFF; display:grid; place-items:center; font-size:22px; flex-shrink:0; box-shadow:0 4px 12px rgba(26,35,126,0.15);">
+              <div style="width:48px; height:48px; border-radius:12px; background-color:#1A237E; background:linear-gradient(135deg, #1A237E, #00897B); color:#FFFFFF; display:grid; place-items:center; font-size:22px; flex-shrink:0; box-shadow:0 4px 12px rgba(26,35,126,0.15);">
                 🏛️
               </div>
               <div style="flex:1; min-width:260px;">
@@ -2272,10 +2272,10 @@
                     <span>📅 Upcoming IPO Pipeline (${upcomingCount} Issues)</span>
                     <span>&rarr;</span>
                   </a>
-                  <a href="#/allotment" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-subtle);">
+                  <a href="#/allotment" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-subtle);">
                     <span>📋 Check Allotment Status</span>
                   </a>
-                  <a href="#/live-prices" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-subtle);">
+                  <a href="#/live-prices" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-subtle);">
                     <span>📈 Live Traded Quotes</span>
                   </a>
                 </div>
@@ -3958,12 +3958,12 @@
         <!-- Official Registrar Allotment Status & Verification Section (At the End) -->
         <div class="allotment-portal-callout allotment-callout-bottom" id="allotment-section">
           <div class="callout-text">
-            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:#93C5FD; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px;">
+            <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:var(--brand-blue, #2563EB); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px;">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               Official Registrar Allotment Status
             </div>
-            <strong style="font-size:15px; color:#FFFFFF;">Check Allotment Status — ${ipo.shortName}</strong>
-            <span style="display:block; margin-top:2px;">Official Registrar: <b style="color:#93C5FD;">${ipo.registrar || 'Registrar Portal'}</b> ${(ipo.allotmentDate || ipo.allotDate) ? ` • Scheduled Allotment Date: <b>${formatDate(ipo.allotmentDate || ipo.allotDate)}</b>` : ''}</span>
+            <strong style="font-size:15px; color:var(--text-heading, #0F172A);">Check Allotment Status — ${ipo.shortName}</strong>
+            <span style="display:block; margin-top:2px; color:var(--text-body);">Official Registrar: <b style="color:var(--brand-blue, #2563EB);">${ipo.registrar || 'Registrar Portal'}</b> ${(ipo.allotmentDate || ipo.allotDate) ? ` • Scheduled Allotment Date: <b>${formatDate(ipo.allotmentDate || ipo.allotDate)}</b>` : ''}</span>
           </div>
 
           <div class="allotment-action-buttons-group">
@@ -6310,7 +6310,7 @@
                 <div style="display:flex; align-items:center; gap:10px;">
                   ${renderCompanyLogo(o, 32)}
                   <div>
-                    <div style="font-weight:700; font-size:13px; color:#fff;">${o.shortName}</div>
+                    <div style="font-weight:700; font-size:13px; color:var(--text-heading);">${o.shortName}</div>
                     <div style="font-size:11px; color:var(--text-muted);">₹${o.priceBandLow}–${o.priceBandHigh} • Closes ${formatDate(o.closeDate)}</div>
                   </div>
                 </div>
@@ -8033,10 +8033,10 @@
   // ==========================================================================
   function initCookieConsent() {
     try {
-      const consent = localStorage.getItem("ipo_cookie_consent");
+      const acknowledged = localStorage.getItem("ipo_privacy_acknowledged");
       const banner = document.getElementById("cookie-consent-banner");
       if (!banner) return;
-      if (!consent) {
+      if (!acknowledged) {
         banner.style.display = "block";
       } else {
         banner.style.display = "none";
@@ -8046,7 +8046,7 @@
 
   function acceptCookieConsent(accepted = true) {
     try {
-      localStorage.setItem("ipo_cookie_consent", accepted ? "accepted" : "declined");
+      localStorage.setItem("ipo_privacy_acknowledged", "true");
       const banner = document.getElementById("cookie-consent-banner");
       if (banner) {
         banner.style.opacity = "0";
