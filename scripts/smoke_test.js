@@ -102,13 +102,17 @@ async function run() {
     console.log(`[SmokeTest] Launching Chrome executable: ${chromePath}`);
 
     chromeProc = spawn(chromePath, [
-      '--headless',
+      '--headless=new',
       `--remote-debugging-port=${CDP_PORT}`,
+      '--remote-debugging-address=127.0.0.1',
       `--user-data-dir=${tmpDir}`,
       '--no-sandbox',
       '--disable-gpu',
       '--disable-dev-shm-usage',
+      '--disable-software-rasterizer',
       '--disable-extensions',
+      '--no-first-run',
+      '--no-default-browser-check',
       '--no-proxy-server',
       '--proxy-bypass-list=<-loopback>',
       '--disable-web-security',
@@ -119,10 +123,17 @@ async function run() {
       throw new Error(`Failed to launch Chrome: ${err.message}`);
     });
 
-    // Wait for CDP port to open
+    chromeProc.stderr?.on('data', (d) => {
+      const text = d.toString();
+      if (!text.includes('Fontconfig') && !text.includes('alsa')) {
+        console.warn(`[Chrome stderr]: ${text.trim()}`);
+      }
+    });
+
+    // Wait for CDP port to open (up to 25s)
     let listRes = null;
     let targetPage = null;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 50; i++) {
       try {
         listRes = await new Promise((resolve, reject) => {
           const req = http.get(`http://127.0.0.1:${CDP_PORT}/json/list`, (res) => {
@@ -155,7 +166,7 @@ async function run() {
         }
         if (targetPage && targetPage.webSocketDebuggerUrl) break;
       } catch (e) {
-        await new Promise(r => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 500));
       }
     }
 
