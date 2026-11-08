@@ -10,7 +10,7 @@
     "tier2Count": 874,
     "tier3Count": 584,
     "twelveMonthCutoff": "2025-11-05",
-    "updatedAt": "2026-11-08T19:28:38.078280+05:30",
+    "updatedAt": "2026-11-09T00:11:15.480882+05:30",
     "byYear": {
       "2026": {
         "year": 2026,
@@ -533,7 +533,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -555,8 +555,8 @@
       "listingPrice": 171.6,
       "listingDayClose": null,
       "listingGainPct": 5.93,
-      "currentPrice": 158.08,
-      "returnSinceIssuePct": -2.42,
+      "currentPrice": 157.92,
+      "returnSinceIssuePct": -2.52,
       "issueSizeCr": 330.48,
       "subscription": 5.09,
       "tier": "tier1",
@@ -566,7 +566,7 @@
       "logo": null,
       "initials": "MK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -599,7 +599,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -621,8 +621,8 @@
       "listingPrice": 248,
       "listingDayClose": null,
       "listingGainPct": 65.33,
-      "currentPrice": 235.79,
-      "returnSinceIssuePct": 57.19,
+      "currentPrice": 241.08,
+      "returnSinceIssuePct": 60.72,
       "issueSizeCr": 255,
       "subscription": 241.22,
       "tier": "tier1",
@@ -632,7 +632,7 @@
       "logo": null,
       "initials": "BP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -654,8 +654,8 @@
       "listingPrice": 355.1,
       "listingDayClose": null,
       "listingGainPct": 7.61,
-      "currentPrice": 413.15,
-      "returnSinceIssuePct": 25.2,
+      "currentPrice": 418.55,
+      "returnSinceIssuePct": 26.83,
       "issueSizeCr": 667.53,
       "subscription": 9.47,
       "tier": "tier1",
@@ -665,7 +665,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -698,7 +698,7 @@
       "logo": null,
       "initials": "WI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -720,8 +720,8 @@
       "listingPrice": 1675.5,
       "listingDayClose": null,
       "listingGainPct": 0.63,
-      "currentPrice": 1682.2,
-      "returnSinceIssuePct": 1.03,
+      "currentPrice": 1667.3,
+      "returnSinceIssuePct": 0.14,
       "issueSizeCr": 1260.57,
       "subscription": 5.51,
       "tier": "tier1",
@@ -731,7 +731,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -764,7 +764,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -786,8 +786,8 @@
       "listingPrice": 1358,
       "listingDayClose": null,
       "listingGainPct": 21.36,
-      "currentPrice": 1406.4,
-      "returnSinceIssuePct": 25.68,
+      "currentPrice": 1421.7,
+      "returnSinceIssuePct": 27.05,
       "issueSizeCr": 30213,
       "subscription": 21.36,
       "tier": "tier1",
@@ -797,7 +797,7 @@
       "logo": null,
       "initials": "JP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -819,8 +819,8 @@
       "listingPrice": 720,
       "listingDayClose": null,
       "listingGainPct": 3.9,
-      "currentPrice": 734.55,
-      "returnSinceIssuePct": 6.0,
+      "currentPrice": 743.0,
+      "returnSinceIssuePct": 7.22,
       "issueSizeCr": 1450,
       "subscription": 2.34,
       "tier": "tier1",
@@ -830,7 +830,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -852,8 +852,8 @@
       "listingPrice": 586,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 670.05,
-      "returnSinceIssuePct": 14.34,
+      "currentPrice": 664.75,
+      "returnSinceIssuePct": 13.44,
       "issueSizeCr": 2533.81,
       "subscription": 46.05,
       "tier": "tier1",
@@ -863,7 +863,7 @@
       "logo": null,
       "initials": "BT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -885,8 +885,8 @@
       "listingPrice": 371.15,
       "listingDayClose": null,
       "listingGainPct": 7.89,
-      "currentPrice": 525.95,
-      "returnSinceIssuePct": 52.89,
+      "currentPrice": 534.7,
+      "returnSinceIssuePct": 55.44,
       "issueSizeCr": 475.48,
       "subscription": 14.21,
       "tier": "tier1",
@@ -896,7 +896,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -929,7 +929,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -951,8 +951,8 @@
       "listingPrice": 1160,
       "listingDayClose": null,
       "listingGainPct": 65.71,
-      "currentPrice": 1472.4,
-      "returnSinceIssuePct": 110.34,
+      "currentPrice": 1487.2,
+      "returnSinceIssuePct": 112.46,
       "issueSizeCr": 852.18,
       "subscription": 132.81,
       "tier": "tier1",
@@ -962,7 +962,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -984,7 +984,7 @@
       "listingPrice": null,
       "listingDayClose": null,
       "listingGainPct": null,
-      "currentPrice": 164.89,
+      "currentPrice": 165.48,
       "returnSinceIssuePct": null,
       "issueSizeCr": 5013.31,
       "subscription": 3.05,
@@ -995,7 +995,7 @@
       "logo": null,
       "initials": "ZM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1017,8 +1017,8 @@
       "listingPrice": 305,
       "listingDayClose": null,
       "listingGainPct": 5.54,
-      "currentPrice": 270.7,
-      "returnSinceIssuePct": -6.33,
+      "currentPrice": 285.45,
+      "returnSinceIssuePct": -1.23,
       "issueSizeCr": 702,
       "subscription": 4.68,
       "tier": "tier1",
@@ -1028,7 +1028,7 @@
       "logo": null,
       "initials": "FC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1050,8 +1050,8 @@
       "listingPrice": 112,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 103.05,
-      "returnSinceIssuePct": -7.99,
+      "currentPrice": 104.4,
+      "returnSinceIssuePct": -6.79,
       "issueSizeCr": 116.05,
       "subscription": 7.11,
       "tier": "tier1",
@@ -1061,7 +1061,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1083,8 +1083,8 @@
       "listingPrice": 335,
       "listingDayClose": null,
       "listingGainPct": 23.62,
-      "currentPrice": 261.0,
-      "returnSinceIssuePct": -3.69,
+      "currentPrice": 265.7,
+      "returnSinceIssuePct": -1.96,
       "issueSizeCr": 712.31,
       "subscription": 131.73,
       "tier": "tier1",
@@ -1094,7 +1094,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1292,7 +1292,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1325,7 +1325,7 @@
       "logo": null,
       "initials": "PS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1358,7 +1358,7 @@
       "logo": null,
       "initials": "TS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1391,7 +1391,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1413,8 +1413,8 @@
       "listingPrice": 111,
       "listingDayClose": null,
       "listingGainPct": -5.93,
-      "currentPrice": 55.05,
-      "returnSinceIssuePct": -53.35,
+      "currentPrice": 55.0,
+      "returnSinceIssuePct": -53.39,
       "issueSizeCr": 38.12,
       "subscription": 2.39,
       "tier": "tier1",
@@ -1424,7 +1424,7 @@
       "logo": null,
       "initials": "EV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1479,8 +1479,8 @@
       "listingPrice": 80,
       "listingDayClose": null,
       "listingGainPct": 6.67,
-      "currentPrice": 66.25,
-      "returnSinceIssuePct": -11.67,
+      "currentPrice": 66.93,
+      "returnSinceIssuePct": -10.76,
       "issueSizeCr": 108.42,
       "subscription": 2.26,
       "tier": "tier1",
@@ -1490,7 +1490,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1523,7 +1523,7 @@
       "logo": null,
       "initials": "OV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1611,8 +1611,8 @@
       "listingPrice": 215,
       "listingDayClose": null,
       "listingGainPct": -2.27,
-      "currentPrice": 115.36,
-      "returnSinceIssuePct": -47.56,
+      "currentPrice": 120.96,
+      "returnSinceIssuePct": -45.02,
       "issueSizeCr": 178,
       "subscription": 1.79,
       "tier": "tier1",
@@ -1622,7 +1622,7 @@
       "logo": null,
       "initials": "VN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1710,8 +1710,8 @@
       "listingPrice": 72.3,
       "listingDayClose": null,
       "listingGainPct": 0.42,
-      "currentPrice": 40.4,
-      "returnSinceIssuePct": -43.89,
+      "currentPrice": 41.3,
+      "returnSinceIssuePct": -42.64,
       "issueSizeCr": 20.18,
       "subscription": 2.54,
       "tier": "tier1",
@@ -1721,7 +1721,7 @@
       "logo": null,
       "initials": "PA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1820,7 +1820,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1842,8 +1842,8 @@
       "listingPrice": 148,
       "listingDayClose": null,
       "listingGainPct": 13.85,
-      "currentPrice": 123.27,
-      "returnSinceIssuePct": -5.18,
+      "currentPrice": 124.89,
+      "returnSinceIssuePct": -3.93,
       "issueSizeCr": 218.4,
       "subscription": 125.16,
       "tier": "tier1",
@@ -1853,7 +1853,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1875,8 +1875,8 @@
       "listingPrice": 171,
       "listingDayClose": null,
       "listingGainPct": 2.4,
-      "currentPrice": 137.11,
-      "returnSinceIssuePct": -17.9,
+      "currentPrice": 139.6,
+      "returnSinceIssuePct": -16.41,
       "issueSizeCr": 90.17,
       "subscription": 38.12,
       "tier": "tier1",
@@ -1886,7 +1886,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1952,7 +1952,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1974,8 +1974,8 @@
       "listingPrice": 28.32,
       "listingDayClose": null,
       "listingGainPct": -11.5,
-      "currentPrice": 18.81,
-      "returnSinceIssuePct": -41.22,
+      "currentPrice": 19.31,
+      "returnSinceIssuePct": -39.66,
       "issueSizeCr": 420,
       "subscription": 5.07,
       "tier": "tier1",
@@ -1985,7 +1985,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2051,7 +2051,7 @@
       "logo": null,
       "initials": "DR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2073,8 +2073,8 @@
       "listingPrice": 142,
       "listingDayClose": null,
       "listingGainPct": 2.16,
-      "currentPrice": 107.34,
-      "returnSinceIssuePct": -22.78,
+      "currentPrice": 106.86,
+      "returnSinceIssuePct": -23.12,
       "issueSizeCr": 303.9,
       "subscription": 30.42,
       "tier": "tier1",
@@ -2084,7 +2084,7 @@
       "logo": null,
       "initials": "GG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2106,8 +2106,8 @@
       "listingPrice": 450,
       "listingDayClose": null,
       "listingGainPct": 65.44,
-      "currentPrice": 338.05,
-      "returnSinceIssuePct": 24.28,
+      "currentPrice": 347.25,
+      "returnSinceIssuePct": 27.67,
       "issueSizeCr": 552,
       "subscription": 97.28,
       "tier": "tier1",
@@ -2117,7 +2117,7 @@
       "logo": null,
       "initials": "OC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2139,8 +2139,8 @@
       "listingPrice": 305,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 210.63,
-      "returnSinceIssuePct": -30.94,
+      "currentPrice": 211.49,
+      "returnSinceIssuePct": -30.66,
       "issueSizeCr": 500,
       "subscription": 2.64,
       "tier": "tier1",
@@ -2150,7 +2150,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2183,7 +2183,7 @@
       "logo": null,
       "initials": "SU",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2271,8 +2271,8 @@
       "listingPrice": 455,
       "listingDayClose": null,
       "listingGainPct": 12.35,
-      "currentPrice": 395.5,
-      "returnSinceIssuePct": -2.35,
+      "currentPrice": 400.15,
+      "returnSinceIssuePct": -1.2,
       "issueSizeCr": 405,
       "subscription": 12.23,
       "tier": "tier1",
@@ -2282,7 +2282,7 @@
       "logo": null,
       "initials": "AO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2304,8 +2304,8 @@
       "listingPrice": 55,
       "listingDayClose": null,
       "listingGainPct": 61.76,
-      "currentPrice": 54.95,
-      "returnSinceIssuePct": 61.62,
+      "currentPrice": 54.97,
+      "returnSinceIssuePct": 61.68,
       "issueSizeCr": 1091.68,
       "subscription": 101.87,
       "tier": "tier1",
@@ -2315,7 +2315,7 @@
       "logo": null,
       "initials": "MO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2348,7 +2348,7 @@
       "logo": null,
       "initials": "PW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2381,7 +2381,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2403,8 +2403,8 @@
       "listingPrice": 235,
       "listingDayClose": null,
       "listingGainPct": 75.37,
-      "currentPrice": 164.93,
-      "returnSinceIssuePct": 23.08,
+      "currentPrice": 171.69,
+      "returnSinceIssuePct": 28.13,
       "issueSizeCr": 150.71,
       "subscription": 176.85,
       "tier": "tier1",
@@ -2414,7 +2414,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2436,8 +2436,8 @@
       "listingPrice": 375,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 281.75,
-      "returnSinceIssuePct": -24.87,
+      "currentPrice": 293.7,
+      "returnSinceIssuePct": -21.68,
       "issueSizeCr": 300,
       "subscription": 2.62,
       "tier": "tier1",
@@ -2447,7 +2447,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2502,8 +2502,8 @@
       "listingPrice": 355.1,
       "listingDayClose": null,
       "listingGainPct": -1.91,
-      "currentPrice": 279.25,
-      "returnSinceIssuePct": -22.86,
+      "currentPrice": 282.25,
+      "returnSinceIssuePct": -22.03,
       "issueSizeCr": 2100,
       "subscription": 1.89,
       "tier": "tier1",
@@ -2513,7 +2513,7 @@
       "logo": null,
       "initials": "EC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2546,7 +2546,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2634,8 +2634,8 @@
       "listingPrice": 200,
       "listingDayClose": null,
       "listingGainPct": 8.11,
-      "currentPrice": 195.05,
-      "returnSinceIssuePct": 5.43,
+      "currentPrice": 197.09,
+      "returnSinceIssuePct": 6.54,
       "issueSizeCr": 160.88,
       "subscription": 7.91,
       "tier": "tier1",
@@ -2645,7 +2645,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2711,7 +2711,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2766,8 +2766,8 @@
       "listingPrice": 155,
       "listingDayClose": null,
       "listingGainPct": 4.73,
-      "currentPrice": 137.65,
-      "returnSinceIssuePct": -6.99,
+      "currentPrice": 133.74,
+      "returnSinceIssuePct": -9.64,
       "issueSizeCr": 708.02,
       "subscription": 1.6,
       "tier": "tier1",
@@ -2777,7 +2777,7 @@
       "logo": null,
       "initials": "VG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2810,7 +2810,7 @@
       "logo": null,
       "initials": "FM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2843,7 +2843,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2876,7 +2876,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2997,8 +2997,8 @@
       "listingPrice": 102.31,
       "listingDayClose": null,
       "listingGainPct": 3.34,
-      "currentPrice": 105.13,
-      "returnSinceIssuePct": 6.19,
+      "currentPrice": 104.89,
+      "returnSinceIssuePct": 5.95,
       "issueSizeCr": 141.57,
       "subscription": 2.01,
       "tier": "tier1",
@@ -3008,7 +3008,7 @@
       "logo": null,
       "initials": "SO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3030,8 +3030,8 @@
       "listingPrice": 224.2,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 233.3,
-      "returnSinceIssuePct": 97.71,
+      "currentPrice": 239.8,
+      "returnSinceIssuePct": 103.22,
       "issueSizeCr": 42.52,
       "subscription": 304.06,
       "tier": "tier1",
@@ -3041,7 +3041,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3063,8 +3063,8 @@
       "listingPrice": 82,
       "listingDayClose": null,
       "listingGainPct": -2.38,
-      "currentPrice": 120.23,
-      "returnSinceIssuePct": 43.13,
+      "currentPrice": 122.58,
+      "returnSinceIssuePct": 45.93,
       "issueSizeCr": 1000,
       "subscription": 7.01,
       "tier": "tier1",
@@ -3074,7 +3074,7 @@
       "logo": null,
       "initials": "HM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3096,8 +3096,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": 29.03,
-      "currentPrice": 159.04,
-      "returnSinceIssuePct": 71.01,
+      "currentPrice": 159.52,
+      "returnSinceIssuePct": 71.53,
       "issueSizeCr": 124.88,
       "subscription": 177.03,
       "tier": "tier1",
@@ -3107,7 +3107,7 @@
       "logo": null,
       "initials": "JS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3129,8 +3129,8 @@
       "listingPrice": 624,
       "listingDayClose": null,
       "listingGainPct": 47.17,
-      "currentPrice": 634.75,
-      "returnSinceIssuePct": 49.71,
+      "currentPrice": 639.1,
+      "returnSinceIssuePct": 50.73,
       "issueSizeCr": 500,
       "subscription": 107.41,
       "tier": "tier1",
@@ -3140,7 +3140,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3239,7 +3239,7 @@
       "logo": null,
       "initials": "VW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3272,7 +3272,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3305,7 +3305,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3327,8 +3327,8 @@
       "listingPrice": 43,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 48.38,
-      "returnSinceIssuePct": 12.51,
+      "currentPrice": 48.31,
+      "returnSinceIssuePct": 12.35,
       "issueSizeCr": 125.5,
       "subscription": 29.46,
       "tier": "tier1",
@@ -3338,7 +3338,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3404,7 +3404,7 @@
       "logo": null,
       "initials": "OG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3470,7 +3470,7 @@
       "logo": null,
       "initials": "RT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3492,8 +3492,8 @@
       "listingPrice": 154,
       "listingDayClose": null,
       "listingGainPct": 10.0,
-      "currentPrice": 137.58,
-      "returnSinceIssuePct": -1.73,
+      "currentPrice": 138.83,
+      "returnSinceIssuePct": -0.84,
       "issueSizeCr": 210,
       "subscription": 14.6,
       "tier": "tier1",
@@ -3503,7 +3503,7 @@
       "logo": null,
       "initials": "VD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3558,8 +3558,8 @@
       "listingPrice": 139,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 122.23,
-      "returnSinceIssuePct": -12.06,
+      "currentPrice": 128.35,
+      "returnSinceIssuePct": -7.66,
       "issueSizeCr": 732.97,
       "subscription": 20.1,
       "tier": "tier1",
@@ -3569,7 +3569,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3602,7 +3602,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3624,8 +3624,8 @@
       "listingPrice": 320,
       "listingDayClose": null,
       "listingGainPct": 25.98,
-      "currentPrice": 375.7,
-      "returnSinceIssuePct": 47.91,
+      "currentPrice": 377.9,
+      "returnSinceIssuePct": 48.78,
       "issueSizeCr": 875,
       "subscription": 66.01,
       "tier": "tier1",
@@ -3635,7 +3635,7 @@
       "logo": null,
       "initials": "KE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3657,8 +3657,8 @@
       "listingPrice": 189,
       "listingDayClose": null,
       "listingGainPct": 29.45,
-      "currentPrice": 134.78,
-      "returnSinceIssuePct": -7.68,
+      "currentPrice": 135.74,
+      "returnSinceIssuePct": -7.03,
       "issueSizeCr": 427.14,
       "subscription": 49.57,
       "tier": "tier1",
@@ -3668,7 +3668,7 @@
       "logo": null,
       "initials": "LP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3690,8 +3690,8 @@
       "listingPrice": 330,
       "listingDayClose": null,
       "listingGainPct": -2.65,
-      "currentPrice": 312.8,
-      "returnSinceIssuePct": -7.73,
+      "currentPrice": 315.65,
+      "returnSinceIssuePct": -6.89,
       "issueSizeCr": 805,
       "subscription": 1.42,
       "tier": "tier1",
@@ -3701,7 +3701,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3723,8 +3723,8 @@
       "listingPrice": 482.45,
       "listingDayClose": null,
       "listingGainPct": 19.42,
-      "currentPrice": 579.35,
-      "returnSinceIssuePct": 43.4,
+      "currentPrice": 598.0,
+      "returnSinceIssuePct": 48.02,
       "issueSizeCr": 1255.67,
       "subscription": 72.89,
       "tier": "tier1",
@@ -3734,7 +3734,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3756,8 +3756,8 @@
       "listingPrice": 94.5,
       "listingDayClose": null,
       "listingGainPct": 16.67,
-      "currentPrice": 131.87,
-      "returnSinceIssuePct": 62.8,
+      "currentPrice": 134.14,
+      "returnSinceIssuePct": 65.6,
       "issueSizeCr": 414,
       "subscription": 32.07,
       "tier": "tier1",
@@ -3767,7 +3767,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3789,8 +3789,8 @@
       "listingPrice": 94,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 23.9,
-      "returnSinceIssuePct": -74.57,
+      "currentPrice": 24.3,
+      "returnSinceIssuePct": -74.15,
       "issueSizeCr": 42.83,
       "subscription": 1.6,
       "tier": "tier1",
@@ -3800,7 +3800,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3822,8 +3822,8 @@
       "listingPrice": 194,
       "listingDayClose": null,
       "listingGainPct": 6.59,
-      "currentPrice": 245.6,
-      "returnSinceIssuePct": 34.95,
+      "currentPrice": 251.69,
+      "returnSinceIssuePct": 38.29,
       "issueSizeCr": 427.89,
       "subscription": 81.65,
       "tier": "tier1",
@@ -3833,7 +3833,7 @@
       "logo": null,
       "initials": "GW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3855,8 +3855,8 @@
       "listingPrice": 685.5,
       "listingDayClose": null,
       "listingGainPct": 8.47,
-      "currentPrice": 992.35,
-      "returnSinceIssuePct": 57.02,
+      "currentPrice": 1005.85,
+      "returnSinceIssuePct": 59.15,
       "issueSizeCr": 1055.74,
       "subscription": 90.59,
       "tier": "tier1",
@@ -3866,7 +3866,7 @@
       "logo": null,
       "initials": "KE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3888,8 +3888,8 @@
       "listingPrice": 610,
       "listingDayClose": null,
       "listingGainPct": -9.76,
-      "currentPrice": 769.45,
-      "returnSinceIssuePct": 13.82,
+      "currentPrice": 786.65,
+      "returnSinceIssuePct": 16.37,
       "issueSizeCr": 500,
       "subscription": 3.47,
       "tier": "tier1",
@@ -3899,7 +3899,7 @@
       "logo": null,
       "initials": "PC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3932,7 +3932,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3954,8 +3954,8 @@
       "listingPrice": 165,
       "listingDayClose": null,
       "listingGainPct": 33.06,
-      "currentPrice": 84.97,
-      "returnSinceIssuePct": -31.48,
+      "currentPrice": 85.78,
+      "returnSinceIssuePct": -30.82,
       "issueSizeCr": 367.07,
       "subscription": 126.34,
       "tier": "tier1",
@@ -3965,7 +3965,7 @@
       "logo": null,
       "initials": "PC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3987,8 +3987,8 @@
       "listingPrice": 224.9,
       "listingDayClose": null,
       "listingGainPct": 77.09,
-      "currentPrice": 136.45,
-      "returnSinceIssuePct": 7.44,
+      "currentPrice": 137.1,
+      "returnSinceIssuePct": 7.95,
       "issueSizeCr": 45.11,
       "subscription": 459.22,
       "tier": "tier1",
@@ -3998,7 +3998,7 @@
       "logo": null,
       "initials": "QI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4020,8 +4020,8 @@
       "listingPrice": 221,
       "listingDayClose": null,
       "listingGainPct": 24.86,
-      "currentPrice": 214.62,
-      "returnSinceIssuePct": 21.25,
+      "currentPrice": 216.21,
+      "returnSinceIssuePct": 22.15,
       "issueSizeCr": 459.72,
       "subscription": 43.4,
       "tier": "tier1",
@@ -4031,7 +4031,7 @@
       "logo": null,
       "initials": "DJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4064,7 +4064,7 @@
       "logo": null,
       "initials": "FP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4119,8 +4119,8 @@
       "listingPrice": 239,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 245.89,
-      "returnSinceIssuePct": 2.88,
+      "currentPrice": 251.59,
+      "returnSinceIssuePct": 5.27,
       "issueSizeCr": 125,
       "subscription": 107.71,
       "tier": "tier1",
@@ -4130,7 +4130,7 @@
       "logo": null,
       "initials": "RO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4185,8 +4185,8 @@
       "listingPrice": 140,
       "listingDayClose": null,
       "listingGainPct": 52.17,
-      "currentPrice": 122.65,
-      "returnSinceIssuePct": 33.32,
+      "currentPrice": 125.95,
+      "returnSinceIssuePct": 36.9,
       "issueSizeCr": 56.35,
       "subscription": 144.65,
       "tier": "tier1",
@@ -4196,7 +4196,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4229,7 +4229,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4251,8 +4251,8 @@
       "listingPrice": 535,
       "listingDayClose": null,
       "listingGainPct": -6.96,
-      "currentPrice": 491.05,
-      "returnSinceIssuePct": -14.6,
+      "currentPrice": 497.55,
+      "returnSinceIssuePct": -13.47,
       "issueSizeCr": 680,
       "subscription": 1.36,
       "tier": "tier1",
@@ -4262,7 +4262,7 @@
       "logo": null,
       "initials": "PS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4284,8 +4284,8 @@
       "listingPrice": 157.7,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 5.86,
-      "returnSinceIssuePct": -92.94,
+      "currentPrice": 6.23,
+      "returnSinceIssuePct": -92.49,
       "issueSizeCr": 47.24,
       "subscription": 142.17,
       "tier": "tier1",
@@ -4295,7 +4295,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4350,8 +4350,8 @@
       "listingPrice": 757,
       "listingDayClose": null,
       "listingGainPct": 76.46,
-      "currentPrice": 1115.5,
-      "returnSinceIssuePct": 160.02,
+      "currentPrice": 1166.6,
+      "returnSinceIssuePct": 171.93,
       "issueSizeCr": 720,
       "subscription": 142.88,
       "tier": "tier1",
@@ -4361,7 +4361,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4394,7 +4394,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4416,8 +4416,8 @@
       "listingPrice": 230,
       "listingDayClose": null,
       "listingGainPct": 15.0,
-      "currentPrice": 264.3,
-      "returnSinceIssuePct": 32.15,
+      "currentPrice": 272.45,
+      "returnSinceIssuePct": 36.22,
       "issueSizeCr": 91.5,
       "subscription": 100.45,
       "tier": "tier1",
@@ -4427,7 +4427,7 @@
       "logo": null,
       "initials": "PJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4482,8 +4482,8 @@
       "listingPrice": 110,
       "listingDayClose": null,
       "listingGainPct": 34.15,
-      "currentPrice": 93.41,
-      "returnSinceIssuePct": 13.91,
+      "currentPrice": 96.12,
+      "returnSinceIssuePct": 17.22,
       "issueSizeCr": 700,
       "subscription": 124.02,
       "tier": "tier1",
@@ -4493,7 +4493,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4515,8 +4515,8 @@
       "listingPrice": 72,
       "listingDayClose": null,
       "listingGainPct": -27.27,
-      "currentPrice": 38.2,
-      "returnSinceIssuePct": -61.41,
+      "currentPrice": 39.19,
+      "returnSinceIssuePct": -60.41,
       "issueSizeCr": 175.06,
       "subscription": 2.93,
       "tier": "tier1",
@@ -4526,7 +4526,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4548,8 +4548,8 @@
       "listingPrice": 111,
       "listingDayClose": null,
       "listingGainPct": 9.9,
-      "currentPrice": 93.4,
-      "returnSinceIssuePct": -7.52,
+      "currentPrice": 99.75,
+      "returnSinceIssuePct": -1.24,
       "issueSizeCr": 53.4,
       "subscription": 162.94,
       "tier": "tier1",
@@ -4559,7 +4559,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4647,8 +4647,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": 41.51,
-      "currentPrice": 75.79,
-      "returnSinceIssuePct": 43.0,
+      "currentPrice": 77.45,
+      "returnSinceIssuePct": 46.13,
       "issueSizeCr": 135.73,
       "subscription": 247.39,
       "tier": "tier1",
@@ -4658,7 +4658,7 @@
       "logo": null,
       "initials": "HT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4713,8 +4713,8 @@
       "listingPrice": 124,
       "listingDayClose": null,
       "listingGainPct": -10.14,
-      "currentPrice": 106.01,
-      "returnSinceIssuePct": -23.18,
+      "currentPrice": 107.45,
+      "returnSinceIssuePct": -22.14,
       "issueSizeCr": 582.8,
       "subscription": 71.25,
       "tier": "tier1",
@@ -4724,7 +4724,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4746,8 +4746,8 @@
       "listingPrice": 988,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 1513.6,
-      "returnSinceIssuePct": 53.2,
+      "currentPrice": 1597.9,
+      "returnSinceIssuePct": 61.73,
       "issueSizeCr": 1757.3,
       "subscription": 75.08,
       "tier": "tier1",
@@ -4757,7 +4757,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4779,8 +4779,8 @@
       "listingPrice": 961,
       "listingDayClose": null,
       "listingGainPct": 21.95,
-      "currentPrice": 921.5,
-      "returnSinceIssuePct": 16.94,
+      "currentPrice": 948.55,
+      "returnSinceIssuePct": 20.37,
       "issueSizeCr": 825,
       "subscription": 111.18,
       "tier": "tier1",
@@ -4790,7 +4790,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4812,8 +4812,8 @@
       "listingPrice": 634,
       "listingDayClose": null,
       "listingGainPct": 111.33,
-      "currentPrice": 523.2,
-      "returnSinceIssuePct": 74.4,
+      "currentPrice": 534.7,
+      "returnSinceIssuePct": 78.23,
       "issueSizeCr": 650,
       "subscription": 184.22,
       "tier": "tier1",
@@ -4823,7 +4823,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4889,7 +4889,7 @@
       "logo": null,
       "initials": "DH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4911,8 +4911,8 @@
       "listingPrice": 185,
       "listingDayClose": null,
       "listingGainPct": 15.62,
-      "currentPrice": 134.31,
-      "returnSinceIssuePct": -16.06,
+      "currentPrice": 134.91,
+      "returnSinceIssuePct": -15.68,
       "issueSizeCr": 550,
       "subscription": 32.98,
       "tier": "tier1",
@@ -4922,7 +4922,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4955,7 +4955,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4977,8 +4977,8 @@
       "listingPrice": 103.3,
       "listingDayClose": null,
       "listingGainPct": 11.08,
-      "currentPrice": 91.56,
-      "returnSinceIssuePct": -1.55,
+      "currentPrice": 91.95,
+      "returnSinceIssuePct": -1.13,
       "issueSizeCr": 367.18,
       "subscription": 2.8,
       "tier": "tier1",
@@ -4988,7 +4988,7 @@
       "logo": null,
       "initials": "SJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5010,8 +5010,8 @@
       "listingPrice": 395.9,
       "listingDayClose": null,
       "listingGainPct": 9.97,
-      "currentPrice": 401.5,
-      "returnSinceIssuePct": 11.53,
+      "currentPrice": 402.65,
+      "returnSinceIssuePct": 11.85,
       "issueSizeCr": 282.14,
       "subscription": 105.81,
       "tier": "tier1",
@@ -5021,7 +5021,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5043,8 +5043,8 @@
       "listingPrice": 120.8,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 117.75,
-      "returnSinceIssuePct": -22.02,
+      "currentPrice": 123.25,
+      "returnSinceIssuePct": -18.38,
       "issueSizeCr": 66.98,
       "subscription": 1.48,
       "tier": "tier1",
@@ -5054,7 +5054,7 @@
       "logo": null,
       "initials": "FT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5076,8 +5076,8 @@
       "listingPrice": 60.25,
       "listingDayClose": null,
       "listingGainPct": 0.42,
-      "currentPrice": 43.43,
-      "returnSinceIssuePct": -27.62,
+      "currentPrice": 44.43,
+      "returnSinceIssuePct": -25.95,
       "issueSizeCr": 2600,
       "subscription": 1.52,
       "tier": "tier1",
@@ -5087,7 +5087,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5109,8 +5109,8 @@
       "listingPrice": 265,
       "listingDayClose": null,
       "listingGainPct": 31.84,
-      "currentPrice": 373.5,
-      "returnSinceIssuePct": 85.82,
+      "currentPrice": 372.65,
+      "returnSinceIssuePct": 85.4,
       "issueSizeCr": 1700.63,
       "subscription": 66.63,
       "tier": "tier1",
@@ -5120,7 +5120,7 @@
       "logo": null,
       "initials": "LJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5153,7 +5153,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5175,8 +5175,8 @@
       "listingPrice": 74,
       "listingDayClose": null,
       "listingGainPct": -3.9,
-      "currentPrice": 30.25,
-      "returnSinceIssuePct": -60.71,
+      "currentPrice": 30.05,
+      "returnSinceIssuePct": -60.97,
       "issueSizeCr": 22.68,
       "subscription": 2.04,
       "tier": "tier1",
@@ -5186,7 +5186,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5241,8 +5241,8 @@
       "listingPrice": 359.1,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 389.8,
-      "returnSinceIssuePct": 106.24,
+      "currentPrice": 408.85,
+      "returnSinceIssuePct": 116.32,
       "issueSizeCr": 93.9,
       "subscription": 153.13,
       "tier": "tier1",
@@ -5252,7 +5252,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5274,8 +5274,8 @@
       "listingPrice": 465,
       "listingDayClose": null,
       "listingGainPct": 63.16,
-      "currentPrice": 453.55,
-      "returnSinceIssuePct": 59.14,
+      "currentPrice": 456.8,
+      "returnSinceIssuePct": 60.28,
       "issueSizeCr": 301.62,
       "subscription": 118.07,
       "tier": "tier1",
@@ -5285,7 +5285,7 @@
       "logo": null,
       "initials": "BL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5307,8 +5307,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": 1.69,
-      "currentPrice": 107.45,
-      "returnSinceIssuePct": -8.94,
+      "currentPrice": 108.5,
+      "returnSinceIssuePct": -8.05,
       "issueSizeCr": 69.04,
       "subscription": 3.87,
       "tier": "tier1",
@@ -5318,7 +5318,7 @@
       "logo": null,
       "initials": "PM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5373,8 +5373,8 @@
       "listingPrice": 131,
       "listingDayClose": null,
       "listingGainPct": 35.05,
-      "currentPrice": 125.04,
-      "returnSinceIssuePct": 28.91,
+      "currentPrice": 133.18,
+      "returnSinceIssuePct": 37.3,
       "issueSizeCr": 1617.48,
       "subscription": 94.66,
       "tier": "tier1",
@@ -5384,7 +5384,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5406,8 +5406,8 @@
       "listingPrice": 165,
       "listingDayClose": null,
       "listingGainPct": 17.86,
-      "currentPrice": 297.2,
-      "returnSinceIssuePct": 112.29,
+      "currentPrice": 299.85,
+      "returnSinceIssuePct": 114.18,
       "issueSizeCr": 1553.2,
       "subscription": 55.9,
       "tier": "tier1",
@@ -5417,7 +5417,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5450,7 +5450,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5472,8 +5472,8 @@
       "listingPrice": 1200,
       "listingDayClose": null,
       "listingGainPct": 37.77,
-      "currentPrice": 1601.6,
-      "returnSinceIssuePct": 83.88,
+      "currentPrice": 1609.6,
+      "returnSinceIssuePct": 84.8,
       "issueSizeCr": 3067.49,
       "subscription": 75.06,
       "tier": "tier1",
@@ -5483,7 +5483,7 @@
       "logo": null,
       "initials": "DT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5505,8 +5505,8 @@
       "listingPrice": 980,
       "listingDayClose": null,
       "listingGainPct": 21.44,
-      "currentPrice": 1339.3,
-      "returnSinceIssuePct": 65.96,
+      "currentPrice": 1360.2,
+      "returnSinceIssuePct": 68.55,
       "issueSizeCr": 939.85,
       "subscription": 70.27,
       "tier": "tier1",
@@ -5516,7 +5516,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5538,8 +5538,8 @@
       "listingPrice": 165.9,
       "listingDayClose": null,
       "listingGainPct": 4.34,
-      "currentPrice": 121.97,
-      "returnSinceIssuePct": -23.29,
+      "currentPrice": 124.14,
+      "returnSinceIssuePct": -21.92,
       "issueSizeCr": 2480,
       "subscription": 8.82,
       "tier": "tier1",
@@ -5549,7 +5549,7 @@
       "logo": null,
       "initials": "LE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5571,8 +5571,8 @@
       "listingPrice": 180,
       "listingDayClose": null,
       "listingGainPct": 2.86,
-      "currentPrice": 130.8,
-      "returnSinceIssuePct": -25.26,
+      "currentPrice": 134.0,
+      "returnSinceIssuePct": -23.43,
       "issueSizeCr": 108.5,
       "subscription": 2.05,
       "tier": "tier1",
@@ -5582,7 +5582,7 @@
       "logo": null,
       "initials": "OE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5604,8 +5604,8 @@
       "listingPrice": 284,
       "listingDayClose": null,
       "listingGainPct": 33.96,
-      "currentPrice": 510.3,
-      "returnSinceIssuePct": 140.71,
+      "currentPrice": 523.45,
+      "returnSinceIssuePct": 146.91,
       "issueSizeCr": 251.88,
       "subscription": 38.69,
       "tier": "tier1",
@@ -5615,7 +5615,7 @@
       "logo": null,
       "initials": "TV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5681,7 +5681,7 @@
       "logo": null,
       "initials": "LA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5703,8 +5703,8 @@
       "listingPrice": 72,
       "listingDayClose": null,
       "listingGainPct": 35.85,
-      "currentPrice": 45.86,
-      "returnSinceIssuePct": -13.47,
+      "currentPrice": 47.55,
+      "returnSinceIssuePct": -10.28,
       "issueSizeCr": 425.87,
       "subscription": 138.83,
       "tier": "tier1",
@@ -5714,7 +5714,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5747,7 +5747,7 @@
       "logo": null,
       "initials": "GV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5780,7 +5780,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5802,8 +5802,8 @@
       "listingPrice": 329.65,
       "listingDayClose": null,
       "listingGainPct": 22.09,
-      "currentPrice": 367.5,
-      "returnSinceIssuePct": 36.11,
+      "currentPrice": 385.25,
+      "returnSinceIssuePct": 42.69,
       "issueSizeCr": 177.81,
       "subscription": 149.13,
       "tier": "tier1",
@@ -5813,7 +5813,7 @@
       "logo": null,
       "initials": "AW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5835,8 +5835,8 @@
       "listingPrice": 170,
       "listingDayClose": null,
       "listingGainPct": 6.92,
-      "currentPrice": 154.5,
-      "returnSinceIssuePct": -2.83,
+      "currentPrice": 158.24,
+      "returnSinceIssuePct": -0.48,
       "issueSizeCr": 39.04,
       "subscription": 1.5,
       "tier": "tier1",
@@ -5846,7 +5846,7 @@
       "logo": null,
       "initials": "FK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5879,7 +5879,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5901,8 +5901,8 @@
       "listingPrice": 245,
       "listingDayClose": null,
       "listingGainPct": 8.89,
-      "currentPrice": 255.81,
-      "returnSinceIssuePct": 13.69,
+      "currentPrice": 254.75,
+      "returnSinceIssuePct": 13.22,
       "issueSizeCr": 1800,
       "subscription": 8.38,
       "tier": "tier1",
@@ -5912,7 +5912,7 @@
       "logo": null,
       "initials": "JG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5934,8 +5934,8 @@
       "listingPrice": 520,
       "listingDayClose": null,
       "listingGainPct": 22.35,
-      "currentPrice": 733.35,
-      "returnSinceIssuePct": 72.55,
+      "currentPrice": 770.6,
+      "returnSinceIssuePct": 81.32,
       "issueSizeCr": 290,
       "subscription": 200.66,
       "tier": "tier1",
@@ -5945,7 +5945,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6011,7 +6011,7 @@
       "logo": null,
       "initials": "HR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6033,8 +6033,8 @@
       "listingPrice": 652,
       "listingDayClose": null,
       "listingGainPct": 10.51,
-      "currentPrice": 646.7,
-      "returnSinceIssuePct": 9.61,
+      "currentPrice": 658.4,
+      "returnSinceIssuePct": 11.59,
       "issueSizeCr": 9275.22,
       "subscription": 5.12,
       "tier": "tier1",
@@ -6044,7 +6044,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6077,7 +6077,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6099,8 +6099,8 @@
       "listingPrice": 94,
       "listingDayClose": null,
       "listingGainPct": -1.05,
-      "currentPrice": 119.81,
-      "returnSinceIssuePct": 26.12,
+      "currentPrice": 121.32,
+      "returnSinceIssuePct": 27.71,
       "issueSizeCr": 24.03,
       "subscription": 1.55,
       "tier": "tier1",
@@ -6110,7 +6110,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6176,7 +6176,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6209,7 +6209,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6231,8 +6231,8 @@
       "listingPrice": 700,
       "listingDayClose": null,
       "listingGainPct": 44.33,
-      "currentPrice": 1219.5,
-      "returnSinceIssuePct": 151.44,
+      "currentPrice": 1238.3,
+      "returnSinceIssuePct": 155.32,
       "issueSizeCr": 3812.11,
       "subscription": 72.37,
       "tier": "tier1",
@@ -6242,7 +6242,7 @@
       "logo": null,
       "initials": "IM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6264,8 +6264,8 @@
       "listingPrice": 461,
       "listingDayClose": null,
       "listingGainPct": 8.47,
-      "currentPrice": 495.7,
-      "returnSinceIssuePct": 16.64,
+      "currentPrice": 516.6,
+      "returnSinceIssuePct": 21.55,
       "issueSizeCr": 1101.28,
       "subscription": 7.26,
       "tier": "tier1",
@@ -6275,7 +6275,7 @@
       "logo": null,
       "initials": "LC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6297,8 +6297,8 @@
       "listingPrice": 136,
       "listingDayClose": null,
       "listingGainPct": 7.09,
-      "currentPrice": 264.75,
-      "returnSinceIssuePct": 108.46,
+      "currentPrice": 275.95,
+      "returnSinceIssuePct": 117.28,
       "issueSizeCr": 166.8,
       "subscription": 12.24,
       "tier": "tier1",
@@ -6308,7 +6308,7 @@
       "logo": null,
       "initials": "XT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6363,8 +6363,8 @@
       "listingPrice": 87,
       "listingDayClose": null,
       "listingGainPct": 12.99,
-      "currentPrice": 134.9,
-      "returnSinceIssuePct": 75.19,
+      "currentPrice": 134.05,
+      "returnSinceIssuePct": 74.09,
       "issueSizeCr": 49.96,
       "subscription": 4.53,
       "tier": "tier1",
@@ -6374,7 +6374,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6407,7 +6407,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6429,8 +6429,8 @@
       "listingPrice": 552,
       "listingDayClose": null,
       "listingGainPct": 30.19,
-      "currentPrice": 520.15,
-      "returnSinceIssuePct": 22.68,
+      "currentPrice": 519.5,
+      "returnSinceIssuePct": 22.52,
       "issueSizeCr": 450,
       "subscription": 146.01,
       "tier": "tier1",
@@ -6440,7 +6440,7 @@
       "logo": null,
       "initials": "CM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6473,7 +6473,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6495,8 +6495,8 @@
       "listingPrice": 105,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 41.89,
-      "returnSinceIssuePct": -60.1,
+      "currentPrice": 41.47,
+      "returnSinceIssuePct": -60.5,
       "issueSizeCr": 126.25,
       "subscription": 0.26,
       "tier": "tier1",
@@ -6506,7 +6506,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6539,7 +6539,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6561,8 +6561,8 @@
       "listingPrice": 610,
       "listingDayClose": null,
       "listingGainPct": 6.27,
-      "currentPrice": 499.55,
-      "returnSinceIssuePct": -12.97,
+      "currentPrice": 510.0,
+      "returnSinceIssuePct": -11.15,
       "issueSizeCr": 9812.91,
       "subscription": 41.73,
       "tier": "tier1",
@@ -6572,7 +6572,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6605,7 +6605,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6638,7 +6638,7 @@
       "logo": null,
       "initials": "HS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6660,8 +6660,8 @@
       "listingPrice": 269,
       "listingDayClose": null,
       "listingGainPct": 25.7,
-      "currentPrice": 204.68,
-      "returnSinceIssuePct": -4.36,
+      "currentPrice": 206.66,
+      "returnSinceIssuePct": -3.43,
       "issueSizeCr": 742,
       "subscription": 41.05,
       "tier": "tier1",
@@ -6671,7 +6671,7 @@
       "logo": null,
       "initials": "LP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6693,8 +6693,8 @@
       "listingPrice": 574,
       "listingDayClose": null,
       "listingGainPct": 36.99,
-      "currentPrice": 552.35,
-      "returnSinceIssuePct": 31.83,
+      "currentPrice": 562.5,
+      "returnSinceIssuePct": 34.25,
       "issueSizeCr": 650,
       "subscription": 135.8,
       "tier": "tier1",
@@ -6704,7 +6704,7 @@
       "logo": null,
       "initials": "KU",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6759,8 +6759,8 @@
       "listingPrice": 186,
       "listingDayClose": null,
       "listingGainPct": 9.41,
-      "currentPrice": 199.71,
-      "returnSinceIssuePct": 17.48,
+      "currentPrice": 199.94,
+      "returnSinceIssuePct": 17.61,
       "issueSizeCr": 439.71,
       "subscription": 87.17,
       "tier": "tier1",
@@ -6770,7 +6770,7 @@
       "logo": null,
       "initials": "KP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6803,7 +6803,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6836,7 +6836,7 @@
       "logo": null,
       "initials": "KT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6902,7 +6902,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6990,8 +6990,8 @@
       "listingPrice": 130,
       "listingDayClose": null,
       "listingGainPct": -4.41,
-      "currentPrice": 24.91,
-      "returnSinceIssuePct": -81.68,
+      "currentPrice": 26.11,
+      "returnSinceIssuePct": -80.8,
       "issueSizeCr": 170,
       "subscription": 5.05,
       "tier": "tier1",
@@ -7001,7 +7001,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7034,7 +7034,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -7122,8 +7122,8 @@
       "listingPrice": 113,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 78.43,
-      "returnSinceIssuePct": -30.59,
+      "currentPrice": 82.25,
+      "returnSinceIssuePct": -27.21,
       "issueSizeCr": 145.78,
       "subscription": 1.37,
       "tier": "tier1",
@@ -7133,7 +7133,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7155,8 +7155,8 @@
       "listingPrice": 187,
       "listingDayClose": null,
       "listingGainPct": 35.51,
-      "currentPrice": 323.5,
-      "returnSinceIssuePct": 134.42,
+      "currentPrice": 327.2,
+      "returnSinceIssuePct": 137.1,
       "issueSizeCr": 165.16,
       "subscription": 212.63,
       "tier": "tier1",
@@ -7166,7 +7166,7 @@
       "logo": null,
       "initials": "AJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7254,8 +7254,8 @@
       "listingPrice": 54.4,
       "listingDayClose": null,
       "listingGainPct": 2.64,
-      "currentPrice": 156.0,
-      "returnSinceIssuePct": 194.34,
+      "currentPrice": 161.0,
+      "returnSinceIssuePct": 203.77,
       "issueSizeCr": 30.68,
       "subscription": 6.7,
       "tier": "tier1",
@@ -7265,7 +7265,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7287,8 +7287,8 @@
       "listingPrice": 690,
       "listingDayClose": null,
       "listingGainPct": -14.6,
-      "currentPrice": 88.29,
-      "returnSinceIssuePct": -89.07,
+      "currentPrice": 92.04,
+      "returnSinceIssuePct": -88.61,
       "issueSizeCr": 585,
       "subscription": 1.53,
       "tier": "tier1",
@@ -7298,7 +7298,7 @@
       "logo": null,
       "initials": "WL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7353,8 +7353,8 @@
       "listingPrice": 136.2,
       "listingDayClose": null,
       "listingGainPct": -10.39,
-      "currentPrice": 56.3,
-      "returnSinceIssuePct": -62.96,
+      "currentPrice": 58.6,
+      "returnSinceIssuePct": -61.45,
       "issueSizeCr": 882.67,
       "subscription": 1.24,
       "tier": "tier1",
@@ -7364,7 +7364,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7386,8 +7386,8 @@
       "listingPrice": 395.2,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 250.0,
-      "returnSinceIssuePct": 20.19,
+      "currentPrice": 255.05,
+      "returnSinceIssuePct": 22.62,
       "issueSizeCr": 30.24,
       "subscription": 385.32,
       "tier": "tier1",
@@ -7397,7 +7397,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7496,7 +7496,7 @@
       "logo": null,
       "initials": "LE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -7617,8 +7617,8 @@
       "listingPrice": 66,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 47.7,
-      "returnSinceIssuePct": -27.73,
+      "currentPrice": 45.35,
+      "returnSinceIssuePct": -31.29,
       "issueSizeCr": 34.54,
       "subscription": 0.89,
       "tier": "tier1",
@@ -7628,7 +7628,7 @@
       "logo": null,
       "initials": "US",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7650,8 +7650,8 @@
       "listingPrice": 92.8,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 84.5,
-      "returnSinceIssuePct": -27.16,
+      "currentPrice": 85.0,
+      "returnSinceIssuePct": -26.72,
       "issueSizeCr": 54.66,
       "subscription": 0.99,
       "tier": "tier1",
@@ -7661,7 +7661,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7683,8 +7683,8 @@
       "listingPrice": 48,
       "listingDayClose": null,
       "listingGainPct": 6.67,
-      "currentPrice": 58.98,
-      "returnSinceIssuePct": 31.07,
+      "currentPrice": 61.58,
+      "returnSinceIssuePct": 36.84,
       "issueSizeCr": 138.87,
       "subscription": 4.56,
       "tier": "tier1",
@@ -7694,7 +7694,7 @@
       "logo": null,
       "initials": "HN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7782,8 +7782,8 @@
       "listingPrice": 275.4,
       "listingDayClose": null,
       "listingGainPct": 43.44,
-      "currentPrice": 218.29,
-      "returnSinceIssuePct": 13.69,
+      "currentPrice": 219.83,
+      "returnSinceIssuePct": 14.49,
       "issueSizeCr": 630.62,
       "subscription": 9.49,
       "tier": "tier1",
@@ -7793,7 +7793,7 @@
       "logo": null,
       "initials": "CG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7958,7 +7958,7 @@
       "logo": null,
       "initials": "HO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8178,8 +8178,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": 19.05,
-      "currentPrice": 169.45,
-      "returnSinceIssuePct": 168.97,
+      "currentPrice": 172.35,
+      "returnSinceIssuePct": 173.57,
       "issueSizeCr": 50.15,
       "subscription": 0.71,
       "tier": "tier1",
@@ -8189,7 +8189,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8354,7 +8354,7 @@
       "logo": null,
       "initials": "BP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8387,7 +8387,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8409,8 +8409,8 @@
       "listingPrice": 78.4,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 15.57,
-      "returnSinceIssuePct": -84.11,
+      "currentPrice": 15.7,
+      "returnSinceIssuePct": -83.98,
       "issueSizeCr": 41.69,
       "subscription": 0.62,
       "tier": "tier1",
@@ -8420,7 +8420,7 @@
       "logo": null,
       "initials": "V3",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8442,8 +8442,8 @@
       "listingPrice": 191,
       "listingDayClose": null,
       "listingGainPct": 11.7,
-      "currentPrice": 345.4,
-      "returnSinceIssuePct": 101.99,
+      "currentPrice": 354.15,
+      "returnSinceIssuePct": 107.11,
       "issueSizeCr": 925.92,
       "subscription": 0.59,
       "tier": "tier1",
@@ -8453,7 +8453,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8508,8 +8508,8 @@
       "listingPrice": 205,
       "listingDayClose": null,
       "listingGainPct": 19.19,
-      "currentPrice": 278.55,
-      "returnSinceIssuePct": 61.95,
+      "currentPrice": 272.3,
+      "returnSinceIssuePct": 58.31,
       "issueSizeCr": 74.1,
       "subscription": 3.31,
       "tier": "tier1",
@@ -8519,7 +8519,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8585,7 +8585,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8640,8 +8640,8 @@
       "listingPrice": 181.1,
       "listingDayClose": null,
       "listingGainPct": 3.49,
-      "currentPrice": 125.83,
-      "returnSinceIssuePct": -28.1,
+      "currentPrice": 128.9,
+      "returnSinceIssuePct": -26.34,
       "issueSizeCr": 150.06,
       "subscription": 0.69,
       "tier": "tier1",
@@ -8651,7 +8651,7 @@
       "logo": null,
       "initials": "OP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8772,8 +8772,8 @@
       "listingPrice": 195,
       "listingDayClose": null,
       "listingGainPct": -8.02,
-      "currentPrice": 238.71,
-      "returnSinceIssuePct": 12.6,
+      "currentPrice": 242.72,
+      "returnSinceIssuePct": 14.49,
       "issueSizeCr": 440,
       "subscription": 1.44,
       "tier": "tier1",
@@ -8783,7 +8783,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8838,8 +8838,8 @@
       "listingPrice": 375,
       "listingDayClose": null,
       "listingGainPct": -5.06,
-      "currentPrice": 469.6,
-      "returnSinceIssuePct": 18.89,
+      "currentPrice": 470.3,
+      "returnSinceIssuePct": 19.06,
       "issueSizeCr": 1100,
       "subscription": 0.03,
       "tier": "tier1",
@@ -8849,7 +8849,7 @@
       "logo": null,
       "initials": "PO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8871,8 +8871,8 @@
       "listingPrice": 405,
       "listingDayClose": null,
       "listingGainPct": 3.32,
-      "currentPrice": 466.35,
-      "returnSinceIssuePct": 18.97,
+      "currentPrice": 483.15,
+      "returnSinceIssuePct": 23.25,
       "issueSizeCr": 408.79,
       "subscription": 0.41,
       "tier": "tier1",
@@ -8882,7 +8882,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8937,8 +8937,8 @@
       "listingPrice": 162.8,
       "listingDayClose": null,
       "listingGainPct": -5.35,
-      "currentPrice": 177.28,
-      "returnSinceIssuePct": 3.07,
+      "currentPrice": 183.46,
+      "returnSinceIssuePct": 6.66,
       "issueSizeCr": 1841.45,
       "subscription": 0.26,
       "tier": "tier1",
@@ -8948,7 +8948,7 @@
       "logo": null,
       "initials": "CM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8981,7 +8981,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9014,7 +9014,7 @@
       "logo": null,
       "initials": "NL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9036,8 +9036,8 @@
       "listingPrice": 332.3,
       "listingDayClose": null,
       "listingGainPct": 3.84,
-      "currentPrice": 428.5,
-      "returnSinceIssuePct": 33.91,
+      "currentPrice": 438.25,
+      "returnSinceIssuePct": 36.95,
       "issueSizeCr": 400,
       "subscription": 0.95,
       "tier": "tier1",
@@ -9047,7 +9047,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9102,8 +9102,8 @@
       "listingPrice": 466,
       "listingDayClose": null,
       "listingGainPct": -10.21,
-      "currentPrice": 267.69,
-      "returnSinceIssuePct": -48.42,
+      "currentPrice": 273.26,
+      "returnSinceIssuePct": -47.35,
       "issueSizeCr": 319.25,
       "subscription": 1.25,
       "tier": "tier1",
@@ -9113,7 +9113,7 @@
       "logo": null,
       "initials": "IN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9135,8 +9135,8 @@
       "listingPrice": 123.95,
       "listingDayClose": null,
       "listingGainPct": 1.6,
-      "currentPrice": 166.85,
-      "returnSinceIssuePct": 36.76,
+      "currentPrice": 170.45,
+      "returnSinceIssuePct": 39.71,
       "issueSizeCr": 254.98,
       "subscription": null,
       "tier": "tier1",
@@ -9146,7 +9146,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9245,7 +9245,7 @@
       "logo": null,
       "initials": "EA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9267,8 +9267,8 @@
       "listingPrice": 1510,
       "listingDayClose": null,
       "listingGainPct": 11.69,
-      "currentPrice": 3023.9,
-      "returnSinceIssuePct": 123.66,
+      "currentPrice": 3105.3,
+      "returnSinceIssuePct": 129.68,
       "issueSizeCr": 1087.35,
       "subscription": null,
       "tier": "tier1",
@@ -9278,7 +9278,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9366,8 +9366,8 @@
       "listingPrice": 205,
       "listingDayClose": null,
       "listingGainPct": -9.69,
-      "currentPrice": 604.2,
-      "returnSinceIssuePct": 166.17,
+      "currentPrice": 597.8,
+      "returnSinceIssuePct": 163.35,
       "issueSizeCr": 583,
       "subscription": null,
       "tier": "tier1",
@@ -9377,7 +9377,7 @@
       "logo": null,
       "initials": "OE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9432,8 +9432,8 @@
       "listingPrice": 372,
       "listingDayClose": null,
       "listingGainPct": -3.63,
-      "currentPrice": 603.15,
-      "returnSinceIssuePct": 56.26,
+      "currentPrice": 623.05,
+      "returnSinceIssuePct": 61.41,
       "issueSizeCr": 379.52,
       "subscription": null,
       "tier": "tier1",
@@ -9443,7 +9443,7 @@
       "logo": null,
       "initials": "PR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9498,8 +9498,8 @@
       "listingPrice": 952.2,
       "listingDayClose": null,
       "listingGainPct": -9.57,
-      "currentPrice": 1259.7,
-      "returnSinceIssuePct": 19.63,
+      "currentPrice": 1237.7,
+      "returnSinceIssuePct": 17.54,
       "issueSizeCr": 3079.88,
       "subscription": null,
       "tier": "tier1",
@@ -9509,7 +9509,7 @@
       "logo": null,
       "initials": "CM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9542,7 +9542,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9564,8 +9564,8 @@
       "listingPrice": 64.1,
       "listingDayClose": null,
       "listingGainPct": -19.88,
-      "currentPrice": 115.25,
-      "returnSinceIssuePct": 44.06,
+      "currentPrice": 121.0,
+      "returnSinceIssuePct": 51.25,
       "issueSizeCr": 20.1,
       "subscription": null,
       "tier": "tier1",
@@ -9575,7 +9575,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9597,8 +9597,8 @@
       "listingPrice": 70,
       "listingDayClose": null,
       "listingGainPct": -32.69,
-      "currentPrice": 36.63,
-      "returnSinceIssuePct": -64.78,
+      "currentPrice": 37.24,
+      "returnSinceIssuePct": -64.19,
       "issueSizeCr": 110.24,
       "subscription": null,
       "tier": "tier1",
@@ -9608,7 +9608,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9630,8 +9630,8 @@
       "listingPrice": 83,
       "listingDayClose": null,
       "listingGainPct": 5.06,
-      "currentPrice": 104.18,
-      "returnSinceIssuePct": 31.87,
+      "currentPrice": 106.75,
+      "returnSinceIssuePct": 35.13,
       "issueSizeCr": 165,
       "subscription": null,
       "tier": "tier1",
@@ -9641,7 +9641,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9663,8 +9663,8 @@
       "listingPrice": 55.2,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 31.5,
-      "returnSinceIssuePct": -54.35,
+      "currentPrice": 31.0,
+      "returnSinceIssuePct": -55.07,
       "issueSizeCr": 39.95,
       "subscription": null,
       "tier": "tier1",
@@ -9674,7 +9674,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9729,8 +9729,8 @@
       "listingPrice": 229,
       "listingDayClose": null,
       "listingGainPct": 6.02,
-      "currentPrice": 808.85,
-      "returnSinceIssuePct": 274.47,
+      "currentPrice": 800.35,
+      "returnSinceIssuePct": 270.53,
       "issueSizeCr": 49,
       "subscription": null,
       "tier": "tier1",
@@ -9740,7 +9740,7 @@
       "logo": null,
       "initials": "FI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9762,8 +9762,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": 2.56,
-      "currentPrice": 123.1,
-      "returnSinceIssuePct": 5.21,
+      "currentPrice": 127.95,
+      "returnSinceIssuePct": 9.36,
       "issueSizeCr": 26.97,
       "subscription": null,
       "tier": "tier1",
@@ -9773,7 +9773,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9795,8 +9795,8 @@
       "listingPrice": 129,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 147.13,
-      "returnSinceIssuePct": 14.05,
+      "currentPrice": 149.97,
+      "returnSinceIssuePct": 16.26,
       "issueSizeCr": 1010,
       "subscription": null,
       "tier": "tier1",
@@ -9806,7 +9806,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9828,8 +9828,8 @@
       "listingPrice": 900,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 808.85,
-      "returnSinceIssuePct": -10.13,
+      "currentPrice": 800.35,
+      "returnSinceIssuePct": -11.07,
       "issueSizeCr": 2833.9,
       "subscription": null,
       "tier": "tier1",
@@ -9839,7 +9839,7 @@
       "logo": null,
       "initials": "FA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9861,8 +9861,8 @@
       "listingPrice": 111,
       "listingDayClose": null,
       "listingGainPct": 2.78,
-      "currentPrice": 47.0,
-      "returnSinceIssuePct": -56.48,
+      "currentPrice": 45.45,
+      "returnSinceIssuePct": -57.92,
       "issueSizeCr": 31.26,
       "subscription": null,
       "tier": "tier1",
@@ -9872,7 +9872,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9927,8 +9927,8 @@
       "listingPrice": 183,
       "listingDayClose": null,
       "listingGainPct": 3.98,
-      "currentPrice": 142.35,
-      "returnSinceIssuePct": -19.12,
+      "currentPrice": 143.25,
+      "returnSinceIssuePct": -18.61,
       "issueSizeCr": 86.09,
       "subscription": null,
       "tier": "tier1",
@@ -9938,7 +9938,7 @@
       "logo": null,
       "initials": "BR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9993,8 +9993,8 @@
       "listingPrice": 163,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 759.2,
-      "returnSinceIssuePct": 365.77,
+      "currentPrice": 756.25,
+      "returnSinceIssuePct": 363.96,
       "issueSizeCr": 88.02,
       "subscription": null,
       "tier": "tier1",
@@ -10004,7 +10004,7 @@
       "logo": null,
       "initials": "CK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10037,7 +10037,7 @@
       "logo": null,
       "initials": "AN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10103,7 +10103,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10169,7 +10169,7 @@
       "logo": null,
       "initials": "HJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10202,7 +10202,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10268,7 +10268,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10290,8 +10290,8 @@
       "listingPrice": 113,
       "listingDayClose": null,
       "listingGainPct": -8.87,
-      "currentPrice": 288.25,
-      "returnSinceIssuePct": 132.46,
+      "currentPrice": 296.05,
+      "returnSinceIssuePct": 138.75,
       "issueSizeCr": 1907.27,
       "subscription": null,
       "tier": "tier1",
@@ -10301,7 +10301,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10334,7 +10334,7 @@
       "logo": null,
       "initials": "AV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10389,8 +10389,8 @@
       "listingPrice": 317,
       "listingDayClose": null,
       "listingGainPct": -12.19,
-      "currentPrice": 568.25,
-      "returnSinceIssuePct": 57.41,
+      "currentPrice": 559.3,
+      "returnSinceIssuePct": 54.93,
       "issueSizeCr": 1788.62,
       "subscription": null,
       "tier": "tier1",
@@ -10400,7 +10400,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10433,7 +10433,7 @@
       "logo": null,
       "initials": "GR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10466,7 +10466,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10521,8 +10521,8 @@
       "listingPrice": 77.5,
       "listingDayClose": null,
       "listingGainPct": 31.36,
-      "currentPrice": 142.25,
-      "returnSinceIssuePct": 141.1,
+      "currentPrice": 136.95,
+      "returnSinceIssuePct": 132.12,
       "issueSizeCr": 35.22,
       "subscription": null,
       "tier": "tier1",
@@ -10532,7 +10532,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10554,8 +10554,8 @@
       "listingPrice": 45.21,
       "listingDayClose": null,
       "listingGainPct": 96.57,
-      "currentPrice": 31.56,
-      "returnSinceIssuePct": 37.22,
+      "currentPrice": 31.9,
+      "returnSinceIssuePct": 38.7,
       "issueSizeCr": 1068.78,
       "subscription": null,
       "tier": "tier1",
@@ -10565,7 +10565,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10664,7 +10664,7 @@
       "logo": null,
       "initials": "YF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10796,7 +10796,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10818,8 +10818,8 @@
       "listingPrice": 145,
       "listingDayClose": null,
       "listingGainPct": 11.54,
-      "currentPrice": 413.65,
-      "returnSinceIssuePct": 218.19,
+      "currentPrice": 422.6,
+      "returnSinceIssuePct": 225.08,
       "issueSizeCr": 47.96,
       "subscription": null,
       "tier": "tier1",
@@ -10829,7 +10829,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10862,7 +10862,7 @@
       "logo": null,
       "initials": "BK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10928,7 +10928,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11016,8 +11016,8 @@
       "listingPrice": 120.75,
       "listingDayClose": null,
       "listingGainPct": 5.92,
-      "currentPrice": 155.92,
-      "returnSinceIssuePct": 36.77,
+      "currentPrice": 159.11,
+      "returnSinceIssuePct": 39.57,
       "issueSizeCr": 250.8,
       "subscription": null,
       "tier": "tier1",
@@ -11027,7 +11027,7 @@
       "logo": null,
       "initials": "GK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11115,8 +11115,8 @@
       "listingPrice": 79.2,
       "listingDayClose": null,
       "listingGainPct": 1.54,
-      "currentPrice": 143.68,
-      "returnSinceIssuePct": 84.21,
+      "currentPrice": 145.09,
+      "returnSinceIssuePct": 86.01,
       "issueSizeCr": 30.41,
       "subscription": null,
       "tier": "tier1",
@@ -11126,7 +11126,7 @@
       "logo": null,
       "initials": "GO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11181,8 +11181,8 @@
       "listingPrice": 370,
       "listingDayClose": null,
       "listingGainPct": -3.65,
-      "currentPrice": 1004.75,
-      "returnSinceIssuePct": 161.65,
+      "currentPrice": 1013.7,
+      "returnSinceIssuePct": 163.98,
       "issueSizeCr": 626.35,
       "subscription": null,
       "tier": "tier1",
@@ -11192,7 +11192,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11214,8 +11214,8 @@
       "listingPrice": 100.8,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 182.0,
-      "returnSinceIssuePct": 44.44,
+      "currentPrice": 185.25,
+      "returnSinceIssuePct": 47.02,
       "issueSizeCr": 46.62,
       "subscription": null,
       "tier": "tier1",
@@ -11225,7 +11225,7 @@
       "logo": null,
       "initials": "NL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11247,8 +11247,8 @@
       "listingPrice": 147,
       "listingDayClose": null,
       "listingGainPct": 3.52,
-      "currentPrice": 152.5,
-      "returnSinceIssuePct": 7.39,
+      "currentPrice": 150.0,
+      "returnSinceIssuePct": 5.63,
       "issueSizeCr": 71,
       "subscription": null,
       "tier": "tier1",
@@ -11258,7 +11258,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11390,7 +11390,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11423,7 +11423,7 @@
       "logo": null,
       "initials": "PA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11445,8 +11445,8 @@
       "listingPrice": 491.7,
       "listingDayClose": null,
       "listingGainPct": 6.89,
-      "currentPrice": 601.75,
-      "returnSinceIssuePct": 30.82,
+      "currentPrice": 619.45,
+      "returnSinceIssuePct": 34.66,
       "issueSizeCr": 871.05,
       "subscription": null,
       "tier": "tier1",
@@ -11456,7 +11456,7 @@
       "logo": null,
       "initials": "NH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11478,8 +11478,8 @@
       "listingPrice": 155.6,
       "listingDayClose": null,
       "listingGainPct": -3.95,
-      "currentPrice": 251.39,
-      "returnSinceIssuePct": 55.18,
+      "currentPrice": 260.12,
+      "returnSinceIssuePct": 60.57,
       "issueSizeCr": 920,
       "subscription": null,
       "tier": "tier1",
@@ -11489,7 +11489,7 @@
       "logo": null,
       "initials": "PM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11577,8 +11577,8 @@
       "listingPrice": 1452,
       "listingDayClose": null,
       "listingGainPct": 36.72,
-      "currentPrice": 2441.1,
-      "returnSinceIssuePct": 129.86,
+      "currentPrice": 2534.2,
+      "returnSinceIssuePct": 138.63,
       "issueSizeCr": 655.37,
       "subscription": null,
       "tier": "tier1",
@@ -11588,7 +11588,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11621,7 +11621,7 @@
       "logo": null,
       "initials": "KV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11709,8 +11709,8 @@
       "listingPrice": 195,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 137.91,
-      "returnSinceIssuePct": -29.28,
+      "currentPrice": 138.6,
+      "returnSinceIssuePct": -28.92,
       "issueSizeCr": 1288.89,
       "subscription": null,
       "tier": "tier1",
@@ -11720,7 +11720,7 @@
       "logo": null,
       "initials": "WI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11819,7 +11819,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11885,7 +11885,7 @@
       "logo": null,
       "initials": "WO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11907,8 +11907,8 @@
       "listingPrice": 140,
       "listingDayClose": null,
       "listingGainPct": 12.9,
-      "currentPrice": 219.54,
-      "returnSinceIssuePct": 77.05,
+      "currentPrice": 226.04,
+      "returnSinceIssuePct": 82.29,
       "issueSizeCr": 921.81,
       "subscription": null,
       "tier": "tier1",
@@ -11918,7 +11918,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11940,8 +11940,8 @@
       "listingPrice": 161.2,
       "listingDayClose": null,
       "listingGainPct": 45.23,
-      "currentPrice": 233.48,
-      "returnSinceIssuePct": 110.34,
+      "currentPrice": 233.7,
+      "returnSinceIssuePct": 110.54,
       "issueSizeCr": 5421.2,
       "subscription": null,
       "tier": "tier1",
@@ -11951,7 +11951,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12006,8 +12006,8 @@
       "listingPrice": 52.13,
       "listingDayClose": null,
       "listingGainPct": 0.25,
-      "currentPrice": 67.8,
-      "returnSinceIssuePct": 30.38,
+      "currentPrice": 72.79,
+      "returnSinceIssuePct": 39.98,
       "issueSizeCr": 300.01,
       "subscription": null,
       "tier": "tier1",
@@ -12017,7 +12017,7 @@
       "logo": null,
       "initials": "VW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12072,8 +12072,8 @@
       "listingPrice": 108,
       "listingDayClose": null,
       "listingGainPct": 10.2,
-      "currentPrice": 106.25,
-      "returnSinceIssuePct": 8.42,
+      "currentPrice": 104.6,
+      "returnSinceIssuePct": 6.73,
       "issueSizeCr": 44.97,
       "subscription": null,
       "tier": "tier1",
@@ -12083,7 +12083,7 @@
       "logo": null,
       "initials": "NB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12116,7 +12116,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12171,8 +12171,8 @@
       "listingPrice": 100,
       "listingDayClose": null,
       "listingGainPct": 17.65,
-      "currentPrice": 69.2,
-      "returnSinceIssuePct": -18.59,
+      "currentPrice": 69.1,
+      "returnSinceIssuePct": -18.71,
       "issueSizeCr": 28.12,
       "subscription": null,
       "tier": "tier1",
@@ -12182,7 +12182,7 @@
       "logo": null,
       "initials": "ID",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12281,7 +12281,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12314,7 +12314,7 @@
       "logo": null,
       "initials": "LS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12347,7 +12347,7 @@
       "logo": null,
       "initials": "PW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12380,7 +12380,7 @@
       "logo": null,
       "initials": "KK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12468,8 +12468,8 @@
       "listingPrice": 733.95,
       "listingDayClose": null,
       "listingGainPct": 23.77,
-      "currentPrice": 1178.3,
-      "returnSinceIssuePct": 98.7,
+      "currentPrice": 1212.0,
+      "returnSinceIssuePct": 104.38,
       "issueSizeCr": 895,
       "subscription": null,
       "tier": "tier1",
@@ -12479,7 +12479,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12501,8 +12501,8 @@
       "listingPrice": 135,
       "listingDayClose": null,
       "listingGainPct": 12.5,
-      "currentPrice": 74.0,
-      "returnSinceIssuePct": -38.33,
+      "currentPrice": 75.19,
+      "returnSinceIssuePct": -37.34,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier1",
@@ -12512,7 +12512,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12567,8 +12567,8 @@
       "listingPrice": 560,
       "listingDayClose": null,
       "listingGainPct": -2.95,
-      "currentPrice": 507.8,
-      "returnSinceIssuePct": -11.99,
+      "currentPrice": 506.65,
+      "returnSinceIssuePct": -12.19,
       "issueSizeCr": 877.5,
       "subscription": null,
       "tier": "tier1",
@@ -12578,7 +12578,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12600,8 +12600,8 @@
       "listingPrice": 218.4,
       "listingDayClose": null,
       "listingGainPct": -4.21,
-      "currentPrice": 351.8,
-      "returnSinceIssuePct": 54.3,
+      "currentPrice": 358.95,
+      "returnSinceIssuePct": 57.43,
       "issueSizeCr": 828,
       "subscription": null,
       "tier": "tier1",
@@ -12611,7 +12611,7 @@
       "logo": null,
       "initials": "FP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12633,8 +12633,8 @@
       "listingPrice": 498,
       "listingDayClose": null,
       "listingGainPct": 25.44,
-      "currentPrice": 423.25,
-      "returnSinceIssuePct": 6.61,
+      "currentPrice": 438.0,
+      "returnSinceIssuePct": 10.33,
       "issueSizeCr": 3600,
       "subscription": null,
       "tier": "tier1",
@@ -12644,7 +12644,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12666,8 +12666,8 @@
       "listingPrice": 217,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 251.31,
-      "returnSinceIssuePct": 15.81,
+      "currentPrice": 267.53,
+      "returnSinceIssuePct": 23.29,
       "issueSizeCr": 2900,
       "subscription": null,
       "tier": "tier1",
@@ -12677,7 +12677,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12710,7 +12710,7 @@
       "logo": null,
       "initials": "ML",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12732,8 +12732,8 @@
       "listingPrice": 143.1,
       "listingDayClose": null,
       "listingGainPct": 31.28,
-      "currentPrice": 130.0,
-      "returnSinceIssuePct": 19.27,
+      "currentPrice": 130.06,
+      "returnSinceIssuePct": 19.32,
       "issueSizeCr": 3480,
       "subscription": null,
       "tier": "tier1",
@@ -12743,7 +12743,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12776,7 +12776,7 @@
       "logo": null,
       "initials": "WC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12798,8 +12798,8 @@
       "listingPrice": 146.1,
       "listingDayClose": null,
       "listingGainPct": 14.14,
-      "currentPrice": 177.1,
-      "returnSinceIssuePct": 38.36,
+      "currentPrice": 183.8,
+      "returnSinceIssuePct": 43.59,
       "issueSizeCr": 27.52,
       "subscription": null,
       "tier": "tier1",
@@ -12809,7 +12809,7 @@
       "logo": null,
       "initials": "CL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12831,8 +12831,8 @@
       "listingPrice": 242,
       "listingDayClose": null,
       "listingGainPct": 9.5,
-      "currentPrice": 162.45,
-      "returnSinceIssuePct": -26.49,
+      "currentPrice": 163.82,
+      "returnSinceIssuePct": -25.87,
       "issueSizeCr": 3900.17,
       "subscription": null,
       "tier": "tier1",
@@ -12842,7 +12842,7 @@
       "logo": null,
       "initials": "PL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12875,7 +12875,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12897,8 +12897,8 @@
       "listingPrice": 157,
       "listingDayClose": null,
       "listingGainPct": 10.56,
-      "currentPrice": 127.9,
-      "returnSinceIssuePct": -9.93,
+      "currentPrice": 128.0,
+      "returnSinceIssuePct": -9.86,
       "issueSizeCr": 71.68,
       "subscription": null,
       "tier": "tier1",
@@ -12908,7 +12908,7 @@
       "logo": null,
       "initials": "FF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12930,8 +12930,8 @@
       "listingPrice": 114,
       "listingDayClose": null,
       "listingGainPct": 14.0,
-      "currentPrice": 215.08,
-      "returnSinceIssuePct": 115.08,
+      "currentPrice": 217.89,
+      "returnSinceIssuePct": 117.89,
       "issueSizeCr": 6632.3,
       "subscription": null,
       "tier": "tier1",
@@ -12941,7 +12941,7 @@
       "logo": null,
       "initials": "BG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12996,8 +12996,8 @@
       "listingPrice": 390,
       "listingDayClose": null,
       "listingGainPct": -2.99,
-      "currentPrice": 724.75,
-      "returnSinceIssuePct": 80.29,
+      "currentPrice": 732.3,
+      "returnSinceIssuePct": 82.16,
       "issueSizeCr": 7278.02,
       "subscription": null,
       "tier": "tier1",
@@ -13007,7 +13007,7 @@
       "logo": null,
       "initials": "LS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13029,8 +13029,8 @@
       "listingPrice": 570,
       "listingDayClose": null,
       "listingGainPct": -2.56,
-      "currentPrice": 398.25,
-      "returnSinceIssuePct": -31.92,
+      "currentPrice": 402.0,
+      "returnSinceIssuePct": -31.28,
       "issueSizeCr": 455.49,
       "subscription": null,
       "tier": "tier1",
@@ -13040,7 +13040,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13062,8 +13062,8 @@
       "listingPrice": 751.5,
       "listingDayClose": null,
       "listingGainPct": 2.95,
-      "currentPrice": 568.15,
-      "returnSinceIssuePct": -22.17,
+      "currentPrice": 570.2,
+      "returnSinceIssuePct": -21.89,
       "issueSizeCr": 1667.54,
       "subscription": null,
       "tier": "tier1",
@@ -13073,7 +13073,7 @@
       "logo": null,
       "initials": "OI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13106,7 +13106,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13161,8 +13161,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": -1.64,
-      "currentPrice": 125.0,
-      "returnSinceIssuePct": 2.46,
+      "currentPrice": 126.0,
+      "returnSinceIssuePct": 3.28,
       "issueSizeCr": 28.63,
       "subscription": null,
       "tier": "tier2",
@@ -13172,7 +13172,7 @@
       "logo": null,
       "initials": "JL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13194,8 +13194,8 @@
       "listingPrice": 1165.1,
       "listingDayClose": null,
       "listingGainPct": 9.4,
-      "currentPrice": 981.7,
-      "returnSinceIssuePct": -7.82,
+      "currentPrice": 1012.5,
+      "returnSinceIssuePct": -4.93,
       "issueSizeCr": 451.1,
       "subscription": null,
       "tier": "tier2",
@@ -13205,7 +13205,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13227,8 +13227,8 @@
       "listingPrice": 106,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 122.05,
-      "returnSinceIssuePct": 15.14,
+      "currentPrice": 120.5,
+      "returnSinceIssuePct": 13.68,
       "issueSizeCr": 2517.5,
       "subscription": null,
       "tier": "tier2",
@@ -13238,7 +13238,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13304,7 +13304,7 @@
       "logo": null,
       "initials": "SD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13370,7 +13370,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13392,8 +13392,8 @@
       "listingPrice": 280.25,
       "listingDayClose": null,
       "listingGainPct": 5.36,
-      "currentPrice": 224.12,
-      "returnSinceIssuePct": -15.74,
+      "currentPrice": 229.03,
+      "returnSinceIssuePct": -13.9,
       "issueSizeCr": 1326.13,
       "subscription": null,
       "tier": "tier2",
@@ -13403,7 +13403,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13425,8 +13425,8 @@
       "listingPrice": 620.1,
       "listingDayClose": null,
       "listingGainPct": 27.86,
-      "currentPrice": 1659.3,
-      "returnSinceIssuePct": 242.12,
+      "currentPrice": 1730.8,
+      "returnSinceIssuePct": 256.87,
       "issueSizeCr": 1377.68,
       "subscription": null,
       "tier": "tier2",
@@ -13436,7 +13436,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13458,8 +13458,8 @@
       "listingPrice": 1715,
       "listingDayClose": null,
       "listingGainPct": 50.44,
-      "currentPrice": 1754.1,
-      "returnSinceIssuePct": 53.87,
+      "currentPrice": 1772.2,
+      "returnSinceIssuePct": 55.46,
       "issueSizeCr": 11607.01,
       "subscription": null,
       "tier": "tier2",
@@ -13469,7 +13469,7 @@
       "logo": null,
       "initials": "LE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13524,8 +13524,8 @@
       "listingPrice": 330,
       "listingDayClose": null,
       "listingGainPct": 1.23,
-      "currentPrice": 358.05,
-      "returnSinceIssuePct": 9.83,
+      "currentPrice": 351.7,
+      "returnSinceIssuePct": 7.88,
       "issueSizeCr": 15511.87,
       "subscription": null,
       "tier": "tier2",
@@ -13535,7 +13535,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13568,7 +13568,7 @@
       "logo": null,
       "initials": "NB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13590,8 +13590,8 @@
       "listingPrice": 650,
       "listingDayClose": null,
       "listingGainPct": 0.31,
-      "currentPrice": 681.65,
-      "returnSinceIssuePct": 5.19,
+      "currentPrice": 678.1,
+      "returnSinceIssuePct": 4.65,
       "issueSizeCr": 3000,
       "subscription": null,
       "tier": "tier2",
@@ -13601,7 +13601,7 @@
       "logo": null,
       "initials": "WI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13634,7 +13634,7 @@
       "logo": null,
       "initials": "DF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13689,8 +13689,8 @@
       "listingPrice": 113,
       "listingDayClose": null,
       "listingGainPct": 13.0,
-      "currentPrice": 119.81,
-      "returnSinceIssuePct": 19.81,
+      "currentPrice": 121.32,
+      "returnSinceIssuePct": 21.32,
       "issueSizeCr": 192.86,
       "subscription": null,
       "tier": "tier2",
@@ -13700,7 +13700,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13799,7 +13799,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13854,8 +13854,8 @@
       "listingPrice": 82.5,
       "listingDayClose": null,
       "listingGainPct": -38.89,
-      "currentPrice": 114.75,
-      "returnSinceIssuePct": -15.0,
+      "currentPrice": 117.83,
+      "returnSinceIssuePct": -12.72,
       "issueSizeCr": 122.31,
       "subscription": null,
       "tier": "tier2",
@@ -13865,7 +13865,7 @@
       "logo": null,
       "initials": "OF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13931,7 +13931,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13997,7 +13997,7 @@
       "logo": null,
       "initials": "ZE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14052,8 +14052,8 @@
       "listingPrice": 191,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 131.98,
-      "returnSinceIssuePct": -30.9,
+      "currentPrice": 138.76,
+      "returnSinceIssuePct": -27.35,
       "issueSizeCr": 230.3,
       "subscription": null,
       "tier": "tier2",
@@ -14063,7 +14063,7 @@
       "logo": null,
       "initials": "FT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14085,8 +14085,8 @@
       "listingPrice": 88,
       "listingDayClose": null,
       "listingGainPct": -31.78,
-      "currentPrice": 58.67,
-      "returnSinceIssuePct": -54.52,
+      "currentPrice": 60.14,
+      "returnSinceIssuePct": -53.38,
       "issueSizeCr": 307,
       "subscription": null,
       "tier": "tier2",
@@ -14096,7 +14096,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14129,7 +14129,7 @@
       "logo": null,
       "initials": "OM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14162,7 +14162,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14261,7 +14261,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14327,7 +14327,7 @@
       "logo": null,
       "initials": "KC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14360,7 +14360,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14415,8 +14415,8 @@
       "listingPrice": 226.85,
       "listingDayClose": null,
       "listingGainPct": 3.58,
-      "currentPrice": 158.13,
-      "returnSinceIssuePct": -27.79,
+      "currentPrice": 161.58,
+      "returnSinceIssuePct": -26.22,
       "issueSizeCr": 819.15,
       "subscription": null,
       "tier": "tier2",
@@ -14426,7 +14426,7 @@
       "logo": null,
       "initials": "PD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14580,8 +14580,8 @@
       "listingPrice": 125,
       "listingDayClose": null,
       "listingGainPct": 3.31,
-      "currentPrice": 105.09,
-      "returnSinceIssuePct": -13.15,
+      "currentPrice": 107.05,
+      "returnSinceIssuePct": -11.53,
       "issueSizeCr": 116.15,
       "subscription": null,
       "tier": "tier2",
@@ -14591,7 +14591,7 @@
       "logo": null,
       "initials": "JI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14624,7 +14624,7 @@
       "logo": null,
       "initials": "TP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14646,8 +14646,8 @@
       "listingPrice": 550,
       "listingDayClose": null,
       "listingGainPct": 10.89,
-      "currentPrice": 353.25,
-      "returnSinceIssuePct": -28.78,
+      "currentPrice": 369.05,
+      "returnSinceIssuePct": -25.59,
       "issueSizeCr": 839.28,
       "subscription": null,
       "tier": "tier2",
@@ -14657,7 +14657,7 @@
       "logo": null,
       "initials": "TB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14679,8 +14679,8 @@
       "listingPrice": 80,
       "listingDayClose": null,
       "listingGainPct": -19.19,
-      "currentPrice": 64.65,
-      "returnSinceIssuePct": -34.7,
+      "currentPrice": 64.52,
+      "returnSinceIssuePct": -34.83,
       "issueSizeCr": 231.66,
       "subscription": null,
       "tier": "tier2",
@@ -14690,7 +14690,7 @@
       "logo": null,
       "initials": "BV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14712,8 +14712,8 @@
       "listingPrice": 186.1,
       "listingDayClose": null,
       "listingGainPct": -8.77,
-      "currentPrice": 192.57,
-      "returnSinceIssuePct": -5.6,
+      "currentPrice": 196.3,
+      "returnSinceIssuePct": -3.77,
       "issueSizeCr": 504,
       "subscription": null,
       "tier": "tier2",
@@ -14723,7 +14723,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14778,8 +14778,8 @@
       "listingPrice": 265.25,
       "listingDayClose": null,
       "listingGainPct": 14.33,
-      "currentPrice": 286.5,
-      "returnSinceIssuePct": 23.49,
+      "currentPrice": 287.3,
+      "returnSinceIssuePct": 23.84,
       "issueSizeCr": 1250,
       "subscription": null,
       "tier": "tier2",
@@ -14789,7 +14789,7 @@
       "logo": null,
       "initials": "JR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14822,7 +14822,7 @@
       "logo": null,
       "initials": "JR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14855,7 +14855,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14921,7 +14921,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14943,8 +14943,8 @@
       "listingPrice": 432.1,
       "listingDayClose": null,
       "listingGainPct": 4.37,
-      "currentPrice": 487.45,
-      "returnSinceIssuePct": 17.74,
+      "currentPrice": 495.5,
+      "returnSinceIssuePct": 19.69,
       "issueSizeCr": 745.64,
       "subscription": null,
       "tier": "tier2",
@@ -14954,7 +14954,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14976,8 +14976,8 @@
       "listingPrice": 80.8,
       "listingDayClose": null,
       "listingGainPct": 15.43,
-      "currentPrice": 174.88,
-      "returnSinceIssuePct": 149.83,
+      "currentPrice": 180.82,
+      "returnSinceIssuePct": 158.31,
       "issueSizeCr": 13.02,
       "subscription": null,
       "tier": "tier2",
@@ -14987,7 +14987,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15141,8 +15141,8 @@
       "listingPrice": 436,
       "listingDayClose": null,
       "listingGainPct": 3.07,
-      "currentPrice": 320.7,
-      "returnSinceIssuePct": -24.18,
+      "currentPrice": 323.0,
+      "returnSinceIssuePct": -23.64,
       "issueSizeCr": 813.28,
       "subscription": null,
       "tier": "tier2",
@@ -15152,7 +15152,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15174,8 +15174,8 @@
       "listingPrice": 389,
       "listingDayClose": null,
       "listingGainPct": 10.83,
-      "currentPrice": 108.97,
-      "returnSinceIssuePct": -68.95,
+      "currentPrice": 111.77,
+      "returnSinceIssuePct": -68.16,
       "issueSizeCr": 490,
       "subscription": null,
       "tier": "tier2",
@@ -15185,7 +15185,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15218,7 +15218,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15240,8 +15240,8 @@
       "listingPrice": 858.1,
       "listingDayClose": null,
       "listingGainPct": 13.81,
-      "currentPrice": 1462.1,
-      "returnSinceIssuePct": 93.91,
+      "currentPrice": 1442.2,
+      "returnSinceIssuePct": 91.27,
       "issueSizeCr": 687.85,
       "subscription": null,
       "tier": "tier2",
@@ -15251,7 +15251,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15273,8 +15273,8 @@
       "listingPrice": 295,
       "listingDayClose": null,
       "listingGainPct": -8.39,
-      "currentPrice": 187.65,
-      "returnSinceIssuePct": -41.72,
+      "currentPrice": 187.83,
+      "returnSinceIssuePct": -41.67,
       "issueSizeCr": 408.8,
       "subscription": null,
       "tier": "tier2",
@@ -15284,7 +15284,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15339,8 +15339,8 @@
       "listingPrice": 165,
       "listingDayClose": null,
       "listingGainPct": 7.84,
-      "currentPrice": 99.55,
-      "returnSinceIssuePct": -34.93,
+      "currentPrice": 99.11,
+      "returnSinceIssuePct": -35.22,
       "issueSizeCr": 464.26,
       "subscription": null,
       "tier": "tier2",
@@ -15350,7 +15350,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15372,8 +15372,8 @@
       "listingPrice": 460,
       "listingDayClose": null,
       "listingGainPct": -1.08,
-      "currentPrice": 358.6,
-      "returnSinceIssuePct": -22.88,
+      "currentPrice": 365.4,
+      "returnSinceIssuePct": -21.42,
       "issueSizeCr": 900.2,
       "subscription": null,
       "tier": "tier2",
@@ -15383,7 +15383,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15438,8 +15438,8 @@
       "listingPrice": 285,
       "listingDayClose": null,
       "listingGainPct": -4.68,
-      "currentPrice": 221.04,
-      "returnSinceIssuePct": -26.07,
+      "currentPrice": 214.98,
+      "returnSinceIssuePct": -28.1,
       "issueSizeCr": 560.29,
       "subscription": null,
       "tier": "tier2",
@@ -15449,7 +15449,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15482,7 +15482,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15537,8 +15537,8 @@
       "listingPrice": 105,
       "listingDayClose": null,
       "listingGainPct": 6.06,
-      "currentPrice": 42.91,
-      "returnSinceIssuePct": -56.66,
+      "currentPrice": 41.91,
+      "returnSinceIssuePct": -57.67,
       "issueSizeCr": 148.5,
       "subscription": null,
       "tier": "tier2",
@@ -15548,7 +15548,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15570,8 +15570,8 @@
       "listingPrice": 273.45,
       "listingDayClose": null,
       "listingGainPct": 10.71,
-      "currentPrice": 183.5,
-      "returnSinceIssuePct": -25.71,
+      "currentPrice": 186.9,
+      "returnSinceIssuePct": -24.33,
       "issueSizeCr": 451.31,
       "subscription": null,
       "tier": "tier2",
@@ -15581,7 +15581,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15603,8 +15603,8 @@
       "listingPrice": 366.7,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 552.5,
-      "returnSinceIssuePct": 186.27,
+      "currentPrice": 507.4,
+      "returnSinceIssuePct": 162.9,
       "issueSizeCr": 38.99,
       "subscription": null,
       "tier": "tier2",
@@ -15614,7 +15614,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15647,7 +15647,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15702,8 +15702,8 @@
       "listingPrice": 61.3,
       "listingDayClose": null,
       "listingGainPct": 0.49,
-      "currentPrice": 40.49,
-      "returnSinceIssuePct": -33.62,
+      "currentPrice": 42.65,
+      "returnSinceIssuePct": -30.08,
       "issueSizeCr": 143.35,
       "subscription": null,
       "tier": "tier2",
@@ -15713,7 +15713,7 @@
       "logo": null,
       "initials": "DA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15779,7 +15779,7 @@
       "logo": null,
       "initials": "JA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15801,8 +15801,8 @@
       "listingPrice": 187.7,
       "listingDayClose": null,
       "listingGainPct": 13.76,
-      "currentPrice": 309.45,
-      "returnSinceIssuePct": 87.55,
+      "currentPrice": 309.35,
+      "returnSinceIssuePct": 87.48,
       "issueSizeCr": 400.95,
       "subscription": null,
       "tier": "tier2",
@@ -15812,7 +15812,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15834,8 +15834,8 @@
       "listingPrice": 161,
       "listingDayClose": null,
       "listingGainPct": 56.31,
-      "currentPrice": 158.12,
-      "returnSinceIssuePct": 53.51,
+      "currentPrice": 161.16,
+      "returnSinceIssuePct": 56.47,
       "issueSizeCr": 1900.24,
       "subscription": null,
       "tier": "tier2",
@@ -15845,7 +15845,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15966,8 +15966,8 @@
       "listingPrice": 210,
       "listingDayClose": null,
       "listingGainPct": 22.81,
-      "currentPrice": 651.85,
-      "returnSinceIssuePct": 281.2,
+      "currentPrice": 677.5,
+      "returnSinceIssuePct": 296.2,
       "issueSizeCr": 42.53,
       "subscription": null,
       "tier": "tier2",
@@ -15977,7 +15977,7 @@
       "logo": null,
       "initials": "TM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16043,7 +16043,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16076,7 +16076,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16109,7 +16109,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16131,8 +16131,8 @@
       "listingPrice": 103.6,
       "listingDayClose": null,
       "listingGainPct": 23.33,
-      "currentPrice": 204.5,
-      "returnSinceIssuePct": 143.45,
+      "currentPrice": 201.0,
+      "returnSinceIssuePct": 139.29,
       "issueSizeCr": 51.82,
       "subscription": null,
       "tier": "tier2",
@@ -16142,7 +16142,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16164,8 +16164,8 @@
       "listingPrice": 134,
       "listingDayClose": null,
       "listingGainPct": 6.35,
-      "currentPrice": 195.28,
-      "returnSinceIssuePct": 54.98,
+      "currentPrice": 203.16,
+      "returnSinceIssuePct": 61.24,
       "issueSizeCr": 126,
       "subscription": null,
       "tier": "tier2",
@@ -16175,7 +16175,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16274,7 +16274,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16340,7 +16340,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16395,8 +16395,8 @@
       "listingPrice": 91,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 27.0,
-      "returnSinceIssuePct": -70.33,
+      "currentPrice": 27.83,
+      "returnSinceIssuePct": -69.42,
       "issueSizeCr": 121.03,
       "subscription": null,
       "tier": "tier2",
@@ -16406,7 +16406,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16428,8 +16428,8 @@
       "listingPrice": 152,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 101.0,
-      "returnSinceIssuePct": 26.25,
+      "currentPrice": 105.85,
+      "returnSinceIssuePct": 32.31,
       "issueSizeCr": 41.8,
       "subscription": null,
       "tier": "tier2",
@@ -16439,7 +16439,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16494,8 +16494,8 @@
       "listingPrice": 99.7,
       "listingDayClose": null,
       "listingGainPct": 2.78,
-      "currentPrice": 53.89,
-      "returnSinceIssuePct": -44.44,
+      "currentPrice": 54.38,
+      "returnSinceIssuePct": -43.94,
       "issueSizeCr": 772,
       "subscription": null,
       "tier": "tier2",
@@ -16505,7 +16505,7 @@
       "logo": null,
       "initials": "VE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16538,7 +16538,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16571,7 +16571,7 @@
       "logo": null,
       "initials": "NM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16593,8 +16593,8 @@
       "listingPrice": 275.5,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 971.9,
-      "returnSinceIssuePct": 570.28,
+      "currentPrice": 999.75,
+      "returnSinceIssuePct": 589.48,
       "issueSizeCr": 69.5,
       "subscription": null,
       "tier": "tier2",
@@ -16604,7 +16604,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16659,8 +16659,8 @@
       "listingPrice": 148.5,
       "listingDayClose": null,
       "listingGainPct": 4.58,
-      "currentPrice": 117.6,
-      "returnSinceIssuePct": -17.18,
+      "currentPrice": 118.5,
+      "returnSinceIssuePct": -16.55,
       "issueSizeCr": 70.03,
       "subscription": null,
       "tier": "tier2",
@@ -16670,7 +16670,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16725,8 +16725,8 @@
       "listingPrice": 558,
       "listingDayClose": null,
       "listingGainPct": -0.53,
-      "currentPrice": 255.27,
-      "returnSinceIssuePct": -54.5,
+      "currentPrice": 253.76,
+      "returnSinceIssuePct": -54.77,
       "issueSizeCr": 400,
       "subscription": null,
       "tier": "tier2",
@@ -16736,7 +16736,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16758,8 +16758,8 @@
       "listingPrice": 325,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 136.5,
-      "returnSinceIssuePct": -58.0,
+      "currentPrice": 138.81,
+      "returnSinceIssuePct": -57.29,
       "issueSizeCr": 451.25,
       "subscription": null,
       "tier": "tier2",
@@ -16769,7 +16769,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16824,8 +16824,8 @@
       "listingPrice": 305,
       "listingDayClose": null,
       "listingGainPct": 19.61,
-      "currentPrice": 251.17,
-      "returnSinceIssuePct": -1.5,
+      "currentPrice": 248.2,
+      "returnSinceIssuePct": -2.67,
       "issueSizeCr": 242.66,
       "subscription": null,
       "tier": "tier2",
@@ -16835,7 +16835,7 @@
       "logo": null,
       "initials": "PR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16857,8 +16857,8 @@
       "listingPrice": 271.85,
       "listingDayClose": null,
       "listingGainPct": 7.88,
-      "currentPrice": 884.55,
-      "returnSinceIssuePct": 251.01,
+      "currentPrice": 887.55,
+      "returnSinceIssuePct": 252.2,
       "issueSizeCr": 410.71,
       "subscription": null,
       "tier": "tier2",
@@ -16868,7 +16868,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16890,8 +16890,8 @@
       "listingPrice": 340,
       "listingDayClose": null,
       "listingGainPct": 2.41,
-      "currentPrice": 142.39,
-      "returnSinceIssuePct": -57.11,
+      "currentPrice": 143.22,
+      "returnSinceIssuePct": -56.86,
       "issueSizeCr": 2079.37,
       "subscription": null,
       "tier": "tier2",
@@ -16901,7 +16901,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16989,8 +16989,8 @@
       "listingPrice": 141.8,
       "listingDayClose": null,
       "listingGainPct": 39.02,
-      "currentPrice": 88.86,
-      "returnSinceIssuePct": -12.88,
+      "currentPrice": 90.99,
+      "returnSinceIssuePct": -10.79,
       "issueSizeCr": 306,
       "subscription": null,
       "tier": "tier2",
@@ -17000,7 +17000,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17022,8 +17022,8 @@
       "listingPrice": 508.8,
       "listingDayClose": null,
       "listingGainPct": -1.59,
-      "currentPrice": 710.85,
-      "returnSinceIssuePct": 37.5,
+      "currentPrice": 714.05,
+      "returnSinceIssuePct": 38.11,
       "issueSizeCr": 1540.65,
       "subscription": null,
       "tier": "tier2",
@@ -17033,7 +17033,7 @@
       "logo": null,
       "initials": "BJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17066,7 +17066,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17132,7 +17132,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17154,8 +17154,8 @@
       "listingPrice": 53,
       "listingDayClose": null,
       "listingGainPct": 23.26,
-      "currentPrice": 18.0,
-      "returnSinceIssuePct": -58.14,
+      "currentPrice": 17.95,
+      "returnSinceIssuePct": -58.26,
       "issueSizeCr": 16.1,
       "subscription": null,
       "tier": "tier2",
@@ -17165,7 +17165,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17220,8 +17220,8 @@
       "listingPrice": 314.3,
       "listingDayClose": null,
       "listingGainPct": 14.29,
-      "currentPrice": 198.1,
-      "returnSinceIssuePct": -27.96,
+      "currentPrice": 205.56,
+      "returnSinceIssuePct": -25.25,
       "issueSizeCr": 400.6,
       "subscription": null,
       "tier": "tier2",
@@ -17231,7 +17231,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17253,8 +17253,8 @@
       "listingPrice": 195,
       "listingDayClose": null,
       "listingGainPct": 10.17,
-      "currentPrice": 231.5,
-      "returnSinceIssuePct": 30.79,
+      "currentPrice": 240.0,
+      "returnSinceIssuePct": 35.59,
       "issueSizeCr": 90.27,
       "subscription": null,
       "tier": "tier2",
@@ -17264,7 +17264,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17286,8 +17286,8 @@
       "listingPrice": 153,
       "listingDayClose": null,
       "listingGainPct": 4.08,
-      "currentPrice": 123.41,
-      "returnSinceIssuePct": -16.05,
+      "currentPrice": 123.92,
+      "returnSinceIssuePct": -15.7,
       "issueSizeCr": 3600,
       "subscription": null,
       "tier": "tier2",
@@ -17297,7 +17297,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17319,8 +17319,8 @@
       "listingPrice": 228,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 178.05,
-      "returnSinceIssuePct": 48.38,
+      "currentPrice": 184.75,
+      "returnSinceIssuePct": 53.96,
       "issueSizeCr": 34.83,
       "subscription": null,
       "tier": "tier2",
@@ -17330,7 +17330,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17352,8 +17352,8 @@
       "listingPrice": 117,
       "listingDayClose": null,
       "listingGainPct": 67.14,
-      "currentPrice": 72.05,
-      "returnSinceIssuePct": 2.93,
+      "currentPrice": 72.22,
+      "returnSinceIssuePct": 3.17,
       "issueSizeCr": 130,
       "subscription": null,
       "tier": "tier2",
@@ -17363,7 +17363,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17451,8 +17451,8 @@
       "listingPrice": 101,
       "listingDayClose": null,
       "listingGainPct": -1.94,
-      "currentPrice": 117.0,
-      "returnSinceIssuePct": 13.59,
+      "currentPrice": 122.65,
+      "returnSinceIssuePct": 19.08,
       "issueSizeCr": 55.62,
       "subscription": null,
       "tier": "tier2",
@@ -17462,7 +17462,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17495,7 +17495,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17583,8 +17583,8 @@
       "listingPrice": 427.5,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 555.55,
-      "returnSinceIssuePct": 146.91,
+      "currentPrice": 559.9,
+      "returnSinceIssuePct": 148.84,
       "issueSizeCr": 102.53,
       "subscription": null,
       "tier": "tier2",
@@ -17594,7 +17594,7 @@
       "logo": null,
       "initials": "FA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17715,8 +17715,8 @@
       "listingPrice": 386,
       "listingDayClose": null,
       "listingGainPct": 0.26,
-      "currentPrice": 281.95,
-      "returnSinceIssuePct": -26.77,
+      "currentPrice": 292.5,
+      "returnSinceIssuePct": -24.03,
       "issueSizeCr": 650,
       "subscription": null,
       "tier": "tier2",
@@ -17726,7 +17726,7 @@
       "logo": null,
       "initials": "MB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17792,7 +17792,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17814,8 +17814,8 @@
       "listingPrice": 179.1,
       "listingDayClose": null,
       "listingGainPct": 19.4,
-      "currentPrice": 233.82,
-      "returnSinceIssuePct": 55.88,
+      "currentPrice": 233.16,
+      "returnSinceIssuePct": 55.44,
       "issueSizeCr": 792,
       "subscription": null,
       "tier": "tier2",
@@ -17825,7 +17825,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17880,8 +17880,8 @@
       "listingPrice": 1018,
       "listingDayClose": null,
       "listingGainPct": 50.81,
-      "currentPrice": 4131.4,
-      "returnSinceIssuePct": 512.06,
+      "currentPrice": 4212.6,
+      "returnSinceIssuePct": 524.09,
       "issueSizeCr": 1300,
       "subscription": null,
       "tier": "tier2",
@@ -17891,7 +17891,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17946,8 +17946,8 @@
       "listingPrice": 136,
       "listingDayClose": null,
       "listingGainPct": -13.92,
-      "currentPrice": 102.1,
-      "returnSinceIssuePct": -35.38,
+      "currentPrice": 104.78,
+      "returnSinceIssuePct": -33.68,
       "issueSizeCr": 254.26,
       "subscription": null,
       "tier": "tier2",
@@ -17957,7 +17957,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18023,7 +18023,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18056,7 +18056,7 @@
       "logo": null,
       "initials": "UM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18111,8 +18111,8 @@
       "listingPrice": 90,
       "listingDayClose": null,
       "listingGainPct": 8.43,
-      "currentPrice": 57.2,
-      "returnSinceIssuePct": -31.08,
+      "currentPrice": 55.5,
+      "returnSinceIssuePct": -33.13,
       "issueSizeCr": 30.28,
       "subscription": null,
       "tier": "tier2",
@@ -18122,7 +18122,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18144,8 +18144,8 @@
       "listingPrice": 229.1,
       "listingDayClose": null,
       "listingGainPct": 15.13,
-      "currentPrice": 272.15,
-      "returnSinceIssuePct": 36.76,
+      "currentPrice": 277.95,
+      "returnSinceIssuePct": 39.67,
       "issueSizeCr": 360.11,
       "subscription": null,
       "tier": "tier2",
@@ -18155,7 +18155,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18188,7 +18188,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18210,8 +18210,8 @@
       "listingPrice": 82,
       "listingDayClose": null,
       "listingGainPct": -8.89,
-      "currentPrice": 53.51,
-      "returnSinceIssuePct": -40.54,
+      "currentPrice": 54.61,
+      "returnSinceIssuePct": -39.32,
       "issueSizeCr": 759.6,
       "subscription": null,
       "tier": "tier2",
@@ -18221,7 +18221,7 @@
       "logo": null,
       "initials": "BH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18243,8 +18243,8 @@
       "listingPrice": 350,
       "listingDayClose": null,
       "listingGainPct": 47.68,
-      "currentPrice": 584.35,
-      "returnSinceIssuePct": 146.56,
+      "currentPrice": 605.75,
+      "returnSinceIssuePct": 155.59,
       "issueSizeCr": 460.43,
       "subscription": null,
       "tier": "tier2",
@@ -18254,7 +18254,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18276,8 +18276,8 @@
       "listingPrice": 218.7,
       "listingDayClose": null,
       "listingGainPct": -7.72,
-      "currentPrice": 184.32,
-      "returnSinceIssuePct": -22.23,
+      "currentPrice": 187.18,
+      "returnSinceIssuePct": -21.02,
       "issueSizeCr": 700,
       "subscription": null,
       "tier": "tier2",
@@ -18287,7 +18287,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18342,8 +18342,8 @@
       "listingPrice": 421.25,
       "listingDayClose": null,
       "listingGainPct": 68.5,
-      "currentPrice": 345.45,
-      "returnSinceIssuePct": 38.18,
+      "currentPrice": 347.6,
+      "returnSinceIssuePct": 39.04,
       "issueSizeCr": 93.75,
       "subscription": null,
       "tier": "tier2",
@@ -18353,7 +18353,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18419,7 +18419,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18452,7 +18452,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18474,8 +18474,8 @@
       "listingPrice": 723.1,
       "listingDayClose": null,
       "listingGainPct": 26.86,
-      "currentPrice": 915.55,
-      "returnSinceIssuePct": 60.62,
+      "currentPrice": 942.35,
+      "returnSinceIssuePct": 65.32,
       "issueSizeCr": 3395,
       "subscription": null,
       "tier": "tier2",
@@ -18485,7 +18485,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18540,8 +18540,8 @@
       "listingPrice": 436.1,
       "listingDayClose": null,
       "listingGainPct": 7.15,
-      "currentPrice": 515.85,
-      "returnSinceIssuePct": 26.74,
+      "currentPrice": 514.75,
+      "returnSinceIssuePct": 26.47,
       "issueSizeCr": 582.56,
       "subscription": null,
       "tier": "tier2",
@@ -18551,7 +18551,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18584,7 +18584,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18617,7 +18617,7 @@
       "logo": null,
       "initials": "CF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18650,7 +18650,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18683,7 +18683,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18705,8 +18705,8 @@
       "listingPrice": 144,
       "listingDayClose": null,
       "listingGainPct": 44.0,
-      "currentPrice": 79.05,
-      "returnSinceIssuePct": -20.95,
+      "currentPrice": 81.3,
+      "returnSinceIssuePct": -18.7,
       "issueSizeCr": 50,
       "subscription": null,
       "tier": "tier2",
@@ -18716,7 +18716,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18738,8 +18738,8 @@
       "listingPrice": 1126.2,
       "listingDayClose": null,
       "listingGainPct": 2.38,
-      "currentPrice": 1174.8,
-      "returnSinceIssuePct": 6.8,
+      "currentPrice": 1192.3,
+      "returnSinceIssuePct": 8.39,
       "issueSizeCr": 2000,
       "subscription": null,
       "tier": "tier2",
@@ -18749,7 +18749,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18782,7 +18782,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18815,7 +18815,7 @@
       "logo": null,
       "initials": "CO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18848,7 +18848,7 @@
       "logo": null,
       "initials": "HS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18870,8 +18870,8 @@
       "listingPrice": 280,
       "listingDayClose": null,
       "listingGainPct": 14.29,
-      "currentPrice": 157.13,
-      "returnSinceIssuePct": -35.87,
+      "currentPrice": 155.92,
+      "returnSinceIssuePct": -36.36,
       "issueSizeCr": 860,
       "subscription": null,
       "tier": "tier2",
@@ -18881,7 +18881,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18903,8 +18903,8 @@
       "listingPrice": 119,
       "listingDayClose": null,
       "listingGainPct": -15.0,
-      "currentPrice": 16.5,
-      "returnSinceIssuePct": -88.21,
+      "currentPrice": 17.15,
+      "returnSinceIssuePct": -87.75,
       "issueSizeCr": 60.9,
       "subscription": null,
       "tier": "tier2",
@@ -18914,7 +18914,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18969,8 +18969,8 @@
       "listingPrice": 112,
       "listingDayClose": null,
       "listingGainPct": -23.81,
-      "currentPrice": 115.65,
-      "returnSinceIssuePct": -21.33,
+      "currentPrice": 118.0,
+      "returnSinceIssuePct": -19.73,
       "issueSizeCr": 98.65,
       "subscription": null,
       "tier": "tier2",
@@ -18980,7 +18980,7 @@
       "logo": null,
       "initials": "PJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19002,8 +19002,8 @@
       "listingPrice": 171,
       "listingDayClose": null,
       "listingGainPct": 6.21,
-      "currentPrice": 66.75,
-      "returnSinceIssuePct": -58.54,
+      "currentPrice": 68.7,
+      "returnSinceIssuePct": -57.33,
       "issueSizeCr": 30.68,
       "subscription": null,
       "tier": "tier2",
@@ -19013,7 +19013,7 @@
       "logo": null,
       "initials": "SO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19079,7 +19079,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19112,7 +19112,7 @@
       "logo": null,
       "initials": "NY",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19145,7 +19145,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19167,8 +19167,8 @@
       "listingPrice": 111,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 61.26,
-      "returnSinceIssuePct": -44.81,
+      "currentPrice": 61.0,
+      "returnSinceIssuePct": -45.05,
       "issueSizeCr": 200.41,
       "subscription": null,
       "tier": "tier2",
@@ -19178,7 +19178,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19277,7 +19277,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19299,8 +19299,8 @@
       "listingPrice": 835,
       "listingDayClose": null,
       "listingGainPct": 12.84,
-      "currentPrice": 534.75,
-      "returnSinceIssuePct": -27.74,
+      "currentPrice": 541.0,
+      "returnSinceIssuePct": -26.89,
       "issueSizeCr": 12500,
       "subscription": null,
       "tier": "tier2",
@@ -19310,7 +19310,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19365,8 +19365,8 @@
       "listingPrice": 110.1,
       "listingDayClose": null,
       "listingGainPct": 34.27,
-      "currentPrice": 163.39,
-      "returnSinceIssuePct": 99.26,
+      "currentPrice": 167.75,
+      "returnSinceIssuePct": 104.57,
       "issueSizeCr": 540,
       "subscription": null,
       "tier": "tier2",
@@ -19376,7 +19376,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19398,8 +19398,8 @@
       "listingPrice": 109.1,
       "listingDayClose": null,
       "listingGainPct": 26.86,
-      "currentPrice": 37.9,
-      "returnSinceIssuePct": -55.93,
+      "currentPrice": 40.5,
+      "returnSinceIssuePct": -52.91,
       "issueSizeCr": 44.39,
       "subscription": null,
       "tier": "tier2",
@@ -19409,7 +19409,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19508,7 +19508,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19530,8 +19530,8 @@
       "listingPrice": 492,
       "listingDayClose": null,
       "listingGainPct": 23.0,
-      "currentPrice": 290.1,
-      "returnSinceIssuePct": -27.47,
+      "currentPrice": 299.85,
+      "returnSinceIssuePct": -25.04,
       "issueSizeCr": 852.53,
       "subscription": null,
       "tier": "tier2",
@@ -19541,7 +19541,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19563,8 +19563,8 @@
       "listingPrice": 91.1,
       "listingDayClose": null,
       "listingGainPct": 28.31,
-      "currentPrice": 38.04,
-      "returnSinceIssuePct": -46.42,
+      "currentPrice": 38.78,
+      "returnSinceIssuePct": -45.38,
       "issueSizeCr": 119,
       "subscription": null,
       "tier": "tier2",
@@ -19574,7 +19574,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19629,8 +19629,8 @@
       "listingPrice": 414.1,
       "listingDayClose": null,
       "listingGainPct": 0.02,
-      "currentPrice": 248.73,
-      "returnSinceIssuePct": -39.92,
+      "currentPrice": 252.94,
+      "returnSinceIssuePct": -38.9,
       "issueSizeCr": 1590,
       "subscription": null,
       "tier": "tier2",
@@ -19640,7 +19640,7 @@
       "logo": null,
       "initials": "KA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19695,8 +19695,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": 4.17,
-      "currentPrice": 72.5,
-      "returnSinceIssuePct": 0.69,
+      "currentPrice": 74.2,
+      "returnSinceIssuePct": 3.06,
       "issueSizeCr": 27,
       "subscription": null,
       "tier": "tier2",
@@ -19706,7 +19706,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19794,7 +19794,7 @@
       "listingPrice": 209.1,
       "listingDayClose": null,
       "listingGainPct": -5.81,
-      "currentPrice": 148.44,
+      "currentPrice": 148.43,
       "returnSinceIssuePct": -33.14,
       "issueSizeCr": 499.6,
       "subscription": null,
@@ -19805,7 +19805,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19827,8 +19827,8 @@
       "listingPrice": 132.5,
       "listingDayClose": null,
       "listingGainPct": 38.02,
-      "currentPrice": 251.0,
-      "returnSinceIssuePct": 161.46,
+      "currentPrice": 258.0,
+      "returnSinceIssuePct": 168.75,
       "issueSizeCr": 58.57,
       "subscription": null,
       "tier": "tier2",
@@ -19838,7 +19838,7 @@
       "logo": null,
       "initials": "IH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19992,8 +19992,8 @@
       "listingPrice": 632,
       "listingDayClose": null,
       "listingGainPct": 2.93,
-      "currentPrice": 229.29,
-      "returnSinceIssuePct": -62.66,
+      "currentPrice": 236.19,
+      "returnSinceIssuePct": -61.53,
       "issueSizeCr": 1387.34,
       "subscription": null,
       "tier": "tier2",
@@ -20003,7 +20003,7 @@
       "logo": null,
       "initials": "OP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20091,8 +20091,8 @@
       "listingPrice": 153,
       "listingDayClose": null,
       "listingGainPct": 50.0,
-      "currentPrice": 390.0,
-      "returnSinceIssuePct": 282.35,
+      "currentPrice": 396.9,
+      "returnSinceIssuePct": 289.12,
       "issueSizeCr": 61.62,
       "subscription": null,
       "tier": "tier2",
@@ -20102,7 +20102,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20168,7 +20168,7 @@
       "logo": null,
       "initials": "3F",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20223,8 +20223,8 @@
       "listingPrice": 132.75,
       "listingDayClose": null,
       "listingGainPct": 8.81,
-      "currentPrice": 182.0,
-      "returnSinceIssuePct": 49.18,
+      "currentPrice": 185.25,
+      "returnSinceIssuePct": 51.84,
       "issueSizeCr": 73.2,
       "subscription": null,
       "tier": "tier2",
@@ -20234,7 +20234,7 @@
       "logo": null,
       "initials": "NP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20256,8 +20256,8 @@
       "listingPrice": 140,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 112.93,
-      "returnSinceIssuePct": -19.34,
+      "currentPrice": 104.79,
+      "returnSinceIssuePct": -25.15,
       "issueSizeCr": 220,
       "subscription": null,
       "tier": "tier2",
@@ -20267,7 +20267,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20388,8 +20388,8 @@
       "listingPrice": 125,
       "listingDayClose": null,
       "listingGainPct": 19.05,
-      "currentPrice": 136.75,
-      "returnSinceIssuePct": 30.24,
+      "currentPrice": 134.85,
+      "returnSinceIssuePct": 28.43,
       "issueSizeCr": 168,
       "subscription": null,
       "tier": "tier2",
@@ -20399,7 +20399,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20421,8 +20421,8 @@
       "listingPrice": 220,
       "listingDayClose": null,
       "listingGainPct": -6.38,
-      "currentPrice": 246.5,
-      "returnSinceIssuePct": 4.89,
+      "currentPrice": 264.75,
+      "returnSinceIssuePct": 12.66,
       "issueSizeCr": 2800,
       "subscription": null,
       "tier": "tier2",
@@ -20432,7 +20432,7 @@
       "logo": null,
       "initials": "AV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20498,7 +20498,7 @@
       "logo": null,
       "initials": "UD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20520,8 +20520,8 @@
       "listingPrice": 98.5,
       "listingDayClose": null,
       "listingGainPct": 9.44,
-      "currentPrice": 213.63,
-      "returnSinceIssuePct": 137.37,
+      "currentPrice": 223.59,
+      "returnSinceIssuePct": 148.43,
       "issueSizeCr": 2150,
       "subscription": null,
       "tier": "tier2",
@@ -20531,7 +20531,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20586,8 +20586,8 @@
       "listingPrice": 243,
       "listingDayClose": null,
       "listingGainPct": 12.5,
-      "currentPrice": 210.23,
-      "returnSinceIssuePct": -2.67,
+      "currentPrice": 225.71,
+      "returnSinceIssuePct": 4.5,
       "issueSizeCr": 144.89,
       "subscription": null,
       "tier": "tier2",
@@ -20597,7 +20597,7 @@
       "logo": null,
       "initials": "BW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20729,7 +20729,7 @@
       "logo": null,
       "initials": "MJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20828,7 +20828,7 @@
       "logo": null,
       "initials": "AO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20850,8 +20850,8 @@
       "listingPrice": 326.05,
       "listingDayClose": null,
       "listingGainPct": 1.57,
-      "currentPrice": 1821.7,
-      "returnSinceIssuePct": 467.51,
+      "currentPrice": 1822.9,
+      "returnSinceIssuePct": 467.88,
       "issueSizeCr": 2980.76,
       "subscription": null,
       "tier": "tier2",
@@ -20861,7 +20861,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20883,8 +20883,8 @@
       "listingPrice": 85.05,
       "listingDayClose": null,
       "listingGainPct": -10.47,
-      "currentPrice": 396.35,
-      "returnSinceIssuePct": 317.21,
+      "currentPrice": 406.75,
+      "returnSinceIssuePct": 328.16,
       "issueSizeCr": 27.13,
       "subscription": null,
       "tier": "tier2",
@@ -20894,7 +20894,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21026,7 +21026,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21158,7 +21158,7 @@
       "logo": null,
       "initials": "DI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21312,8 +21312,8 @@
       "listingPrice": 78.4,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 142.32,
-      "returnSinceIssuePct": 45.22,
+      "currentPrice": 142.95,
+      "returnSinceIssuePct": 45.87,
       "issueSizeCr": 44.86,
       "subscription": null,
       "tier": "tier2",
@@ -21323,7 +21323,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21422,7 +21422,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21554,7 +21554,7 @@
       "logo": null,
       "initials": "BE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21642,8 +21642,8 @@
       "listingPrice": 432.05,
       "listingDayClose": null,
       "listingGainPct": 1.66,
-      "currentPrice": 1363.5,
-      "returnSinceIssuePct": 220.82,
+      "currentPrice": 1449.9,
+      "returnSinceIssuePct": 241.15,
       "issueSizeCr": 858.7,
       "subscription": null,
       "tier": "tier2",
@@ -21653,7 +21653,7 @@
       "logo": null,
       "initials": "QP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21807,8 +21807,8 @@
       "listingPrice": 731,
       "listingDayClose": null,
       "listingGainPct": 3.25,
-      "currentPrice": 503.5,
-      "returnSinceIssuePct": -28.88,
+      "currentPrice": 513.4,
+      "returnSinceIssuePct": -27.49,
       "issueSizeCr": 8750,
       "subscription": null,
       "tier": "tier2",
@@ -21818,7 +21818,7 @@
       "logo": null,
       "initials": "HT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21840,8 +21840,8 @@
       "listingPrice": 180,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 407.75,
-      "returnSinceIssuePct": 126.53,
+      "currentPrice": 418.75,
+      "returnSinceIssuePct": 132.64,
       "issueSizeCr": 54,
       "subscription": null,
       "tier": "tier2",
@@ -21851,7 +21851,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21939,8 +21939,8 @@
       "listingPrice": 593,
       "listingDayClose": null,
       "listingGainPct": -5.72,
-      "currentPrice": 556.65,
-      "returnSinceIssuePct": -11.5,
+      "currentPrice": 561.95,
+      "returnSinceIssuePct": -10.66,
       "issueSizeCr": 1268.93,
       "subscription": null,
       "tier": "tier2",
@@ -21950,7 +21950,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21972,8 +21972,8 @@
       "listingPrice": 165.1,
       "listingDayClose": null,
       "listingGainPct": 3.84,
-      "currentPrice": 234.5,
-      "returnSinceIssuePct": 47.48,
+      "currentPrice": 235.0,
+      "returnSinceIssuePct": 47.8,
       "issueSizeCr": 107.27,
       "subscription": null,
       "tier": "tier2",
@@ -21983,7 +21983,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22038,8 +22038,8 @@
       "listingPrice": 123,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 50.3,
-      "returnSinceIssuePct": -59.11,
+      "currentPrice": 51.95,
+      "returnSinceIssuePct": -57.76,
       "issueSizeCr": 37.66,
       "subscription": null,
       "tier": "tier2",
@@ -22049,7 +22049,7 @@
       "logo": null,
       "initials": "RC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22082,7 +22082,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22170,8 +22170,8 @@
       "listingPrice": 70,
       "listingDayClose": null,
       "listingGainPct": 40.0,
-      "currentPrice": 41.4,
-      "returnSinceIssuePct": -17.2,
+      "currentPrice": 40.2,
+      "returnSinceIssuePct": -19.6,
       "issueSizeCr": 14.6,
       "subscription": null,
       "tier": "tier2",
@@ -22181,7 +22181,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22203,8 +22203,8 @@
       "listingPrice": 396.9,
       "listingDayClose": null,
       "listingGainPct": -1.27,
-      "currentPrice": 516.35,
-      "returnSinceIssuePct": 28.45,
+      "currentPrice": 514.6,
+      "returnSinceIssuePct": 28.01,
       "issueSizeCr": 3027.26,
       "subscription": null,
       "tier": "tier2",
@@ -22214,7 +22214,7 @@
       "logo": null,
       "initials": "DA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22346,7 +22346,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22368,8 +22368,8 @@
       "listingPrice": 330,
       "listingDayClose": null,
       "listingGainPct": 12.24,
-      "currentPrice": 235.69,
-      "returnSinceIssuePct": -19.83,
+      "currentPrice": 238.27,
+      "returnSinceIssuePct": -18.96,
       "issueSizeCr": 220.5,
       "subscription": null,
       "tier": "tier2",
@@ -22379,7 +22379,7 @@
       "logo": null,
       "initials": "DW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22401,8 +22401,8 @@
       "listingPrice": 117,
       "listingDayClose": null,
       "listingGainPct": -19.31,
-      "currentPrice": 28.25,
-      "returnSinceIssuePct": -80.52,
+      "currentPrice": 28.9,
+      "returnSinceIssuePct": -80.07,
       "issueSizeCr": 53.65,
       "subscription": null,
       "tier": "tier2",
@@ -22412,7 +22412,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22500,8 +22500,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": 4.17,
-      "currentPrice": 466.5,
-      "returnSinceIssuePct": 547.92,
+      "currentPrice": 478.4,
+      "returnSinceIssuePct": 564.44,
       "issueSizeCr": 40.32,
       "subscription": null,
       "tier": "tier2",
@@ -22511,7 +22511,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22533,8 +22533,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": 33.33,
-      "currentPrice": 200.22,
-      "returnSinceIssuePct": 122.47,
+      "currentPrice": 205.84,
+      "returnSinceIssuePct": 128.71,
       "issueSizeCr": 199.45,
       "subscription": null,
       "tier": "tier2",
@@ -22544,7 +22544,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22610,7 +22610,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22632,8 +22632,8 @@
       "listingPrice": 60,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 60.5,
-      "returnSinceIssuePct": 0.83,
+      "currentPrice": 61.5,
+      "returnSinceIssuePct": 2.5,
       "issueSizeCr": 39.41,
       "subscription": null,
       "tier": "tier2",
@@ -22643,7 +22643,7 @@
       "logo": null,
       "initials": "BP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22665,8 +22665,8 @@
       "listingPrice": 528,
       "listingDayClose": null,
       "listingGainPct": 23.36,
-      "currentPrice": 196.42,
-      "returnSinceIssuePct": -54.11,
+      "currentPrice": 204.76,
+      "returnSinceIssuePct": -52.16,
       "issueSizeCr": 698.06,
       "subscription": null,
       "tier": "tier2",
@@ -22676,7 +22676,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22709,7 +22709,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22863,8 +22863,8 @@
       "listingPrice": 374,
       "listingDayClose": null,
       "listingGainPct": 28.97,
-      "currentPrice": 421.95,
-      "returnSinceIssuePct": 45.5,
+      "currentPrice": 427.35,
+      "returnSinceIssuePct": 47.36,
       "issueSizeCr": 290,
       "subscription": null,
       "tier": "tier2",
@@ -22874,7 +22874,7 @@
       "logo": null,
       "initials": "QF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22907,7 +22907,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22962,8 +22962,8 @@
       "listingPrice": 161.5,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 131.98,
-      "returnSinceIssuePct": 55.27,
+      "currentPrice": 138.76,
+      "returnSinceIssuePct": 63.25,
       "issueSizeCr": 27.74,
       "subscription": null,
       "tier": "tier2",
@@ -22973,7 +22973,7 @@
       "logo": null,
       "initials": "FT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23006,7 +23006,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23039,7 +23039,7 @@
       "logo": null,
       "initials": "PM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23072,7 +23072,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23094,8 +23094,8 @@
       "listingPrice": 258.4,
       "listingDayClose": null,
       "listingGainPct": 20.19,
-      "currentPrice": 122.43,
-      "returnSinceIssuePct": -43.06,
+      "currentPrice": 122.85,
+      "returnSinceIssuePct": -42.86,
       "issueSizeCr": 260.15,
       "subscription": null,
       "tier": "tier2",
@@ -23105,7 +23105,7 @@
       "logo": null,
       "initials": "IF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23226,8 +23226,8 @@
       "listingPrice": 1491,
       "listingDayClose": null,
       "listingGainPct": 89.94,
-      "currentPrice": 1739.3,
-      "returnSinceIssuePct": 121.57,
+      "currentPrice": 1809.4,
+      "returnSinceIssuePct": 130.5,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier2",
@@ -23237,7 +23237,7 @@
       "logo": null,
       "initials": "UA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23259,8 +23259,8 @@
       "listingPrice": 660,
       "listingDayClose": null,
       "listingGainPct": -6.25,
-      "currentPrice": 487.0,
-      "returnSinceIssuePct": -30.82,
+      "currentPrice": 502.55,
+      "returnSinceIssuePct": -28.62,
       "issueSizeCr": 1250,
       "subscription": null,
       "tier": "tier2",
@@ -23270,7 +23270,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23292,8 +23292,8 @@
       "listingPrice": 593.7,
       "listingDayClose": null,
       "listingGainPct": 51.84,
-      "currentPrice": 1161.0,
-      "returnSinceIssuePct": 196.93,
+      "currentPrice": 1194.0,
+      "returnSinceIssuePct": 205.37,
       "issueSizeCr": 582.11,
       "subscription": null,
       "tier": "tier2",
@@ -23303,7 +23303,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23325,8 +23325,8 @@
       "listingPrice": 718.15,
       "listingDayClose": null,
       "listingGainPct": 11.69,
-      "currentPrice": 540.55,
-      "returnSinceIssuePct": -15.93,
+      "currentPrice": 542.8,
+      "returnSinceIssuePct": -15.58,
       "issueSizeCr": 1600,
       "subscription": null,
       "tier": "tier2",
@@ -23336,7 +23336,7 @@
       "logo": null,
       "initials": "VH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23358,8 +23358,8 @@
       "listingPrice": 832,
       "listingDayClose": null,
       "listingGainPct": 18.69,
-      "currentPrice": 228.1,
-      "returnSinceIssuePct": -67.46,
+      "currentPrice": 231.6,
+      "returnSinceIssuePct": -66.96,
       "issueSizeCr": 500.33,
       "subscription": null,
       "tier": "tier2",
@@ -23369,7 +23369,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23391,8 +23391,8 @@
       "listingPrice": 392.9,
       "listingDayClose": null,
       "listingGainPct": 38.83,
-      "currentPrice": 139.47,
-      "returnSinceIssuePct": -50.72,
+      "currentPrice": 140.44,
+      "returnSinceIssuePct": -50.37,
       "issueSizeCr": 840.25,
       "subscription": null,
       "tier": "tier2",
@@ -23402,7 +23402,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23424,8 +23424,8 @@
       "listingPrice": 600,
       "listingDayClose": null,
       "listingGainPct": 146.91,
-      "currentPrice": 320.15,
-      "returnSinceIssuePct": 31.75,
+      "currentPrice": 325.95,
+      "returnSinceIssuePct": 34.14,
       "issueSizeCr": 179.35,
       "subscription": null,
       "tier": "tier2",
@@ -23435,7 +23435,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23490,8 +23490,8 @@
       "listingPrice": 419.1,
       "listingDayClose": null,
       "listingGainPct": 30.56,
-      "currentPrice": 554.1,
-      "returnSinceIssuePct": 72.62,
+      "currentPrice": 554.75,
+      "returnSinceIssuePct": 72.82,
       "issueSizeCr": 550,
       "subscription": null,
       "tier": "tier2",
@@ -23501,7 +23501,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23523,8 +23523,8 @@
       "listingPrice": 585.15,
       "listingDayClose": null,
       "listingGainPct": 35.45,
-      "currentPrice": 440.35,
-      "returnSinceIssuePct": 1.93,
+      "currentPrice": 447.05,
+      "returnSinceIssuePct": 3.48,
       "issueSizeCr": 838.91,
       "subscription": null,
       "tier": "tier2",
@@ -23534,7 +23534,7 @@
       "logo": null,
       "initials": "TL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23600,7 +23600,7 @@
       "logo": null,
       "initials": "NI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23688,8 +23688,8 @@
       "listingPrice": 1856,
       "listingDayClose": null,
       "listingGainPct": 39.65,
-      "currentPrice": 1657.1,
-      "returnSinceIssuePct": 24.69,
+      "currentPrice": 1687.9,
+      "returnSinceIssuePct": 27.01,
       "issueSizeCr": 2497.92,
       "subscription": null,
       "tier": "tier2",
@@ -23699,7 +23699,7 @@
       "logo": null,
       "initials": "IK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23732,7 +23732,7 @@
       "logo": null,
       "initials": "YH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23754,8 +23754,8 @@
       "listingPrice": 442.25,
       "listingDayClose": null,
       "listingGainPct": 58.51,
-      "currentPrice": 224.82,
-      "returnSinceIssuePct": -19.42,
+      "currentPrice": 229.74,
+      "returnSinceIssuePct": -17.66,
       "issueSizeCr": 572,
       "subscription": null,
       "tier": "tier2",
@@ -23765,7 +23765,7 @@
       "logo": null,
       "initials": "OM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23820,8 +23820,8 @@
       "listingPrice": 660,
       "listingDayClose": null,
       "listingGainPct": 20.22,
-      "currentPrice": 1785.1,
-      "returnSinceIssuePct": 225.15,
+      "currentPrice": 1744.0,
+      "returnSinceIssuePct": 217.67,
       "issueSizeCr": 3042.62,
       "subscription": null,
       "tier": "tier2",
@@ -23831,7 +23831,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23853,8 +23853,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": -1.32,
-      "currentPrice": 31.62,
-      "returnSinceIssuePct": -58.39,
+      "currentPrice": 30.87,
+      "returnSinceIssuePct": -59.38,
       "issueSizeCr": 50,
       "subscription": null,
       "tier": "tier2",
@@ -23864,7 +23864,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23897,7 +23897,7 @@
       "logo": null,
       "initials": "VM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23930,7 +23930,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23963,7 +23963,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -24150,8 +24150,8 @@
       "listingPrice": 437,
       "listingDayClose": null,
       "listingGainPct": -0.91,
-      "currentPrice": 333.55,
-      "returnSinceIssuePct": -24.37,
+      "currentPrice": 343.65,
+      "returnSinceIssuePct": -22.07,
       "issueSizeCr": 846.25,
       "subscription": null,
       "tier": "tier2",
@@ -24161,7 +24161,7 @@
       "logo": null,
       "initials": "SD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24359,7 +24359,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -24381,8 +24381,8 @@
       "listingPrice": 218,
       "listingDayClose": null,
       "listingGainPct": 47.3,
-      "currentPrice": 171.66,
-      "returnSinceIssuePct": 15.99,
+      "currentPrice": 174.46,
+      "returnSinceIssuePct": 17.88,
       "issueSizeCr": 650.3,
       "subscription": null,
       "tier": "tier2",
@@ -24392,7 +24392,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24414,8 +24414,8 @@
       "listingPrice": 164,
       "listingDayClose": null,
       "listingGainPct": -18.0,
-      "currentPrice": 48.3,
-      "returnSinceIssuePct": -75.85,
+      "currentPrice": 49.3,
+      "returnSinceIssuePct": -75.35,
       "issueSizeCr": 61.2,
       "subscription": null,
       "tier": "tier2",
@@ -24425,7 +24425,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24447,8 +24447,8 @@
       "listingPrice": 111.6,
       "listingDayClose": null,
       "listingGainPct": 3.33,
-      "currentPrice": 82.63,
-      "returnSinceIssuePct": -23.49,
+      "currentPrice": 84.0,
+      "returnSinceIssuePct": -22.22,
       "issueSizeCr": 10000,
       "subscription": null,
       "tier": "tier2",
@@ -24458,7 +24458,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24612,8 +24612,8 @@
       "listingPrice": 78.5,
       "listingDayClose": null,
       "listingGainPct": 6.08,
-      "currentPrice": 76.08,
-      "returnSinceIssuePct": 2.81,
+      "currentPrice": 77.08,
+      "returnSinceIssuePct": 4.16,
       "issueSizeCr": 2200,
       "subscription": null,
       "tier": "tier2",
@@ -24623,7 +24623,7 @@
       "logo": null,
       "initials": "NB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24645,8 +24645,8 @@
       "listingPrice": 259,
       "listingDayClose": null,
       "listingGainPct": -10.38,
-      "currentPrice": 394.95,
-      "returnSinceIssuePct": 36.66,
+      "currentPrice": 403.6,
+      "returnSinceIssuePct": 39.65,
       "issueSizeCr": 2900,
       "subscription": null,
       "tier": "tier2",
@@ -24656,7 +24656,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24678,8 +24678,8 @@
       "listingPrice": 420,
       "listingDayClose": 456,
       "listingGainPct": 7.69,
-      "currentPrice": 191.17,
-      "returnSinceIssuePct": -50.98,
+      "currentPrice": 192.3,
+      "returnSinceIssuePct": -50.69,
       "issueSizeCr": 11327.43,
       "subscription": null,
       "tier": "tier2",
@@ -24689,7 +24689,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24711,8 +24711,8 @@
       "listingPrice": 31.06,
       "listingDayClose": null,
       "listingGainPct": 3.53,
-      "currentPrice": 43.46,
-      "returnSinceIssuePct": 44.87,
+      "currentPrice": 43.9,
+      "returnSinceIssuePct": 46.33,
       "issueSizeCr": 2106.4,
       "subscription": null,
       "tier": "tier2",
@@ -24722,7 +24722,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24744,8 +24744,8 @@
       "listingPrice": 426,
       "listingDayClose": 474.2,
       "listingGainPct": -7.99,
-      "currentPrice": 215.88,
-      "returnSinceIssuePct": -53.37,
+      "currentPrice": 219.1,
+      "returnSinceIssuePct": -52.68,
       "issueSizeCr": 5430,
       "subscription": 2.63,
       "tier": "tier2",
@@ -24755,7 +24755,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24777,8 +24777,8 @@
       "listingPrice": 426,
       "listingDayClose": 474.2,
       "listingGainPct": -7.99,
-      "currentPrice": 215.88,
-      "returnSinceIssuePct": -53.37,
+      "currentPrice": 219.1,
+      "returnSinceIssuePct": -52.68,
       "issueSizeCr": 5430,
       "subscription": null,
       "tier": "tier2",
@@ -24788,7 +24788,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24843,8 +24843,8 @@
       "listingPrice": 308,
       "listingDayClose": 343.2,
       "listingGainPct": -12.5,
-      "currentPrice": 226.08,
-      "returnSinceIssuePct": -35.77,
+      "currentPrice": 226.9,
+      "returnSinceIssuePct": -35.54,
       "issueSizeCr": 554.75,
       "subscription": null,
       "tier": "tier2",
@@ -24854,7 +24854,7 @@
       "logo": null,
       "initials": "GB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24876,8 +24876,8 @@
       "listingPrice": 570,
       "listingDayClose": null,
       "listingGainPct": 50.0,
-      "currentPrice": 942.8,
-      "returnSinceIssuePct": 148.11,
+      "currentPrice": 959.85,
+      "returnSinceIssuePct": 152.59,
       "issueSizeCr": 197.9,
       "subscription": null,
       "tier": "tier2",
@@ -24887,7 +24887,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24986,7 +24986,7 @@
       "logo": null,
       "initials": "DB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -25041,8 +25041,8 @@
       "listingPrice": 2500,
       "listingDayClose": 2338.9,
       "listingGainPct": 66.33,
-      "currentPrice": 2438.0,
-      "returnSinceIssuePct": 62.21,
+      "currentPrice": 2439.0,
+      "returnSinceIssuePct": 62.28,
       "issueSizeCr": 4321.44,
       "subscription": null,
       "tier": "tier2",
@@ -25052,7 +25052,7 @@
       "logo": null,
       "initials": "WE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25074,8 +25074,8 @@
       "listingPrice": 135,
       "listingDayClose": null,
       "listingGainPct": 16.38,
-      "currentPrice": 406.55,
-      "returnSinceIssuePct": 250.47,
+      "currentPrice": 406.4,
+      "returnSinceIssuePct": 250.34,
       "issueSizeCr": 75.39,
       "subscription": null,
       "tier": "tier2",
@@ -25085,7 +25085,7 @@
       "logo": null,
       "initials": "FA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25107,8 +25107,8 @@
       "listingPrice": 342,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 102.0,
-      "returnSinceIssuePct": -43.33,
+      "currentPrice": 96.9,
+      "returnSinceIssuePct": -46.17,
       "issueSizeCr": 49.8,
       "subscription": null,
       "tier": "tier2",
@@ -25118,7 +25118,7 @@
       "logo": null,
       "initials": "LP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25140,8 +25140,8 @@
       "listingPrice": 1931,
       "listingDayClose": null,
       "listingGainPct": -1.48,
-      "currentPrice": 2130.0,
-      "returnSinceIssuePct": 8.67,
+      "currentPrice": 2135.4,
+      "returnSinceIssuePct": 8.95,
       "issueSizeCr": 27858.75,
       "subscription": null,
       "tier": "tier2",
@@ -25151,7 +25151,7 @@
       "logo": null,
       "initials": "HM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25206,8 +25206,8 @@
       "listingPrice": 103.2,
       "listingDayClose": null,
       "listingGainPct": 8.63,
-      "currentPrice": 153.66,
-      "returnSinceIssuePct": 61.75,
+      "currentPrice": 155.37,
+      "returnSinceIssuePct": 63.55,
       "issueSizeCr": 264.1,
       "subscription": null,
       "tier": "tier2",
@@ -25217,7 +25217,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25250,7 +25250,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -25470,8 +25470,8 @@
       "listingPrice": 188,
       "listingDayClose": null,
       "listingGainPct": 11.9,
-      "currentPrice": 419.6,
-      "returnSinceIssuePct": 149.76,
+      "currentPrice": 422.55,
+      "returnSinceIssuePct": 151.52,
       "issueSizeCr": 157.96,
       "subscription": null,
       "tier": "tier2",
@@ -25481,7 +25481,7 @@
       "logo": null,
       "initials": "DE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25503,8 +25503,8 @@
       "listingPrice": 84,
       "listingDayClose": null,
       "listingGainPct": 31.25,
-      "currentPrice": 39.1,
-      "returnSinceIssuePct": -38.91,
+      "currentPrice": 41.0,
+      "returnSinceIssuePct": -35.94,
       "issueSizeCr": 24.17,
       "subscription": null,
       "tier": "tier2",
@@ -25514,7 +25514,7 @@
       "logo": null,
       "initials": "DR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25602,8 +25602,8 @@
       "listingPrice": 537.7,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 414.1,
-      "returnSinceIssuePct": 46.33,
+      "currentPrice": 411.0,
+      "returnSinceIssuePct": 45.23,
       "issueSizeCr": 186.16,
       "subscription": null,
       "tier": "tier2",
@@ -25613,7 +25613,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25635,8 +25635,8 @@
       "listingPrice": 470,
       "listingDayClose": null,
       "listingGainPct": 113.64,
-      "currentPrice": 939.8,
-      "returnSinceIssuePct": 327.18,
+      "currentPrice": 978.5,
+      "returnSinceIssuePct": 344.77,
       "issueSizeCr": 341.95,
       "subscription": null,
       "tier": "tier2",
@@ -25646,7 +25646,7 @@
       "logo": null,
       "initials": "KH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25668,8 +25668,8 @@
       "listingPrice": 125,
       "listingDayClose": null,
       "listingGainPct": 52.44,
-      "currentPrice": 122.2,
-      "returnSinceIssuePct": 49.02,
+      "currentPrice": 122.4,
+      "returnSinceIssuePct": 49.27,
       "issueSizeCr": 35.9,
       "subscription": null,
       "tier": "tier2",
@@ -25679,7 +25679,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25734,8 +25734,8 @@
       "listingPrice": 89,
       "listingDayClose": null,
       "listingGainPct": 2.3,
-      "currentPrice": 32.0,
-      "returnSinceIssuePct": -63.22,
+      "currentPrice": 35.2,
+      "returnSinceIssuePct": -59.54,
       "issueSizeCr": 31.32,
       "subscription": null,
       "tier": "tier2",
@@ -25745,7 +25745,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25767,8 +25767,8 @@
       "listingPrice": 150,
       "listingDayClose": null,
       "listingGainPct": 25.0,
-      "currentPrice": 142.89,
-      "returnSinceIssuePct": 19.07,
+      "currentPrice": 144.74,
+      "returnSinceIssuePct": 20.62,
       "issueSizeCr": 150.84,
       "subscription": null,
       "tier": "tier2",
@@ -25778,7 +25778,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25800,8 +25800,8 @@
       "listingPrice": 312,
       "listingDayClose": null,
       "listingGainPct": 40.54,
-      "currentPrice": 368.1,
-      "returnSinceIssuePct": 65.81,
+      "currentPrice": 365.75,
+      "returnSinceIssuePct": 64.75,
       "issueSizeCr": 30.41,
       "subscription": null,
       "tier": "tier2",
@@ -25811,7 +25811,7 @@
       "logo": null,
       "initials": "RV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25899,8 +25899,8 @@
       "listingPrice": 45,
       "listingDayClose": null,
       "listingGainPct": -27.42,
-      "currentPrice": 128.1,
-      "returnSinceIssuePct": 106.61,
+      "currentPrice": 127.35,
+      "returnSinceIssuePct": 105.4,
       "issueSizeCr": 24.09,
       "subscription": null,
       "tier": "tier2",
@@ -25910,7 +25910,7 @@
       "logo": null,
       "initials": "BG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26009,7 +26009,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26064,8 +26064,8 @@
       "listingPrice": 175.9,
       "listingDayClose": null,
       "listingGainPct": 37.42,
-      "currentPrice": 111.24,
-      "returnSinceIssuePct": -13.09,
+      "currentPrice": 110.77,
+      "returnSinceIssuePct": -13.46,
       "issueSizeCr": 410,
       "subscription": null,
       "tier": "tier2",
@@ -26075,7 +26075,7 @@
       "logo": null,
       "initials": "AD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26163,8 +26163,8 @@
       "listingPrice": 351,
       "listingDayClose": null,
       "listingGainPct": 33.46,
-      "currentPrice": 284.55,
-      "returnSinceIssuePct": 8.19,
+      "currentPrice": 284.6,
+      "returnSinceIssuePct": 8.21,
       "issueSizeCr": 777,
       "subscription": null,
       "tier": "tier2",
@@ -26174,7 +26174,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26229,8 +26229,8 @@
       "listingPrice": 275,
       "listingDayClose": null,
       "listingGainPct": 37.5,
-      "currentPrice": 370.8,
-      "returnSinceIssuePct": 85.4,
+      "currentPrice": 379.0,
+      "returnSinceIssuePct": 89.5,
       "issueSizeCr": 55.98,
       "subscription": null,
       "tier": "tier2",
@@ -26240,7 +26240,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26295,8 +26295,8 @@
       "listingPrice": 170,
       "listingDayClose": null,
       "listingGainPct": -1.16,
-      "currentPrice": 92.36,
-      "returnSinceIssuePct": -46.3,
+      "currentPrice": 92.59,
+      "returnSinceIssuePct": -46.17,
       "issueSizeCr": 492.88,
       "subscription": null,
       "tier": "tier2",
@@ -26306,7 +26306,7 @@
       "logo": null,
       "initials": "WC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26361,8 +26361,8 @@
       "listingPrice": 85,
       "listingDayClose": null,
       "listingGainPct": -5.56,
-      "currentPrice": 185.25,
-      "returnSinceIssuePct": 105.83,
+      "currentPrice": 194.4,
+      "returnSinceIssuePct": 116.0,
       "issueSizeCr": 12.6,
       "subscription": null,
       "tier": "tier2",
@@ -26372,7 +26372,7 @@
       "logo": null,
       "initials": "EW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26394,8 +26394,8 @@
       "listingPrice": 190,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 325.35,
-      "returnSinceIssuePct": 225.35,
+      "currentPrice": 341.05,
+      "returnSinceIssuePct": 241.05,
       "issueSizeCr": 34.24,
       "subscription": null,
       "tier": "tier2",
@@ -26405,7 +26405,7 @@
       "logo": null,
       "initials": "IA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26427,8 +26427,8 @@
       "listingPrice": 834,
       "listingDayClose": null,
       "listingGainPct": 73.75,
-      "currentPrice": 589.6,
-      "returnSinceIssuePct": 22.83,
+      "currentPrice": 605.85,
+      "returnSinceIssuePct": 26.22,
       "issueSizeCr": 1100,
       "subscription": null,
       "tier": "tier2",
@@ -26438,7 +26438,7 @@
       "logo": null,
       "initials": "PN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26559,8 +26559,8 @@
       "listingPrice": 150,
       "listingDayClose": null,
       "listingGainPct": 114.29,
-      "currentPrice": 80.0,
-      "returnSinceIssuePct": 14.29,
+      "currentPrice": 81.71,
+      "returnSinceIssuePct": 16.73,
       "issueSizeCr": 6560,
       "subscription": null,
       "tier": "tier2",
@@ -26570,7 +26570,7 @@
       "logo": null,
       "initials": "BH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26625,8 +26625,8 @@
       "listingPrice": 240,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 291.0,
-      "returnSinceIssuePct": 21.25,
+      "currentPrice": 297.45,
+      "returnSinceIssuePct": 23.94,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier2",
@@ -26636,7 +26636,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26691,8 +26691,8 @@
       "listingPrice": 189,
       "listingDayClose": null,
       "listingGainPct": 58.82,
-      "currentPrice": 311.0,
-      "returnSinceIssuePct": 161.34,
+      "currentPrice": 329.95,
+      "returnSinceIssuePct": 177.27,
       "issueSizeCr": 16.56,
       "subscription": null,
       "tier": "tier2",
@@ -26702,7 +26702,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26724,8 +26724,8 @@
       "listingPrice": 227,
       "listingDayClose": null,
       "listingGainPct": 0.44,
-      "currentPrice": 83.61,
-      "returnSinceIssuePct": -63.0,
+      "currentPrice": 85.4,
+      "returnSinceIssuePct": -62.21,
       "issueSizeCr": 230,
       "subscription": null,
       "tier": "tier2",
@@ -26735,7 +26735,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26955,8 +26955,8 @@
       "listingPrice": 750,
       "listingDayClose": null,
       "listingGainPct": 41.78,
-      "currentPrice": 1165.4,
-      "returnSinceIssuePct": 120.3,
+      "currentPrice": 1173.3,
+      "returnSinceIssuePct": 121.8,
       "issueSizeCr": 167.93,
       "subscription": null,
       "tier": "tier2",
@@ -26966,7 +26966,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26988,8 +26988,8 @@
       "listingPrice": 61,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 22.5,
-      "returnSinceIssuePct": -63.11,
+      "currentPrice": 22.95,
+      "returnSinceIssuePct": -62.38,
       "issueSizeCr": 81.94,
       "subscription": null,
       "tier": "tier2",
@@ -26999,7 +26999,7 @@
       "logo": null,
       "initials": "JG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27021,8 +27021,8 @@
       "listingPrice": 389,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 390.75,
-      "returnSinceIssuePct": 0.45,
+      "currentPrice": 399.25,
+      "returnSinceIssuePct": 2.63,
       "issueSizeCr": 834.68,
       "subscription": null,
       "tier": "tier2",
@@ -27032,7 +27032,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27098,7 +27098,7 @@
       "logo": null,
       "initials": "TR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -27120,8 +27120,8 @@
       "listingPrice": 150,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 77.4,
-      "returnSinceIssuePct": -38.08,
+      "currentPrice": 77.0,
+      "returnSinceIssuePct": -38.4,
       "issueSizeCr": 56.1,
       "subscription": null,
       "tier": "tier2",
@@ -27131,7 +27131,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27153,8 +27153,8 @@
       "listingPrice": 391.3,
       "listingDayClose": null,
       "listingGainPct": 17.16,
-      "currentPrice": 115.78,
-      "returnSinceIssuePct": -65.34,
+      "currentPrice": 116.43,
+      "returnSinceIssuePct": -65.14,
       "issueSizeCr": 601.2,
       "subscription": null,
       "tier": "tier2",
@@ -27164,7 +27164,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27285,8 +27285,8 @@
       "listingPrice": 991,
       "listingDayClose": null,
       "listingGainPct": 120.22,
-      "currentPrice": 890.0,
-      "returnSinceIssuePct": 97.78,
+      "currentPrice": 885.0,
+      "returnSinceIssuePct": 96.67,
       "issueSizeCr": 2830.4,
       "subscription": null,
       "tier": "tier2",
@@ -27296,7 +27296,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27329,7 +27329,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27450,8 +27450,8 @@
       "listingPrice": 290,
       "listingDayClose": null,
       "listingGainPct": 40.78,
-      "currentPrice": 195.18,
-      "returnSinceIssuePct": -5.25,
+      "currentPrice": 202.04,
+      "returnSinceIssuePct": -1.92,
       "issueSizeCr": 214.76,
       "subscription": null,
       "tier": "tier2",
@@ -27461,7 +27461,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27549,8 +27549,8 @@
       "listingPrice": 152,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 188.15,
-      "returnSinceIssuePct": 135.19,
+      "currentPrice": 196.4,
+      "returnSinceIssuePct": 145.5,
       "issueSizeCr": 37.44,
       "subscription": null,
       "tier": "tier2",
@@ -27560,7 +27560,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27582,8 +27582,8 @@
       "listingPrice": 1291.2,
       "listingDayClose": null,
       "listingGainPct": 43.47,
-      "currentPrice": 1541.3,
-      "returnSinceIssuePct": 71.26,
+      "currentPrice": 1583.4,
+      "returnSinceIssuePct": 75.93,
       "issueSizeCr": 600.29,
       "subscription": null,
       "tier": "tier2",
@@ -27593,7 +27593,7 @@
       "logo": null,
       "initials": "IB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27681,8 +27681,8 @@
       "listingPrice": 475,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 243.15,
-      "returnSinceIssuePct": -2.74,
+      "currentPrice": 248.95,
+      "returnSinceIssuePct": -0.42,
       "issueSizeCr": 51.21,
       "subscription": null,
       "tier": "tier2",
@@ -27692,7 +27692,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27714,8 +27714,8 @@
       "listingPrice": 200,
       "listingDayClose": null,
       "listingGainPct": 25.0,
-      "currentPrice": 67.98,
-      "returnSinceIssuePct": -57.51,
+      "currentPrice": 71.41,
+      "returnSinceIssuePct": -55.37,
       "issueSizeCr": 160.01,
       "subscription": null,
       "tier": "tier2",
@@ -27725,7 +27725,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27747,8 +27747,8 @@
       "listingPrice": 199.5,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 598.75,
-      "returnSinceIssuePct": 470.24,
+      "currentPrice": 596.95,
+      "returnSinceIssuePct": 468.52,
       "issueSizeCr": 30.24,
       "subscription": null,
       "tier": "tier2",
@@ -27758,7 +27758,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27780,8 +27780,8 @@
       "listingPrice": 110.2,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 71.0,
-      "returnSinceIssuePct": 22.41,
+      "currentPrice": 72.65,
+      "returnSinceIssuePct": 25.26,
       "issueSizeCr": 26.47,
       "subscription": null,
       "tier": "tier2",
@@ -27791,7 +27791,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27813,8 +27813,8 @@
       "listingPrice": 625,
       "listingDayClose": null,
       "listingGainPct": 34.41,
-      "currentPrice": 159.61,
-      "returnSinceIssuePct": -65.68,
+      "currentPrice": 162.02,
+      "returnSinceIssuePct": -65.16,
       "issueSizeCr": 4193.73,
       "subscription": null,
       "tier": "tier2",
@@ -27824,7 +27824,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27846,8 +27846,8 @@
       "listingPrice": 230,
       "listingDayClose": null,
       "listingGainPct": 112.96,
-      "currentPrice": 84.28,
-      "returnSinceIssuePct": -21.96,
+      "currentPrice": 84.49,
+      "returnSinceIssuePct": -21.77,
       "issueSizeCr": 276.57,
       "subscription": null,
       "tier": "tier2",
@@ -27857,7 +27857,7 @@
       "logo": null,
       "initials": "UE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27890,7 +27890,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -27912,8 +27912,8 @@
       "listingPrice": 75.99,
       "listingDayClose": null,
       "listingGainPct": -0.01,
-      "currentPrice": 34.21,
-      "returnSinceIssuePct": -54.99,
+      "currentPrice": 34.48,
+      "returnSinceIssuePct": -54.63,
       "issueSizeCr": 6145.56,
       "subscription": null,
       "tier": "tier2",
@@ -27923,7 +27923,7 @@
       "logo": null,
       "initials": "OE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27978,8 +27978,8 @@
       "listingPrice": 413,
       "listingDayClose": null,
       "listingGainPct": 2.99,
-      "currentPrice": 384.05,
-      "returnSinceIssuePct": -4.23,
+      "currentPrice": 389.4,
+      "returnSinceIssuePct": -2.89,
       "issueSizeCr": 1252.66,
       "subscription": null,
       "tier": "tier2",
@@ -27989,7 +27989,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28044,8 +28044,8 @@
       "listingPrice": 110.05,
       "listingDayClose": null,
       "listingGainPct": 0.05,
-      "currentPrice": 809.45,
-      "returnSinceIssuePct": 635.86,
+      "currentPrice": 791.4,
+      "returnSinceIssuePct": 619.45,
       "issueSizeCr": 69.5,
       "subscription": null,
       "tier": "tier2",
@@ -28055,7 +28055,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28077,8 +28077,8 @@
       "listingPrice": 725,
       "listingDayClose": null,
       "listingGainPct": 6.77,
-      "currentPrice": 734.95,
-      "returnSinceIssuePct": 8.24,
+      "currentPrice": 743.8,
+      "returnSinceIssuePct": 9.54,
       "issueSizeCr": 1856.74,
       "subscription": null,
       "tier": "tier2",
@@ -28088,7 +28088,7 @@
       "logo": null,
       "initials": "AD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28143,8 +28143,8 @@
       "listingPrice": 130,
       "listingDayClose": null,
       "listingGainPct": 23.81,
-      "currentPrice": 79.5,
-      "returnSinceIssuePct": -24.29,
+      "currentPrice": 75.55,
+      "returnSinceIssuePct": -28.05,
       "issueSizeCr": 20.78,
       "subscription": null,
       "tier": "tier2",
@@ -28154,7 +28154,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28187,7 +28187,7 @@
       "logo": null,
       "initials": "KA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -28275,8 +28275,8 @@
       "listingPrice": 93.15,
       "listingDayClose": null,
       "listingGainPct": 7.07,
-      "currentPrice": 66.8,
-      "returnSinceIssuePct": -23.22,
+      "currentPrice": 67.5,
+      "returnSinceIssuePct": -22.41,
       "issueSizeCr": 50.35,
       "subscription": null,
       "tier": "tier2",
@@ -28286,7 +28286,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28341,8 +28341,8 @@
       "listingPrice": 72,
       "listingDayClose": null,
       "listingGainPct": 24.14,
-      "currentPrice": 130.0,
-      "returnSinceIssuePct": 124.14,
+      "currentPrice": 133.1,
+      "returnSinceIssuePct": 129.48,
       "issueSizeCr": 29.23,
       "subscription": null,
       "tier": "tier2",
@@ -28352,7 +28352,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28440,8 +28440,8 @@
       "listingPrice": 98.9,
       "listingDayClose": null,
       "listingGainPct": 16.35,
-      "currentPrice": 33.35,
-      "returnSinceIssuePct": -60.76,
+      "currentPrice": 34.1,
+      "returnSinceIssuePct": -59.88,
       "issueSizeCr": 45.9,
       "subscription": null,
       "tier": "tier2",
@@ -28451,7 +28451,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28550,7 +28550,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -28638,8 +28638,8 @@
       "listingPrice": 106.4,
       "listingDayClose": null,
       "listingGainPct": 12.0,
-      "currentPrice": 94.04,
-      "returnSinceIssuePct": -1.01,
+      "currentPrice": 94.2,
+      "returnSinceIssuePct": -0.84,
       "issueSizeCr": 510.15,
       "subscription": null,
       "tier": "tier2",
@@ -28649,7 +28649,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28737,8 +28737,8 @@
       "listingPrice": 64,
       "listingDayClose": null,
       "listingGainPct": 8.47,
-      "currentPrice": 22.95,
-      "returnSinceIssuePct": -61.1,
+      "currentPrice": 23.15,
+      "returnSinceIssuePct": -60.76,
       "issueSizeCr": 115.64,
       "subscription": null,
       "tier": "tier2",
@@ -28748,7 +28748,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28781,7 +28781,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -28935,8 +28935,8 @@
       "listingPrice": 155.8,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 318.15,
-      "returnSinceIssuePct": 287.99,
+      "currentPrice": 317.45,
+      "returnSinceIssuePct": 287.13,
       "issueSizeCr": 51.27,
       "subscription": null,
       "tier": "tier2",
@@ -28946,7 +28946,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29034,8 +29034,8 @@
       "listingPrice": 352.05,
       "listingDayClose": null,
       "listingGainPct": 37.52,
-      "currentPrice": 62.32,
-      "returnSinceIssuePct": -75.66,
+      "currentPrice": 62.96,
+      "returnSinceIssuePct": -75.41,
       "issueSizeCr": 745,
       "subscription": null,
       "tier": "tier2",
@@ -29045,7 +29045,7 @@
       "logo": null,
       "initials": "BW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29067,8 +29067,8 @@
       "listingPrice": 1325.05,
       "listingDayClose": null,
       "listingGainPct": 31.45,
-      "currentPrice": 2212.8,
-      "returnSinceIssuePct": 119.52,
+      "currentPrice": 2280.0,
+      "returnSinceIssuePct": 126.19,
       "issueSizeCr": 1952.03,
       "subscription": null,
       "tier": "tier2",
@@ -29078,7 +29078,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29166,8 +29166,8 @@
       "listingPrice": 240,
       "listingDayClose": null,
       "listingGainPct": 15.94,
-      "currentPrice": 126.58,
-      "returnSinceIssuePct": -38.85,
+      "currentPrice": 129.53,
+      "returnSinceIssuePct": -37.43,
       "issueSizeCr": 171,
       "subscription": null,
       "tier": "tier2",
@@ -29177,7 +29177,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29199,8 +29199,8 @@
       "listingPrice": 98,
       "listingDayClose": null,
       "listingGainPct": 27.27,
-      "currentPrice": 446.3,
-      "returnSinceIssuePct": 479.61,
+      "currentPrice": 442.35,
+      "returnSinceIssuePct": 474.48,
       "issueSizeCr": 23.11,
       "subscription": null,
       "tier": "tier2",
@@ -29210,7 +29210,7 @@
       "logo": null,
       "initials": "AG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29232,8 +29232,8 @@
       "listingPrice": 318.1,
       "listingDayClose": null,
       "listingGainPct": 13.2,
-      "currentPrice": 708.0,
-      "returnSinceIssuePct": 151.96,
+      "currentPrice": 709.05,
+      "returnSinceIssuePct": 152.33,
       "issueSizeCr": 1500,
       "subscription": null,
       "tier": "tier2",
@@ -29243,7 +29243,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29331,8 +29331,8 @@
       "listingPrice": 88,
       "listingDayClose": null,
       "listingGainPct": 37.5,
-      "currentPrice": 83.0,
-      "returnSinceIssuePct": 29.69,
+      "currentPrice": 84.85,
+      "returnSinceIssuePct": 32.58,
       "issueSizeCr": 30.46,
       "subscription": null,
       "tier": "tier2",
@@ -29342,7 +29342,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29496,8 +29496,8 @@
       "listingPrice": 499,
       "listingDayClose": null,
       "listingGainPct": 35.23,
-      "currentPrice": 130.74,
-      "returnSinceIssuePct": -64.57,
+      "currentPrice": 132.71,
+      "returnSinceIssuePct": -64.04,
       "issueSizeCr": 537.02,
       "subscription": null,
       "tier": "tier2",
@@ -29507,7 +29507,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29540,7 +29540,7 @@
       "logo": null,
       "initials": "DF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29595,8 +29595,8 @@
       "listingPrice": 125.7,
       "listingDayClose": null,
       "listingGainPct": 4.75,
-      "currentPrice": 6.99,
-      "returnSinceIssuePct": -94.18,
+      "currentPrice": 7.11,
+      "returnSinceIssuePct": -94.08,
       "issueSizeCr": 132,
       "subscription": null,
       "tier": "tier2",
@@ -29606,7 +29606,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29628,8 +29628,8 @@
       "listingPrice": 325,
       "listingDayClose": null,
       "listingGainPct": 60.1,
-      "currentPrice": 542.8,
-      "returnSinceIssuePct": 167.39,
+      "currentPrice": 541.95,
+      "returnSinceIssuePct": 166.97,
       "issueSizeCr": 418.01,
       "subscription": null,
       "tier": "tier2",
@@ -29639,7 +29639,7 @@
       "logo": null,
       "initials": "DD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29661,8 +29661,8 @@
       "listingPrice": 109,
       "listingDayClose": null,
       "listingGainPct": 60.29,
-      "currentPrice": 69.65,
-      "returnSinceIssuePct": 2.43,
+      "currentPrice": 74.4,
+      "returnSinceIssuePct": 9.41,
       "issueSizeCr": 40.8,
       "subscription": null,
       "tier": "tier2",
@@ -29672,7 +29672,7 @@
       "logo": null,
       "initials": "DT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29738,7 +29738,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29826,8 +29826,8 @@
       "listingPrice": 135,
       "listingDayClose": null,
       "listingGainPct": 45.16,
-      "currentPrice": 165.89,
-      "returnSinceIssuePct": 78.38,
+      "currentPrice": 169.23,
+      "returnSinceIssuePct": 81.97,
       "issueSizeCr": 740.1,
       "subscription": null,
       "tier": "tier2",
@@ -29837,7 +29837,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29936,7 +29936,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29958,8 +29958,8 @@
       "listingPrice": 165,
       "listingDayClose": null,
       "listingGainPct": 21.32,
-      "currentPrice": 194.32,
-      "returnSinceIssuePct": 42.88,
+      "currentPrice": 189.1,
+      "returnSinceIssuePct": 39.04,
       "issueSizeCr": 130.15,
       "subscription": null,
       "tier": "tier2",
@@ -29969,7 +29969,7 @@
       "logo": null,
       "initials": "KL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30024,8 +30024,8 @@
       "listingPrice": 241,
       "listingDayClose": null,
       "listingGainPct": 49.69,
-      "currentPrice": 1859.0,
-      "returnSinceIssuePct": 1054.66,
+      "currentPrice": 1961.2,
+      "returnSinceIssuePct": 1118.14,
       "issueSizeCr": 87.02,
       "subscription": null,
       "tier": "tier2",
@@ -30035,7 +30035,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30156,8 +30156,8 @@
       "listingPrice": 215,
       "listingDayClose": null,
       "listingGainPct": 46.26,
-      "currentPrice": 338.75,
-      "returnSinceIssuePct": 130.44,
+      "currentPrice": 334.05,
+      "returnSinceIssuePct": 127.24,
       "issueSizeCr": 95.26,
       "subscription": null,
       "tier": "tier2",
@@ -30167,7 +30167,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30222,8 +30222,8 @@
       "listingPrice": 432.25,
       "listingDayClose": null,
       "listingGainPct": 12.86,
-      "currentPrice": 280.95,
-      "returnSinceIssuePct": -26.64,
+      "currentPrice": 289.44,
+      "returnSinceIssuePct": -24.43,
       "issueSizeCr": 598.93,
       "subscription": null,
       "tier": "tier2",
@@ -30233,7 +30233,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30288,8 +30288,8 @@
       "listingPrice": 525,
       "listingDayClose": null,
       "listingGainPct": 123.4,
-      "currentPrice": 100.0,
-      "returnSinceIssuePct": -57.45,
+      "currentPrice": 103.9,
+      "returnSinceIssuePct": -55.79,
       "issueSizeCr": 26.4,
       "subscription": null,
       "tier": "tier2",
@@ -30299,7 +30299,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30321,8 +30321,8 @@
       "listingPrice": 281.1,
       "listingDayClose": null,
       "listingGainPct": 3.35,
-      "currentPrice": 249.1,
-      "returnSinceIssuePct": -8.42,
+      "currentPrice": 254.55,
+      "returnSinceIssuePct": -6.42,
       "issueSizeCr": 2614.65,
       "subscription": null,
       "tier": "tier2",
@@ -30332,7 +30332,7 @@
       "logo": null,
       "initials": "GD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30497,7 +30497,7 @@
       "logo": null,
       "initials": "VA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30563,7 +30563,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -30618,8 +30618,8 @@
       "listingPrice": 366,
       "listingDayClose": null,
       "listingGainPct": 165.22,
-      "currentPrice": 36.98,
-      "returnSinceIssuePct": -73.2,
+      "currentPrice": 37.37,
+      "returnSinceIssuePct": -72.92,
       "issueSizeCr": 41.15,
       "subscription": null,
       "tier": "tier2",
@@ -30629,7 +30629,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30651,8 +30651,8 @@
       "listingPrice": 314.3,
       "listingDayClose": null,
       "listingGainPct": -0.22,
-      "currentPrice": 429.65,
-      "returnSinceIssuePct": 36.4,
+      "currentPrice": 436.05,
+      "returnSinceIssuePct": 38.43,
       "issueSizeCr": 3000,
       "subscription": null,
       "tier": "tier2",
@@ -30662,7 +30662,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30684,8 +30684,8 @@
       "listingPrice": 60,
       "listingDayClose": null,
       "listingGainPct": 15.38,
-      "currentPrice": 291.0,
-      "returnSinceIssuePct": 459.62,
+      "currentPrice": 299.8,
+      "returnSinceIssuePct": 476.54,
       "issueSizeCr": 18.11,
       "subscription": null,
       "tier": "tier2",
@@ -30695,7 +30695,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30717,8 +30717,8 @@
       "listingPrice": 1380,
       "listingDayClose": null,
       "listingGainPct": 50.0,
-      "currentPrice": 1564.7,
-      "returnSinceIssuePct": 70.08,
+      "currentPrice": 1556.2,
+      "returnSinceIssuePct": 69.15,
       "issueSizeCr": 1550.81,
       "subscription": null,
       "tier": "tier2",
@@ -30728,7 +30728,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30761,7 +30761,7 @@
       "logo": null,
       "initials": "TA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -30849,8 +30849,8 @@
       "listingPrice": 365,
       "listingDayClose": null,
       "listingGainPct": 386.67,
-      "currentPrice": 112.05,
-      "returnSinceIssuePct": 49.4,
+      "currentPrice": 112.75,
+      "returnSinceIssuePct": 50.33,
       "issueSizeCr": 23.36,
       "subscription": null,
       "tier": "tier2",
@@ -30860,7 +30860,7 @@
       "logo": null,
       "initials": "WE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30882,8 +30882,8 @@
       "listingPrice": 659.7,
       "listingDayClose": null,
       "listingGainPct": 45.95,
-      "currentPrice": 609.75,
-      "returnSinceIssuePct": 34.9,
+      "currentPrice": 622.25,
+      "returnSinceIssuePct": 37.67,
       "issueSizeCr": 1841.76,
       "subscription": null,
       "tier": "tier2",
@@ -30893,7 +30893,7 @@
       "logo": null,
       "initials": "IN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30915,8 +30915,8 @@
       "listingPrice": 118.5,
       "listingDayClose": null,
       "listingGainPct": 50.0,
-      "currentPrice": 120.0,
-      "returnSinceIssuePct": 51.9,
+      "currentPrice": 115.1,
+      "returnSinceIssuePct": 45.7,
       "issueSizeCr": 11.06,
       "subscription": null,
       "tier": "tier2",
@@ -30926,7 +30926,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31080,8 +31080,8 @@
       "listingPrice": 620,
       "listingDayClose": null,
       "listingGainPct": 49.4,
-      "currentPrice": 365.75,
-      "returnSinceIssuePct": -11.87,
+      "currentPrice": 380.4,
+      "returnSinceIssuePct": -8.34,
       "issueSizeCr": 649.47,
       "subscription": null,
       "tier": "tier2",
@@ -31091,7 +31091,7 @@
       "logo": null,
       "initials": "JI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31124,7 +31124,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31212,8 +31212,8 @@
       "listingPrice": 12,
       "listingDayClose": null,
       "listingGainPct": 9.09,
-      "currentPrice": 12.76,
-      "returnSinceIssuePct": 16.0,
+      "currentPrice": 12.81,
+      "returnSinceIssuePct": 16.45,
       "issueSizeCr": 18000,
       "subscription": null,
       "tier": "tier2",
@@ -31223,7 +31223,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31410,8 +31410,8 @@
       "listingPrice": 755.2,
       "listingDayClose": null,
       "listingGainPct": 32.49,
-      "currentPrice": 1664.4,
-      "returnSinceIssuePct": 192.0,
+      "currentPrice": 1709.1,
+      "returnSinceIssuePct": 199.84,
       "issueSizeCr": 4275,
       "subscription": null,
       "tier": "tier2",
@@ -31421,7 +31421,7 @@
       "logo": null,
       "initials": "BH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31443,8 +31443,8 @@
       "listingPrice": 45,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 43.85,
-      "returnSinceIssuePct": -2.56,
+      "currentPrice": 43.65,
+      "returnSinceIssuePct": -3.0,
       "issueSizeCr": 29.7,
       "subscription": null,
       "tier": "tier2",
@@ -31454,7 +31454,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31520,7 +31520,7 @@
       "logo": null,
       "initials": "JK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31608,8 +31608,8 @@
       "listingPrice": 120.15,
       "listingDayClose": null,
       "listingGainPct": 58.09,
-      "currentPrice": 21.5,
-      "returnSinceIssuePct": -71.71,
+      "currentPrice": 21.75,
+      "returnSinceIssuePct": -71.38,
       "issueSizeCr": 14.25,
       "subscription": null,
       "tier": "tier2",
@@ -31619,7 +31619,7 @@
       "logo": null,
       "initials": "RN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31674,8 +31674,8 @@
       "listingPrice": 143.25,
       "listingDayClose": null,
       "listingGainPct": 41.83,
-      "currentPrice": 24.75,
-      "returnSinceIssuePct": -75.5,
+      "currentPrice": 24.7,
+      "returnSinceIssuePct": -75.54,
       "issueSizeCr": 63.45,
       "subscription": null,
       "tier": "tier2",
@@ -31685,7 +31685,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31806,8 +31806,8 @@
       "listingPrice": 225,
       "listingDayClose": null,
       "listingGainPct": 7.14,
-      "currentPrice": 370.35,
-      "returnSinceIssuePct": 76.36,
+      "currentPrice": 392.45,
+      "returnSinceIssuePct": 86.88,
       "issueSizeCr": 130.2,
       "subscription": null,
       "tier": "tier2",
@@ -31817,7 +31817,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31905,8 +31905,8 @@
       "listingPrice": 85,
       "listingDayClose": null,
       "listingGainPct": -1.16,
-      "currentPrice": 34.7,
-      "returnSinceIssuePct": -59.65,
+      "currentPrice": 36.35,
+      "returnSinceIssuePct": -57.73,
       "issueSizeCr": 25.8,
       "subscription": null,
       "tier": "tier2",
@@ -31916,7 +31916,7 @@
       "logo": null,
       "initials": "VA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31938,8 +31938,8 @@
       "listingPrice": 76.6,
       "listingDayClose": null,
       "listingGainPct": 2.13,
-      "currentPrice": 47.4,
-      "returnSinceIssuePct": -36.8,
+      "currentPrice": 47.45,
+      "returnSinceIssuePct": -36.73,
       "issueSizeCr": 27,
       "subscription": null,
       "tier": "tier2",
@@ -31949,7 +31949,7 @@
       "logo": null,
       "initials": "OI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31982,7 +31982,7 @@
       "logo": null,
       "initials": "CF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32004,8 +32004,8 @@
       "listingPrice": 115,
       "listingDayClose": null,
       "listingGainPct": 19.79,
-      "currentPrice": 145.0,
-      "returnSinceIssuePct": 51.04,
+      "currentPrice": 148.0,
+      "returnSinceIssuePct": 54.17,
       "issueSizeCr": 22.44,
       "subscription": null,
       "tier": "tier2",
@@ -32015,7 +32015,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32037,8 +32037,8 @@
       "listingPrice": 72,
       "listingDayClose": null,
       "listingGainPct": 2.86,
-      "currentPrice": 12.0,
-      "returnSinceIssuePct": -82.86,
+      "currentPrice": 12.1,
+      "returnSinceIssuePct": -82.71,
       "issueSizeCr": 16.17,
       "subscription": null,
       "tier": "tier2",
@@ -32048,7 +32048,7 @@
       "logo": null,
       "initials": "EC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32081,7 +32081,7 @@
       "logo": null,
       "initials": "KG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32103,8 +32103,8 @@
       "listingPrice": 795,
       "listingDayClose": null,
       "listingGainPct": 11.19,
-      "currentPrice": 608.1,
-      "returnSinceIssuePct": -14.95,
+      "currentPrice": 621.7,
+      "returnSinceIssuePct": -13.05,
       "issueSizeCr": 300.12,
       "subscription": null,
       "tier": "tier2",
@@ -32114,7 +32114,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32169,8 +32169,8 @@
       "listingPrice": 292,
       "listingDayClose": null,
       "listingGainPct": -1.02,
-      "currentPrice": 94.92,
-      "returnSinceIssuePct": -67.82,
+      "currentPrice": 95.51,
+      "returnSinceIssuePct": -67.62,
       "issueSizeCr": 601.55,
       "subscription": null,
       "tier": "tier2",
@@ -32180,7 +32180,7 @@
       "logo": null,
       "initials": "PV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32279,7 +32279,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32312,7 +32312,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32334,8 +32334,8 @@
       "listingPrice": 350,
       "listingDayClose": null,
       "listingGainPct": -12.72,
-      "currentPrice": 245.64,
-      "returnSinceIssuePct": -38.74,
+      "currentPrice": 248.49,
+      "returnSinceIssuePct": -38.03,
       "issueSizeCr": 650,
       "subscription": null,
       "tier": "tier2",
@@ -32345,7 +32345,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32433,8 +32433,8 @@
       "listingPrice": 211,
       "listingDayClose": null,
       "listingGainPct": -4.52,
-      "currentPrice": 582.05,
-      "returnSinceIssuePct": 163.37,
+      "currentPrice": 592.75,
+      "returnSinceIssuePct": 168.21,
       "issueSizeCr": 251.19,
       "subscription": null,
       "tier": "tier2",
@@ -32444,7 +32444,7 @@
       "logo": null,
       "initials": "JG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32510,7 +32510,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32532,8 +32532,8 @@
       "listingPrice": 252,
       "listingDayClose": null,
       "listingGainPct": -12.5,
-      "currentPrice": 80.39,
-      "returnSinceIssuePct": -72.09,
+      "currentPrice": 82.04,
+      "returnSinceIssuePct": -71.51,
       "issueSizeCr": 423.56,
       "subscription": null,
       "tier": "tier2",
@@ -32543,7 +32543,7 @@
       "logo": null,
       "initials": "RK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32631,8 +32631,8 @@
       "listingPrice": 44,
       "listingDayClose": null,
       "listingGainPct": 57.14,
-      "currentPrice": 27.36,
-      "returnSinceIssuePct": -2.29,
+      "currentPrice": 27.61,
+      "returnSinceIssuePct": -1.39,
       "issueSizeCr": 224,
       "subscription": null,
       "tier": "tier2",
@@ -32642,7 +32642,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32664,8 +32664,8 @@
       "listingPrice": 264,
       "listingDayClose": null,
       "listingGainPct": 85.92,
-      "currentPrice": 136.98,
-      "returnSinceIssuePct": -3.54,
+      "currentPrice": 138.82,
+      "returnSinceIssuePct": -2.24,
       "issueSizeCr": 429,
       "subscription": null,
       "tier": "tier2",
@@ -32675,7 +32675,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32697,8 +32697,8 @@
       "listingPrice": 228,
       "listingDayClose": null,
       "listingGainPct": 33.33,
-      "currentPrice": 213.65,
-      "returnSinceIssuePct": 24.94,
+      "currentPrice": 216.96,
+      "returnSinceIssuePct": 26.88,
       "issueSizeCr": 235.32,
       "subscription": null,
       "tier": "tier2",
@@ -32708,7 +32708,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32763,8 +32763,8 @@
       "listingPrice": 250,
       "listingDayClose": null,
       "listingGainPct": 187.36,
-      "currentPrice": 69.2,
-      "returnSinceIssuePct": -20.46,
+      "currentPrice": 66.5,
+      "returnSinceIssuePct": -23.56,
       "issueSizeCr": 42.69,
       "subscription": null,
       "tier": "tier2",
@@ -32774,7 +32774,7 @@
       "logo": null,
       "initials": "OM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32796,8 +32796,8 @@
       "listingPrice": 135,
       "listingDayClose": null,
       "listingGainPct": 42.11,
-      "currentPrice": 115.5,
-      "returnSinceIssuePct": 21.58,
+      "currentPrice": 117.9,
+      "returnSinceIssuePct": 24.11,
       "issueSizeCr": 38.18,
       "subscription": null,
       "tier": "tier2",
@@ -32807,7 +32807,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32829,8 +32829,8 @@
       "listingPrice": 216.15,
       "listingDayClose": null,
       "listingGainPct": 16.21,
-      "currentPrice": 143.93,
-      "returnSinceIssuePct": -22.62,
+      "currentPrice": 147.68,
+      "returnSinceIssuePct": -20.6,
       "issueSizeCr": 525.14,
       "subscription": null,
       "tier": "tier2",
@@ -32840,7 +32840,7 @@
       "logo": null,
       "initials": "GH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32862,8 +32862,8 @@
       "listingPrice": 361.2,
       "listingDayClose": null,
       "listingGainPct": 0.33,
-      "currentPrice": 208.05,
-      "returnSinceIssuePct": -42.21,
+      "currentPrice": 208.21,
+      "returnSinceIssuePct": -42.16,
       "issueSizeCr": 1800,
       "subscription": null,
       "tier": "tier2",
@@ -32873,7 +32873,7 @@
       "logo": null,
       "initials": "JH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32961,8 +32961,8 @@
       "listingPrice": 91,
       "listingDayClose": null,
       "listingGainPct": 18.18,
-      "currentPrice": 109.9,
-      "returnSinceIssuePct": 42.73,
+      "currentPrice": 111.5,
+      "returnSinceIssuePct": 44.81,
       "issueSizeCr": 56.25,
       "subscription": null,
       "tier": "tier2",
@@ -32972,7 +32972,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32994,8 +32994,8 @@
       "listingPrice": 290,
       "listingDayClose": null,
       "listingGainPct": 245.24,
-      "currentPrice": 359.5,
-      "returnSinceIssuePct": 327.98,
+      "currentPrice": 365.05,
+      "returnSinceIssuePct": 334.58,
       "issueSizeCr": 28.22,
       "subscription": null,
       "tier": "tier2",
@@ -33005,7 +33005,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33126,8 +33126,8 @@
       "listingPrice": 421,
       "listingDayClose": null,
       "listingGainPct": 178.81,
-      "currentPrice": 99.5,
-      "returnSinceIssuePct": -34.11,
+      "currentPrice": 103.57,
+      "returnSinceIssuePct": -31.41,
       "issueSizeCr": 72.17,
       "subscription": null,
       "tier": "tier2",
@@ -33137,7 +33137,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33192,8 +33192,8 @@
       "listingPrice": 1245,
       "listingDayClose": null,
       "listingGainPct": -1.03,
-      "currentPrice": 1900.4,
-      "returnSinceIssuePct": 51.07,
+      "currentPrice": 2025.4,
+      "returnSinceIssuePct": 61.0,
       "issueSizeCr": 1600,
       "subscription": null,
       "tier": "tier2",
@@ -33203,7 +33203,7 @@
       "logo": null,
       "initials": "EH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33225,8 +33225,8 @@
       "listingPrice": 56,
       "listingDayClose": null,
       "listingGainPct": 3.7,
-      "currentPrice": 40.0,
-      "returnSinceIssuePct": -25.93,
+      "currentPrice": 41.05,
+      "returnSinceIssuePct": -23.98,
       "issueSizeCr": 17.43,
       "subscription": null,
       "tier": "tier2",
@@ -33236,7 +33236,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33291,8 +33291,8 @@
       "listingPrice": 119.7,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 17.8,
-      "returnSinceIssuePct": -71.75,
+      "currentPrice": 17.83,
+      "returnSinceIssuePct": -71.7,
       "issueSizeCr": 14.16,
       "subscription": null,
       "tier": "tier2",
@@ -33302,7 +33302,7 @@
       "logo": null,
       "initials": "RG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33324,8 +33324,8 @@
       "listingPrice": 435,
       "listingDayClose": null,
       "listingGainPct": -7.05,
-      "currentPrice": 270.85,
-      "returnSinceIssuePct": -42.13,
+      "currentPrice": 273.3,
+      "returnSinceIssuePct": -41.6,
       "issueSizeCr": 523.07,
       "subscription": null,
       "tier": "tier2",
@@ -33335,7 +33335,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33357,8 +33357,8 @@
       "listingPrice": 396,
       "listingDayClose": null,
       "listingGainPct": -4.35,
-      "currentPrice": 407.2,
-      "returnSinceIssuePct": -1.64,
+      "currentPrice": 406.3,
+      "returnSinceIssuePct": -1.86,
       "issueSizeCr": 570,
       "subscription": null,
       "tier": "tier2",
@@ -33368,7 +33368,7 @@
       "logo": null,
       "initials": "JS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33390,8 +33390,8 @@
       "listingPrice": 335,
       "listingDayClose": null,
       "listingGainPct": 7.72,
-      "currentPrice": 738.55,
-      "returnSinceIssuePct": 137.48,
+      "currentPrice": 736.75,
+      "returnSinceIssuePct": 136.9,
       "issueSizeCr": 600,
       "subscription": null,
       "tier": "tier2",
@@ -33401,7 +33401,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33423,8 +33423,8 @@
       "listingPrice": 187,
       "listingDayClose": null,
       "listingGainPct": 20.65,
-      "currentPrice": 103.97,
-      "returnSinceIssuePct": -32.92,
+      "currentPrice": 104.76,
+      "returnSinceIssuePct": -32.41,
       "issueSizeCr": 920.43,
       "subscription": null,
       "tier": "tier2",
@@ -33434,7 +33434,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33489,8 +33489,8 @@
       "listingPrice": 115,
       "listingDayClose": null,
       "listingGainPct": 13.86,
-      "currentPrice": 1374.8,
-      "returnSinceIssuePct": 1261.19,
+      "currentPrice": 1395.5,
+      "returnSinceIssuePct": 1281.68,
       "issueSizeCr": 8.06,
       "subscription": null,
       "tier": "tier2",
@@ -33500,7 +33500,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33522,8 +33522,8 @@
       "listingPrice": 309,
       "listingDayClose": null,
       "listingGainPct": 128.89,
-      "currentPrice": 149.81,
-      "returnSinceIssuePct": 10.97,
+      "currentPrice": 149.21,
+      "returnSinceIssuePct": 10.53,
       "issueSizeCr": 309.29,
       "subscription": null,
       "tier": "tier2",
@@ -33533,7 +33533,7 @@
       "logo": null,
       "initials": "BE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33555,8 +33555,8 @@
       "listingPrice": 183,
       "listingDayClose": null,
       "listingGainPct": 1.67,
-      "currentPrice": 26.0,
-      "returnSinceIssuePct": -85.56,
+      "currentPrice": 26.05,
+      "returnSinceIssuePct": -85.53,
       "issueSizeCr": 97.2,
       "subscription": null,
       "tier": "tier2",
@@ -33566,7 +33566,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33599,7 +33599,7 @@
       "logo": null,
       "initials": "HH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -33632,7 +33632,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -33654,8 +33654,8 @@
       "listingPrice": 198,
       "listingDayClose": null,
       "listingGainPct": 83.33,
-      "currentPrice": 232.95,
-      "returnSinceIssuePct": 115.69,
+      "currentPrice": 230.45,
+      "returnSinceIssuePct": 113.38,
       "issueSizeCr": 53.91,
       "subscription": null,
       "tier": "tier2",
@@ -33665,7 +33665,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33687,8 +33687,8 @@
       "listingPrice": 309,
       "listingDayClose": null,
       "listingGainPct": 60.94,
-      "currentPrice": 128.95,
-      "returnSinceIssuePct": -32.84,
+      "currentPrice": 132.45,
+      "returnSinceIssuePct": -31.02,
       "issueSizeCr": 46.08,
       "subscription": null,
       "tier": "tier2",
@@ -33698,7 +33698,7 @@
       "logo": null,
       "initials": "DE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33753,8 +33753,8 @@
       "listingPrice": 200,
       "listingDayClose": null,
       "listingGainPct": 185.71,
-      "currentPrice": 143.3,
-      "returnSinceIssuePct": 104.71,
+      "currentPrice": 150.45,
+      "returnSinceIssuePct": 114.93,
       "issueSizeCr": 20.37,
       "subscription": null,
       "tier": "tier2",
@@ -33764,7 +33764,7 @@
       "logo": null,
       "initials": "FR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33819,8 +33819,8 @@
       "listingPrice": 56,
       "listingDayClose": null,
       "listingGainPct": 36.59,
-      "currentPrice": 22.69,
-      "returnSinceIssuePct": -44.66,
+      "currentPrice": 23.11,
+      "returnSinceIssuePct": -43.63,
       "issueSizeCr": 143.81,
       "subscription": null,
       "tier": "tier2",
@@ -33830,7 +33830,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33852,8 +33852,8 @@
       "listingPrice": 310,
       "listingDayClose": null,
       "listingGainPct": 121.43,
-      "currentPrice": 47.6,
-      "returnSinceIssuePct": -66.0,
+      "currentPrice": 45.25,
+      "returnSinceIssuePct": -67.68,
       "issueSizeCr": 60.16,
       "subscription": null,
       "tier": "tier2",
@@ -33863,7 +33863,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33885,8 +33885,8 @@
       "listingPrice": 225,
       "listingDayClose": null,
       "listingGainPct": -2.17,
-      "currentPrice": 155.07,
-      "returnSinceIssuePct": -32.58,
+      "currentPrice": 158.3,
+      "returnSinceIssuePct": -31.17,
       "issueSizeCr": 640.05,
       "subscription": null,
       "tier": "tier2",
@@ -33896,7 +33896,7 @@
       "logo": null,
       "initials": "ED",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33951,8 +33951,8 @@
       "listingPrice": 210,
       "listingDayClose": null,
       "listingGainPct": 200.0,
-      "currentPrice": 39.2,
-      "returnSinceIssuePct": -44.0,
+      "currentPrice": 40.9,
+      "returnSinceIssuePct": -41.57,
       "issueSizeCr": 28.7,
       "subscription": null,
       "tier": "tier2",
@@ -33962,7 +33962,7 @@
       "logo": null,
       "initials": "KE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33995,7 +33995,7 @@
       "logo": null,
       "initials": "QL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34017,8 +34017,8 @@
       "listingPrice": 145,
       "listingDayClose": null,
       "listingGainPct": 339.39,
-      "currentPrice": 31.85,
-      "returnSinceIssuePct": -3.48,
+      "currentPrice": 32.9,
+      "returnSinceIssuePct": -0.3,
       "issueSizeCr": 20.26,
       "subscription": null,
       "tier": "tier2",
@@ -34028,7 +34028,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34050,8 +34050,8 @@
       "listingPrice": 465,
       "listingDayClose": null,
       "listingGainPct": 11.24,
-      "currentPrice": 282.95,
-      "returnSinceIssuePct": -32.31,
+      "currentPrice": 288.95,
+      "returnSinceIssuePct": -30.87,
       "issueSizeCr": 1171.58,
       "subscription": null,
       "tier": "tier2",
@@ -34061,7 +34061,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34160,7 +34160,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34215,8 +34215,8 @@
       "listingPrice": 372,
       "listingDayClose": null,
       "listingGainPct": 12.39,
-      "currentPrice": 1019.9,
-      "returnSinceIssuePct": 208.13,
+      "currentPrice": 1040.5,
+      "returnSinceIssuePct": 214.35,
       "issueSizeCr": 1000,
       "subscription": null,
       "tier": "tier2",
@@ -34226,7 +34226,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34248,8 +34248,8 @@
       "listingPrice": 100,
       "listingDayClose": null,
       "listingGainPct": 33.33,
-      "currentPrice": 812.05,
-      "returnSinceIssuePct": 982.73,
+      "currentPrice": 836.55,
+      "returnSinceIssuePct": 1015.4,
       "issueSizeCr": 36.6,
       "subscription": null,
       "tier": "tier2",
@@ -34259,7 +34259,7 @@
       "logo": null,
       "initials": "KL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34314,8 +34314,8 @@
       "listingPrice": 62,
       "listingDayClose": null,
       "listingGainPct": 12.73,
-      "currentPrice": 140.0,
-      "returnSinceIssuePct": 154.55,
+      "currentPrice": 147.0,
+      "returnSinceIssuePct": 167.27,
       "issueSizeCr": 27.49,
       "subscription": null,
       "tier": "tier2",
@@ -34325,7 +34325,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34391,7 +34391,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34424,7 +34424,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34457,7 +34457,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34545,8 +34545,8 @@
       "listingPrice": 456.1,
       "listingDayClose": null,
       "listingGainPct": 1.81,
-      "currentPrice": 1021.1,
-      "returnSinceIssuePct": 127.92,
+      "currentPrice": 1067.3,
+      "returnSinceIssuePct": 138.24,
       "issueSizeCr": 570,
       "subscription": null,
       "tier": "tier2",
@@ -34556,7 +34556,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34578,8 +34578,8 @@
       "listingPrice": 98,
       "listingDayClose": null,
       "listingGainPct": 50.77,
-      "currentPrice": 31.62,
-      "returnSinceIssuePct": -51.35,
+      "currentPrice": 30.87,
+      "returnSinceIssuePct": -52.51,
       "issueSizeCr": 46.67,
       "subscription": null,
       "tier": "tier2",
@@ -34589,7 +34589,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34611,8 +34611,8 @@
       "listingPrice": 98.15,
       "listingDayClose": null,
       "listingGainPct": 180.43,
-      "currentPrice": 23.88,
-      "returnSinceIssuePct": -31.77,
+      "currentPrice": 24.02,
+      "returnSinceIssuePct": -31.37,
       "issueSizeCr": 16.03,
       "subscription": null,
       "tier": "tier2",
@@ -34622,7 +34622,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34644,8 +34644,8 @@
       "listingPrice": 710,
       "listingDayClose": null,
       "listingGainPct": 35.5,
-      "currentPrice": 2422.7,
-      "returnSinceIssuePct": 362.35,
+      "currentPrice": 2501.3,
+      "returnSinceIssuePct": 377.35,
       "issueSizeCr": 740,
       "subscription": null,
       "tier": "tier2",
@@ -34655,7 +34655,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34677,8 +34677,8 @@
       "listingPrice": 282,
       "listingDayClose": null,
       "listingGainPct": 0.71,
-      "currentPrice": 76.55,
-      "returnSinceIssuePct": -72.66,
+      "currentPrice": 78.43,
+      "returnSinceIssuePct": -71.99,
       "issueSizeCr": 549.78,
       "subscription": null,
       "tier": "tier2",
@@ -34688,7 +34688,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34743,8 +34743,8 @@
       "listingPrice": 1001.25,
       "listingDayClose": null,
       "listingGainPct": 17.79,
-      "currentPrice": 1694.5,
-      "returnSinceIssuePct": 99.35,
+      "currentPrice": 1863.7,
+      "returnSinceIssuePct": 119.26,
       "issueSizeCr": 1008.59,
       "subscription": null,
       "tier": "tier2",
@@ -34754,7 +34754,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34776,8 +34776,8 @@
       "listingPrice": 100,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 170.31,
-      "returnSinceIssuePct": 70.31,
+      "currentPrice": 169.61,
+      "returnSinceIssuePct": 69.61,
       "issueSizeCr": 100,
       "subscription": null,
       "tier": "tier2",
@@ -34787,7 +34787,7 @@
       "logo": null,
       "initials": "RJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34809,8 +34809,8 @@
       "listingPrice": 76,
       "listingDayClose": null,
       "listingGainPct": 8.57,
-      "currentPrice": 5.86,
-      "returnSinceIssuePct": -91.63,
+      "currentPrice": 6.23,
+      "returnSinceIssuePct": -91.1,
       "issueSizeCr": 31.25,
       "subscription": null,
       "tier": "tier2",
@@ -34820,7 +34820,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34842,8 +34842,8 @@
       "listingPrice": 103.9,
       "listingDayClose": null,
       "listingGainPct": 88.91,
-      "currentPrice": 14.51,
-      "returnSinceIssuePct": -73.62,
+      "currentPrice": 14.49,
+      "returnSinceIssuePct": -73.65,
       "issueSizeCr": 151.09,
       "subscription": null,
       "tier": "tier2",
@@ -34853,7 +34853,7 @@
       "logo": null,
       "initials": "MJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34875,8 +34875,8 @@
       "listingPrice": 278,
       "listingDayClose": null,
       "listingGainPct": -4.47,
-      "currentPrice": 153.92,
-      "returnSinceIssuePct": -47.11,
+      "currentPrice": 159.67,
+      "returnSinceIssuePct": -45.13,
       "issueSizeCr": 960,
       "subscription": null,
       "tier": "tier2",
@@ -34886,7 +34886,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34941,8 +34941,8 @@
       "listingPrice": 343.8,
       "listingDayClose": null,
       "listingGainPct": -4.5,
-      "currentPrice": 188.46,
-      "returnSinceIssuePct": -47.65,
+      "currentPrice": 190.09,
+      "returnSinceIssuePct": -47.2,
       "issueSizeCr": 400,
       "subscription": null,
       "tier": "tier2",
@@ -34952,7 +34952,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35007,8 +35007,8 @@
       "listingPrice": 933.15,
       "listingDayClose": null,
       "listingGainPct": 41.39,
-      "currentPrice": 1870.2,
-      "returnSinceIssuePct": 183.36,
+      "currentPrice": 1927.4,
+      "returnSinceIssuePct": 192.03,
       "issueSizeCr": 1459.32,
       "subscription": null,
       "tier": "tier2",
@@ -35018,7 +35018,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35084,7 +35084,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -35106,8 +35106,8 @@
       "listingPrice": 1400,
       "listingDayClose": null,
       "listingGainPct": 77.22,
-      "currentPrice": 2053.9,
-      "returnSinceIssuePct": 159.99,
+      "currentPrice": 2091.6,
+      "returnSinceIssuePct": 164.76,
       "issueSizeCr": 1200,
       "subscription": null,
       "tier": "tier2",
@@ -35117,7 +35117,7 @@
       "logo": null,
       "initials": "DI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35139,8 +35139,8 @@
       "listingPrice": 612.7,
       "listingDayClose": null,
       "listingGainPct": 24.28,
-      "currentPrice": 624.4,
-      "returnSinceIssuePct": 26.65,
+      "currentPrice": 633.5,
+      "returnSinceIssuePct": 28.5,
       "issueSizeCr": 1200,
       "subscription": null,
       "tier": "tier2",
@@ -35150,7 +35150,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35205,8 +35205,8 @@
       "listingPrice": 140,
       "listingDayClose": null,
       "listingGainPct": 94.44,
-      "currentPrice": 41.65,
-      "returnSinceIssuePct": -42.15,
+      "currentPrice": 41.8,
+      "returnSinceIssuePct": -41.94,
       "issueSizeCr": 23.3,
       "subscription": null,
       "tier": "tier2",
@@ -35216,7 +35216,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35304,8 +35304,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": 7.14,
-      "currentPrice": 397.2,
-      "returnSinceIssuePct": 467.43,
+      "currentPrice": 399.5,
+      "returnSinceIssuePct": 470.71,
       "issueSizeCr": 23.8,
       "subscription": null,
       "tier": "tier2",
@@ -35315,7 +35315,7 @@
       "logo": null,
       "initials": "SU",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35447,7 +35447,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -35502,8 +35502,8 @@
       "listingPrice": 503,
       "listingDayClose": null,
       "listingGainPct": 65.46,
-      "currentPrice": 248.73,
-      "returnSinceIssuePct": -18.18,
+      "currentPrice": 249.67,
+      "returnSinceIssuePct": -17.87,
       "issueSizeCr": 593,
       "subscription": null,
       "tier": "tier2",
@@ -35513,7 +35513,7 @@
       "logo": null,
       "initials": "FW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35535,8 +35535,8 @@
       "listingPrice": 137.75,
       "listingDayClose": null,
       "listingGainPct": -1.61,
-      "currentPrice": 156.31,
-      "returnSinceIssuePct": 11.65,
+      "currentPrice": 157.16,
+      "returnSinceIssuePct": 12.26,
       "issueSizeCr": 1092.7,
       "subscription": null,
       "tier": "tier2",
@@ -35546,7 +35546,7 @@
       "logo": null,
       "initials": "FF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35568,8 +35568,8 @@
       "listingPrice": 295.4,
       "listingDayClose": null,
       "listingGainPct": 74.79,
-      "currentPrice": 251.48,
-      "returnSinceIssuePct": 48.8,
+      "currentPrice": 262.35,
+      "returnSinceIssuePct": 55.24,
       "issueSizeCr": 500.69,
       "subscription": null,
       "tier": "tier2",
@@ -35579,7 +35579,7 @@
       "logo": null,
       "initials": "GO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35634,8 +35634,8 @@
       "listingPrice": 1199.95,
       "listingDayClose": null,
       "listingGainPct": 139.99,
-      "currentPrice": 665.65,
-      "returnSinceIssuePct": 33.13,
+      "currentPrice": 673.0,
+      "returnSinceIssuePct": 34.6,
       "issueSizeCr": 3042.51,
       "subscription": null,
       "tier": "tier2",
@@ -35645,7 +35645,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35667,8 +35667,8 @@
       "listingPrice": 50,
       "listingDayClose": null,
       "listingGainPct": 56.25,
-      "currentPrice": 111.46,
-      "returnSinceIssuePct": 248.31,
+      "currentPrice": 111.33,
+      "returnSinceIssuePct": 247.91,
       "issueSizeCr": 2150.21,
       "subscription": null,
       "tier": "tier2",
@@ -35678,7 +35678,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35700,8 +35700,8 @@
       "listingPrice": 50,
       "listingDayClose": null,
       "listingGainPct": 56.25,
-      "currentPrice": 111.46,
-      "returnSinceIssuePct": 248.31,
+      "currentPrice": 111.33,
+      "returnSinceIssuePct": 247.91,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -35711,7 +35711,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35766,8 +35766,8 @@
       "listingPrice": 84,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 35.5,
-      "returnSinceIssuePct": -57.74,
+      "currentPrice": 35.7,
+      "returnSinceIssuePct": -57.5,
       "issueSizeCr": 10.85,
       "subscription": null,
       "tier": "tier2",
@@ -35777,7 +35777,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35810,7 +35810,7 @@
       "logo": null,
       "initials": "KC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -35865,8 +35865,8 @@
       "listingPrice": 304.9,
       "listingDayClose": null,
       "listingGainPct": 8.12,
-      "currentPrice": 614.9,
-      "returnSinceIssuePct": 118.05,
+      "currentPrice": 621.9,
+      "returnSinceIssuePct": 120.53,
       "issueSizeCr": 833.91,
       "subscription": null,
       "tier": "tier2",
@@ -35876,7 +35876,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35931,8 +35931,8 @@
       "listingPrice": 792,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 663.0,
-      "returnSinceIssuePct": -16.29,
+      "currentPrice": 667.7,
+      "returnSinceIssuePct": -15.69,
       "issueSizeCr": 489.95,
       "subscription": null,
       "tier": "tier2",
@@ -35942,7 +35942,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35964,8 +35964,8 @@
       "listingPrice": 71.9,
       "listingDayClose": null,
       "listingGainPct": 19.83,
-      "currentPrice": 42.04,
-      "returnSinceIssuePct": -29.93,
+      "currentPrice": 42.6,
+      "returnSinceIssuePct": -29.0,
       "issueSizeCr": 463,
       "subscription": null,
       "tier": "tier2",
@@ -35975,7 +35975,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36063,8 +36063,8 @@
       "listingPrice": 324,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 466.4,
-      "returnSinceIssuePct": 43.95,
+      "currentPrice": 470.05,
+      "returnSinceIssuePct": 45.08,
       "issueSizeCr": 1701.44,
       "subscription": null,
       "tier": "tier2",
@@ -36074,7 +36074,7 @@
       "logo": null,
       "initials": "HC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36096,8 +36096,8 @@
       "listingPrice": 162.55,
       "listingDayClose": null,
       "listingGainPct": 98.23,
-      "currentPrice": 121.8,
-      "returnSinceIssuePct": 48.54,
+      "currentPrice": 116.5,
+      "returnSinceIssuePct": 42.07,
       "issueSizeCr": 14.89,
       "subscription": null,
       "tier": "tier2",
@@ -36107,7 +36107,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36140,7 +36140,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -36162,8 +36162,8 @@
       "listingPrice": 831,
       "listingDayClose": null,
       "listingGainPct": 28.24,
-      "currentPrice": 363.75,
-      "returnSinceIssuePct": -43.87,
+      "currentPrice": 360.6,
+      "returnSinceIssuePct": -44.35,
       "issueSizeCr": 1900,
       "subscription": null,
       "tier": "tier2",
@@ -36173,7 +36173,7 @@
       "logo": null,
       "initials": "CW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36228,8 +36228,8 @@
       "listingPrice": 88.9,
       "listingDayClose": null,
       "listingGainPct": 27.0,
-      "currentPrice": 86.25,
-      "returnSinceIssuePct": 23.21,
+      "currentPrice": 89.1,
+      "returnSinceIssuePct": 27.29,
       "issueSizeCr": 49.98,
       "subscription": null,
       "tier": "tier2",
@@ -36239,7 +36239,7 @@
       "logo": null,
       "initials": "TS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36294,8 +36294,8 @@
       "listingPrice": 225,
       "listingDayClose": null,
       "listingGainPct": 125.0,
-      "currentPrice": 50.35,
-      "returnSinceIssuePct": -49.65,
+      "currentPrice": 48.0,
+      "returnSinceIssuePct": -52.0,
       "issueSizeCr": 51.66,
       "subscription": null,
       "tier": "tier2",
@@ -36305,7 +36305,7 @@
       "logo": null,
       "initials": "PF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36360,8 +36360,8 @@
       "listingPrice": 359.9,
       "listingDayClose": null,
       "listingGainPct": 4.02,
-      "currentPrice": 553.8,
-      "returnSinceIssuePct": 60.06,
+      "currentPrice": 569.95,
+      "returnSinceIssuePct": 64.73,
       "issueSizeCr": 840.27,
       "subscription": null,
       "tier": "tier2",
@@ -36371,7 +36371,7 @@
       "logo": null,
       "initials": "BJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36459,8 +36459,8 @@
       "listingPrice": 117,
       "listingDayClose": null,
       "listingGainPct": 36.05,
-      "currentPrice": 73.6,
-      "returnSinceIssuePct": -14.42,
+      "currentPrice": 77.05,
+      "returnSinceIssuePct": -10.41,
       "issueSizeCr": 9.56,
       "subscription": null,
       "tier": "tier2",
@@ -36470,7 +36470,7 @@
       "logo": null,
       "initials": "WO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36492,8 +36492,8 @@
       "listingPrice": 479,
       "listingDayClose": null,
       "listingGainPct": -5.15,
-      "currentPrice": 240.95,
-      "returnSinceIssuePct": -52.29,
+      "currentPrice": 242.16,
+      "returnSinceIssuePct": -52.05,
       "issueSizeCr": 545,
       "subscription": null,
       "tier": "tier2",
@@ -36503,7 +36503,7 @@
       "logo": null,
       "initials": "IE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36525,8 +36525,8 @@
       "listingPrice": 80,
       "listingDayClose": null,
       "listingGainPct": 77.78,
-      "currentPrice": 494.75,
-      "returnSinceIssuePct": 999.44,
+      "currentPrice": 499.55,
+      "returnSinceIssuePct": 1010.11,
       "issueSizeCr": 14.74,
       "subscription": null,
       "tier": "tier2",
@@ -36536,7 +36536,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36558,8 +36558,8 @@
       "listingPrice": 82,
       "listingDayClose": null,
       "listingGainPct": 6.49,
-      "currentPrice": 322.5,
-      "returnSinceIssuePct": 318.83,
+      "currentPrice": 325.0,
+      "returnSinceIssuePct": 322.08,
       "issueSizeCr": 24.95,
       "subscription": null,
       "tier": "tier2",
@@ -36569,7 +36569,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36624,8 +36624,8 @@
       "listingPrice": 81,
       "listingDayClose": null,
       "listingGainPct": 6.58,
-      "currentPrice": 134.0,
-      "returnSinceIssuePct": 76.32,
+      "currentPrice": 132.0,
+      "returnSinceIssuePct": 73.68,
       "issueSizeCr": 25.07,
       "subscription": null,
       "tier": "tier2",
@@ -36635,7 +36635,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36657,8 +36657,8 @@
       "listingPrice": 84,
       "listingDayClose": null,
       "listingGainPct": 55.56,
-      "currentPrice": 50.65,
-      "returnSinceIssuePct": -6.2,
+      "currentPrice": 50.75,
+      "returnSinceIssuePct": -6.02,
       "issueSizeCr": 71.28,
       "subscription": null,
       "tier": "tier2",
@@ -36668,7 +36668,7 @@
       "logo": null,
       "initials": "PW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36756,8 +36756,8 @@
       "listingPrice": 43.45,
       "listingDayClose": null,
       "listingGainPct": 40.16,
-      "currentPrice": 24.8,
-      "returnSinceIssuePct": -20.0,
+      "currentPrice": 24.3,
+      "returnSinceIssuePct": -21.61,
       "issueSizeCr": 47.03,
       "subscription": null,
       "tier": "tier2",
@@ -36767,7 +36767,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36866,7 +36866,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -36899,7 +36899,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -36921,8 +36921,8 @@
       "listingPrice": 122,
       "listingDayClose": null,
       "listingGainPct": 31.18,
-      "currentPrice": 46.0,
-      "returnSinceIssuePct": -50.54,
+      "currentPrice": 52.95,
+      "returnSinceIssuePct": -43.06,
       "issueSizeCr": 15.62,
       "subscription": null,
       "tier": "tier2",
@@ -36932,7 +36932,7 @@
       "logo": null,
       "initials": "KS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36987,8 +36987,8 @@
       "listingPrice": 77.4,
       "listingDayClose": null,
       "listingGainPct": 10.57,
-      "currentPrice": 108.95,
-      "returnSinceIssuePct": 55.64,
+      "currentPrice": 107.9,
+      "returnSinceIssuePct": 54.14,
       "issueSizeCr": 20.24,
       "subscription": null,
       "tier": "tier2",
@@ -36998,7 +36998,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37086,8 +37086,8 @@
       "listingPrice": 161,
       "listingDayClose": null,
       "listingGainPct": 15.0,
-      "currentPrice": 116.1,
-      "returnSinceIssuePct": -17.07,
+      "currentPrice": 113.78,
+      "returnSinceIssuePct": -18.73,
       "issueSizeCr": 152.46,
       "subscription": null,
       "tier": "tier2",
@@ -37097,7 +37097,7 @@
       "logo": null,
       "initials": "VL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37119,8 +37119,8 @@
       "listingPrice": 330,
       "listingDayClose": null,
       "listingGainPct": 100.0,
-      "currentPrice": 1514.95,
-      "returnSinceIssuePct": 818.15,
+      "currentPrice": 1543.4,
+      "returnSinceIssuePct": 835.39,
       "issueSizeCr": 54.66,
       "subscription": null,
       "tier": "tier2",
@@ -37130,7 +37130,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37152,8 +37152,8 @@
       "listingPrice": 67,
       "listingDayClose": null,
       "listingGainPct": 13.56,
-      "currentPrice": 13.75,
-      "returnSinceIssuePct": -76.69,
+      "currentPrice": 13.1,
+      "returnSinceIssuePct": -77.8,
       "issueSizeCr": 21.23,
       "subscription": null,
       "tier": "tier2",
@@ -37163,7 +37163,7 @@
       "logo": null,
       "initials": "IF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37185,8 +37185,8 @@
       "listingPrice": 71,
       "listingDayClose": null,
       "listingGainPct": 51.06,
-      "currentPrice": 17.0,
-      "returnSinceIssuePct": -63.83,
+      "currentPrice": 17.85,
+      "returnSinceIssuePct": -62.02,
       "issueSizeCr": 39.93,
       "subscription": null,
       "tier": "tier2",
@@ -37196,7 +37196,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37218,8 +37218,8 @@
       "listingPrice": 270,
       "listingDayClose": null,
       "listingGainPct": 57.89,
-      "currentPrice": 32.0,
-      "returnSinceIssuePct": -81.29,
+      "currentPrice": 33.9,
+      "returnSinceIssuePct": -80.18,
       "issueSizeCr": 30.48,
       "subscription": null,
       "tier": "tier2",
@@ -37229,7 +37229,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37251,8 +37251,8 @@
       "listingPrice": 80,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 28.8,
-      "returnSinceIssuePct": -64.0,
+      "currentPrice": 29.73,
+      "returnSinceIssuePct": -62.84,
       "issueSizeCr": 54.91,
       "subscription": null,
       "tier": "tier2",
@@ -37262,7 +37262,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37284,8 +37284,8 @@
       "listingPrice": 299.9,
       "listingDayClose": null,
       "listingGainPct": -0.03,
-      "currentPrice": 204.12,
-      "returnSinceIssuePct": -31.96,
+      "currentPrice": 200.38,
+      "returnSinceIssuePct": -33.21,
       "issueSizeCr": 640,
       "subscription": null,
       "tier": "tier2",
@@ -37295,7 +37295,7 @@
       "logo": null,
       "initials": "US",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37317,8 +37317,8 @@
       "listingPrice": 143,
       "listingDayClose": null,
       "listingGainPct": 20.17,
-      "currentPrice": 338.3,
-      "returnSinceIssuePct": 184.29,
+      "currentPrice": 340.7,
+      "returnSinceIssuePct": 186.3,
       "issueSizeCr": 2800,
       "subscription": null,
       "tier": "tier2",
@@ -37328,7 +37328,7 @@
       "logo": null,
       "initials": "JI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37350,8 +37350,8 @@
       "listingPrice": 215,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 173.96,
-      "returnSinceIssuePct": -19.09,
+      "currentPrice": 179.13,
+      "returnSinceIssuePct": -16.68,
       "issueSizeCr": 270.2,
       "subscription": null,
       "tier": "tier2",
@@ -37361,7 +37361,7 @@
       "logo": null,
       "initials": "MV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37416,8 +37416,8 @@
       "listingPrice": 140.4,
       "listingDayClose": null,
       "listingGainPct": 0.29,
-      "currentPrice": 451.0,
-      "returnSinceIssuePct": 222.14,
+      "currentPrice": 473.55,
+      "returnSinceIssuePct": 238.25,
       "issueSizeCr": 15.43,
       "subscription": null,
       "tier": "tier2",
@@ -37427,7 +37427,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37449,8 +37449,8 @@
       "listingPrice": 92,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 27.4,
-      "returnSinceIssuePct": -70.22,
+      "currentPrice": 28.1,
+      "returnSinceIssuePct": -69.46,
       "issueSizeCr": 50.77,
       "subscription": null,
       "tier": "tier2",
@@ -37460,7 +37460,7 @@
       "logo": null,
       "initials": "CG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37548,8 +37548,8 @@
       "listingPrice": 130,
       "listingDayClose": null,
       "listingGainPct": -8.45,
-      "currentPrice": 77.39,
-      "returnSinceIssuePct": -45.5,
+      "currentPrice": 78.05,
+      "returnSinceIssuePct": -45.04,
       "issueSizeCr": 775,
       "subscription": null,
       "tier": "tier2",
@@ -37559,7 +37559,7 @@
       "logo": null,
       "initials": "YO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37614,8 +37614,8 @@
       "listingPrice": 230.1,
       "listingDayClose": null,
       "listingGainPct": 3.65,
-      "currentPrice": 89.05,
-      "returnSinceIssuePct": -59.89,
+      "currentPrice": 91.06,
+      "returnSinceIssuePct": -58.98,
       "issueSizeCr": 1201,
       "subscription": null,
       "tier": "tier2",
@@ -37625,7 +37625,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37647,8 +37647,8 @@
       "listingPrice": 445,
       "listingDayClose": null,
       "listingGainPct": 15.58,
-      "currentPrice": 747.85,
-      "returnSinceIssuePct": 94.25,
+      "currentPrice": 755.3,
+      "returnSinceIssuePct": 96.18,
       "issueSizeCr": 730,
       "subscription": null,
       "tier": "tier2",
@@ -37658,7 +37658,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37746,8 +37746,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": 71.43,
-      "currentPrice": 263.0,
-      "returnSinceIssuePct": 275.71,
+      "currentPrice": 269.0,
+      "returnSinceIssuePct": 284.29,
       "issueSizeCr": 23.8,
       "subscription": null,
       "tier": "tier2",
@@ -37757,7 +37757,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37779,8 +37779,8 @@
       "listingPrice": 91,
       "listingDayClose": null,
       "listingGainPct": 40.0,
-      "currentPrice": 46.6,
-      "returnSinceIssuePct": -28.31,
+      "currentPrice": 47.4,
+      "returnSinceIssuePct": -27.08,
       "issueSizeCr": 43.26,
       "subscription": null,
       "tier": "tier2",
@@ -37790,7 +37790,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37812,8 +37812,8 @@
       "listingPrice": 65.25,
       "listingDayClose": null,
       "listingGainPct": 63.12,
-      "currentPrice": 129.0,
-      "returnSinceIssuePct": 222.5,
+      "currentPrice": 133.0,
+      "returnSinceIssuePct": 232.5,
       "issueSizeCr": 11.4,
       "subscription": null,
       "tier": "tier2",
@@ -37823,7 +37823,7 @@
       "logo": null,
       "initials": "HO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37845,8 +37845,8 @@
       "listingPrice": 130.55,
       "listingDayClose": null,
       "listingGainPct": 3.61,
-      "currentPrice": 168.36,
-      "returnSinceIssuePct": 33.62,
+      "currentPrice": 168.7,
+      "returnSinceIssuePct": 33.89,
       "issueSizeCr": 1370.1,
       "subscription": null,
       "tier": "tier2",
@@ -37856,7 +37856,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37878,8 +37878,8 @@
       "listingPrice": 162,
       "listingDayClose": null,
       "listingGainPct": -1.22,
-      "currentPrice": 165.24,
-      "returnSinceIssuePct": 0.76,
+      "currentPrice": 169.67,
+      "returnSinceIssuePct": 3.46,
       "issueSizeCr": 563.38,
       "subscription": null,
       "tier": "tier2",
@@ -37889,7 +37889,7 @@
       "logo": null,
       "initials": "ZP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37911,8 +37911,8 @@
       "listingPrice": 281.55,
       "listingDayClose": null,
       "listingGainPct": 33.44,
-      "currentPrice": 303.2,
-      "returnSinceIssuePct": 43.7,
+      "currentPrice": 309.8,
+      "returnSinceIssuePct": 46.82,
       "issueSizeCr": 321.25,
       "subscription": null,
       "tier": "tier2",
@@ -37922,7 +37922,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37977,8 +37977,8 @@
       "listingPrice": 135,
       "listingDayClose": null,
       "listingGainPct": 2.27,
-      "currentPrice": 549.3,
-      "returnSinceIssuePct": 316.14,
+      "currentPrice": 555.65,
+      "returnSinceIssuePct": 320.95,
       "issueSizeCr": 56.55,
       "subscription": null,
       "tier": "tier2",
@@ -37988,7 +37988,7 @@
       "logo": null,
       "initials": "UH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38010,8 +38010,8 @@
       "listingPrice": 1179,
       "listingDayClose": null,
       "listingGainPct": 13.91,
-      "currentPrice": 1920.9,
-      "returnSinceIssuePct": 85.59,
+      "currentPrice": 2115.4,
+      "returnSinceIssuePct": 104.39,
       "issueSizeCr": 1964.02,
       "subscription": null,
       "tier": "tier2",
@@ -38021,7 +38021,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38076,8 +38076,8 @@
       "listingPrice": 960,
       "listingDayClose": null,
       "listingGainPct": 30.61,
-      "currentPrice": 287.6,
-      "returnSinceIssuePct": -60.87,
+      "currentPrice": 293.45,
+      "returnSinceIssuePct": -60.07,
       "issueSizeCr": 869.08,
       "subscription": null,
       "tier": "tier2",
@@ -38087,7 +38087,7 @@
       "logo": null,
       "initials": "JL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38142,8 +38142,8 @@
       "listingPrice": 111,
       "listingDayClose": null,
       "listingGainPct": 76.19,
-      "currentPrice": 85.55,
-      "returnSinceIssuePct": 35.79,
+      "currentPrice": 89.0,
+      "returnSinceIssuePct": 41.27,
       "issueSizeCr": 15.27,
       "subscription": null,
       "tier": "tier2",
@@ -38153,7 +38153,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38175,8 +38175,8 @@
       "listingPrice": 65,
       "listingDayClose": null,
       "listingGainPct": -22.62,
-      "currentPrice": 38.8,
-      "returnSinceIssuePct": -53.81,
+      "currentPrice": 40.0,
+      "returnSinceIssuePct": -52.38,
       "issueSizeCr": 9.11,
       "subscription": null,
       "tier": "tier2",
@@ -38186,7 +38186,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38208,8 +38208,8 @@
       "listingPrice": 271,
       "listingDayClose": null,
       "listingGainPct": 179.38,
-      "currentPrice": 159.35,
-      "returnSinceIssuePct": 64.28,
+      "currentPrice": 161.4,
+      "returnSinceIssuePct": 66.39,
       "issueSizeCr": 66.35,
       "subscription": null,
       "tier": "tier2",
@@ -38219,7 +38219,7 @@
       "logo": null,
       "initials": "BF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38241,8 +38241,8 @@
       "listingPrice": 128,
       "listingDayClose": null,
       "listingGainPct": 30.61,
-      "currentPrice": 365.75,
-      "returnSinceIssuePct": 273.21,
+      "currentPrice": 373.0,
+      "returnSinceIssuePct": 280.61,
       "issueSizeCr": 165.03,
       "subscription": null,
       "tier": "tier2",
@@ -38252,7 +38252,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38274,8 +38274,8 @@
       "listingPrice": 460,
       "listingDayClose": null,
       "listingGainPct": 4.31,
-      "currentPrice": 625.0,
-      "returnSinceIssuePct": 41.72,
+      "currentPrice": 625.45,
+      "returnSinceIssuePct": 41.83,
       "issueSizeCr": 490.78,
       "subscription": null,
       "tier": "tier2",
@@ -38285,7 +38285,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38406,8 +38406,8 @@
       "listingPrice": 163.3,
       "listingDayClose": null,
       "listingGainPct": 64.95,
-      "currentPrice": 26.85,
-      "returnSinceIssuePct": -72.88,
+      "currentPrice": 27.58,
+      "returnSinceIssuePct": -72.14,
       "issueSizeCr": 308.61,
       "subscription": null,
       "tier": "tier2",
@@ -38417,7 +38417,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38439,8 +38439,8 @@
       "listingPrice": 197.4,
       "listingDayClose": null,
       "listingGainPct": 82.78,
-      "currentPrice": 482.7,
-      "returnSinceIssuePct": 346.94,
+      "currentPrice": 504.5,
+      "returnSinceIssuePct": 367.13,
       "issueSizeCr": 351,
       "subscription": null,
       "tier": "tier2",
@@ -38450,7 +38450,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38505,8 +38505,8 @@
       "listingPrice": 142.5,
       "listingDayClose": null,
       "listingGainPct": 90.0,
-      "currentPrice": 276.65,
-      "returnSinceIssuePct": 268.87,
+      "currentPrice": 276.7,
+      "returnSinceIssuePct": 268.93,
       "issueSizeCr": 42.72,
       "subscription": null,
       "tier": "tier2",
@@ -38516,7 +38516,7 @@
       "logo": null,
       "initials": "BE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38571,8 +38571,8 @@
       "listingPrice": 185,
       "listingDayClose": null,
       "listingGainPct": 11.45,
-      "currentPrice": 147.72,
-      "returnSinceIssuePct": -11.01,
+      "currentPrice": 150.61,
+      "returnSinceIssuePct": -9.27,
       "issueSizeCr": 153.05,
       "subscription": null,
       "tier": "tier2",
@@ -38582,7 +38582,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38648,7 +38648,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -38670,8 +38670,8 @@
       "listingPrice": 206.3,
       "listingDayClose": null,
       "listingGainPct": 4.72,
-      "currentPrice": 117.07,
-      "returnSinceIssuePct": -40.57,
+      "currentPrice": 119.89,
+      "returnSinceIssuePct": -39.14,
       "issueSizeCr": 880,
       "subscription": null,
       "tier": "tier2",
@@ -38681,7 +38681,7 @@
       "logo": null,
       "initials": "TS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38703,8 +38703,8 @@
       "listingPrice": 900.05,
       "listingDayClose": null,
       "listingGainPct": 21.46,
-      "currentPrice": 632.6,
-      "returnSinceIssuePct": -14.63,
+      "currentPrice": 612.2,
+      "returnSinceIssuePct": -17.38,
       "issueSizeCr": 1550.52,
       "subscription": null,
       "tier": "tier2",
@@ -38714,7 +38714,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38835,8 +38835,8 @@
       "listingPrice": 81.99,
       "listingDayClose": null,
       "listingGainPct": 43.84,
-      "currentPrice": 91.99,
-      "returnSinceIssuePct": 61.39,
+      "currentPrice": 90.38,
+      "returnSinceIssuePct": 58.56,
       "issueSizeCr": 1025,
       "subscription": null,
       "tier": "tier2",
@@ -38846,7 +38846,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38868,8 +38868,8 @@
       "listingPrice": 302,
       "listingDayClose": null,
       "listingGainPct": 155.93,
-      "currentPrice": 237.85,
-      "returnSinceIssuePct": 101.57,
+      "currentPrice": 244.05,
+      "returnSinceIssuePct": 106.82,
       "issueSizeCr": 59.66,
       "subscription": null,
       "tier": "tier2",
@@ -38879,7 +38879,7 @@
       "logo": null,
       "initials": "OP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38901,8 +38901,8 @@
       "listingPrice": 207.25,
       "listingDayClose": null,
       "listingGainPct": 61.91,
-      "currentPrice": 619.0,
-      "returnSinceIssuePct": 383.59,
+      "currentPrice": 616.0,
+      "returnSinceIssuePct": 381.25,
       "issueSizeCr": 49.84,
       "subscription": null,
       "tier": "tier2",
@@ -38912,7 +38912,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38967,8 +38967,8 @@
       "listingPrice": 142.3,
       "listingDayClose": null,
       "listingGainPct": 1.64,
-      "currentPrice": 710.9,
-      "returnSinceIssuePct": 407.79,
+      "currentPrice": 716.35,
+      "returnSinceIssuePct": 411.68,
       "issueSizeCr": 96.74,
       "subscription": null,
       "tier": "tier2",
@@ -38978,7 +38978,7 @@
       "logo": null,
       "initials": "KJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39000,8 +39000,8 @@
       "listingPrice": 304,
       "listingDayClose": null,
       "listingGainPct": 1.33,
-      "currentPrice": 1026.95,
-      "returnSinceIssuePct": 242.32,
+      "currentPrice": 1050.8,
+      "returnSinceIssuePct": 250.27,
       "issueSizeCr": 686.55,
       "subscription": null,
       "tier": "tier2",
@@ -39011,7 +39011,7 @@
       "logo": null,
       "initials": "YH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39132,8 +39132,8 @@
       "listingPrice": 942.5,
       "listingDayClose": null,
       "listingGainPct": 88.5,
-      "currentPrice": 3771.4,
-      "returnSinceIssuePct": 654.28,
+      "currentPrice": 3925.5,
+      "returnSinceIssuePct": 685.1,
       "issueSizeCr": 631,
       "subscription": null,
       "tier": "tier2",
@@ -39143,7 +39143,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39176,7 +39176,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39198,8 +39198,8 @@
       "listingPrice": 70.9,
       "listingDayClose": null,
       "listingGainPct": 5.82,
-      "currentPrice": 56.1,
-      "returnSinceIssuePct": -16.27,
+      "currentPrice": 61.45,
+      "returnSinceIssuePct": -8.28,
       "issueSizeCr": 20.68,
       "subscription": null,
       "tier": "tier2",
@@ -39209,7 +39209,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-05T16:21:33.281356+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39242,7 +39242,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39264,8 +39264,8 @@
       "listingPrice": 107.45,
       "listingDayClose": null,
       "listingGainPct": 65.31,
-      "currentPrice": 32.8,
-      "returnSinceIssuePct": -49.54,
+      "currentPrice": 32.35,
+      "returnSinceIssuePct": -50.23,
       "issueSizeCr": 44.2,
       "subscription": null,
       "tier": "tier2",
@@ -39275,7 +39275,7 @@
       "logo": null,
       "initials": "DD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39297,8 +39297,8 @@
       "listingPrice": 39.95,
       "listingDayClose": null,
       "listingGainPct": 59.8,
-      "currentPrice": 11.73,
-      "returnSinceIssuePct": -53.08,
+      "currentPrice": 11.84,
+      "returnSinceIssuePct": -52.64,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier2",
@@ -39308,7 +39308,7 @@
       "logo": null,
       "initials": "US",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39374,7 +39374,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39429,8 +39429,8 @@
       "listingPrice": 431,
       "listingDayClose": null,
       "listingGainPct": 35.96,
-      "currentPrice": 320.55,
-      "returnSinceIssuePct": 1.12,
+      "currentPrice": 322.3,
+      "returnSinceIssuePct": 1.67,
       "issueSizeCr": 405,
       "subscription": null,
       "tier": "tier2",
@@ -39440,7 +39440,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39495,8 +39495,8 @@
       "listingPrice": 42,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 6.0,
-      "returnSinceIssuePct": -85.71,
+      "currentPrice": 5.9,
+      "returnSinceIssuePct": -85.95,
       "issueSizeCr": 26.41,
       "subscription": null,
       "tier": "tier2",
@@ -39506,7 +39506,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39528,8 +39528,8 @@
       "listingPrice": 401,
       "listingDayClose": null,
       "listingGainPct": 51.32,
-      "currentPrice": 772.3,
-      "returnSinceIssuePct": 191.43,
+      "currentPrice": 771.75,
+      "returnSinceIssuePct": 191.23,
       "issueSizeCr": 592,
       "subscription": null,
       "tier": "tier2",
@@ -39539,7 +39539,7 @@
       "logo": null,
       "initials": "CD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39561,8 +39561,8 @@
       "listingPrice": 52,
       "listingDayClose": null,
       "listingGainPct": 6.12,
-      "currentPrice": 143.68,
-      "returnSinceIssuePct": 193.22,
+      "currentPrice": 145.09,
+      "returnSinceIssuePct": 196.1,
       "issueSizeCr": 13.23,
       "subscription": null,
       "tier": "tier2",
@@ -39572,7 +39572,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39594,8 +39594,8 @@
       "listingPrice": 1305.1,
       "listingDayClose": null,
       "listingGainPct": 94.21,
-      "currentPrice": 669.85,
-      "returnSinceIssuePct": -0.32,
+      "currentPrice": 684.05,
+      "returnSinceIssuePct": 1.79,
       "issueSizeCr": 567.24,
       "subscription": null,
       "tier": "tier2",
@@ -39605,7 +39605,7 @@
       "logo": null,
       "initials": "IT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39693,8 +39693,8 @@
       "listingPrice": 104,
       "listingDayClose": null,
       "listingGainPct": 19.54,
-      "currentPrice": 66.0,
-      "returnSinceIssuePct": -24.14,
+      "currentPrice": 68.5,
+      "returnSinceIssuePct": -21.26,
       "issueSizeCr": 53.62,
       "subscription": null,
       "tier": "tier2",
@@ -39704,7 +39704,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39770,7 +39770,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39803,7 +39803,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39825,8 +39825,8 @@
       "listingPrice": 56,
       "listingDayClose": null,
       "listingGainPct": -6.67,
-      "currentPrice": 23.2,
-      "returnSinceIssuePct": -61.33,
+      "currentPrice": 23.8,
+      "returnSinceIssuePct": -60.33,
       "issueSizeCr": 38.4,
       "subscription": null,
       "tier": "tier2",
@@ -39836,7 +39836,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39869,7 +39869,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39968,7 +39968,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40023,8 +40023,8 @@
       "listingPrice": 141,
       "listingDayClose": null,
       "listingGainPct": 41.0,
-      "currentPrice": 90.75,
-      "returnSinceIssuePct": -9.25,
+      "currentPrice": 92.0,
+      "returnSinceIssuePct": -8.0,
       "issueSizeCr": 11.42,
       "subscription": null,
       "tier": "tier2",
@@ -40034,7 +40034,7 @@
       "logo": null,
       "initials": "UE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40166,7 +40166,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40221,8 +40221,8 @@
       "listingPrice": 163,
       "listingDayClose": null,
       "listingGainPct": 20.74,
-      "currentPrice": 983.15,
-      "returnSinceIssuePct": 628.26,
+      "currentPrice": 1036.3,
+      "returnSinceIssuePct": 667.63,
       "issueSizeCr": 32.74,
       "subscription": null,
       "tier": "tier2",
@@ -40232,7 +40232,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40419,8 +40419,8 @@
       "listingPrice": 1711.25,
       "listingDayClose": null,
       "listingGainPct": 39.24,
-      "currentPrice": 800.45,
-      "returnSinceIssuePct": -34.87,
+      "currentPrice": 815.0,
+      "returnSinceIssuePct": -33.69,
       "issueSizeCr": 47.69,
       "subscription": null,
       "tier": "tier2",
@@ -40430,7 +40430,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40452,8 +40452,8 @@
       "listingPrice": 118.8,
       "listingDayClose": null,
       "listingGainPct": 120.0,
-      "currentPrice": 191.5,
-      "returnSinceIssuePct": 254.63,
+      "currentPrice": 188.0,
+      "returnSinceIssuePct": 248.15,
       "issueSizeCr": 17.93,
       "subscription": null,
       "tier": "tier2",
@@ -40463,7 +40463,7 @@
       "logo": null,
       "initials": "KS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40529,7 +40529,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40617,8 +40617,8 @@
       "listingPrice": 1300,
       "listingDayClose": null,
       "listingGainPct": 20.37,
-      "currentPrice": 2540.0,
-      "returnSinceIssuePct": 135.19,
+      "currentPrice": 2582.9,
+      "returnSinceIssuePct": 139.16,
       "issueSizeCr": 4326.36,
       "subscription": null,
       "tier": "tier2",
@@ -40628,7 +40628,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40661,7 +40661,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40782,8 +40782,8 @@
       "listingPrice": 431,
       "listingDayClose": null,
       "listingGainPct": -1.15,
-      "currentPrice": 1893.6,
-      "returnSinceIssuePct": 334.31,
+      "currentPrice": 1959.7,
+      "returnSinceIssuePct": 349.47,
       "issueSizeCr": 865,
       "subscription": null,
       "tier": "tier2",
@@ -40793,7 +40793,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40892,7 +40892,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40914,8 +40914,8 @@
       "listingPrice": 141.5,
       "listingDayClose": null,
       "listingGainPct": 4.81,
-      "currentPrice": 279.15,
-      "returnSinceIssuePct": 106.78,
+      "currentPrice": 275.05,
+      "returnSinceIssuePct": 103.74,
       "issueSizeCr": 25.25,
       "subscription": null,
       "tier": "tier2",
@@ -40925,7 +40925,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40991,7 +40991,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41013,8 +41013,8 @@
       "listingPrice": 35,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 18.36,
-      "returnSinceIssuePct": -47.54,
+      "currentPrice": 18.39,
+      "returnSinceIssuePct": -47.46,
       "issueSizeCr": 66,
       "subscription": null,
       "tier": "tier2",
@@ -41024,7 +41024,7 @@
       "logo": null,
       "initials": "UI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41112,8 +41112,8 @@
       "listingPrice": 102,
       "listingDayClose": null,
       "listingGainPct": 3.03,
-      "currentPrice": 24.3,
-      "returnSinceIssuePct": -75.45,
+      "currentPrice": 25.85,
+      "returnSinceIssuePct": -73.89,
       "issueSizeCr": 20.3,
       "subscription": null,
       "tier": "tier2",
@@ -41123,7 +41123,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41145,8 +41145,8 @@
       "listingPrice": 150,
       "listingDayClose": null,
       "listingGainPct": 2.74,
-      "currentPrice": 355.7,
-      "returnSinceIssuePct": 143.63,
+      "currentPrice": 373.85,
+      "returnSinceIssuePct": 156.06,
       "issueSizeCr": 55.48,
       "subscription": null,
       "tier": "tier2",
@@ -41156,7 +41156,7 @@
       "logo": null,
       "initials": "BO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41211,8 +41211,8 @@
       "listingPrice": 163,
       "listingDayClose": null,
       "listingGainPct": 16.43,
-      "currentPrice": 23.22,
-      "returnSinceIssuePct": -83.41,
+      "currentPrice": 23.54,
+      "returnSinceIssuePct": -83.19,
       "issueSizeCr": 154.98,
       "subscription": null,
       "tier": "tier2",
@@ -41222,7 +41222,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41277,8 +41277,8 @@
       "listingPrice": 73,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 32.31,
-      "returnSinceIssuePct": -55.74,
+      "currentPrice": 33.33,
+      "returnSinceIssuePct": -54.34,
       "issueSizeCr": 50.1,
       "subscription": null,
       "tier": "tier2",
@@ -41288,7 +41288,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41409,8 +41409,8 @@
       "listingPrice": 98,
       "listingDayClose": null,
       "listingGainPct": 8.89,
-      "currentPrice": 220.9,
-      "returnSinceIssuePct": 145.44,
+      "currentPrice": 228.2,
+      "returnSinceIssuePct": 153.56,
       "issueSizeCr": 34.82,
       "subscription": null,
       "tier": "tier2",
@@ -41420,7 +41420,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41475,8 +41475,8 @@
       "listingPrice": 600,
       "listingDayClose": null,
       "listingGainPct": 1.69,
-      "currentPrice": 884.45,
-      "returnSinceIssuePct": 49.91,
+      "currentPrice": 922.5,
+      "returnSinceIssuePct": 56.36,
       "issueSizeCr": 412.12,
       "subscription": null,
       "tier": "tier2",
@@ -41486,7 +41486,7 @@
       "logo": null,
       "initials": "DT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41519,7 +41519,7 @@
       "logo": null,
       "initials": "IE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41552,7 +41552,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41904,8 +41904,8 @@
       "listingPrice": 64.1,
       "listingDayClose": null,
       "listingGainPct": 12.46,
-      "currentPrice": 172.1,
-      "returnSinceIssuePct": 201.93,
+      "currentPrice": 172.5,
+      "returnSinceIssuePct": 202.63,
       "issueSizeCr": 35.2,
       "subscription": null,
       "tier": "tier2",
@@ -41915,7 +41915,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42069,8 +42069,8 @@
       "listingPrice": 80,
       "listingDayClose": null,
       "listingGainPct": 11.11,
-      "currentPrice": 99.1,
-      "returnSinceIssuePct": 37.64,
+      "currentPrice": 104.0,
+      "returnSinceIssuePct": 44.44,
       "issueSizeCr": 13.05,
       "subscription": null,
       "tier": "tier2",
@@ -42080,7 +42080,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42300,8 +42300,8 @@
       "listingPrice": 251.1,
       "listingDayClose": null,
       "listingGainPct": 151.1,
-      "currentPrice": 515.0,
-      "returnSinceIssuePct": 415.0,
+      "currentPrice": 538.1,
+      "returnSinceIssuePct": 438.1,
       "issueSizeCr": 15,
       "subscription": null,
       "tier": "tier2",
@@ -42311,7 +42311,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42366,8 +42366,8 @@
       "listingPrice": 99.3,
       "listingDayClose": null,
       "listingGainPct": 5.64,
-      "currentPrice": 33.4,
-      "returnSinceIssuePct": -64.47,
+      "currentPrice": 33.75,
+      "returnSinceIssuePct": -64.1,
       "issueSizeCr": 256.64,
       "subscription": null,
       "tier": "tier2",
@@ -42377,7 +42377,7 @@
       "logo": null,
       "initials": "RC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42432,8 +42432,8 @@
       "listingPrice": 243,
       "listingDayClose": null,
       "listingGainPct": -1.62,
-      "currentPrice": 75.43,
-      "returnSinceIssuePct": -69.46,
+      "currentPrice": 77.45,
+      "returnSinceIssuePct": -68.64,
       "issueSizeCr": 475,
       "subscription": null,
       "tier": "tier2",
@@ -42443,7 +42443,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42498,8 +42498,8 @@
       "listingPrice": 120.1,
       "listingDayClose": null,
       "listingGainPct": 33.44,
-      "currentPrice": 829.95,
-      "returnSinceIssuePct": 822.17,
+      "currentPrice": 884.0,
+      "returnSinceIssuePct": 882.22,
       "issueSizeCr": 14.72,
       "subscription": null,
       "tier": "tier2",
@@ -42509,7 +42509,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42531,8 +42531,8 @@
       "listingPrice": 369,
       "listingDayClose": null,
       "listingGainPct": 0.82,
-      "currentPrice": 915.8,
-      "returnSinceIssuePct": 150.22,
+      "currentPrice": 914.0,
+      "returnSinceIssuePct": 149.73,
       "issueSizeCr": 1500,
       "subscription": null,
       "tier": "tier2",
@@ -42542,7 +42542,7 @@
       "logo": null,
       "initials": "KT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42597,8 +42597,8 @@
       "listingPrice": 30,
       "listingDayClose": null,
       "listingGainPct": -14.29,
-      "currentPrice": 35.25,
-      "returnSinceIssuePct": 0.71,
+      "currentPrice": 35.13,
+      "returnSinceIssuePct": 0.37,
       "issueSizeCr": 24.39,
       "subscription": null,
       "tier": "tier2",
@@ -42608,7 +42608,7 @@
       "logo": null,
       "initials": "DA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42630,7 +42630,7 @@
       "listingPrice": 270,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 26.37,
+      "currentPrice": 26.39,
       "returnSinceIssuePct": -90.23,
       "issueSizeCr": 345.6,
       "subscription": null,
@@ -42641,7 +42641,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42696,8 +42696,8 @@
       "listingPrice": 471.3,
       "listingDayClose": null,
       "listingGainPct": -6.86,
-      "currentPrice": 466.5,
-      "returnSinceIssuePct": -7.81,
+      "currentPrice": 478.4,
+      "returnSinceIssuePct": -5.45,
       "issueSizeCr": 552,
       "subscription": null,
       "tier": "tier2",
@@ -42707,7 +42707,7 @@
       "logo": null,
       "initials": "LC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42729,8 +42729,8 @@
       "listingPrice": 358,
       "listingDayClose": null,
       "listingGainPct": 0.28,
-      "currentPrice": 137.79,
-      "returnSinceIssuePct": -61.4,
+      "currentPrice": 140.81,
+      "returnSinceIssuePct": -60.56,
       "issueSizeCr": 960.35,
       "subscription": null,
       "tier": "tier2",
@@ -42740,7 +42740,7 @@
       "logo": null,
       "initials": "SV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42828,8 +42828,8 @@
       "listingPrice": 60,
       "listingDayClose": null,
       "listingGainPct": 42.86,
-      "currentPrice": 228.8,
-      "returnSinceIssuePct": 444.76,
+      "currentPrice": 228.43,
+      "returnSinceIssuePct": 443.88,
       "issueSizeCr": 9.58,
       "subscription": null,
       "tier": "tier2",
@@ -42839,7 +42839,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42861,8 +42861,8 @@
       "listingPrice": 575,
       "listingDayClose": null,
       "listingGainPct": -0.35,
-      "currentPrice": 704.6,
-      "returnSinceIssuePct": 22.11,
+      "currentPrice": 725.0,
+      "returnSinceIssuePct": 25.65,
       "issueSizeCr": 835.61,
       "subscription": null,
       "tier": "tier2",
@@ -42872,7 +42872,7 @@
       "logo": null,
       "initials": "UI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42927,8 +42927,8 @@
       "listingPrice": 266,
       "listingDayClose": null,
       "listingGainPct": 12.24,
-      "currentPrice": 243.6,
-      "returnSinceIssuePct": 2.78,
+      "currentPrice": 243.15,
+      "returnSinceIssuePct": 2.59,
       "issueSizeCr": 251.09,
       "subscription": null,
       "tier": "tier2",
@@ -42938,7 +42938,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43026,8 +43026,8 @@
       "listingPrice": 555,
       "listingDayClose": null,
       "listingGainPct": 2.59,
-      "currentPrice": 346.2,
-      "returnSinceIssuePct": -36.01,
+      "currentPrice": 350.6,
+      "returnSinceIssuePct": -35.19,
       "issueSizeCr": 635,
       "subscription": null,
       "tier": "tier2",
@@ -43037,7 +43037,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43059,8 +43059,8 @@
       "listingPrice": 60.5,
       "listingDayClose": null,
       "listingGainPct": -6.92,
-      "currentPrice": 120.86,
-      "returnSinceIssuePct": 85.94,
+      "currentPrice": 120.25,
+      "returnSinceIssuePct": 85.0,
       "issueSizeCr": 740,
       "subscription": null,
       "tier": "tier2",
@@ -43070,7 +43070,7 @@
       "logo": null,
       "initials": "IG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43092,8 +43092,8 @@
       "listingPrice": 775,
       "listingDayClose": null,
       "listingGainPct": 32.03,
-      "currentPrice": 3233.0,
-      "returnSinceIssuePct": 450.77,
+      "currentPrice": 3263.0,
+      "returnSinceIssuePct": 455.88,
       "issueSizeCr": 857.82,
       "subscription": null,
       "tier": "tier2",
@@ -43103,7 +43103,7 @@
       "logo": null,
       "initials": "KT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43125,8 +43125,8 @@
       "listingPrice": 449,
       "listingDayClose": null,
       "listingGainPct": 10.32,
-      "currentPrice": 416.4,
-      "returnSinceIssuePct": 2.31,
+      "currentPrice": 431.05,
+      "returnSinceIssuePct": 5.91,
       "issueSizeCr": 1462.3,
       "subscription": null,
       "tier": "tier2",
@@ -43136,7 +43136,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43158,8 +43158,8 @@
       "listingPrice": 449.95,
       "listingDayClose": null,
       "listingGainPct": -5.07,
-      "currentPrice": 425.3,
-      "returnSinceIssuePct": -10.27,
+      "currentPrice": 427.65,
+      "returnSinceIssuePct": -9.78,
       "issueSizeCr": 1593.45,
       "subscription": null,
       "tier": "tier2",
@@ -43169,7 +43169,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43224,8 +43224,8 @@
       "listingPrice": 321.15,
       "listingDayClose": null,
       "listingGainPct": 7.05,
-      "currentPrice": 476.35,
-      "returnSinceIssuePct": 58.78,
+      "currentPrice": 485.75,
+      "returnSinceIssuePct": 61.92,
       "issueSizeCr": 880.86,
       "subscription": null,
       "tier": "tier2",
@@ -43235,7 +43235,7 @@
       "logo": null,
       "initials": "BF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43257,8 +43257,8 @@
       "listingPrice": 398.15,
       "listingDayClose": null,
       "listingGainPct": 18.5,
-      "currentPrice": 1387.6,
-      "returnSinceIssuePct": 312.98,
+      "currentPrice": 1397.5,
+      "returnSinceIssuePct": 315.92,
       "issueSizeCr": 2205.57,
       "subscription": null,
       "tier": "tier2",
@@ -43268,7 +43268,7 @@
       "logo": null,
       "initials": "GH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43323,8 +43323,8 @@
       "listingPrice": 360.5,
       "listingDayClose": null,
       "listingGainPct": -2.04,
-      "currentPrice": 154.5,
-      "returnSinceIssuePct": -58.02,
+      "currentPrice": 158.24,
+      "returnSinceIssuePct": -57.0,
       "issueSizeCr": 1103.99,
       "subscription": null,
       "tier": "tier2",
@@ -43334,7 +43334,7 @@
       "logo": null,
       "initials": "FM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43389,8 +43389,8 @@
       "listingPrice": 164,
       "listingDayClose": null,
       "listingGainPct": 62.38,
-      "currentPrice": 51.84,
-      "returnSinceIssuePct": -48.67,
+      "currentPrice": 49.67,
+      "returnSinceIssuePct": -50.82,
       "issueSizeCr": 64.64,
       "subscription": null,
       "tier": "tier2",
@@ -43400,7 +43400,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43422,8 +43422,8 @@
       "listingPrice": 286.25,
       "listingDayClose": null,
       "listingGainPct": 38.29,
-      "currentPrice": 138.95,
-      "returnSinceIssuePct": -32.87,
+      "currentPrice": 141.96,
+      "returnSinceIssuePct": -31.42,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier2",
@@ -43433,7 +43433,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43587,8 +43587,8 @@
       "listingPrice": 83,
       "listingDayClose": null,
       "listingGainPct": 3.75,
-      "currentPrice": 28.77,
-      "returnSinceIssuePct": -64.04,
+      "currentPrice": 28.16,
+      "returnSinceIssuePct": -64.8,
       "issueSizeCr": 309.38,
       "subscription": null,
       "tier": "tier2",
@@ -43598,7 +43598,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43620,8 +43620,8 @@
       "listingPrice": 89.4,
       "listingDayClose": null,
       "listingGainPct": 51.53,
-      "currentPrice": 144.69,
-      "returnSinceIssuePct": 145.24,
+      "currentPrice": 146.07,
+      "returnSinceIssuePct": 147.58,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier2",
@@ -43631,7 +43631,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43730,7 +43730,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43983,8 +43983,8 @@
       "listingPrice": 76.1,
       "listingDayClose": null,
       "listingGainPct": 100.26,
-      "currentPrice": 71.79,
-      "returnSinceIssuePct": 88.92,
+      "currentPrice": 72.51,
+      "returnSinceIssuePct": 90.82,
       "issueSizeCr": 22.16,
       "subscription": null,
       "tier": "tier2",
@@ -43994,7 +43994,7 @@
       "logo": null,
       "initials": "IE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44115,8 +44115,8 @@
       "listingPrice": 105,
       "listingDayClose": null,
       "listingGainPct": 3.96,
-      "currentPrice": 23.88,
-      "returnSinceIssuePct": -76.36,
+      "currentPrice": 24.02,
+      "returnSinceIssuePct": -76.22,
       "issueSizeCr": 35.34,
       "subscription": null,
       "tier": "tier2",
@@ -44126,7 +44126,7 @@
       "logo": null,
       "initials": "TL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44280,8 +44280,8 @@
       "listingPrice": 120,
       "listingDayClose": null,
       "listingGainPct": 71.43,
-      "currentPrice": 124.14,
-      "returnSinceIssuePct": 77.34,
+      "currentPrice": 126.51,
+      "returnSinceIssuePct": 80.73,
       "issueSizeCr": 30.25,
       "subscription": null,
       "tier": "tier2",
@@ -44291,7 +44291,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44346,8 +44346,8 @@
       "listingPrice": 444,
       "listingDayClose": null,
       "listingGainPct": 34.55,
-      "currentPrice": 457.15,
-      "returnSinceIssuePct": 38.53,
+      "currentPrice": 460.95,
+      "returnSinceIssuePct": 39.68,
       "issueSizeCr": 755,
       "subscription": null,
       "tier": "tier2",
@@ -44357,7 +44357,7 @@
       "logo": null,
       "initials": "HE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44544,8 +44544,8 @@
       "listingPrice": 90,
       "listingDayClose": null,
       "listingGainPct": 63.64,
-      "currentPrice": 712.0,
-      "returnSinceIssuePct": 1194.55,
+      "currentPrice": 706.7,
+      "returnSinceIssuePct": 1184.91,
       "issueSizeCr": 8.8,
       "subscription": null,
       "tier": "tier2",
@@ -44555,7 +44555,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44577,8 +44577,8 @@
       "listingPrice": 510,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 827.4,
-      "returnSinceIssuePct": 62.24,
+      "currentPrice": 828.2,
+      "returnSinceIssuePct": 62.39,
       "issueSizeCr": 807.84,
       "subscription": null,
       "tier": "tier2",
@@ -44588,7 +44588,7 @@
       "logo": null,
       "initials": "TM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44676,8 +44676,8 @@
       "listingPrice": 68.4,
       "listingDayClose": null,
       "listingGainPct": 101.18,
-      "currentPrice": 155.8,
-      "returnSinceIssuePct": 358.24,
+      "currentPrice": 155.0,
+      "returnSinceIssuePct": 355.88,
       "issueSizeCr": 7.14,
       "subscription": null,
       "tier": "tier2",
@@ -44687,7 +44687,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44808,8 +44808,8 @@
       "listingPrice": 505,
       "listingDayClose": null,
       "listingGainPct": 54.91,
-      "currentPrice": 58.67,
-      "returnSinceIssuePct": -82.0,
+      "currentPrice": 59.46,
+      "returnSinceIssuePct": -81.76,
       "issueSizeCr": 562.1,
       "subscription": null,
       "tier": "tier2",
@@ -44819,7 +44819,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44841,8 +44841,8 @@
       "listingPrice": 70,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 13.02,
-      "returnSinceIssuePct": -81.4,
+      "currentPrice": 13.26,
+      "returnSinceIssuePct": -81.06,
       "issueSizeCr": 56,
       "subscription": null,
       "tier": "tier2",
@@ -44852,7 +44852,7 @@
       "logo": null,
       "initials": "RT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44940,8 +44940,8 @@
       "listingPrice": 262,
       "listingDayClose": null,
       "listingGainPct": 19.09,
-      "currentPrice": 1459.3,
-      "returnSinceIssuePct": 563.32,
+      "currentPrice": 1505.0,
+      "returnSinceIssuePct": 584.09,
       "issueSizeCr": 840.13,
       "subscription": null,
       "tier": "tier2",
@@ -44951,7 +44951,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45072,8 +45072,8 @@
       "listingPrice": 8.9,
       "listingDayClose": null,
       "listingGainPct": -11.0,
-      "currentPrice": 17.34,
-      "returnSinceIssuePct": 73.4,
+      "currentPrice": 17.62,
+      "returnSinceIssuePct": 76.2,
       "issueSizeCr": 10,
       "subscription": null,
       "tier": "tier2",
@@ -45083,7 +45083,7 @@
       "logo": null,
       "initials": "HL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45270,8 +45270,8 @@
       "listingPrice": 102,
       "listingDayClose": null,
       "listingGainPct": 0.99,
-      "currentPrice": 28.8,
-      "returnSinceIssuePct": -71.49,
+      "currentPrice": 29.73,
+      "returnSinceIssuePct": -70.56,
       "issueSizeCr": 65.58,
       "subscription": null,
       "tier": "tier2",
@@ -45281,7 +45281,7 @@
       "logo": null,
       "initials": "MW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45402,8 +45402,8 @@
       "listingPrice": 189,
       "listingDayClose": null,
       "listingGainPct": 5.0,
-      "currentPrice": 428.65,
-      "returnSinceIssuePct": 138.14,
+      "currentPrice": 427.85,
+      "returnSinceIssuePct": 137.69,
       "issueSizeCr": 22.68,
       "subscription": null,
       "tier": "tier2",
@@ -45413,7 +45413,7 @@
       "logo": null,
       "initials": "MN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45501,8 +45501,8 @@
       "listingPrice": 16,
       "listingDayClose": null,
       "listingGainPct": -11.11,
-      "currentPrice": 182.48,
-      "returnSinceIssuePct": 913.78,
+      "currentPrice": 182.58,
+      "returnSinceIssuePct": 914.33,
       "issueSizeCr": 9,
       "subscription": null,
       "tier": "tier2",
@@ -45512,7 +45512,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45534,8 +45534,8 @@
       "listingPrice": 59.1,
       "listingDayClose": null,
       "listingGainPct": 59.73,
-      "currentPrice": 180.0,
-      "returnSinceIssuePct": 386.49,
+      "currentPrice": 179.75,
+      "returnSinceIssuePct": 385.81,
       "issueSizeCr": 13.5,
       "subscription": null,
       "tier": "tier2",
@@ -45545,7 +45545,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45600,8 +45600,8 @@
       "listingPrice": 706.15,
       "listingDayClose": null,
       "listingGainPct": 9.99,
-      "currentPrice": 1561.8,
-      "returnSinceIssuePct": 143.27,
+      "currentPrice": 1603.5,
+      "returnSinceIssuePct": 149.77,
       "issueSizeCr": 808.04,
       "subscription": null,
       "tier": "tier2",
@@ -45611,7 +45611,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45666,8 +45666,8 @@
       "listingPrice": 271,
       "listingDayClose": null,
       "listingGainPct": 5.86,
-      "currentPrice": 369.55,
-      "returnSinceIssuePct": 44.36,
+      "currentPrice": 377.7,
+      "returnSinceIssuePct": 47.54,
       "issueSizeCr": 412.79,
       "subscription": null,
       "tier": "tier2",
@@ -45677,7 +45677,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45699,8 +45699,8 @@
       "listingPrice": 830,
       "listingDayClose": null,
       "listingGainPct": -5.47,
-      "currentPrice": 2681.4,
-      "returnSinceIssuePct": 205.4,
+      "currentPrice": 2790.9,
+      "returnSinceIssuePct": 217.87,
       "issueSizeCr": 402.26,
       "subscription": null,
       "tier": "tier2",
@@ -45710,7 +45710,7 @@
       "logo": null,
       "initials": "EL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45732,8 +45732,8 @@
       "listingPrice": 43.55,
       "listingDayClose": null,
       "listingGainPct": 3.69,
-      "currentPrice": 142.32,
-      "returnSinceIssuePct": 238.86,
+      "currentPrice": 142.95,
+      "returnSinceIssuePct": 240.36,
       "issueSizeCr": 1501.73,
       "subscription": null,
       "tier": "tier2",
@@ -45743,7 +45743,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45765,8 +45765,8 @@
       "listingPrice": 493,
       "listingDayClose": null,
       "listingGainPct": 1.23,
-      "currentPrice": 428.0,
-      "returnSinceIssuePct": -12.11,
+      "currentPrice": 430.0,
+      "returnSinceIssuePct": -11.7,
       "issueSizeCr": 5235,
       "subscription": null,
       "tier": "tier2",
@@ -45776,7 +45776,7 @@
       "logo": null,
       "initials": "DE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45798,8 +45798,8 @@
       "listingPrice": 335,
       "listingDayClose": null,
       "listingGainPct": 2.76,
-      "currentPrice": 1722.5,
-      "returnSinceIssuePct": 428.37,
+      "currentPrice": 1789.6,
+      "returnSinceIssuePct": 448.96,
       "issueSizeCr": 165.42,
       "subscription": null,
       "tier": "tier2",
@@ -45809,7 +45809,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45831,8 +45831,8 @@
       "listingPrice": 660,
       "listingDayClose": null,
       "listingGainPct": 4.76,
-      "currentPrice": 2902.0,
-      "returnSinceIssuePct": 360.63,
+      "currentPrice": 3016.8,
+      "returnSinceIssuePct": 378.86,
       "issueSizeCr": 428.28,
       "subscription": null,
       "tier": "tier2",
@@ -45842,7 +45842,7 @@
       "logo": null,
       "initials": "PC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45930,8 +45930,8 @@
       "listingPrice": 506,
       "listingDayClose": null,
       "listingGainPct": -6.64,
-      "currentPrice": 1244.4,
-      "returnSinceIssuePct": 129.59,
+      "currentPrice": 1270.4,
+      "returnSinceIssuePct": 134.39,
       "issueSizeCr": 1580.85,
       "subscription": null,
       "tier": "tier2",
@@ -45941,7 +45941,7 @@
       "logo": null,
       "initials": "RC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45963,8 +45963,8 @@
       "listingPrice": 355,
       "listingDayClose": null,
       "listingGainPct": 21.58,
-      "currentPrice": 197.99,
-      "returnSinceIssuePct": -32.2,
+      "currentPrice": 200.56,
+      "returnSinceIssuePct": -31.32,
       "issueSizeCr": 1399.77,
       "subscription": null,
       "tier": "tier2",
@@ -45974,7 +45974,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46095,8 +46095,8 @@
       "listingPrice": 141.1,
       "listingDayClose": null,
       "listingGainPct": 0.79,
-      "currentPrice": 143.68,
-      "returnSinceIssuePct": 2.63,
+      "currentPrice": 145.09,
+      "returnSinceIssuePct": 3.64,
       "issueSizeCr": 49,
       "subscription": null,
       "tier": "tier2",
@@ -46106,7 +46106,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46161,8 +46161,8 @@
       "listingPrice": 165.1,
       "listingDayClose": null,
       "listingGainPct": 10.07,
-      "currentPrice": 322.3,
-      "returnSinceIssuePct": 114.87,
+      "currentPrice": 330.1,
+      "returnSinceIssuePct": 120.07,
       "issueSizeCr": 55.5,
       "subscription": null,
       "tier": "tier2",
@@ -46172,7 +46172,7 @@
       "logo": null,
       "initials": "JS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46227,8 +46227,8 @@
       "listingPrice": 214,
       "listingDayClose": null,
       "listingGainPct": 39.87,
-      "currentPrice": 365.95,
-      "returnSinceIssuePct": 139.18,
+      "currentPrice": 366.8,
+      "returnSinceIssuePct": 139.74,
       "issueSizeCr": 130.05,
       "subscription": null,
       "tier": "tier2",
@@ -46238,7 +46238,7 @@
       "logo": null,
       "initials": "HP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46326,8 +46326,8 @@
       "listingPrice": 157,
       "listingDayClose": null,
       "listingGainPct": 14.6,
-      "currentPrice": 33.44,
-      "returnSinceIssuePct": -75.59,
+      "currentPrice": 34.65,
+      "returnSinceIssuePct": -74.71,
       "issueSizeCr": 200,
       "subscription": null,
       "tier": "tier2",
@@ -46337,7 +46337,7 @@
       "logo": null,
       "initials": "VL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46392,8 +46392,8 @@
       "listingPrice": 80,
       "listingDayClose": null,
       "listingGainPct": 17.65,
-      "currentPrice": 19.85,
-      "returnSinceIssuePct": -70.81,
+      "currentPrice": 20.42,
+      "returnSinceIssuePct": -69.97,
       "issueSizeCr": 60,
       "subscription": null,
       "tier": "tier2",
@@ -46403,7 +46403,7 @@
       "logo": null,
       "initials": "UE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46854,8 +46854,8 @@
       "listingPrice": 125,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 81.0,
-      "returnSinceIssuePct": -35.2,
+      "currentPrice": 84.0,
+      "returnSinceIssuePct": -32.8,
       "issueSizeCr": 10,
       "subscription": null,
       "tier": "tier2",
@@ -46865,7 +46865,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46920,8 +46920,8 @@
       "listingPrice": 936,
       "listingDayClose": null,
       "listingGainPct": 8.08,
-      "currentPrice": 472.8,
-      "returnSinceIssuePct": -45.4,
+      "currentPrice": 483.15,
+      "returnSinceIssuePct": -44.21,
       "issueSizeCr": 3149.19,
       "subscription": null,
       "tier": "tier2",
@@ -46931,7 +46931,7 @@
       "logo": null,
       "initials": "VF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47349,8 +47349,8 @@
       "listingPrice": 218.5,
       "listingDayClose": null,
       "listingGainPct": 1.16,
-      "currentPrice": 215.99,
-      "returnSinceIssuePct": -0.0,
+      "currentPrice": 221.87,
+      "returnSinceIssuePct": 2.72,
       "issueSizeCr": 1100,
       "subscription": null,
       "tier": "tier2",
@@ -47360,7 +47360,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47514,8 +47514,8 @@
       "listingPrice": 425,
       "listingDayClose": null,
       "listingGainPct": 55.11,
-      "currentPrice": 695.8,
-      "returnSinceIssuePct": 153.94,
+      "currentPrice": 650.95,
+      "returnSinceIssuePct": 137.57,
       "issueSizeCr": 700,
       "subscription": null,
       "tier": "tier2",
@@ -47525,7 +47525,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47547,8 +47547,8 @@
       "listingPrice": 319,
       "listingDayClose": null,
       "listingGainPct": 16.42,
-      "currentPrice": 31.74,
-      "returnSinceIssuePct": -88.42,
+      "currentPrice": 32.57,
+      "returnSinceIssuePct": -88.11,
       "issueSizeCr": 125.96,
       "subscription": null,
       "tier": "tier2",
@@ -47558,7 +47558,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47580,8 +47580,8 @@
       "listingPrice": 864,
       "listingDayClose": null,
       "listingGainPct": 47.69,
-      "currentPrice": 3767.7,
-      "returnSinceIssuePct": 544.05,
+      "currentPrice": 3704.0,
+      "returnSinceIssuePct": 533.16,
       "issueSizeCr": 588.22,
       "subscription": null,
       "tier": "tier2",
@@ -47591,7 +47591,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47613,8 +47613,8 @@
       "listingPrice": 70,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 137.4,
-      "returnSinceIssuePct": 96.29,
+      "currentPrice": 134.09,
+      "returnSinceIssuePct": 91.56,
       "issueSizeCr": 45.5,
       "subscription": null,
       "tier": "tier2",
@@ -47624,7 +47624,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47646,8 +47646,8 @@
       "listingPrice": 1015,
       "listingDayClose": null,
       "listingGainPct": 27.51,
-      "currentPrice": 604.6,
-      "returnSinceIssuePct": -24.05,
+      "currentPrice": 612.35,
+      "returnSinceIssuePct": -23.07,
       "issueSizeCr": 1398.29,
       "subscription": null,
       "tier": "tier2",
@@ -47657,7 +47657,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47712,8 +47712,8 @@
       "listingPrice": 436,
       "listingDayClose": null,
       "listingGainPct": -12.8,
-      "currentPrice": 824.55,
-      "returnSinceIssuePct": 64.91,
+      "currentPrice": 842.55,
+      "returnSinceIssuePct": 68.51,
       "issueSizeCr": 1367.51,
       "subscription": null,
       "tier": "tier2",
@@ -47723,7 +47723,7 @@
       "logo": null,
       "initials": "MB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47745,8 +47745,8 @@
       "listingPrice": 1581,
       "listingDayClose": null,
       "listingGainPct": 53.05,
-      "currentPrice": 839.2,
-      "returnSinceIssuePct": -18.76,
+      "currentPrice": 846.1,
+      "returnSinceIssuePct": -18.09,
       "issueSizeCr": 1039.61,
       "subscription": null,
       "tier": "tier2",
@@ -47756,7 +47756,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47778,8 +47778,8 @@
       "listingPrice": 94,
       "listingDayClose": null,
       "listingGainPct": -20.34,
-      "currentPrice": 72.17,
-      "returnSinceIssuePct": -38.84,
+      "currentPrice": 72.44,
+      "returnSinceIssuePct": -38.61,
       "issueSizeCr": 600.04,
       "subscription": null,
       "tier": "tier2",
@@ -47789,7 +47789,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47811,8 +47811,8 @@
       "listingPrice": 364.8,
       "listingDayClose": null,
       "listingGainPct": -14.16,
-      "currentPrice": 726.35,
-      "returnSinceIssuePct": 70.91,
+      "currentPrice": 738.3,
+      "returnSinceIssuePct": 73.72,
       "issueSizeCr": 1335.74,
       "subscription": null,
       "tier": "tier2",
@@ -47822,7 +47822,7 @@
       "logo": null,
       "initials": "RA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47877,8 +47877,8 @@
       "listingPrice": 753,
       "listingDayClose": null,
       "listingGainPct": 66.23,
-      "currentPrice": 1689.2,
-      "returnSinceIssuePct": 272.89,
+      "currentPrice": 1709.5,
+      "returnSinceIssuePct": 277.37,
       "issueSizeCr": 619.23,
       "subscription": null,
       "tier": "tier2",
@@ -47888,7 +47888,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47976,8 +47976,8 @@
       "listingPrice": 1316,
       "listingDayClose": null,
       "listingGainPct": 90.72,
-      "currentPrice": 270.34,
-      "returnSinceIssuePct": -60.82,
+      "currentPrice": 273.11,
+      "returnSinceIssuePct": -60.42,
       "issueSizeCr": 1013.61,
       "subscription": null,
       "tier": "tier2",
@@ -47987,7 +47987,7 @@
       "logo": null,
       "initials": "GF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48042,8 +48042,8 @@
       "listingPrice": 700,
       "listingDayClose": null,
       "listingGainPct": 5.74,
-      "currentPrice": 316.95,
-      "returnSinceIssuePct": -52.12,
+      "currentPrice": 320.25,
+      "returnSinceIssuePct": -51.62,
       "issueSizeCr": 1023.54,
       "subscription": null,
       "tier": "tier2",
@@ -48053,7 +48053,7 @@
       "logo": null,
       "initials": "TP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48075,8 +48075,8 @@
       "listingPrice": 530,
       "listingDayClose": null,
       "listingGainPct": 169.04,
-      "currentPrice": 204.94,
-      "returnSinceIssuePct": 4.03,
+      "currentPrice": 207.58,
+      "returnSinceIssuePct": 5.37,
       "issueSizeCr": 600,
       "subscription": null,
       "tier": "tier2",
@@ -48086,7 +48086,7 @@
       "logo": null,
       "initials": "LV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48108,8 +48108,8 @@
       "listingPrice": 1955,
       "listingDayClose": null,
       "listingGainPct": -9.07,
-      "currentPrice": 1794.4,
-      "returnSinceIssuePct": -16.54,
+      "currentPrice": 1801.0,
+      "returnSinceIssuePct": -16.23,
       "issueSizeCr": 18300,
       "subscription": null,
       "tier": "tier2",
@@ -48119,7 +48119,7 @@
       "logo": null,
       "initials": "PA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48141,8 +48141,8 @@
       "listingPrice": 1311,
       "listingDayClose": null,
       "listingGainPct": 11.1,
-      "currentPrice": 210.06,
-      "returnSinceIssuePct": -82.2,
+      "currentPrice": 207.9,
+      "returnSinceIssuePct": -82.38,
       "issueSizeCr": 2073.25,
       "subscription": null,
       "tier": "tier2",
@@ -48152,7 +48152,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48174,8 +48174,8 @@
       "listingPrice": 45.45,
       "listingDayClose": null,
       "listingGainPct": 1.0,
-      "currentPrice": 501.7,
-      "returnSinceIssuePct": 1014.89,
+      "currentPrice": 518.85,
+      "returnSinceIssuePct": 1053.0,
       "issueSizeCr": 29.5,
       "subscription": null,
       "tier": "tier2",
@@ -48185,7 +48185,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48240,8 +48240,8 @@
       "listingPrice": 540,
       "listingDayClose": null,
       "listingGainPct": -0.37,
-      "currentPrice": 2052.6,
-      "returnSinceIssuePct": 278.71,
+      "currentPrice": 2091.4,
+      "returnSinceIssuePct": 285.87,
       "issueSizeCr": 800,
       "subscription": null,
       "tier": "tier2",
@@ -48251,7 +48251,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48273,8 +48273,8 @@
       "listingPrice": 575,
       "listingDayClose": null,
       "listingGainPct": 252.76,
-      "currentPrice": 27.55,
-      "returnSinceIssuePct": -83.1,
+      "currentPrice": 27.7,
+      "returnSinceIssuePct": -83.01,
       "issueSizeCr": 125.43,
       "subscription": null,
       "tier": "tier2",
@@ -48284,7 +48284,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48306,8 +48306,8 @@
       "listingPrice": 548,
       "listingDayClose": null,
       "listingGainPct": -5.03,
-      "currentPrice": 122.6,
-      "returnSinceIssuePct": -78.75,
+      "currentPrice": 124.83,
+      "returnSinceIssuePct": -78.37,
       "issueSizeCr": 1200.29,
       "subscription": null,
       "tier": "tier2",
@@ -48317,7 +48317,7 @@
       "logo": null,
       "initials": "FP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48339,8 +48339,8 @@
       "listingPrice": 123.9,
       "listingDayClose": null,
       "listingGainPct": -0.88,
-      "currentPrice": 12.5,
-      "returnSinceIssuePct": -90.0,
+      "currentPrice": 13.4,
+      "returnSinceIssuePct": -89.28,
       "issueSizeCr": 50,
       "subscription": null,
       "tier": "tier2",
@@ -48350,7 +48350,7 @@
       "logo": null,
       "initials": "NH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48372,8 +48372,8 @@
       "listingPrice": 2001,
       "listingDayClose": null,
       "listingGainPct": 77.87,
-      "currentPrice": 353.0,
-      "returnSinceIssuePct": -68.62,
+      "currentPrice": 351.0,
+      "returnSinceIssuePct": -68.8,
       "issueSizeCr": 5349.72,
       "subscription": null,
       "tier": "tier2",
@@ -48383,7 +48383,7 @@
       "logo": null,
       "initials": "NY",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48405,8 +48405,8 @@
       "listingPrice": 51,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 39.86,
-      "returnSinceIssuePct": -21.84,
+      "currentPrice": 41.17,
+      "returnSinceIssuePct": -19.27,
       "issueSizeCr": 11.26,
       "subscription": null,
       "tier": "tier2",
@@ -48416,7 +48416,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48570,8 +48570,8 @@
       "listingPrice": 53,
       "listingDayClose": null,
       "listingGainPct": 3.92,
-      "currentPrice": 117.35,
-      "returnSinceIssuePct": 130.1,
+      "currentPrice": 118.5,
+      "returnSinceIssuePct": 132.35,
       "issueSizeCr": 24.13,
       "subscription": null,
       "tier": "tier2",
@@ -48581,7 +48581,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48834,8 +48834,8 @@
       "listingPrice": 475,
       "listingDayClose": null,
       "listingGainPct": 171.43,
-      "currentPrice": 1243.3,
-      "returnSinceIssuePct": 610.46,
+      "currentPrice": 1249.1,
+      "returnSinceIssuePct": 613.77,
       "issueSizeCr": 170.78,
       "subscription": null,
       "tier": "tier2",
@@ -48845,7 +48845,7 @@
       "logo": null,
       "initials": "PD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48933,8 +48933,8 @@
       "listingPrice": 62.2,
       "listingDayClose": null,
       "listingGainPct": -20.26,
-      "currentPrice": 164.28,
-      "returnSinceIssuePct": 110.62,
+      "currentPrice": 166.86,
+      "returnSinceIssuePct": 113.92,
       "issueSizeCr": 40,
       "subscription": null,
       "tier": "tier2",
@@ -48944,7 +48944,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48999,8 +48999,8 @@
       "listingPrice": 811.35,
       "listingDayClose": null,
       "listingGainPct": 9.05,
-      "currentPrice": 4322.7,
-      "returnSinceIssuePct": 481.01,
+      "currentPrice": 4414.3,
+      "returnSinceIssuePct": 493.32,
       "issueSizeCr": 1282.52,
       "subscription": null,
       "tier": "tier2",
@@ -49010,7 +49010,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49164,8 +49164,8 @@
       "listingPrice": 542.3,
       "listingDayClose": null,
       "listingGainPct": 2.13,
-      "currentPrice": 1468.6,
-      "returnSinceIssuePct": 176.57,
+      "currentPrice": 1466.6,
+      "returnSinceIssuePct": 176.2,
       "issueSizeCr": 1894.43,
       "subscription": null,
       "tier": "tier2",
@@ -49175,7 +49175,7 @@
       "logo": null,
       "initials": "VD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49263,8 +49263,8 @@
       "listingPrice": 329.95,
       "listingDayClose": null,
       "listingGainPct": -6.53,
-      "currentPrice": 174.88,
-      "returnSinceIssuePct": -50.46,
+      "currentPrice": 180.82,
+      "returnSinceIssuePct": -48.78,
       "issueSizeCr": 2780.05,
       "subscription": null,
       "tier": "tier2",
@@ -49274,7 +49274,7 @@
       "logo": null,
       "initials": "AV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49296,8 +49296,8 @@
       "listingPrice": 525,
       "listingDayClose": null,
       "listingGainPct": -2.96,
-      "currentPrice": 212.29,
-      "returnSinceIssuePct": -60.76,
+      "currentPrice": 213.41,
+      "returnSinceIssuePct": -60.55,
       "issueSizeCr": 3850,
       "subscription": null,
       "tier": "tier2",
@@ -49307,7 +49307,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49329,8 +49329,8 @@
       "listingPrice": 471,
       "listingDayClose": null,
       "listingGainPct": -17.37,
-      "currentPrice": 343.0,
-      "returnSinceIssuePct": -39.82,
+      "currentPrice": 342.7,
+      "returnSinceIssuePct": -39.88,
       "issueSizeCr": 5000,
       "subscription": null,
       "tier": "tier2",
@@ -49340,7 +49340,7 @@
       "logo": null,
       "initials": "NV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49362,8 +49362,8 @@
       "listingPrice": 1600,
       "listingDayClose": null,
       "listingGainPct": -1.11,
-      "currentPrice": 2700.0,
-      "returnSinceIssuePct": 66.87,
+      "currentPrice": 2741.6,
+      "returnSinceIssuePct": 69.44,
       "issueSizeCr": 2998.51,
       "subscription": null,
       "tier": "tier2",
@@ -49373,7 +49373,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49395,8 +49395,8 @@
       "listingPrice": 141,
       "listingDayClose": null,
       "listingGainPct": 56.67,
-      "currentPrice": 128.65,
-      "returnSinceIssuePct": 42.94,
+      "currentPrice": 127.21,
+      "returnSinceIssuePct": 41.34,
       "issueSizeCr": 1838,
       "subscription": null,
       "tier": "tier2",
@@ -49406,7 +49406,7 @@
       "logo": null,
       "initials": "DI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49428,8 +49428,8 @@
       "listingPrice": 126,
       "listingDayClose": null,
       "listingGainPct": 5.0,
-      "currentPrice": 6.31,
-      "returnSinceIssuePct": -94.74,
+      "currentPrice": 6.34,
+      "returnSinceIssuePct": -94.72,
       "issueSizeCr": 160.78,
       "subscription": null,
       "tier": "tier2",
@@ -49439,7 +49439,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49461,8 +49461,8 @@
       "listingPrice": 1025,
       "listingDayClose": null,
       "listingGainPct": 7.44,
-      "currentPrice": 475.0,
-      "returnSinceIssuePct": -50.21,
+      "currentPrice": 485.35,
+      "returnSinceIssuePct": -49.12,
       "issueSizeCr": 1213.33,
       "subscription": null,
       "tier": "tier2",
@@ -49472,7 +49472,7 @@
       "logo": null,
       "initials": "KD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49494,8 +49494,8 @@
       "listingPrice": 439,
       "listingDayClose": null,
       "listingGainPct": -4.57,
-      "currentPrice": 994.4,
-      "returnSinceIssuePct": 116.17,
+      "currentPrice": 1018.4,
+      "returnSinceIssuePct": 121.39,
       "issueSizeCr": 401.54,
       "subscription": null,
       "tier": "tier2",
@@ -49505,7 +49505,7 @@
       "logo": null,
       "initials": "WB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49626,8 +49626,8 @@
       "listingPrice": 1249,
       "listingDayClose": null,
       "listingGainPct": 38.78,
-      "currentPrice": 201.17,
-      "returnSinceIssuePct": -77.65,
+      "currentPrice": 212.16,
+      "returnSinceIssuePct": -76.43,
       "issueSizeCr": 731,
       "subscription": null,
       "tier": "tier2",
@@ -49637,7 +49637,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49659,8 +49659,8 @@
       "listingPrice": 751.1,
       "listingDayClose": null,
       "listingGainPct": 4.32,
-      "currentPrice": 2590.0,
-      "returnSinceIssuePct": 259.72,
+      "currentPrice": 2594.9,
+      "returnSinceIssuePct": 260.4,
       "issueSizeCr": 1513.6,
       "subscription": null,
       "tier": "tier2",
@@ -49670,7 +49670,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49692,8 +49692,8 @@
       "listingPrice": 2111.8,
       "listingDayClose": null,
       "listingGainPct": 95.0,
-      "currentPrice": 1605.8,
-      "returnSinceIssuePct": 48.27,
+      "currentPrice": 1624.4,
+      "returnSinceIssuePct": 49.99,
       "issueSizeCr": 500,
       "subscription": null,
       "tier": "tier2",
@@ -49703,7 +49703,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49791,8 +49791,8 @@
       "listingPrice": 1784.4,
       "listingDayClose": null,
       "listingGainPct": 98.27,
-      "currentPrice": 668.95,
-      "returnSinceIssuePct": -25.67,
+      "currentPrice": 683.9,
+      "returnSinceIssuePct": -24.01,
       "issueSizeCr": 1546.62,
       "subscription": null,
       "tier": "tier2",
@@ -49802,7 +49802,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49824,8 +49824,8 @@
       "listingPrice": 1700,
       "listingDayClose": null,
       "listingGainPct": 103.11,
-      "currentPrice": 785.55,
-      "returnSinceIssuePct": -6.15,
+      "currentPrice": 778.4,
+      "returnSinceIssuePct": -7.0,
       "issueSizeCr": 962.37,
       "subscription": null,
       "tier": "tier2",
@@ -49835,7 +49835,7 @@
       "logo": null,
       "initials": "GR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49857,8 +49857,8 @@
       "listingPrice": 29.35,
       "listingDayClose": null,
       "listingGainPct": 54.47,
-      "currentPrice": 56.72,
-      "returnSinceIssuePct": 198.53,
+      "currentPrice": 54.51,
+      "returnSinceIssuePct": 186.89,
       "issueSizeCr": 1.22,
       "subscription": null,
       "tier": "tier2",
@@ -49868,7 +49868,7 @@
       "logo": null,
       "initials": "FB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49923,8 +49923,8 @@
       "listingPrice": 360,
       "listingDayClose": null,
       "listingGainPct": 21.62,
-      "currentPrice": 116.18,
-      "returnSinceIssuePct": -60.75,
+      "currentPrice": 117.35,
+      "returnSinceIssuePct": -60.35,
       "issueSizeCr": 800,
       "subscription": null,
       "tier": "tier2",
@@ -49934,7 +49934,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50022,8 +50022,8 @@
       "listingPrice": 528,
       "listingDayClose": null,
       "listingGainPct": 23.36,
-      "currentPrice": 980.6,
-      "returnSinceIssuePct": 129.11,
+      "currentPrice": 989.0,
+      "returnSinceIssuePct": 131.07,
       "issueSizeCr": 520.18,
       "subscription": null,
       "tier": "tier2",
@@ -50033,7 +50033,7 @@
       "logo": null,
       "initials": "DD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50055,8 +50055,8 @@
       "listingPrice": 1008.9,
       "listingDayClose": null,
       "listingGainPct": 22.29,
-      "currentPrice": 723.0,
-      "returnSinceIssuePct": -12.36,
+      "currentPrice": 734.7,
+      "returnSinceIssuePct": -10.95,
       "issueSizeCr": 2143.92,
       "subscription": null,
       "tier": "tier2",
@@ -50066,7 +50066,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50121,8 +50121,8 @@
       "listingPrice": 367,
       "listingDayClose": null,
       "listingGainPct": 19.93,
-      "currentPrice": 1300.6,
-      "returnSinceIssuePct": 325.03,
+      "currentPrice": 1344.4,
+      "returnSinceIssuePct": 339.35,
       "issueSizeCr": 908.8,
       "subscription": null,
       "tier": "tier2",
@@ -50132,7 +50132,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50220,8 +50220,8 @@
       "listingPrice": 104,
       "listingDayClose": null,
       "listingGainPct": 4.0,
-      "currentPrice": 259.9,
-      "returnSinceIssuePct": 159.9,
+      "currentPrice": 261.35,
+      "returnSinceIssuePct": 161.35,
       "issueSizeCr": 7734.99,
       "subscription": null,
       "tier": "tier2",
@@ -50231,7 +50231,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50319,8 +50319,8 @@
       "listingPrice": 439,
       "listingDayClose": null,
       "listingGainPct": -9.67,
-      "currentPrice": 1179.0,
-      "returnSinceIssuePct": 142.59,
+      "currentPrice": 1173.9,
+      "returnSinceIssuePct": 141.54,
       "issueSizeCr": 2500,
       "subscription": null,
       "tier": "tier2",
@@ -50330,7 +50330,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50550,8 +50550,8 @@
       "listingPrice": 1971,
       "listingDayClose": null,
       "listingGainPct": 79.02,
-      "currentPrice": 412.1,
-      "returnSinceIssuePct": -62.57,
+      "currentPrice": 405.45,
+      "returnSinceIssuePct": -63.17,
       "issueSizeCr": 582.69,
       "subscription": null,
       "tier": "tier2",
@@ -50561,7 +50561,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50583,8 +50583,8 @@
       "listingPrice": 73.9,
       "listingDayClose": null,
       "listingGainPct": -15.06,
-      "currentPrice": 590.75,
-      "returnSinceIssuePct": 579.02,
+      "currentPrice": 592.0,
+      "returnSinceIssuePct": 580.46,
       "issueSizeCr": 1174.82,
       "subscription": null,
       "tier": "tier2",
@@ -50594,7 +50594,7 @@
       "logo": null,
       "initials": "KJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50616,8 +50616,8 @@
       "listingPrice": 293,
       "listingDayClose": null,
       "listingGainPct": -3.93,
-      "currentPrice": 145.76,
-      "returnSinceIssuePct": -52.21,
+      "currentPrice": 148.55,
+      "returnSinceIssuePct": -51.3,
       "issueSizeCr": 581.98,
       "subscription": null,
       "tier": "tier2",
@@ -50627,7 +50627,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50649,8 +50649,8 @@
       "listingPrice": 1350,
       "listingDayClose": null,
       "listingGainPct": -9.4,
-      "currentPrice": 10465.0,
-      "returnSinceIssuePct": 602.35,
+      "currentPrice": 10575.0,
+      "returnSinceIssuePct": 609.73,
       "issueSizeCr": 823.7,
       "subscription": null,
       "tier": "tier2",
@@ -50660,7 +50660,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50682,8 +50682,8 @@
       "listingPrice": 156.2,
       "listingDayClose": null,
       "listingGainPct": 20.15,
-      "currentPrice": 163.15,
-      "returnSinceIssuePct": 25.5,
+      "currentPrice": 164.69,
+      "returnSinceIssuePct": 26.68,
       "issueSizeCr": 600,
       "subscription": null,
       "tier": "tier2",
@@ -50693,7 +50693,7 @@
       "logo": null,
       "initials": "LO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50715,8 +50715,8 @@
       "listingPrice": 534.7,
       "listingDayClose": null,
       "listingGainPct": -3.66,
-      "currentPrice": 1165.2,
-      "returnSinceIssuePct": 109.95,
+      "currentPrice": 1185.8,
+      "returnSinceIssuePct": 113.66,
       "issueSizeCr": 760,
       "subscription": null,
       "tier": "tier2",
@@ -50726,7 +50726,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50825,7 +50825,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -50847,8 +50847,8 @@
       "listingPrice": 75,
       "listingDayClose": null,
       "listingGainPct": -7.41,
-      "currentPrice": 5.98,
-      "returnSinceIssuePct": -92.62,
+      "currentPrice": 6.27,
+      "returnSinceIssuePct": -92.26,
       "issueSizeCr": 30.02,
       "subscription": null,
       "tier": "tier2",
@@ -50858,7 +50858,7 @@
       "logo": null,
       "initials": "AG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50913,8 +50913,8 @@
       "listingPrice": 1063.9,
       "listingDayClose": null,
       "listingGainPct": 85.03,
-      "currentPrice": 5448.5,
-      "returnSinceIssuePct": 847.57,
+      "currentPrice": 5720.5,
+      "returnSinceIssuePct": 894.87,
       "issueSizeCr": 596.41,
       "subscription": null,
       "tier": "tier2",
@@ -50924,7 +50924,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50946,8 +50946,8 @@
       "listingPrice": 165.6,
       "listingDayClose": null,
       "listingGainPct": 0.36,
-      "currentPrice": 13.17,
-      "returnSinceIssuePct": -92.02,
+      "currentPrice": 13.49,
+      "returnSinceIssuePct": -91.82,
       "issueSizeCr": 29.7,
       "subscription": null,
       "tier": "tier2",
@@ -50957,7 +50957,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50979,8 +50979,8 @@
       "listingPrice": 900,
       "listingDayClose": null,
       "listingGainPct": 43.54,
-      "currentPrice": 150.74,
-      "returnSinceIssuePct": -75.96,
+      "currentPrice": 148.58,
+      "returnSinceIssuePct": -76.3,
       "issueSizeCr": 625.24,
       "subscription": null,
       "tier": "tier2",
@@ -50990,7 +50990,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51045,8 +51045,8 @@
       "listingPrice": 104.6,
       "listingDayClose": null,
       "listingGainPct": 11.28,
-      "currentPrice": 241.05,
-      "returnSinceIssuePct": 156.44,
+      "currentPrice": 243.46,
+      "returnSinceIssuePct": 159.0,
       "issueSizeCr": 819.24,
       "subscription": null,
       "tier": "tier2",
@@ -51056,7 +51056,7 @@
       "logo": null,
       "initials": "RA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51078,8 +51078,8 @@
       "listingPrice": 634.95,
       "listingDayClose": null,
       "listingGainPct": 58.74,
-      "currentPrice": 302.3,
-      "returnSinceIssuePct": -24.42,
+      "currentPrice": 304.3,
+      "returnSinceIssuePct": -23.92,
       "issueSizeCr": 100,
       "subscription": null,
       "tier": "tier2",
@@ -51089,7 +51089,7 @@
       "logo": null,
       "initials": "NL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51177,8 +51177,8 @@
       "listingPrice": 467,
       "listingDayClose": null,
       "listingGainPct": 21.3,
-      "currentPrice": 796.5,
-      "returnSinceIssuePct": 106.88,
+      "currentPrice": 794.6,
+      "returnSinceIssuePct": 106.39,
       "issueSizeCr": 412.62,
       "subscription": null,
       "tier": "tier2",
@@ -51188,7 +51188,7 @@
       "logo": null,
       "initials": "SK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51254,7 +51254,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51441,8 +51441,8 @@
       "listingPrice": 1701,
       "listingDayClose": null,
       "listingGainPct": 13.4,
-      "currentPrice": 3169.3,
-      "returnSinceIssuePct": 111.29,
+      "currentPrice": 3132.8,
+      "returnSinceIssuePct": 108.85,
       "issueSizeCr": 6479.55,
       "subscription": null,
       "tier": "tier2",
@@ -51452,7 +51452,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51573,8 +51573,8 @@
       "listingPrice": 46,
       "listingDayClose": null,
       "listingGainPct": 2.22,
-      "currentPrice": 41.32,
-      "returnSinceIssuePct": -8.18,
+      "currentPrice": 44.97,
+      "returnSinceIssuePct": -0.07,
       "issueSizeCr": 4.95,
       "subscription": null,
       "tier": "tier2",
@@ -51584,7 +51584,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51672,8 +51672,8 @@
       "listingPrice": 130.1,
       "listingDayClose": null,
       "listingGainPct": 8.42,
-      "currentPrice": 211.45,
-      "returnSinceIssuePct": 76.21,
+      "currentPrice": 204.22,
+      "returnSinceIssuePct": 70.18,
       "issueSizeCr": 61.2,
       "subscription": null,
       "tier": "tier2",
@@ -51683,7 +51683,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51936,8 +51936,8 @@
       "listingPrice": 730.95,
       "listingDayClose": null,
       "listingGainPct": 114.99,
-      "currentPrice": 191.03,
-      "returnSinceIssuePct": -43.81,
+      "currentPrice": 195.15,
+      "returnSinceIssuePct": -42.6,
       "issueSizeCr": 318,
       "subscription": null,
       "tier": "tier2",
@@ -51947,7 +51947,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51969,8 +51969,8 @@
       "listingPrice": 134,
       "listingDayClose": null,
       "listingGainPct": -0.74,
-      "currentPrice": 150.48,
-      "returnSinceIssuePct": 11.47,
+      "currentPrice": 150.0,
+      "returnSinceIssuePct": 11.11,
       "issueSizeCr": 15.04,
       "subscription": null,
       "tier": "tier2",
@@ -51980,7 +51980,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52035,8 +52035,8 @@
       "listingPrice": 708,
       "listingDayClose": null,
       "listingGainPct": 102.29,
-      "currentPrice": 451.5,
-      "returnSinceIssuePct": 29.0,
+      "currentPrice": 455.5,
+      "returnSinceIssuePct": 30.14,
       "issueSizeCr": 600,
       "subscription": null,
       "tier": "tier2",
@@ -52046,7 +52046,7 @@
       "logo": null,
       "initials": "RM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52068,8 +52068,8 @@
       "listingPrice": 351,
       "listingDayClose": null,
       "listingGainPct": 111.45,
-      "currentPrice": 314.05,
-      "returnSinceIssuePct": 89.19,
+      "currentPrice": 316.55,
+      "returnSinceIssuePct": 90.69,
       "issueSizeCr": 702.02,
       "subscription": null,
       "tier": "tier2",
@@ -52079,7 +52079,7 @@
       "logo": null,
       "initials": "HM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52200,8 +52200,8 @@
       "listingPrice": 12.3,
       "listingDayClose": null,
       "listingGainPct": 2.5,
-      "currentPrice": 17.2,
-      "returnSinceIssuePct": 43.33,
+      "currentPrice": 17.3,
+      "returnSinceIssuePct": 44.17,
       "issueSizeCr": 15000,
       "subscription": null,
       "tier": "tier2",
@@ -52211,7 +52211,7 @@
       "logo": null,
       "initials": "YB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52233,8 +52233,8 @@
       "listingPrice": 670,
       "listingDayClose": null,
       "listingGainPct": 57.65,
-      "currentPrice": 427.3,
-      "returnSinceIssuePct": 0.54,
+      "currentPrice": 424.55,
+      "returnSinceIssuePct": -0.11,
       "issueSizeCr": 496.25,
       "subscription": null,
       "tier": "tier2",
@@ -52244,7 +52244,7 @@
       "logo": null,
       "initials": "RB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52266,8 +52266,8 @@
       "listingPrice": 21,
       "listingDayClose": null,
       "listingGainPct": -25.0,
-      "currentPrice": 34.04,
-      "returnSinceIssuePct": 21.57,
+      "currentPrice": 34.77,
+      "returnSinceIssuePct": 24.18,
       "issueSizeCr": 10.52,
       "subscription": null,
       "tier": "tier2",
@@ -52277,7 +52277,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52299,8 +52299,8 @@
       "listingPrice": 101.95,
       "listingDayClose": null,
       "listingGainPct": 1.95,
-      "currentPrice": 211.04,
-      "returnSinceIssuePct": 111.04,
+      "currentPrice": 216.88,
+      "returnSinceIssuePct": 116.88,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -52310,7 +52310,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52695,8 +52695,8 @@
       "listingPrice": 102,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 33.9,
-      "returnSinceIssuePct": -66.76,
+      "currentPrice": 32.92,
+      "returnSinceIssuePct": -67.73,
       "issueSizeCr": 25.5,
       "subscription": null,
       "tier": "tier2",
@@ -52706,7 +52706,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52827,8 +52827,8 @@
       "listingPrice": 24.1,
       "listingDayClose": null,
       "listingGainPct": 0.42,
-      "currentPrice": 1.57,
-      "returnSinceIssuePct": -93.46,
+      "currentPrice": 1.54,
+      "returnSinceIssuePct": -93.58,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -52838,7 +52838,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53025,8 +53025,8 @@
       "listingPrice": 275,
       "listingDayClose": null,
       "listingGainPct": 41.03,
-      "currentPrice": 298.75,
-      "returnSinceIssuePct": 53.21,
+      "currentPrice": 305.15,
+      "returnSinceIssuePct": 56.49,
       "issueSizeCr": 409.68,
       "subscription": null,
       "tier": "tier2",
@@ -53036,7 +53036,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53058,8 +53058,8 @@
       "listingPrice": 53,
       "listingDayClose": null,
       "listingGainPct": 3.92,
-      "currentPrice": 18.17,
-      "returnSinceIssuePct": -64.37,
+      "currentPrice": 17.57,
+      "returnSinceIssuePct": -65.55,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53069,7 +53069,7 @@
       "logo": null,
       "initials": "MG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53124,8 +53124,8 @@
       "listingPrice": 85.4,
       "listingDayClose": null,
       "listingGainPct": 2.89,
-      "currentPrice": 9.65,
-      "returnSinceIssuePct": -88.37,
+      "currentPrice": 9.94,
+      "returnSinceIssuePct": -88.02,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53135,7 +53135,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53223,8 +53223,8 @@
       "listingPrice": 61.2,
       "listingDayClose": null,
       "listingGainPct": 2.0,
-      "currentPrice": 4.83,
-      "returnSinceIssuePct": -91.95,
+      "currentPrice": 4.91,
+      "returnSinceIssuePct": -91.82,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53234,7 +53234,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53256,8 +53256,8 @@
       "listingPrice": 644,
       "listingDayClose": null,
       "listingGainPct": 101.25,
-      "currentPrice": 457.0,
-      "returnSinceIssuePct": 42.81,
+      "currentPrice": 464.45,
+      "returnSinceIssuePct": 45.14,
       "issueSizeCr": 637.97,
       "subscription": null,
       "tier": "tier2",
@@ -53267,7 +53267,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53300,7 +53300,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53355,8 +53355,8 @@
       "listingPrice": 44.25,
       "listingDayClose": null,
       "listingGainPct": 0.57,
-      "currentPrice": 554.35,
-      "returnSinceIssuePct": 1159.89,
+      "currentPrice": 553.8,
+      "returnSinceIssuePct": 1158.64,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53366,7 +53366,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53421,8 +53421,8 @@
       "listingPrice": 36,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 4.2,
-      "returnSinceIssuePct": -88.33,
+      "currentPrice": 4.23,
+      "returnSinceIssuePct": -88.25,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53432,7 +53432,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53465,7 +53465,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53520,8 +53520,8 @@
       "listingPrice": 700,
       "listingDayClose": null,
       "listingGainPct": -10.26,
-      "currentPrice": 149.13,
-      "returnSinceIssuePct": -80.88,
+      "currentPrice": 151.7,
+      "returnSinceIssuePct": -80.55,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53531,7 +53531,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53553,8 +53553,8 @@
       "listingPrice": 824,
       "listingDayClose": null,
       "listingGainPct": -3.74,
-      "currentPrice": 182.52,
-      "returnSinceIssuePct": -78.68,
+      "currentPrice": 184.67,
+      "returnSinceIssuePct": -78.43,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53564,7 +53564,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53586,8 +53586,8 @@
       "listingPrice": 929.9,
       "listingDayClose": null,
       "listingGainPct": 24.82,
-      "currentPrice": 1580.0,
-      "returnSinceIssuePct": 112.08,
+      "currentPrice": 1581.0,
+      "returnSinceIssuePct": 112.21,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53597,7 +53597,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53685,8 +53685,8 @@
       "listingPrice": 29,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 11.97,
-      "returnSinceIssuePct": -58.72,
+      "currentPrice": 12.25,
+      "returnSinceIssuePct": -57.76,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53696,7 +53696,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53784,8 +53784,8 @@
       "listingPrice": 1180,
       "listingDayClose": null,
       "listingGainPct": 21.27,
-      "currentPrice": 1547.1,
-      "returnSinceIssuePct": 59.0,
+      "currentPrice": 1572.6,
+      "returnSinceIssuePct": 61.62,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53795,7 +53795,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53817,8 +53817,8 @@
       "listingPrice": 22,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 68.7,
-      "returnSinceIssuePct": 212.27,
+      "currentPrice": 69.42,
+      "returnSinceIssuePct": 215.55,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -53828,7 +53828,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53861,7 +53861,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53894,7 +53894,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53927,7 +53927,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53993,7 +53993,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54015,8 +54015,8 @@
       "listingPrice": 52.9,
       "listingDayClose": null,
       "listingGainPct": 3.73,
-      "currentPrice": 109.0,
-      "returnSinceIssuePct": 113.73,
+      "currentPrice": 107.79,
+      "returnSinceIssuePct": 111.35,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54026,7 +54026,7 @@
       "logo": null,
       "initials": "PD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54158,7 +54158,7 @@
       "logo": null,
       "initials": "GK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54180,8 +54180,8 @@
       "listingPrice": 251,
       "listingDayClose": null,
       "listingGainPct": 16.74,
-      "currentPrice": 2548.6,
-      "returnSinceIssuePct": 1085.4,
+      "currentPrice": 2628.5,
+      "returnSinceIssuePct": 1122.56,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54191,7 +54191,7 @@
       "logo": null,
       "initials": "NC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54224,7 +54224,7 @@
       "logo": null,
       "initials": "VR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54279,8 +54279,8 @@
       "listingPrice": 633,
       "listingDayClose": null,
       "listingGainPct": 17.66,
-      "currentPrice": 7871.0,
-      "returnSinceIssuePct": 1363.01,
+      "currentPrice": 7839.0,
+      "returnSinceIssuePct": 1357.06,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54290,7 +54290,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54312,8 +54312,8 @@
       "listingPrice": 960,
       "listingDayClose": null,
       "listingGainPct": 9.09,
-      "currentPrice": 568.75,
-      "returnSinceIssuePct": -35.37,
+      "currentPrice": 576.9,
+      "returnSinceIssuePct": -34.44,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54323,7 +54323,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54378,8 +54378,8 @@
       "listingPrice": 19,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 193.34,
-      "returnSinceIssuePct": 917.58,
+      "currentPrice": 194.24,
+      "returnSinceIssuePct": 922.32,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54389,7 +54389,7 @@
       "logo": null,
       "initials": "RV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54455,7 +54455,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54488,7 +54488,7 @@
       "logo": null,
       "initials": "EO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54521,7 +54521,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54543,8 +54543,8 @@
       "listingPrice": 111,
       "listingDayClose": null,
       "listingGainPct": -7.5,
-      "currentPrice": 589.8,
-      "returnSinceIssuePct": 391.5,
+      "currentPrice": 599.0,
+      "returnSinceIssuePct": 399.17,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54554,7 +54554,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54609,8 +54609,8 @@
       "listingPrice": 33.95,
       "listingDayClose": null,
       "listingGainPct": -0.15,
-      "currentPrice": 43.38,
-      "returnSinceIssuePct": 27.59,
+      "currentPrice": 45.38,
+      "returnSinceIssuePct": 33.47,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54620,7 +54620,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54719,7 +54719,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54785,7 +54785,7 @@
       "logo": null,
       "initials": "JO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54807,8 +54807,8 @@
       "listingPrice": 33.6,
       "listingDayClose": null,
       "listingGainPct": 1.82,
-      "currentPrice": 10.97,
-      "returnSinceIssuePct": -66.76,
+      "currentPrice": 11.11,
+      "returnSinceIssuePct": -66.33,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54818,7 +54818,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54840,8 +54840,8 @@
       "listingPrice": 291,
       "listingDayClose": null,
       "listingGainPct": 3.93,
-      "currentPrice": 810.7,
-      "returnSinceIssuePct": 189.54,
+      "currentPrice": 818.25,
+      "returnSinceIssuePct": 192.23,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54851,7 +54851,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54873,8 +54873,8 @@
       "listingPrice": 77.4,
       "listingDayClose": null,
       "listingGainPct": 6.03,
-      "currentPrice": 275.0,
-      "returnSinceIssuePct": 276.71,
+      "currentPrice": 278.2,
+      "returnSinceIssuePct": 281.1,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54884,7 +54884,7 @@
       "logo": null,
       "initials": "RL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54939,8 +54939,8 @@
       "listingPrice": 56,
       "listingDayClose": null,
       "listingGainPct": -15.15,
-      "currentPrice": 81.56,
-      "returnSinceIssuePct": 23.58,
+      "currentPrice": 84.31,
+      "returnSinceIssuePct": 27.74,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -54950,7 +54950,7 @@
       "logo": null,
       "initials": "XD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55005,8 +55005,8 @@
       "listingPrice": 61,
       "listingDayClose": null,
       "listingGainPct": 1.67,
-      "currentPrice": 7.2,
-      "returnSinceIssuePct": -88.0,
+      "currentPrice": 7.21,
+      "returnSinceIssuePct": -87.98,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55016,7 +55016,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55049,7 +55049,7 @@
       "logo": null,
       "initials": "DH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55071,8 +55071,8 @@
       "listingPrice": 46.15,
       "listingDayClose": null,
       "listingGainPct": 2.56,
-      "currentPrice": 42.07,
-      "returnSinceIssuePct": -6.51,
+      "currentPrice": 43.91,
+      "returnSinceIssuePct": -2.42,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55082,7 +55082,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55170,8 +55170,8 @@
       "listingPrice": 27.1,
       "listingDayClose": null,
       "listingGainPct": 4.23,
-      "currentPrice": 19.5,
-      "returnSinceIssuePct": -25.0,
+      "currentPrice": 19.75,
+      "returnSinceIssuePct": -24.04,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55181,7 +55181,7 @@
       "logo": null,
       "initials": "SJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55269,8 +55269,8 @@
       "listingPrice": 36,
       "listingDayClose": null,
       "listingGainPct": 2.86,
-      "currentPrice": 66.86,
-      "returnSinceIssuePct": 91.03,
+      "currentPrice": 66.69,
+      "returnSinceIssuePct": 90.54,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55280,7 +55280,7 @@
       "logo": null,
       "initials": "BR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55335,8 +55335,8 @@
       "listingPrice": 92,
       "listingDayClose": null,
       "listingGainPct": 2.22,
-      "currentPrice": 58.27,
-      "returnSinceIssuePct": -35.26,
+      "currentPrice": 58.21,
+      "returnSinceIssuePct": -35.32,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55346,7 +55346,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55379,7 +55379,7 @@
       "logo": null,
       "initials": "VM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55412,7 +55412,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55467,8 +55467,8 @@
       "listingPrice": 37.8,
       "listingDayClose": null,
       "listingGainPct": 5.0,
-      "currentPrice": 216.61,
-      "returnSinceIssuePct": 501.69,
+      "currentPrice": 220.2,
+      "returnSinceIssuePct": 511.67,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55478,7 +55478,7 @@
       "logo": null,
       "initials": "BB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55500,8 +55500,8 @@
       "listingPrice": 11.05,
       "listingDayClose": null,
       "listingGainPct": 0.45,
-      "currentPrice": 4.99,
-      "returnSinceIssuePct": -54.64,
+      "currentPrice": 5.19,
+      "returnSinceIssuePct": -52.82,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55511,7 +55511,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55544,7 +55544,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55566,8 +55566,8 @@
       "listingPrice": 66.6,
       "listingDayClose": null,
       "listingGainPct": 0.91,
-      "currentPrice": 391.3,
-      "returnSinceIssuePct": 492.88,
+      "currentPrice": 401.8,
+      "returnSinceIssuePct": 508.79,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55577,7 +55577,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55610,7 +55610,7 @@
       "logo": null,
       "initials": "VO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55643,7 +55643,7 @@
       "logo": null,
       "initials": "A1",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55676,7 +55676,7 @@
       "logo": null,
       "initials": "DR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55731,8 +55731,8 @@
       "listingPrice": 34.1,
       "listingDayClose": null,
       "listingGainPct": 6.56,
-      "currentPrice": 5.05,
-      "returnSinceIssuePct": -84.22,
+      "currentPrice": 5.01,
+      "returnSinceIssuePct": -84.34,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55742,7 +55742,7 @@
       "logo": null,
       "initials": "KW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55764,8 +55764,8 @@
       "listingPrice": 36.45,
       "listingDayClose": null,
       "listingGainPct": 1.25,
-      "currentPrice": 71.65,
-      "returnSinceIssuePct": 99.03,
+      "currentPrice": 72.76,
+      "returnSinceIssuePct": 102.11,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55775,7 +55775,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55797,8 +55797,8 @@
       "listingPrice": 64,
       "listingDayClose": null,
       "listingGainPct": 1.59,
-      "currentPrice": 666.55,
-      "returnSinceIssuePct": 958.02,
+      "currentPrice": 690.0,
+      "returnSinceIssuePct": 995.24,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55808,7 +55808,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55830,8 +55830,8 @@
       "listingPrice": 758,
       "listingDayClose": null,
       "listingGainPct": -7.67,
-      "currentPrice": 1137.7,
-      "returnSinceIssuePct": 38.57,
+      "currentPrice": 1143.8,
+      "returnSinceIssuePct": 39.32,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55841,7 +55841,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55874,7 +55874,7 @@
       "logo": null,
       "initials": "KP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55896,8 +55896,8 @@
       "listingPrice": 35,
       "listingDayClose": null,
       "listingGainPct": 34.62,
-      "currentPrice": 2.93,
-      "returnSinceIssuePct": -88.73,
+      "currentPrice": 3.0,
+      "returnSinceIssuePct": -88.46,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -55907,7 +55907,7 @@
       "logo": null,
       "initials": "RM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55995,8 +55995,8 @@
       "listingPrice": 190.2,
       "listingDayClose": null,
       "listingGainPct": 1.17,
-      "currentPrice": 1957.8,
-      "returnSinceIssuePct": 941.38,
+      "currentPrice": 1988.9,
+      "returnSinceIssuePct": 957.93,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56006,7 +56006,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56072,7 +56072,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -56094,8 +56094,8 @@
       "listingPrice": 410.3,
       "listingDayClose": null,
       "listingGainPct": -13.62,
-      "currentPrice": 108.17,
-      "returnSinceIssuePct": -77.23,
+      "currentPrice": 108.66,
+      "returnSinceIssuePct": -77.12,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56105,7 +56105,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56127,8 +56127,8 @@
       "listingPrice": 141,
       "listingDayClose": null,
       "listingGainPct": -6.0,
-      "currentPrice": 35.89,
-      "returnSinceIssuePct": -76.07,
+      "currentPrice": 36.95,
+      "returnSinceIssuePct": -75.37,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56138,7 +56138,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56193,8 +56193,8 @@
       "listingPrice": 32.25,
       "listingDayClose": null,
       "listingGainPct": 4.03,
-      "currentPrice": 9.32,
-      "returnSinceIssuePct": -69.94,
+      "currentPrice": 9.64,
+      "returnSinceIssuePct": -68.9,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56204,7 +56204,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56226,8 +56226,8 @@
       "listingPrice": 111.05,
       "listingDayClose": null,
       "listingGainPct": -7.46,
-      "currentPrice": 18.96,
-      "returnSinceIssuePct": -84.2,
+      "currentPrice": 19.21,
+      "returnSinceIssuePct": -83.99,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56237,7 +56237,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56259,8 +56259,8 @@
       "listingPrice": 78,
       "listingDayClose": null,
       "listingGainPct": 11.43,
-      "currentPrice": 545.75,
-      "returnSinceIssuePct": 679.64,
+      "currentPrice": 540.5,
+      "returnSinceIssuePct": 672.14,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56270,7 +56270,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56292,8 +56292,8 @@
       "listingPrice": 41,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 85.64,
-      "returnSinceIssuePct": 108.88,
+      "currentPrice": 88.43,
+      "returnSinceIssuePct": 115.68,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56303,7 +56303,7 @@
       "logo": null,
       "initials": "LS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56336,7 +56336,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -56358,8 +56358,8 @@
       "listingPrice": 47,
       "listingDayClose": null,
       "listingGainPct": 4.44,
-      "currentPrice": 47.59,
-      "returnSinceIssuePct": 5.76,
+      "currentPrice": 46.99,
+      "returnSinceIssuePct": 4.42,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56369,7 +56369,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56424,8 +56424,8 @@
       "listingPrice": 27.1,
       "listingDayClose": null,
       "listingGainPct": 0.37,
-      "currentPrice": 4.54,
-      "returnSinceIssuePct": -83.19,
+      "currentPrice": 4.76,
+      "returnSinceIssuePct": -82.37,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56435,7 +56435,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56457,8 +56457,8 @@
       "listingPrice": 36.1,
       "listingDayClose": null,
       "listingGainPct": -5.0,
-      "currentPrice": 137.68,
-      "returnSinceIssuePct": 262.32,
+      "currentPrice": 139.71,
+      "returnSinceIssuePct": 267.66,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56468,7 +56468,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56589,8 +56589,8 @@
       "listingPrice": 385,
       "listingDayClose": null,
       "listingGainPct": -8.77,
-      "currentPrice": 1083.1,
-      "returnSinceIssuePct": 156.66,
+      "currentPrice": 1107.1,
+      "returnSinceIssuePct": 162.35,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56600,7 +56600,7 @@
       "logo": null,
       "initials": "CG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56622,8 +56622,8 @@
       "listingPrice": 41.9,
       "listingDayClose": null,
       "listingGainPct": 4.75,
-      "currentPrice": 40.0,
-      "returnSinceIssuePct": 0.0,
+      "currentPrice": 39.99,
+      "returnSinceIssuePct": -0.02,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56633,7 +56633,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56655,8 +56655,8 @@
       "listingPrice": 69.3,
       "listingDayClose": null,
       "listingGainPct": 0.43,
-      "currentPrice": 54.53,
-      "returnSinceIssuePct": -20.97,
+      "currentPrice": 54.75,
+      "returnSinceIssuePct": -20.65,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56666,7 +56666,7 @@
       "logo": null,
       "initials": "TG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56688,8 +56688,8 @@
       "listingPrice": 1739,
       "listingDayClose": null,
       "listingGainPct": 58.09,
-      "currentPrice": 2649.8,
-      "returnSinceIssuePct": 140.89,
+      "currentPrice": 2642.0,
+      "returnSinceIssuePct": 140.18,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56699,7 +56699,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56853,8 +56853,8 @@
       "listingPrice": 52,
       "listingDayClose": null,
       "listingGainPct": 1.96,
-      "currentPrice": 5.47,
-      "returnSinceIssuePct": -89.27,
+      "currentPrice": 5.38,
+      "returnSinceIssuePct": -89.45,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56864,7 +56864,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56930,7 +56930,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -56952,8 +56952,8 @@
       "listingPrice": 41.25,
       "listingDayClose": null,
       "listingGainPct": 0.61,
-      "currentPrice": 59.98,
-      "returnSinceIssuePct": 46.29,
+      "currentPrice": 60.93,
+      "returnSinceIssuePct": 48.61,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -56963,7 +56963,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56996,7 +56996,7 @@
       "logo": null,
       "initials": "GF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57084,8 +57084,8 @@
       "listingPrice": 1032,
       "listingDayClose": null,
       "listingGainPct": 6.72,
-      "currentPrice": 792.85,
-      "returnSinceIssuePct": -18.01,
+      "currentPrice": 788.3,
+      "returnSinceIssuePct": -18.48,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57095,7 +57095,7 @@
       "logo": null,
       "initials": "VE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57117,8 +57117,8 @@
       "listingPrice": 815,
       "listingDayClose": null,
       "listingGainPct": 4.09,
-      "currentPrice": 5075.5,
-      "returnSinceIssuePct": 548.21,
+      "currentPrice": 5205.5,
+      "returnSinceIssuePct": 564.81,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57128,7 +57128,7 @@
       "logo": null,
       "initials": "FO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57150,8 +57150,8 @@
       "listingPrice": 190,
       "listingDayClose": null,
       "listingGainPct": 2.7,
-      "currentPrice": 194.72,
-      "returnSinceIssuePct": 5.25,
+      "currentPrice": 197.1,
+      "returnSinceIssuePct": 6.54,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57161,7 +57161,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57194,7 +57194,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57216,8 +57216,8 @@
       "listingPrice": 81,
       "listingDayClose": null,
       "listingGainPct": 8.0,
-      "currentPrice": 29.76,
-      "returnSinceIssuePct": -60.32,
+      "currentPrice": 30.31,
+      "returnSinceIssuePct": -59.59,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57227,7 +57227,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57249,8 +57249,8 @@
       "listingPrice": 27.85,
       "listingDayClose": null,
       "listingGainPct": 7.12,
-      "currentPrice": 11.45,
-      "returnSinceIssuePct": -55.96,
+      "currentPrice": 11.62,
+      "returnSinceIssuePct": -55.31,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57260,7 +57260,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57326,7 +57326,7 @@
       "logo": null,
       "initials": "PJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57381,8 +57381,8 @@
       "listingPrice": 36,
       "listingDayClose": null,
       "listingGainPct": 2.86,
-      "currentPrice": 43.31,
-      "returnSinceIssuePct": 23.74,
+      "currentPrice": 42.74,
+      "returnSinceIssuePct": 22.11,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57392,7 +57392,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57480,8 +57480,8 @@
       "listingPrice": 68,
       "listingDayClose": null,
       "listingGainPct": 3.03,
-      "currentPrice": 18.45,
-      "returnSinceIssuePct": -72.05,
+      "currentPrice": 18.78,
+      "returnSinceIssuePct": -71.55,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57491,7 +57491,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57513,8 +57513,8 @@
       "listingPrice": 90.05,
       "listingDayClose": null,
       "listingGainPct": 5.94,
-      "currentPrice": 191.52,
-      "returnSinceIssuePct": 125.32,
+      "currentPrice": 197.13,
+      "returnSinceIssuePct": 131.92,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57524,7 +57524,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57612,8 +57612,8 @@
       "listingPrice": 162,
       "listingDayClose": null,
       "listingGainPct": 1.25,
-      "currentPrice": 406.3,
-      "returnSinceIssuePct": 153.94,
+      "currentPrice": 409.1,
+      "returnSinceIssuePct": 155.69,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57623,7 +57623,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57678,8 +57678,8 @@
       "listingPrice": 30.5,
       "listingDayClose": null,
       "listingGainPct": 1.67,
-      "currentPrice": 299.8,
-      "returnSinceIssuePct": 899.33,
+      "currentPrice": 298.85,
+      "returnSinceIssuePct": 896.17,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57689,7 +57689,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57722,7 +57722,7 @@
       "logo": null,
       "initials": "UH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57777,8 +57777,8 @@
       "listingPrice": 600,
       "listingDayClose": null,
       "listingGainPct": 4.9,
-      "currentPrice": 192.12,
-      "returnSinceIssuePct": -66.41,
+      "currentPrice": 202.95,
+      "returnSinceIssuePct": -64.52,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57788,7 +57788,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57843,8 +57843,8 @@
       "listingPrice": 85,
       "listingDayClose": null,
       "listingGainPct": 49.12,
-      "currentPrice": 487.05,
-      "returnSinceIssuePct": 754.47,
+      "currentPrice": 505.9,
+      "returnSinceIssuePct": 787.54,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57854,7 +57854,7 @@
       "logo": null,
       "initials": "EN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57887,7 +57887,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57942,8 +57942,8 @@
       "listingPrice": 55.05,
       "listingDayClose": null,
       "listingGainPct": 7.94,
-      "currentPrice": 65.34,
-      "returnSinceIssuePct": 28.12,
+      "currentPrice": 67.63,
+      "returnSinceIssuePct": 32.61,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57953,7 +57953,7 @@
       "logo": null,
       "initials": "IU",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57975,8 +57975,8 @@
       "listingPrice": 88,
       "listingDayClose": null,
       "listingGainPct": 10.0,
-      "currentPrice": 445.0,
-      "returnSinceIssuePct": 456.25,
+      "currentPrice": 439.25,
+      "returnSinceIssuePct": 449.06,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -57986,7 +57986,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58008,8 +58008,8 @@
       "listingPrice": 53.4,
       "listingDayClose": null,
       "listingGainPct": -1.11,
-      "currentPrice": 18.72,
-      "returnSinceIssuePct": -65.33,
+      "currentPrice": 19.59,
+      "returnSinceIssuePct": -63.72,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58019,7 +58019,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58052,7 +58052,7 @@
       "logo": null,
       "initials": "DL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -58074,8 +58074,8 @@
       "listingPrice": 55.75,
       "listingDayClose": null,
       "listingGainPct": -0.45,
-      "currentPrice": 7.77,
-      "returnSinceIssuePct": -86.12,
+      "currentPrice": 7.68,
+      "returnSinceIssuePct": -86.29,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58085,7 +58085,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58107,8 +58107,8 @@
       "listingPrice": 35,
       "listingDayClose": null,
       "listingGainPct": 40.0,
-      "currentPrice": 304.0,
-      "returnSinceIssuePct": 1116.0,
+      "currentPrice": 309.5,
+      "returnSinceIssuePct": 1138.0,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58118,7 +58118,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-06T15:58:26.987524+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58140,8 +58140,8 @@
       "listingPrice": 60,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 90.8,
-      "returnSinceIssuePct": 51.33,
+      "currentPrice": 90.62,
+      "returnSinceIssuePct": 51.03,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58151,7 +58151,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58173,8 +58173,8 @@
       "listingPrice": 10,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 9.13,
-      "returnSinceIssuePct": -8.7,
+      "currentPrice": 9.21,
+      "returnSinceIssuePct": -7.9,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58184,7 +58184,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58239,8 +58239,8 @@
       "listingPrice": 35,
       "listingDayClose": null,
       "listingGainPct": 6.06,
-      "currentPrice": 91.54,
-      "returnSinceIssuePct": 177.39,
+      "currentPrice": 93.69,
+      "returnSinceIssuePct": 183.91,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58250,7 +58250,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58272,8 +58272,8 @@
       "listingPrice": 31.45,
       "listingDayClose": null,
       "listingGainPct": -1.72,
-      "currentPrice": 11.75,
-      "returnSinceIssuePct": -63.28,
+      "currentPrice": 11.93,
+      "returnSinceIssuePct": -62.72,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58283,7 +58283,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58305,8 +58305,8 @@
       "listingPrice": 190,
       "listingDayClose": null,
       "listingGainPct": 1.06,
-      "currentPrice": 427.35,
-      "returnSinceIssuePct": 127.31,
+      "currentPrice": 440.35,
+      "returnSinceIssuePct": 134.23,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58316,7 +58316,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58437,8 +58437,8 @@
       "listingPrice": 113,
       "listingDayClose": null,
       "listingGainPct": 5.61,
-      "currentPrice": 160.98,
-      "returnSinceIssuePct": 50.45,
+      "currentPrice": 165.35,
+      "returnSinceIssuePct": 54.53,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58448,7 +58448,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58470,8 +58470,8 @@
       "listingPrice": 61.6,
       "listingDayClose": null,
       "listingGainPct": 10.0,
-      "currentPrice": 117.39,
-      "returnSinceIssuePct": 109.62,
+      "currentPrice": 118.41,
+      "returnSinceIssuePct": 111.45,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58481,7 +58481,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58514,7 +58514,7 @@
       "logo": null,
       "initials": "TR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -58635,8 +58635,8 @@
       "listingPrice": 92.5,
       "listingDayClose": null,
       "listingGainPct": 0.54,
-      "currentPrice": 528.4,
-      "returnSinceIssuePct": 474.35,
+      "currentPrice": 535.1,
+      "returnSinceIssuePct": 481.63,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58646,7 +58646,7 @@
       "logo": null,
       "initials": "KF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58701,8 +58701,8 @@
       "listingPrice": 87,
       "listingDayClose": null,
       "listingGainPct": -3.33,
-      "currentPrice": 379.4,
-      "returnSinceIssuePct": 321.56,
+      "currentPrice": 387.75,
+      "returnSinceIssuePct": 330.83,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58712,7 +58712,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58767,8 +58767,8 @@
       "listingPrice": 101,
       "listingDayClose": null,
       "listingGainPct": 1.0,
-      "currentPrice": 54.95,
-      "returnSinceIssuePct": -45.05,
+      "currentPrice": 57.6,
+      "returnSinceIssuePct": -42.4,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58778,7 +58778,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58866,8 +58866,8 @@
       "listingPrice": 345,
       "listingDayClose": null,
       "listingGainPct": 3.92,
-      "currentPrice": 478.9,
-      "returnSinceIssuePct": 44.25,
+      "currentPrice": 488.15,
+      "returnSinceIssuePct": 47.03,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58877,7 +58877,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58910,7 +58910,7 @@
       "logo": null,
       "initials": "YI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -58932,8 +58932,8 @@
       "listingPrice": 1169,
       "listingDayClose": null,
       "listingGainPct": -3.79,
-      "currentPrice": 4980.0,
-      "returnSinceIssuePct": 309.88,
+      "currentPrice": 4985.0,
+      "returnSinceIssuePct": 310.29,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -58943,7 +58943,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58998,8 +58998,8 @@
       "listingPrice": 485,
       "listingDayClose": null,
       "listingGainPct": 29.33,
-      "currentPrice": 165.0,
-      "returnSinceIssuePct": -56.0,
+      "currentPrice": 165.4,
+      "returnSinceIssuePct": -55.89,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59009,7 +59009,7 @@
       "logo": null,
       "initials": "BB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59042,7 +59042,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59130,8 +59130,8 @@
       "listingPrice": 360,
       "listingDayClose": null,
       "listingGainPct": -15.89,
-      "currentPrice": 1060.0,
-      "returnSinceIssuePct": 147.66,
+      "currentPrice": 1069.0,
+      "returnSinceIssuePct": 149.77,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59141,7 +59141,7 @@
       "logo": null,
       "initials": "BD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59306,7 +59306,7 @@
       "logo": null,
       "initials": "IA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59339,7 +59339,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59361,8 +59361,8 @@
       "listingPrice": 56,
       "listingDayClose": null,
       "listingGainPct": 1.82,
-      "currentPrice": 10.88,
-      "returnSinceIssuePct": -80.22,
+      "currentPrice": 11.1,
+      "returnSinceIssuePct": -79.82,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59372,7 +59372,7 @@
       "logo": null,
       "initials": "UT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59427,8 +59427,8 @@
       "listingPrice": 270,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 400.55,
-      "returnSinceIssuePct": 48.35,
+      "currentPrice": 401.5,
+      "returnSinceIssuePct": 48.7,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59438,7 +59438,7 @@
       "logo": null,
       "initials": "HG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59460,8 +59460,8 @@
       "listingPrice": 33.6,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 25.32,
-      "returnSinceIssuePct": -9.57,
+      "currentPrice": 25.06,
+      "returnSinceIssuePct": -10.5,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59471,7 +59471,7 @@
       "logo": null,
       "initials": "HC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59559,8 +59559,8 @@
       "listingPrice": 114,
       "listingDayClose": null,
       "listingGainPct": -0.87,
-      "currentPrice": 81.4,
-      "returnSinceIssuePct": -29.22,
+      "currentPrice": 85.47,
+      "returnSinceIssuePct": -25.68,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59570,7 +59570,7 @@
       "logo": null,
       "initials": "BB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59625,8 +59625,8 @@
       "listingPrice": 60.95,
       "listingDayClose": null,
       "listingGainPct": -0.08,
-      "currentPrice": 227.46,
-      "returnSinceIssuePct": 272.89,
+      "currentPrice": 235.07,
+      "returnSinceIssuePct": 285.36,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59636,7 +59636,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59669,7 +59669,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59724,8 +59724,8 @@
       "listingPrice": 93.6,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 176.4,
-      "returnSinceIssuePct": 126.15,
+      "currentPrice": 178.12,
+      "returnSinceIssuePct": 128.36,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59735,7 +59735,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59823,8 +59823,8 @@
       "listingPrice": 10.2,
       "listingDayClose": null,
       "listingGainPct": 2.0,
-      "currentPrice": 11.47,
-      "returnSinceIssuePct": 14.7,
+      "currentPrice": 11.99,
+      "returnSinceIssuePct": 19.9,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59834,7 +59834,7 @@
       "logo": null,
       "initials": "LA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59856,8 +59856,8 @@
       "listingPrice": 78,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 76.08,
-      "returnSinceIssuePct": 17.05,
+      "currentPrice": 79.81,
+      "returnSinceIssuePct": 22.78,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59867,7 +59867,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59922,8 +59922,8 @@
       "listingPrice": 21.6,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 56.72,
-      "returnSinceIssuePct": 215.11,
+      "currentPrice": 54.51,
+      "returnSinceIssuePct": 202.83,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59933,7 +59933,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59955,8 +59955,8 @@
       "listingPrice": 1520,
       "listingDayClose": null,
       "listingGainPct": 2.7,
-      "currentPrice": 2179.1,
-      "returnSinceIssuePct": 47.24,
+      "currentPrice": 2224.3,
+      "returnSinceIssuePct": 50.29,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -59966,7 +59966,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60021,8 +60021,8 @@
       "listingPrice": 100,
       "listingDayClose": null,
       "listingGainPct": 0.0,
-      "currentPrice": 17.99,
-      "returnSinceIssuePct": -82.01,
+      "currentPrice": 18.98,
+      "returnSinceIssuePct": -81.02,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60032,7 +60032,7 @@
       "logo": null,
       "initials": "MR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60065,7 +60065,7 @@
       "logo": null,
       "initials": "GG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60120,8 +60120,8 @@
       "listingPrice": 16,
       "listingDayClose": null,
       "listingGainPct": -20.0,
-      "currentPrice": 14.04,
-      "returnSinceIssuePct": -29.8,
+      "currentPrice": 14.25,
+      "returnSinceIssuePct": -28.75,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60131,7 +60131,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60186,8 +60186,8 @@
       "listingPrice": 43.5,
       "listingDayClose": null,
       "listingGainPct": -16.35,
-      "currentPrice": 656.45,
-      "returnSinceIssuePct": 1162.4,
+      "currentPrice": 671.45,
+      "returnSinceIssuePct": 1191.25,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60197,7 +60197,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60252,8 +60252,8 @@
       "listingPrice": 1180,
       "listingDayClose": null,
       "listingGainPct": 37.37,
-      "currentPrice": 6403.0,
-      "returnSinceIssuePct": 645.4,
+      "currentPrice": 6354.0,
+      "returnSinceIssuePct": 639.7,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60263,7 +60263,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60285,8 +60285,8 @@
       "listingPrice": 253,
       "listingDayClose": null,
       "listingGainPct": 3.27,
-      "currentPrice": 440.7,
-      "returnSinceIssuePct": 79.88,
+      "currentPrice": 447.8,
+      "returnSinceIssuePct": 82.78,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60296,7 +60296,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60318,8 +60318,8 @@
       "listingPrice": 478,
       "listingDayClose": null,
       "listingGainPct": 73.82,
-      "currentPrice": 413.65,
-      "returnSinceIssuePct": 50.42,
+      "currentPrice": 422.6,
+      "returnSinceIssuePct": 53.67,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60329,7 +60329,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60428,7 +60428,7 @@
       "logo": null,
       "initials": "JF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60483,8 +60483,8 @@
       "listingPrice": 54,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 136.4,
-      "returnSinceIssuePct": 203.11,
+      "currentPrice": 139.0,
+      "returnSinceIssuePct": 208.89,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60494,7 +60494,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60516,8 +60516,8 @@
       "listingPrice": 44.4,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 8.78,
-      "returnSinceIssuePct": -76.27,
+      "currentPrice": 8.76,
+      "returnSinceIssuePct": -76.32,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60527,7 +60527,7 @@
       "logo": null,
       "initials": "MO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60549,8 +60549,8 @@
       "listingPrice": 36,
       "listingDayClose": null,
       "listingGainPct": 20.0,
-      "currentPrice": 2.96,
-      "returnSinceIssuePct": -90.13,
+      "currentPrice": 2.99,
+      "returnSinceIssuePct": -90.03,
       "issueSizeCr": null,
       "subscription": null,
       "tier": "tier2",
@@ -60560,7 +60560,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60593,7 +60593,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60626,7 +60626,7 @@
       "logo": null,
       "initials": "BL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60648,8 +60648,8 @@
       "listingPrice": 856,
       "listingDayClose": null,
       "listingGainPct": 11.9,
-      "currentPrice": 5476.0,
-      "returnSinceIssuePct": 615.82,
+      "currentPrice": 5417.3,
+      "returnSinceIssuePct": 608.14,
       "issueSizeCr": 3018,
       "subscription": 6.15,
       "tier": "tier2",
@@ -60659,7 +60659,7 @@
       "logo": null,
       "initials": "IA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60681,8 +60681,8 @@
       "listingPrice": 287.75,
       "listingDayClose": null,
       "listingGainPct": 17.45,
-      "currentPrice": 400.0,
-      "returnSinceIssuePct": 63.27,
+      "currentPrice": 401.0,
+      "returnSinceIssuePct": 63.67,
       "issueSizeCr": 15199,
       "subscription": 15.3,
       "tier": "tier2",
@@ -60692,7 +60692,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60725,7 +60725,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60747,8 +60747,8 @@
       "listingPrice": 960,
       "listingDayClose": null,
       "listingGainPct": 118.18,
-      "currentPrice": 1936.6,
-      "returnSinceIssuePct": 340.14,
+      "currentPrice": 1949.3,
+      "returnSinceIssuePct": 343.02,
       "issueSizeCr": 1771,
       "subscription": 115,
       "tier": "tier2",
@@ -60758,7 +60758,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60780,8 +60780,8 @@
       "listingPrice": 1076,
       "listingDayClose": null,
       "listingGainPct": 26.59,
-      "currentPrice": 2498.5,
-      "returnSinceIssuePct": 193.94,
+      "currentPrice": 2498.8,
+      "returnSinceIssuePct": 193.98,
       "issueSizeCr": 5419,
       "subscription": 7.7,
       "tier": "tier2",
@@ -60791,7 +60791,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60824,7 +60824,7 @@
       "logo": null,
       "initials": "MU",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60857,7 +60857,7 @@
       "logo": null,
       "initials": "BT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60890,7 +60890,7 @@
       "logo": null,
       "initials": "IB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60912,8 +60912,8 @@
       "listingPrice": 40,
       "listingDayClose": null,
       "listingGainPct": 300.0,
-      "currentPrice": 788.25,
-      "returnSinceIssuePct": 7782.5,
+      "currentPrice": 784.1,
+      "returnSinceIssuePct": 7741.0,
       "issueSizeCr": 50,
       "subscription": 55,
       "tier": "tier2",
@@ -60923,7 +60923,7 @@
       "logo": null,
       "initials": "HB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60945,8 +60945,8 @@
       "listingPrice": 145,
       "listingDayClose": null,
       "listingGainPct": 52.63,
-      "currentPrice": 1181.4,
-      "returnSinceIssuePct": 1143.58,
+      "currentPrice": 1171.6,
+      "returnSinceIssuePct": 1133.26,
       "issueSizeCr": 13,
       "subscription": 1.06,
       "tier": "tier2",
@@ -60956,7 +60956,7 @@
       "logo": null,
       "initials": "IT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60978,8 +60978,8 @@
       "listingPrice": 180,
       "listingDayClose": null,
       "listingGainPct": 80.0,
-      "currentPrice": 1018.5,
-      "returnSinceIssuePct": 918.5,
+      "currentPrice": 1016.0,
+      "returnSinceIssuePct": 916.0,
       "issueSizeCr": 1240,
       "subscription": 4.2,
       "tier": "tier2",
@@ -60989,7 +60989,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61011,8 +61011,8 @@
       "listingPrice": 24,
       "listingDayClose": null,
       "listingGainPct": 140.0,
-      "currentPrice": 5000.0,
-      "returnSinceIssuePct": 49900.0,
+      "currentPrice": 4990.5,
+      "returnSinceIssuePct": 49805.0,
       "issueSizeCr": 11,
       "subscription": 18,
       "tier": "tier2",
@@ -61022,7 +61022,7 @@
       "logo": null,
       "initials": "TW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61044,8 +61044,8 @@
       "listingPrice": 42,
       "listingDayClose": null,
       "listingGainPct": 82.61,
-      "currentPrice": 2546.0,
-      "returnSinceIssuePct": 10969.57,
+      "currentPrice": 2529.0,
+      "returnSinceIssuePct": 10895.65,
       "issueSizeCr": 3.5,
       "subscription": 12,
       "tier": "tier2",
@@ -61055,7 +61055,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61077,8 +61077,8 @@
       "listingPrice": 42,
       "listingDayClose": null,
       "listingGainPct": 68.0,
-      "currentPrice": 4117.7,
-      "returnSinceIssuePct": 16370.8,
+      "currentPrice": 4110.0,
+      "returnSinceIssuePct": 16340.0,
       "issueSizeCr": 12.5,
       "subscription": 8.5,
       "tier": "tier2",
@@ -61088,7 +61088,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61110,8 +61110,8 @@
       "listingPrice": 17.5,
       "listingDayClose": null,
       "listingGainPct": 75.0,
-      "currentPrice": 1320.0,
-      "returnSinceIssuePct": 13100.0,
+      "currentPrice": 1324.0,
+      "returnSinceIssuePct": 13140.0,
       "issueSizeCr": 2.82,
       "subscription": 7,
       "tier": "tier2",
@@ -61121,7 +61121,7 @@
       "logo": null,
       "initials": "RT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61143,8 +61143,8 @@
       "listingPrice": 125,
       "listingDayClose": null,
       "listingGainPct": 25.0,
-      "currentPrice": 292.0,
-      "returnSinceIssuePct": 192.0,
+      "currentPrice": 295.3,
+      "returnSinceIssuePct": 195.3,
       "issueSizeCr": 5,
       "subscription": 2.5,
       "tier": "tier2",
@@ -61154,7 +61154,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61176,8 +61176,8 @@
       "listingPrice": 100,
       "listingDayClose": null,
       "listingGainPct": 33.33,
-      "currentPrice": 186.3,
-      "returnSinceIssuePct": 148.4,
+      "currentPrice": 190.2,
+      "returnSinceIssuePct": 153.6,
       "issueSizeCr": 2.31,
       "subscription": 3.2,
       "tier": "tier2",
@@ -61187,7 +61187,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61209,8 +61209,8 @@
       "listingPrice": 2650,
       "listingDayClose": null,
       "listingGainPct": 6.0,
-      "currentPrice": 1284.3,
-      "returnSinceIssuePct": -48.63,
+      "currentPrice": 1290.6,
+      "returnSinceIssuePct": -48.38,
       "issueSizeCr": 0.25,
       "subscription": 1.8,
       "tier": "tier2",
@@ -61220,7 +61220,7 @@
       "logo": null,
       "initials": "TB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-08T19:28:38.078280+05:30",
+      "lastUpdated": "2026-11-09T00:11:15.480882+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
