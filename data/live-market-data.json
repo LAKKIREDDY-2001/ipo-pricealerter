@@ -1,6 +1,6 @@
 {
-  "lastSyncTime": "2026-11-09T00:11:15.480882+05:30",
-  "lastSyncFormatted": "09 Nov 2026, 12:11 AM IST",
+  "lastSyncTime": "2026-11-09T04:06:05.303355+05:30",
+  "lastSyncFormatted": "09 Nov 2026, 04:06 AM IST",
   "nextSyncCountdownSeconds": 300,
   "syncIntervalMinutes": 5,
   "totalTrackedUniverse": 1872,
@@ -22,7 +22,7 @@
       "change": 449.8,
       "pct": 1.83,
       "isGain": true,
-      "timestamp": "2026-11-09T00:11:15.964676+05:30",
+      "timestamp": "2026-11-09T04:06:05.820736+05:30",
       "status": "CLOSING",
       "source": "NSE Benchmark (Google Finance)"
     },
@@ -33,7 +33,7 @@
       "change": 1689.39,
       "pct": 2.13,
       "isGain": true,
-      "timestamp": "2026-11-09T00:11:16.468658+05:30",
+      "timestamp": "2026-11-09T04:06:06.199431+05:30",
       "status": "CLOSING",
       "source": "BSE Benchmark (Google Finance)"
     }
@@ -83,7 +83,7 @@
         401.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -130,7 +130,7 @@
         410.35
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -177,7 +177,7 @@
         756.25
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -224,7 +224,7 @@
         573.9
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -271,7 +271,7 @@
         485.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -318,7 +318,7 @@
         588.75
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -365,7 +365,7 @@
         800.35
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -412,7 +412,7 @@
         412.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -459,7 +459,7 @@
         422.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -506,7 +506,7 @@
         960.55
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -555,7 +555,7 @@
         165.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -602,7 +602,7 @@
         412.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -649,7 +649,7 @@
         137.1
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -696,7 +696,7 @@
         111.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -743,7 +743,7 @@
         255.05
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -790,7 +790,7 @@
         112.05
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -837,7 +837,7 @@
         116.65
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -884,7 +884,7 @@
         239.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -931,7 +931,7 @@
         82.64
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -978,7 +978,7 @@
         172.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -1027,7 +1027,7 @@
         66.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1074,7 +1074,7 @@
         37.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1121,7 +1121,7 @@
         28.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1168,7 +1168,7 @@
         61.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1215,7 +1215,7 @@
         156.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1262,7 +1262,7 @@
         6.23
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1309,7 +1309,7 @@
         92.04
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1356,7 +1356,7 @@
         25.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1403,7 +1403,7 @@
         15.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1450,7 +1450,7 @@
         28.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -1499,7 +1499,7 @@
         401.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1546,7 +1546,7 @@
         93.26
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1593,7 +1593,7 @@
         157.92
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1640,7 +1640,7 @@
         165.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1687,7 +1687,7 @@
         241.08
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1734,7 +1734,7 @@
         418.55
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1781,7 +1781,7 @@
         207.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1828,7 +1828,7 @@
         1667.3
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1875,7 +1875,7 @@
         81.99
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1922,7 +1922,7 @@
         1421.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1969,7 +1969,7 @@
         743.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -2016,7 +2016,7 @@
         664.75
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -2044,9 +2044,9 @@
       "logo": "",
       "initials": "AI",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "vedant-poly-fabs-ipo",
@@ -2069,9 +2069,9 @@
       "logo": "",
       "initials": "VP",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "zepto-ipo",
@@ -2094,9 +2094,9 @@
       "logo": "",
       "initials": "ZE",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "razorpay-ipo",
@@ -2119,9 +2119,9 @@
       "logo": "",
       "initials": "RA",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "truhome-finance-ipo",
@@ -2144,9 +2144,9 @@
       "logo": "",
       "initials": "TF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "marri-retail-ipo",
@@ -2169,9 +2169,9 @@
       "logo": "",
       "initials": "MR",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "incred-holdings-ipo",
@@ -2194,9 +2194,9 @@
       "logo": "",
       "initials": "IH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "hero-fincrop-limited-ipo",
@@ -2219,9 +2219,9 @@
       "logo": "",
       "initials": "HF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "allchem-lifescience-ipo",
@@ -2244,9 +2244,9 @@
       "logo": "",
       "initials": "AL",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "cardekho-ipo",
@@ -2269,9 +2269,9 @@
       "logo": "",
       "initials": "CA",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "haldirams-snacks-foods-ipo",
@@ -2294,9 +2294,9 @@
       "logo": "",
       "initials": "HS",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "prestige-hospitality-ventures-ipo",
@@ -2319,9 +2319,9 @@
       "logo": "",
       "initials": "PH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "curefoods-ipo",
@@ -2344,9 +2344,9 @@
       "logo": "",
       "initials": "CU",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "cult-fit-ipo",
@@ -2369,9 +2369,9 @@
       "logo": "",
       "initials": "CF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "kent-ro-ipo",
@@ -2394,9 +2394,9 @@
       "logo": "",
       "initials": "KR",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "vlcc-ipo",
@@ -2419,9 +2419,9 @@
       "logo": "",
       "initials": "VL",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "pharmeasy-ipo",
@@ -2444,9 +2444,9 @@
       "logo": "",
       "initials": "PH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "servify-ipo",
@@ -2469,9 +2469,9 @@
       "logo": "",
       "initials": "SE",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "hero-future-energies-ipo",
@@ -2494,9 +2494,9 @@
       "logo": "",
       "initials": "HF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "flipkart-ipo",
@@ -2519,9 +2519,9 @@
       "logo": "",
       "initials": "FL",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "phonepe-ipo",
@@ -2544,9 +2544,9 @@
       "logo": "",
       "initials": "PH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "fabindia-ipo",
@@ -2569,9 +2569,9 @@
       "logo": "",
       "initials": "FA",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "oyo-ipo",
@@ -2594,9 +2594,9 @@
       "logo": "",
       "initials": "OY",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "boat-ipo",
@@ -2619,9 +2619,9 @@
       "logo": "",
       "initials": "BO",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "bajaj-energy-ipo",
@@ -2644,9 +2644,9 @@
       "logo": "",
       "initials": "BE",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "arohan-financial-ipo",
@@ -2669,9 +2669,9 @@
       "logo": "",
       "initials": "AF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     },
     {
       "slug": "droom-technology-ipo",
@@ -2694,9 +2694,9 @@
       "logo": "",
       "initials": "DR",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-09T00:11:15.480882+05:30",
+      "quoteTimestamp": "2026-11-09T04:06:05.303355+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-09T00:11:15.480882+05:30"
+      "updatedAt": "2026-11-09T04:06:05.303355+05:30"
     }
   ],
   "allLiveStocks": [
