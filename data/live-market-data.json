@@ -1,6 +1,6 @@
 {
-  "lastSyncTime": "2026-11-11T05:25:51.032445+05:30",
-  "lastSyncFormatted": "11 Nov 2026, 05:25 AM IST",
+  "lastSyncTime": "2026-11-11T10:59:30.144476+05:30",
+  "lastSyncFormatted": "11 Nov 2026, 10:59 AM IST",
   "nextSyncCountdownSeconds": 300,
   "syncIntervalMinutes": 5,
   "totalTrackedUniverse": 1872,
@@ -12,29 +12,29 @@
     "benchmarkNse": "https://www.google.com/finance/quote/NIFTY_50:INDEXNSE",
     "benchmarkBse": "https://www.google.com/finance/quote/SENSEX:INDEXBOM"
   },
-  "marketStatus": "CLOSED",
+  "marketStatus": "OPEN",
   "status": "LIVE_SYNCHRONIZED",
   "benchmarks": {
     "nifty50": {
       "name": "NIFTY 50",
       "symbol": "^NSEI",
-      "price": 25044.65,
-      "change": 58.25,
-      "pct": 0.23,
+      "price": 25385.05,
+      "change": 340.4,
+      "pct": 1.36,
       "isGain": true,
-      "timestamp": "2026-11-11T05:25:51.746645+05:30",
-      "status": "CLOSING",
+      "timestamp": "2026-11-11T10:59:30.866358+05:30",
+      "status": "DELAYED",
       "source": "NSE Benchmark (Google Finance)"
     },
     "sensex": {
       "name": "SENSEX",
       "symbol": "^BSESN",
-      "price": 81106.65,
-      "change": 107.25,
-      "pct": 0.13,
+      "price": 82375.67,
+      "change": 1269.02,
+      "pct": 1.56,
       "isGain": true,
-      "timestamp": "2026-11-11T05:25:52.085130+05:30",
-      "status": "CLOSING",
+      "timestamp": "2026-11-11T10:59:31.334430+05:30",
+      "status": "DELAYED",
       "source": "BSE Benchmark (Google Finance)"
     }
   },
@@ -69,7 +69,7 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         82.0,
         117.49,
@@ -83,7 +83,7 @@
         401.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -116,7 +116,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         126.0,
         178.95,
@@ -130,7 +130,7 @@
         602.55
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -163,7 +163,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         88.0,
         123.82,
@@ -177,7 +177,7 @@
         410.35
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -210,7 +210,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         163.0,
         228.72,
@@ -224,7 +224,7 @@
         754.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -257,7 +257,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         110.0,
         151.72,
@@ -271,7 +271,7 @@
         485.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -304,7 +304,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         140.0,
         190.06,
@@ -318,7 +318,7 @@
         590.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -351,7 +351,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         216.0,
         279.43,
@@ -365,7 +365,7 @@
         786.9
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -398,7 +398,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         118.0,
         150.77,
@@ -412,7 +412,7 @@
         412.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -445,7 +445,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         130.0,
         161.56,
@@ -459,7 +459,7 @@
         414.05
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -492,7 +492,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         77.0,
         95.16,
@@ -506,7 +506,7 @@
         240.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -541,7 +541,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         106.0,
         112.53,
@@ -555,7 +555,7 @@
         164.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -588,7 +588,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         118.0,
         150.77,
@@ -602,7 +602,7 @@
         412.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -635,7 +635,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         127.0,
         128.22,
@@ -649,7 +649,7 @@
         138.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -682,7 +682,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         99.0,
         100.41,
@@ -696,7 +696,7 @@
         111.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -729,7 +729,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         208.0,
         212.66,
@@ -743,7 +743,7 @@
         249.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -776,7 +776,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         94.0,
         96.06,
@@ -790,7 +790,7 @@
         112.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -823,7 +823,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         103.0,
         104.52,
@@ -837,7 +837,7 @@
         116.65
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -870,7 +870,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         118.0,
         131.29,
@@ -884,7 +884,7 @@
         237.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -917,7 +917,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         85.0,
         84.74,
@@ -931,7 +931,7 @@
         82.64
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -964,7 +964,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         90.0,
         99.18,
@@ -978,7 +978,7 @@
         172.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -1013,7 +1013,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         66.0,
         66.0,
@@ -1027,7 +1027,7 @@
         66.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1060,7 +1060,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         136.0,
         125.02,
@@ -1074,7 +1074,7 @@
         37.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1107,7 +1107,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         136.0,
         124.02,
@@ -1121,7 +1121,7 @@
         28.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1154,7 +1154,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         126.0,
         118.87,
@@ -1168,7 +1168,7 @@
         61.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1201,7 +1201,7 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         500.0,
         461.82,
@@ -1215,7 +1215,7 @@
         156.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1248,7 +1248,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         83.0,
         74.45,
@@ -1262,7 +1262,7 @@
         6.07
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1295,7 +1295,7 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         808.0,
         728.34,
@@ -1309,7 +1309,7 @@
         91.03
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1342,7 +1342,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         193.0,
         174.36,
@@ -1356,7 +1356,7 @@
         25.25
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1389,7 +1389,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         98.0,
         88.87,
@@ -1403,7 +1403,7 @@
         15.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1436,7 +1436,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         166.0,
         150.72,
@@ -1450,7 +1450,7 @@
         28.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -1485,7 +1485,7 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         82.0,
         117.49,
@@ -1499,7 +1499,7 @@
         401.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1513,14 +1513,14 @@
       "logo": "",
       "initials": "CR",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹95.49",
-      "rawPrice": 95.49,
-      "change": "+₹15.49 (+19.36%)",
-      "rawChange": 15.49,
-      "pct": 19.36,
+      "price": "₹99.00",
+      "rawPrice": 99.0,
+      "change": "+₹19.00 (+23.75%)",
+      "rawChange": 19.0,
+      "pct": 23.75,
       "isGain": true,
-      "high": 97.4,
-      "low": 93.58,
+      "high": 100.98,
+      "low": 97.02,
       "volRaw": 2580000,
       "volume": "25.8x",
       "volChange": "+25.8x sub",
@@ -1532,21 +1532,21 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         80.0,
-        81.72,
-        83.44,
-        85.16,
-        86.88,
-        88.61,
-        90.33,
-        92.05,
-        93.77,
-        95.49
+        82.11,
+        84.22,
+        86.33,
+        88.44,
+        90.56,
+        92.67,
+        94.78,
+        96.89,
+        99.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1560,14 +1560,14 @@
       "logo": "",
       "initials": "MK",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹155.56",
-      "rawPrice": 154.56,
-      "change": "₹7.44 (-4.59%)",
-      "rawChange": -7.44,
-      "pct": -4.59,
-      "isGain": false,
-      "high": 157.65,
-      "low": 151.47,
+      "price": "₹162.30",
+      "rawPrice": 162.3,
+      "change": "+₹0.30 (+0.19%)",
+      "rawChange": 0.3,
+      "pct": 0.19,
+      "isGain": true,
+      "high": 165.55,
+      "low": 159.05,
       "volRaw": 509000,
       "volume": "5.09x",
       "volChange": "+5.09x sub",
@@ -1579,21 +1579,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         162.0,
-        161.17,
-        160.35,
-        159.52,
-        158.69,
-        157.87,
-        157.04,
-        156.21,
-        155.39,
-        154.56
+        162.03,
+        162.07,
+        162.1,
+        162.13,
+        162.17,
+        162.2,
+        162.23,
+        162.27,
+        162.3
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1626,7 +1626,7 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         203.0,
         197.91,
@@ -1640,7 +1640,7 @@
         157.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1654,14 +1654,14 @@
       "logo": "",
       "initials": "BP",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹237.45",
-      "rawPrice": 237.45,
-      "change": "+₹87.45 (+58.30%)",
-      "rawChange": 87.45,
-      "pct": 58.3,
+      "price": "₹238.35",
+      "rawPrice": 238.35,
+      "change": "+₹88.35 (+58.90%)",
+      "rawChange": 88.35,
+      "pct": 58.9,
       "isGain": true,
-      "high": 242.2,
-      "low": 232.7,
+      "high": 243.12,
+      "low": 233.58,
       "volRaw": 24122000,
       "volume": "241.22x",
       "volChange": "+241.22x sub",
@@ -1673,21 +1673,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         150.0,
-        159.72,
-        169.43,
-        179.15,
-        188.87,
-        198.58,
-        208.3,
-        218.02,
-        227.73,
-        237.45
+        159.82,
+        169.63,
+        179.45,
+        189.27,
+        199.08,
+        208.9,
+        218.72,
+        228.53,
+        238.35
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1701,14 +1701,14 @@
       "logo": "",
       "initials": "SE",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹409.30",
-      "rawPrice": 409.3,
-      "change": "+₹79.30 (+24.03%)",
-      "rawChange": 79.3,
-      "pct": 24.03,
+      "price": "₹427.00",
+      "rawPrice": 427.0,
+      "change": "+₹97.00 (+29.39%)",
+      "rawChange": 97.0,
+      "pct": 29.39,
       "isGain": true,
-      "high": 417.49,
-      "low": 401.11,
+      "high": 435.54,
+      "low": 418.46,
       "volRaw": 947000,
       "volume": "9.47x",
       "volChange": "+9.47x sub",
@@ -1720,21 +1720,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         330.0,
-        338.81,
-        347.62,
-        356.43,
-        365.24,
-        374.06,
-        382.87,
-        391.68,
-        400.49,
-        409.3
+        340.78,
+        351.56,
+        362.33,
+        373.11,
+        383.89,
+        394.67,
+        405.44,
+        416.22,
+        427.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1748,14 +1748,14 @@
       "logo": "",
       "initials": "WI",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹218.50",
-      "rawPrice": 217.5,
-      "change": "+₹13.50 (+6.62%)",
-      "rawChange": 13.5,
-      "pct": 6.62,
+      "price": "₹214.00",
+      "rawPrice": 214.0,
+      "change": "+₹10.00 (+4.90%)",
+      "rawChange": 10.0,
+      "pct": 4.9,
       "isGain": true,
-      "high": 221.85,
-      "low": 213.15,
+      "high": 218.28,
+      "low": 209.72,
       "volRaw": 117000,
       "volume": "1.17x",
       "volChange": "+1.17x sub",
@@ -1767,21 +1767,21 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         204.0,
-        205.5,
-        207.0,
-        208.5,
-        210.0,
-        211.5,
-        213.0,
-        214.5,
-        216.0,
-        217.5
+        205.11,
+        206.22,
+        207.33,
+        208.44,
+        209.56,
+        210.67,
+        211.78,
+        212.89,
+        214.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1795,14 +1795,14 @@
       "logo": "",
       "initials": "EI",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹1,696.50",
-      "rawPrice": 1695.5,
-      "change": "+₹30.50 (+1.83%)",
-      "rawChange": 30.5,
-      "pct": 1.83,
+      "price": "₹1,710.40",
+      "rawPrice": 1710.4,
+      "change": "+₹45.40 (+2.73%)",
+      "rawChange": 45.4,
+      "pct": 2.73,
       "isGain": true,
-      "high": 1729.41,
-      "low": 1661.59,
+      "high": 1744.61,
+      "low": 1676.19,
       "volRaw": 551000,
       "volume": "5.51x",
       "volChange": "+5.51x sub",
@@ -1814,21 +1814,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         1665.0,
-        1668.39,
-        1671.78,
-        1675.17,
-        1678.56,
-        1681.94,
-        1685.33,
-        1688.72,
-        1692.11,
-        1695.5
+        1670.04,
+        1675.09,
+        1680.13,
+        1685.18,
+        1690.22,
+        1695.27,
+        1700.31,
+        1705.36,
+        1710.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1842,14 +1842,14 @@
       "logo": "",
       "initials": "CE",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹80.89",
-      "rawPrice": 79.89,
-      "change": "₹13.11 (-14.10%)",
-      "rawChange": -13.11,
-      "pct": -14.1,
+      "price": "₹80.80",
+      "rawPrice": 79.8,
+      "change": "₹13.20 (-14.19%)",
+      "rawChange": -13.2,
+      "pct": -14.19,
       "isGain": false,
-      "high": 81.49,
-      "low": 78.29,
+      "high": 81.4,
+      "low": 78.2,
       "volRaw": 544000,
       "volume": "5.44x",
       "volChange": "+5.44x sub",
@@ -1861,21 +1861,21 @@
       "board": "SME",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         93.0,
-        91.54,
-        90.09,
-        88.63,
-        87.17,
-        85.72,
-        84.26,
-        82.8,
-        81.35,
-        79.89
+        91.53,
+        90.07,
+        88.6,
+        87.13,
+        85.67,
+        84.2,
+        82.73,
+        81.27,
+        79.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1889,14 +1889,14 @@
       "logo": "",
       "initials": "JP",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹1,413.70",
-      "rawPrice": 1412.7,
-      "change": "+₹293.70 (+26.25%)",
-      "rawChange": 293.7,
-      "pct": 26.25,
+      "price": "₹1,414.80",
+      "rawPrice": 1413.8,
+      "change": "+₹294.80 (+26.34%)",
+      "rawChange": 294.8,
+      "pct": 26.34,
       "isGain": true,
-      "high": 1440.95,
-      "low": 1384.45,
+      "high": 1442.08,
+      "low": 1385.52,
       "volRaw": 2136000,
       "volume": "21.36x",
       "volChange": "+21.36x sub",
@@ -1908,21 +1908,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         1119.0,
-        1151.63,
-        1184.27,
-        1216.9,
-        1249.53,
-        1282.17,
-        1314.8,
-        1347.43,
-        1380.07,
-        1412.7
+        1151.76,
+        1184.51,
+        1217.27,
+        1250.02,
+        1282.78,
+        1315.53,
+        1348.29,
+        1381.04,
+        1413.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1936,14 +1936,14 @@
       "logo": "",
       "initials": "PH",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹750.70",
-      "rawPrice": 749.7,
-      "change": "+₹56.70 (+8.18%)",
-      "rawChange": 56.7,
-      "pct": 8.18,
+      "price": "₹776.20",
+      "rawPrice": 776.2,
+      "change": "+₹83.20 (+12.01%)",
+      "rawChange": 83.2,
+      "pct": 12.01,
       "isGain": true,
-      "high": 764.69,
-      "low": 734.71,
+      "high": 791.72,
+      "low": 760.68,
       "volRaw": 234000,
       "volume": "2.34x",
       "volChange": "+2.34x sub",
@@ -1955,21 +1955,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         693.0,
-        699.3,
-        705.6,
-        711.9,
-        718.2,
-        724.5,
-        730.8,
-        737.1,
-        743.4,
-        749.7
+        702.24,
+        711.49,
+        720.73,
+        729.98,
+        739.22,
+        748.47,
+        757.71,
+        766.96,
+        776.2
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1983,14 +1983,14 @@
       "logo": "",
       "initials": "BT",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹700.20",
-      "rawPrice": 700.2,
-      "change": "+₹114.20 (+19.49%)",
-      "rawChange": 114.2,
-      "pct": 19.49,
+      "price": "₹691.05",
+      "rawPrice": 691.05,
+      "change": "+₹105.05 (+17.93%)",
+      "rawChange": 105.05,
+      "pct": 17.93,
       "isGain": true,
-      "high": 714.2,
-      "low": 686.2,
+      "high": 704.87,
+      "low": 677.23,
       "volRaw": 4605000,
       "volume": "46.05x",
       "volChange": "+46.05x sub",
@@ -2002,21 +2002,21 @@
       "board": "MAINBOARD",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "trend": [
         586.0,
-        598.69,
-        611.38,
-        624.07,
-        636.76,
-        649.44,
-        662.13,
-        674.82,
-        687.51,
-        700.2
+        597.67,
+        609.34,
+        621.02,
+        632.69,
+        644.36,
+        656.03,
+        667.71,
+        679.38,
+        691.05
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -2044,9 +2044,9 @@
       "logo": "",
       "initials": "AI",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "vedant-poly-fabs-ipo",
@@ -2069,9 +2069,9 @@
       "logo": "",
       "initials": "VP",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "zepto-ipo",
@@ -2094,9 +2094,9 @@
       "logo": "",
       "initials": "ZE",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "razorpay-ipo",
@@ -2119,9 +2119,9 @@
       "logo": "",
       "initials": "RA",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "truhome-finance-ipo",
@@ -2144,9 +2144,9 @@
       "logo": "",
       "initials": "TF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "marri-retail-ipo",
@@ -2169,9 +2169,9 @@
       "logo": "",
       "initials": "MR",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "incred-holdings-ipo",
@@ -2194,9 +2194,9 @@
       "logo": "",
       "initials": "IH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "hero-fincrop-limited-ipo",
@@ -2219,9 +2219,9 @@
       "logo": "",
       "initials": "HF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "allchem-lifescience-ipo",
@@ -2244,9 +2244,9 @@
       "logo": "",
       "initials": "AL",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "cardekho-ipo",
@@ -2269,9 +2269,9 @@
       "logo": "",
       "initials": "CA",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "haldirams-snacks-foods-ipo",
@@ -2294,9 +2294,9 @@
       "logo": "",
       "initials": "HS",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "prestige-hospitality-ventures-ipo",
@@ -2319,9 +2319,9 @@
       "logo": "",
       "initials": "PH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "curefoods-ipo",
@@ -2344,9 +2344,9 @@
       "logo": "",
       "initials": "CU",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "cult-fit-ipo",
@@ -2369,9 +2369,9 @@
       "logo": "",
       "initials": "CF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "kent-ro-ipo",
@@ -2394,9 +2394,9 @@
       "logo": "",
       "initials": "KR",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "vlcc-ipo",
@@ -2419,9 +2419,9 @@
       "logo": "",
       "initials": "VL",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "pharmeasy-ipo",
@@ -2444,9 +2444,9 @@
       "logo": "",
       "initials": "PH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "servify-ipo",
@@ -2469,9 +2469,9 @@
       "logo": "",
       "initials": "SE",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "hero-future-energies-ipo",
@@ -2494,9 +2494,9 @@
       "logo": "",
       "initials": "HF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "flipkart-ipo",
@@ -2519,9 +2519,9 @@
       "logo": "",
       "initials": "FL",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "phonepe-ipo",
@@ -2544,9 +2544,9 @@
       "logo": "",
       "initials": "PH",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "fabindia-ipo",
@@ -2569,9 +2569,9 @@
       "logo": "",
       "initials": "FA",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "oyo-ipo",
@@ -2594,9 +2594,9 @@
       "logo": "",
       "initials": "OY",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "boat-ipo",
@@ -2619,9 +2619,9 @@
       "logo": "",
       "initials": "BO",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "bajaj-energy-ipo",
@@ -2644,9 +2644,9 @@
       "logo": "",
       "initials": "BE",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "arohan-financial-ipo",
@@ -2669,9 +2669,9 @@
       "logo": "",
       "initials": "AF",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     },
     {
       "slug": "droom-technology-ipo",
@@ -2694,9 +2694,9 @@
       "logo": "",
       "initials": "DR",
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-11T05:25:51.032445+05:30",
+      "quoteTimestamp": "2026-11-11T10:59:30.144476+05:30",
       "quoteSource": "Exchange Bidding & Consensus GMP Median",
-      "updatedAt": "2026-11-11T05:25:51.032445+05:30"
+      "updatedAt": "2026-11-11T10:59:30.144476+05:30"
     }
   ],
   "allLiveStocks": [
@@ -2883,10 +2883,10 @@
       "logo": "",
       "initials": "CR",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹95.49",
-      "rawPrice": 95.49,
-      "change": "+19.36%",
-      "pct": 19.36,
+      "price": "₹99.00",
+      "rawPrice": 99.0,
+      "change": "+23.75%",
+      "pct": 23.75,
       "isGain": true,
       "volume": "25.8x sub",
       "volRaw": 258000,
@@ -2895,7 +2895,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "SME",
       "slug": "carver-roboweld-ipo-2026",
       "subtitle": "SME • Listed 2026-11-04"
@@ -2908,11 +2908,11 @@
       "logo": "",
       "initials": "MK",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹155.56",
-      "rawPrice": 154.56,
-      "change": "-4.59%",
-      "pct": -4.59,
-      "isGain": false,
+      "price": "₹162.30",
+      "rawPrice": 162.3,
+      "change": "+0.19%",
+      "pct": 0.19,
+      "isGain": true,
       "volume": "5.09x sub",
       "volRaw": 50900,
       "issuePrice": 162,
@@ -2920,7 +2920,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "mk-sons-fine-jewels-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-11-04"
@@ -2945,7 +2945,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "SME",
       "slug": "ajwa-projects-ipo-2026",
       "subtitle": "SME • Listed 2026-11-04"
@@ -2958,10 +2958,10 @@
       "logo": "",
       "initials": "BP",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹237.45",
-      "rawPrice": 237.45,
-      "change": "+58.30%",
-      "pct": 58.3,
+      "price": "₹238.35",
+      "rawPrice": 238.35,
+      "change": "+58.90%",
+      "pct": 58.9,
       "isGain": true,
       "volume": "241.22x sub",
       "volRaw": 2412200,
@@ -2970,7 +2970,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "bls-polymers-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-11-03"
@@ -2983,10 +2983,10 @@
       "logo": "",
       "initials": "SE",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹409.30",
-      "rawPrice": 409.3,
-      "change": "+24.03%",
-      "pct": 24.03,
+      "price": "₹427.00",
+      "rawPrice": 427.0,
+      "change": "+29.39%",
+      "pct": 29.39,
       "isGain": true,
       "volume": "9.47x sub",
       "volRaw": 94700,
@@ -2995,7 +2995,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "sfc-environmental-technologies-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-11-03"
@@ -3008,10 +3008,10 @@
       "logo": "",
       "initials": "WI",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹218.50",
-      "rawPrice": 217.5,
-      "change": "+6.62%",
-      "pct": 6.62,
+      "price": "₹214.00",
+      "rawPrice": 214.0,
+      "change": "+4.90%",
+      "pct": 4.9,
       "isGain": true,
       "volume": "1.17x sub",
       "volRaw": 11700,
@@ -3020,7 +3020,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "SME",
       "slug": "wiscon-industries-ipo-2026",
       "subtitle": "SME • Listed 2026-11-03"
@@ -3033,10 +3033,10 @@
       "logo": "",
       "initials": "EI",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹1,696.50",
-      "rawPrice": 1695.5,
-      "change": "+1.83%",
-      "pct": 1.83,
+      "price": "₹1,710.40",
+      "rawPrice": 1710.4,
+      "change": "+2.73%",
+      "pct": 2.73,
       "isGain": true,
       "volume": "5.51x sub",
       "volRaw": 55100,
@@ -3045,7 +3045,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "eaaa-india-alternatives-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-11-02"
@@ -3058,10 +3058,10 @@
       "logo": "",
       "initials": "CE",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹80.89",
-      "rawPrice": 79.89,
-      "change": "-14.10%",
-      "pct": -14.1,
+      "price": "₹80.80",
+      "rawPrice": 79.8,
+      "change": "-14.19%",
+      "pct": -14.19,
       "isGain": false,
       "volume": "5.44x sub",
       "volRaw": 54400,
@@ -3070,7 +3070,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "SME",
       "slug": "core4-engineers-ipo-2026",
       "subtitle": "SME • Listed 2026-10-30"
@@ -3083,10 +3083,10 @@
       "logo": "",
       "initials": "JP",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹1,413.70",
-      "rawPrice": 1412.7,
-      "change": "+26.25%",
-      "pct": 26.25,
+      "price": "₹1,414.80",
+      "rawPrice": 1413.8,
+      "change": "+26.34%",
+      "pct": 26.34,
       "isGain": true,
       "volume": "21.36x sub",
       "volRaw": 213600,
@@ -3095,7 +3095,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "jio-platforms-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-28"
@@ -3108,10 +3108,10 @@
       "logo": "",
       "initials": "PH",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹750.70",
-      "rawPrice": 749.7,
-      "change": "+8.18%",
-      "pct": 8.18,
+      "price": "₹776.20",
+      "rawPrice": 776.2,
+      "change": "+12.01%",
+      "pct": 12.01,
       "isGain": true,
       "volume": "2.34x sub",
       "volRaw": 23400,
@@ -3120,7 +3120,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "paras-healthcare-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-28"
@@ -3133,10 +3133,10 @@
       "logo": "",
       "initials": "BT",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹700.20",
-      "rawPrice": 700.2,
-      "change": "+19.49%",
-      "pct": 19.49,
+      "price": "₹691.05",
+      "rawPrice": 691.05,
+      "change": "+17.93%",
+      "pct": 17.93,
       "isGain": true,
       "volume": "46.05x sub",
       "volRaw": 460500,
@@ -3145,7 +3145,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "bonfiglioli-transmissions-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-23"
@@ -3158,10 +3158,10 @@
       "logo": "",
       "initials": "SM",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹493.90",
-      "rawPrice": 492.9,
-      "change": "+43.28%",
-      "pct": 43.28,
+      "price": "₹486.00",
+      "rawPrice": 486.0,
+      "change": "+41.28%",
+      "pct": 41.28,
       "isGain": true,
       "volume": "14.21x sub",
       "volRaw": 142100,
@@ -3170,7 +3170,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "sahajanand-medical-technologies-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-23"
@@ -3183,10 +3183,10 @@
       "logo": "",
       "initials": "SH",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹172.75",
-      "rawPrice": 171.75,
-      "change": "-4.05%",
-      "pct": -4.05,
+      "price": "₹174.50",
+      "rawPrice": 173.5,
+      "change": "-3.07%",
+      "pct": -3.07,
       "isGain": false,
       "volume": "58.54x sub",
       "volRaw": 585400,
@@ -3195,7 +3195,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "SME",
       "slug": "shellz-ipo-2026",
       "subtitle": "SME • Listed 2026-10-23"
@@ -3208,10 +3208,10 @@
       "logo": "",
       "initials": "TI",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹1,513.10",
-      "rawPrice": 1513.1,
-      "change": "+116.16%",
-      "pct": 116.16,
+      "price": "₹1,522.70",
+      "rawPrice": 1521.7,
+      "change": "+117.39%",
+      "pct": 117.39,
       "isGain": true,
       "volume": "132.81x sub",
       "volRaw": 1328100,
@@ -3220,7 +3220,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "tonbo-imaging-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-23"
@@ -3258,11 +3258,11 @@
       "logo": "",
       "initials": "FC",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹287.35",
-      "rawPrice": 287.35,
-      "change": "-0.57%",
-      "pct": -0.57,
-      "isGain": false,
+      "price": "₹297.05",
+      "rawPrice": 297.05,
+      "change": "+2.79%",
+      "pct": 2.79,
+      "isGain": true,
       "volume": "4.68x sub",
       "volRaw": 46800,
       "issuePrice": 289,
@@ -3270,7 +3270,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "fusion-cx-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-22"
@@ -3308,11 +3308,11 @@
       "logo": "",
       "initials": "HF",
       "gradient": "linear-gradient(135deg, #2563EB, #1E40AF)",
-      "price": "₹264.70",
-      "rawPrice": 263.7,
-      "change": "-2.69%",
-      "pct": -2.69,
-      "isGain": false,
+      "price": "₹278.00",
+      "rawPrice": 278.0,
+      "change": "+2.58%",
+      "pct": 2.58,
+      "isGain": true,
       "volume": "131.73x sub",
       "volRaw": 1317300,
       "issuePrice": 271,
@@ -3320,7 +3320,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "MAINBOARD",
       "slug": "hd-fire-protect-ipo-2026",
       "subtitle": "Mainboard • Listed 2026-10-21"
@@ -3458,10 +3458,10 @@
       "logo": "",
       "initials": "AI",
       "gradient": "linear-gradient(135deg, #0D9488, #115E59)",
-      "price": "₹169.90",
-      "rawPrice": 168.9,
-      "change": "-13.83%",
-      "pct": -13.83,
+      "price": "₹174.30",
+      "rawPrice": 174.3,
+      "change": "-11.07%",
+      "pct": -11.07,
       "isGain": false,
       "volume": "124.23x sub",
       "volRaw": 1242300,
@@ -3470,7 +3470,7 @@
       "catLabel": "🚀 IPO Debut (12M)",
       "tier": "tier1",
       "status": "LISTED",
-      "priceStatus": "CLOSING",
+      "priceStatus": "DELAYED",
       "board": "SME",
       "slug": "acme-india-industries-ipo-2026",
       "subtitle": "SME • Listed 2026-10-09"
