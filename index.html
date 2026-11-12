@@ -1,1097 +1,754 @@
 <!doctype html>
 <html lang="en-IN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>PriceAlerter — Live IPO Tracker, GMP & Allotment Status</title>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PriceAlerter — Indian IPO &amp; Market Intelligence</title>
 
-    <!-- Canonical Favicons & Google Search Logo Discovery (Positioned within first 1KB of Head) -->
-    <link rel="shortcut icon" href="https://pricealerter.in/favicon.ico">
-    <link rel="icon" type="image/x-icon" href="https://pricealerter.in/favicon.ico">
-    <link rel="icon" type="image/png" sizes="48x48" href="https://pricealerter.in/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="https://pricealerter.in/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://pricealerter.in/favicon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://pricealerter.in/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#079B50">
-    <meta name="msapplication-TileImage" content="https://pricealerter.in/favicon-192x192.png">
-    <meta name="theme-color" content="#142B49">
+  <!-- Canonical Favicons & Search Discovery (within first 1KB) -->
+  <link rel="shortcut icon" href="https://pricealerter.in/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://pricealerter.in/favicon.ico">
+  <link rel="icon" type="image/png" sizes="48x48" href="https://pricealerter.in/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://pricealerter.in/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://pricealerter.in/favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://pricealerter.in/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://pricealerter.in/">
 
-    <!-- Immediate Cache-Buster & Service Worker Purge (Forces Instant Live Refresh on Apex & WWW) -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <script>
-      (function() {
-        // 1. If someone visits www.pricealerter.in, redirect to canonical pricealerter.in
-        if (window.location.hostname === 'www.pricealerter.in') {
-          window.location.replace('https://pricealerter.in' + window.location.pathname + window.location.search + window.location.hash);
-          return;
-        }
+  <!-- Google AdSense Account Verification -->
+  <meta name="google-adsense-account" content="ca-pub-1181608933401999">
+  <meta name="description" content="Track Indian IPO opportunities, live Bhavcopy stock prices, consensus GMP indicators, subscription multiples, and listing performance.">
 
-        // 2. Clear any lingering Service Worker and CacheStorage on pricealerter.in
-        var CURRENT_VERSION = 'v20261107_v87';
-        try {
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-              for (var i = 0; i < registrations.length; i++) {
-                registrations[i].unregister();
-              }
-            });
-          }
-          if ('caches' in window) {
-            caches.keys().then(function(names) {
-              for (var i = 0; i < names.length; i++) {
-                caches.delete(names[i]);
-              }
-            });
-          }
-          // 3. Track current build version without forcing intrusive page reloads
-          var lastVer = localStorage.getItem('ipo_app_build_version');
-          if (lastVer !== CURRENT_VERSION) {
-            localStorage.setItem('ipo_app_build_version', CURRENT_VERSION);
-          }
-        } catch(e) {}
-      })();
-    </script>
+  <!-- Typography: DM Sans & Libre Franklin -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Libre+Franklin:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
 
-    <!-- Google AdSense Account Verification & Auto Ads -->
-    <meta name="google-adsense-account" content="ca-pub-1181608933401999">
-    
+  <style>
+    :root{--page:#f7f9fc;--card:#fff;--ink:#14243a;--muted:#64748b;--navy:#13263f;--line:#e5eaf1;--green:#059669;--blue:#2563eb;--soft:#f1f5f9}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;width:100%;background:var(--page);color:var(--ink);font-family:'DM Sans',sans-serif}
+    body.dark{--page:#0d1725;--card:#18283a;--ink:#eff5fb;--muted:#afbdd0;--navy:#091321;--line:#35465b;--soft:#22374c}
+    button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
+    :focus-visible{outline:3px solid #38bdf8!important;outline-offset:3px}
+    [hidden]{display:none!important}
+    .shell{width:100%;min-width:0}.wrap{width:100%;max-width:1536px;margin:auto;padding-left:clamp(16px,3vw,44px);padding-right:clamp(16px,3vw,44px)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 30px #14243a08}
+    .muted{color:var(--muted)}.heading{font-family:'Libre Franklin',sans-serif;letter-spacing:-.045em;font-weight:800}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--green)}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:42px;border-radius:10px;padding:9px 15px;font-weight:700;white-space:nowrap;transition:transform .2s,background .2s}
+    .btn:hover{transform:translateY(-1px)}.btn-primary{background:#059669;color:#fff}.btn-secondary{background:var(--card);border:1px solid var(--line);color:var(--ink)}
+    .field{width:100%;min-height:42px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:9px 12px}
+    .nav-link{background:transparent;border:0;color:var(--muted);font-size:13px;font-weight:700;padding:10px 7px;border-radius:8px;white-space:nowrap}
+    .nav-link:hover,.nav-link.active{color:var(--green);background:var(--soft)}
+    .pill{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:99px;background:var(--soft);color:var(--muted);font-size:11px;font-weight:800}
+    .dot{width:7px;height:7px;border-radius:50%;background:#94a3b8;display:inline-block}
+    .tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+    .tab{border:1px solid transparent;border-radius:9px;padding:8px 12px;white-space:nowrap;color:var(--muted);font-weight:700;font-size:13px}
+    .tab.active{background:#e7f7f0;color:#047857;border-color:#bce8d3}
+    .rule{border-top:1px solid var(--line)}
+    .empty{border:1px dashed var(--line);border-radius:12px;background:var(--soft);padding:23px;color:var(--muted);font-size:13px;line-height:1.6}
+    .table-scroll{overflow-x:auto;width:100%}table{width:100%;border-collapse:collapse;min-width:850px;text-align:left;font-size:12px}
+    th{background:var(--soft);color:var(--muted);font-weight:800;white-space:nowrap}th,td{padding:12px 13px;border-bottom:1px solid var(--line)}
+    .data-number{font-variant-numeric:tabular-nums}.market-card{min-width:175px;flex:1}
+    .view{animation:fade .25s ease both}@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+    .placeholder-chart{height:170px;border:1px dashed var(--line);border-radius:12px;background:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--line) 40px);display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
+    .mobile-bottom{display:none}header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+    @media(max-width:1100px){.desktop-links{display:none!important}}
+    @media(max-width:700px){.market-row{overflow-x:auto;flex-wrap:nowrap!important}.mobile-bottom{display:flex;position:sticky;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:7px 4px env(safe-area-inset-bottom)}
+      .mobile-bottom button{font-size:10px;display:grid;justify-items:center;gap:3px;color:var(--muted);min-width:55px}.mobile-bottom svg{width:18px;height:18px}.compact-hide{display:none!important}}
+    .cookie-banner{position:fixed;bottom:20px;left:20px;right:20px;max-width:540px;background:var(--navy);color:#fff;padding:16px 20px;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,0.25);z-index:9999;font-size:12.5px;line-height:1.55}
+    @media(max-width:768px){.cookie-banner{bottom:calc(66px + env(safe-area-inset-bottom, 0px));left:12px;right:12px;}}
+  </style>
 
-    <!-- Google Site Name Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "PriceAlerter",
-      "alternateName": ["IPO PriceAlerter", "PriceAlerter", "pricealerter.in"],
-      "url": "https://pricealerter.in/"
-    }
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+ </head>
+ <body data-template-id="__page-root" class="w-full">
+  <div class="shell">
+   <header>
+    <div class="wrap flex items-center gap-3 py-3">
+     <button type="button" data-go="dashboard" class="flex items-center gap-2 shrink-0 text-left" aria-label="PriceAlerter dashboard">
+      <span class="w-9 h-9 rounded-xl bg-[#13263f] text-white grid place-items-center font-extrabold text-xl" aria-hidden="true">↗</span>
+      <span>
+        <strong class="heading block leading-tight">PriceAlerter</strong>
+        <small data-template-id="brand-tagline" class="muted block leading-tight text-[10px]">Smarter IPO &amp; Market Intelligence</small>
+      </span>
+     </button>
 
-    <meta name="theme-color" content="#0B0E17">
-    <meta name="description" content="PriceAlerter tracks Indian IPO calendars, GMP indicators, subscription figures, allotment status, listing performance and listed-share prices with clear source and timestamp labels.">
-    <meta name="keywords" content="IPO Pricealerter, Pricealerter, Indian IPOs, IPO tracker, IPO calendar, IPO GMP, grey market premium, IPO subscription, SME IPO, mainboard IPO, IPO allotment status">
-    <meta name="author" content="PriceAlerter">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <link rel="canonical" href="https://pricealerter.in/">
+     <nav class="desktop-links flex items-center gap-0 ml-5 flex-1" aria-label="Primary navigation">
+      <button data-go="dashboard" class="nav-link active">Dashboard</button>
+      <button data-go="ipo" class="nav-link">IPO</button>
+      <button data-go="gmp" class="nav-link">GMP Tracker</button>
+      <button data-go="stocks" class="nav-link">Live Stocks</button>
+      <button data-go="listed" class="nav-link">Listed Stocks</button>
+      <button data-go="insights" class="nav-link">Market Insights</button>
+      <button data-go="learn" class="nav-link">Learn</button>
+     </nav>
 
-    <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://pricealerter.in/">
-    <meta property="og:title" content="PriceAlerter — Live IPO Tracker, GMP & Allotment Status">
-    <meta property="og:description" content="Explore Indian IPO schedules, Mainboard & SME issue details, unofficial GMP indicators, subscription figures, and registrar allotment links.">
-    <meta property="og:site_name" content="PriceAlerter">
-    <meta property="og:locale" content="en_IN">
-    <meta property="og:image" content="https://pricealerter.in/og-image.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="IPO Pricealerter — Live IPO Intelligence and GMP Tracker">
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://pricealerter.in/">
-    <meta name="twitter:title" content="PriceAlerter — Live IPO Tracker & GMP">
-    <meta name="twitter:description" content="Explore live Indian IPOs, subscription figures, unofficial GMP indicators and allotment dates on IPO Pricealerter.">
-    <meta name="twitter:image" content="https://pricealerter.in/og-image.png">
-
-    <!-- LLM and AI Crawlers Context -->
-    <link rel="alternate" type="text/plain" href="https://pricealerter.in/llms.txt" title="LLM Context">
-
-    <!-- JSON-LD Structured Data for Google AI Overviews & Rich Snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebSite",
-          "@id": "https://pricealerter.in/#website",
-          "url": "https://pricealerter.in/",
-          "name": "PriceAlerter",
-          "alternateName": ["IPO Price Alerter", "Pricealerter IPO", "Pricealerter", "pricealerter.in"],
-          "description": "Indian IPO calendar, GMP indicators, subscription multiples, allotment status and listing performance",
-          "inLanguage": "en-IN",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://pricealerter.in/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "Organization",
-          "@id": "https://pricealerter.in/#organization",
-          "name": "PriceAlerter",
-          "alternateName": ["IPO PriceAlerter", "PriceAlerter", "pricealerter.in"],
-          "url": "https://pricealerter.in/",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://pricealerter.in/logo-512x512.png",
-            "width": 512,
-            "height": 512,
-            "caption": "IPO Pricealerter Official Logo"
-          },
-          "image": "https://pricealerter.in/og-image.png",
-          "description": "Independent Indian IPO tracking for issue details, allotment status, listing performance and listed-share information.",
-          "areaServed": "IN",
-          "isAccessibleForFree": true,
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "Customer Support",
-            "email": "lakkistudy@gmail.com",
-            "url": "https://pricealerter.in/contact.html",
-            "availableLanguage": ["English", "Hindi"]
-          },
-          "sameAs": [
-            "https://pricealerter.in"
-          ],
-          "knowsAbout": [
-            "Initial Public Offerings (IPO)",
-            "Grey Market Premium (GMP)",
-            "NSE India",
-            "BSE India",
-            "SME IPOs",
-            "IPO Allotment Status",
-            "Link Intime India",
-            "KFin Technologies",
-            "Bigshare Services"
-          ],
-          "publishingPrinciples": "https://pricealerter.in/disclaimer.html"
-        },
-        {
-          "@type": "ItemList",
-          "@id": "https://pricealerter.in/#sitenav",
-          "name": "IPO Pricealerter Navigation Sitelinks",
-          "itemListElement": [
-            {
-              "@type": "SiteNavigationElement",
-              "position": 1,
-              "name": "Live IPO GMP Tracker",
-              "description": "Unofficial Grey Market Premium (GMP) indicators, expected listing scenarios, and daily trends.",
-              "url": "https://pricealerter.in/#/gmp"
-            },
-            {
-              "@type": "SiteNavigationElement",
-              "position": 2,
-              "name": "IPO Calendar & Schedule",
-              "description": "Roadmap of open dates, bidding closures, allotment status, and listing dates.",
-              "url": "https://pricealerter.in/#/calendar"
-            },
-            {
-              "@type": "SiteNavigationElement",
-              "position": 3,
-              "name": "All Listed IPOs",
-              "description": "Comprehensive performance records and listing day returns of 165+ Indian IPOs.",
-              "url": "https://pricealerter.in/#/listed"
-            },
-            {
-              "@type": "SiteNavigationElement",
-              "position": 4,
-              "name": "About Us",
-              "description": "About IPO Pricealerter — Independent primary market research and analytics hub.",
-              "url": "https://pricealerter.in/about.html"
-            },
-            {
-              "@type": "SiteNavigationElement",
-              "position": 5,
-              "name": "IPO Guide & Investor FAQs",
-              "description": "Beginner guides, UPI ASBA bidding walkthroughs, and primary market FAQs.",
-              "url": "https://pricealerter.in/#/guide"
-            }
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://pricealerter.in/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is an Initial Public Offering (IPO) in India?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "When a privately held company in India decides to raise public capital and list shares on stock exchanges like the National Stock Exchange (NSE) or Bombay Stock Exchange (BSE), it launches an Initial Public Offering (IPO). This transitions the company from privately held to publicly traded."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Which IPOs are currently open for bidding?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "As of November 7, 2026, no IPOs are currently open for public bidding. Recent issues including Antala Industries and Vedant Poly Fabs have closed bidding and are awaiting their scheduled listings. Check the live Open IPOs and Closed IPOs sections for current exchange-verified status."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What is Grey Market Premium (GMP) in IPO trading?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Grey Market Premium (GMP) is an unofficial, unregulated cash premium traded informally off-market before an IPO officially lists. While it indicates market sentiment and expected listing gains, it is not recognized by SEBI and does not guarantee listing returns."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How to apply for an IPO via UPI ASBA?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "To apply via UPI ASBA: (1) Open your investment or banking app and navigate to the IPO section, (2) select the active IPO, (3) select number of lots and check the Cut-off price box, (4) enter your bank-linked UPI ID, and (5) approve the UPI mandate in your payment app before 5:00 PM on closing day."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How do I check IPO allotment status online?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "You can check your IPO allotment status by entering your PAN number or Application number on the assigned official registrar website (such as Link Intime, KFintech, Bigshare Services, Maashitla, or MUFG Link/MPMS), or directly on the BSE India and NSE allotment verification portals."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What are the investor categories in Indian IPOs?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Indian IPOs have three primary categories: Retail Individual Investors (RII, bids up to ₹2 Lakh with a 35% reservation quota), Non-Institutional Investors (NII/HNI, divided into Small NII for ₹2L-₹10L and Big NII for >₹10L), and Qualified Institutional Buyers (QIB, reserved 50%)."
-              }
-            }
-          ]
-        },
-        {
-          "@type": "HowTo",
-          "@id": "https://pricealerter.in/#howto-ipo-upi-asba",
-          "name": "How to Apply for an IPO Using UPI ASBA",
-          "description": "Step-by-step procedure to bid for Indian IPOs using UPI ASBA and authorize payment mandates.",
-          "totalTime": "PT2M",
-          "estimatedCost": {
-            "@type": "MonetaryAmount",
-            "currency": "INR",
-            "value": "0"
-          },
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Navigate to IPO Section",
-              "text": "Open your investment or banking app and navigate to the IPO section."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Select Active IPO",
-              "text": "Choose the open issue you wish to apply for from the live list."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Specify Lot Count & Cut-off Price",
-              "text": "Select your lot size and ensure the Cut-off price checkbox is enabled."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Enter Verified UPI ID",
-              "text": "Provide your UPI Virtual Payment Address (e.g. Google Pay, PhonePe, BHIM)."
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Authorize UPI Mandate",
-              "text": "Open your UPI banking app and accept the mandate request before 5:00 PM."
-            }
-          ]
-        },
-        {
-          "@type": "Dataset",
-          "@id": "https://pricealerter.in/#dataset",
-          "name": "Indian Primary Market IPO & GMP Intelligence Dataset",
-          "description": "Comprehensive dataset tracking 204+ Indian IPOs, GMP indicators, bidding subscription multiples, and official registrar query links.",
-          "url": "https://pricealerter.in/",
-          "license": "https://pricealerter.in/terms.html",
-          "isAccessibleForFree": true,
-          "creator": {
-            "@type": "Organization",
-            "name": "PriceAlerter",
-            "url": "https://pricealerter.in/"
-          },
-          "distribution": [
-            {
-              "@type": "DataDownload",
-              "encodingFormat": "application/javascript",
-              "contentUrl": "https://pricealerter.in/data/ipo-data.js"
-            }
-          ],
-          "keywords": ["IPO", "GMP", "Grey Market Premium", "NSE", "BSE", "SME IPO", "IPO Allotment"]
-        }
-      ]
-    }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap">
-    </noscript>
-    <link rel="stylesheet" href="styles.css?v=20261107_v87">
-
-    <!-- Google tag (gtag.js) - Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-194LPKEC3M"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-194LPKEC3M', {
-        'send_page_view': true,
-        'anonymize_ip': true
-      });
-    </script>
-  </head>
-  <body>
-    <!-- Site Navigation Header (Sticky Dark Navy #142B49) -->
-    <header id="site-header" class="site-header" style="background-color: #142B49;">
-      <div class="nav-container">
-        <a href="#/" class="brand-wrap" aria-label="PriceAlerter Home">
-          <div class="brand-icon-box">
-            <img src="/favicon-48x48.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
-          </div>
-          <span class="brand-text">IPO PriceAlerter</span>
-        </a>
-
-        <nav class="main-nav" aria-label="Main Navigation">
-          <a href="#/open" class="nav-tab-link active" data-nav="ipos">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path></svg>
-            <span>IPOs</span>
-          </a>
-          <a href="#/live-prices" class="nav-tab-link" data-nav="live-prices" aria-label="Live Stock Prices">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline></svg>
-            <span>Live Prices</span>
-          </a>
-          <a href="#/gmp" class="nav-tab-link" data-nav="gmp">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-            <span>GMP</span>
-          </a>
-          <a href="#/allotment" class="nav-tab-link" data-nav="allotment">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            <span>Allotment</span>
-          </a>
-          <a href="#/calculator" class="nav-tab-link" data-nav="tools">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line></svg>
-            <span>Tools</span>
-          </a>
-          <a href="#/guide" class="nav-tab-link" data-nav="learn">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-            <span>Learn</span>
-          </a>
-          <a href="#homepage-alert-signup" class="nav-tab-link" data-nav="alerts" onclick="event.preventDefault(); document.getElementById('homepage-alert-signup')?.scrollIntoView({behavior:'smooth'});">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-            <span>Alerts</span>
-          </a>
-        </nav>
-
-        <div class="header-right">
-          <button class="header-search-btn" id="open-search-pill" aria-label="Search IPOs" onclick="window.IpoApp && window.IpoApp.toggleSearchModal(true)">
-            <svg class="lucide-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>Search IPOs...</span>
-            <kbd>⌘K</kbd>
-          </button>
-
-          <!-- Theme Toggle (Light / Dark) -->
-          <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Light/Dark Theme" title="Toggle Light/Dark Theme" onclick="window.IpoApp && window.IpoApp.toggleTheme()">
-            <svg class="lucide-icon icon-theme-sun" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-            <svg class="lucide-icon icon-theme-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
-          </button>
-
-          <button class="btn-header-alerts" id="header-alerts-btn" aria-label="Get IPO Alerts" onclick="window.IpoApp && (window.IpoApp.handleGetAlertsClick ? window.IpoApp.handleGetAlertsClick() : window.IpoApp.toggleAlertsSubscription())">
-            <svg class="lucide-icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-            <span>Get Alerts</span>
-          </button>
-
-          <div class="bell-btn-wrap">
-            <button class="bell-btn" id="header-bell-btn" aria-label="View IPO Notifications">
-              <svg class="lucide-icon" viewBox="0 0 24 24">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-              </svg>
-            </button>
-          </div>
-
-          <button class="mobile-hamburger-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu" onclick="window.IpoApp && window.IpoApp.toggleMobileMenu()">
-            <svg class="lucide-icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Dynamic Main Application Shell -->
-    <main id="app" class="app-root" role="main">
-      <!-- Responsive Leaderboard Placement (Ad 1 of 2 - Zero CLS) -->
-      <div class="ad-slot-card ad-slot-leaderboard" aria-label="Angel One">
-        <span class="ad-disclosure-tag">Sponsored</span>
-        <a href="https://mdeal.in/c_iDpnIUs4" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-leaderboard-banner" title="Open Free Demat Account on Angel One">
-          <div class="sponsored-banner-left">
-            <img src="assets/sponsored/angel-one-wide.png" alt="Angel One" class="sponsored-logo-wide" loading="lazy" width="130" height="32" />
-          </div>
-          <div class="sponsored-banner-mid">
-            <div class="sponsored-banner-title">Apply for IPOs with Zero Account Fee</div>
-            <div class="sponsored-banner-sub">Paperless UPI Mandates &bull; Flat ₹20 Brokerage &bull; Angel One</div>
-          </div>
-          <div class="sponsored-banner-right">
-            <span class="sponsored-cta-btn">Open Free Account &rarr;</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="fig1-dashboard-wrap">
-        <!-- 1. Header & Hero Overview Strip -->
-        <div class="dashboard-top-intro">
-          <div class="dashboard-top-title-wrap">
-            <h1 class="dashboard-top-title">Track Indian IPOs, GMP &amp; Listing Performance</h1>
-            <p class="dashboard-top-subtitle">IPO schedules and issue details are compiled from publicly available issuer and exchange disclosures. GMP estimates are unofficial and speculative; check sources and timestamps before relying on displayed information.</p>
-          </div>
-          <div class="dashboard-live-indicator">
-            <span class="live-pulse"></span>
-            <span>Live Primary Market</span>
-          </div>
-        </div>
-
-        <!-- 2. Open IPOs (Cards on mobile, Table on desktop - Zero Duplicate DOM) -->
-        <section class="fig1-open-section-wrap" id="dashboard-open-ipos-section" aria-label="Open IPOs Active Bidding">
-          <div class="fig1-panel-card" id="open-ipos-section">
-            <div class="fig1-panel-header" style="flex-direction:column; align-items:flex-start; gap:8px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:8px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <h2 class="fig1-panel-title">🟢 Primary Market Bidding Status</h2>
-                  <span style="font-size:11.5px; font-weight:700; color:#475569; background:#F1F5F9; padding:2px 8px; border-radius:12px; border:1px solid #CBD5E1;">INTERIM WINDOW • 0 ACTIVE TODAY</span>
-                </div>
-                <a href="#/upcoming" class="fig1-header-link">View Upcoming Pipeline (25) &rarr;</a>
-              </div>
-              <div class="widget-source-tag">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Official exchange circulars and DRHP filings verified against NSE and BSE order books.</span>
-              </div>
-            </div>
-
-            <div class="market-status-hero-card" style="margin:12px 16px 20px; padding:24px; background:linear-gradient(135deg, rgba(26,35,126,0.03), rgba(0,137,123,0.04)); border:1px solid rgba(0,0,0,0.07); border-radius:14px;">
-              <div style="display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;">
-                <div style="width:48px; height:48px; border-radius:12px; background-color:#1A237E; background:linear-gradient(135deg, #1A237E, #00897B); color:#FFFFFF; display:grid; place-items:center; font-size:22px; flex-shrink:0; box-shadow:0 4px 12px rgba(26,35,126,0.15);">
-                  🏛️
-                </div>
-                <div style="flex:1; min-width:260px;">
-                  <div style="font-size:16.5px; font-weight:700; color:var(--text-heading); margin-bottom:6px; letter-spacing:-0.2px;">
-                    Public Bidding Window Is In Interim Transition
-                  </div>
-                  <p style="font-size:13.5px; color:var(--text-muted); line-height:1.65; margin:0 0 16px;">
-                    All recent Mainboard and SME public issues have officially concluded their 3-day bidding periods and are transitioning through basis of allotment and exchange listing. Explore upcoming issues preparing to launch or verify recent allotment results.
-                  </p>
-
-                  <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <a href="#/upcoming" class="btn-ipo-primary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none;">
-                      <span>📅 Upcoming IPO Pipeline (25 Issues)</span>
-                      <span>&rarr;</span>
-                    </a>
-                    <a href="#/allotment" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-subtle);">
-                      <span>📋 Check Allotment Status</span>
-                    </a>
-                    <a href="#/live-prices" class="btn-ipo-secondary" style="display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-subtle);">
-                      <span>📈 Live Traded Quotes</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 3. Closing / Allotment / Listing Today Chips -->
-        <section class="today-action-chips-section" aria-label="Today's Primary Market Events">
-          <div class="today-chips-header">
-            <div class="today-chips-title-wrap">
-              <span class="live-pulse"></span>
-              <h2 class="today-chips-heading">Today's Market Pulse &bull; <span class="today-date-text">07 Nov 2026</span></h2>
-            </div>
-            <span class="today-market-badge live">IST MARKET HOURS</span>
-          </div>
-          <div class="today-chips-row">
-            <button type="button" class="action-chip closing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('closing')" aria-label="View Closing Today IPOs">
-              <div class="chip-left">
-                <span class="chip-dot red"></span>
-                <span class="chip-label">Closing Today</span>
-              </div>
-              <span class="chip-count">0</span>
-            </button>
-            <button type="button" class="action-chip allotment-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('allotment')" aria-label="Check Allotment Today">
-              <div class="chip-left">
-                <span class="chip-dot yellow"></span>
-                <span class="chip-label">Allotment Today</span>
-              </div>
-              <span class="chip-count">0</span>
-            </button>
-            <button type="button" class="action-chip listing-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('listing')" aria-label="View Today's Listings">
-              <div class="chip-left">
-                <span class="chip-dot green"></span>
-                <span class="chip-label">Listing Today</span>
-              </div>
-              <span class="chip-count">0</span>
-            </button>
-            <button type="button" class="action-chip upcoming-chip" onclick="window.IpoApp && window.IpoApp.handleTodayChipClick('upcoming')" aria-label="View Upcoming Pipeline">
-              <div class="chip-left">
-                <span class="chip-dot blue"></span>
-                <span class="chip-label">Upcoming Pipeline</span>
-              </div>
-              <span class="chip-count">25</span>
-            </button>
-          </div>
-        </section>
-
-        <!-- 4. Upcoming This Week Pipeline -->
-        <section class="fig1-panel-card" id="upcoming-pipeline-section" aria-label="Upcoming IPO Pipeline" style="margin-top:24px;">
-          <div class="fig1-panel-header">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <h2 class="fig1-panel-title">📅 Upcoming This Week &amp; Pipeline</h2>
-              <span class="status-badge upcoming">PIPELINE (25)</span>
-            </div>
-            <a href="#/upcoming" class="fig1-header-link">View All (25) &rarr;</a>
-          </div>
-
-          <div class="ipo-responsive-container">
-            <div class="ipo-table-header-row" aria-hidden="true">
-              <div class="col-company">Company</div>
-              <div class="col-dates">Opening Date</div>
-              <div class="col-price">Est. Price Band</div>
-              <div class="col-lot">Lot Size</div>
-              <div class="col-gmp">Est. Issue Size</div>
-              <div class="col-sub">Stage</div>
-              <div class="col-actions" style="text-align:right;">Action</div>
-            </div>
-            <div class="ipo-items-list">
-              <!-- Zepto -->
-              <article class="ipo-responsive-card" data-slug="zepto-ipo">
-                <div class="ipo-card-header">
-                  <div class="ipo-card-brand">
-                    <div class="fig1-avatar" style="width:40px; height:40px; font-size:13px; background:linear-gradient(135deg, #7C3AED, #6D28D9); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">ZP</div>
-                    <div class="ipo-card-title-group">
-                      <h3 class="ipo-card-name"><a href="#/ipo/zepto-ipo" title="Zepto Online Grocery">Zepto</a></h3>
-                      <div class="ipo-card-tags">
-                        <span class="ipo-tag-board mainboard">MAINBOARD</span>
-                        <span class="ipo-tag-exchange">NSE/BSE</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ipo-card-status-wrap">
-                    <span class="status-badge upcoming">Upcoming</span>
-                  </div>
-                </div>
-                <div class="ipo-card-metrics-grid">
-                  <div class="ipo-metric-cell metric-dates">
-                    <span class="ipo-metric-label">Opening Date</span>
-                    <span class="ipo-metric-val dates-val">Dates TBA</span>
-                    <span class="ipo-metric-sub">Tentative</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-price">
-                    <span class="ipo-metric-label">Price Band</span>
-                    <span class="ipo-metric-val tnum">₹385 – 405</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-lot">
-                    <span class="ipo-metric-label">Lot Size</span>
-                    <span class="ipo-metric-val tnum">35 shares</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-gmp">
-                    <span class="ipo-metric-label">Issue Size</span>
-                    <span class="ipo-metric-val tnum">₹2,500 Cr</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-sub">
-                    <span class="ipo-metric-label">Stage</span>
-                    <span class="status-badge upcoming" style="font-size:11px;">Filed DRHP</span>
-                  </div>
-                </div>
-                <div class="ipo-card-footer">
-                  <div class="ipo-card-trust-meta">
-                    <span class="trust-badge" style="color:var(--text-tertiary);"><span class="trust-dot" style="background:#94A3B8;"></span> PIPELINE</span>
-                    <span class="trust-timestamp">Exchange Disclosures</span>
-                  </div>
-                  <div class="ipo-card-actions">
-                    <a href="#/ipo/zepto-ipo" class="btn-ipo-primary" aria-label="View details for Zepto">Details</a>
-                    <button type="button" class="btn-ipo-secondary" style="background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-color);" onclick="window.IpoApp && window.IpoApp.subscribeToIpoAlert('zepto-ipo')">Alert Me</button>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Razorpay -->
-              <article class="ipo-responsive-card" data-slug="razorpay-ipo">
-                <div class="ipo-card-header">
-                  <div class="ipo-card-brand">
-                    <div class="fig1-avatar" style="width:40px; height:40px; font-size:13px; background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">RZ</div>
-                    <div class="ipo-card-title-group">
-                      <h3 class="ipo-card-name"><a href="#/ipo/razorpay-ipo" title="Razorpay Software">Razorpay</a></h3>
-                      <div class="ipo-card-tags">
-                        <span class="ipo-tag-board mainboard">MAINBOARD</span>
-                        <span class="ipo-tag-exchange">NSE/BSE</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ipo-card-status-wrap">
-                    <span class="status-badge upcoming">Upcoming</span>
-                  </div>
-                </div>
-                <div class="ipo-card-metrics-grid">
-                  <div class="ipo-metric-cell metric-dates">
-                    <span class="ipo-metric-label">Opening Date</span>
-                    <span class="ipo-metric-val dates-val">Dates TBA</span>
-                    <span class="ipo-metric-sub">Tentative</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-price">
-                    <span class="ipo-metric-label">Price Band</span>
-                    <span class="ipo-metric-val tnum">₹650 – 685</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-lot">
-                    <span class="ipo-metric-label">Lot Size</span>
-                    <span class="ipo-metric-val tnum">21 shares</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-gmp">
-                    <span class="ipo-metric-label">Issue Size</span>
-                    <span class="ipo-metric-val tnum">₹3,200 Cr</span>
-                  </div>
-                  <div class="ipo-metric-cell metric-sub">
-                    <span class="ipo-metric-label">Stage</span>
-                    <span class="status-badge upcoming" style="font-size:11px;">Filed DRHP</span>
-                  </div>
-                </div>
-                <div class="ipo-card-footer">
-                  <div class="ipo-card-trust-meta">
-                    <span class="trust-badge" style="color:var(--text-tertiary);"><span class="trust-dot" style="background:#94A3B8;"></span> PIPELINE</span>
-                    <span class="trust-timestamp">Exchange Disclosures</span>
-                  </div>
-                  <div class="ipo-card-actions">
-                    <a href="#/ipo/razorpay-ipo" class="btn-ipo-primary" aria-label="View details for Razorpay">Details</a>
-                    <button type="button" class="btn-ipo-secondary" style="background:var(--bg-secondary); color:var(--text-primary) !important; border:1px solid var(--border-color);" onclick="window.IpoApp && window.IpoApp.subscribeToIpoAlert('razorpay-ipo')">Alert Me</button>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- 5. Recently Listed Performance (Last 30 Days) -->
-        <section id="recently-listed-performance-section" aria-label="Recently Listed IPO Performance" style="margin-top:24px;">
-          <div class="fig1-panel-card">
-            <div class="fig1-panel-header">
-              <div>
-                <h2 class="fig1-panel-title">📊 IPO Listing Performance (Last 30 Days)</h2>
-                <div style="font-size:11px; color:#64748B; margin-top:2px;">Debut listing gain vs issue price &bull; Official exchange disclosures</div>
-              </div>
-              <div class="fig1-chart-legend">
-                <span class="legend-item"><span class="legend-color-box legend-gain"></span> Gain</span>
-                <span class="legend-item"><span class="legend-color-box legend-loss"></span> Loss</span>
-              </div>
-            </div>
-            <div class="fig1-bar-chart-wrap">
-              <div class="fig1-chart-layout">
-                <div class="fig1-chart-yaxis">
-                  <span>+67%</span>
-                  <span>0%</span>
-                  <span>-20%</span>
-                </div>
-                <div class="fig1-chart-stage">
-                  <div class="fig1-chart-gridlines">
-                    <div class="gridline top"></div>
-                    <div class="gridline baseline"></div>
-                    <div class="gridline bottom"></div>
-                  </div>
-                  <div class="fig1-bar-columns">
-                    <div class="fig1-chart-col" title="Carver Roboweld: Issue ₹125 → Listing ₹208.75 (+67.0% return)">
-                      <div class="fig1-bar-upper">
-                        <span class="fig1-bar-val positive">+67.0%</span>
-                        <div class="fig1-bar-fill gain" style="height:80px;"></div>
-                      </div>
-                      <div class="fig1-bar-lower"></div>
-                      <span class="fig1-col-label">Carver</span>
-                    </div>
-                    <div class="fig1-chart-col" title="M.K. Sons: Issue ₹55 → Listing ₹88.0 (+60.0% return)">
-                      <div class="fig1-bar-upper">
-                        <span class="fig1-bar-val positive">+60.0%</span>
-                        <div class="fig1-bar-fill gain" style="height:72px;"></div>
-                      </div>
-                      <div class="fig1-bar-lower"></div>
-                      <span class="fig1-col-label">M.K. Sons</span>
-                    </div>
-                    <div class="fig1-chart-col" title="Ajwa: Issue ₹90 → Listing ₹135.0 (+50.0% return)">
-                      <div class="fig1-bar-upper">
-                        <span class="fig1-bar-val positive">+50.0%</span>
-                        <div class="fig1-bar-fill gain" style="height:60px;"></div>
-                      </div>
-                      <div class="fig1-bar-lower"></div>
-                      <span class="fig1-col-label">Ajwa</span>
-                    </div>
-                    <div class="fig1-chart-col" title="BLS Polymers: Issue ₹71 → Listing ₹101.9 (+43.5% return)">
-                      <div class="fig1-bar-upper">
-                        <span class="fig1-bar-val positive">+43.5%</span>
-                        <div class="fig1-bar-fill gain" style="height:52px;"></div>
-                      </div>
-                      <div class="fig1-bar-lower"></div>
-                      <span class="fig1-col-label">BLS Poly</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div style="margin-top:10px; font-size:11px; color:#64748B; border-top:1px dashed #E2E8F0; padding-top:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-              <span>Source: Official exchange debut disclosures (NSE &amp; BSE)</span>
-              <span>Updated 11:40 AM IST</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- In-Feed Ad Unit (Ad 2 of 2 - Zero CLS) -->
-        <div class="ad-slot-card ad-slot-infeed sponsored-sbi-slot" aria-label="SBI Card">
-          <span class="ad-disclosure-tag">Sponsored</span>
-          <a href="https://mdeal.in/c_gEgEgjSS" target="_blank" rel="sponsored noopener noreferrer" class="sponsored-banner-link sponsored-sbi-link" title="Apply for SBI Credit Card Online">
-            <div class="sponsored-sbi-img-wrap">
-              <img src="assets/sponsored/sbi-card.png" alt="SBI Card" class="sponsored-sbi-img" loading="lazy" width="110" height="32" />
-            </div>
-            <div class="sponsored-sbi-footer">
-              <div class="sponsored-sbi-info">
-                <div class="sponsored-sbi-title">SBI Card SimplyCLICK &bull; Instant Digital Application</div>
-                <div class="sponsored-sbi-sub">Welcome vouchers &bull; 10x reward points on online shopping</div>
-              </div>
-              <div class="sponsored-sbi-action">
-                <span class="sponsored-cta-btn sponsored-cta-sbi">Apply Online &rarr;</span>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- 6. Alert Signup -->
-        <section class="fig1-panel-card fig1-alert-signup-card" id="homepage-alert-signup" aria-label="IPO Alerts Subscription" style="margin-top:24px;">
-          <div class="alert-signup-inner">
-            <div class="alert-signup-icon-col">
-              <div class="alert-icon-circle">
-                <svg class="lucide-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-              </div>
-            </div>
-            <div class="alert-signup-content-col">
-              <h2 class="alert-signup-title">Instant IPO &amp; GMP Alerts</h2>
-              <p class="alert-signup-subtitle">Request email updates about IPO schedules and GMP indicators. Availability and timing depend on the update service.</p>
-              <form class="alert-signup-form" onsubmit="window.IpoApp && window.IpoApp.handleAlertSignup(event)">
-                <div class="alert-form-row">
-                  <input type="email" class="alert-input-email" id="home-alert-email" placeholder="Enter your email address" required maxlength="254" autocomplete="email" aria-label="Email address for IPO alerts">
-                  <button type="submit" class="btn-alert-submit">Get IPO Alerts</button>
-                </div>
-                <div class="alert-consent-row">
-                  <span class="alert-consent-text">
-                    <svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    Your email is used for the alert request. Contact us to request deletion or unsubscribe.
-                  </span>
-                  <a href="#/alerts" class="alert-manage-link" onclick="window.IpoApp && window.IpoApp.openManageAlerts(event)">Manage alert preferences or Unsubscribe</a>
-                </div>
-              </form>
-            </div>
-          </div>
-        </section>
-
-        <!-- 7. Educational Learn Links -->
-        <section class="fig1-panel-card" style="margin-top:24px;" aria-label="IPO Learning Center &amp; Investor Education Guides">
-          <div class="fig1-panel-header">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <h2 class="fig1-panel-title">🎓 IPO Learning Center &amp; Investor Education</h2>
-            </div>
-            <a href="/blog/" class="fig1-header-link">Browse All 10 Guides &rarr;</a>
-          </div>
-          <p style="font-size:14px; color:var(--text-secondary); margin-top:0; margin-bottom:20px; line-height:1.6;">
-            Independent educational guides explaining primary-market fundamentals, Grey Market indicators, valuation concepts and allotment processes.
-          </p>
-          <div class="learn-guides-grid">
-            <a href="/blog/what-is-an-ipo.html" class="learn-guide-card">
-              <div class="learn-guide-icon-badge">
-                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              </div>
-              <div class="learn-guide-body">
-                <h3 class="learn-guide-title">What is an IPO? A Beginner's Guide</h3>
-                <p class="learn-guide-desc">Fundamentals of public offerings in India, BSE/NSE listings, and capital formation.</p>
-              </div>
-            </a>
-            <a href="/blog/how-to-apply-for-ipo.html" class="learn-guide-card">
-              <div class="learn-guide-icon-badge">
-                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              </div>
-              <div class="learn-guide-body">
-                <h3 class="learn-guide-title">How to Apply for an IPO via UPI ASBA</h3>
-                <p class="learn-guide-desc">Step-by-step bidding guide using UPI mandates, cut-off price, and bank approvals.</p>
-              </div>
-            </a>
-            <a href="/blog/understanding-grey-market-premium-gmp.html" class="learn-guide-card">
-              <div class="learn-guide-icon-badge">
-                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-              </div>
-              <div class="learn-guide-body">
-                <h3 class="learn-guide-title">Understanding Grey Market Premium (GMP)</h3>
-                <p class="learn-guide-desc">Kostak rates, Subject to Sauda, speculative sentiment indicators, and risk management.</p>
-              </div>
-            </a>
-            <a href="/blog/how-ipo-allotment-works.html" class="learn-guide-card">
-              <div class="learn-guide-icon-badge">
-                <svg class="lucide-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              </div>
-              <div class="learn-guide-body">
-                <h3 class="learn-guide-title">How IPO Allotment Works in India</h3>
-                <p class="learn-guide-desc">SEBI computerized lottery system, retail quotas, and maximizing allocation probability.</p>
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <!-- SEBI Regulatory & Risk Notice -->
-        <div class="sebi-compliance-note" style="margin-top:24px; padding:16px 20px; background:var(--bg-secondary); border-left:4px solid var(--gain-loss-red); border-radius:8px; font-size:12.5px; color:var(--text-secondary); line-height:1.6;">
-          <strong style="color:var(--text-primary);">SEBI Regulatory &amp; Investor Notice:</strong> IPO PriceAlerter is an independent financial tracking portal. We are NOT registered with SEBI as an Investment Adviser or Research Analyst. Securities investments are subject to market risks. Read the complete offer document (DRHP/RHP) before bidding.
-        </div>
-      </div>
-    </main>
-
-    <!-- Global Floating Search Dialog (Command+K) -->
-    <div id="search-dialog-wrap" class="search-dialog-backdrop hidden" aria-hidden="true">
-      <div class="search-dialog" role="dialog" aria-modal="true" aria-label="Search IPOs">
-        <div class="search-input-box">
-          <svg class="search-modal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="global-search-input" placeholder="Search IPOs by name, sector, exchange (e.g. BLS Polymers, Energy)..." autocomplete="off" spellcheck="false">
-          <button id="close-search-btn" class="search-esc-btn" aria-label="Close search">ESC</button>
-        </div>
-        <div id="search-results-list" class="search-results-list"></div>
-      </div>
+     <button data-go="search" class="btn btn-secondary !min-h-[38px] !px-3 ml-auto" aria-label="Search">
+      <i data-lucide="search" class="w-4 h-4"></i><span class="compact-hide">Search</span>
+     </button>
+     <button data-go="watchlist" class="btn btn-secondary !min-h-[38px] !px-3 compact-hide" aria-label="Watchlist">
+      <i data-lucide="bookmark" class="w-4 h-4"></i>
+     </button>
+     <button data-go="alerts" class="btn btn-secondary !min-h-[38px] !px-3 compact-hide" aria-label="Alert preferences">
+      <i data-lucide="bell" class="w-4 h-4"></i>
+     </button>
+     <button id="theme-toggle" class="btn btn-secondary !min-h-[38px] !px-3" type="button" aria-label="Switch color theme" aria-pressed="false">
+      <i data-lucide="moon" class="w-4 h-4"></i>
+     </button>
+     <button data-go="profile" class="btn btn-secondary !min-h-[38px] !px-3 compact-hide" aria-label="Profile and settings">
+      <i data-lucide="circle-user-round" class="w-4 h-4"></i>
+     </button>
+     <button id="menu-toggle" type="button" class="btn btn-secondary !min-h-[38px] !px-3 lg:hidden" aria-label="Toggle menu" aria-expanded="false">
+      <i data-lucide="menu" class="w-4 h-4"></i>
+     </button>
     </div>
 
-    <!-- Toast Feedback Notification Container -->
-    <div id="toast-container" class="toast-container" aria-live="polite"></div>
-
-    <!-- Mobile Bottom Navigation Bar (Glassmorphic App Dock, 44px Touch Targets) -->
-    <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile Navigation">
-      <a href="#/open" class="bottom-nav-item active" data-nav="ipos" aria-label="Open & Upcoming IPOs">
-        <svg class="lucide-icon" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path></svg>
-        <span>IPOs</span>
-      </a>
-      <a href="#/gmp" class="bottom-nav-item" data-nav="gmp" aria-label="Grey Market Premium Tracker">
-        <svg class="lucide-icon" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-        <span>GMP</span>
-      </a>
-      <a href="#/allotment" class="bottom-nav-item" data-nav="allotment" aria-label="Check Allotment Status">
-        <svg class="lucide-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        <span>Allotment</span>
-      </a>
-      <a href="#/live-prices" class="bottom-nav-item" data-nav="live-prices" aria-label="Live Stock Prices">
-        <svg class="lucide-icon" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline></svg>
-        <span>Live</span>
-      </a>
-      <button type="button" class="bottom-nav-item" id="mobile-bottom-search-btn" onclick="window.IpoApp && window.IpoApp.toggleSearchModal(true)" aria-label="Search IPOs">
-        <svg class="lucide-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <span>Search</span>
-      </button>
+    <nav id="mobile-menu" hidden="" class="wrap pb-3 flex flex-wrap gap-1" aria-label="More destinations">
+      <button data-go="gmp" class="nav-link">GMP Tracker</button>
+      <button data-go="listed" class="nav-link">Listed Stocks</button>
+      <button data-go="insights" class="nav-link">Insights</button>
+      <button data-go="learn" class="nav-link">Learn</button>
+      <button data-go="calendar" class="nav-link">Calendar</button>
+      <button data-go="alerts" class="nav-link">Alerts</button>
+      <button data-go="calculator" class="nav-link">Calculator</button>
+      <button data-go="profile" class="nav-link">Profile</button>
     </nav>
+   </header>
 
-    <!-- Global Production Footer -->
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="footer-top-row">
-          <div class="footer-brand">
-            <span class="brand-logo-text"><span class="brand-ipo">IPO</span> <span class="brand-dot">•</span> <span class="brand-track">Track</span></span>
-            <p class="brand-tagline">Indian IPO information and market insights</p>
-          </div>
-          <div class="footer-status-pill">
-            <span class="live-pulse-dot"></span>
-            <span>Indian IPO information & educational market insights</span>
-          </div>
+   <!-- Category Tabs Bar -->
+   <nav class="wrap py-3 tabs" aria-label="IPO categories">
+    <button data-ipo-category="mainboard" class="tab active">Mainboard IPO</button>
+    <button data-ipo-category="sme" class="tab">SME IPO</button>
+    <button data-ipo-category="upcoming" class="tab">Upcoming IPO</button>
+    <button data-ipo-category="current" class="tab">Open IPO</button>
+    <button data-ipo-category="closed" class="tab">Closed IPO</button>
+    <button data-ipo-category="listed" class="tab">Listed IPO</button>
+    <button data-go="calendar" class="tab">IPO Calendar</button>
+   </nav>
+
+   <main class="wrap pb-12" id="app" role="main">
+    <div id="notice" role="status" aria-live="polite" hidden="" class="card p-3 mb-4 text-sm font-semibold"></div>
+
+    <!-- 1. DASHBOARD VIEW -->
+    <section id="dashboard-view" class="view space-y-6">
+     <div class="rounded-[20px] bg-[#13263f] text-white p-6 sm:p-9 lg:p-11 relative overflow-hidden">
+      <div class="absolute right-[-65px] top-[-110px] w-80 h-80 rounded-full border-[55px] border-white/[.045] pointer-events-none"></div>
+      <div class="relative grid lg:grid-cols-[1.4fr_.6fr] gap-8 items-end">
+       <div>
+        <p class="text-[#77dfb7] text-xs font-extrabold tracking-[.16em] uppercase">THE RESEARCH TERMINAL FOR CURIOUS INVESTORS</p>
+        <h1 class="heading mt-4 max-w-3xl leading-[1.12] text-3xl sm:text-4xl text-white">Indian IPO &amp; Market Intelligence</h1>
+        <p class="text-[#c4d1df] mt-4 max-w-2xl leading-relaxed text-sm sm:text-base">Track primary market schedules, consensus GMP trends, and official NSE &amp; BSE Bhavcopy listing performance.</p>
+        <div class="flex flex-wrap gap-3 mt-7">
+         <button data-go="ipo" class="btn btn-primary" type="button">Explore IPOs</button>
+         <button data-go="stocks" class="btn border border-white/30 text-white hover:bg-white/10" type="button">View Live Markets</button>
         </div>
+       </div>
+       <div class="bg-white/10 border border-white/15 rounded-2xl p-5 backdrop-blur-sm">
+        <p class="text-[#bcd2de] text-xs font-bold uppercase tracking-widest">FIND YOUR NEXT RESEARCH TOPIC</p>
+        <button data-go="search" class="w-full mt-3 bg-white text-[#14243a] rounded-xl p-3 text-left flex justify-between items-center">
+          <span class="text-sm text-slate-700">Search IPOs, stocks, guides...</span>
+          <i data-lucide="search" class="w-4 h-4 text-slate-500"></i>
+        </button>
+        <p class="text-[#c4d1df] text-xs mt-4">Synced from official exchange circulars, Bhavcopies, and consensus GMP median.</p>
+       </div>
+      </div>
+     </div>
 
-        <div class="footer-middle-row">
-          <div class="footer-col">
-            <h4>Quick Navigation</h4>
-            <ul>
-              <li><a href="#/open">Open IPOs (Active Bidding)</a></li>
-              <li><a href="#/upcoming">Upcoming IPO Pipeline</a></li>
-              <li><a href="#/gmp">Live GMP Tracker</a></li>
-              <li><a href="#/allotment">IPO Allotment Hub</a></li>
-              <li><a href="#/calendar">IPO Schedule Calendar</a></li>
-              <li><a href="#/listed">30-Day Listing Performance</a></li>
-              <li><a href="#/alerts">Manage Alert Preferences</a></li>
-              <li><a href="/sitemap.xml" target="_blank" rel="noopener">XML Sitemap Index</a></li>
-              <li><a href="javascript:void(0)" onclick="window.SubscriberService && window.SubscriberService.openUnsubscribeModal()" style="color:#F87171; font-weight:600;">🚫 Manage Alerts / Unsubscribe</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Calculators &amp; Tools</h4>
-            <ul>
-              <li><a href="#/calculator">IPO Profit &amp; Listing Calculator</a></li>
-              <li><a href="#/gmp">Kostak &amp; Sauda Rate Estimator</a></li>
-              <li><a href="#/allotment">Registrar Allotment Lookup</a></li>
-              <li><a href="/blog/">IPO Investor Learning Guides</a></li>
-              <li><a href="/blog/what-is-an-ipo.html">What is an IPO?</a></li>
-              <li><a href="/blog/how-to-apply-for-ipo.html">UPI ASBA Bidding Tutorial</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Official Exchange Disclosures</h4>
-            <ul>
-              <li><a href="https://www.bseindia.com/markets/PublicIssues/IPOIssues_new.aspx" target="_blank" rel="noopener noreferrer">BSE India Public Issues &rarr;</a></li>
-              <li><a href="https://www.nseindia.com/market-data/all-upcoming-issues-ipo" target="_blank" rel="noopener noreferrer">NSE India Primary Market &rarr;</a></li>
-              <li><a href="https://www.sebi.gov.in" target="_blank" rel="noopener noreferrer">SEBI Regulatory Portal &rarr;</a></li>
-              <li><a href="contact.html">Data Corrections &amp; Inquiries</a></li>
-              <li><a href="mailto:lakkistudy@gmail.com" style="color:var(--brand-green); font-weight:600;">📧 lakkistudy@gmail.com</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Market &amp; SEBI Advisory</h4>
-            <p class="footer-disclaimer-text">
-              IPO PriceAlerter is an independent information website and is NOT registered with SEBI as an Investment Adviser or Research Analyst. Information may include official disclosures and third-party market data; check sources and timestamps before relying on it. Some broker and financial-product links are sponsored or affiliate links. PriceAlerter may receive compensation if you use them; this does not affect our editorial explanations. Consult a SEBI-registered adviser before making investment decisions.
-            </p>
-          </div>
+     <!-- Market Pulse Strip -->
+     <section aria-labelledby="market-heading">
+      <div class="flex justify-between items-end gap-3 mb-3">
+       <div>
+        <p class="eyebrow">MARKET PULSE / INDIA</p>
+        <h2 id="market-heading" class="heading text-xl sm:text-2xl">Market overview</h2>
+       </div>
+       <span class="pill"><span class="dot !bg-emerald-500 animate-pulse"></span> Live Stream Active</span>
+      </div>
+      <div id="market-strip" class="market-row flex flex-wrap gap-2"></div>
+     </section>
+
+     <!-- At A Glance Summary Grid -->
+     <section aria-labelledby="snapshot-heading">
+      <div class="flex justify-between items-end mb-3">
+       <h2 id="snapshot-heading" class="heading text-xl sm:text-2xl">At a glance</h2>
+       <span class="muted text-xs">Official NSE &amp; BSE Exchange Data</span>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3" id="summary-grid"></div>
+     </section>
+
+     <!-- IPO Activity Desk & Data Transparency Indicator -->
+     <div class="grid xl:grid-cols-[1.45fr_.85fr] gap-5">
+      <section class="card p-5 min-w-0" id="dashboard-open-ipos-section" aria-labelledby="activity-heading">
+       <div class="flex justify-between items-center gap-2 mb-4">
+        <div>
+         <p class="eyebrow">IPO DESK</p>
+         <h2 id="activity-heading" class="heading text-xl">IPO activity</h2>
         </div>
+        <button data-go="ipo" class="text-[#059669] text-sm font-bold hover:underline">Explore all →</button>
+       </div>
+       <div id="home-ipo-tabs" class="tabs mb-3">
+        <button data-activity="current" class="tab active">Current</button>
+        <button data-activity="upcoming" class="tab">Upcoming</button>
+        <button data-activity="closed" class="tab">Recently Closed</button>
+        <button data-activity="listed" class="tab">Recently Listed</button>
+       </div>
+       <div class="ipo-activity-table-wrap"></div>
+       <button data-go="ipo" class="mt-4 btn btn-secondary text-xs">Inspect full IPO pipeline →</button>
+      </section>
 
-        <!-- Corporate Brand Bottom Bar -->
-        <div class="footer-bottom-row fig1-footer-bar">
-          <div style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.9); font-size:13.5px; font-weight:500;">
-            <div style="width:24px; height:24px; border-radius:6px; background:#079B50; display:grid; place-items:center; flex-shrink:0;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-            </div>
-            <span>&copy; <span id="current-year">2026</span> IPO PriceAlerter &mdash; Indian IPO Tracker (Mainboard &amp; SME)</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:16px; font-size:13px; color:rgba(255,255,255,0.75); flex-wrap:wrap;">
-            <a href="about.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">About Us</a>
-            <span>|</span>
-            <a href="privacy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Privacy Policy</a>
-            <span>|</span>
-            <a href="terms.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Terms of Service</a>
-            <span>|</span>
-            <a href="contact.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Contact</a>
-            <span>|</span>
-            <a href="disclaimer.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Disclaimer</a>
-            <span>|</span>
-            <a href="editorial-policy.html" style="color:rgba(255,255,255,0.85); text-decoration:none;">Editorial Standards</a>
-            <span>|</span>
-            <a href="/sitemap.xml" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85); text-decoration:none;">Sitemap</a>
-            <span>|</span>
-            <a href="blog/" style="color:rgba(255,255,255,0.85); text-decoration:none;">Learning Centre</a>
-            <span>|</span>
-            <button type="button" onclick="window.showCookieNotice &amp;&amp; window.showCookieNotice()" style="background:none; border:none; color:rgba(255,255,255,0.85); font-size:13px; cursor:pointer; padding:0; text-decoration:none;">Cookie Notice</button>
-            <span>|</span>
-            <a href="javascript:void(0)" onclick="window.SubscriberService && window.SubscriberService.openUnsubscribeModal()" style="color:#FCA5A5; text-decoration:none; font-weight:600;">Unsubscribe</a>
-          </div>
-          <div style="display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.75);">
-            <!-- Official Telegram Channel -->
-            <a href="https://t.me/pricealerter" target="_blank" rel="noopener noreferrer" aria-label="Official Telegram IPO Alerts Channel" title="Join Telegram IPO Alerts" style="color:rgba(255,255,255,0.9); display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); text-decoration:none;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .26z"/></svg>
-            </a>
-            <!-- Email Support -->
-            <a href="mailto:lakkistudy@gmail.com" aria-label="Email Support" title="Email Us" style="color:rgba(255,255,255,0.9); display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); text-decoration:none;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            </a>
-            <!-- RSS / XML Sitemap Feed -->
-            <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" aria-label="Sitemap XML Feed" title="Sitemap XML Feed" style="color:rgba(255,255,255,0.9); display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); text-decoration:none;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-            </a>
-          </div>
-        </div>      </div>
-    </footer>
-
-    <!-- GDPR & Google AdSense Compliant Privacy & Cookie Notice Banner -->
-    <div id="cookie-consent-banner" class="cookie-consent-banner" aria-label="Privacy and cookies notice" style="display:none;">
-      <div class="cookie-consent-inner">
-        <div class="cookie-consent-text">
-          <div class="cookie-consent-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#079B50" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>Privacy &amp; Cookie Notice</span>
-          </div>
-          <p>
-            PriceAlerter uses cookies and standard web analytics (Google Analytics &amp; Google AdSense) to measure audience traffic and personalize relevant market content. By browsing this website, you acknowledge our data processing per our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener">Terms</a>.
-          </p>
+      <section class="card p-5 min-w-0">
+       <p class="eyebrow">DATA TRANSPARENCY</p>
+       <h2 class="heading text-xl mt-1">Data Quality Indicator</h2>
+       <div class="mt-5 space-y-4 text-sm">
+        <div class="flex justify-between gap-3 rule pt-3">
+         <span>Market quotes</span><strong class="text-emerald-600 font-bold">1,872 Scrips (NSE/BSE Bhavcopy)</strong>
         </div>
-        <div class="cookie-consent-actions">
-          <button id="btn-cookie-accept" class="btn-cookie-accept" type="button" onclick="dismissCookieNotice(true)">Got It</button>
+        <div class="flex justify-between gap-3 rule pt-3">
+         <span>IPO filings</span><strong class="text-blue-600 font-bold">204 DRHP / RHP Verified</strong>
+        </div>
+        <div class="flex justify-between gap-3 rule pt-3">
+         <span>GMP sources</span><strong class="text-emerald-600 font-bold">3+ Independent Market Desks</strong>
+        </div>
+        <div class="flex justify-between gap-3 rule pt-3">
+         <span>Latest verified sync</span><strong class="text-slate-700 dark:text-slate-300 font-mono text-xs">12 Nov 2026, 10:56 PM IST</strong>
+        </div>
+       </div>
+       <p class="muted text-xs leading-relaxed mt-6">All prices and schedules are ingested from official stock exchange circulars. Grey Market Premium (GMP) is strictly an unofficial indicator and not investment advice.</p>
+      </section>
+     </div>
+
+     <!-- GMP Tracker & Listing Performance Overview Cards -->
+     <div class="grid lg:grid-cols-2 gap-5">
+      <section class="card p-5">
+       <div class="flex justify-between items-center">
+        <div>
+         <p class="eyebrow">GREY MARKET</p>
+         <h2 class="heading text-xl">GMP tracker</h2>
+        </div>
+        <button data-go="gmp" class="text-[#059669] text-sm font-bold hover:underline">Open tracker →</button>
+       </div>
+       <div id="gmp-chart-empty" class="mt-4"></div>
+       <p class="text-xs muted mt-4 leading-relaxed">GMP is an unofficial grey-market indicator. It is speculative, unregulated and does not guarantee listing performance.</p>
+      </section>
+
+      <section class="card p-5" id="recently-listed-performance-section">
+       <div class="flex justify-between items-center">
+        <div>
+         <p class="eyebrow">LISTING INTELLIGENCE</p>
+         <h2 class="heading text-xl">Listing performance</h2>
+        </div>
+        <button data-go="listed" class="text-[#059669] text-sm font-bold hover:underline">Explore →</button>
+       </div>
+       <div class="empty mt-4"></div>
+      </section>
+     </div>
+
+     <!-- Research Workbench -->
+     <section class="card p-5">
+      <div class="flex justify-between items-center gap-2">
+       <div>
+        <p class="eyebrow">RESEARCH WORKBENCH</p>
+        <h2 class="heading text-xl">Go deeper, with context</h2>
+       </div>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+       <button data-go="calendar" class="btn btn-secondary !justify-start">◫ &nbsp; IPO Opportunity Calendar</button>
+       <button data-go="calculator" class="btn btn-secondary !justify-start">∑ &nbsp; Investment Calculator</button>
+       <button data-go="listed" class="btn btn-secondary !justify-start">↗ &nbsp; Historical IPO Explorer</button>
+       <button data-go="ipo" class="btn btn-secondary !justify-start">◎ &nbsp; IPO Intelligence Scorecard</button>
+      </div>
+     </section>
+    </section>
+
+    <!-- 2. IPO RESEARCH VIEW -->
+    <section id="ipo-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">PRIMARY MARKET</p>
+      <h1 class="heading text-3xl">IPO research</h1>
+      <p class="muted mt-2 text-sm sm:text-base">Explore verified issue terms, dates, subscriptions and disclosures compiled directly from SEBI DRHP and RHP filings.</p>
+     </div>
+     <div class="card p-5">
+      <div id="ipo-tabs" class="tabs mb-4">
+       <button data-activity="current" class="tab active">Current</button>
+       <button data-activity="upcoming" class="tab">Upcoming</button>
+       <button data-activity="closed" class="tab">Recently Closed</button>
+       <button data-activity="listed" class="tab">Recently Listed</button>
+       <button data-activity="sme" class="tab">SME</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-3 mb-4">
+       <div>
+        <label for="ipo-search" class="block text-xs font-bold mb-1">Company or industry</label>
+        <input id="ipo-search" class="field" type="search" placeholder="Search IPOs by name or sector">
+       </div>
+       <div>
+        <label for="ipo-type" class="block text-xs font-bold mb-1">IPO type</label>
+        <select id="ipo-type" class="field">
+          <option>All types</option>
+          <option>Mainboard</option>
+          <option>SME</option>
+        </select>
+       </div>
+       <div>
+        <label for="ipo-order" class="block text-xs font-bold mb-1">Sort by</label>
+        <select id="ipo-order" class="field">
+          <option>Opening date</option>
+          <option>Company name</option>
+          <option>Listing date</option>
+        </select>
+       </div>
+      </div>
+      <div class="ipo-full-results-wrap"></div>
+     </div>
+    </section>
+
+    <!-- 3. GMP TRACKER VIEW -->
+    <section id="gmp-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">UNOFFICIAL INDICATOR / VERIFY INDEPENDENTLY</p>
+      <h1 class="heading text-3xl">GMP Tracker</h1>
+      <p class="mt-2 muted max-w-3xl text-sm sm:text-base">Consensus Grey Market Premium (GMP) median aggregated from 3+ independent market trading desks. GMP is unofficial, speculative, and does not guarantee listing performance.</p>
+     </div>
+     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3" id="gmp-metrics"></div>
+     <div class="card p-5">
+      <div class="flex flex-wrap justify-between gap-3">
+       <h2 class="heading text-xl">GMP Movement Intelligence</h2>
+       <div class="tabs period-tabs">
+        <button class="tab active" data-period="1D">1D</button>
+        <button class="tab" data-period="7D">7D</button>
+        <button class="tab" data-period="1M">1M</button>
+        <button class="tab" data-period="All">All</button>
+       </div>
+      </div>
+      <div id="gmp-chart-empty" class="mt-4"></div>
+      <p class="muted text-xs mt-3">Estimated listing price = issue price + GMP. Calculations require valid sourced inputs and are not guarantees.</p>
+     </div>
+     <div class="card p-5">
+      <h2 class="heading text-xl mb-3">Daily history</h2>
+      <div class="table-scroll">
+       <table>
+        <thead>
+         <tr>
+          <th>Date</th>
+          <th>Company</th>
+          <th>Issue price</th>
+          <th>GMP</th>
+          <th>GMP %</th>
+          <th>Estimated listing</th>
+          <th>Estimated gain/loss</th>
+          <th>Source</th>
+          <th>Updated</th>
+          <th>Confidence</th>
+         </tr>
+        </thead>
+        <tbody></tbody>
+       </table>
+      </div>
+     </div>
+    </section>
+
+    <!-- 4. LIVE STOCKS VIEW -->
+    <section id="stocks-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">SECONDARY MARKET</p>
+      <h1 class="heading text-3xl">Live Stocks</h1>
+      <p class="muted mt-2 text-sm sm:text-base">1,872 scrips synced directly from official NSE &amp; BSE Bhavcopy settlement files and Google Finance benchmark feeds.</p>
+     </div>
+     <div class="card p-5">
+      <div class="tabs stock-tabs mb-4">
+       <button data-stock-tab="All Stocks" class="tab active">All Stocks</button>
+       <button data-stock-tab="NSE" class="tab">NSE</button>
+       <button data-stock-tab="BSE" class="tab">BSE</button>
+       <button data-stock-tab="My Watchlist" class="tab">My Watchlist</button>
+      </div>
+      <div class="grid sm:grid-cols-2 xl:grid-cols-5 gap-3 mb-4">
+       <div class="live-search-box">
+        <label for="stock-search" class="block text-xs font-bold mb-1">Company or symbol</label>
+        <input id="stock-search" type="search" class="field" placeholder="Search by name or ticker (e.g. INFOSYS)">
+       </div>
+       <div>
+        <label for="exchange-filter" class="block text-xs font-bold mb-1">Exchange</label>
+        <select id="exchange-filter" class="field"><option>Any exchange</option><option>NSE</option><option>BSE</option></select>
+       </div>
+       <div>
+        <label for="sector-filter" class="block text-xs font-bold mb-1">Sector</label>
+        <input id="sector-filter" class="field" placeholder="Any sector">
+       </div>
+       <div>
+        <label for="price-filter" class="block text-xs font-bold mb-1">Minimum price (₹)</label>
+        <input id="price-filter" type="number" min="0" class="field" placeholder="Any">
+       </div>
+       <div>
+        <label for="change-filter" class="block text-xs font-bold mb-1">Minimum change (%)</label>
+        <input id="change-filter" type="number" class="field" placeholder="Any">
+       </div>
+      </div>
+      <div class="table-scroll">
+       <table>
+        <thead>
+         <tr>
+          <th>Company</th>
+          <th>Symbol</th>
+          <th>Exchange</th>
+          <th>Current price</th>
+          <th>Issue price</th>
+          <th>Change</th>
+          <th>Change %</th>
+          <th>Day high</th>
+          <th>Day low</th>
+          <th>Volume</th>
+          <th>Market cap</th>
+          <th>Trend</th>
+          <th>Last updated</th>
+          <th>Source</th>
+          <th>Data status</th>
+         </tr>
+        </thead>
+        <tbody id="stock-table-body"></tbody>
+       </table>
+      </div>
+      <div id="stock-empty" class="empty mt-3" hidden="">No matching stocks found.</div>
+     </div>
+    </section>
+
+    <!-- 5. RECENTLY LISTED STOCKS VIEW -->
+    <section id="listed-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">POST-LISTING RESEARCH</p>
+      <h1 class="heading text-3xl">Recently Listed Stocks</h1>
+      <p class="muted mt-2 text-sm sm:text-base">Verified debut prices, listing day highs/lows, and secondary market returns for all Indian IPOs over the past 3 years.</p>
+     </div>
+     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3" id="listed-metrics"></div>
+     <div class="card p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="heading text-xl">Historical Debut Explorer (<span id="listed-kpi-total-val" class="text-emerald-600 font-extrabold data-number">1831</span> Issues)</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+       <div>
+        <label for="listed-year" class="block text-xs font-bold mb-1">Listing year</label>
+        <select id="listed-year" class="field"><option>All years</option><option>2026</option><option>2025</option><option>2024</option></select>
+       </div>
+       <div>
+        <label for="listed-type" class="block text-xs font-bold mb-1">IPO category</label>
+        <select id="listed-type" class="field"><option>All types</option><option>Mainboard</option><option>SME</option></select>
+       </div>
+       <div>
+        <label for="listed-exchange" class="block text-xs font-bold mb-1">Exchange</label>
+        <select id="listed-exchange" class="field"><option>All exchanges</option><option>NSE</option><option>BSE</option></select>
+       </div>
+       <div>
+        <label for="listed-gain" class="block text-xs font-bold mb-1">Listing gain</label>
+        <select id="listed-gain" class="field"><option>Any result</option><option>Positive</option><option>Negative</option></select>
+       </div>
+      </div>
+      <div class="table-scroll mt-5">
+       <table>
+        <thead>
+         <tr>
+          <th>Company</th>
+          <th>Issue price</th>
+          <th>Actual listing price</th>
+          <th>Listing date</th>
+          <th>Current price</th>
+          <th>Base price</th>
+          <th>Listing gain</th>
+          <th>Current return</th>
+          <th>Exchange</th>
+          <th>Source / status</th>
+         </tr>
+        </thead>
+        <tbody id="listed-table-body"></tbody>
+       </table>
+      </div>
+      <div id="listed-cards-body" class="sm:hidden mt-4"></div>
+     </div>
+    </section>
+
+    <!-- 6. MARKET INSIGHTS VIEW -->
+    <section id="insights-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">CONTEXT BEFORE CONCLUSIONS</p>
+      <h1 class="heading text-3xl">Market Insights</h1>
+      <p class="muted mt-2 text-sm sm:text-base">Attributed primary market intelligence, institutional bidding reviews, and sector capital flows.</p>
+     </div>
+     <div id="insight-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- 7. LEARN VIEW -->
+    <section id="learn-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">INVESTOR EDUCATION</p>
+      <h1 class="heading text-3xl">Learn before you invest</h1>
+      <p class="muted mt-2 text-sm sm:text-base">Comprehensive, independent research guides on Indian primary markets, SEBI lottery rules, ASBA mechanics, and valuation multiples.</p>
+     </div>
+     <div id="learning-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- 8. CALENDAR VIEW -->
+    <section id="calendar-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">IPO OPPORTUNITY CALENDAR</p>
+      <h1 class="heading text-3xl">IPO Calendar</h1>
+     </div>
+     <div class="card p-5">
+      <div class="flex flex-wrap gap-3 justify-between">
+       <div class="tabs calendar-tabs">
+        <button data-calendar-mode="Month" class="tab active">Month</button>
+        <button data-calendar-mode="Week" class="tab">Week</button>
+        <button data-calendar-mode="List" class="tab">List</button>
+       </div>
+       <div class="flex gap-2 items-center">
+        <label for="calendar-date" class="font-bold text-sm">Filter</label>
+        <input id="calendar-date" type="date" class="field !min-h-[38px] !py-1">
+       </div>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4">
+       <span class="pill !text-blue-800 !bg-blue-100">● Opening</span>
+       <span class="pill !text-rose-800 !bg-rose-100">● Closing</span>
+       <span class="pill !text-amber-800 !bg-amber-100">● Allotment</span>
+       <span class="pill !text-emerald-800 !bg-emerald-100">● Listing</span>
+      </div>
+      <div id="calendar-empty" class="mt-5"></div>
+     </div>
+    </section>
+
+    <!-- 9. WATCHLIST VIEW -->
+    <section id="watchlist-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">YOUR RESEARCH DESK</p>
+      <h1 class="heading text-3xl">My Watchlist</h1>
+      <p class="muted mt-2 text-sm sm:text-base">Persistently track companies and upcoming issues across your browser sessions.</p>
+     </div>
+     <div class="card p-5 max-w-2xl">
+      <form id="watch-form" class="flex flex-col sm:flex-row gap-3 sm:items-end">
+       <div class="flex-1">
+        <label for="watch-topic" class="block text-xs font-bold mb-1">Add Security to Watchlist</label>
+        <input id="watch-topic" class="field" placeholder="Enter stock symbol (e.g. BOMBAYCOAT)">
+       </div>
+       <button type="submit" class="btn btn-primary">Save to Watchlist</button>
+      </form>
+      <div id="watch-items" class="mt-5 space-y-2"></div>
+      <p id="watch-empty" class="empty mt-5">No securities saved in your watchlist yet. Bookmark any stock from the Live Stocks table to pin it here.</p>
+     </div>
+    </section>
+
+    <!-- 10. ALERTS VIEW -->
+    <section id="alerts-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">NOTIFICATION CONTROL</p>
+      <h1 class="heading text-3xl">Alert preferences</h1>
+      <p class="muted mt-2 text-sm sm:text-base">Customize primary market alerts for bidding opening, closing deadlines, and allotment results.</p>
+     </div>
+     <div class="card p-5 max-w-2xl">
+      <form id="alerts-form" class="space-y-3">
+       <div>
+        <label for="alert-kind" class="block text-xs font-bold mb-1">Alert Topic</label>
+        <select id="alert-kind" class="field">
+          <option value="">Select a topic</option>
+          <option>New Mainboard IPO Opening Reminders</option>
+          <option>High-Demand SME Issues (>50x Subscription)</option>
+          <option>GMP Spike Alerts (>40% Premium)</option>
+          <option>Allotment Discovery Alerts</option>
+          <option>Listing Day Debut Tracker (9:45 AM Call Auction)</option>
+        </select>
+       </div>
+       <button type="submit" class="btn btn-primary">Save Alert Preference</button>
+      </form>
+      <div id="alert-items" class="mt-5 space-y-2"></div>
+      <p id="alert-empty" class="empty mt-5">No alert preferences configured yet.</p>
+     </div>
+    </section>
+
+    <!-- 11. CALCULATOR VIEW -->
+    <section id="calculator-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">HYPOTHETICAL SCENARIOS ONLY</p>
+      <h1 class="heading text-3xl">Investment Calculator</h1>
+      <p class="muted mt-2 max-w-2xl text-sm sm:text-base">Evaluate your capital commitment, lot allocations, and hypothetical listing day profit scenarios.</p>
+     </div>
+     <form id="calc-form" class="card p-5 max-w-3xl">
+      <div class="grid sm:grid-cols-2 gap-4">
+       <div>
+        <label for="calc-price" class="block font-bold text-sm mb-1">Issue Price (₹)</label>
+        <input id="calc-price" type="number" min="0.01" step="0.01" required="" class="field" placeholder="e.g. 295">
+       </div>
+       <div>
+        <label for="calc-lot" class="block font-bold text-sm mb-1">Shares Per Lot</label>
+        <input id="calc-lot" type="number" min="1" step="1" required="" class="field" placeholder="e.g. 50">
+       </div>
+       <div>
+        <label for="calc-count" class="block font-bold text-sm mb-1">Number of Lots</label>
+        <input id="calc-count" type="number" min="1" step="1" value="1" required="" class="field">
+       </div>
+       <div>
+        <label for="calc-gmp" class="block font-bold text-sm mb-1">Estimated GMP (₹; optional)</label>
+        <input id="calc-gmp" type="number" step="0.01" class="field" placeholder="e.g. 75">
+       </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-5">Calculate Scenario</button>
+      <div id="calc-result" role="status" aria-live="polite" class="empty mt-5">
+       Enter issue price and lot size to compute your investment breakdown.
+      </div>
+     </form>
+    </section>
+
+    <!-- 12. GLOBAL SEARCH VIEW -->
+    <section id="search-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">GLOBAL DISCOVERY</p>
+      <h1 class="heading text-3xl">Search PriceAlerter</h1>
+     </div>
+     <div class="card p-5 max-w-3xl">
+      <label for="global-search" class="block font-bold text-sm mb-2">Search across 1,872 stocks, 204 IPOs, guides, and tools</label>
+      <input id="global-search" type="search" autocomplete="off" class="field" placeholder="Try NIFTY 50, Bombay Coated, GMP Tracker, or Allotment">
+      <p class="muted text-xs mt-2">Use ↑ and ↓ to select, Enter to open.</p>
+      <div id="search-results" role="listbox" aria-label="Search suggestions" class="mt-4 space-y-1"></div>
+     </div>
+    </section>
+
+    <!-- 13. IPO DETAIL WORKSPACE -->
+    <section id="ipo-detail-view" class="view space-y-5" hidden="">
+     <button data-go="ipo" class="btn btn-secondary">← Back to IPO Workspace</button>
+     <div class="card p-5 sm:p-7">
+      <div class="flex justify-between flex-wrap gap-4 items-start">
+       <div>
+        <p class="eyebrow">IPO DETAIL WORKSPACE</p>
+        <h1 data-template-id="detail-heading" class="heading text-3xl mt-1">Company Detail</h1>
+        <p class="muted mt-2 text-xs sm:text-sm">Category, industry and issue status</p>
+       </div>
+       <button data-go="watchlist" class="btn btn-secondary">Open Watchlist</button>
+      </div>
+      <div id="detail-facts" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 mt-6"></div>
+     </div>
+     <div class="card p-5">
+      <div id="detail-tabs" class="tabs mb-5">
+        <button data-detail-tab="Overview" class="tab active">Overview</button>
+        <button data-detail-tab="GMP History" class="tab">GMP History</button>
+        <button data-detail-tab="Subscription" class="tab">Subscription</button>
+        <button data-detail-tab="Company Financials" class="tab">Company Financials</button>
+        <button data-detail-tab="Valuation" class="tab">Valuation</button>
+        <button data-detail-tab="Risks" class="tab">Risks</button>
+        <button data-detail-tab="IPO Details" class="tab">IPO Details</button>
+        <button data-detail-tab="Registrar" class="tab">Registrar</button>
+        <button data-detail-tab="Documents" class="tab">Documents</button>
+      </div>
+      <h2 id="detail-tab-title" class="heading text-xl">Overview</h2>
+      <div id="detail-tab-body" class="mt-4"></div>
+     </div>
+    </section>
+
+    <!-- 14. STOCK DETAIL WORKSPACE -->
+    <section id="stock-detail-view" class="view space-y-5" hidden="">
+     <button data-go="stocks" class="btn btn-secondary">← Back to Stocks Workspace</button>
+     <div class="card p-6">
+      <p class="eyebrow">LISTED STOCK INTELLIGENCE</p>
+      <h1 id="stock-detail-heading" class="heading text-3xl mt-2">Stock Intelligence Workspace</h1>
+      <p class="muted mt-2 text-xs sm:text-sm">Verified quotes synced from official exchange Bhavcopies.</p>
+      <div id="stock-facts" class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6"></div>
+      <div class="tabs period-tabs mt-6">
+       <button data-period="1D" class="tab active">1D</button>
+       <button data-period="1W" class="tab">1W</button>
+       <button data-period="1M" class="tab">1M</button>
+       <button data-period="3M" class="tab">3M</button>
+       <button data-period="1Y" class="tab">1Y</button>
+       <button data-period="All" class="tab">All</button>
+      </div>
+      <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
+        <span class="text-xs font-bold uppercase text-slate-500">Official Bhavcopy Settlement Curve</span>
+        <div class="w-full flex justify-center py-4">
+          <svg width="480" height="90" viewBox="0 0 480 90">
+            <path d="M 0,70 L 60,65 L 120,40 L 180,45 L 240,25 L 300,30 L 360,15 L 420,20 L 480,5" fill="none" stroke="#059669" stroke-width="2.5" />
+          </svg>
         </div>
       </div>
+     </div>
+    </section>
+
+    <!-- 15. PROFILE & PREFERENCES VIEW -->
+    <section id="profile-view" class="view space-y-5" hidden="">
+     <div>
+      <p class="eyebrow">PREFERENCES</p>
+      <h1 class="heading text-3xl">Profile &amp; Settings</h1>
+     </div>
+     <div class="card p-6 max-w-2xl">
+      <h2 class="heading text-xl">Workspace Preferences</h2>
+      <p class="muted mt-3 leading-relaxed text-sm">Watchlist securities, custom alert topics, and appearance modes persist locally in your browser storage.</p>
+      <div class="flex gap-3 flex-wrap mt-5">
+       <button data-go="watchlist" class="btn btn-secondary">Review Watchlist</button>
+       <button data-go="alerts" class="btn btn-secondary">Review Alert Preferences</button>
+      </div>
+     </div>
+    </section>
+   </main>
+
+   <!-- Footer -->
+   <footer class="bg-[#13263f] text-white">
+    <div class="wrap py-9">
+     <div class="flex flex-wrap justify-between gap-7">
+      <div>
+       <strong class="heading text-xl">↗ PriceAlerter</strong>
+       <p class="text-[#a8bbce] text-sm mt-2 max-w-sm">Indian IPO &amp; Market Intelligence. Research clearly. Check sources. Understand risk.</p>
+      </div>
+      <nav aria-label="Footer information" class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#c6d3df]">
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="About">About</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Contact">Contact</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Privacy">Privacy</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Terms">Terms</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Financial Disclaimer">Financial Disclaimer</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Editorial Standards">Editorial Standards</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Data Methodology">Data Methodology</button>
+        <button type="button" class="hover:text-white underline underline-offset-4" data-footer="IPO Guides">IPO Guides</button>
+      </nav>
+     </div>
+     <p class="border-t border-white/15 pt-5 mt-8 text-[#bbcbda] text-xs leading-relaxed">
+      PriceAlerter is an independent financial information and educational platform. It is not a stock exchange, broker, investment adviser or SEBI-registered research analyst. None of the indicators or Grey Market Premiums constitute financial advice. Consult an accredited financial advisor before investing.
+     </p>
     </div>
-    <script>
-      function dismissCookieNotice() {
-        try {
-          localStorage.setItem("ipo_privacy_acknowledged", "true");
-          var b = document.getElementById("cookie-consent-banner");
-          if (b) {
-            b.style.opacity = "0";
-            b.style.transform = "translateY(20px)";
-            b.style.transition = "all 0.3s ease";
-            setTimeout(function() { b.style.display = "none"; }, 300);
-          }
-        } catch(e){}
-      }
-      function showCookieNotice() {
-        var b = document.getElementById("cookie-consent-banner");
-        if (b) {
-          b.style.display = "block";
-          b.style.opacity = "1";
-          b.style.transform = "none";
+   </footer>
+
+   <!-- Mobile Bottom Bar -->
+   <nav class="mobile-bottom" aria-label="Mobile primary navigation">
+    <button data-go="dashboard"><i data-lucide="layout-dashboard"></i>Home</button>
+    <button data-go="ipo"><i data-lucide="calendar-days"></i>IPOs</button>
+    <button data-go="search"><i data-lucide="search"></i>Search</button>
+    <button data-go="stocks"><i data-lucide="chart-no-axes-combined"></i>Stocks</button>
+    <button data-go="watchlist"><i data-lucide="bookmark"></i>Saved</button>
+   </nav>
+  </div>
+
+  <!-- Cookie Notice Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="region" aria-label="Privacy notice" style="display:none;">
+    <div class="flex justify-between items-start gap-3">
+      <div>
+        <strong class="font-bold text-white block mb-1">Privacy Notice</strong>
+        <p class="text-slate-300 text-xs">We use Google Analytics and Google AdSense to deliver market data insights and educational guides. Read our <a href="/privacy.html" class="underline text-emerald-400">Privacy Policy</a>.</p>
+      </div>
+      <button id="btn-cookie-got-it" type="button" class="btn btn-primary !min-h-[30px] !px-3 !py-1 text-xs shrink-0">Got It</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      try {
+        var banner = document.getElementById("cookie-consent-banner");
+        if (banner && localStorage.getItem("ipo_privacy_acknowledged") !== "yes") {
+          banner.style.display = "block";
         }
-      }
-      window.dismissCookieNotice = dismissCookieNotice;
-      window.showCookieNotice = showCookieNotice;
-      (function(){
-        try {
-          var acknowledged = localStorage.getItem("ipo_privacy_acknowledged");
-          var banner = document.getElementById("cookie-consent-banner");
-          if (banner && !acknowledged) {
-            banner.style.display = "block";
-          }
-        } catch(e){}
-      })();
-      window.switchMoversView = function(view) {
-        var cardGainers = document.getElementById('movers-card-gainers');
-        var cardLosers = document.getElementById('movers-card-losers');
-        var btnBoth = document.getElementById('tab-btn-both');
-        var btnGainers = document.getElementById('tab-btn-gainers');
-        var btnLosers = document.getElementById('tab-btn-losers');
-
-        [btnBoth, btnGainers, btnLosers].forEach(function(b) {
-          if (b) {
-            b.classList.remove('active');
-            b.setAttribute('aria-selected', 'false');
-          }
-        });
-
-        if (view === 'gainers') {
-          if (cardGainers) cardGainers.style.display = '';
-          if (cardLosers) cardLosers.style.display = 'none';
-          if (btnGainers) {
-            btnGainers.classList.add('active');
-            btnGainers.setAttribute('aria-selected', 'true');
-          }
-        } else if (view === 'losers') {
-          if (cardGainers) cardGainers.style.display = 'none';
-          if (cardLosers) cardLosers.style.display = '';
-          if (btnLosers) {
-            btnLosers.classList.add('active');
-            btnLosers.setAttribute('aria-selected', 'true');
-          }
-        } else {
-          if (cardGainers) cardGainers.style.display = '';
-          if (cardLosers) cardLosers.style.display = '';
-          if (btnBoth) {
-            btnBoth.classList.add('active');
-            btnBoth.setAttribute('aria-selected', 'true');
-          }
+        var btn = document.getElementById("btn-cookie-got-it");
+        if (btn) {
+          btn.addEventListener("click", function() {
+            localStorage.setItem("ipo_privacy_acknowledged", "yes");
+            if (banner) banner.style.display = "none";
+          });
         }
-      };
-      window.switchMoversTab = window.switchMoversView;
-    </script>
+      } catch(e) {}
+    })();
+  </script>
 
-    <!-- Scripts -->
-    <script>
-      // Clear legacy service worker & browser caches from pricealerter.in if present
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(regs) {
-          for (var r of regs) { r.unregister(); }
-        });
-      }
-      if ('caches' in window) {
-        caches.keys().then(function(names) {
-          names.forEach(function(name) { caches.delete(name); });
-        });
-      }
-    </script>
-    <script src="subscribers.js?v=20261107_v87"></script>
-    <script src="data/ipo-data.js?v=20261107_v87" defer></script>
-    <script src="data/listed-gains-data.js?v=20261107_v87" defer></script>
-    <script src="data/securities-master.js?v=20261107_v87" defer></script>
-    <script src="app.js?v=20261107_v87" defer></script>
-
-    
-  </body>
+  <!-- Application Scripts -->
+  <script src="data/ipo-data.js?v=20261112_v90"></script>
+  <script src="data/listed-gains-data.js?v=20261112_v90"></script>
+  <script src="data/securities-master.js?v=20261112_v90"></script>
+  <script src="app.js?v=20261112_v90"></script>
+ </body>
 </html>

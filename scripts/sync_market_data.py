@@ -161,7 +161,8 @@ def fetch_google_finance_quote(ticker_symbol, exchange="NSE", ctx=None):
     """
     if not ctx:
         ctx = ssl._create_unverified_context()
-    url = f"https://www.google.com/finance/quote/{urllib.parse.quote(ticker_symbol)}:{exchange}"
+    symbol_path = f"{urllib.parse.quote(ticker_symbol)}:{exchange}" if exchange else urllib.parse.quote(ticker_symbol)
+    url = f"https://www.google.com/finance/quote/{symbol_path}"
     try:
         req = urllib.request.Request(url, headers=BROWSER_HEADERS)
         with urllib.request.urlopen(req, context=ctx, timeout=6) as r:
@@ -212,68 +213,112 @@ def fetch_google_finance_quote(ticker_symbol, exchange="NSE", ctx=None):
     return None
 
 
+def fetch_investorgain_gmp(ctx=None):
+    """Fetches consensus live IPO GMP table from public market desk."""
+    if not ctx:
+        ctx = ssl._create_unverified_context()
+    url = "https://www.investorgain.com/report/live-ipo-gmp/331/"
+    try:
+        req = urllib.request.Request(url, headers=BROWSER_HEADERS)
+        with urllib.request.urlopen(req, context=ctx, timeout=10) as r:
+            html = r.read().decode("utf-8", errors="ignore")
+        
+        # Parse table using lightweight regex
+        table_m = re.search(r"<table[^>]*>(.*?)</table>", html, re.DOTALL)
+        if not table_m:
+            return []
+        
+        rows = re.findall(r"<tr[^>]*>(.*?)</tr>", table_m.group(1), re.DOTALL)
+        results = []
+        for row in rows[1:]:
+            cols = [re.sub(r"<[^>]+>", " ", c).strip() for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.DOTALL)]
+            if len(cols) >= 11 and cols[0] != "Name":
+                name_clean = re.sub(r"\[email\s*protected\]|\(.*?%\)|BSE SME|NSE SME|SME|IPO", "", cols[0]).strip()
+                name_clean = re.sub(r"\s+", " ", name_clean).strip()
+                if not name_clean:
+                    continue
+                gmp_m = re.search(r"₹\s*([0-9.]+)\s*\(([0-9.]+)%\)", cols[1])
+                price_m = re.search(r"([0-9,.]+)", cols[4])
+                sub_m = re.search(r"([0-9.]+)x", cols[3])
+                size_m = re.search(r"₹?([0-9,.]+)\s*Cr", cols[5])
+                lot_m = re.search(r"([0-9,]+)", cols[6])
+
+                gmp_val = float(gmp_m.group(1)) if gmp_m else 0.0
+                gmp_pct = float(gmp_m.group(2)) if gmp_m else 0.0
+                price_val = float(price_m.group(1).replace(",", "")) if price_m and price_m.group(1) else 0.0
+                sub_val = float(sub_m.group(1)) if sub_m else 0.0
+                size_val = float(size_m.group(1).replace(",", "")) if size_m else 0.0
+                lot_val = int(lot_m.group(1).replace(",", "")) if lot_m else 1
+
+                results.append({
+                    "company": name_clean,
+                    "price": price_val,
+                    "gmp": gmp_val,
+                    "gmpPct": gmp_pct,
+                    "estListing": round(price_val + gmp_val, 2),
+                    "estProfitLot": round(gmp_val * lot_val, 2),
+                    "sub": sub_val,
+                    "sizeCr": size_val,
+                    "lot": lot_val,
+                    "openDate": cols[7] if len(cols) > 7 else "",
+                    "closeDate": cols[8] if len(cols) > 8 else "",
+                    "allotDate": cols[9] if len(cols) > 9 else "",
+                    "listingDate": cols[10] if len(cols) > 10 else "",
+                    "updatedOn": cols[11] if len(cols) > 11 else "Live",
+                    "confidence": "High" if gmp_val > 0 else "Neutral",
+                    "source": "Market Consensus (InvestorGain / Broker Desk)"
+                })
+        return results
+    except Exception as e:
+        print(f"⚠️ Warning fetching live GMPs: {e}")
+        return []
+
+
 def fetch_benchmark_indices(ctx):
-    """Fetches benchmark indices: Nifty 50 and Sensex."""
+    """Fetches benchmark indices and key market pulse instruments."""
     now_iso = datetime.now(IST).isoformat()
-    benchmarks = {
-        "nifty50": {
-            "name": "NIFTY 50",
-            "symbol": "^NSEI",
-            "price": 27601.75,
-            "change": 576.0,
-            "pct": 4.14,
-            "isGain": True,
-            "timestamp": now_iso,
-            "status": "CLOSING",
-            "source": "NSE Public Benchmark"
-        },
-        "sensex": {
-            "name": "SENSEX",
-            "symbol": "^BSESN",
-            "price": 84150.25,
-            "change": 2008.61,
-            "pct": 2.45,
-            "isGain": True,
-            "timestamp": now_iso,
-            "status": "CLOSING",
-            "source": "BSE Public Benchmark"
-        }
-    }
+    status_label = "DELAYED" if is_market_hours_ist() else "CLOSING"
 
-    # Attempt live quote from Google Finance
-    nifty_q = fetch_google_finance_quote("NIFTY_50", "INDEXNSE", ctx)
-    if nifty_q and nifty_q.get("price"):
-        p = nifty_q["price"]
-        c = nifty_q["change"]
-        pct = nifty_q["pct"]
-        benchmarks["nifty50"] = {
-            "name": "NIFTY 50",
-            "symbol": "^NSEI",
-            "price": p,
-            "change": c,
-            "pct": pct,
-            "isGain": c >= 0,
-            "timestamp": nifty_q["timestamp"],
-            "status": "DELAYED" if is_market_hours_ist() else "CLOSING",
-            "source": "NSE Benchmark (Google Finance)"
-        }
+    specs = [
+        ("nifty50", "NIFTY 50", "^NSEI", "NIFTY_50", "INDEXNSE", 25299.35, 45.45, 0.18, "NSE Benchmark (Google Finance)"),
+        ("sensex", "SENSEX", "^BSESN", "SENSEX", "INDEXBOM", 81911.01, 32.70, 0.04, "BSE Benchmark (Google Finance)"),
+        ("bankNifty", "BANK NIFTY", "^NSEBANK", "NIFTY_BANK", "INDEXNSE", 61518.50, 726.10, 1.19, "NSE Sector Benchmark (Google Finance)"),
+        ("indiaVix", "INDIA VIX", "^INDIAVIX", "INDIA_VIX", "INDEXNSE", 16.62, -0.94, -5.35, "NSE Volatility Index (Google Finance)"),
+        ("usdInr", "USD/INR", "INR=X", "USD-INR", "", 94.03, 0.33, 0.35, "Forex Benchmark (Google Finance)"),
+        ("gold", "Gold (GOLDBEES)", "GOLDBEES.NS", "GOLDBEES", "NSE", 112.79, -2.52, -2.19, "NSE Gold ETF (Google Finance)"),
+        ("silver", "Silver (SILVERBEES)", "SILVERBEES.NS", "SILVERBEES", "NSE", 171.57, -5.27, -2.98, "NSE Silver ETF (Google Finance)")
+    ]
 
-    sensex_q = fetch_google_finance_quote("SENSEX", "INDEXBOM", ctx)
-    if sensex_q and sensex_q.get("price"):
-        p = sensex_q["price"]
-        c = sensex_q["change"]
-        pct = sensex_q["pct"]
-        benchmarks["sensex"] = {
-            "name": "SENSEX",
-            "symbol": "^BSESN",
-            "price": p,
-            "change": c,
-            "pct": pct,
-            "isGain": c >= 0,
-            "timestamp": sensex_q["timestamp"],
-            "status": "DELAYED" if is_market_hours_ist() else "CLOSING",
-            "source": "BSE Benchmark (Google Finance)"
-        }
+    benchmarks = {}
+    for key, name, sym, gf_tick, gf_exch, def_p, def_c, def_pct, src_name in specs:
+        q = fetch_google_finance_quote(gf_tick, gf_exch, ctx)
+        if q and q.get("price"):
+            p = q["price"]
+            c = q["change"]
+            pct = q["pct"]
+            benchmarks[key] = {
+                "name": name,
+                "symbol": sym,
+                "price": round(float(p), 2),
+                "change": round(float(c), 2),
+                "pct": round(float(pct), 2),
+                "isGain": c >= 0,
+                "timestamp": q["timestamp"],
+                "status": status_label,
+                "source": src_name
+            }
+        else:
+            benchmarks[key] = {
+                "name": name,
+                "symbol": sym,
+                "price": def_p,
+                "change": def_c,
+                "pct": def_pct,
+                "isGain": def_c >= 0,
+                "timestamp": now_iso,
+                "status": "STALE",
+                "source": f"{src_name} (Fallback)"
+            }
 
     return benchmarks
 
@@ -369,10 +414,15 @@ def run_market_sync(verbose=False, dry_run=False, force_bhavcopy=False):
     print(f"📁 Loaded Canonical Securities Master: {len(records)} total scrips")
 
     # 2. Benchmark Indices
-    print("📈 Fetching Benchmark Indices (Nifty 50, Sensex)...")
+    print("📈 Fetching Benchmark Indices (Nifty 50, Sensex, Bank Nifty, VIX, Forex, Gold, Silver)...")
     benchmarks = fetch_benchmark_indices(ctx)
     print(f"  ✓ NIFTY 50: {benchmarks['nifty50']['price']} ({benchmarks['nifty50']['pct']:+.2f}%)")
     print(f"  ✓ SENSEX:   {benchmarks['sensex']['price']} ({benchmarks['sensex']['pct']:+.2f}%)")
+
+    # 2b. Fetch Live Consensus GMPs
+    print("💎 Fetching Live Consensus IPO GMPs...")
+    live_gmps = fetch_investorgain_gmp(ctx)
+    print(f"  ✓ Fetched {len(live_gmps)} Live GMP entries")
 
     # 3. Bhavcopy EOD settlement check
     bhav_updated = False
@@ -633,6 +683,7 @@ def run_market_sync(verbose=False, dry_run=False, force_bhavcopy=False):
         "bluechips": [],
         "next50": [],
         "trackedIpos": synced_ipos,
+        "liveGmps": live_gmps,
         "allLiveStocks": all_live_stocks
     }
 
