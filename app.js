@@ -718,8 +718,8 @@
           <td class="text-xs font-semibold data-number">${s.marketCap || "—"}</td>
           <td>${createSparklineSvg(s.trend, isGain, 64, 18)}</td>
           <td class="text-[11px] muted whitespace-nowrap">${state.liveMarketData?.lastSyncFormatted?.split(",")[1] || "10:56 PM IST"}</td>
-          <td class="text-[11px] text-slate-500">Official Bhavcopy</td>
-          <td><span class="pill !text-[10px] !text-emerald-700 !bg-emerald-50 dark:!bg-emerald-950 dark:!text-emerald-300">${s.priceStatus || "CLOSING"}</span></td>
+          <td class="text-[11px] text-slate-500">${s.priceSource || s.quoteSource || "Official Bhavcopy"}</td>
+          <td><span class="pill !text-[10px] ${s.priceStatus === 'UNLISTED_ACTIVE' ? '!text-indigo-700 !bg-indigo-50 dark:!bg-indigo-950 dark:!text-indigo-300' : (s.priceStatus === 'SUSPENDED' ? '!text-rose-700 !bg-rose-50 dark:!bg-rose-950 dark:!text-rose-300' : (s.priceStatus === 'UPCOMING' ? '!text-amber-700 !bg-amber-50 dark:!bg-amber-950 dark:!text-amber-300' : '!text-emerald-700 !bg-emerald-50 dark:!bg-emerald-950 dark:!text-emerald-300'))}">${s.priceStatus || "CLOSING"}</span></td>
         </tr>
       `;
     }).join("");
@@ -1062,7 +1062,7 @@
         { label: "Issue Price", val: stock.issuePrice ? formatRupees(stock.issuePrice) : "—" },
         { label: "Debut Return", val: `${(stock.pct || 0) >= 0 ? "+" : ""}${(stock.pct || 0).toFixed(1)}%` },
         { label: "Status", val: stock.priceStatus || "CLOSING" },
-        { label: "Source", val: "BSE/NSE Bhavcopy" }
+        { label: "Source", val: stock.priceSource || stock.quoteSource || "BSE/NSE Bhavcopy" }
       ];
 
       factsContainer.innerHTML = facts.map((f) => `
@@ -1267,7 +1267,7 @@
 
     const searchPool = [
       ...allIpos.map((x) => ({ label: x.shortName || x.companyName, kind: "IPO Offering", action: () => inspectIpo(x.id || x.slug) })),
-      ...allStocks.slice(0, 300).map((x) => ({ label: `${x.name} (${x.symbol})`, kind: "Live Stock", action: () => inspectStock(x.symbol) })),
+      ...allStocks.map((x) => ({ label: `${x.name} (${x.symbol})`, kind: "Live Stock", action: () => inspectStock(x.symbol) })),
       { label: "NIFTY 50", kind: "Benchmark Index", action: () => inspectBenchmark("nifty50") },
       { label: "SENSEX", kind: "Benchmark Index", action: () => inspectBenchmark("sensex") },
       { label: "BANK NIFTY", kind: "Sector Index", action: () => inspectBenchmark("bankNifty") },

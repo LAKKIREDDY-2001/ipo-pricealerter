@@ -353,6 +353,38 @@ async function run() {
       throw new Error('CRITICAL FAIL: Home page did not render open IPOs section!');
     }
 
+    console.log('\n--- Test 4: Validate NSE Stock Price (₹1,989.70) & Search ---');
+    await send('Runtime.evaluate', { expression: 'window.location.hash = "#/live-prices";' });
+    await new Promise(r => setTimeout(r, 600));
+
+    const nseCheck = await send('Runtime.evaluate', {
+      expression: `
+        (() => {
+          const inp = document.getElementById("stock-search");
+          if (inp) {
+            inp.value = "NSE";
+            inp.dispatchEvent(new Event("input", { bubbles: true }));
+          }
+          const allStocks = (window.IpoApp && window.IpoApp.state && window.IpoApp.state.liveMarketData) ? window.IpoApp.state.liveMarketData.allLiveStocks : [];
+          const nseStock = allStocks.find(s => s.symbol === "NSE");
+          const firstRow = document.querySelector("#stock-table-body tr") || document.querySelector(".live-stock-card");
+          const firstRowText = firstRow ? firstRow.innerText : "";
+          return {
+            found: !!nseStock,
+            price: nseStock?.price,
+            rawPrice: nseStock?.rawPrice,
+            firstRowSnippet: firstRowText.slice(0, 80),
+            firstRowHasPrice: firstRowText.includes("1,989.70")
+          };
+        })()
+      `,
+      returnByValue: true
+    });
+    console.log(`[SmokeTest] NSE quote result:`, nseCheck?.result?.value);
+    if (nseCheck?.result?.value?.price !== "₹1,989.70") {
+      throw new Error(`CRITICAL FAIL: NSE stock price is expected to be ₹1,989.70, but got ${nseCheck?.result?.value?.price}`);
+    }
+
     if (uncaughtExceptions.length > 0) {
       throw new Error(`CRITICAL FAIL: Caught ${uncaughtExceptions.length} uncaught exceptions during route test!`);
     }

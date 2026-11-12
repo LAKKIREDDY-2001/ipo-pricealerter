@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-12",
+  "generatedAt": "2026-11-13",
   "scope": "Internal consistency only; not an exchange verification",
   "ipoRecordCount": 204,
-  "listedRecordCount": 177,
+  "listedRecordCount": 176,
   "crossDatasetConflicts": [],
   "listedRowsMissingListingPrice": [
     {
@@ -53,11 +53,6 @@
     {
       "name": "SRIT India Limited",
       "listingDate": "2026-10-02",
-      "field": "listingPrice"
-    },
-    {
-      "name": "NSE Limited",
-      "listingDate": "2026-09-08",
       "field": "listingPrice"
     },
     {
@@ -196,7 +191,6 @@
     "Axiom Gas Engineering Limited",
     "Sonaselection Limited",
     "Kheria Autocomp Limited",
-    "NSE Limited",
     "SpectraA Technology Limited",
     "Jindal Supreme Limited",
     "SS Retail Limited",

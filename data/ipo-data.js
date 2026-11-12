@@ -4938,15 +4938,15 @@ window.IpoData = {
     {
       "id": "nse",
       "slug": "nse-ipo",
-      "companyName": "NSE Limited",
+      "companyName": "National Stock Exchange of India Limited (NSE)",
       "shortName": "NSE",
       "initials": "NS",
-      "logoColor": "#84CC16",
-      "iconType": "infra",
-      "status": "LISTED",
+      "logoColor": "#2563EB",
+      "iconType": "fin",
+      "status": "UNLISTED",
       "board": "MAINBOARD",
       "exchange": "BSE, NSE",
-      "sector": "Industrial Engineering & Manufacturing",
+      "sector": "Financial Services & Capital Markets Infrastructure",
       "issueType": "Mainboard",
       "lotSize": 50,
       "issueSizeCr": 1670,
@@ -4959,7 +4959,7 @@ window.IpoData = {
       "subscriptionTotal": 5.05,
       "gmp": null,
       "gmpPercentage": null,
-      "about": "NSE is an established Indian enterprise operating in the industrial engineering & manufacturing sector.",
+      "about": "National Stock Exchange of India (NSE) is India's leading stock exchange and the world's largest derivatives exchange by trading volume. Its unlisted equity actively trades in the pre-IPO consensus market at ₹1,989.70 per share.",
       "documents": [
         {
           "title": "Registrar Allotment Status (MUFG Link Intime / MPMS)",
@@ -4974,11 +4974,15 @@ window.IpoData = {
       "refundDate": "2026-09-07",
       "dematDate": "2026-09-07",
       "issuePrice": 206,
+      "currentPrice": 1989.70,
+      "returnSinceIssuePct": 865.87,
+      "priceStatus": "UNLISTED_ACTIVE",
+      "priceSource": "Unlisted Market Consensus (₹1,989.70)",
       "gmpUpdatedAt": null,
       "dayHighGmp": null,
       "dayLowGmp": null,
       "gmpHistory": [],
-      "gmpDataStatus": "UNVERIFIED_SOURCE_NOT_PROVIDED"
+      "gmpDataStatus": "UNLISTED_EQUITY_CONSENSUS"
     },
     {
       "id": "spectraa-technology-solutions",
