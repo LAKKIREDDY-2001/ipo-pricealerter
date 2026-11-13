@@ -828,6 +828,22 @@
     }
 
     if (filtered.length === 0) {
+      if (state.activeIpoTab === "current") {
+        wrap.innerHTML = `
+          <div class="p-5 sm:p-8 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 rounded-2xl text-center max-w-full sm:max-w-xl mx-auto my-4 box-border">
+            <span class="text-3xl sm:text-4xl block mb-2">🏛️</span>
+            <h3 class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100">No Active Public Issues Bidding Today</h3>
+            <p class="muted text-xs mt-2 leading-relaxed">
+              There are currently no open public IPO issues in bidding window. Explore the upcoming pipeline to track scheduled issues or check recently listed debuts.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-2.5 mt-4">
+              <button type="button" onclick="window.IpoApp.switchIpoTab('upcoming')" class="btn btn-primary !min-h-[36px] text-xs font-bold w-full sm:w-auto">View Upcoming Pipeline (${allRecords.filter((x) => x.status === "UPCOMING").length}) →</button>
+              <button type="button" onclick="window.IpoApp.switchIpoTab('listed')" class="btn btn-secondary !min-h-[36px] text-xs w-full sm:w-auto">View Recently Listed →</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
       wrap.innerHTML = `<div class="empty">No IPO records found matching your filters.</div>`;
       return;
     }

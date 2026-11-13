@@ -11,6 +11,9 @@ end = content.rfind("};")
 json_str = content[start + len(prefix):end + 1]
 data = json.loads(json_str)
 
+# Explicitly remove any current/open IPO (zinka-logistics-solutions)
+data["records"] = [r for r in data["records"] if r.get("id") != "zinka-logistics-solutions" and r.get("slug") != "zinka-logistics-solutions-ipo"]
+
 new_records = [
     {
         "id": "crystal-crop-protection",
@@ -82,80 +85,6 @@ new_records = [
             "Subject to stringent environmental and regulatory clearances for technical active ingredients."
         ],
         "applicationDetails": "Eligible investors can apply in Regular and Employee reservation categories with minimum investment of ₹14,245 (55 shares per lot)."
-    },
-    {
-        "id": "zinka-logistics-solutions",
-        "slug": "zinka-logistics-solutions-ipo",
-        "companyName": "Zinka Logistics Solutions Limited",
-        "shortName": "Zinka Logistics (BlackBuck)",
-        "initials": "ZL",
-        "logoColor": "#2563EB",
-        "iconType": "logistics",
-        "status": "OPEN",
-        "board": "MAINBOARD",
-        "exchange": "BSE, NSE",
-        "sector": "Logistics & Freight Tech",
-        "issueType": "Book Built Issue IPO",
-        "issuePrice": 273,
-        "currentPrice": 273,
-        "listingPrice": None,
-        "listingGainPct": None,
-        "priceBandLow": 259,
-        "priceBandHigh": 273,
-        "lotSize": 54,
-        "issueSizeCr": 1114.72,
-        "minimumInvestment": 14742,
-        "faceValue": 1,
-        "registrar": "KFin Technologies Limited",
-        "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
-        "growwUrl": "https://groww.in/ipo/zinka-logistics-solutions-ipo",
-        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
-        "openDate": "2024-11-13",
-        "closeDate": "2024-11-18",
-        "allotDate": "2024-11-19",
-        "allotmentDate": "2024-11-19",
-        "refundDate": "2024-11-20",
-        "dematDate": "2024-11-20",
-        "listingDate": "2024-11-21",
-        "expectedListingPrice": 297,
-        "estProfitPerLot": 1296,
-        "gmp": 24,
-        "gmpPercentage": 8.79,
-        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
-        "dayHighGmp": 25,
-        "dayLowGmp": 22,
-        "trend": "up",
-        "subscriptionTotal": 0.32,
-        "subscriptionSummary": {
-            "qib": 0.26,
-            "nii": 0.18,
-            "retail": 0.52,
-            "employee": 1.20,
-            "total": 0.32
-        },
-        "about": "India's largest digital platform for truck operators, powering payments, telematics, load matching, and vehicle financing under the BlackBuck brand across 9,000+ trucking hubs.",
-        "documents": [
-            {
-                "name": "Red Herring Prospectus (RHP)",
-                "url": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
-                "type": "RHP"
-            }
-        ],
-        "financials": [
-            { "year": "FY24", "revenue": 316.5, "profit": -193.9, "growth": "+72.3%" },
-            { "year": "FY23", "revenue": 183.7, "profit": -290.5, "growth": "+45.1%" },
-            { "year": "FY22", "revenue": 126.6, "profit": -285.4, "growth": "Base" }
-        ],
-        "strengths": [
-            "Category-leading market share with 963,000+ truck operators active on the platform.",
-            "Strong revenue growth in tolling (FASTag) and telematics SaaS subscriptions.",
-            "Robust balance sheet post-issue with zero term debt."
-        ],
-        "risks": [
-            "Historical net operating losses due to high driver acquisition and tech costs.",
-            "Dependent on commercial vehicle freight volume and diesel economic cycles."
-        ],
-        "applicationDetails": "Eligible investors can apply in Retail, sNII, and bNII categories. Minimum bid 54 shares (₹14,742)."
     },
     {
         "id": "ntpc-green-energy",
@@ -388,7 +317,6 @@ new_records = [
         "estProfitPerLot": 26000,
         "gmp": 65,
         "gmpPercentage": 19.40,
-        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "trend": "up",
         "about": "Engineering, Procurement and Construction (EPC) contractor for extra high voltage (EHV) underground cabling, power utility distribution, and substation turnkey projects.",
         "documents": [],
@@ -460,7 +388,7 @@ for hid, hvals in harmonized.items():
     if hid in existing_map:
         data["records"][existing_map[hid]].update(hvals)
 
-data["updatedAt"] = "2024-11-13T22:30:00+05:30"
+data["updatedAt"] = "2024-11-14T00:10:00+05:30"
 data["stats"] = {
     "openCount": sum(1 for r in data["records"] if r.get("status") == "OPEN"),
     "closedCount": sum(1 for r in data["records"] if r.get("status") in ("CLOSED", "ALLOTMENT_AWAITED")),
@@ -482,6 +410,9 @@ with open("data/live-market-data.json", "r", encoding="utf-8") as f:
 clean_gmps = []
 for g in lmd.get("liveGmps", []):
     name = g.get("company", "")
+    # Exclude Zinka Logistics (BlackBuck) from liveGmps
+    if "zinka" in name.lower() or "blackbuck" in name.lower():
+        continue
     name = re.sub(r"\[email(&#160;|\s)*protected\]", "", name).strip()
     name = re.sub(r"\s+", " ", name)
     g["company"] = name
@@ -504,24 +435,6 @@ add_gmps = [
         "listingDate": "26-Nov",
         "updatedOn": "13-Nov 23:30",
         "confidence": "Neutral",
-        "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
-        "company": "Zinka Logistics (BlackBuck)",
-        "price": 273.0,
-        "gmp": 24.0,
-        "gmpPct": 8.79,
-        "estListing": 297.0,
-        "estProfitLot": 1296.0,
-        "sub": 0.32,
-        "sizeCr": 1114.72,
-        "lot": 54,
-        "openDate": "13-Nov",
-        "closeDate": "18-Nov",
-        "allotDate": "19-Nov",
-        "listingDate": "21-Nov",
-        "updatedOn": "13-Nov 21:30",
-        "confidence": "High",
         "source": "Market Consensus (InvestorGain / Broker Desk)"
     },
     {
@@ -645,4 +558,4 @@ lmd["liveGmps"] = final_gmps
 with open("data/live-market-data.json", "w", encoding="utf-8") as f:
     json.dump(lmd, f, indent=2, ensure_ascii=False)
 
-print(f"Updated live-market-data.json with {len(final_gmps)} clean live GMP entries.")
+print(f"Updated live-market-data.json with {len(final_gmps)} clean live GMP entries (Current IPO removed).")

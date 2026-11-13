@@ -1,10 +1,10 @@
 /* Auto-generated Unified IPO Database */
 (function(window) {
   window.IpoData = {
-  "updatedAt": "2024-11-13T22:30:00+05:30",
+  "updatedAt": "2024-11-14T00:10:00+05:30",
   "source": "IPO lifecycle and final subscription data cross-checked against NSE/BSE bidding data aggregation; status snapshot 6 Nov 2026.",
   "stats": {
-    "openCount": 1,
+    "openCount": 0,
     "closedCount": 2,
     "upcomingCount": 32,
     "listedCount": 176
@@ -90,95 +90,6 @@
         "Subject to stringent environmental and regulatory clearances for technical active ingredients."
       ],
       "applicationDetails": "Eligible investors can apply in Regular and Employee reservation categories with minimum investment of ₹14,245 (55 shares per lot)."
-    },
-    {
-      "id": "zinka-logistics-solutions",
-      "slug": "zinka-logistics-solutions-ipo",
-      "companyName": "Zinka Logistics Solutions Limited",
-      "shortName": "Zinka Logistics (BlackBuck)",
-      "initials": "ZL",
-      "logoColor": "#2563EB",
-      "iconType": "logistics",
-      "status": "OPEN",
-      "board": "MAINBOARD",
-      "exchange": "BSE, NSE",
-      "sector": "Logistics & Freight Tech",
-      "issueType": "Book Built Issue IPO",
-      "issuePrice": 273,
-      "currentPrice": 273,
-      "listingPrice": null,
-      "listingGainPct": null,
-      "priceBandLow": 259,
-      "priceBandHigh": 273,
-      "lotSize": 54,
-      "issueSizeCr": 1114.72,
-      "minimumInvestment": 14742,
-      "faceValue": 1,
-      "registrar": "KFin Technologies Limited",
-      "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
-      "growwUrl": "https://groww.in/ipo/zinka-logistics-solutions-ipo",
-      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
-      "openDate": "2024-11-13",
-      "closeDate": "2024-11-18",
-      "allotDate": "2024-11-19",
-      "allotmentDate": "2024-11-19",
-      "refundDate": "2024-11-20",
-      "dematDate": "2024-11-20",
-      "listingDate": "2024-11-21",
-      "expectedListingPrice": 297,
-      "estProfitPerLot": 1296,
-      "gmp": 24,
-      "gmpPercentage": 8.79,
-      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
-      "dayHighGmp": 25,
-      "dayLowGmp": 22,
-      "trend": "up",
-      "subscriptionTotal": 0.32,
-      "subscriptionSummary": {
-        "qib": 0.26,
-        "nii": 0.18,
-        "retail": 0.52,
-        "employee": 1.2,
-        "total": 0.32
-      },
-      "about": "India's largest digital platform for truck operators, powering payments, telematics, load matching, and vehicle financing under the BlackBuck brand across 9,000+ trucking hubs.",
-      "documents": [
-        {
-          "name": "Red Herring Prospectus (RHP)",
-          "url": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
-          "type": "RHP"
-        }
-      ],
-      "financials": [
-        {
-          "year": "FY24",
-          "revenue": 316.5,
-          "profit": -193.9,
-          "growth": "+72.3%"
-        },
-        {
-          "year": "FY23",
-          "revenue": 183.7,
-          "profit": -290.5,
-          "growth": "+45.1%"
-        },
-        {
-          "year": "FY22",
-          "revenue": 126.6,
-          "profit": -285.4,
-          "growth": "Base"
-        }
-      ],
-      "strengths": [
-        "Category-leading market share with 963,000+ truck operators active on the platform.",
-        "Strong revenue growth in tolling (FASTag) and telematics SaaS subscriptions.",
-        "Robust balance sheet post-issue with zero term debt."
-      ],
-      "risks": [
-        "Historical net operating losses due to high driver acquisition and tech costs.",
-        "Dependent on commercial vehicle freight volume and diesel economic cycles."
-      ],
-      "applicationDetails": "Eligible investors can apply in Retail, sNII, and bNII categories. Minimum bid 54 shares (₹14,742)."
     },
     {
       "id": "ntpc-green-energy",

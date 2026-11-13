@@ -130,7 +130,7 @@ async function run() {
       '#/insights',
       '#/learn',
       '#/calendar',
-      '#/ipo/zinka-logistics-solutions-ipo',
+      '#/ipo/crystal-crop-protection-limited-ipo',
       '#/stocks/NSE-IND'
     ];
 

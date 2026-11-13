@@ -2098,24 +2098,6 @@
       "source": "Market Consensus (InvestorGain / Broker Desk)"
     },
     {
-      "company": "Zinka Logistics (BlackBuck)",
-      "price": 273.0,
-      "gmp": 24.0,
-      "gmpPct": 8.79,
-      "estListing": 297.0,
-      "estProfitLot": 1296.0,
-      "sub": 0.32,
-      "sizeCr": 1114.72,
-      "lot": 54,
-      "openDate": "13-Nov",
-      "closeDate": "18-Nov",
-      "allotDate": "19-Nov",
-      "listingDate": "21-Nov",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
       "company": "NTPC Green Energy",
       "price": 108.0,
       "gmp": 3.5,
