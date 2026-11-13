@@ -452,7 +452,7 @@ def fetch_investorgain_gmp(ctx=None):
         for row in rows[1:]:
             cols = [re.sub(r"<[^>]+>", " ", c).strip() for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.DOTALL)]
             if len(cols) >= 11 and cols[0] != "Name":
-                name_clean = re.sub(r"\[email\s*protected\]|\(.*?%\)|BSE SME|NSE SME|SME|IPO", "", cols[0]).strip()
+                name_clean = re.sub(r"\[email(&#160;|\s)*protected\]|\[email[^\]]*protected\]|\(.*?%\)|BSE SME|NSE SME|SME|IPO", "", cols[0]).strip()
                 name_clean = re.sub(r"\s+", " ", name_clean).strip()
                 if not name_clean:
                     continue

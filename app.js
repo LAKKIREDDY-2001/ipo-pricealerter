@@ -82,7 +82,7 @@
     const d = "M " + pathPts.join(" L ");
     const areaD = d + ` L ${width},${height} L 0,${height} Z`;
 
-    return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible inline-block">
+    return `<svg viewBox="0 0 ${width} ${height}" style="max-width:${width}px; width:100%; height:auto;" class="inline-block overflow-hidden">
       <path d="${areaD}" fill="${fillColor}" />
       <path d="${d}" fill="none" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
     </svg>`;
@@ -105,8 +105,11 @@
     qsa(".view").forEach((el) => (el.hidden = el.id !== view + "-view"));
     state.currentView = view;
 
-    // Update Desktop Navigation Pills
+    // Update Desktop Navigation & Mobile Bottom Bar
     qsa(".nav-link").forEach((el) => {
+      el.classList.toggle("active", el.dataset.go === view);
+    });
+    qsa(".mobile-bottom button").forEach((el) => {
       el.classList.toggle("active", el.dataset.go === view);
     });
 
@@ -147,10 +150,18 @@
       go("ipo");
       if (raw === "upcoming") switchIpoTab("upcoming");
       else if (raw === "open") switchIpoTab("current");
+    } else if (raw.startsWith("ipo/")) {
+      const slug = raw.slice(4);
+      inspectIpo(slug);
     } else if (raw === "gmp") {
       go("gmp");
+    } else if (raw === "allotment") {
+      go("allotment");
     } else if (raw === "stocks" || raw === "live-prices") {
       go("stocks");
+    } else if (raw.startsWith("stocks/") || raw.startsWith("stock/")) {
+      const sym = raw.replace(/^stocks?\//, "");
+      inspectStock(sym);
     } else if (raw === "listed") {
       go("listed");
     } else if (raw === "insights") {
@@ -368,7 +379,7 @@
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                   <td>
                     <div class="flex items-center gap-2.5">
-                      <div class="w-7 h-7 rounded-lg grid place-items-center text-xs font-bold text-white shrink-0" style="background:${ipo.logoColor || '#2563eb'}">
+                      <div class="w-7 h-7 rounded-lg grid place-items-center text-xs font-bold text-white shrink-0" style="background-color: ${ipo.logoColor || '#2563eb'}; background-image: ${ipo.gradient || 'none'};">
                         ${ipo.initials || name.slice(0, 2).toUpperCase()}
                       </div>
                       <div>
@@ -440,8 +451,8 @@
             <span class="text-xs font-bold uppercase text-slate-500">Live Consensus Premium Curve (${liveGmps.length} active issues)</span>
             <span class="pill !text-[10px] !text-emerald-700 !bg-emerald-50 dark:!bg-emerald-950 dark:!text-emerald-300">● Live Stream</span>
           </div>
-          <div class="w-full flex items-center justify-center py-2">
-            ${createSparklineSvg(sampleTrend, true, 600, 110)}
+          <div class="w-full max-w-full overflow-hidden flex items-center justify-center py-2">
+            ${createSparklineSvg(sampleTrend, true, 480, 90)}
           </div>
           <div class="flex justify-between text-[11px] muted mt-2 px-2">
             <span>Issue Bidding</span>
@@ -693,7 +704,7 @@
               <button type="button" class="text-slate-400 hover:text-amber-500 p-1" onclick="event.stopPropagation(); window.IpoApp.toggleWatchlistStock('${s.symbol}')" title="${isBookmarked ? 'Remove from Watchlist' : 'Add to Watchlist'}">
                 <i data-lucide="${isBookmarked ? 'bookmark-check' : 'bookmark'}" class="w-4 h-4 ${isBookmarked ? 'text-amber-500 fill-amber-500' : ''}"></i>
               </button>
-              <div class="w-7 h-7 rounded-lg grid place-items-center text-xs font-bold text-white shrink-0" style="background:${s.gradient || '#2563eb'}">
+              <div class="w-7 h-7 rounded-lg grid place-items-center text-xs font-bold text-white shrink-0" style="background-color: ${s.logoColor || '#2563eb'}; background-image: ${s.gradient || 'none'};">
                 ${s.initials || s.name.slice(0, 2).toUpperCase()}
               </div>
               <div>
@@ -783,7 +794,7 @@
               <div>
                 <div class="flex justify-between items-start gap-2">
                   <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl grid place-items-center text-sm font-bold text-white shrink-0" style="background:${ipo.logoColor || '#2563eb'}">
+                    <div class="w-9 h-9 rounded-xl grid place-items-center text-sm font-bold text-white shrink-0" style="background-color: ${ipo.logoColor || '#2563eb'}; background-image: ${ipo.gradient || 'none'};">
                       ${ipo.initials || name.slice(0, 2).toUpperCase()}
                     </div>
                     <div>
@@ -1301,7 +1312,13 @@
   const applyTheme = (theme) => {
     state.theme = theme;
     localStorage.setItem("ipo_theme", theme);
-    document.body.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.setAttribute("data-theme", theme);
+    if (document.body) {
+      document.body.classList.toggle("dark", theme === "dark");
+      document.body.setAttribute("data-theme", theme);
+    }
     const btn = $("theme-toggle");
     if (btn) {
       btn.setAttribute("aria-pressed", String(theme === "dark"));
@@ -1502,40 +1519,182 @@
     }
 
     // Investment Calculator Form
+    initCalculatorView();
+    initAllotmentView();
+
+    // Browser back/forward navigation
+    window.addEventListener("popstate", handleHashRouting);
+  };
+
+  // 18. Allotment Status Checker
+  const initAllotmentView = () => {
+    const sel = $("allotment-ipo-select");
+    if (!sel) return;
+
+    const allRecords = window.IpoData?.records || [];
+    const optionsHtml = ['<option value="">-- Choose an IPO from the database --</option>']
+      .concat(allRecords.map((r) => `<option value="${r.id}">${r.shortName || r.companyName} (${r.status})</option>`));
+    sel.innerHTML = optionsHtml.join("");
+
+    const updateInfo = (ipo) => {
+      const infoBox = $("allotment-selected-info");
+      const regName = $("allot-reg-name");
+      const allotDate = $("allot-date");
+      const listDate = $("allot-list-date");
+      const badge = $("allot-badge");
+      const btn = $("btn-check-allotment-direct");
+
+      if (!ipo) {
+        if (infoBox) infoBox.classList.add("hidden");
+        return;
+      }
+
+      if (infoBox) infoBox.classList.remove("hidden");
+      if (regName) regName.textContent = ipo.registrar || "Official Registrar";
+      if (allotDate) allotDate.textContent = ipo.allotDate || ipo.allotmentDate || "TBA";
+      if (listDate) listDate.textContent = ipo.listingDate || "TBA";
+      if (badge) {
+        badge.textContent = ipo.status || "ALLOTMENT AWAITED";
+        badge.className = "pill !text-[10px] " + (ipo.status === "LISTED" ? "!bg-emerald-100 !text-emerald-800" : "!bg-amber-100 !text-amber-800");
+      }
+      if (btn) {
+        btn.onclick = () => {
+          const url = ipo.allotmentUrl || "https://linkintime.co.in/initial_offer/public-issues.html";
+          window.open(url, "_blank", "noopener,noreferrer");
+        };
+      }
+    };
+
+    sel.addEventListener("change", () => {
+      const selectedId = sel.value;
+      const ipo = allRecords.find((r) => r.id === selectedId);
+      updateInfo(ipo);
+    });
+
+    const directBtn = $("btn-check-allotment-direct");
+    if (directBtn) {
+      directBtn.onclick = () => {
+        const selectedId = sel.value;
+        const ipo = allRecords.find((r) => r.id === selectedId);
+        const url = ipo?.allotmentUrl || "https://linkintime.co.in/initial_offer/public-issues.html";
+        window.open(url, "_blank", "noopener,noreferrer");
+      };
+    }
+  };
+
+  // 19. Investment Calculator Controller
+  const initCalculatorView = () => {
+    const sel = $("calc-quick-pick");
+    const priceInp = $("calc-price");
+    const lotInp = $("calc-lot");
+    const countInp = $("calc-count");
+    const gmpInp = $("calc-gmp");
+    const resEl = $("calc-result");
+    const resetBtn = $("calc-btn-reset");
+    const presetBtns = qsa("#calc-category-presets button");
+
+    if (sel) {
+      const allRecords = window.IpoData?.records || [];
+      const opts = ['<option value="">-- Choose an IPO to auto-fill details --</option>']
+        .concat(allRecords.map((r) => `<option value="${r.id}">${r.shortName || r.companyName} (Lot: ${r.lotSize || 1})</option>`));
+      sel.innerHTML = opts.join("");
+
+      sel.addEventListener("change", () => {
+        const ipo = allRecords.find((r) => r.id === sel.value);
+        if (ipo) {
+          if (priceInp) priceInp.value = ipo.priceBandHigh || ipo.issuePrice || ipo.priceBandLow || "";
+          if (lotInp) lotInp.value = ipo.lotSize || 1;
+          if (gmpInp) gmpInp.value = ipo.gmp !== null && ipo.gmp !== undefined ? ipo.gmp : "";
+          runCalc();
+        }
+      });
+    }
+
+    presetBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        presetBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        if (countInp) {
+          countInp.value = btn.dataset.lots || 1;
+          runCalc();
+        }
+      });
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (sel) sel.value = "";
+        if (priceInp) priceInp.value = "";
+        if (lotInp) lotInp.value = "";
+        if (countInp) countInp.value = "1";
+        if (gmpInp) gmpInp.value = "";
+        presetBtns.forEach((b, idx) => b.classList.toggle("active", idx === 0));
+        if (resEl) {
+          resEl.className = "empty mt-4";
+          resEl.textContent = "Select an IPO above or enter issue price and lot size to compute your investment breakdown.";
+        }
+      });
+    }
+
+    const runCalc = () => {
+      const price = Number(priceInp?.value || 0);
+      const lot = Number(lotInp?.value || 0);
+      const count = Number(countInp?.value || 1);
+      const gmp = gmpInp?.value !== "" ? Number(gmpInp?.value) : null;
+      if (!resEl) return;
+
+      if (price <= 0 || lot <= 0 || count <= 0) {
+        resEl.className = "p-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-amber-900 dark:text-amber-200 text-xs font-semibold mt-4";
+        resEl.textContent = "Please enter positive numbers for issue price, shares per lot, and number of lots.";
+        return;
+      }
+
+      const investment = price * lot * count;
+      const totalShares = lot * count;
+      const estPrice = gmp !== null ? price + gmp : null;
+      const totalProfit = gmp !== null ? gmp * totalShares : null;
+      const gainPct = gmp !== null ? (gmp / price) * 100 : null;
+
+      resEl.className = "mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60";
+      resEl.innerHTML = `
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+          <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+            <span class="muted text-[11px] font-bold uppercase tracking-wider block">Total Capital</span>
+            <strong class="text-base sm:text-lg font-extrabold text-slate-800 dark:text-slate-100 block mt-1">${formatCurrencyExact(investment)}</strong>
+            <span class="text-[10px] muted">${count} Lot${count > 1 ? "s" : ""} · ${formatIndianNum(totalShares)} Shares</span>
+          </div>
+          <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+            <span class="muted text-[11px] font-bold uppercase tracking-wider block">Estimated Price</span>
+            <strong class="text-base sm:text-lg font-extrabold ${gmp !== null && gmp >= 0 ? 'text-emerald-600' : 'text-slate-800 dark:text-slate-100'} block mt-1">${estPrice !== null ? formatCurrencyExact(estPrice) : '—'}</strong>
+            <span class="text-[10px] muted">${gainPct !== null ? (gainPct >= 0 ? '+' : '') + gainPct.toFixed(2) + '% gain' : 'GMP input optional'}</span>
+          </div>
+          <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+            <span class="muted text-[11px] font-bold uppercase tracking-wider block">Projected Profit</span>
+            <strong class="text-base sm:text-lg font-extrabold ${totalProfit !== null && totalProfit >= 0 ? 'text-emerald-600' : 'text-rose-600'} block mt-1">${totalProfit !== null ? formatCurrencyExact(totalProfit) : '—'}</strong>
+            <span class="text-[10px] muted">Per ${count} lot${count > 1 ? "s" : ""}</span>
+          </div>
+          <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+            <span class="muted text-[11px] font-bold uppercase tracking-wider block">Lot Sizing</span>
+            <strong class="text-base sm:text-lg font-extrabold text-blue-600 block mt-1">${lot} Shares</strong>
+            <span class="text-[10px] muted">Min lot unit</span>
+          </div>
+        </div>
+        <p class="muted text-[11px] mt-4 leading-relaxed">
+          * Note: Calculations are hypothetical models for risk planning. In oversubscribed issues, allotment is determined via exchange lottery. GMP is an unofficial market sentiment indicator and does not guarantee listing gains.
+        </p>
+      `;
+    };
+
     const calcForm = $("calc-form");
     if (calcForm) {
       calcForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        const price = Number($("calc-price")?.value || 0);
-        const lot = Number($("calc-lot")?.value || 0);
-        const count = Number($("calc-count")?.value || 1);
-        const gmp = $("calc-gmp")?.value !== "" ? Number($("calc-gmp")?.value) : null;
-        const resEl = $("calc-result");
-        if (!resEl) return;
-
-        if (price <= 0 || lot <= 0 || count <= 0) {
-          resEl.textContent = "Please enter positive numbers for issue price, shares per lot, and number of lots.";
-          return;
-        }
-
-        const investment = price * lot * count;
-        const totalShares = lot * count;
-
-        let output = `Total Investment: ${formatCurrencyExact(investment)} for ${totalShares} shares (${count} lot${count > 1 ? 's' : ''}).`;
-        if (gmp !== null) {
-          const estPrice = price + gmp;
-          const totalProfit = gmp * totalShares;
-          const gainPct = (gmp / price) * 100;
-          output += ` Estimated Listing Price: ${formatCurrencyExact(estPrice)} (${gainPct >= 0 ? "+" : ""}${gainPct.toFixed(2)}%). Projected Listing Profit: ${formatCurrencyExact(totalProfit)}.`;
-        }
-
-        resEl.className = "p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-emerald-900 dark:text-emerald-200 text-xs font-semibold leading-relaxed mt-4";
-        resEl.textContent = output;
+        runCalc();
+      });
+      [priceInp, lotInp, countInp, gmpInp].forEach((inp) => {
+        if (inp) inp.addEventListener("input", runCalc);
       });
     }
-
-    // Browser back/forward navigation
-    window.addEventListener("popstate", handleHashRouting);
   };
 
   // Initialization on DOMContentLoaded

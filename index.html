@@ -15,6 +15,43 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="canonical" href="https://pricealerter.in/">
 
+  <!-- Open Graph & Social Discovery for Google & Crawlers -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pricealerter.in/">
+  <meta property="og:title" content="PriceAlerter — Indian IPO &amp; Market Intelligence">
+  <meta property="og:description" content="Track Indian IPO opportunities, live Bhavcopy stock prices, consensus GMP indicators, subscription multiples, and listing performance.">
+  <meta property="og:image" content="https://pricealerter.in/favicon-512x512.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://pricealerter.in/favicon-512x512.png">
+
+  <!-- Structured Data: Organization & WebSite with Logo for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://pricealerter.in/#organization",
+        "name": "PriceAlerter",
+        "url": "https://pricealerter.in/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pricealerter.in/favicon-512x512.png",
+          "width": 512,
+          "height": 512
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pricealerter.in/#website",
+        "url": "https://pricealerter.in/",
+        "name": "PriceAlerter",
+        "publisher": { "@id": "https://pricealerter.in/#organization" }
+      }
+    ]
+  }
+  </script>
+
   <!-- Google AdSense Account Verification -->
   <meta name="google-adsense-account" content="ca-pub-1181608933401999">
   <meta name="description" content="Track Indian IPO opportunities, live Bhavcopy stock prices, consensus GMP indicators, subscription multiples, and listing performance.">
@@ -26,13 +63,15 @@
 
   <style>
     :root{--page:#f7f9fc;--card:#fff;--ink:#14243a;--muted:#64748b;--navy:#13263f;--line:#e5eaf1;--green:#059669;--blue:#2563eb;--soft:#f1f5f9}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;width:100%;background:var(--page);color:var(--ink);font-family:'DM Sans',sans-serif}
-    body.dark{--page:#0d1725;--card:#18283a;--ink:#eff5fb;--muted:#afbdd0;--navy:#091321;--line:#35465b;--soft:#22374c}
+    html.dark, html[data-theme="dark"], body.dark, body[data-theme="dark"]{--page:#0d1725;--card:#18283a;--ink:#eff5fb;--muted:#afbdd0;--navy:#091321;--line:#35465b;--soft:#22374c}
+    *{box-sizing:border-box}
+    html, body{margin:0;width:100%;max-width:100vw;overflow-x:hidden;position:relative;background:var(--page);color:var(--ink);font-family:'DM Sans',sans-serif;scroll-behavior:smooth}
     button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
     :focus-visible{outline:3px solid #38bdf8!important;outline-offset:3px}
     [hidden]{display:none!important}
-    .shell{width:100%;min-width:0}.wrap{width:100%;max-width:1536px;margin:auto;padding-left:clamp(16px,3vw,44px);padding-right:clamp(16px,3vw,44px)}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 30px #14243a08}
+    .shell, main#app, .wrap, section.view{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+    .wrap{max-width:1536px;margin:auto;padding-left:clamp(14px,3vw,44px);padding-right:clamp(14px,3vw,44px)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 30px #14243a08;min-width:0}
     .muted{color:var(--muted)}.heading{font-family:'Libre Franklin',sans-serif;letter-spacing:-.045em;font-weight:800}
     .eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--green)}
     .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:42px;border-radius:10px;padding:9px 15px;font-weight:700;white-space:nowrap;transition:transform .2s,background .2s}
@@ -42,25 +81,60 @@
     .nav-link:hover,.nav-link.active{color:var(--green);background:var(--soft)}
     .pill{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:99px;background:var(--soft);color:var(--muted);font-size:11px;font-weight:800}
     .dot{width:7px;height:7px;border-radius:50%;background:#94a3b8;display:inline-block}
-    .tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+    .tabs{display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:thin;width:100%;max-width:100%;min-width:0}
     .tab{border:1px solid transparent;border-radius:9px;padding:8px 12px;white-space:nowrap;color:var(--muted);font-weight:700;font-size:13px}
     .tab.active{background:#e7f7f0;color:#047857;border-color:#bce8d3}
     .rule{border-top:1px solid var(--line)}
     .empty{border:1px dashed var(--line);border-radius:12px;background:var(--soft);padding:23px;color:var(--muted);font-size:13px;line-height:1.6}
-    .table-scroll{overflow-x:auto;width:100%}table{width:100%;border-collapse:collapse;min-width:850px;text-align:left;font-size:12px}
+    .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;max-width:100%;min-width:0}
+    .table-scroll table{width:100%;border-collapse:collapse;min-width:820px;text-align:left;font-size:12px}
     th{background:var(--soft);color:var(--muted);font-weight:800;white-space:nowrap}th,td{padding:12px 13px;border-bottom:1px solid var(--line)}
-    .data-number{font-variant-numeric:tabular-nums}.market-card{min-width:175px;flex:1}
+    .data-number{font-variant-numeric:tabular-nums}
+    .market-row{display:flex;gap:10px;width:100%;max-width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+    .market-row::-webkit-scrollbar{display:none}
+    .market-card{flex:0 0 170px;min-width:170px;max-width:185px;scroll-snap-align:start}
     .view{animation:fade .25s ease both}@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
     .placeholder-chart{height:170px;border:1px dashed var(--line);border-radius:12px;background:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--line) 40px);display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
     .mobile-bottom{display:none}header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
     @media(max-width:1100px){.desktop-links{display:none!important}}
-    @media(max-width:700px){.market-row{overflow-x:auto;flex-wrap:nowrap!important}.mobile-bottom{display:flex;position:sticky;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:7px 4px env(safe-area-inset-bottom)}
-      .mobile-bottom button{font-size:10px;display:grid;justify-items:center;gap:3px;color:var(--muted);min-width:55px}.mobile-bottom svg{width:18px;height:18px}.compact-hide{display:none!important}}
+    @media(max-width:768px){
+      .mobile-bottom{display:flex;position:sticky;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom, 0px));width:100%;box-shadow:0 -4px 16px rgba(0,0,0,0.04)}
+      .mobile-bottom button{font-size:10px;font-weight:600;display:grid;justify-items:center;gap:3px;color:var(--muted);min-width:52px;background:transparent;border:0;padding:2px 0}
+      .mobile-bottom button.active{color:#059669;font-weight:800}
+      .mobile-bottom button.active svg{stroke:#059669;stroke-width:2.5}
+      .mobile-bottom svg{width:20px;height:20px}
+      .compact-hide{display:none!important}
+    }
     .cookie-banner{position:fixed;bottom:20px;left:20px;right:20px;max-width:540px;background:var(--navy);color:#fff;padding:16px 20px;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,0.25);z-index:9999;font-size:12.5px;line-height:1.55}
-    @media(max-width:768px){.cookie-banner{bottom:calc(66px + env(safe-area-inset-bottom, 0px));left:12px;right:12px;}}
+    @media(max-width:768px){.cookie-banner{bottom:calc(68px + env(safe-area-inset-bottom, 0px));left:12px;right:12px;}}
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script>
+    window.tailwind = {
+      darkMode: 'class'
+    };
+    (function() {
+      try {
+        var saved = localStorage.getItem("ipo_theme") || localStorage.getItem("theme") || "light";
+        var isDark = saved === "dark";
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.setAttribute("data-theme", saved);
+        var obs = new MutationObserver(function(muts) {
+          muts.forEach(function(m) {
+            if (m.attributeName === "data-theme") {
+              var val = document.documentElement.getAttribute("data-theme");
+              if (val === "dark" || val === "light") {
+                document.documentElement.classList.toggle("dark", val === "dark");
+                if (document.body) document.body.classList.toggle("dark", val === "dark");
+              }
+            }
+          });
+        });
+        obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      } catch(e) {}
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
  </head>
  <body data-template-id="__page-root" class="w-full">
@@ -77,8 +151,10 @@
 
      <nav class="desktop-links flex items-center gap-0 ml-5 flex-1" aria-label="Primary navigation">
       <button data-go="dashboard" class="nav-link active">Dashboard</button>
-      <button data-go="ipo" class="nav-link">IPO</button>
+      <button data-go="ipo" class="nav-link">IPOs</button>
       <button data-go="gmp" class="nav-link">GMP Tracker</button>
+      <button data-go="allotment" class="nav-link">Allotment</button>
+      <button data-go="calculator" class="nav-link">Calculator</button>
       <button data-go="stocks" class="nav-link">Live Stocks</button>
       <button data-go="listed" class="nav-link">Listed Stocks</button>
       <button data-go="insights" class="nav-link">Market Insights</button>
@@ -106,13 +182,17 @@
     </div>
 
     <nav id="mobile-menu" hidden="" class="wrap pb-3 flex flex-wrap gap-1" aria-label="More destinations">
+      <button data-go="ipo" class="nav-link">IPOs</button>
       <button data-go="gmp" class="nav-link">GMP Tracker</button>
+      <button data-go="allotment" class="nav-link">Allotment Status</button>
+      <button data-go="calculator" class="nav-link">IPO Calculator</button>
+      <button data-go="stocks" class="nav-link">Live Stocks</button>
       <button data-go="listed" class="nav-link">Listed Stocks</button>
       <button data-go="insights" class="nav-link">Insights</button>
       <button data-go="learn" class="nav-link">Learn</button>
       <button data-go="calendar" class="nav-link">Calendar</button>
+      <button data-go="watchlist" class="nav-link">Watchlist</button>
       <button data-go="alerts" class="nav-link">Alerts</button>
-      <button data-go="calculator" class="nav-link">Calculator</button>
       <button data-go="profile" class="nav-link">Profile</button>
     </nav>
    </header>
@@ -125,6 +205,8 @@
     <button data-ipo-category="current" class="tab">Open IPO</button>
     <button data-ipo-category="closed" class="tab">Closed IPO</button>
     <button data-ipo-category="listed" class="tab">Listed IPO</button>
+    <button data-go="allotment" class="tab">Allotment Status</button>
+    <button data-go="calculator" class="tab">IPO Calculator</button>
     <button data-go="calendar" class="tab">IPO Calendar</button>
    </nav>
 
@@ -133,8 +215,8 @@
 
     <!-- 1. DASHBOARD VIEW -->
     <section id="dashboard-view" class="view space-y-6">
-     <div class="rounded-[20px] bg-[#13263f] text-white p-6 sm:p-9 lg:p-11 relative overflow-hidden">
-      <div class="absolute right-[-65px] top-[-110px] w-80 h-80 rounded-full border-[55px] border-white/[.045] pointer-events-none"></div>
+     <div class="rounded-[20px] bg-[#13263f] text-white p-6 sm:p-9 lg:p-11 relative overflow-hidden max-w-full">
+      <div class="absolute right-[-65px] top-[-110px] w-80 h-80 rounded-full border-[55px] border-white/[.045] pointer-events-none hidden sm:block"></div>
       <div class="relative grid lg:grid-cols-[1.4fr_.6fr] gap-8 items-end">
        <div>
         <p class="text-[#77dfb7] text-xs font-extrabold tracking-[.16em] uppercase">THE RESEARCH TERMINAL FOR CURIOUS INVESTORS</p>
@@ -343,6 +425,146 @@
         </thead>
         <tbody></tbody>
        </table>
+      </div>
+     </div>
+    </section>
+
+    <!-- ALLOTMENT STATUS VIEW -->
+    <section id="allotment-view" class="view space-y-6" hidden="">
+     <div>
+      <p class="eyebrow">REGISTRAR DIRECT ACCESS</p>
+      <h1 class="heading text-3xl">IPO Allotment Status</h1>
+      <p class="mt-2 muted max-w-3xl text-sm sm:text-base">Check live allotment results directly on official SEBI-registered registrar portals using your PAN, Application Number, or Demat DP/Client ID.</p>
+     </div>
+
+     <!-- Quick IPO Registrar Search & Direct Verification Card -->
+     <div class="card p-6">
+      <div class="max-w-2xl">
+        <label for="allotment-ipo-select" class="block font-bold text-sm mb-2">Select Recent / Active IPO to Check Allotment</label>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <select id="allotment-ipo-select" class="field sm:flex-1 font-medium">
+            <option value="">-- Choose an IPO from the database --</option>
+          </select>
+          <button id="btn-check-allotment-direct" type="button" class="btn btn-primary shrink-0">Open Registrar Portal ↗</button>
+        </div>
+        <div id="allotment-selected-info" class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 hidden">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div><span class="muted block">Registrar:</span><strong id="allot-reg-name" class="text-sm font-bold text-slate-800 dark:text-slate-100">—</strong></div>
+            <div><span class="muted block">Allotment Date:</span><strong id="allot-date" class="text-sm font-bold text-slate-800 dark:text-slate-100">—</strong></div>
+            <div><span class="muted block">Listing Date:</span><strong id="allot-list-date" class="text-sm font-bold text-slate-800 dark:text-slate-100">—</strong></div>
+            <div><span class="muted block">Status:</span><span id="allot-badge" class="pill !text-[10px]">ALLOTMENT AWAITED</span></div>
+          </div>
+          <p class="text-xs muted mt-3">Clicking the button will redirect directly to the official registrar query page for this issue.</p>
+        </div>
+      </div>
+     </div>
+
+     <!-- Top Official Registrar Fast Links -->
+     <div>
+      <h2 class="heading text-xl mb-3">Official SEBI-Registered IPO Registrars</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="registrar-cards-grid">
+        <article class="card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="w-8 h-8 rounded-lg bg-blue-600 text-white grid place-items-center font-bold text-xs">LI</span>
+              <span class="pill !text-[10px]">Top Registrar</span>
+            </div>
+            <strong class="block text-base font-extrabold text-slate-800 dark:text-slate-100">Link Intime India</strong>
+            <p class="muted text-xs mt-1">Registrar for Tata Tech, Waaree Energies, C2C Advanced Systems &amp; major mainboards.</p>
+          </div>
+          <a href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-[36px] text-xs mt-4 !justify-center">
+            Link Intime Status Portal ↗
+          </a>
+        </article>
+
+        <article class="card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="w-8 h-8 rounded-lg bg-emerald-600 text-white grid place-items-center font-bold text-xs">KF</span>
+              <span class="pill !text-[10px]">Top Registrar</span>
+            </div>
+            <strong class="block text-base font-extrabold text-slate-800 dark:text-slate-100">KFin Technologies</strong>
+            <p class="muted text-xs mt-1">Registrar for NTPC Green, Zinka Logistics (BlackBuck), Bajaj Housing Finance &amp; Swiggy.</p>
+          </div>
+          <a href="https://kosmic.kfintech.com/ipostatus/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-[36px] text-xs mt-4 !justify-center">
+            KFintech Status Portal ↗
+          </a>
+        </article>
+
+        <article class="card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white grid place-items-center font-bold text-xs">BS</span>
+              <span class="pill !text-[10px]">High Volume</span>
+            </div>
+            <strong class="block text-base font-extrabold text-slate-800 dark:text-slate-100">Bigshare Services</strong>
+            <p class="muted text-xs mt-1">Registrar for Enviro Infra Engineers, Rajesh Power Services &amp; numerous SME issues.</p>
+          </div>
+          <a href="https://ipo.bigshareonline.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-[36px] text-xs mt-4 !justify-center">
+            Bigshare Status Portal ↗
+          </a>
+        </article>
+
+        <article class="card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="w-8 h-8 rounded-lg bg-amber-600 text-white grid place-items-center font-bold text-xs">MS</span>
+              <span class="pill !text-[10px]">SME Specialist</span>
+            </div>
+            <strong class="block text-base font-extrabold text-slate-800 dark:text-slate-100">Maashitla Securities</strong>
+            <p class="muted text-xs mt-1">Registrar for Rajputana Biodiesel, rapid SME growing issues and capital markets.</p>
+          </div>
+          <a href="https://maashitla.com/allotment-status/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-[36px] text-xs mt-4 !justify-center">
+            Maashitla Status Portal ↗
+          </a>
+        </article>
+
+        <article class="card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="w-8 h-8 rounded-lg bg-cyan-600 text-white grid place-items-center font-bold text-xs">SK</span>
+              <span class="pill !text-[10px]">Active</span>
+            </div>
+            <strong class="block text-base font-extrabold text-slate-800 dark:text-slate-100">Skyline Financial Services</strong>
+            <p class="muted text-xs mt-1">Registrar for industrial manufacturers, consumer brands, and NSE SME issues.</p>
+          </div>
+          <a href="https://www.skylinerta.com/ipo.php" target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-[36px] text-xs mt-4 !justify-center">
+            Skyline Status Portal ↗
+          </a>
+        </article>
+
+        <article class="card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="w-8 h-8 rounded-lg bg-purple-600 text-white grid place-items-center font-bold text-xs">CA</span>
+              <span class="pill !text-[10px]">Active</span>
+            </div>
+            <strong class="block text-base font-extrabold text-slate-800 dark:text-slate-100">Cameo Corporate Services</strong>
+            <p class="muted text-xs mt-1">Official share transfer agent and registrar for prominent South India IPO issues.</p>
+          </div>
+          <a href="https://ipostatus1.cameoindia.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-[36px] text-xs mt-4 !justify-center">
+            Cameo Status Portal ↗
+          </a>
+        </article>
+      </div>
+     </div>
+
+     <!-- Step-by-Step Guidance Card -->
+     <div class="card p-6">
+      <h2 class="heading text-xl mb-3">How to Check IPO Allotment Status in 3 Simple Steps</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-xs leading-relaxed">
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
+          <span class="font-extrabold text-emerald-600 text-sm block mb-1">Step 1: Open Official Registrar</span>
+          <p class="muted">Check which registrar was assigned in the IPO red herring prospectus (Link Intime, KFintech, Bigshare, etc.) and open their official portal.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
+          <span class="font-extrabold text-blue-600 text-sm block mb-1">Step 2: Select Company &amp; Mode</span>
+          <p class="muted">Select the IPO name from the dropdown. Choose identification mode: <strong>PAN Card Number</strong> (fastest), Application Number, or Demat DP/Client ID.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
+          <span class="font-extrabold text-purple-600 text-sm block mb-1">Step 3: View Allotment &amp; Refund</span>
+          <p class="muted">Enter captcha and click Submit. You will see total shares applied, shares allotted (0 if not allotted), and refund mandate unblock status.</p>
+        </div>
       </div>
      </div>
     </section>
@@ -562,32 +784,59 @@
     <!-- 11. CALCULATOR VIEW -->
     <section id="calculator-view" class="view space-y-5" hidden="">
      <div>
-      <p class="eyebrow">HYPOTHETICAL SCENARIOS ONLY</p>
-      <h1 class="heading text-3xl">Investment Calculator</h1>
-      <p class="muted mt-2 max-w-2xl text-sm sm:text-base">Evaluate your capital commitment, lot allocations, and hypothetical listing day profit scenarios.</p>
+      <p class="eyebrow">HYPOTHETICAL SCENARIOS &amp; POSITION SIZING</p>
+      <h1 class="heading text-3xl">IPO Investment &amp; Profit Calculator</h1>
+      <p class="muted mt-2 max-w-2xl text-sm sm:text-base">Evaluate your required capital commitment, lot allocations, and hypothetical listing day profit scenarios across Retail and HNI categories.</p>
      </div>
-     <form id="calc-form" class="card p-5 max-w-3xl">
-      <div class="grid sm:grid-cols-2 gap-4">
+
+     <!-- Quick IPO Prefill -->
+     <div class="card p-5">
+      <div class="max-w-xl">
+        <label for="calc-quick-pick" class="block font-bold text-xs uppercase tracking-wider muted mb-1.5">⚡ Quick Pre-Fill From Active / Upcoming IPOs</label>
+        <select id="calc-quick-pick" class="field text-sm font-semibold">
+          <option value="">-- Choose an IPO to auto-fill details --</option>
+        </select>
+      </div>
+     </div>
+
+     <form id="calc-form" class="card p-5 sm:p-6 space-y-5">
+      <!-- Category Presets -->
+      <div>
+        <label class="block font-bold text-xs uppercase tracking-wider muted mb-2">Investor Category Presets</label>
+        <div class="flex flex-wrap gap-2" id="calc-category-presets">
+          <button type="button" data-lots="1" class="tab active !py-1.5 !px-3 !text-xs font-bold">Retail Min (1 Lot)</button>
+          <button type="button" data-lots="13" class="tab !py-1.5 !px-3 !text-xs font-bold">Retail Max (13-14 Lots ~ ₹2L)</button>
+          <button type="button" data-lots="15" class="tab !py-1.5 !px-3 !text-xs font-bold">sNII / Small HNI (15 Lots &gt; ₹2L)</button>
+          <button type="button" data-lots="70" class="tab !py-1.5 !px-3 !text-xs font-bold">bNII / Big HNI (70+ Lots &gt; ₹10L)</button>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
        <div>
-        <label for="calc-price" class="block font-bold text-sm mb-1">Issue Price (₹)</label>
-        <input id="calc-price" type="number" min="0.01" step="0.01" required="" class="field" placeholder="e.g. 295">
+        <label for="calc-price" class="block font-bold text-xs mb-1">Issue Price / Cut-Off (₹) <span class="text-rose-500">*</span></label>
+        <input id="calc-price" type="number" min="0.01" step="0.01" required="" class="field" placeholder="e.g. 273">
        </div>
        <div>
-        <label for="calc-lot" class="block font-bold text-sm mb-1">Shares Per Lot</label>
-        <input id="calc-lot" type="number" min="1" step="1" required="" class="field" placeholder="e.g. 50">
+        <label for="calc-lot" class="block font-bold text-xs mb-1">Shares Per Lot <span class="text-rose-500">*</span></label>
+        <input id="calc-lot" type="number" min="1" step="1" required="" class="field" placeholder="e.g. 54">
        </div>
        <div>
-        <label for="calc-count" class="block font-bold text-sm mb-1">Number of Lots</label>
-        <input id="calc-count" type="number" min="1" step="1" value="1" required="" class="field">
+        <label for="calc-count" class="block font-bold text-xs mb-1">Number of Lots <span class="text-rose-500">*</span></label>
+        <input id="calc-count" type="number" min="1" step="1" value="1" required="" class="field" placeholder="1">
        </div>
        <div>
-        <label for="calc-gmp" class="block font-bold text-sm mb-1">Estimated GMP (₹; optional)</label>
-        <input id="calc-gmp" type="number" step="0.01" class="field" placeholder="e.g. 75">
+        <label for="calc-gmp" class="block font-bold text-xs mb-1">Estimated GMP (₹; optional)</label>
+        <input id="calc-gmp" type="number" step="0.01" class="field" placeholder="e.g. 24">
        </div>
       </div>
-      <button type="submit" class="btn btn-primary mt-5">Calculate Scenario</button>
-      <div id="calc-result" role="status" aria-live="polite" class="empty mt-5">
-       Enter issue price and lot size to compute your investment breakdown.
+
+      <div class="flex gap-3">
+        <button type="submit" class="btn btn-primary">Calculate Scenario</button>
+        <button type="button" id="calc-btn-reset" class="btn btn-secondary">Reset</button>
+      </div>
+
+      <div id="calc-result" role="status" aria-live="polite" class="empty mt-4">
+       Select an IPO above or enter issue price and lot size to compute your investment breakdown.
       </div>
      </form>
     </section>
@@ -656,7 +905,7 @@
       <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
         <span class="text-xs font-bold uppercase text-slate-500">Official Bhavcopy Settlement Curve</span>
         <div class="w-full flex justify-center py-4">
-          <svg width="480" height="90" viewBox="0 0 480 90">
+          <svg class="w-full max-w-[480px] h-auto" viewBox="0 0 480 90">
             <path d="M 0,70 L 60,65 L 120,40 L 180,45 L 240,25 L 300,30 L 360,15 L 420,20 L 480,5" fill="none" stroke="#059669" stroke-width="2.5" />
           </svg>
         </div>
@@ -698,6 +947,8 @@
         <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Editorial Standards">Editorial Standards</button>
         <button type="button" class="hover:text-white underline underline-offset-4" data-footer="Data Methodology">Data Methodology</button>
         <button type="button" class="hover:text-white underline underline-offset-4" data-footer="IPO Guides">IPO Guides</button>
+        <a href="/sitemap.xml" class="hover:text-white underline underline-offset-4">Sitemap</a>
+        <button type="button" class="hover:text-white underline underline-offset-4" id="btn-reopen-cookie-banner">Cookie Notice</button>
       </nav>
      </div>
      <p class="border-t border-white/15 pt-5 mt-8 text-[#bbcbda] text-xs leading-relaxed">
@@ -708,11 +959,11 @@
 
    <!-- Mobile Bottom Bar -->
    <nav class="mobile-bottom" aria-label="Mobile primary navigation">
-    <button data-go="dashboard"><i data-lucide="layout-dashboard"></i>Home</button>
+    <button data-go="dashboard" class="active"><i data-lucide="layout-dashboard"></i>Home</button>
     <button data-go="ipo"><i data-lucide="calendar-days"></i>IPOs</button>
-    <button data-go="search"><i data-lucide="search"></i>Search</button>
+    <button data-go="gmp"><i data-lucide="trending-up"></i>GMP</button>
+    <button data-go="allotment"><i data-lucide="check-circle-2"></i>Allotment</button>
     <button data-go="stocks"><i data-lucide="chart-no-axes-combined"></i>Stocks</button>
-    <button data-go="watchlist"><i data-lucide="bookmark"></i>Saved</button>
    </nav>
   </div>
 
@@ -741,14 +992,20 @@
             if (banner) banner.style.display = "none";
           });
         }
+        var reopenBtn = document.getElementById("btn-reopen-cookie-banner");
+        if (reopenBtn) {
+          reopenBtn.addEventListener("click", function() {
+            if (banner) banner.style.display = "block";
+          });
+        }
       } catch(e) {}
     })();
   </script>
 
   <!-- Application Scripts -->
-  <script src="data/ipo-data.js?v=20261112_v90"></script>
-  <script src="data/listed-gains-data.js?v=20261112_v90"></script>
-  <script src="data/securities-master.js?v=20261112_v90"></script>
-  <script src="app.js?v=20261112_v90"></script>
+  <script src="data/ipo-data.js?v=20261113_v91"></script>
+  <script src="data/listed-gains-data.js?v=20261113_v91"></script>
+  <script src="data/securities-master.js?v=20261113_v91"></script>
+  <script src="app.js?v=20261113_v91"></script>
  </body>
 </html>
