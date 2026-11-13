@@ -10,7 +10,7 @@
     "tier2Count": 874,
     "tier3Count": 584,
     "twelveMonthCutoff": "2025-11-05",
-    "updatedAt": "2026-11-13T23:35:59.288195+05:30",
+    "updatedAt": "2026-11-13T23:56:19.683019+05:30",
     "byYear": {
       "2026": {
         "year": 2026,
@@ -302,7 +302,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0284C7",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Cut-Off Price Band",
       "high": 70.0,
       "low": 65.0
@@ -337,7 +337,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#0EA5E9",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Issue ₹94 + GMP ₹1",
       "high": 98.0,
       "low": 93.0
@@ -372,7 +372,7 @@
       "logo": null,
       "initials": "VE",
       "logoColor": "#F59E0B",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Issue Price Band",
       "high": 110.0,
       "low": 102.0
@@ -407,7 +407,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#38BDF8",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Issue ₹158 + GMP ₹105",
       "high": 270.0,
       "low": 250.0
@@ -442,7 +442,7 @@
       "logo": null,
       "initials": "JE",
       "logoColor": "#EC4899",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Issue ₹200 + GMP ₹8",
       "high": 215.0,
       "low": 202.0
@@ -477,7 +477,7 @@
       "logo": null,
       "initials": "HG",
       "logoColor": "#8B5CF6",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Issue ₹120 + GMP ₹27",
       "high": 152.0,
       "low": 140.0
@@ -545,7 +545,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -578,7 +578,7 @@
       "logo": null,
       "initials": "MK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -611,7 +611,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -644,7 +644,7 @@
       "logo": null,
       "initials": "BP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -677,7 +677,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -710,7 +710,7 @@
       "logo": null,
       "initials": "WI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -743,7 +743,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -809,7 +809,7 @@
       "logo": null,
       "initials": "JP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -842,7 +842,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -875,7 +875,7 @@
       "logo": null,
       "initials": "BT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -908,7 +908,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -941,7 +941,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -974,7 +974,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1007,7 +1007,7 @@
       "logo": null,
       "initials": "ZM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY",
       "high": 192.0,
       "low": 178.0
@@ -1042,7 +1042,7 @@
       "logo": null,
       "initials": "FC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1075,7 +1075,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1108,7 +1108,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1306,7 +1306,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1339,7 +1339,7 @@
       "logo": null,
       "initials": "PS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1372,7 +1372,7 @@
       "logo": null,
       "initials": "TS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1405,7 +1405,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1438,7 +1438,7 @@
       "logo": null,
       "initials": "EV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1504,7 +1504,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1537,7 +1537,7 @@
       "logo": null,
       "initials": "OV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1636,7 +1636,7 @@
       "logo": null,
       "initials": "VN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1669,7 +1669,7 @@
       "logo": null,
       "initials": "BO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1735,7 +1735,7 @@
       "logo": null,
       "initials": "PA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1834,7 +1834,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1867,7 +1867,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1900,7 +1900,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -1933,7 +1933,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1966,7 +1966,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -1999,7 +1999,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2065,7 +2065,7 @@
       "logo": null,
       "initials": "DR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2098,7 +2098,7 @@
       "logo": null,
       "initials": "GG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2131,7 +2131,7 @@
       "logo": null,
       "initials": "OC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2164,7 +2164,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2197,7 +2197,7 @@
       "logo": null,
       "initials": "SU",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2263,7 +2263,7 @@
       "logo": null,
       "initials": "HS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2296,7 +2296,7 @@
       "logo": null,
       "initials": "AO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2329,7 +2329,7 @@
       "logo": null,
       "initials": "MO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2362,7 +2362,7 @@
       "logo": null,
       "initials": "PW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2395,7 +2395,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2428,7 +2428,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2461,7 +2461,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2527,7 +2527,7 @@
       "logo": null,
       "initials": "EC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2560,7 +2560,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2659,7 +2659,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2692,7 +2692,7 @@
       "logo": null,
       "initials": "UF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2725,7 +2725,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2791,7 +2791,7 @@
       "logo": null,
       "initials": "VG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -2824,7 +2824,7 @@
       "logo": null,
       "initials": "FM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2857,7 +2857,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2890,7 +2890,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -2989,7 +2989,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Market Consensus (₹1,989.70)",
       "high": 2034.0,
       "low": 1928.0,
@@ -3026,7 +3026,7 @@
       "logo": null,
       "initials": "SO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3059,7 +3059,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3092,7 +3092,7 @@
       "logo": null,
       "initials": "HM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3125,7 +3125,7 @@
       "logo": null,
       "initials": "JS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3158,7 +3158,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3224,7 +3224,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3257,7 +3257,7 @@
       "logo": null,
       "initials": "VW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3323,7 +3323,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3356,7 +3356,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3422,7 +3422,7 @@
       "logo": null,
       "initials": "OG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3488,7 +3488,7 @@
       "logo": null,
       "initials": "RT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3521,7 +3521,7 @@
       "logo": null,
       "initials": "VD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3554,7 +3554,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3587,7 +3587,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3620,7 +3620,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3653,7 +3653,7 @@
       "logo": null,
       "initials": "KE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3686,7 +3686,7 @@
       "logo": null,
       "initials": "LP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3719,7 +3719,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3752,7 +3752,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3785,7 +3785,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3818,7 +3818,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3851,7 +3851,7 @@
       "logo": null,
       "initials": "GW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3884,7 +3884,7 @@
       "logo": null,
       "initials": "KE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3917,7 +3917,7 @@
       "logo": null,
       "initials": "PC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -3950,7 +3950,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -3983,7 +3983,7 @@
       "logo": null,
       "initials": "PC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4016,7 +4016,7 @@
       "logo": null,
       "initials": "QI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4049,7 +4049,7 @@
       "logo": null,
       "initials": "DJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4082,7 +4082,7 @@
       "logo": null,
       "initials": "FP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4148,7 +4148,7 @@
       "logo": null,
       "initials": "RO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4181,7 +4181,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#84CC16",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Market Consensus (₹1,989.70)",
       "high": 2034.0,
       "low": 1928.0,
@@ -4218,7 +4218,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4251,7 +4251,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4284,7 +4284,7 @@
       "logo": null,
       "initials": "PS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4317,7 +4317,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4350,7 +4350,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4383,7 +4383,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4416,7 +4416,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4449,7 +4449,7 @@
       "logo": null,
       "initials": "PJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4515,7 +4515,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4548,7 +4548,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4581,7 +4581,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4614,7 +4614,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#0EA5E9",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Exchange Closing",
       "high": 190.0,
       "low": 175.0
@@ -4682,7 +4682,7 @@
       "logo": null,
       "initials": "HT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4748,7 +4748,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4781,7 +4781,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4814,7 +4814,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4847,7 +4847,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4880,7 +4880,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#9333EA",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Exchange Closing",
       "high": 255.0,
       "low": 240.0
@@ -4915,7 +4915,7 @@
       "logo": null,
       "initials": "DH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -4948,7 +4948,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -4981,7 +4981,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5014,7 +5014,7 @@
       "logo": null,
       "initials": "SJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5047,7 +5047,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5080,7 +5080,7 @@
       "logo": null,
       "initials": "FT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5113,7 +5113,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5146,7 +5146,7 @@
       "logo": null,
       "initials": "LJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5179,7 +5179,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5212,7 +5212,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5278,7 +5278,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5311,7 +5311,7 @@
       "logo": null,
       "initials": "BL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5344,7 +5344,7 @@
       "logo": null,
       "initials": "PM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5377,7 +5377,7 @@
       "logo": null,
       "initials": "QT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5410,7 +5410,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5443,7 +5443,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5476,7 +5476,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5509,7 +5509,7 @@
       "logo": null,
       "initials": "DT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5542,7 +5542,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5575,7 +5575,7 @@
       "logo": null,
       "initials": "LE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5608,7 +5608,7 @@
       "logo": null,
       "initials": "OE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5641,7 +5641,7 @@
       "logo": null,
       "initials": "TV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5674,7 +5674,7 @@
       "logo": null,
       "initials": "FM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Exchange Closing",
       "high": 118.0,
       "low": 108.0
@@ -5709,7 +5709,7 @@
       "logo": null,
       "initials": "LA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5742,7 +5742,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5775,7 +5775,7 @@
       "logo": null,
       "initials": "GV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5808,7 +5808,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5841,7 +5841,7 @@
       "logo": null,
       "initials": "AW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5874,7 +5874,7 @@
       "logo": null,
       "initials": "FK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5907,7 +5907,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -5940,7 +5940,7 @@
       "logo": null,
       "initials": "JG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -5973,7 +5973,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6006,7 +6006,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6039,7 +6039,7 @@
       "logo": null,
       "initials": "HR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6072,7 +6072,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6105,7 +6105,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6138,7 +6138,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6204,7 +6204,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6237,7 +6237,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6270,7 +6270,7 @@
       "logo": null,
       "initials": "IM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6303,7 +6303,7 @@
       "logo": null,
       "initials": "LC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6336,7 +6336,7 @@
       "logo": null,
       "initials": "XT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6402,7 +6402,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6435,7 +6435,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6468,7 +6468,7 @@
       "logo": null,
       "initials": "CM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6501,7 +6501,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6534,7 +6534,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6567,7 +6567,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6600,7 +6600,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6633,7 +6633,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6666,7 +6666,7 @@
       "logo": null,
       "initials": "HS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6699,7 +6699,7 @@
       "logo": null,
       "initials": "LP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6732,7 +6732,7 @@
       "logo": null,
       "initials": "KU",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6798,7 +6798,7 @@
       "logo": null,
       "initials": "KP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -6831,7 +6831,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6864,7 +6864,7 @@
       "logo": null,
       "initials": "KT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -6930,7 +6930,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -7029,7 +7029,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7062,7 +7062,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -7095,7 +7095,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#9333EA",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Exchange Closing",
       "high": 238.0,
       "low": 228.0
@@ -7163,7 +7163,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7196,7 +7196,7 @@
       "logo": null,
       "initials": "AJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7295,7 +7295,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7328,7 +7328,7 @@
       "logo": null,
       "initials": "WL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7394,7 +7394,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7427,7 +7427,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7526,7 +7526,7 @@
       "logo": null,
       "initials": "LE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -7658,7 +7658,7 @@
       "logo": null,
       "initials": "US",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7691,7 +7691,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7724,7 +7724,7 @@
       "logo": null,
       "initials": "HN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7823,7 +7823,7 @@
       "logo": null,
       "initials": "CG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -7988,7 +7988,7 @@
       "logo": null,
       "initials": "HO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8219,7 +8219,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8351,7 +8351,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8384,7 +8384,7 @@
       "logo": null,
       "initials": "BP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8417,7 +8417,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8450,7 +8450,7 @@
       "logo": null,
       "initials": "V3",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8483,7 +8483,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8549,7 +8549,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8615,7 +8615,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -8681,7 +8681,7 @@
       "logo": null,
       "initials": "OP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8813,7 +8813,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8879,7 +8879,7 @@
       "logo": null,
       "initials": "PO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8912,7 +8912,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -8978,7 +8978,7 @@
       "logo": null,
       "initials": "CM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9011,7 +9011,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9044,7 +9044,7 @@
       "logo": null,
       "initials": "NL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9077,7 +9077,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9143,7 +9143,7 @@
       "logo": null,
       "initials": "IN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9176,7 +9176,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9275,7 +9275,7 @@
       "logo": null,
       "initials": "EA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9308,7 +9308,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9407,7 +9407,7 @@
       "logo": null,
       "initials": "OE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9473,7 +9473,7 @@
       "logo": null,
       "initials": "PR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9539,7 +9539,7 @@
       "logo": null,
       "initials": "CM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9572,7 +9572,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -9605,7 +9605,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9638,7 +9638,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9671,7 +9671,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9704,7 +9704,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9770,7 +9770,7 @@
       "logo": null,
       "initials": "FI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9803,7 +9803,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9836,7 +9836,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9869,7 +9869,7 @@
       "logo": null,
       "initials": "FA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9902,7 +9902,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -9968,7 +9968,7 @@
       "logo": null,
       "initials": "BR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10034,7 +10034,7 @@
       "logo": null,
       "initials": "CK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10067,7 +10067,7 @@
       "logo": null,
       "initials": "AN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10133,7 +10133,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10199,7 +10199,7 @@
       "logo": null,
       "initials": "HJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10232,7 +10232,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10298,7 +10298,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10331,7 +10331,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10364,7 +10364,7 @@
       "logo": null,
       "initials": "AV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10430,7 +10430,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10496,7 +10496,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10562,7 +10562,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10595,7 +10595,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10694,7 +10694,7 @@
       "logo": null,
       "initials": "YF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10826,7 +10826,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10859,7 +10859,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -10892,7 +10892,7 @@
       "logo": null,
       "initials": "BK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -10958,7 +10958,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11057,7 +11057,7 @@
       "logo": null,
       "initials": "GK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11156,7 +11156,7 @@
       "logo": null,
       "initials": "GO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11222,7 +11222,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11255,7 +11255,7 @@
       "logo": null,
       "initials": "NL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11420,7 +11420,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11453,7 +11453,7 @@
       "logo": null,
       "initials": "PA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11486,7 +11486,7 @@
       "logo": null,
       "initials": "NH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11519,7 +11519,7 @@
       "logo": null,
       "initials": "PM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11552,7 +11552,7 @@
       "logo": null,
       "initials": "SO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11618,7 +11618,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11651,7 +11651,7 @@
       "logo": null,
       "initials": "KV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11684,7 +11684,7 @@
       "logo": null,
       "initials": "PS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11750,7 +11750,7 @@
       "logo": null,
       "initials": "WI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11849,7 +11849,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11882,7 +11882,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11915,7 +11915,7 @@
       "logo": null,
       "initials": "WO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -11948,7 +11948,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -11981,7 +11981,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12047,7 +12047,7 @@
       "logo": null,
       "initials": "VW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12080,7 +12080,7 @@
       "logo": null,
       "initials": "HH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12113,7 +12113,7 @@
       "logo": null,
       "initials": "NB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12146,7 +12146,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12212,7 +12212,7 @@
       "logo": null,
       "initials": "ID",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12311,7 +12311,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12344,7 +12344,7 @@
       "logo": null,
       "initials": "LS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12377,7 +12377,7 @@
       "logo": null,
       "initials": "PW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12410,7 +12410,7 @@
       "logo": null,
       "initials": "KK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12476,7 +12476,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12509,7 +12509,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12542,7 +12542,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12575,7 +12575,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12608,7 +12608,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12641,7 +12641,7 @@
       "logo": null,
       "initials": "FP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12674,7 +12674,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12707,7 +12707,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12740,7 +12740,7 @@
       "logo": null,
       "initials": "ML",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12773,7 +12773,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12806,7 +12806,7 @@
       "logo": null,
       "initials": "WC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12839,7 +12839,7 @@
       "logo": null,
       "initials": "CL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12872,7 +12872,7 @@
       "logo": null,
       "initials": "PL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12905,7 +12905,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -12938,7 +12938,7 @@
       "logo": null,
       "initials": "FF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -12971,7 +12971,7 @@
       "logo": null,
       "initials": "BG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13037,7 +13037,7 @@
       "logo": null,
       "initials": "LS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13070,7 +13070,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13103,7 +13103,7 @@
       "logo": null,
       "initials": "OI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13136,7 +13136,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13235,7 +13235,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13268,7 +13268,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13334,7 +13334,7 @@
       "logo": null,
       "initials": "SD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13367,7 +13367,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13400,7 +13400,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13433,7 +13433,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13466,7 +13466,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13499,7 +13499,7 @@
       "logo": null,
       "initials": "LE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13565,7 +13565,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13598,7 +13598,7 @@
       "logo": null,
       "initials": "NB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13631,7 +13631,7 @@
       "logo": null,
       "initials": "WI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13664,7 +13664,7 @@
       "logo": null,
       "initials": "DF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13697,7 +13697,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13730,7 +13730,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13796,7 +13796,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13829,7 +13829,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13862,7 +13862,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13895,7 +13895,7 @@
       "logo": null,
       "initials": "OF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -13961,7 +13961,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -13994,7 +13994,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14027,7 +14027,7 @@
       "logo": null,
       "initials": "ZE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14093,7 +14093,7 @@
       "logo": null,
       "initials": "FT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14126,7 +14126,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14159,7 +14159,7 @@
       "logo": null,
       "initials": "OM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14192,7 +14192,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14258,7 +14258,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14291,7 +14291,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14357,7 +14357,7 @@
       "logo": null,
       "initials": "KC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14390,7 +14390,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14456,7 +14456,7 @@
       "logo": null,
       "initials": "PD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14621,7 +14621,7 @@
       "logo": null,
       "initials": "JI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14654,7 +14654,7 @@
       "logo": null,
       "initials": "TP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14687,7 +14687,7 @@
       "logo": null,
       "initials": "TB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14720,7 +14720,7 @@
       "logo": null,
       "initials": "BV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14753,7 +14753,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14819,7 +14819,7 @@
       "logo": null,
       "initials": "JR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -14885,7 +14885,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14951,7 +14951,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -14984,7 +14984,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15017,7 +15017,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15182,7 +15182,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15215,7 +15215,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15248,7 +15248,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15281,7 +15281,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15314,7 +15314,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15380,7 +15380,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15413,7 +15413,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15479,7 +15479,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15512,7 +15512,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15578,7 +15578,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15611,7 +15611,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15644,7 +15644,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15677,7 +15677,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -15743,7 +15743,7 @@
       "logo": null,
       "initials": "DA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15842,7 +15842,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -15875,7 +15875,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16007,7 +16007,7 @@
       "logo": null,
       "initials": "TM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16073,7 +16073,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16106,7 +16106,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16139,7 +16139,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16172,7 +16172,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16205,7 +16205,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16304,7 +16304,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16337,7 +16337,7 @@
       "logo": null,
       "initials": "SO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16370,7 +16370,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16436,7 +16436,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16469,7 +16469,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16535,7 +16535,7 @@
       "logo": null,
       "initials": "VE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16568,7 +16568,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16601,7 +16601,7 @@
       "logo": null,
       "initials": "NM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -16634,7 +16634,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16700,7 +16700,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16766,7 +16766,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16799,7 +16799,7 @@
       "logo": null,
       "initials": "GA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16865,7 +16865,7 @@
       "logo": null,
       "initials": "PR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16898,7 +16898,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -16931,7 +16931,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17030,7 +17030,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17063,7 +17063,7 @@
       "logo": null,
       "initials": "BJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17096,7 +17096,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17162,7 +17162,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17195,7 +17195,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17261,7 +17261,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17294,7 +17294,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17327,7 +17327,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17360,7 +17360,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17393,7 +17393,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17426,7 +17426,7 @@
       "logo": null,
       "initials": "AD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17459,7 +17459,7 @@
       "logo": null,
       "initials": "BL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17492,7 +17492,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17525,7 +17525,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17591,7 +17591,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17624,7 +17624,7 @@
       "logo": null,
       "initials": "FA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17756,7 +17756,7 @@
       "logo": null,
       "initials": "MB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17822,7 +17822,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -17855,7 +17855,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17921,7 +17921,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17954,7 +17954,7 @@
       "logo": null,
       "initials": "KF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -17987,7 +17987,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18053,7 +18053,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18086,7 +18086,7 @@
       "logo": null,
       "initials": "UM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18152,7 +18152,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18185,7 +18185,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18218,7 +18218,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18251,7 +18251,7 @@
       "logo": null,
       "initials": "BH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18284,7 +18284,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18317,7 +18317,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18383,7 +18383,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18449,7 +18449,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18482,7 +18482,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18515,7 +18515,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18548,7 +18548,7 @@
       "logo": null,
       "initials": "SN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18581,7 +18581,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18614,7 +18614,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18647,7 +18647,7 @@
       "logo": null,
       "initials": "CF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18680,7 +18680,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18746,7 +18746,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18779,7 +18779,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18812,7 +18812,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18845,7 +18845,7 @@
       "logo": null,
       "initials": "CO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -18878,7 +18878,7 @@
       "logo": null,
       "initials": "HS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18911,7 +18911,7 @@
       "logo": null,
       "initials": "CR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18944,7 +18944,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -18977,7 +18977,7 @@
       "logo": null,
       "initials": "ML",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19010,7 +19010,7 @@
       "logo": null,
       "initials": "PJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19043,7 +19043,7 @@
       "logo": null,
       "initials": "SO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19109,7 +19109,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19142,7 +19142,7 @@
       "logo": null,
       "initials": "NY",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19175,7 +19175,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19208,7 +19208,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19307,7 +19307,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -19340,7 +19340,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19406,7 +19406,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19571,7 +19571,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19604,7 +19604,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19670,7 +19670,7 @@
       "logo": null,
       "initials": "KA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19835,7 +19835,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -19868,7 +19868,7 @@
       "logo": null,
       "initials": "IH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20033,7 +20033,7 @@
       "logo": null,
       "initials": "OP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20099,7 +20099,7 @@
       "logo": null,
       "initials": "JP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20132,7 +20132,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20198,7 +20198,7 @@
       "logo": null,
       "initials": "3F",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20297,7 +20297,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20330,7 +20330,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20429,7 +20429,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20462,7 +20462,7 @@
       "logo": null,
       "initials": "AV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20528,7 +20528,7 @@
       "logo": null,
       "initials": "UD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20561,7 +20561,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20627,7 +20627,7 @@
       "logo": null,
       "initials": "BW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20759,7 +20759,7 @@
       "logo": null,
       "initials": "MJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20792,7 +20792,7 @@
       "logo": null,
       "initials": "SD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -20858,7 +20858,7 @@
       "logo": null,
       "initials": "AO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20891,7 +20891,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20924,7 +20924,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -20957,7 +20957,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21089,7 +21089,7 @@
       "logo": null,
       "initials": "ID",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21188,7 +21188,7 @@
       "logo": null,
       "initials": "DI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21353,7 +21353,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21386,7 +21386,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21452,7 +21452,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21584,7 +21584,7 @@
       "logo": null,
       "initials": "BE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21683,7 +21683,7 @@
       "logo": null,
       "initials": "QP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21815,7 +21815,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -21848,7 +21848,7 @@
       "logo": null,
       "initials": "HT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21881,7 +21881,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -21980,7 +21980,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22013,7 +22013,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22079,7 +22079,7 @@
       "logo": null,
       "initials": "RC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22112,7 +22112,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22145,7 +22145,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22211,7 +22211,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22244,7 +22244,7 @@
       "logo": null,
       "initials": "DA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22376,7 +22376,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22409,7 +22409,7 @@
       "logo": null,
       "initials": "DW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22442,7 +22442,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22541,7 +22541,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22574,7 +22574,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22640,7 +22640,7 @@
       "logo": null,
       "initials": "RS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22673,7 +22673,7 @@
       "logo": null,
       "initials": "BP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22706,7 +22706,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22739,7 +22739,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -22904,7 +22904,7 @@
       "logo": null,
       "initials": "QF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -22937,7 +22937,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23003,7 +23003,7 @@
       "logo": null,
       "initials": "FT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23036,7 +23036,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23069,7 +23069,7 @@
       "logo": null,
       "initials": "PM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23102,7 +23102,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23135,7 +23135,7 @@
       "logo": null,
       "initials": "IF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23267,7 +23267,7 @@
       "logo": null,
       "initials": "UA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23300,7 +23300,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23333,7 +23333,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23366,7 +23366,7 @@
       "logo": null,
       "initials": "VH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23399,7 +23399,7 @@
       "logo": null,
       "initials": "CE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23432,7 +23432,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23465,7 +23465,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23531,7 +23531,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23564,7 +23564,7 @@
       "logo": null,
       "initials": "TL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23597,7 +23597,7 @@
       "logo": null,
       "initials": "IB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23630,7 +23630,7 @@
       "logo": null,
       "initials": "NI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23729,7 +23729,7 @@
       "logo": null,
       "initials": "IK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23762,7 +23762,7 @@
       "logo": null,
       "initials": "YH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -23795,7 +23795,7 @@
       "logo": null,
       "initials": "OM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23861,7 +23861,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23894,7 +23894,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23927,7 +23927,7 @@
       "logo": null,
       "initials": "VM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -23993,7 +23993,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -24026,7 +24026,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24191,7 +24191,7 @@
       "logo": null,
       "initials": "SD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24356,7 +24356,7 @@
       "logo": null,
       "initials": "RB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24389,7 +24389,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -24422,7 +24422,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24455,7 +24455,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24488,7 +24488,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24653,7 +24653,7 @@
       "logo": null,
       "initials": "NB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24686,7 +24686,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24719,7 +24719,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24752,7 +24752,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24785,7 +24785,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24818,7 +24818,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24884,7 +24884,7 @@
       "logo": null,
       "initials": "GB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -24917,7 +24917,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25016,7 +25016,7 @@
       "logo": null,
       "initials": "DB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -25082,7 +25082,7 @@
       "logo": null,
       "initials": "WE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25115,7 +25115,7 @@
       "logo": null,
       "initials": "FA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25148,7 +25148,7 @@
       "logo": null,
       "initials": "LP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25181,7 +25181,7 @@
       "logo": null,
       "initials": "HM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25247,7 +25247,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25280,7 +25280,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -25412,7 +25412,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -25511,7 +25511,7 @@
       "logo": null,
       "initials": "DE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25544,7 +25544,7 @@
       "logo": null,
       "initials": "DR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25643,7 +25643,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25676,7 +25676,7 @@
       "logo": null,
       "initials": "KH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25709,7 +25709,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25775,7 +25775,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25808,7 +25808,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25841,7 +25841,7 @@
       "logo": null,
       "initials": "RV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -25940,7 +25940,7 @@
       "logo": null,
       "initials": "BG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26039,7 +26039,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26105,7 +26105,7 @@
       "logo": null,
       "initials": "AD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26204,7 +26204,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26270,7 +26270,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26303,7 +26303,7 @@
       "logo": null,
       "initials": "PF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -26336,7 +26336,7 @@
       "logo": null,
       "initials": "WC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26435,7 +26435,7 @@
       "logo": null,
       "initials": "IA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26468,7 +26468,7 @@
       "logo": null,
       "initials": "PN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26600,7 +26600,7 @@
       "logo": null,
       "initials": "BH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26633,7 +26633,7 @@
       "logo": null,
       "initials": "GI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26666,7 +26666,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26732,7 +26732,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26765,7 +26765,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -26996,7 +26996,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27029,7 +27029,7 @@
       "logo": null,
       "initials": "JG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27062,7 +27062,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27161,7 +27161,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27194,7 +27194,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27326,7 +27326,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27359,7 +27359,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27491,7 +27491,7 @@
       "logo": null,
       "initials": "OT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27590,7 +27590,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27623,7 +27623,7 @@
       "logo": null,
       "initials": "IB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27722,7 +27722,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27755,7 +27755,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27788,7 +27788,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27821,7 +27821,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27854,7 +27854,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27887,7 +27887,7 @@
       "logo": null,
       "initials": "UE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -27920,7 +27920,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -27953,7 +27953,7 @@
       "logo": null,
       "initials": "OE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28019,7 +28019,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28085,7 +28085,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28118,7 +28118,7 @@
       "logo": null,
       "initials": "AD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28184,7 +28184,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28217,7 +28217,7 @@
       "logo": null,
       "initials": "KA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -28250,7 +28250,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28316,7 +28316,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28382,7 +28382,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28580,7 +28580,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -28679,7 +28679,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28712,7 +28712,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28778,7 +28778,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -28811,7 +28811,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -28976,7 +28976,7 @@
       "logo": null,
       "initials": "EI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29075,7 +29075,7 @@
       "logo": null,
       "initials": "BW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29108,7 +29108,7 @@
       "logo": null,
       "initials": "EP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29207,7 +29207,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29240,7 +29240,7 @@
       "logo": null,
       "initials": "AG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29273,7 +29273,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29372,7 +29372,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29537,7 +29537,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29570,7 +29570,7 @@
       "logo": null,
       "initials": "DF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29636,7 +29636,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29669,7 +29669,7 @@
       "logo": null,
       "initials": "DD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29768,7 +29768,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29834,7 +29834,7 @@
       "logo": null,
       "initials": "UC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29867,7 +29867,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -29966,7 +29966,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -29999,7 +29999,7 @@
       "logo": null,
       "initials": "KL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30065,7 +30065,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30197,7 +30197,7 @@
       "logo": null,
       "initials": "VT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30263,7 +30263,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30329,7 +30329,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30362,7 +30362,7 @@
       "logo": null,
       "initials": "GD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30527,7 +30527,7 @@
       "logo": null,
       "initials": "VA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30593,7 +30593,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -30659,7 +30659,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30692,7 +30692,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30725,7 +30725,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30758,7 +30758,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30791,7 +30791,7 @@
       "logo": null,
       "initials": "TA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -30890,7 +30890,7 @@
       "logo": null,
       "initials": "WE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30923,7 +30923,7 @@
       "logo": null,
       "initials": "IN",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30956,7 +30956,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -30989,7 +30989,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31121,7 +31121,7 @@
       "logo": null,
       "initials": "JI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31154,7 +31154,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31187,7 +31187,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31253,7 +31253,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31352,7 +31352,7 @@
       "logo": null,
       "initials": "GV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31451,7 +31451,7 @@
       "logo": null,
       "initials": "BH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31484,7 +31484,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31550,7 +31550,7 @@
       "logo": null,
       "initials": "JK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -31649,7 +31649,7 @@
       "logo": null,
       "initials": "RN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31715,7 +31715,7 @@
       "logo": null,
       "initials": "TF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31847,7 +31847,7 @@
       "logo": null,
       "initials": "SC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31913,7 +31913,7 @@
       "logo": null,
       "initials": "NI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -31979,7 +31979,7 @@
       "logo": null,
       "initials": "OI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32012,7 +32012,7 @@
       "logo": null,
       "initials": "CF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32078,7 +32078,7 @@
       "logo": null,
       "initials": "EC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32111,7 +32111,7 @@
       "logo": null,
       "initials": "KG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32144,7 +32144,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32210,7 +32210,7 @@
       "logo": null,
       "initials": "PV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32309,7 +32309,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32342,7 +32342,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32375,7 +32375,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32474,7 +32474,7 @@
       "logo": null,
       "initials": "JG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32540,7 +32540,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -32573,7 +32573,7 @@
       "logo": null,
       "initials": "RK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32672,7 +32672,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32705,7 +32705,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32738,7 +32738,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32804,7 +32804,7 @@
       "logo": null,
       "initials": "OM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32837,7 +32837,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32870,7 +32870,7 @@
       "logo": null,
       "initials": "GH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -32903,7 +32903,7 @@
       "logo": null,
       "initials": "JH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33002,7 +33002,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33035,7 +33035,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33167,7 +33167,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33233,7 +33233,7 @@
       "logo": null,
       "initials": "EH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33266,7 +33266,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33332,7 +33332,7 @@
       "logo": null,
       "initials": "RG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33365,7 +33365,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33398,7 +33398,7 @@
       "logo": null,
       "initials": "JS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33431,7 +33431,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33464,7 +33464,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33530,7 +33530,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33563,7 +33563,7 @@
       "logo": null,
       "initials": "BE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33596,7 +33596,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33629,7 +33629,7 @@
       "logo": null,
       "initials": "HH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -33662,7 +33662,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -33695,7 +33695,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33728,7 +33728,7 @@
       "logo": null,
       "initials": "DE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33794,7 +33794,7 @@
       "logo": null,
       "initials": "FR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33860,7 +33860,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33893,7 +33893,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33926,7 +33926,7 @@
       "logo": null,
       "initials": "ED",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -33992,7 +33992,7 @@
       "logo": null,
       "initials": "KE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34025,7 +34025,7 @@
       "logo": null,
       "initials": "QL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34058,7 +34058,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34091,7 +34091,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34190,7 +34190,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34256,7 +34256,7 @@
       "logo": null,
       "initials": "JC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34289,7 +34289,7 @@
       "logo": null,
       "initials": "KL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34355,7 +34355,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34421,7 +34421,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34454,7 +34454,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34487,7 +34487,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -34586,7 +34586,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34619,7 +34619,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34652,7 +34652,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34685,7 +34685,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34718,7 +34718,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34784,7 +34784,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34817,7 +34817,7 @@
       "logo": null,
       "initials": "RJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34850,7 +34850,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34883,7 +34883,7 @@
       "logo": null,
       "initials": "MJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34916,7 +34916,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -34982,7 +34982,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35048,7 +35048,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35114,7 +35114,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -35147,7 +35147,7 @@
       "logo": null,
       "initials": "DI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35180,7 +35180,7 @@
       "logo": null,
       "initials": "IS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35246,7 +35246,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35345,7 +35345,7 @@
       "logo": null,
       "initials": "SU",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35543,7 +35543,7 @@
       "logo": null,
       "initials": "FW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35576,7 +35576,7 @@
       "logo": null,
       "initials": "FF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35609,7 +35609,7 @@
       "logo": null,
       "initials": "GO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35675,7 +35675,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35708,7 +35708,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35741,7 +35741,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35840,7 +35840,7 @@
       "logo": null,
       "initials": "KC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -35906,7 +35906,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -35972,7 +35972,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36005,7 +36005,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36038,7 +36038,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36104,7 +36104,7 @@
       "logo": null,
       "initials": "HC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36137,7 +36137,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36170,7 +36170,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -36203,7 +36203,7 @@
       "logo": null,
       "initials": "CW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36269,7 +36269,7 @@
       "logo": null,
       "initials": "TS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36335,7 +36335,7 @@
       "logo": null,
       "initials": "PF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36401,7 +36401,7 @@
       "logo": null,
       "initials": "BJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36500,7 +36500,7 @@
       "logo": null,
       "initials": "WO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36533,7 +36533,7 @@
       "logo": null,
       "initials": "IE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36566,7 +36566,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36599,7 +36599,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36665,7 +36665,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36698,7 +36698,7 @@
       "logo": null,
       "initials": "PW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36797,7 +36797,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -36896,7 +36896,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -36929,7 +36929,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -36962,7 +36962,7 @@
       "logo": null,
       "initials": "KS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37028,7 +37028,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37127,7 +37127,7 @@
       "logo": null,
       "initials": "VL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37160,7 +37160,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37193,7 +37193,7 @@
       "logo": null,
       "initials": "IF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37226,7 +37226,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37259,7 +37259,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37292,7 +37292,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37325,7 +37325,7 @@
       "logo": null,
       "initials": "US",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37358,7 +37358,7 @@
       "logo": null,
       "initials": "JI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37391,7 +37391,7 @@
       "logo": null,
       "initials": "MV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37424,7 +37424,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37457,7 +37457,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37490,7 +37490,7 @@
       "logo": null,
       "initials": "CG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37556,7 +37556,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37589,7 +37589,7 @@
       "logo": null,
       "initials": "YO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37655,7 +37655,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37688,7 +37688,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37787,7 +37787,7 @@
       "logo": null,
       "initials": "MM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37820,7 +37820,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37853,7 +37853,7 @@
       "logo": null,
       "initials": "HO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37886,7 +37886,7 @@
       "logo": null,
       "initials": "SH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37919,7 +37919,7 @@
       "logo": null,
       "initials": "ZP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -37952,7 +37952,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38018,7 +38018,7 @@
       "logo": null,
       "initials": "UH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38051,7 +38051,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38117,7 +38117,7 @@
       "logo": null,
       "initials": "JL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38183,7 +38183,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38249,7 +38249,7 @@
       "logo": null,
       "initials": "BF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38282,7 +38282,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38315,7 +38315,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38447,7 +38447,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38480,7 +38480,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38546,7 +38546,7 @@
       "logo": null,
       "initials": "BE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38612,7 +38612,7 @@
       "logo": null,
       "initials": "PT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38678,7 +38678,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -38711,7 +38711,7 @@
       "logo": null,
       "initials": "TS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38744,7 +38744,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38876,7 +38876,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38909,7 +38909,7 @@
       "logo": null,
       "initials": "OP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -38942,7 +38942,7 @@
       "logo": null,
       "initials": "VI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39008,7 +39008,7 @@
       "logo": null,
       "initials": "KJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39041,7 +39041,7 @@
       "logo": null,
       "initials": "YH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39173,7 +39173,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39206,7 +39206,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39305,7 +39305,7 @@
       "logo": null,
       "initials": "DD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39338,7 +39338,7 @@
       "logo": null,
       "initials": "US",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39404,7 +39404,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39470,7 +39470,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39503,7 +39503,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39569,7 +39569,7 @@
       "logo": null,
       "initials": "CD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39602,7 +39602,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39635,7 +39635,7 @@
       "logo": null,
       "initials": "IT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39668,7 +39668,7 @@
       "logo": null,
       "initials": "PR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39767,7 +39767,7 @@
       "logo": null,
       "initials": "MR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39800,7 +39800,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39833,7 +39833,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39866,7 +39866,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -39899,7 +39899,7 @@
       "logo": null,
       "initials": "CC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -39998,7 +39998,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40064,7 +40064,7 @@
       "logo": null,
       "initials": "UE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40196,7 +40196,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40262,7 +40262,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40295,7 +40295,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40394,7 +40394,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40460,7 +40460,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40493,7 +40493,7 @@
       "logo": null,
       "initials": "KS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40559,7 +40559,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40658,7 +40658,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40691,7 +40691,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40724,7 +40724,7 @@
       "logo": null,
       "initials": "QT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40823,7 +40823,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -40922,7 +40922,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -40955,7 +40955,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41021,7 +41021,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41054,7 +41054,7 @@
       "logo": null,
       "initials": "UI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41120,7 +41120,7 @@
       "logo": null,
       "initials": "DL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41153,7 +41153,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41186,7 +41186,7 @@
       "logo": null,
       "initials": "BO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41252,7 +41252,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41318,7 +41318,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41450,7 +41450,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41516,7 +41516,7 @@
       "logo": null,
       "initials": "DT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -41549,7 +41549,7 @@
       "logo": null,
       "initials": "IE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41582,7 +41582,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -41945,7 +41945,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42110,7 +42110,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42143,7 +42143,7 @@
       "logo": null,
       "initials": "DO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42341,7 +42341,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42407,7 +42407,7 @@
       "logo": null,
       "initials": "RC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42473,7 +42473,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42539,7 +42539,7 @@
       "logo": null,
       "initials": "AA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42572,7 +42572,7 @@
       "logo": null,
       "initials": "KT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42638,7 +42638,7 @@
       "logo": null,
       "initials": "DA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42671,7 +42671,7 @@
       "logo": null,
       "initials": "AH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42737,7 +42737,7 @@
       "logo": null,
       "initials": "LC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42770,7 +42770,7 @@
       "logo": null,
       "initials": "SV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42869,7 +42869,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42902,7 +42902,7 @@
       "logo": null,
       "initials": "UI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -42968,7 +42968,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43067,7 +43067,7 @@
       "logo": null,
       "initials": "KR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43100,7 +43100,7 @@
       "logo": null,
       "initials": "IG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43133,7 +43133,7 @@
       "logo": null,
       "initials": "KT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43166,7 +43166,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43199,7 +43199,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43265,7 +43265,7 @@
       "logo": null,
       "initials": "BF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43298,7 +43298,7 @@
       "logo": null,
       "initials": "GH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43364,7 +43364,7 @@
       "logo": null,
       "initials": "FM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43430,7 +43430,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43463,7 +43463,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43628,7 +43628,7 @@
       "logo": null,
       "initials": "TT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43661,7 +43661,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -43760,7 +43760,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44024,7 +44024,7 @@
       "logo": null,
       "initials": "IE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44156,7 +44156,7 @@
       "logo": null,
       "initials": "TL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44321,7 +44321,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44387,7 +44387,7 @@
       "logo": null,
       "initials": "HE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44486,7 +44486,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44585,7 +44585,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44618,7 +44618,7 @@
       "logo": null,
       "initials": "TM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44717,7 +44717,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44849,7 +44849,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44882,7 +44882,7 @@
       "logo": null,
       "initials": "RT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -44981,7 +44981,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45113,7 +45113,7 @@
       "logo": null,
       "initials": "HL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45311,7 +45311,7 @@
       "logo": null,
       "initials": "MW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45443,7 +45443,7 @@
       "logo": null,
       "initials": "MN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45542,7 +45542,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45575,7 +45575,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45641,7 +45641,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45707,7 +45707,7 @@
       "logo": null,
       "initials": "EM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45740,7 +45740,7 @@
       "logo": null,
       "initials": "EL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45773,7 +45773,7 @@
       "logo": null,
       "initials": "PP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45806,7 +45806,7 @@
       "logo": null,
       "initials": "DE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45839,7 +45839,7 @@
       "logo": null,
       "initials": "VP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45872,7 +45872,7 @@
       "logo": null,
       "initials": "PC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -45971,7 +45971,7 @@
       "logo": null,
       "initials": "RC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46004,7 +46004,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46136,7 +46136,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46202,7 +46202,7 @@
       "logo": null,
       "initials": "JS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46268,7 +46268,7 @@
       "logo": null,
       "initials": "HP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46367,7 +46367,7 @@
       "logo": null,
       "initials": "VL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46433,7 +46433,7 @@
       "logo": null,
       "initials": "UE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46895,7 +46895,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -46961,7 +46961,7 @@
       "logo": null,
       "initials": "VF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47390,7 +47390,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47555,7 +47555,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47588,7 +47588,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47621,7 +47621,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47654,7 +47654,7 @@
       "logo": null,
       "initials": "ES",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47687,7 +47687,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47753,7 +47753,7 @@
       "logo": null,
       "initials": "MB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47786,7 +47786,7 @@
       "logo": null,
       "initials": "MA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47819,7 +47819,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47852,7 +47852,7 @@
       "logo": null,
       "initials": "RA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -47918,7 +47918,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48017,7 +48017,7 @@
       "logo": null,
       "initials": "GF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48083,7 +48083,7 @@
       "logo": null,
       "initials": "TP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48116,7 +48116,7 @@
       "logo": null,
       "initials": "LV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48149,7 +48149,7 @@
       "logo": null,
       "initials": "PA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48182,7 +48182,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48215,7 +48215,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48281,7 +48281,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48314,7 +48314,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48347,7 +48347,7 @@
       "logo": null,
       "initials": "FP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48380,7 +48380,7 @@
       "logo": null,
       "initials": "NH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48413,7 +48413,7 @@
       "logo": null,
       "initials": "NY",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48446,7 +48446,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48611,7 +48611,7 @@
       "logo": null,
       "initials": "DS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48875,7 +48875,7 @@
       "logo": null,
       "initials": "PD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -48974,7 +48974,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49040,7 +49040,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49205,7 +49205,7 @@
       "logo": null,
       "initials": "VD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49304,7 +49304,7 @@
       "logo": null,
       "initials": "AV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49337,7 +49337,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49370,7 +49370,7 @@
       "logo": null,
       "initials": "NV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49403,7 +49403,7 @@
       "logo": null,
       "initials": "CT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49436,7 +49436,7 @@
       "logo": null,
       "initials": "DI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49469,7 +49469,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49502,7 +49502,7 @@
       "logo": null,
       "initials": "KD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49535,7 +49535,7 @@
       "logo": null,
       "initials": "WB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49667,7 +49667,7 @@
       "logo": null,
       "initials": "RR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49700,7 +49700,7 @@
       "logo": null,
       "initials": "GL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49733,7 +49733,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49832,7 +49832,7 @@
       "logo": null,
       "initials": "CS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49865,7 +49865,7 @@
       "logo": null,
       "initials": "GR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49898,7 +49898,7 @@
       "logo": null,
       "initials": "FB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -49964,7 +49964,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50063,7 +50063,7 @@
       "logo": null,
       "initials": "DD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50096,7 +50096,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50162,7 +50162,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50261,7 +50261,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50360,7 +50360,7 @@
       "logo": null,
       "initials": "LD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50591,7 +50591,7 @@
       "logo": null,
       "initials": "NT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50624,7 +50624,7 @@
       "logo": null,
       "initials": "KJ",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50657,7 +50657,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50690,7 +50690,7 @@
       "logo": null,
       "initials": "CA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50723,7 +50723,7 @@
       "logo": null,
       "initials": "LO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50756,7 +50756,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50855,7 +50855,7 @@
       "logo": null,
       "initials": "ET",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -50888,7 +50888,7 @@
       "logo": null,
       "initials": "AG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50954,7 +50954,7 @@
       "logo": null,
       "initials": "MT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -50987,7 +50987,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51020,7 +51020,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51086,7 +51086,7 @@
       "logo": null,
       "initials": "RA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51119,7 +51119,7 @@
       "logo": null,
       "initials": "NL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51218,7 +51218,7 @@
       "logo": null,
       "initials": "SK",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51284,7 +51284,7 @@
       "logo": null,
       "initials": "IP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51482,7 +51482,7 @@
       "logo": null,
       "initials": "GP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51614,7 +51614,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51713,7 +51713,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -51977,7 +51977,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52010,7 +52010,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52076,7 +52076,7 @@
       "logo": null,
       "initials": "RM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52109,7 +52109,7 @@
       "logo": null,
       "initials": "HM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52241,7 +52241,7 @@
       "logo": null,
       "initials": "YB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52274,7 +52274,7 @@
       "logo": null,
       "initials": "RB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52307,7 +52307,7 @@
       "logo": null,
       "initials": "BI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52340,7 +52340,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52736,7 +52736,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -52868,7 +52868,7 @@
       "logo": null,
       "initials": "VC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53066,7 +53066,7 @@
       "logo": null,
       "initials": "CB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53099,7 +53099,7 @@
       "logo": null,
       "initials": "MG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53165,7 +53165,7 @@
       "logo": null,
       "initials": "GE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53264,7 +53264,7 @@
       "logo": null,
       "initials": "VS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53297,7 +53297,7 @@
       "logo": null,
       "initials": "IR",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53330,7 +53330,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53396,7 +53396,7 @@
       "logo": null,
       "initials": "SA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53462,7 +53462,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53495,7 +53495,7 @@
       "logo": null,
       "initials": "AT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53561,7 +53561,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53594,7 +53594,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53627,7 +53627,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53726,7 +53726,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53825,7 +53825,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53858,7 +53858,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -53891,7 +53891,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -53957,7 +53957,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54023,7 +54023,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54056,7 +54056,7 @@
       "logo": null,
       "initials": "PD",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54122,7 +54122,7 @@
       "logo": null,
       "initials": "EE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54188,7 +54188,7 @@
       "logo": null,
       "initials": "GK",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54221,7 +54221,7 @@
       "logo": null,
       "initials": "NC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54254,7 +54254,7 @@
       "logo": null,
       "initials": "VR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54320,7 +54320,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54353,7 +54353,7 @@
       "logo": null,
       "initials": "MH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54419,7 +54419,7 @@
       "logo": null,
       "initials": "RV",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54485,7 +54485,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54518,7 +54518,7 @@
       "logo": null,
       "initials": "EO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54584,7 +54584,7 @@
       "logo": null,
       "initials": "MS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54650,7 +54650,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54749,7 +54749,7 @@
       "logo": null,
       "initials": "KI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54815,7 +54815,7 @@
       "logo": null,
       "initials": "JO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -54848,7 +54848,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54881,7 +54881,7 @@
       "logo": null,
       "initials": "CH",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54914,7 +54914,7 @@
       "logo": null,
       "initials": "RL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54947,7 +54947,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -54980,7 +54980,7 @@
       "logo": null,
       "initials": "XD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55046,7 +55046,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55079,7 +55079,7 @@
       "logo": null,
       "initials": "DH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55112,7 +55112,7 @@
       "logo": null,
       "initials": "SL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55211,7 +55211,7 @@
       "logo": null,
       "initials": "SJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55310,7 +55310,7 @@
       "logo": null,
       "initials": "BR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55376,7 +55376,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55409,7 +55409,7 @@
       "logo": null,
       "initials": "VM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55442,7 +55442,7 @@
       "logo": null,
       "initials": "SM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55508,7 +55508,7 @@
       "logo": null,
       "initials": "BB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55541,7 +55541,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55574,7 +55574,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55607,7 +55607,7 @@
       "logo": null,
       "initials": "ME",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55640,7 +55640,7 @@
       "logo": null,
       "initials": "VO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55673,7 +55673,7 @@
       "logo": null,
       "initials": "A1",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55706,7 +55706,7 @@
       "logo": null,
       "initials": "DR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -55772,7 +55772,7 @@
       "logo": null,
       "initials": "KW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55805,7 +55805,7 @@
       "logo": null,
       "initials": "SR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55838,7 +55838,7 @@
       "logo": null,
       "initials": "PE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55871,7 +55871,7 @@
       "logo": null,
       "initials": "AF",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55904,7 +55904,7 @@
       "logo": null,
       "initials": "KP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -55937,7 +55937,7 @@
       "logo": null,
       "initials": "RM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56036,7 +56036,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56102,7 +56102,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -56135,7 +56135,7 @@
       "logo": null,
       "initials": "II",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56168,7 +56168,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56234,7 +56234,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56267,7 +56267,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56300,7 +56300,7 @@
       "logo": null,
       "initials": "SG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56333,7 +56333,7 @@
       "logo": null,
       "initials": "LS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56366,7 +56366,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -56399,7 +56399,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56465,7 +56465,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56498,7 +56498,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56630,7 +56630,7 @@
       "logo": null,
       "initials": "CG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56663,7 +56663,7 @@
       "logo": null,
       "initials": "DP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56696,7 +56696,7 @@
       "logo": null,
       "initials": "TG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56729,7 +56729,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56894,7 +56894,7 @@
       "logo": null,
       "initials": "AI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -56960,7 +56960,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -56993,7 +56993,7 @@
       "logo": null,
       "initials": "RE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57026,7 +57026,7 @@
       "logo": null,
       "initials": "GF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57125,7 +57125,7 @@
       "logo": null,
       "initials": "VE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57158,7 +57158,7 @@
       "logo": null,
       "initials": "FO",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57191,7 +57191,7 @@
       "logo": null,
       "initials": "RI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57224,7 +57224,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57257,7 +57257,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57290,7 +57290,7 @@
       "logo": null,
       "initials": "SS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57356,7 +57356,7 @@
       "logo": null,
       "initials": "PJ",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57389,7 +57389,7 @@
       "logo": null,
       "initials": "WS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57422,7 +57422,7 @@
       "logo": null,
       "initials": "NG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57521,7 +57521,7 @@
       "logo": null,
       "initials": "LI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57554,7 +57554,7 @@
       "logo": null,
       "initials": "AR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57587,7 +57587,7 @@
       "logo": null,
       "initials": "SV",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57653,7 +57653,7 @@
       "logo": null,
       "initials": "SP",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57719,7 +57719,7 @@
       "logo": null,
       "initials": "MF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57752,7 +57752,7 @@
       "logo": null,
       "initials": "UH",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57818,7 +57818,7 @@
       "logo": null,
       "initials": "IC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57884,7 +57884,7 @@
       "logo": null,
       "initials": "EN",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -57917,7 +57917,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -57983,7 +57983,7 @@
       "logo": null,
       "initials": "IU",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58016,7 +58016,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58049,7 +58049,7 @@
       "logo": null,
       "initials": "DC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58082,7 +58082,7 @@
       "logo": null,
       "initials": "DL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -58115,7 +58115,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58148,7 +58148,7 @@
       "logo": null,
       "initials": "MC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58181,7 +58181,7 @@
       "logo": null,
       "initials": "BS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58214,7 +58214,7 @@
       "logo": null,
       "initials": "HI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58280,7 +58280,7 @@
       "logo": null,
       "initials": "PI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58313,7 +58313,7 @@
       "logo": null,
       "initials": "NA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58346,7 +58346,7 @@
       "logo": null,
       "initials": "MI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58478,7 +58478,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58511,7 +58511,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58544,7 +58544,7 @@
       "logo": null,
       "initials": "TR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -58676,7 +58676,7 @@
       "logo": null,
       "initials": "KF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58742,7 +58742,7 @@
       "logo": null,
       "initials": "MD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58808,7 +58808,7 @@
       "logo": null,
       "initials": "GC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58907,7 +58907,7 @@
       "logo": null,
       "initials": "ST",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -58940,7 +58940,7 @@
       "logo": null,
       "initials": "YI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -58973,7 +58973,7 @@
       "logo": null,
       "initials": "HA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59039,7 +59039,7 @@
       "logo": null,
       "initials": "BB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59072,7 +59072,7 @@
       "logo": null,
       "initials": "AC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59171,7 +59171,7 @@
       "logo": null,
       "initials": "BD",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59336,7 +59336,7 @@
       "logo": null,
       "initials": "IA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59369,7 +59369,7 @@
       "logo": null,
       "initials": "SF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59402,7 +59402,7 @@
       "logo": null,
       "initials": "UT",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59468,7 +59468,7 @@
       "logo": null,
       "initials": "HG",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59501,7 +59501,7 @@
       "logo": null,
       "initials": "HC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59600,7 +59600,7 @@
       "logo": null,
       "initials": "BB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59666,7 +59666,7 @@
       "logo": null,
       "initials": "AL",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59699,7 +59699,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -59765,7 +59765,7 @@
       "logo": null,
       "initials": "SW",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59864,7 +59864,7 @@
       "logo": null,
       "initials": "LA",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59897,7 +59897,7 @@
       "logo": null,
       "initials": "SI",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59963,7 +59963,7 @@
       "logo": null,
       "initials": "FS",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -59996,7 +59996,7 @@
       "logo": null,
       "initials": "GS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60062,7 +60062,7 @@
       "logo": null,
       "initials": "MR",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60095,7 +60095,7 @@
       "logo": null,
       "initials": "GG",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60161,7 +60161,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60227,7 +60227,7 @@
       "logo": null,
       "initials": "SE",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60293,7 +60293,7 @@
       "logo": null,
       "initials": "AE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60326,7 +60326,7 @@
       "logo": null,
       "initials": "NS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60359,7 +60359,7 @@
       "logo": null,
       "initials": "AM",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60458,7 +60458,7 @@
       "logo": null,
       "initials": "JF",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60524,7 +60524,7 @@
       "logo": null,
       "initials": "BC",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60557,7 +60557,7 @@
       "logo": null,
       "initials": "MO",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60590,7 +60590,7 @@
       "logo": null,
       "initials": "AB",
       "logoColor": "#0D9488",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60623,7 +60623,7 @@
       "logo": null,
       "initials": "AS",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60656,7 +60656,7 @@
       "logo": null,
       "initials": "BL",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60689,7 +60689,7 @@
       "logo": null,
       "initials": "IA",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60722,7 +60722,7 @@
       "logo": null,
       "initials": "CI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60755,7 +60755,7 @@
       "logo": null,
       "initials": "RP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60788,7 +60788,7 @@
       "logo": null,
       "initials": "MP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60821,7 +60821,7 @@
       "logo": null,
       "initials": "TC",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60854,7 +60854,7 @@
       "logo": null,
       "initials": "MU",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60887,7 +60887,7 @@
       "logo": null,
       "initials": "BT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60920,7 +60920,7 @@
       "logo": null,
       "initials": "IB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "BSE_BHAVCOPY"
     },
     {
@@ -60953,7 +60953,7 @@
       "logo": null,
       "initials": "HB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -60986,7 +60986,7 @@
       "logo": null,
       "initials": "IT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61019,7 +61019,7 @@
       "logo": null,
       "initials": "SB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61052,7 +61052,7 @@
       "logo": null,
       "initials": "TW",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61085,7 +61085,7 @@
       "logo": null,
       "initials": "AP",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61118,7 +61118,7 @@
       "logo": null,
       "initials": "LT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61151,7 +61151,7 @@
       "logo": null,
       "initials": "RT",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61184,7 +61184,7 @@
       "logo": null,
       "initials": "TE",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61217,7 +61217,7 @@
       "logo": null,
       "initials": "TI",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61250,7 +61250,7 @@
       "logo": null,
       "initials": "TB",
       "logoColor": "#2563EB",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "NSE_BHAVCOPY"
     },
     {
@@ -61415,7 +61415,7 @@
       "logo": null,
       "initials": "IH",
       "logoColor": "#3B82F6",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Dealer Quote (₹142.00)",
       "high": 150.0,
       "low": 130.0
@@ -61450,7 +61450,7 @@
       "logo": null,
       "initials": "HF",
       "logoColor": "#84CC16",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Dealer Quote (₹875.00)",
       "high": 920.0,
       "low": 840.0
@@ -61749,7 +61749,7 @@
       "logo": null,
       "initials": "PH",
       "logoColor": "#0EA5E9",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Dealer Quote (₹10.80)",
       "high": 12.0,
       "low": 9.5
@@ -61949,7 +61949,7 @@
       "logo": null,
       "initials": "OY",
       "logoColor": "#84CC16",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Dealer Quote (₹42.50)",
       "high": 48.0,
       "low": 39.0
@@ -61984,7 +61984,7 @@
       "logo": null,
       "initials": "BO",
       "logoColor": "#D97706",
-      "lastUpdated": "2026-11-13T23:35:59.288195+05:30",
+      "lastUpdated": "2026-11-13T23:56:19.683019+05:30",
       "priceSource": "Unlisted Dealer Quote (₹840.00)",
       "high": 890.0,
       "low": 810.0
