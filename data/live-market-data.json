@@ -1,6 +1,6 @@
 {
-  "lastSyncTime": "2026-11-13T23:02:43.289136+05:30",
-  "lastSyncFormatted": "13 Nov 2026, 11:02 PM IST",
+  "lastSyncTime": "2026-11-13T23:35:59.288195+05:30",
+  "lastSyncFormatted": "13 Nov 2026, 11:35 PM IST",
   "nextSyncCountdownSeconds": 300,
   "syncIntervalMinutes": 5,
   "totalTrackedUniverse": 1872,
@@ -22,7 +22,7 @@
       "change": -155.05,
       "pct": -0.61,
       "isGain": false,
-      "timestamp": "2026-11-13T23:02:44.820475+05:30",
+      "timestamp": "2026-11-13T23:35:59.674417+05:30",
       "status": "CLOSING",
       "source": "NSE Benchmark (Google Finance)"
     },
@@ -33,7 +33,7 @@
       "change": -318.55,
       "pct": -0.39,
       "isGain": false,
-      "timestamp": "2026-11-13T23:02:45.912514+05:30",
+      "timestamp": "2026-11-13T23:36:00.199138+05:30",
       "status": "CLOSING",
       "source": "BSE Benchmark (Google Finance)"
     },
@@ -44,7 +44,7 @@
       "change": -484.4,
       "pct": -0.79,
       "isGain": false,
-      "timestamp": "2026-11-13T23:02:47.148295+05:30",
+      "timestamp": "2026-11-13T23:36:00.675160+05:30",
       "status": "CLOSING",
       "source": "NSE Sector Benchmark (Google Finance)"
     },
@@ -55,18 +55,18 @@
       "change": -1.12,
       "pct": -6.74,
       "isGain": false,
-      "timestamp": "2026-11-13T23:02:48.288927+05:30",
+      "timestamp": "2026-11-13T23:36:00.960482+05:30",
       "status": "CLOSING",
       "source": "NSE Volatility Index (Google Finance)"
     },
     "usdInr": {
       "name": "USD/INR",
       "symbol": "INR=X",
-      "price": 94.28,
+      "price": 94.29,
       "change": 0.25,
-      "pct": 0.26,
+      "pct": 0.27,
       "isGain": true,
-      "timestamp": "2026-11-13T23:02:49.391021+05:30",
+      "timestamp": "2026-11-13T23:36:01.407239+05:30",
       "status": "CLOSING",
       "source": "Forex Benchmark (Google Finance)"
     },
@@ -77,7 +77,7 @@
       "change": -0.71,
       "pct": -0.63,
       "isGain": false,
-      "timestamp": "2026-11-13T23:02:50.154310+05:30",
+      "timestamp": "2026-11-13T23:36:01.944271+05:30",
       "status": "CLOSING",
       "source": "NSE Gold ETF (Google Finance)"
     },
@@ -88,7 +88,7 @@
       "change": -2.52,
       "pct": -1.47,
       "isGain": false,
-      "timestamp": "2026-11-13T23:02:51.892814+05:30",
+      "timestamp": "2026-11-13T23:36:02.497277+05:30",
       "status": "CLOSING",
       "source": "NSE Silver ETF (Google Finance)"
     }
@@ -138,7 +138,7 @@
         1989.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -185,7 +185,7 @@
         697.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -232,7 +232,7 @@
         401.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -279,7 +279,7 @@
         772.55
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -326,7 +326,7 @@
         410.35
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -373,7 +373,7 @@
         485.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -420,7 +420,7 @@
         577.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -467,7 +467,7 @@
         830.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -514,7 +514,7 @@
         475.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -561,7 +561,7 @@
         412.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -610,7 +610,7 @@
         158.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -657,7 +657,7 @@
         412.95
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -704,7 +704,7 @@
         126.3
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -751,7 +751,7 @@
         111.7
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -798,7 +798,7 @@
         250.75
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -845,7 +845,7 @@
         102.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -892,7 +892,7 @@
         116.65
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -939,7 +939,7 @@
         303.3
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -986,7 +986,7 @@
         82.64
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1033,7 +1033,7 @@
         172.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -1082,7 +1082,7 @@
         37.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1129,7 +1129,7 @@
         28.15
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1176,7 +1176,7 @@
         61.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1223,7 +1223,7 @@
         156.4
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1270,7 +1270,7 @@
         105.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1317,7 +1317,7 @@
         66.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1364,7 +1364,7 @@
         5.82
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1411,7 +1411,7 @@
         90.71
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1458,7 +1458,7 @@
         27.5
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1505,7 +1505,7 @@
         15.76
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -1554,7 +1554,7 @@
         66.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1601,7 +1601,7 @@
         95.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1648,7 +1648,7 @@
         105.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1695,7 +1695,7 @@
         263.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1742,7 +1742,7 @@
         208.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1789,7 +1789,7 @@
         147.0
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1836,7 +1836,7 @@
         401.45
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1883,7 +1883,7 @@
         110.52
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1930,7 +1930,7 @@
         176.87
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -1977,7 +1977,7 @@
         134.8
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -2024,7 +2024,7 @@
         271.23
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     },
     {
@@ -2071,7 +2071,7 @@
         480.6
       ],
       "quoteVerified": true,
-      "quoteTimestamp": "2026-11-13T23:02:43.289136+05:30",
+      "quoteTimestamp": "2026-11-13T23:35:59.288195+05:30",
       "quoteSource": "Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)"
     }
   ],
@@ -2079,114 +2079,6 @@
   "next50": [],
   "trackedIpos": [],
   "liveGmps": [
-    {
-      "company": "Zinka Logistics (BlackBuck)",
-      "price": 273.0,
-      "gmp": 24.0,
-      "gmpPct": 8.79,
-      "estListing": 297.0,
-      "estProfitLot": 1296.0,
-      "sub": 0.32,
-      "sizeCr": 1114.72,
-      "lot": 54,
-      "openDate": "13-Nov",
-      "closeDate": "18-Nov",
-      "allotDate": "19-Nov",
-      "listingDate": "21-Nov",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
-      "company": "NTPC Green Energy",
-      "price": 108.0,
-      "gmp": 3.5,
-      "gmpPct": 3.24,
-      "estListing": 111.5,
-      "estProfitLot": 483.0,
-      "sub": 0.0,
-      "sizeCr": 10000.0,
-      "lot": 138,
-      "openDate": "19-Nov",
-      "closeDate": "22-Nov",
-      "allotDate": "25-Nov",
-      "listingDate": "27-Nov",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
-      "company": "C2C Advanced Systems",
-      "price": 226.0,
-      "gmp": 120.0,
-      "gmpPct": 53.1,
-      "estListing": 346.0,
-      "estProfitLot": 72000.0,
-      "sub": 0.0,
-      "sizeCr": 99.07,
-      "lot": 600,
-      "openDate": "22-Nov",
-      "closeDate": "26-Nov",
-      "allotDate": "27-Nov",
-      "listingDate": "29-Nov",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
-      "company": "Enviro Infra Engineers",
-      "price": 148.0,
-      "gmp": 27.0,
-      "gmpPct": 18.24,
-      "estListing": 175.0,
-      "estProfitLot": 2727.0,
-      "sub": 0.0,
-      "sizeCr": 650.43,
-      "lot": 101,
-      "openDate": "22-Nov",
-      "closeDate": "26-Nov",
-      "allotDate": "27-Nov",
-      "listingDate": "29-Nov",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
-      "company": "Rajesh Power Services",
-      "price": 335.0,
-      "gmp": 65.0,
-      "gmpPct": 19.4,
-      "estListing": 400.0,
-      "estProfitLot": 26000.0,
-      "sub": 0.0,
-      "sizeCr": 160.47,
-      "lot": 400,
-      "openDate": "25-Nov",
-      "closeDate": "27-Nov",
-      "allotDate": "28-Nov",
-      "listingDate": "2-Dec",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
-    {
-      "company": "Rajputana Biodiesel",
-      "price": 130.0,
-      "gmp": 50.0,
-      "gmpPct": 38.46,
-      "estListing": 180.0,
-      "estProfitLot": 50000.0,
-      "sub": 0.0,
-      "sizeCr": 24.7,
-      "lot": 1000,
-      "openDate": "26-Nov",
-      "closeDate": "28-Nov",
-      "allotDate": "29-Nov",
-      "listingDate": "3-Dec",
-      "updatedOn": "13-Nov 21:30",
-      "confidence": "High",
-      "source": "Market Consensus (InvestorGain / Broker Desk)"
-    },
     {
       "company": "Watrana Rentals U",
       "price": 245.0,
@@ -2201,7 +2093,7 @@
       "closeDate": "23-Nov",
       "allotDate": "25-Nov",
       "listingDate": "27-Nov",
-      "updatedOn": "13-Nov 21:37",
+      "updatedOn": "13-Nov 22:37",
       "confidence": "Neutral",
       "source": "Market Consensus (InvestorGain / Broker Desk)"
     },
@@ -2219,7 +2111,7 @@
       "closeDate": "20-Nov",
       "allotDate": "23-Nov",
       "listingDate": "26-Nov",
-      "updatedOn": "13-Nov 21:37",
+      "updatedOn": "13-Nov 22:37",
       "confidence": "Neutral",
       "source": "Market Consensus (InvestorGain / Broker Desk)"
     },
