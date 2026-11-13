@@ -6,10 +6,91 @@
   "stats": {
     "openCount": 1,
     "closedCount": 2,
-    "upcomingCount": 31,
+    "upcomingCount": 32,
     "listedCount": 176
   },
   "records": [
+    {
+      "id": "crystal-crop-protection",
+      "slug": "crystal-crop-protection-limited-ipo",
+      "companyName": "Crystal Crop Protection Limited",
+      "shortName": "Crystal Crop Protection",
+      "initials": "CC",
+      "logoColor": "#15803D",
+      "iconType": "agriculture",
+      "status": "UPCOMING",
+      "board": "MAINBOARD",
+      "exchange": "BSE, NSE",
+      "sector": "Agrochemicals & Crop Protection",
+      "issueType": "Book Built Issue IPO",
+      "issuePrice": 259,
+      "currentPrice": 259,
+      "listingPrice": null,
+      "listingGainPct": null,
+      "priceBandLow": 245,
+      "priceBandHigh": 259,
+      "lotSize": 55,
+      "issueSizeCr": 455.49,
+      "minimumInvestment": 14245,
+      "faceValue": 10,
+      "registrar": "Link Intime India Pvt Ltd",
+      "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
+      "growwUrl": "https://groww.in/ipo/crystal-crop-protection-ipo",
+      "docUrl": "https://www.iiflcapital.com/institutional-equities/upload/investmentbanking/prospects/crystal_crop_protection_limited_-_red_herring_prospectus.pdf",
+      "openDate": "2026-11-18",
+      "closeDate": "2026-11-20",
+      "allotDate": "2026-11-23",
+      "allotmentDate": "2026-11-23",
+      "refundDate": "2026-11-23",
+      "dematDate": "2026-11-24",
+      "listingDate": "2026-11-26",
+      "expectedListingPrice": 259,
+      "estProfitPerLot": 0,
+      "gmp": 0,
+      "gmpPercentage": 0,
+      "gmpUpdatedAt": "2026-11-13T23:30:00+05:30",
+      "trend": "neutral",
+      "subscriptionTotal": null,
+      "subscriptionSummary": {
+        "qib": 0.0,
+        "nii": 0.0,
+        "retail": 0.0,
+        "employee": 0.0,
+        "total": 0.0
+      },
+      "about": "Crystal Crop Protection Limited is an agrochemical and seed company established in 1994. The company develops, manufactures, and distributes crop protection products, natural crop solutions, technical-grade active ingredients, and seeds. Its crop protection portfolio includes herbicides, fungicides, insecticides, bio-stimulants, bio-protectants, plant growth regulators, liquid fertilisers, and micronutrients. Its seed portfolio covers field crops such as cotton, mustard, maize, rice, and wheat, along with vegetable and flower seeds. The company also manufactures self-propelled boom sprayers and sells conventional sprayers. It operates four formulation manufacturing units in Haryana, Gujarat, and Jammu and two technical manufacturing units in Gujarat and Maharashtra. Its seed processing facilities are located in Hyderabad, Telangana, and Bengaluru, Karnataka. The company also operates research and development facilities across multiple states, including its Key Research and Development Centre in Sonipat, Haryana.",
+      "documents": [
+        {
+          "name": "Red Herring Prospectus (RHP)",
+          "url": "https://www.iiflcapital.com/institutional-equities/upload/investmentbanking/prospects/crystal_crop_protection_limited_-_red_herring_prospectus.pdf",
+          "type": "RHP"
+        }
+      ],
+      "financials": [
+        {
+          "year": "FY24",
+          "revenue": 1420.5,
+          "profit": 98.4,
+          "growth": "+12.8%"
+        },
+        {
+          "year": "FY23",
+          "revenue": 1259.2,
+          "profit": 87.1,
+          "growth": "+14.5%"
+        }
+      ],
+      "strengths": [
+        "Established integrated crop solutions player with over 30 years of operational track record in Indian agriculture.",
+        "Diversified portfolio across crop protection, hybrid seeds, bio-stimulants, and precision farm spray equipment.",
+        "Nationwide distribution footprint spanning 4 formulation manufacturing units and research centers."
+      ],
+      "risks": [
+        "Agrochemical demand is seasonal and subject to monsoon patterns and regional farm realizations.",
+        "Subject to stringent environmental and regulatory clearances for technical active ingredients."
+      ],
+      "applicationDetails": "Eligible investors can apply in Regular and Employee reservation categories with minimum investment of ₹14,245 (55 shares per lot)."
+    },
     {
       "id": "zinka-logistics-solutions",
       "slug": "zinka-logistics-solutions-ipo",
