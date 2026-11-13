@@ -1,7 +1,7 @@
 /* Auto-generated Unified IPO Database */
 (function(window) {
   window.IpoData = {
-  "updatedAt": "2026-11-13T22:30:00+05:30",
+  "updatedAt": "2024-11-13T22:30:00+05:30",
   "source": "IPO lifecycle and final subscription data cross-checked against NSE/BSE bidding data aggregation; status snapshot 6 Nov 2026.",
   "stats": {
     "openCount": 1,
@@ -117,19 +117,19 @@
       "registrar": "KFin Technologies Limited",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/zinka-logistics-solutions-ipo",
-      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2026/zinka-logistics-solutions-limited-rhp_103421.html",
-      "openDate": "2026-11-13",
-      "closeDate": "2026-11-18",
-      "allotDate": "2026-11-19",
-      "allotmentDate": "2026-11-19",
-      "refundDate": "2026-11-20",
-      "dematDate": "2026-11-20",
-      "listingDate": "2026-11-21",
+      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
+      "openDate": "2024-11-13",
+      "closeDate": "2024-11-18",
+      "allotDate": "2024-11-19",
+      "allotmentDate": "2024-11-19",
+      "refundDate": "2024-11-20",
+      "dematDate": "2024-11-20",
+      "listingDate": "2024-11-21",
       "expectedListingPrice": 297,
       "estProfitPerLot": 1296,
       "gmp": 24,
       "gmpPercentage": 8.79,
-      "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
       "dayHighGmp": 25,
       "dayLowGmp": 22,
       "trend": "up",
@@ -145,7 +145,7 @@
       "documents": [
         {
           "name": "Red Herring Prospectus (RHP)",
-          "url": "https://www.sebi.gov.in/filings/public-issues/nov-2026/zinka-logistics-solutions-limited-rhp_103421.html",
+          "url": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
           "type": "RHP"
         }
       ],
@@ -168,7 +168,17 @@
           "profit": -285.4,
           "growth": "Base"
         }
-      ]
+      ],
+      "strengths": [
+        "Category-leading market share with 963,000+ truck operators active on the platform.",
+        "Strong revenue growth in tolling (FASTag) and telematics SaaS subscriptions.",
+        "Robust balance sheet post-issue with zero term debt."
+      ],
+      "risks": [
+        "Historical net operating losses due to high driver acquisition and tech costs.",
+        "Dependent on commercial vehicle freight volume and diesel economic cycles."
+      ],
+      "applicationDetails": "Eligible investors can apply in Retail, sNII, and bNII categories. Minimum bid 54 shares (₹14,742)."
     },
     {
       "id": "ntpc-green-energy",
@@ -196,19 +206,19 @@
       "registrar": "KFin Technologies Limited",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/ntpc-green-energy-ipo",
-      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2026/ntpc-green-energy-limited-rhp_103450.html",
-      "openDate": "2026-11-19",
-      "closeDate": "2026-11-22",
-      "allotDate": "2026-11-25",
-      "allotmentDate": "2026-11-25",
-      "refundDate": "2026-11-26",
-      "dematDate": "2026-11-26",
-      "listingDate": "2026-11-27",
+      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/ntpc-green-energy-limited-rhp_103450.html",
+      "openDate": "2024-11-19",
+      "closeDate": "2024-11-22",
+      "allotDate": "2024-11-25",
+      "allotmentDate": "2024-11-25",
+      "refundDate": "2024-11-26",
+      "dematDate": "2024-11-26",
+      "listingDate": "2024-11-27",
       "expectedListingPrice": 111.5,
       "estProfitPerLot": 483,
       "gmp": 3.5,
       "gmpPercentage": 3.24,
-      "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
       "dayHighGmp": 4.0,
       "dayLowGmp": 3.0,
       "trend": "up",
@@ -224,7 +234,7 @@
       "documents": [
         {
           "name": "Red Herring Prospectus (RHP)",
-          "url": "https://www.sebi.gov.in/filings/public-issues/nov-2026/ntpc-green-energy-limited-rhp_103450.html",
+          "url": "https://www.sebi.gov.in/filings/public-issues/nov-2024/ntpc-green-energy-limited-rhp_103450.html",
           "type": "RHP"
         }
       ],
@@ -241,7 +251,17 @@
           "profit": 171.23,
           "growth": "+112.5%"
         }
-      ]
+      ],
+      "strengths": [
+        "Backed by parent NTPC's strong balance sheet, power evacuation infrastructure, and credit rating.",
+        "Massive portfolio of 14+ GW operational and contracted renewable capacity under long-term 25-year PPAs.",
+        "Substantial pipeline of solar, round-the-clock wind-solar hybrids, and pumped hydro storage."
+      ],
+      "risks": [
+        "Capital intensive sector with high dependency on interest rates and transmission connectivity.",
+        "Offtake counterparty credit risk tied to state electricity discoms."
+      ],
+      "applicationDetails": "Shareholder reservation quota available for eligible NTPC Limited shareholders. Retail lot 138 shares (₹14,904)."
     },
     {
       "id": "enviro-infra-engineers",
@@ -267,20 +287,23 @@
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://ipo.bigshareonline.com/",
       "growwUrl": "https://groww.in/ipo/enviro-infra-engineers-ipo",
-      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2026/enviro-infra-engineers-limited-rhp.html",
-      "openDate": "2026-11-22",
-      "closeDate": "2026-11-26",
-      "allotDate": "2026-11-27",
-      "listingDate": "2026-11-29",
+      "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/enviro-infra-engineers-limited-rhp.html",
+      "openDate": "2024-11-22",
+      "closeDate": "2024-11-26",
+      "allotDate": "2024-11-27",
+      "listingDate": "2024-11-29",
       "expectedListingPrice": 175,
       "estProfitPerLot": 2727,
       "gmp": 27,
       "gmpPercentage": 18.24,
-      "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
       "trend": "up",
       "about": "Premier environmental engineering company designing, constructing, and operating Sewage Treatment Plants (STPs), Water Treatment Plants (WTPs), and pumping stations for government authorities across India.",
       "documents": [],
-      "financials": []
+      "financials": [],
+      "allotmentDate": "2024-11-27",
+      "refundDate": "2024-11-28",
+      "dematDate": "2024-11-28"
     },
     {
       "id": "c2c-advanced-systems",
@@ -306,19 +329,22 @@
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
       "growwUrl": "https://groww.in/ipo/c2c-advanced-systems-ipo",
-      "openDate": "2026-11-22",
-      "closeDate": "2026-11-26",
-      "allotDate": "2026-11-27",
-      "listingDate": "2026-11-29",
+      "openDate": "2024-11-22",
+      "closeDate": "2024-11-26",
+      "allotDate": "2024-11-27",
+      "listingDate": "2024-11-29",
       "expectedListingPrice": 346,
       "estProfitPerLot": 72000,
       "gmp": 120,
       "gmpPercentage": 53.1,
-      "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
       "trend": "up",
-      "about": "Vertically integrated defence electronics player delivering Command, Control, Communications, Computers, Intelligence (C4I) systems, radar processing, and combat situational awareness solutions.",
+      "about": "Vertically integrated defence electronics player delivering Command, Control, Communications, Computers, Intelligence surveillance systems, and naval subsystems.",
       "documents": [],
-      "financials": []
+      "financials": [],
+      "allotmentDate": "2024-11-27",
+      "refundDate": "2024-11-28",
+      "dematDate": "2024-11-28"
     },
     {
       "id": "lamosaic-india",
@@ -344,15 +370,21 @@
       "registrar": "KFin Technologies Limited",
       "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
       "growwUrl": "https://groww.in/ipo/lamosaic-india-ipo",
-      "openDate": "2026-11-21",
-      "closeDate": "2026-11-26",
-      "allotDate": "2026-11-27",
-      "listingDate": "2026-11-29",
+      "openDate": "2024-11-21",
+      "closeDate": "2024-11-26",
+      "allotDate": "2024-11-27",
+      "listingDate": "2024-11-29",
       "gmp": 0,
-      "gmpPercentage": 0,
+      "gmpPercentage": 0.0,
       "about": "Trading and manufacturing of decorative laminates, acrylic sheets, printing cylinders, plywood, and flush doors.",
       "documents": [],
-      "financials": []
+      "financials": [],
+      "allotmentDate": "2024-11-27",
+      "refundDate": "2024-11-28",
+      "dematDate": "2024-11-28",
+      "expectedListingPrice": 200,
+      "estProfitPerLot": 0,
+      "trend": "neutral"
     },
     {
       "id": "rajesh-power-services",
@@ -378,19 +410,22 @@
       "registrar": "Bigshare Services Pvt Ltd",
       "allotmentUrl": "https://ipo.bigshareonline.com/",
       "growwUrl": "https://groww.in/ipo/rajesh-power-services-ipo",
-      "openDate": "2026-11-25",
-      "closeDate": "2026-11-27",
-      "allotDate": "2026-11-28",
-      "listingDate": "2026-12-02",
+      "openDate": "2024-11-25",
+      "closeDate": "2024-11-27",
+      "allotDate": "2024-11-28",
+      "listingDate": "2024-12-02",
       "expectedListingPrice": 400,
       "estProfitPerLot": 26000,
       "gmp": 65,
       "gmpPercentage": 19.4,
-      "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
       "trend": "up",
       "about": "Engineering, Procurement and Construction (EPC) contractor for extra high voltage (EHV) underground cabling, power utility distribution, and substation turnkey projects.",
       "documents": [],
-      "financials": []
+      "financials": [],
+      "allotmentDate": "2024-11-28",
+      "refundDate": "2024-11-29",
+      "dematDate": "2024-11-29"
     },
     {
       "id": "rajputana-biodiesel",
@@ -416,19 +451,22 @@
       "registrar": "Maashitla Securities Pvt Ltd",
       "allotmentUrl": "https://maashitla.com/allotment-status/",
       "growwUrl": "https://groww.in/ipo/rajputana-biodiesel-ipo",
-      "openDate": "2026-11-26",
-      "closeDate": "2026-11-28",
-      "allotDate": "2026-11-29",
-      "listingDate": "2026-12-03",
+      "openDate": "2024-11-26",
+      "closeDate": "2024-11-28",
+      "allotDate": "2024-11-29",
+      "listingDate": "2024-12-03",
       "expectedListingPrice": 180,
       "estProfitPerLot": 50000,
       "gmp": 50,
       "gmpPercentage": 38.46,
-      "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+      "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
       "trend": "up",
       "about": "Manufacturer of biofuels and renewable energy solutions including biodiesel (methyl esters), crude glycerin, and bio-coal briquettes.",
       "documents": [],
-      "financials": []
+      "financials": [],
+      "allotmentDate": "2024-11-29",
+      "refundDate": "2024-12-02",
+      "dematDate": "2024-12-02"
     },
     {
       "id": "bombay-coated-steels",
@@ -1213,9 +1251,9 @@
       "faceValue": 10,
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
-      "openDate": "2026-10-21",
-      "closeDate": "2026-10-23",
-      "allotDate": "2026-10-24",
+      "openDate": "2024-10-21",
+      "closeDate": "2024-10-23",
+      "allotDate": "2024-10-24",
       "listingDate": "2024-10-28",
       "gmp": null,
       "gmpPercentage": null,
@@ -1303,7 +1341,8 @@
         "https://nsearchives.nseindia.com/web/sites/default/files/2024-10/PR_LIST_25102024.pdf",
         "https://www.sbicaps.com/wp-content/uploads/2026/04/Waaree-Energies-Limited.pdf"
       ],
-      "growwUrl": "https://groww.in/ipo/waaree-energies-ipo"
+      "growwUrl": "https://groww.in/ipo/waaree-energies-ipo",
+      "allotmentDate": "2024-10-24"
     },
     {
       "id": "godavari-biorefineries",
@@ -1329,9 +1368,9 @@
       "faceValue": 10,
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
-      "openDate": "2026-10-23",
-      "closeDate": "2026-10-25",
-      "allotDate": "2026-10-28",
+      "openDate": "2024-10-23",
+      "closeDate": "2024-10-25",
+      "allotDate": "2024-10-28",
       "listingDate": "2024-10-30",
       "gmp": null,
       "gmpPercentage": null,
@@ -1417,7 +1456,8 @@
         "https://www.godavaribiorefineries.com/sites/default/files/Investor_Presentation_Sep_2024.pdf",
         "https://www.ndtvprofit.com/markets/godavari-biorefineries-share-price-debuts-at-12-discount-over-ipo-price-9967664"
       ],
-      "growwUrl": "https://groww.in/ipo/godavari-biorefineries-ipo"
+      "growwUrl": "https://groww.in/ipo/godavari-biorefineries-ipo",
+      "allotmentDate": "2024-10-28"
     },
     {
       "id": "afcons-infrastructure",
@@ -1447,9 +1487,9 @@
       "faceValue": 10,
       "registrar": "Link Intime India Pvt Ltd",
       "allotmentUrl": "https://www.linkintime.co.in/initial_offer/public-issues.html",
-      "openDate": "2026-10-25",
-      "closeDate": "2026-10-29",
-      "allotDate": "2026-10-31",
+      "openDate": "2024-10-25",
+      "closeDate": "2024-10-29",
+      "allotDate": "2024-10-31",
       "refundDate": "2026-11-01",
       "dematDate": "2026-11-01",
       "listingDate": "2024-11-04",
@@ -1554,7 +1594,8 @@
         "https://www.sbicaps.com/wp-content/uploads/2025/10/AFCONS-INFRASTRUCTURE-LTD.pdf",
         "https://www.ndtvprofit.com/markets/shapoorji-pallonji-group-afcons-infra-debuts-at-8-percentdiscount-9968058"
       ],
-      "growwUrl": "https://groww.in/ipo/afcons-infrastructure-ipo"
+      "growwUrl": "https://groww.in/ipo/afcons-infrastructure-ipo",
+      "allotmentDate": "2024-10-31"
     },
     {
       "id": "carver-roboweld",

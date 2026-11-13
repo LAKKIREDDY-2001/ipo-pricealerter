@@ -62,6 +62,59 @@
     }).format(val);
   };
 
+  const formatSingleDate = (str) => {
+    if (!str || typeof str !== "string") return "TBA";
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const parts = str.split("-");
+    if (parts.length === 3) {
+      const y = parts[0];
+      const mIdx = parseInt(parts[1], 10) - 1;
+      const d = parseInt(parts[2], 10);
+      if (mIdx >= 0 && mIdx < 12 && !isNaN(d)) {
+        return `${d} ${monthNames[mIdx]} ${y}`;
+      }
+    }
+    return str;
+  };
+
+  const formatIpoDates = (openDate, closeDate, listingDate) => {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const parseParts = (str) => {
+      if (!str || typeof str !== "string") return null;
+      const parts = str.split("-");
+      if (parts.length === 3) {
+        const y = parts[0];
+        const mIdx = parseInt(parts[1], 10) - 1;
+        const d = parseInt(parts[2], 10);
+        if (mIdx >= 0 && mIdx < 12 && !isNaN(d)) {
+          return { y, m: monthNames[mIdx], d };
+        }
+      }
+      return null;
+    };
+
+    if (openDate && closeDate) {
+      const o = parseParts(openDate);
+      const c = parseParts(closeDate);
+      if (o && c) {
+        if (o.y === c.y && o.m === c.m) {
+          return `${o.d} – ${c.d} ${o.m} ${o.y}`;
+        } else if (o.y === c.y) {
+          return `${o.d} ${o.m} – ${c.d} ${c.m} ${o.y}`;
+        } else {
+          return `${o.d} ${o.m} ${o.y} – ${c.d} ${c.m} ${c.y}`;
+        }
+      }
+      return `${openDate} to ${closeDate}`;
+    }
+    if (listingDate) {
+      const l = parseParts(listingDate);
+      if (l) return `Listed ${l.d} ${l.m} ${l.y}`;
+      return `Listed ${listingDate}`;
+    }
+    return "TBA";
+  };
+
   // Sparkline SVG generator
   const createSparklineSvg = (points, isGain, width = 76, height = 22) => {
     if (!points || points.length < 2) {
@@ -373,7 +426,7 @@
               const price = ipo.issuePrice ? formatRupees(ipo.issuePrice) : (ipo.priceBandLow ? `₹${ipo.priceBandLow} - ₹${ipo.priceBandHigh}` : "TBA");
               const gmp = ipo.gmp ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : (ipo.status === "LISTED" ? `Listed ${ipo.listingGainPct ? "+" + ipo.listingGainPct + "%" : ""}` : "—");
               const sub = ipo.subscriptionTotal ? `${ipo.subscriptionTotal}x` : "—";
-              const dates = ipo.openDate && ipo.closeDate ? `${ipo.openDate} to ${ipo.closeDate}` : (ipo.listingDate ? `Listed ${ipo.listingDate}` : "TBA");
+              const dates = formatIpoDates(ipo.openDate, ipo.closeDate, ipo.listingDate);
 
               return `
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
@@ -787,7 +840,7 @@
           const price = ipo.issuePrice ? formatRupees(ipo.issuePrice) : (ipo.priceBandLow ? `₹${ipo.priceBandLow} - ₹${ipo.priceBandHigh}` : "TBA");
           const gmp = ipo.gmp ? `+₹${ipo.gmp} (${ipo.gmpPercentage || 0}%)` : (ipo.status === "LISTED" ? `Listed ${ipo.listingGainPct ? "+" + ipo.listingGainPct + "%" : ""}` : "—");
           const sub = ipo.subscriptionTotal ? `${ipo.subscriptionTotal}x` : "—";
-          const dates = ipo.openDate && ipo.closeDate ? `${ipo.openDate} to ${ipo.closeDate}` : (ipo.listingDate ? `Listed ${ipo.listingDate}` : "TBA");
+          const dates = formatIpoDates(ipo.openDate, ipo.closeDate, ipo.listingDate);
 
           return `
             <article class="card p-5 hover:shadow-md transition-shadow flex flex-col justify-between">
@@ -874,12 +927,12 @@
         { label: "Price Band", val: price },
         { label: "Lot Size", val: ipo.lotSize ? `${ipo.lotSize} shares` : "—" },
         { label: "Min Investment", val: ipo.minimumInvestment ? formatRupees(ipo.minimumInvestment) : (ipo.lotSize && ipo.priceBandHigh ? formatRupees(ipo.lotSize * ipo.priceBandHigh) : "—") },
-        { label: "Opens", val: ipo.openDate || "TBA" },
-        { label: "Closes", val: ipo.closeDate || "TBA" },
-        { label: "Allotment Date", val: ipo.allotDate || ipo.allotmentDate || "TBA" },
-        { label: "Refund Initiation", val: ipo.refundDate || "TBA" },
-        { label: "Demat Credit", val: ipo.dematDate || "TBA" },
-        { label: "Listing Date", val: ipo.listingDate || "TBA" }
+        { label: "Opens", val: formatSingleDate(ipo.openDate) },
+        { label: "Closes", val: formatSingleDate(ipo.closeDate) },
+        { label: "Allotment Date", val: formatSingleDate(ipo.allotDate || ipo.allotmentDate) },
+        { label: "Refund Initiation", val: formatSingleDate(ipo.refundDate) },
+        { label: "Demat Credit", val: formatSingleDate(ipo.dematDate) },
+        { label: "Listing Date", val: formatSingleDate(ipo.listingDate) }
       ];
 
       factsContainer.innerHTML = facts.map((f) => `

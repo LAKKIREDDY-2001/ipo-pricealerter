@@ -109,19 +109,19 @@ new_records = [
         "registrar": "KFin Technologies Limited",
         "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
         "growwUrl": "https://groww.in/ipo/zinka-logistics-solutions-ipo",
-        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2026/zinka-logistics-solutions-limited-rhp_103421.html",
-        "openDate": "2026-11-13",
-        "closeDate": "2026-11-18",
-        "allotDate": "2026-11-19",
-        "allotmentDate": "2026-11-19",
-        "refundDate": "2026-11-20",
-        "dematDate": "2026-11-20",
-        "listingDate": "2026-11-21",
+        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
+        "openDate": "2024-11-13",
+        "closeDate": "2024-11-18",
+        "allotDate": "2024-11-19",
+        "allotmentDate": "2024-11-19",
+        "refundDate": "2024-11-20",
+        "dematDate": "2024-11-20",
+        "listingDate": "2024-11-21",
         "expectedListingPrice": 297,
         "estProfitPerLot": 1296,
         "gmp": 24,
         "gmpPercentage": 8.79,
-        "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "dayHighGmp": 25,
         "dayLowGmp": 22,
         "trend": "up",
@@ -135,13 +135,27 @@ new_records = [
         },
         "about": "India's largest digital platform for truck operators, powering payments, telematics, load matching, and vehicle financing under the BlackBuck brand across 9,000+ trucking hubs.",
         "documents": [
-            { "name": "Red Herring Prospectus (RHP)", "url": "https://www.sebi.gov.in/filings/public-issues/nov-2026/zinka-logistics-solutions-limited-rhp_103421.html", "type": "RHP" }
+            {
+                "name": "Red Herring Prospectus (RHP)",
+                "url": "https://www.sebi.gov.in/filings/public-issues/nov-2024/zinka-logistics-solutions-limited-rhp_103421.html",
+                "type": "RHP"
+            }
         ],
         "financials": [
             { "year": "FY24", "revenue": 316.5, "profit": -193.9, "growth": "+72.3%" },
             { "year": "FY23", "revenue": 183.7, "profit": -290.5, "growth": "+45.1%" },
             { "year": "FY22", "revenue": 126.6, "profit": -285.4, "growth": "Base" }
-        ]
+        ],
+        "strengths": [
+            "Category-leading market share with 963,000+ truck operators active on the platform.",
+            "Strong revenue growth in tolling (FASTag) and telematics SaaS subscriptions.",
+            "Robust balance sheet post-issue with zero term debt."
+        ],
+        "risks": [
+            "Historical net operating losses due to high driver acquisition and tech costs.",
+            "Dependent on commercial vehicle freight volume and diesel economic cycles."
+        ],
+        "applicationDetails": "Eligible investors can apply in Retail, sNII, and bNII categories. Minimum bid 54 shares (₹14,742)."
     },
     {
         "id": "ntpc-green-energy",
@@ -163,38 +177,58 @@ new_records = [
         "priceBandLow": 102,
         "priceBandHigh": 108,
         "lotSize": 138,
-        "issueSizeCr": 10000.00,
+        "issueSizeCr": 10000.0,
         "minimumInvestment": 14904,
         "faceValue": 10,
         "registrar": "KFin Technologies Limited",
         "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
         "growwUrl": "https://groww.in/ipo/ntpc-green-energy-ipo",
-        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2026/ntpc-green-energy-limited-rhp_103450.html",
-        "openDate": "2026-11-19",
-        "closeDate": "2026-11-22",
-        "allotDate": "2026-11-25",
-        "allotmentDate": "2026-11-25",
-        "refundDate": "2026-11-26",
-        "dematDate": "2026-11-26",
-        "listingDate": "2026-11-27",
+        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/ntpc-green-energy-limited-rhp_103450.html",
+        "openDate": "2024-11-19",
+        "closeDate": "2024-11-22",
+        "allotDate": "2024-11-25",
+        "allotmentDate": "2024-11-25",
+        "refundDate": "2024-11-26",
+        "dematDate": "2024-11-26",
+        "listingDate": "2024-11-27",
         "expectedListingPrice": 111.5,
         "estProfitPerLot": 483,
         "gmp": 3.5,
         "gmpPercentage": 3.24,
-        "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "dayHighGmp": 4.0,
         "dayLowGmp": 3.0,
         "trend": "up",
         "subscriptionTotal": 0.0,
-        "subscriptionSummary": { "qib": 0.0, "nii": 0.0, "retail": 0.0, "employee": 0.0, "total": 0.0 },
+        "subscriptionSummary": {
+            "qib": 0.0,
+            "nii": 0.0,
+            "retail": 0.0,
+            "employee": 0.0,
+            "total": 0.0
+        },
         "about": "Wholly owned subsidiary of Maharatna PSU NTPC Limited, dedicated to expanding India's renewable energy capacity across utility-scale solar, wind, green hydrogen, and energy storage assets.",
         "documents": [
-            { "name": "Red Herring Prospectus (RHP)", "url": "https://www.sebi.gov.in/filings/public-issues/nov-2026/ntpc-green-energy-limited-rhp_103450.html", "type": "RHP" }
+            {
+                "name": "Red Herring Prospectus (RHP)",
+                "url": "https://www.sebi.gov.in/filings/public-issues/nov-2024/ntpc-green-energy-limited-rhp_103450.html",
+                "type": "RHP"
+            }
         ],
         "financials": [
             { "year": "FY24", "revenue": 2037.66, "profit": 344.72, "growth": "+109.8%" },
             { "year": "FY23", "revenue": 971.21, "profit": 171.23, "growth": "+112.5%" }
-        ]
+        ],
+        "strengths": [
+            "Backed by parent NTPC's strong balance sheet, power evacuation infrastructure, and credit rating.",
+            "Massive portfolio of 14+ GW operational and contracted renewable capacity under long-term 25-year PPAs.",
+            "Substantial pipeline of solar, round-the-clock wind-solar hybrids, and pumped hydro storage."
+        ],
+        "risks": [
+            "Capital intensive sector with high dependency on interest rates and transmission connectivity.",
+            "Offtake counterparty credit risk tied to state electricity discoms."
+        ],
+        "applicationDetails": "Shareholder reservation quota available for eligible NTPC Limited shareholders. Retail lot 138 shares (₹14,904)."
     },
     {
         "id": "enviro-infra-engineers",
@@ -220,16 +254,19 @@ new_records = [
         "registrar": "Bigshare Services Pvt Ltd",
         "allotmentUrl": "https://ipo.bigshareonline.com/",
         "growwUrl": "https://groww.in/ipo/enviro-infra-engineers-ipo",
-        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2026/enviro-infra-engineers-limited-rhp.html",
-        "openDate": "2026-11-22",
-        "closeDate": "2026-11-26",
-        "allotDate": "2026-11-27",
-        "listingDate": "2026-11-29",
+        "docUrl": "https://www.sebi.gov.in/filings/public-issues/nov-2024/enviro-infra-engineers-limited-rhp.html",
+        "openDate": "2024-11-22",
+        "closeDate": "2024-11-26",
+        "allotDate": "2024-11-27",
+        "allotmentDate": "2024-11-27",
+        "refundDate": "2024-11-28",
+        "dematDate": "2024-11-28",
+        "listingDate": "2024-11-29",
         "expectedListingPrice": 175,
         "estProfitPerLot": 2727,
         "gmp": 27,
         "gmpPercentage": 18.24,
-        "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "trend": "up",
         "about": "Premier environmental engineering company designing, constructing, and operating Sewage Treatment Plants (STPs), Water Treatment Plants (WTPs), and pumping stations for government authorities across India.",
         "documents": [],
@@ -259,17 +296,20 @@ new_records = [
         "registrar": "Link Intime India Pvt Ltd",
         "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
         "growwUrl": "https://groww.in/ipo/c2c-advanced-systems-ipo",
-        "openDate": "2026-11-22",
-        "closeDate": "2026-11-26",
-        "allotDate": "2026-11-27",
-        "listingDate": "2026-11-29",
+        "openDate": "2024-11-22",
+        "closeDate": "2024-11-26",
+        "allotDate": "2024-11-27",
+        "allotmentDate": "2024-11-27",
+        "refundDate": "2024-11-28",
+        "dematDate": "2024-11-28",
+        "listingDate": "2024-11-29",
         "expectedListingPrice": 346,
         "estProfitPerLot": 72000,
         "gmp": 120,
         "gmpPercentage": 53.10,
-        "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "trend": "up",
-        "about": "Vertically integrated defence electronics player delivering Command, Control, Communications, Computers, Intelligence (C4I) systems, radar processing, and combat situational awareness solutions.",
+        "about": "Vertically integrated defence electronics player delivering Command, Control, Communications, Computers, Intelligence surveillance systems, and naval subsystems.",
         "documents": [],
         "financials": []
     },
@@ -297,12 +337,18 @@ new_records = [
         "registrar": "KFin Technologies Limited",
         "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
         "growwUrl": "https://groww.in/ipo/lamosaic-india-ipo",
-        "openDate": "2026-11-21",
-        "closeDate": "2026-11-26",
-        "allotDate": "2026-11-27",
-        "listingDate": "2026-11-29",
+        "openDate": "2024-11-21",
+        "closeDate": "2024-11-26",
+        "allotDate": "2024-11-27",
+        "allotmentDate": "2024-11-27",
+        "refundDate": "2024-11-28",
+        "dematDate": "2024-11-28",
+        "listingDate": "2024-11-29",
+        "expectedListingPrice": 200,
+        "estProfitPerLot": 0,
         "gmp": 0,
-        "gmpPercentage": 0,
+        "gmpPercentage": 0.0,
+        "trend": "neutral",
         "about": "Trading and manufacturing of decorative laminates, acrylic sheets, printing cylinders, plywood, and flush doors.",
         "documents": [],
         "financials": []
@@ -331,15 +377,18 @@ new_records = [
         "registrar": "Bigshare Services Pvt Ltd",
         "allotmentUrl": "https://ipo.bigshareonline.com/",
         "growwUrl": "https://groww.in/ipo/rajesh-power-services-ipo",
-        "openDate": "2026-11-25",
-        "closeDate": "2026-11-27",
-        "allotDate": "2026-11-28",
-        "listingDate": "2026-12-02",
+        "openDate": "2024-11-25",
+        "closeDate": "2024-11-27",
+        "allotDate": "2024-11-28",
+        "allotmentDate": "2024-11-28",
+        "refundDate": "2024-11-29",
+        "dematDate": "2024-11-29",
+        "listingDate": "2024-12-02",
         "expectedListingPrice": 400,
         "estProfitPerLot": 26000,
         "gmp": 65,
         "gmpPercentage": 19.40,
-        "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "trend": "up",
         "about": "Engineering, Procurement and Construction (EPC) contractor for extra high voltage (EHV) underground cabling, power utility distribution, and substation turnkey projects.",
         "documents": [],
@@ -369,15 +418,18 @@ new_records = [
         "registrar": "Maashitla Securities Pvt Ltd",
         "allotmentUrl": "https://maashitla.com/allotment-status/",
         "growwUrl": "https://groww.in/ipo/rajputana-biodiesel-ipo",
-        "openDate": "2026-11-26",
-        "closeDate": "2026-11-28",
-        "allotDate": "2026-11-29",
-        "listingDate": "2026-12-03",
+        "openDate": "2024-11-26",
+        "closeDate": "2024-11-28",
+        "allotDate": "2024-11-29",
+        "allotmentDate": "2024-11-29",
+        "refundDate": "2024-12-02",
+        "dematDate": "2024-12-02",
+        "listingDate": "2024-12-03",
         "expectedListingPrice": 180,
         "estProfitPerLot": 50000,
         "gmp": 50,
         "gmpPercentage": 38.46,
-        "gmpUpdatedAt": "2026-11-13T21:30:00+05:30",
+        "gmpUpdatedAt": "2024-11-13T21:30:00+05:30",
         "trend": "up",
         "about": "Manufacturer of biofuels and renewable energy solutions including biodiesel (methyl esters), crude glycerin, and bio-coal briquettes.",
         "documents": [],
@@ -385,14 +437,30 @@ new_records = [
     }
 ]
 
-existing_ids = {r["id"] for r in data["records"]}
+# Upsert records
+existing_map = {r["id"]: idx for idx, r in enumerate(data["records"])}
 added = 0
-for nr in reversed(new_records):
-    if nr["id"] not in existing_ids:
+updated = 0
+for nr in new_records:
+    if nr["id"] in existing_map:
+        idx = existing_map[nr["id"]]
+        data["records"][idx].update(nr)
+        updated += 1
+    else:
         data["records"].insert(0, nr)
         added += 1
 
-data["updatedAt"] = "2026-11-13T22:30:00+05:30"
+# Also harmonize Waaree, Godavari, Afcons historical dates
+harmonized = {
+    "waaree-energies": {"openDate": "2024-10-21", "closeDate": "2024-10-23", "allotDate": "2024-10-24", "allotmentDate": "2024-10-24", "listingDate": "2024-10-28"},
+    "godavari-biorefineries": {"openDate": "2024-10-23", "closeDate": "2024-10-25", "allotDate": "2024-10-28", "allotmentDate": "2024-10-28", "listingDate": "2024-10-30"},
+    "afcons-infrastructure": {"openDate": "2024-10-25", "closeDate": "2024-10-29", "allotDate": "2024-10-31", "allotmentDate": "2024-10-31", "listingDate": "2024-11-04"}
+}
+for hid, hvals in harmonized.items():
+    if hid in existing_map:
+        data["records"][existing_map[hid]].update(hvals)
+
+data["updatedAt"] = "2024-11-13T22:30:00+05:30"
 data["stats"] = {
     "openCount": sum(1 for r in data["records"] if r.get("status") == "OPEN"),
     "closedCount": sum(1 for r in data["records"] if r.get("status") in ("CLOSED", "ALLOTMENT_AWAITED")),
@@ -405,7 +473,7 @@ new_content = "/* Auto-generated Unified IPO Database */\n(function(window) {\n 
 with open("data/ipo-data.js", "w", encoding="utf-8") as f:
     f.write(new_content)
 
-print(f"Added {added} records to ipo-data.js. Total: {len(data['records'])}. Stats: {data['stats']}")
+print(f"Upserted {updated} records, added {added} records to ipo-data.js. Total: {len(data['records'])}. Stats: {data['stats']}")
 
 # 2. Update live-market-data.json
 with open("data/live-market-data.json", "r", encoding="utf-8") as f:
@@ -508,6 +576,24 @@ add_gmps = [
         "listingDate": "29-Nov",
         "updatedOn": "13-Nov 21:30",
         "confidence": "High",
+        "source": "Market Consensus (InvestorGain / Broker Desk)"
+    },
+    {
+        "company": "Lamosaic India",
+        "price": 200.0,
+        "gmp": 0.0,
+        "gmpPct": 0.0,
+        "estListing": 200.0,
+        "estProfitLot": 0.0,
+        "sub": 0.0,
+        "sizeCr": 61.20,
+        "lot": 600,
+        "openDate": "21-Nov",
+        "closeDate": "26-Nov",
+        "allotDate": "27-Nov",
+        "listingDate": "29-Nov",
+        "updatedOn": "13-Nov 21:30",
+        "confidence": "Neutral",
         "source": "Market Consensus (InvestorGain / Broker Desk)"
     },
     {
