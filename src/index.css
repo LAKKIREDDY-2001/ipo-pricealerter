@@ -1,0 +1,74 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --pa-navy: #14263F;
+    --pa-navy-secondary: #1E3554;
+    --pa-bg: #F6F8FB;
+    --pa-card: #FFFFFF;
+    --pa-green: #059669;
+    --pa-positive: #16A34A;
+    --pa-negative: #DC2626;
+    --pa-accent: #2563EB;
+    --pa-text: #152338;
+    --pa-text-secondary: #64748B;
+    --pa-border: #E2E8F0;
+    --pa-muted: #94A3B8;
+  }
+
+  .dark {
+    --pa-bg: #0B1220;
+    --pa-card: #111C2E;
+    --pa-text: #F1F5F9;
+    --pa-text-secondary: #94A3B8;
+    --pa-border: #1E293B;
+    --pa-muted: #64748B;
+  }
+
+  html {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  .font-mono, .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+  }
+}
+
+.font-data {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Custom subtle scrollbars for ticker & tables */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

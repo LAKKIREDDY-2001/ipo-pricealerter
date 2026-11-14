@@ -1,0 +1,6 @@
+{
+  "name": "PriceAlerter",
+  "description": "Smarter IPO & Market Intelligence. Discover upcoming Indian IPOs, analyse GMP trends, monitor NSE & BSE stocks, and track listing performance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

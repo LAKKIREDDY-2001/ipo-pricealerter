@@ -1,0 +1,1570 @@
+# PRICEALERTER – COMPLETE WEBSITE DEVELOPMENT MASTER PROMPT
+
+## 1. PROJECT OVERVIEW
+
+Build a complete, production-ready, next-generation Indian financial intelligence platform called PRICEALERTER.
+
+Website: https://pricealerter.in
+
+The platform provides Indian investors with a comprehensive interface to discover IPOs, track IPO Grey Market Premium (GMP), monitor NSE and BSE listed companies, analyse listing performance, explore financial information and understand the stock market.
+
+This is not just an IPO listing website. It must become a comprehensive financial information and analytics platform.
+
+Create an entirely new, original, premium UI/UX design.
+
+Do not clone Groww, Zerodha, IPOWatch, Chittorgarh, Moneycontrol or any other website. Use them only as broad usability references. Create a distinct PriceAlerter visual identity.
+
+The final website must be:
+- Visually premium.
+- Information-rich.
+- Fast and responsive.
+- Search-engine friendly.
+- Data-driven.
+- Easy to navigate.
+- Accessible.
+- Scalable.
+- Mobile-friendly.
+- Ready for real data integration.
+
+Do not create a static mockup. Implement working navigation, filters, tables, search, charts, calculations and user interactions.
+
+---
+
+# 2. BRAND IDENTITY AND DESIGN SYSTEM
+
+## Brand identity
+
+Brand: PriceAlerter
+
+Tagline: Smarter IPO & Market Intelligence.
+
+Create a unique logo using a combination of:
+- Financial growth symbol.
+- Market chart.
+- Intelligent tracking concept.
+- Modern typography.
+
+Logo should work in:
+- Desktop navigation.
+- Mobile navigation.
+- Browser favicon.
+- Loading screen.
+- Footer.
+
+## Colour system
+
+Primary navy: #14263F
+Secondary navy: #1E3554
+Primary background: #F6F8FB
+Card background: #FFFFFF
+Primary green: #059669
+Positive green: #16A34A
+Negative red: #DC2626
+Accent blue: #2563EB
+Text primary: #152338
+Text secondary: #64748B
+Border: #E2E8F0
+Muted grey: #94A3B8
+
+Provide light and dark themes.
+
+## Typography
+
+Use Inter or Geist.
+
+Use:
+- Large, clear headings.
+- Compact financial data labels.
+- Tabular numbers for all financial values.
+- Consistent font weights.
+- Excellent readability on mobile.
+
+## Design language
+
+Use:
+- Premium fintech aesthetics.
+- Subtle shadows.
+- Clean borders.
+- Rounded cards.
+- Well-designed charts.
+- Compact data tables.
+- Carefully selected accent colours.
+- Restrained animations.
+- Consistent spacing.
+- Clear visual hierarchy.
+
+Avoid:
+- Excessive gradients.
+- Overly large empty spaces.
+- Unnecessary animations.
+- Excessive colourful cards.
+- Generic Bootstrap styling.
+- Repetitive layouts.
+- Fake market data.
+- Decorative graphs that imply real financial information.
+
+---
+
+# 3. GLOBAL WEBSITE ARCHITECTURE
+
+Create the following main navigation.
+
+1. Home / Dashboard
+2. IPO
+3. GMP Tracker
+4. Live Stocks
+5. Listed Stocks
+6. IPO Calendar
+7. Market Insights
+8. Learn
+
+Additional features:
+- Global search.
+- Watchlist.
+- Notifications.
+- User profile.
+- Theme switcher.
+
+## IPO navigation
+
+- Mainboard IPO
+- SME IPO
+- Upcoming IPO
+- Open IPO
+- Closed IPO
+- Recently Listed
+- IPO Performance
+- IPO Calendar
+
+## Stock navigation
+
+- NSE Stocks
+- BSE Stocks
+- All Stocks
+- Stock Screener
+- Top Gainers
+- Top Losers
+- Sector Performance
+- My Watchlist
+
+Use a sticky desktop navigation and an intuitive mobile navigation.
+
+---
+
+# 4. HOMEPAGE – COMPLETE FINANCIAL DASHBOARD
+
+The homepage must be the main financial intelligence dashboard.
+
+## Section 1: Market ticker
+
+At the top, show:
+- NIFTY 50
+- SENSEX
+- BANK NIFTY
+- INDIA VIX
+- USD/INR
+- Gold
+- Silver
+- Crude Oil
+
+Each instrument displays:
+- Current value.
+- Absolute change.
+- Percentage change.
+- Previous close where available.
+- Last updated timestamp.
+- Data provider.
+- Delayed or unavailable status.
+
+Use horizontally scrollable ticker cards.
+
+Use real data only. Do not display invented market prices.
+
+## Section 2: Dashboard hero
+
+Heading:
+
+"Indian IPO & Stock Market Intelligence"
+
+Description:
+
+"Discover upcoming IPOs, analyse grey market trends, explore listed companies and track market movements in one place."
+
+Include:
+- Global search.
+- Explore IPOs.
+- View stock market.
+- Explore GMP.
+
+Create a visually impressive hero without consuming excessive vertical space.
+
+## Section 3: Market overview
+
+Create dashboard summary cards for:
+
+- Active IPOs.
+- Upcoming IPOs.
+- Recently closed IPOs.
+- IPOs listed this year.
+- Total tracked stocks.
+- Latest available GMP updates.
+
+Calculate counts from actual records.
+
+## Section 4: IPO activity
+
+Create an interactive IPO dashboard.
+
+Tabs:
+- Current IPOs.
+- Upcoming IPOs.
+- Recently Closed.
+- Recently Listed.
+
+Display:
+- Company logo.
+- Company name.
+- IPO type.
+- Price band.
+- Lot size.
+- Issue size.
+- Opening date.
+- Closing date.
+- Listing date.
+- Subscription status.
+- GMP.
+- Estimated listing price.
+- Estimated listing gain.
+
+Provide:
+- Search.
+- Filters.
+- Sorting.
+- Pagination.
+- View details.
+
+## Section 5: GMP tracker
+
+Create a dedicated GMP intelligence widget.
+
+Display:
+- Company name.
+- IPO issue price.
+- Latest GMP.
+- GMP percentage.
+- Estimated listing price.
+- Estimated gain.
+- Last updated date.
+- Data availability status.
+
+Add historical charts:
+- 1 day.
+- 7 days.
+- 1 month.
+- All available history.
+
+Create a GMP ranking table.
+
+Show positive GMP in green and negative GMP in red.
+
+Show unavailable GMP as "Unavailable".
+
+Add a clear disclaimer explaining that GMP is unofficial, speculative and not an exchange-quoted price.
+
+Never generate fake historical values.
+
+## Section 6: Live stock market
+
+Build a professional stock market dashboard.
+
+Tabs:
+- All Stocks.
+- NSE.
+- BSE.
+- Watchlist.
+
+Display:
+- Company name.
+- Trading symbol.
+- Exchange.
+- Current price.
+- Previous close.
+- Price change.
+- Percentage change.
+- Open.
+- Day high.
+- Day low.
+- Volume.
+- Market capitalization.
+- Mini price chart.
+- Last updated timestamp.
+
+Features:
+- Search by company or symbol.
+- Exchange filters.
+- Sector filters.
+- Price range.
+- Gainers and losers.
+- Sorting.
+- Pagination.
+- Responsive table.
+
+Support the full available NSE and BSE security universe through the connected data source. Do not restrict the platform to a manually selected set of popular companies.
+
+## Section 7: Recently listed IPOs
+
+Display IPOs listed on NSE and BSE.
+
+Columns:
+- Company.
+- IPO price.
+- Actual listing price.
+- Listing date.
+- Current market price.
+- Previous close.
+- Listing gain.
+- Current return.
+- Exchange.
+- Performance chart.
+
+Filters:
+- Year.
+- Mainboard / SME.
+- NSE / BSE.
+- Sector.
+- Listing gain.
+- Current return.
+
+Important:
+Use the actual exchange listing-day price from a reliable source. Do not confuse issue price, opening price, closing price or current price.
+
+## Section 8: Market intelligence
+
+Create:
+- NIFTY performance.
+- SENSEX performance.
+- Sector heatmap.
+- Market gainers.
+- Market losers.
+- IPO market activity.
+- Listing performance.
+- Gold and silver trends.
+- Major financial developments.
+
+All insights must have dates and sources.
+
+## Section 9: Investor education
+
+Display:
+- IPO basics.
+- How to apply for an IPO.
+- IPO allotment.
+- GMP explained.
+- Stock market basics.
+- Fundamental analysis.
+- Financial ratios.
+- Mutual funds.
+- Investment risks.
+
+Create beautiful educational article cards.
+
+## Section 10: Footer
+
+Include:
+- About.
+- Contact.
+- Privacy Policy.
+- Terms.
+- Financial Disclaimer.
+- Editorial Standards.
+- Data Methodology.
+- IPO Guides.
+- Affiliate Disclosure.
+
+---
+
+# 5. IPO EXPLORER – COMPLETE PAGE
+
+Create a dedicated IPO discovery page.
+
+URL: /ipo
+
+## IPO categories
+
+- Mainboard.
+- SME.
+- Upcoming.
+- Open.
+- Closed.
+- Listed.
+
+## IPO explorer filters
+
+- IPO type.
+- Company.
+- Sector.
+- Opening date.
+- Closing date.
+- Listing date.
+- Issue size.
+- Price band.
+- Exchange.
+- Subscription.
+- GMP availability.
+
+## IPO listing cards
+
+Each card displays:
+- Company logo.
+- Company name.
+- IPO category.
+- Issue size.
+- Price band.
+- Lot size.
+- Minimum investment.
+- Opening date.
+- Closing date.
+- Listing date.
+- Current IPO status.
+- Latest GMP when available.
+
+Allow switching between:
+- Card view.
+- Table view.
+
+Use sorting and pagination.
+
+---
+
+# 6. IPO DETAILS – COMPLETE RESEARCH PAGE
+
+Create a dedicated dynamic page for every IPO.
+
+Example:
+ /ipo/company-name
+
+## Header
+
+Display:
+- Company logo.
+- Company name.
+- IPO category.
+- Industry.
+- IPO status.
+- Official company website.
+- Add to watchlist.
+- Download official prospectus.
+
+## IPO summary
+
+Display:
+- Issue size.
+- Fresh issue.
+- Offer for sale.
+- Price band.
+- Lot size.
+- Minimum investment.
+- Opening date.
+- Closing date.
+- Allotment date.
+- Refund date.
+- Demat credit date.
+- Listing date.
+- Registrar.
+- Exchanges.
+
+## Tabs
+
+1. Overview.
+2. GMP.
+3. Subscription.
+4. Financials.
+5. Valuation.
+6. Company Profile.
+7. Risks.
+8. Documents.
+
+## Subscription analytics
+
+Display:
+- QIB.
+- NII.
+- Retail.
+- Employee.
+- Shareholder.
+- Total subscription.
+
+Create:
+- Daily subscription table.
+- Subscription trend chart.
+- Category comparison.
+- Final subscription data.
+
+Do not display estimates as final subscription figures.
+
+## Financial analysis
+
+Show the last three available financial years:
+- Revenue.
+- EBITDA.
+- Profit after tax.
+- Assets.
+- Net worth.
+- Total borrowings.
+- EPS.
+- ROE.
+- ROCE.
+- Debt-to-equity.
+
+Create comparison charts and financial tables.
+
+## Valuation analysis
+
+Show:
+- P/E ratio.
+- P/B ratio.
+- Market capitalization.
+- EPS.
+- Industry average.
+- Listed peer comparison.
+
+Include calculation basis and reporting period.
+
+## Business analysis
+
+Sections:
+- Business overview.
+- Products and services.
+- Business model.
+- Industry overview.
+- Competitive position.
+- Promoters.
+- Growth opportunities.
+- Strengths.
+- Risks.
+
+Use verified offer-document information.
+
+## Documents
+
+Provide official links:
+- DRHP.
+- RHP.
+- Prospectus.
+- Anchor investor details.
+- Basis of allotment.
+- Exchange notices.
+- Registrar information.
+
+---
+
+# 7. GMP TRACKER – DEDICATED ANALYTICS PLATFORM
+
+URL: /gmp
+
+Build a comprehensive GMP dashboard.
+
+## Main metrics
+
+- Total IPOs with available GMP.
+- Highest available GMP.
+- Highest GMP percentage.
+- Latest updated GMP.
+- Positive GMP count.
+- Negative GMP count.
+
+## GMP table
+
+Columns:
+- Company.
+- IPO price.
+- GMP.
+- GMP change.
+- GMP percentage.
+- Estimated listing price.
+- Estimated listing gain.
+- Last updated.
+- Availability.
+
+## Historical GMP graph
+
+Show:
+- Daily GMP.
+- Previous GMP.
+- Percentage change.
+- Highest GMP.
+- Lowest GMP.
+- Historical range.
+
+## Filters
+
+- Mainboard.
+- SME.
+- Upcoming.
+- Open.
+- All.
+- Positive GMP.
+- Negative GMP.
+
+## Calculator
+
+Estimated listing price = IPO upper price + GMP.
+
+Estimated gain percentage = GMP / IPO upper price × 100.
+
+Label these figures as hypothetical estimates, not guaranteed returns.
+
+## Important GMP data policy
+
+- GMP is unofficial.
+- GMP is not published by NSE or BSE.
+- Do not claim GMP is an official market quote.
+- Never invent unavailable values.
+- Never fabricate historical graphs.
+- Store timestamps and source information.
+- Display data freshness.
+
+---
+
+# 8. LIVE STOCK MARKET – COMPLETE STOCK DASHBOARD
+
+URL: /live-prices
+
+This is a major feature of PriceAlerter.
+
+Build a scalable stock explorer for all available NSE and BSE listed stocks.
+
+## Main sections
+
+1. Market overview.
+2. All stocks.
+3. NSE stocks.
+4. BSE stocks.
+5. Gainers.
+6. Losers.
+7. Most active stocks.
+8. Sector performance.
+9. Watchlist.
+
+## Stock table
+
+Columns:
+- Company name.
+- Company symbol.
+- Exchange.
+- Current market price.
+- Previous close.
+- Absolute change.
+- Percentage change.
+- Open.
+- Day high.
+- Day low.
+- 52-week high.
+- 52-week low.
+- Volume.
+- Market cap.
+- Sparkline.
+- Last updated.
+
+## Stock filters
+
+- Exchange.
+- Sector.
+- Industry.
+- Market capitalization.
+- Price.
+- Percentage change.
+- Volume.
+- Gainers.
+- Losers.
+
+## Stock details page
+
+URL: /stock/company-symbol
+
+Display:
+- Company profile.
+- Trading symbol.
+- Exchange.
+- Current quote.
+- Previous close.
+- Day range.
+- 52-week range.
+- Market capitalization.
+- Volume.
+- Historical chart.
+- Corporate announcements.
+- Financial metrics.
+- IPO listing history when applicable.
+
+Chart periods:
+- 1D.
+- 1W.
+- 1M.
+- 3M.
+- 6M.
+- 1Y.
+- 5Y.
+- All.
+
+## Data handling
+
+Support:
+- Live prices where licensed and available.
+- Delayed prices where applicable.
+- Previous closing prices.
+- Unavailable price states.
+- Market holidays.
+- Market closed status.
+
+Never call delayed data real-time.
+
+Never use random numbers or simulated prices as actual stock quotes.
+
+---
+
+# 9. LISTED STOCKS AND IPO PERFORMANCE
+
+URL: /listed
+
+Build a complete historical IPO listing explorer.
+
+Support 2025, 2026 and all available historical years.
+
+Display:
+- Company.
+- IPO price.
+- Actual listing price.
+- Listing date.
+- Listing exchange.
+- Current price.
+- Previous close.
+- Listing gain percentage.
+- Current return percentage.
+- Historical chart.
+
+## Listing performance analytics
+
+Create:
+- Highest listing gains.
+- Lowest listing gains.
+- Best-performing IPOs.
+- Worst-performing IPOs.
+- Mainboard performance.
+- SME performance.
+- Year-wise performance.
+- Sector-wise performance.
+
+## Listing calculations
+
+Listing gain percentage:
+
+((Actual listing price - IPO issue price) / IPO issue price) × 100
+
+Current return:
+
+((Current market price - IPO issue price) / IPO issue price) × 100
+
+Clearly show which price is being used in each calculation.
+
+---
+
+# 10. IPO CALENDAR
+
+URL: /calendar
+
+Create:
+- Monthly calendar.
+- Weekly calendar.
+- List view.
+
+Events:
+- IPO opening.
+- IPO closing.
+- Allotment.
+- Refund initiation.
+- Demat credit.
+- Listing.
+
+Filters:
+- Mainboard.
+- SME.
+- Upcoming.
+- Listed.
+
+Allow users to add IPO dates to their personal calendar if the feature is implemented.
+
+---
+
+# 11. STOCK SCREENER
+
+URL: /screener
+
+Build an advanced stock screener.
+
+Filters:
+- Price.
+- Market capitalization.
+- P/E.
+- P/B.
+- ROE.
+- ROCE.
+- Debt-to-equity.
+- Revenue growth.
+- Profit growth.
+- Volume.
+- Exchange.
+- Sector.
+
+Create:
+- Preset screeners.
+- Custom filters.
+- Sorting.
+- Saved screens.
+- Export functionality.
+
+All ratios must identify the underlying reporting period and data source.
+
+---
+
+# 12. MARKET INSIGHTS
+
+URL: /market-insights
+
+Create a dedicated market intelligence centre.
+
+Sections:
+- Indian market overview.
+- NIFTY 50.
+- SENSEX.
+- Bank NIFTY.
+- Sector performance.
+- Stock market news.
+- IPO market updates.
+- Gold.
+- Silver.
+- Crude oil.
+- USD/INR.
+- Economic events.
+
+Each article or insight should show:
+- Title.
+- Date.
+- Source.
+- Short summary.
+- Full details link.
+
+Separate verified facts from editorial analysis.
+
+Do not generate fake financial news.
+
+---
+
+# 13. INVESTOR EDUCATION AND BLOG
+
+URL: /blog
+
+Create an SEO-friendly educational library.
+
+Categories:
+- IPO Basics.
+- IPO Application.
+- IPO Allotment.
+- GMP.
+- Stock Market.
+- Fundamental Analysis.
+- Technical Analysis.
+- Financial Ratios.
+- Mutual Funds.
+- Investment Risk.
+- Financial Literacy.
+
+Each article page should include:
+- SEO title.
+- Meta description.
+- Canonical URL.
+- Author.
+- Published date.
+- Updated date.
+- Table of contents.
+- Main content.
+- Official references.
+- Related articles.
+- Financial disclaimer.
+
+Create structured, useful, original articles.
+
+Do not generate hundreds of thin or duplicated articles.
+
+---
+
+# 14. USER ACCOUNTS AND PERSONAL DASHBOARD
+
+Build:
+- Registration.
+- Login.
+- Logout.
+- Forgot password.
+- Email verification.
+- Profile.
+- Preferences.
+
+Personal dashboard:
+- Saved IPOs.
+- Saved stocks.
+- Watchlist.
+- Price alerts.
+- GMP alerts.
+- IPO reminders.
+- Recent activity.
+- Notification preferences.
+
+Use secure authentication and server-side authorization.
+
+Do not expose user information or private tokens.
+
+---
+
+# 15. PRICE ALERT SYSTEM
+
+URL: /alerts
+
+Users should be able to:
+- Add a stock.
+- Set a target price.
+- Set above/below condition.
+- Set percentage movement condition.
+- Enable or disable alerts.
+- Edit alerts.
+- Delete alerts.
+- View alert history.
+
+Example:
+Notify me when a stock price falls below ₹500.
+
+Alert lifecycle:
+1. User creates alert.
+2. Server validates it.
+3. Alert is stored.
+4. Market data service evaluates the condition.
+5. Notification is triggered when the condition is met.
+6. Alert history is recorded.
+
+Never claim an alert has been created if saving fails.
+
+---
+
+# 16. GLOBAL SEARCH
+
+Create a powerful search interface.
+
+Search:
+- IPO companies.
+- Listed companies.
+- NSE symbols.
+- BSE symbols.
+- Stock sectors.
+- Blog articles.
+- Market instruments.
+
+Features:
+- Instant suggestions.
+- Keyboard navigation.
+- Recent searches.
+- Popular searches.
+- Search result categories.
+- No-results state.
+
+---
+
+# 17. NOTIFICATIONS
+
+Create a notification centre for:
+- IPO opening reminders.
+- IPO closing reminders.
+- Allotment updates.
+- Listing reminders.
+- GMP changes.
+- Stock target price alerts.
+- Important market updates.
+
+Support email notifications and browser notifications where implemented.
+
+Do not send notifications without user authorization and valid subscription state.
+
+---
+
+# 18. ADMIN DASHBOARD / CONTENT MANAGEMENT
+
+URL: /admin
+
+Create a protected administration interface.
+
+Admin sections:
+- Overview.
+- IPO records.
+- Stock records.
+- GMP records.
+- Subscription data.
+- Listing records.
+- Company financials.
+- News.
+- Blog posts.
+- User management.
+- Alert management.
+- Data source status.
+- Import/export.
+- Audit logs.
+
+Admin functionality:
+- Add IPO.
+- Edit IPO.
+- Archive IPO.
+- Update GMP.
+- Import historical data.
+- Verify listing data.
+- Manage blog articles.
+- Review data errors.
+- View API health.
+
+Use role-based access control.
+
+All changes to important financial records must be logged with:
+- User.
+- Timestamp.
+- Previous value.
+- New value.
+- Source.
+- Verification status.
+
+Never allow public users to access administrative functionality.
+
+---
+
+# 19. DATA ARCHITECTURE
+
+Create a scalable data architecture.
+
+Separate data providers from frontend components.
+
+Suggested database tables:
+
+1. companies
+2. ipo_offerings
+3. ipo_dates
+4. ipo_subscription_history
+5. ipo_gmp_history
+6. ipo_listing_prices
+7. stock_instruments
+8. stock_quotes
+9. stock_historical_prices
+10. stock_financials
+11. stock_announcements
+12. market_indices
+13. market_events
+14. blog_articles
+15. users
+16. watchlists
+17. watchlist_items
+18. price_alerts
+19. notifications
+20. data_sources
+21. data_import_logs
+22. admin_audit_logs
+
+Create proper:
+- Primary keys.
+- Foreign keys.
+- Indexes.
+- Unique constraints.
+- Timestamp fields.
+- Data validation.
+- Historical records.
+
+Use a suitable production database such as PostgreSQL.
+
+Use a backend API layer with authentication and authorization.
+
+Do not place private API keys in frontend JavaScript.
+
+---
+
+# 20. FINANCIAL DATA PROVIDERS AND ACCURACY
+
+Use legally permitted data providers.
+
+Potential official reference sources:
+- NSE India.
+- BSE India.
+- SEBI.
+- Company offer documents.
+- Registrar websites.
+- Official corporate announcements.
+
+For live market prices, use an authorized market data provider that grants the required redistribution rights.
+
+For IPO records, use official exchange and issuer information.
+
+For financial statements, use official company filings and other appropriately licensed financial information sources.
+
+Create a provider abstraction layer.
+
+Each record must preserve:
+- Source.
+- Retrieved timestamp.
+- Effective date.
+- Verification status.
+- Data quality status.
+- Currency.
+- Unit.
+- Data category.
+
+Support these states:
+- Verified.
+- Delayed.
+- Stale.
+- Estimated.
+- Unavailable.
+- Under review.
+
+Do not fabricate:
+- Current stock prices.
+- Previous closing prices.
+- Listing prices.
+- GMP values.
+- Subscription figures.
+- Financial statements.
+- Corporate actions.
+- Market news.
+
+If a value is missing, display a clear unavailable state.
+
+Do not combine values from different dates without indicating the dates.
+
+Implement scheduled data refresh jobs where the provider and infrastructure permit.
+
+Respect exchange terms, provider licensing, API rate limits and redistribution requirements.
+
+---
+
+# 21. CALCULATORS
+
+Create the following tools.
+
+## IPO investment calculator
+
+Inputs:
+- IPO price.
+- Lot size.
+- Number of lots.
+
+Outputs:
+- Shares applied.
+- Total application amount.
+
+## GMP calculator
+
+Inputs:
+- Issue upper price.
+- GMP.
+
+Outputs:
+- Estimated listing price.
+- Estimated gain percentage.
+- Hypothetical gain/loss.
+
+## Listing gain calculator
+
+Inputs:
+- IPO issue price.
+- Actual listing price.
+
+Outputs:
+- Listing gain.
+- Listing gain percentage.
+
+## Stock return calculator
+
+Inputs:
+- Buy price.
+- Quantity.
+- Current price.
+
+Outputs:
+- Investment.
+- Current value.
+- Profit/loss.
+- Return percentage.
+
+All calculators must be clearly labelled as calculations, not predictions.
+
+---
+
+# 22. SEO AND GOOGLE ADSENSE READINESS
+
+Implement:
+- Unique title tags.
+- Meta descriptions.
+- Canonical tags.
+- XML sitemap.
+- Robots.txt.
+- Open Graph tags.
+- Structured data where applicable.
+- Breadcrumbs.
+- Internal linking.
+- Fast loading.
+- Mobile-first design.
+- Accessible content.
+
+Create indexable pages for:
+- IPO listings.
+- Individual IPOs.
+- Listed companies.
+- Stock information.
+- Educational guides.
+- Market insights.
+
+Maintain:
+- Privacy policy.
+- Terms.
+- Contact.
+- About.
+- Editorial standards.
+- Data methodology.
+- Financial disclaimer.
+- Affiliate disclosure.
+
+Ad placements must be clearly labelled.
+
+Do not place advertisements over critical controls, financial data, or navigation.
+
+Keep advertisements separate from editorial recommendations.
+
+Do not claim AdSense approval unless it has actually been granted.
+
+---
+
+# 23. TECHNICAL STACK
+
+Recommended stack:
+
+Frontend:
+- React.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- Recharts.
+- Lucide icons.
+
+Backend:
+- Node.js.
+- Express or an equivalent API framework.
+- PostgreSQL.
+- Redis or caching where necessary.
+- Background job scheduler.
+
+Authentication:
+- Secure session or token-based authentication.
+- Password hashing.
+- Email verification.
+- Role-based access.
+
+Deployment:
+- Cloudflare Pages or another suitable static frontend host.
+- Backend on a suitable application host.
+- Managed PostgreSQL.
+- Secure environment variables.
+- Automated deployment pipeline.
+
+Keep frontend, backend and data-provider layers separate.
+
+Use reusable components and clean project structure.
+
+---
+
+# 24. COMPONENT ARCHITECTURE
+
+Build reusable components:
+
+- MainNavbar.
+- MobileNavigation.
+- GlobalSearch.
+- MarketTicker.
+- MarketOverview.
+- DashboardHero.
+- SummaryCard.
+- IPOCard.
+- IPOTable.
+- IPOFilters.
+- IPOStatusBadge.
+- GMPCard.
+- GMPChart.
+- GMPTable.
+- SubscriptionChart.
+- FinancialMetrics.
+- ValuationTable.
+- StockTable.
+- StockScreener.
+- StockChart.
+- ListingPerformance.
+- SectorHeatmap.
+- Calendar.
+- NewsCard.
+- ArticleCard.
+- WatchlistButton.
+- AlertForm.
+- NotificationPanel.
+- UserProfile.
+- AdminSidebar.
+- Footer.
+
+Use shared design tokens and consistent responsive behaviour.
+
+---
+
+# 25. ROUTING AND PAGE URL STRUCTURE
+
+Implement these routes:
+
+/
+ /dashboard
+ /ipo
+ /ipo/mainboard
+ /ipo/sme
+ /ipo/upcoming
+ /ipo/open
+ /ipo/closed
+ /ipo/listed
+ /ipo/:companySlug
+ /gmp
+ /gmp/:companySlug
+ /live-prices
+ /nse-stocks
+ /bse-stocks
+ /listed
+ /stock-screener
+ /stock/:symbol
+ /calendar
+ /market-insights
+ /market-insights/:slug
+ /blog
+ /blog/:slug
+ /calculators
+ /calculators/ipo
+ /calculators/gmp
+ /calculators/listing-gain
+ /calculators/stock-return
+ /watchlist
+ /alerts
+ /profile
+ /login
+ /register
+ /privacy
+ /terms
+ /about
+ /contact
+ /disclaimer
+ /editorial-policy
+ /admin
+
+Implement appropriate route protection.
+
+---
+
+# 26. PERFORMANCE AND SECURITY
+
+Performance:
+- Lazy-load page modules.
+- Optimize images.
+- Paginate large tables.
+- Virtualize very large stock lists.
+- Cache frequently accessed data.
+- Minimize unnecessary API requests.
+- Use appropriate database indexes.
+- Provide loading skeletons.
+- Prevent layout shifts.
+
+Security:
+- Validate all inputs.
+- Sanitize user-generated content.
+- Protect authentication endpoints.
+- Implement rate limiting.
+- Use HTTPS.
+- Secure cookies.
+- Protect admin routes.
+- Store secrets in environment variables.
+- Prevent SQL injection and cross-site scripting.
+- Implement secure CORS policies.
+- Maintain backups and logs.
+
+---
+
+# 27. RESPONSIVE UI/UX
+
+Desktop:
+- Full navigation.
+- Multi-column dashboard.
+- Advanced financial tables.
+- Wide analytical charts.
+
+Tablet:
+- Compact navigation.
+- Two-column dashboard.
+- Scrollable data tables.
+
+Mobile:
+- Bottom navigation.
+- Search-first interface.
+- Single-column cards.
+- Touch-friendly controls.
+- Readable financial values.
+- Compact charts.
+- No horizontal page overflow.
+
+Test at:
+- 360px.
+- 390px.
+- 430px.
+- 768px.
+- 1024px.
+- 1440px.
+- 1920px.
+
+---
+
+# 28. EMPTY, ERROR AND LOADING STATES
+
+Create polished states for:
+
+- Loading IPOs.
+- Loading stock prices.
+- Loading GMP history.
+- No IPOs available.
+- No search results.
+- API unavailable.
+- Market closed.
+- Delayed quote.
+- Stale data.
+- Missing company information.
+- Login required.
+- Failed alert creation.
+- Network failure.
+
+Never show a fake successful response.
+
+Provide retry actions when appropriate.
+
+---
+
+# 29. TESTING AND QUALITY ASSURANCE
+
+Test:
+- Every route.
+- Every navigation link.
+- IPO search.
+- Stock search.
+- Sorting.
+- Filters.
+- Pagination.
+- Charts.
+- Calculators.
+- Watchlist.
+- Alert creation.
+- Authentication.
+- Admin access.
+- API error handling.
+- Mobile layout.
+- Accessibility.
+- SEO metadata.
+- Data calculations.
+
+Verify financial formulas with test cases.
+
+Ensure the website does not display runtime exceptions or broken pages.
+
+Do not mark unfinished features as completed.
+
+---
+
+# 30. DEVELOPMENT EXECUTION PLAN
+
+Build the complete project in phases.
+
+Phase 1:
+Design system, brand identity, navbar, homepage dashboard.
+
+Phase 2:
+IPO explorer, IPO details, Mainboard and SME pages.
+
+Phase 3:
+GMP tracker, history, charts and calculator.
+
+Phase 4:
+Live stock market, NSE, BSE, listed stocks.
+
+Phase 5:
+Stock detail pages and stock screener.
+
+Phase 6:
+IPO calendar, market insights and education.
+
+Phase 7:
+User authentication, watchlist and alerts.
+
+Phase 8:
+Admin dashboard and data management.
+
+Phase 9:
+Backend integration, database and data provider integration.
+
+Phase 10:
+SEO, security, performance, testing and deployment.
+
+At the end of each phase:
+- Run tests.
+- Check responsive design.
+- Fix errors.
+- Verify existing functionality.
+- Preserve completed work.
+
+Do not replace working functionality with static placeholders.
+
+---
+
+# 31. FINAL ACCEPTANCE CRITERIA
+
+The completed PriceAlerter website must have:
+
+1. A completely new and original fintech UI/UX.
+2. A professional homepage dashboard.
+3. Complete IPO discovery.
+4. Individual IPO research pages.
+5. GMP tracking and historical analytics.
+6. NSE and BSE stock explorer.
+7. Live or properly labelled delayed market prices.
+8. Historical IPO listing performance.
+9. Stock detail pages.
+10. Stock screener.
+11. IPO calendar.
+12. Market insights.
+13. Investor education.
+14. Search.
+15. Watchlist.
+16. Price alerts.
+17. User accounts.
+18. Admin dashboard.
+19. Secure backend.
+20. Accurate and traceable data.
+21. Mobile and desktop responsiveness.
+22. SEO-ready architecture.
+23. AdSense-friendly editorial structure.
+24. Automated tests.
+25. Deployment-ready code.
+
+Most importantly:
+
+**PriceAlerter must feel like a new-generation financial intelligence platform, not another ordinary IPO listing website.**
+
+Prioritize originality, trust, data accuracy, usability, exceptional visual design and long-term scalability.
+
+First establish the complete design system and page architecture, then implement the functional website. Do not stop after creating the homepage.
