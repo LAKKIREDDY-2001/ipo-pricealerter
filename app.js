@@ -381,7 +381,7 @@
     if (items.length === 0) {
       if (tab === "current") {
         existingWrap.innerHTML = `
-          <div class="p-6 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 rounded-xl">
+          <div class="p-6 card-soft rounded-xl">
             <div class="flex items-start gap-4">
               <span class="text-3xl">🏛️</span>
               <div>
@@ -601,7 +601,7 @@
       if (emptyEl) {
         emptyEl.className = "mt-4 space-y-2";
         emptyEl.innerHTML = topGainers.slice(0, 3).map((g) => `
-          <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
+          <div class="flex items-center justify-between p-2.5 rounded-xl card-soft">
             <div>
               <strong class="text-xs font-bold block">${g.name}</strong>
               <span class="muted text-[10px]">${g.exchange || "BSE/NSE"} · Listed ${g.listedDate || "2026"}</span>
@@ -830,7 +830,7 @@
     if (filtered.length === 0) {
       if (state.activeIpoTab === "current") {
         wrap.innerHTML = `
-          <div class="p-5 sm:p-8 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 rounded-2xl text-center max-w-full sm:max-w-xl mx-auto my-4 box-border">
+          <div class="p-5 sm:p-8 card-soft rounded-2xl text-center max-w-full sm:max-w-xl mx-auto my-4 box-border">
             <span class="text-3xl sm:text-4xl block mb-2">🏛️</span>
             <h3 class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100">No Active Public Issues Bidding Today</h3>
             <p class="muted text-xs mt-2 leading-relaxed">
@@ -973,12 +973,12 @@
     if (tabName === "Overview") {
       body.className = "mt-4 space-y-4 text-sm leading-relaxed";
       body.innerHTML = `
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60">
+        <div class="p-4 card-soft rounded-xl">
           <h3 class="font-bold text-sm mb-2">Company Overview</h3>
           <p>${ipo.about || `${ipo.companyName} is a leading enterprise operating in the ${ipo.sector || 'manufacturing'} sector, delivering specialized products to domestic and international clients.`}</p>
         </div>
         <div class="grid sm:grid-cols-2 gap-4">
-          <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          <div class="p-4 card-soft rounded-xl">
             <h3 class="font-bold text-sm mb-2">Issue Structure</h3>
             <ul class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
               <li>• Issue Type: ${ipo.issueType || 'Book Built Issue'}</li>
@@ -987,7 +987,7 @@
               <li>• Retail Allocation: 35% (or 10% under QIB Rule)</li>
             </ul>
           </div>
-          <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60">
+          <div class="p-4 card-soft rounded-xl">
             <h3 class="font-bold text-sm mb-2">Analyst Sentiment</h3>
             <p class="text-xs text-slate-600 dark:text-slate-300">
               Consensus Rating: <strong>${ipo.analystRating?.consensus || 'Apply with Long-term Horizon'}</strong>
@@ -1016,7 +1016,7 @@
       body.className = "mt-4 text-sm space-y-3";
       const sub = ipo.subscriptionSummary || {};
       body.innerHTML = `
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60">
+        <div class="p-4 card-soft rounded-xl">
           <h3 class="font-bold text-sm mb-3">Category-Wise Subscription Breakdown</h3>
           <div class="space-y-3 text-xs">
             <div>
@@ -1064,10 +1064,10 @@
       const ratios = ipo.ratios || {};
       body.innerHTML = `
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60"><span class="muted text-xs block">P/E Ratio</span><strong class="text-base font-bold data-number">${ratios.pe ? ratios.pe + "x" : "—"}</strong></div>
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60"><span class="muted text-xs block">RoNW</span><strong class="text-base font-bold data-number">${ratios.ronw || "—"}</strong></div>
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60"><span class="muted text-xs block">EPS</span><strong class="text-base font-bold data-number">${ratios.eps || "—"}</strong></div>
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60"><span class="muted text-xs block">Post-Issue Market Cap</span><strong class="text-base font-bold data-number">${ratios.marketCap || "—"}</strong></div>
+          <div class="p-3 card-soft rounded-xl"><span class="muted text-xs block">P/E Ratio</span><strong class="text-base font-bold data-number">${ratios.pe ? ratios.pe + "x" : "—"}</strong></div>
+          <div class="p-3 card-soft rounded-xl"><span class="muted text-xs block">RoNW</span><strong class="text-base font-bold data-number">${ratios.ronw || "—"}</strong></div>
+          <div class="p-3 card-soft rounded-xl"><span class="muted text-xs block">EPS</span><strong class="text-base font-bold data-number">${ratios.eps || "—"}</strong></div>
+          <div class="p-3 card-soft rounded-xl"><span class="muted text-xs block">Post-Issue Market Cap</span><strong class="text-base font-bold data-number">${ratios.marketCap || "—"}</strong></div>
         </div>
       `;
     } else if (tabName === "Risks") {
@@ -1092,7 +1092,7 @@
     } else if (tabName === "Registrar") {
       body.className = "mt-4 text-sm";
       body.innerHTML = `
-        <div class="p-5 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60">
+        <div class="p-5 card-soft rounded-xl">
           <h3 class="font-bold text-base mb-1">${ipo.registrar || "Link Intime India Pvt Ltd"}</h3>
           <p class="muted text-xs mb-4">Official SEBI-Registered Registrar to the Issue</p>
           <a href="${ipo.allotmentUrl || 'https://linkintime.co.in/initial_offer/public-issues.html'}" target="_blank" rel="noopener noreferrer" class="btn btn-primary !min-h-[36px] text-xs">
@@ -1103,7 +1103,7 @@
     } else if (tabName === "Documents") {
       body.className = "mt-4 text-sm";
       body.innerHTML = `
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700/60">
+        <div class="p-4 card-soft rounded-xl">
           <h3 class="font-bold text-sm mb-3">Official Regulatory Offer Documents</h3>
           <div class="space-y-2">
             <a href="${ipo.docUrl || 'https://www.sebi.gov.in/'}" target="_blank" rel="noopener noreferrer" class="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900 border hover:border-blue-500">
@@ -1271,7 +1271,7 @@
 
     emptyEl.className = "mt-5 space-y-2.5";
     emptyEl.innerHTML = events.slice(0, 15).map((ev) => `
-      <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
+      <div class="flex items-center justify-between p-3 rounded-xl card-soft">
         <div class="flex items-center gap-3">
           <span class="pill !text-[11px] font-bold ${ev.color}">● ${ev.type}</span>
           <strong class="text-xs font-bold">${ev.name}</strong>
@@ -1724,7 +1724,7 @@
       const totalProfit = gmp !== null ? gmp * totalShares : null;
       const gainPct = gmp !== null ? (gmp / price) * 100 : null;
 
-      resEl.className = "mt-4 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60";
+      resEl.className = "mt-4 p-5 rounded-2xl card-soft";
       resEl.innerHTML = `
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-left">
           <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">

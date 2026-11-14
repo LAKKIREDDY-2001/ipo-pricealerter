@@ -25,7 +25,11 @@ const ads = read("ads.txt");
 const sitemap = read("sitemap.xml");
 
 if (!home.includes('<meta name="google-adsense-account" content="ca-pub-1181608933401999">')) fail("Homepage AdSense publisher verification meta tag is missing.");
-if (home.includes("adsbygoogle.js")) fail("Auto ads should not load on interactive app routes; AdSense code is reserved for editorial content pages.");
+if (!home.includes("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1181608933401999")) fail("Homepage must load official Google AdSense script (ca-pub-1181608933401999) for site verification.");
+const requiredPolicyLinks = ["/about.html", "/contact.html", "/privacy.html", "/terms.html", "/disclaimer.html", "/editorial-policy.html", "/blog/"];
+for (const p of requiredPolicyLinks) {
+  if (!home.includes(`href="${p}"`)) fail(`Homepage must contain crawlable anchor link to ${p}`);
+}
 if (!ads.split(/\r?\n/).some(line => /^google\.com, pub-1181608933401999, DIRECT, f08c47fec0942fa0$/.test(line.trim()))) fail("ads.txt publisher declaration is missing or malformed.");
 if (!privacy.includes("Google AdSense") || !privacy.includes("Google Analytics 4") || !privacy.includes("FormSubmit") || !privacy.toLowerCase().includes("third parties may place")) fail("Privacy policy is missing an actual service/data disclosure.");
 if (!contact.includes("mailto:lakkistudy@gmail.com") || !contact.includes("Your message has not been sent until you send it")) fail("Contact page must clearly explain the email handoff.");

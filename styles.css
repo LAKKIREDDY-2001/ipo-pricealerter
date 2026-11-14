@@ -10853,3 +10853,14 @@ ins.adsbygoogle[data-ad-status="unfilled"],
 [data-theme="dark"] .live-badge-neutral {
   background: #1C2A47; color: #CBD5E1; border-color: #384C70;
 }
+.card-soft {
+  background: var(--soft, #f1f5f9);
+  border: 1px solid var(--line, #e5eaf1);
+  color: var(--ink, #14243a);
+}
+[data-theme="dark"] .card-soft, html.dark .card-soft {
+  background: var(--soft, #22374c);
+  border-color: var(--line, #35465b);
+  color: var(--ink, #eff5fb);
+}
+
