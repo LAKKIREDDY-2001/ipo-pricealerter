@@ -228,12 +228,20 @@ export const api = {
         `/api/stocks/${encodeURIComponent(symbol)}?range=${encodeURIComponent(range)}`
       );
     } catch {
-      const found = SEED_STOCKS.find((s) => s.symbol.toLowerCase() === symbol.toLowerCase());
+      const symLower = symbol.toLowerCase().trim();
+      const found =
+        SEED_STOCKS.find((s) => s.symbol.toLowerCase() === symLower) ||
+        SEED_STOCKS.find((s) => s.bseCode && s.bseCode.toLowerCase() === symLower) ||
+        SEED_STOCKS.find((s) => s.id.toLowerCase() === `stk-${symLower}`) ||
+        SEED_STOCKS.find((s) => s.companyName.toLowerCase().includes(symLower));
       if (found) {
-        const linkedIpo = SEED_IPOS.find((i) =>
-          i.shortName.toLowerCase() === symbol.toLowerCase() ||
-          i.slug.toLowerCase().includes(symbol.toLowerCase())
-        ) || null;
+        const linkedIpo =
+          SEED_IPOS.find(
+            (i) =>
+              i.shortName.toLowerCase() === symLower ||
+              i.slug.toLowerCase().includes(symLower) ||
+              (found.ipoHistorySlug && i.slug === found.ipoHistorySlug)
+          ) || null;
         return { stock: found, fromUpstream: false, linkedIpo };
       }
       throw new ApiError(`Stock symbol "${symbol}" not found.`, 404);
