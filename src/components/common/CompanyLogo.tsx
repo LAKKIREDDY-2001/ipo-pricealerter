@@ -71,6 +71,87 @@ function getFallbackColor(name: string, colorHint?: string | null): string {
   return PALETTE[hash % PALETTE.length];
 }
 
+const KNOWN_STATIC_LOGOS: Record<string, string> = {
+  RELIANCE: '/assets/movers/reliance.png',
+  TCS: '/assets/movers/tcs.png',
+  HDFCBANK: '/assets/movers/hdfc-bank.png',
+  ICICIBANK: '/assets/movers/icici-bank.png',
+  INFY: '/assets/movers/infosys.png',
+  BHARTIARTL: '/assets/movers/airtel.png',
+  SBIN: '/assets/movers/sbi.png',
+  LT: '/assets/movers/lt.png',
+  ITC: '/assets/movers/itc.png',
+  SUNPHARMA: '/assets/movers/sun-pharma.png',
+  TATAMOTORS: '/assets/movers/tatamotors.png',
+  HINDUNILVR: '/assets/movers/hul.png',
+  BAJFINANCE: '/assets/movers/bajaj-finance.png',
+  KOTAKBANK: '/assets/movers/kotak-bank.png',
+  AXISBANK: '/assets/movers/axis-bank.png',
+  NTPC: '/assets/movers/ntpc.png',
+  NTPCGREEN: '/assets/movers/ntpc-green.png',
+  ONGC: '/assets/movers/ongc.png',
+  TITAN: '/assets/movers/titan.png',
+  MARUTI: '/assets/movers/maruti.png',
+  ADANIENT: '/assets/movers/adani-enterprises.png',
+  ADANIPORTS: '/assets/movers/adani-ports.png',
+  ADANIPOWER: '/assets/movers/adani-power.png',
+  ADANIGREEN: '/assets/movers/adani-green.png',
+  COALINDIA: '/assets/movers/coal-india.png',
+  TATASTEEL: '/assets/movers/tata-steel.png',
+  WIPRO: '/assets/movers/wipro.png',
+  CIPLA: '/assets/movers/cipla.png',
+  ULTRACEMCO: '/assets/movers/ultratech.png',
+  ASIANPAINT: '/assets/movers/asian-paints.png',
+  ZOMATO: '/assets/movers/zomato.png',
+  SWIGGY: '/assets/movers/swiggy.png',
+  TRENT: '/assets/movers/trent.png',
+  JIOFIN: '/assets/movers/jio-fin.png',
+  IRFC: '/assets/movers/irfc.png',
+  RVNL: '/assets/movers/rvnl.png',
+  SUZLON: '/assets/movers/suzlon.png',
+  HAL: '/assets/movers/hal.png',
+  MAZDOCK: '/assets/movers/mazdock.png',
+  COCHINSHIP: '/assets/movers/cochin-shipyard.png',
+  BHEL: '/assets/movers/bhel.png',
+  REC: '/assets/movers/rec.png',
+  PFC: '/assets/movers/pfc.png',
+  TATAPOWER: '/assets/movers/tata-power.png',
+  DLF: '/assets/movers/dlf.png',
+  POLYCAB: '/assets/movers/polycab.png',
+  HAVELLS: '/assets/movers/havells.png',
+  DIXON: '/assets/movers/dixon.png',
+  CDSL: '/assets/movers/cdsl.png',
+  BSE: '/assets/movers/bse.png',
+  MCX: '/assets/movers/mcx.png',
+  ANGELONE: '/assets/movers/angel-one.png',
+  DMART: '/assets/movers/dmart.png',
+  WAAREEENER: '/assets/movers/waaree.png',
+  HYUNDAI: '/assets/movers/hyundai.png',
+  PREMIERENE: '/assets/movers/premier-energies.png',
+  BAJAJHFL: '/assets/movers/bajaj-housing.png',
+  OLAELEC: '/assets/movers/ola-electric.png',
+  FIRSTCRY: '/assets/movers/firstcry.png',
+  UNICOMMERCE: '/assets/movers/unicommerce.png',
+  KRN: '/assets/movers/krn.png',
+  MANBA: '/assets/movers/manba.png',
+  ORIENTTECH: '/assets/movers/orient-tech.png',
+  TATATECH: '/assets/movers/tata-tech.png',
+  KAYNES: '/assets/movers/kaynes.png',
+  TEJASNET: '/assets/movers/tejas.png',
+  JYOTICNC: '/assets/movers/jyoti-cnc.png',
+  EXIDEIND: '/assets/movers/exide.png',
+  ANTALA: '/assets/movers/antala.png',
+  VEDL: '/assets/movers/vedanta.png',
+  CRYSTAL: '/assets/movers/crystal-crop.png',
+  CRYSTALCRO: '/assets/movers/crystal-crop.png',
+  ENVIRO: '/assets/movers/enviro-infra.png',
+  C2C: '/assets/movers/c2c-advanced.png',
+  LAMOSAIC: '/assets/movers/lamosaic.png',
+  RAJESH: '/assets/movers/rajesh-power.png',
+  RAJPUTANA: '/assets/movers/rajputana.png',
+  BOMBAY: '/assets/movers/bombay-coated.png',
+};
+
 export function buildCompanyLogoUrl(opts: {
   companyName: string;
   symbol?: string | null;
@@ -79,18 +160,25 @@ export function buildCompanyLogoUrl(opts: {
   searchId?: string | null;
   logoColor?: string | null;
 }): string {
+  if (opts.logoUrl && (opts.logoUrl.startsWith('/') || opts.logoUrl.startsWith('http'))) {
+    return opts.logoUrl;
+  }
+  const sym = (opts.symbol || '').toUpperCase().trim();
+  if (sym && KNOWN_STATIC_LOGOS[sym]) {
+    return KNOWN_STATIC_LOGOS[sym];
+  }
+  const nameUpper = (opts.companyName || '').toUpperCase();
+  for (const [key, path] of Object.entries(KNOWN_STATIC_LOGOS)) {
+    if (nameUpper.includes(key)) {
+      return path;
+    }
+  }
   const params = new URLSearchParams();
-  if (opts.symbol && opts.symbol.trim()) {
-    params.set('symbol', opts.symbol.trim().toUpperCase());
+  if (sym) {
+    params.set('symbol', sym);
   }
   if (opts.bseCode && opts.bseCode !== 'N/A' && /^\d{6}$/.test(opts.bseCode.trim())) {
     params.set('bseCode', opts.bseCode.trim());
-  }
-  if (opts.logoUrl && opts.logoUrl.trim()) {
-    params.set('url', opts.logoUrl.trim());
-  }
-  if (opts.searchId && opts.searchId.trim()) {
-    params.set('searchId', opts.searchId.trim());
   }
   if (opts.companyName) {
     params.set('name', opts.companyName.slice(0, 60));
