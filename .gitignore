@@ -5,3 +5,6 @@ coverage/
 *.log
 .env*
 !.env.example
+server/data/db.json.bak
+server/data/*.tmp*
+

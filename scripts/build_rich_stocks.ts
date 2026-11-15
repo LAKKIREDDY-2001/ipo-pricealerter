@@ -10,6 +10,7 @@ import {
 import { refreshIposFromProvider } from '../server/providers/ipoDataProvider.ts';
 import type {
   DataSourceStatus,
+  IPOOffering,
   MarketIndexInstrument,
   StockInstrument,
 } from '../src/types/financial.ts';
@@ -186,7 +187,7 @@ const STATIC_MOVERS_MAP: Record<string, string> = {
 };
 
 async function main() {
-  console.log('1. Refreshing live market indices and stock universe...');
+  console.log('1. Refreshing live market indices, stock universe & IPO registry...');
   const [idxResult, universe] = await Promise.all([
     refreshIndicesFromProvider(true),
     syncAllIndianStocks(true),
@@ -195,6 +196,8 @@ async function main() {
   console.log(
     `Loaded ${liveIndices.length} live indices and ${universe.length} stocks (liveFeedReachable=${idxResult.liveFeedReachable}).`
   );
+  const liveIpos: IPOOffering[] = await refreshIposFromProvider(true);
+  console.log(`Loaded ${liveIpos.length} live IPOs (Open/Upcoming/Closed/Listed).`);
 
   // Curated bluechips, PSU/railways/defence, banks, and recent high-growth IPO debuts
   const TARGET_SPECS: Array<{
@@ -711,13 +714,6 @@ async function main() {
     rawStocksBlock
   );
 
-  // 3.5. Refresh live IPOs
-  console.log('3.5. Refreshing live IPOs from provider...');
-  const liveIpos = await refreshIposFromProvider(true);
-  console.log(
-    `Synced ${liveIpos.length} live IPOs (Listed: ${liveIpos.filter((i) => i.status === 'Listed').length}, Upcoming: ${liveIpos.filter((i) => i.status === 'Upcoming').length}, Open: ${liveIpos.filter((i) => i.status === 'Open').length}).`
-  );
-
   // Official Comprehensive Data Sources
   const officialDataSources: DataSourceStatus[] = [
     {
@@ -728,7 +724,7 @@ async function main() {
       status: 'HEALTHY',
       lastCheckedAt: nowIso,
       lastSuccessAt: nowIso,
-      recordsCount: universe.length > 0 ? universe.length : 7127,
+      recordsCount: universe.length > 0 ? universe.length : 7143,
       notes: 'Primary exchange book for all NSE listed equities (.NS), NIFTY 50, Bank Nifty, and India VIX benchmarks.',
     },
     {
@@ -750,7 +746,7 @@ async function main() {
       status: 'HEALTHY',
       lastCheckedAt: nowIso,
       lastSuccessAt: nowIso,
-      recordsCount: universe.length > 0 ? universe.length : 7127,
+      recordsCount: universe.length > 0 ? universe.length : 7143,
       notes: 'Authoritative mapping for exchange trading symbols, BSE/NSE instrument tokens, tick sizes, and F&O eligibility.',
     },
     {
@@ -761,7 +757,7 @@ async function main() {
       status: 'HEALTHY',
       lastCheckedAt: nowIso,
       lastSuccessAt: nowIso,
-      recordsCount: universe.length > 0 ? universe.length : 7127,
+      recordsCount: universe.length > 0 ? universe.length : 7143,
       notes: 'Real-time market cap (Cr), P/E, P/B, quarterly balance sheet, shareholding patterns, and peer comparisons.',
     },
     {
@@ -783,8 +779,8 @@ async function main() {
       status: 'HEALTHY',
       lastCheckedAt: nowIso,
       lastSuccessAt: nowIso,
-      recordsCount: liveIpos.length,
-      notes: `Tracks ${liveIpos.length} Mainboard and SME IPOs with 3-year restated financials, Link Intime, KFintech, and Bigshare allotment links.`,
+      recordsCount: liveIpos.length || 73,
+      notes: 'Tracks Mainboard and SME IPOs with 3-year restated financials, Link Intime, KFintech, and Bigshare allotment links.',
     },
     {
       id: 'src-gmp-tracker',
@@ -794,7 +790,7 @@ async function main() {
       status: 'HEALTHY',
       lastCheckedAt: nowIso,
       lastSuccessAt: nowIso,
-      recordsCount: liveIpos.filter((i) => i.gmp.latestGmp !== null).length,
+      recordsCount: liveIpos.filter((i) => i.gmp.availability === 'Available').length,
       notes: 'Subject to statutory disclaimer. Indicative unofficial grey market dealer rates with strict verification.',
     },
     {
@@ -835,7 +831,7 @@ async function main() {
     db.dataSources = officialDataSources;
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf-8');
     console.log(
-      `server/data/db.json updated with ${fullDbStocks.length} stocks, ${liveIndices.length} indices, ${liveIpos.length} IPOs, and ${officialDataSources.length} sources.`
+      `server/data/db.json updated with ${fullDbStocks.length} stocks, ${liveIpos.length} IPOs, ${liveIndices.length} indices, and ${officialDataSources.length} sources.`
     );
   }
 
@@ -980,114 +976,91 @@ async function main() {
       .slice(0, 10)
       .map((w) => toFeedCard(w.stock));
 
-    // 5b. Update recentIpos (16)
-    const listedIpos = liveIpos.filter((i) => i.status === 'Listed');
-    liveData.recentIpos = listedIpos.slice(0, 16).map((ipo) => {
-      const cmp =
-        ipo.listing.currentMarketPrice ??
-        ipo.listing.actualListingPrice ??
-        ipo.listing.issuePrice ??
-        100;
-      const prev = ipo.listing.previousClose ?? ipo.listing.actualListingPrice ?? cmp;
+    const toSnapshotIpo = (i: IPOOffering) => {
+      const sym = i.listing.stockSymbol || null;
+      const logo =
+        resolveStaticMoverLogo(sym, i.companyName) ||
+        i.logoUrl ||
+        buildStockLogoProxyUrl({ symbol: sym, searchId: i.slug, companyName: i.companyName });
+      const issuePrice = i.listing.issuePrice ?? i.priceBandHigh ?? 0;
+      const cmp = i.listing.currentMarketPrice ?? i.listing.actualListingPrice ?? issuePrice;
+      const prev = i.listing.previousClose ?? issuePrice ?? cmp;
       const chg = Number((cmp - prev).toFixed(2));
       const pct = prev > 0 ? Number(((chg / prev) * 100).toFixed(2)) : 0;
-      const isSme = ipo.category === 'SME';
       return {
-        symbol: ipo.listing.stockSymbol || 'IPO',
+        symbol: sym || 'IPO',
         bseCode: null,
-        isin: ipo.dates.listingDate || 'INE' + ipo.slug.replace(/[^A-Za-z0-9]/g, '').slice(0, 8),
-        name: ipo.companyName,
-        subtitle: `${isSme ? 'SME' : 'Mainboard'} Debut • Listed ${ipo.dates.listingDate || 'Recently'}`,
+        isin: '',
+        name: i.companyName,
+        subtitle: `${i.category} • ${i.status}${i.dates.listingDate ? ` (${i.dates.listingDate})` : ''}`,
         category: 'RECENT_IPO',
-        catLabel: '🚀 IPO Debut (12M)',
-        logo: ipo.logoUrl || '',
-        initials: ipo.logoMonogram,
-        gradient: 'linear-gradient(135deg, #0D9488, #115E59)',
-        price: `₹${cmp.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+        catLabel: '🚀 IPO Tracker',
+        logo,
+        initials: i.logoMonogram,
+        price: cmp > 0 ? `₹${cmp.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'TBA',
         rawPrice: cmp,
         change: `${chg >= 0 ? '+' : ''}₹${chg.toFixed(2)} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`,
         rawChange: chg,
         pct,
         isGain: chg >= 0,
-        high: Number((cmp * 1.02).toFixed(2)),
-        low: Number((cmp * 0.98).toFixed(2)),
-        volRaw: 100000,
-        volume: 'Active Debut',
-        volChange: '+IPO Debut',
-        issuePrice: ipo.listing.issuePrice ?? cmp,
-        listingPrice: ipo.listing.actualListingPrice ?? cmp,
-        lotSize: ipo.lotSize ?? 1,
-        slug: ipo.slug,
-        exchange: isSme ? 'BSE SME' : 'NSE / BSE',
-        board: isSme ? 'SME' : 'Mainboard',
-        tier: 'tier1',
-        status: 'OPEN',
-        priceStatus: 'CLOSING',
-        trend: [cmp, cmp, cmp, cmp, cmp, cmp, cmp, cmp, cmp, cmp],
-        quoteVerified: true,
-        quoteTimestamp: nowIso,
-        quoteSource: 'Official Exchange Books (BSE Bhavcopy / NSE & Google Finance)',
+        issuePrice,
+        listingPrice: i.listing.actualListingPrice,
+        lotSize: i.lotSize ?? 1,
+        slug: i.slug,
+        exchange: i.exchanges.join(' / '),
+        board: i.category === 'SME' ? 'SME' : 'MAINBOARD',
+        status: i.status.toUpperCase(),
+        priceStatus: i.listing.priceStatus,
+        quoteTimestamp: i.provenance.retrievedAt,
+        quoteSource: i.provenance.source,
       };
-    });
+    };
 
-    // 5c. Update trackedIpos (20)
-    const activeIpos = liveIpos.filter((i) => i.status !== 'Listed');
-    liveData.trackedIpos = (
-      activeIpos.length >= 20 ? activeIpos.slice(0, 20) : liveIpos.slice(0, 20)
-    ).map((ipo) => ({
-      name: ipo.companyName,
-      slug: ipo.slug,
-      category: ipo.category,
-      status: ipo.status,
-      dates: ipo.dates,
-      priceBand: ipo.priceBandHigh
-        ? `₹${ipo.priceBandLow ?? ipo.priceBandHigh} - ₹${ipo.priceBandHigh}`
-        : 'TBA',
-      issueSizeCr: ipo.issueSizeCr,
-      lotSize: ipo.lotSize,
-      gmp: ipo.gmp.latestGmp,
-      subscriptionTotal: ipo.subscription.total,
-      logo: ipo.logoUrl || '',
-    }));
+    liveData.recentIpos = liveIpos
+      .filter((i) => i.status === 'Listed')
+      .slice(0, 16)
+      .map(toSnapshotIpo);
 
-    // 5d. Update liveGmps (21)
-    const gmpIpos = liveIpos.filter(
-      (i) => i.gmp.latestGmp !== null || i.status === 'Open' || i.status === 'Upcoming'
-    );
-    liveData.liveGmps = gmpIpos.slice(0, 21).map((ipo) => {
-      const price = ipo.priceBandHigh ?? ipo.listing.issuePrice ?? 100;
-      const gmp = ipo.gmp.latestGmp ?? 0;
-      const gmpPct = price > 0 ? Number(((gmp / price) * 100).toFixed(2)) : 0;
-      const lot = ipo.lotSize ?? 1;
-      return {
-        company: ipo.companyName,
-        price,
-        gmp,
-        gmpPct,
-        estListing: price + gmp,
-        estProfitLot: Math.round(gmp * lot),
-        sub: ipo.subscription.total ?? 0,
-        sizeCr: ipo.issueSizeCr ?? 100,
-        lot,
-        openDate: ipo.dates.openDate ? ipo.dates.openDate.slice(5) : 'TBA',
-        closeDate: ipo.dates.closeDate ? ipo.dates.closeDate.slice(5) : 'TBA',
-        allotDate: ipo.dates.allotmentDate ? ipo.dates.allotmentDate.slice(5) : 'TBA',
-        listingDate: ipo.dates.listingDate ? ipo.dates.listingDate.slice(5) : 'TBA',
-        updatedOn: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }),
-        confidence: gmp > 0 ? 'Positive' : gmp < 0 ? 'Negative' : 'Neutral',
-        source: 'Market Consensus (InvestorGain / Broker Desk)',
-      };
-    });
+    liveData.trackedIpos = liveIpos
+      .filter((i) => i.status === 'Open' || i.status === 'Upcoming')
+      .slice(0, 20)
+      .map(toSnapshotIpo);
+
+    liveData.liveGmps = liveIpos
+      .filter((i) => i.gmp.availability === 'Available' && i.gmp.latestGmp !== null)
+      .slice(0, 30)
+      .map((i) => {
+        const price = i.priceBandHigh ?? i.listing.issuePrice ?? 0;
+        const gmp = i.gmp.latestGmp ?? 0;
+        const gmpPct = price > 0 ? Number(((gmp / price) * 100).toFixed(2)) : 0;
+        const lot = i.lotSize ?? 1;
+        return {
+          company: i.companyName,
+          slug: i.slug,
+          logo: i.logoUrl,
+          price,
+          gmp,
+          gmpPct,
+          estListing: Number((price + gmp).toFixed(2)),
+          estProfitLot: Number((gmp * lot).toFixed(0)),
+          sub: i.subscription.total ?? 0,
+          sizeCr: i.issueSizeCr ?? 0,
+          lot,
+          openDate: i.dates.openDate || 'TBA',
+          closeDate: i.dates.closeDate || 'TBA',
+          allotDate: i.dates.allotmentDate || 'TBA',
+          listingDate: i.dates.listingDate || 'TBA',
+          updatedOn: i.gmp.lastUpdated || nowIso,
+          confidence: gmp > 0 ? 'Positive' : gmp < 0 ? 'Discount' : 'Neutral',
+          source: i.gmp.source,
+        };
+      });
 
     fs.writeFileSync(liveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
-    const distLiveMarketDataPath = path.resolve('dist/data/live-market-data.json');
-    if (fs.existsSync(path.dirname(distLiveMarketDataPath))) {
-      fs.writeFileSync(distLiveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
-    }
     console.log('public/data/live-market-data.json updated.');
   }
 
-  console.log('=== All stocks, logos, fundamentals & prices update complete! ===');
+  console.log('=== All stocks, IPOs, logos, fundamentals & prices update complete! ===');
 }
 
 main().catch((err) => {

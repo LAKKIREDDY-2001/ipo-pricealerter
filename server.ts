@@ -2,6 +2,7 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
@@ -9,7 +10,9 @@ import { createServer as createViteServer } from 'vite';
 import {
   appendAuditLog,
   createId,
+  flushDbSync,
   getDb,
+  getDbFilePath,
   sanitizeUser,
   saveDb,
   type StoredUser,
@@ -35,7 +38,14 @@ import {
   getAutomationStatus,
   registerSseClient,
   startAutomationEngine,
+  stopAutomationEngine,
 } from './server/services/automationEngine.ts';
+import {
+  dispatchWebhookNotification,
+  isMailerConfigured,
+  sendContactNotificationEmail,
+  sendPasswordResetEmail,
+} from './server/services/mailerService.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
 dotenv.config();
@@ -125,6 +135,16 @@ function sanitizeText(input: unknown, maxLen = 500): string {
     .replace(/[\u0000-\u001F\u007F]/g, ' ')
     .trim()
     .slice(0, maxLen);
+}
+
+function isStrongPassword(password: unknown): password is string {
+  return (
+    typeof password === 'string' &&
+    password.length >= 8 &&
+    password.length <= 128 &&
+    /[A-Za-z]/.test(password) &&
+    /\d/.test(password)
+  );
 }
 
 function sanitizeHttpUrl(input: unknown): string {
@@ -304,6 +324,14 @@ async function startServer() {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
+  app.use(
+    compression({
+      filter: (req, res) => {
+        if (req.path === '/api/stream/market') return false;
+        return compression.filter(req, res);
+      },
+    })
+  );
 
   // Block accidental direct requests to backend/config source paths before Vite/static middleware
   app.use((req, res, next) => {
@@ -390,14 +418,25 @@ async function startServer() {
     const db = getDb();
     const uni = getLiveUniverseSnapshot();
     const auto = getAutomationStatus();
+    const mem = process.memoryUsage();
     res.json({
       status: 'ok',
       platform: 'PriceAlerter',
+      environment: process.env.NODE_ENV || 'development',
+      uptimeSec: Math.round(process.uptime()),
+      memoryRssMb: Math.round(mem.rss / (1024 * 1024)),
       timestamp: new Date().toISOString(),
+      persistence: {
+        ready: fs.existsSync(getDbFilePath()),
+        customDataDir: Boolean(process.env.DATA_DIR?.trim()),
+      },
+      mailerConfigured: isMailerConfigured(),
       automation: {
         running: auto.running,
         marketSession: auto.marketSession,
         istTimeLabel: auto.istTimeLabel,
+        cycles: auto.cycles,
+        lastRunAt: auto.lastRunAt,
       },
       counts: {
         ipos: db.ipos.filter((i) => !i.archived).length,
@@ -458,6 +497,20 @@ async function startServer() {
     res.type('text/plain').send(
       [
         'User-agent: Mediapartners-Google',
+        'Allow: /',
+        '',
+        'User-agent: Googlebot',
+        'Allow: /',
+        'Disallow: /admin',
+        'Disallow: /api/',
+        '',
+        'User-agent: Googlebot-Image',
+        'Allow: /',
+        '',
+        'User-agent: Google-Favicon',
+        'Allow: /',
+        '',
+        'User-agent: Google-Extended',
         'Allow: /',
         '',
         'User-agent: *',
@@ -580,6 +633,19 @@ async function startServer() {
       db.contactMessages = db.contactMessages.slice(0, 500);
     }
     saveDb();
+    void sendContactNotificationEmail({
+      ticketId: ticket.id,
+      name: ticket.name,
+      email: ticket.email,
+      topic: ticket.topic,
+      message: ticket.message,
+    });
+    void dispatchWebhookNotification('contact_ticket', {
+      ticketId: ticket.id,
+      name: ticket.name,
+      email: ticket.email,
+      topic: ticket.topic,
+    });
     res.status(201).json({
       ticketId: ticket.id,
       receivedAt: ticket.createdAt,
@@ -834,101 +900,109 @@ async function startServer() {
       }
     }
 
-    const staticLogoPath = resolveStaticMoverLogo(alphaSym || rawSym, rawName);
-    if (staticLogoPath && staticLogoPath.startsWith('/assets/')) {
-      const fullPath = path.join(process.cwd(), 'public', staticLogoPath.replace(/^\//, ''));
-      try {
-        if (fs.existsSync(fullPath)) {
-          const fileData = await fs.promises.readFile(fullPath);
-          const ext = path.extname(fullPath).toLowerCase();
-          const contentType =
-            ext === '.webp'
-              ? 'image/webp'
-              : ext === '.svg'
-              ? 'image/svg+xml'
+    const tryReadLocalAsset = (assetPath: string): { contentType: string; data: Buffer } | null => {
+      if (!assetPath.startsWith('/assets/')) return null;
+      const cleanRel = assetPath.split('?')[0].replace(/^\/+/, '');
+      const fullPath = path.resolve(process.cwd(), 'public', cleanRel);
+      const publicRoot = path.resolve(process.cwd(), 'public', 'assets');
+      if (!fullPath.startsWith(publicRoot) || !fs.existsSync(fullPath)) return null;
+      const ext = path.extname(fullPath).toLowerCase();
+      const ct =
+        ext === '.webp'
+          ? 'image/webp'
+          : ext === '.svg'
+            ? 'image/svg+xml'
+            : ext === '.jpg' || ext === '.jpeg'
+              ? 'image/jpeg'
               : 'image/png';
-          res.setHeader('Cache-Control', 'public, max-age=86400');
-          res.setHeader('X-Logo-Fallback', '0');
-          res.type(contentType).send(fileData);
-          return;
-        }
-      } catch {
-        // continue
-      }
-    }
+      return { contentType: ct, data: fs.readFileSync(fullPath) };
+    };
 
     const candidates: string[] = [];
     const safeRawUrl = rawUrl && !rawUrl.startsWith('/api/company-logo') ? rawUrl : '';
-    const normalizedExplicit = safeRawUrl ? normalizeGrowwLogoUrl(safeRawUrl) : null;
-    if (normalizedExplicit) candidates.push(normalizedExplicit);
-    if (alphaSym) {
-      candidates.push(
-        `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`,
-        `https://images.dhan.co/symbol/${encodeURIComponent(alphaSym)}.png`,
-        `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
-        `https://static.tickertape.in/stock-logos/${encodeURIComponent(alphaSym)}.png`
-      );
-    }
-    if (bse6) {
-      candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`);
+    let resolved: { contentType: string; data: Buffer } | null = safeRawUrl.startsWith('/assets/')
+      ? tryReadLocalAsset(safeRawUrl)
+      : null;
+
+    if (!resolved) {
+      const staticAsset = resolveStaticMoverLogo(alphaSym || rawSym, rawName);
+      if (staticAsset) {
+        resolved = tryReadLocalAsset(staticAsset);
+      }
     }
 
-    let resolved: { contentType: string; data: Buffer } | null = null;
-    for (const url of candidates) {
-      resolved = await tryFetchUpstreamLogo(url);
-      if (resolved) break;
+    if (!resolved) {
+      const normalizedExplicit = safeRawUrl ? normalizeGrowwLogoUrl(safeRawUrl) : null;
+      if (normalizedExplicit) candidates.push(normalizedExplicit);
+      if (alphaSym) {
+        candidates.push(
+          `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`,
+          `https://images.dhan.co/symbol/${encodeURIComponent(alphaSym)}.png`,
+          `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
+          `https://static.tickertape.in/stock-logos/${encodeURIComponent(alphaSym)}.png`
+        );
+      }
+      if (bse6) {
+        candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`);
+      }
+
+      for (const url of candidates) {
+        resolved = await tryFetchUpstreamLogo(url);
+        if (resolved) break;
+      }
+    }
+
+    if (!resolved) {
+      const db = getDb();
+      const matchedStock =
+        (alphaSym ? db.stocks.find((s) => s.symbol.toUpperCase() === alphaSym) : undefined) ||
+        (bse6 ? db.stocks.find((s) => s.bseCode === bse6) : undefined);
+      const stockLogo =
+        matchedStock?.logoUrl && !matchedStock.logoUrl.startsWith('/api/')
+          ? matchedStock.logoUrl
+          : null;
+      if (stockLogo) {
+        resolved = stockLogo.startsWith('/assets/')
+          ? tryReadLocalAsset(stockLogo)
+          : await tryFetchUpstreamLogo(stockLogo);
+      }
+
+      if (!resolved) {
+        const cleanNameKey = rawName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const matchedIpo = db.ipos.find(
+          (i) =>
+            (rawSearchId && i.slug === rawSearchId) ||
+            (alphaSym && i.listing.stockSymbol?.toUpperCase() === alphaSym) ||
+            (cleanNameKey.length >= 6 &&
+              i.companyName.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cleanNameKey))
+        );
+        const ipoLogo =
+          matchedIpo?.logoUrl && !matchedIpo.logoUrl.startsWith('/api/')
+            ? matchedIpo.logoUrl
+            : null;
+        if (ipoLogo) {
+          resolved = ipoLogo.startsWith('/assets/')
+            ? tryReadLocalAsset(ipoLogo)
+            : await tryFetchUpstreamLogo(ipoLogo);
+        }
+      }
     }
 
     if (!resolved && rawSearchId) {
       const searchLogo = await resolveGrowwLogoBySearchId(rawSearchId);
       if (searchLogo && !candidates.includes(searchLogo)) {
-        resolved = await tryFetchUpstreamLogo(searchLogo);
+        resolved = searchLogo.startsWith('/assets/')
+          ? tryReadLocalAsset(searchLogo)
+          : await tryFetchUpstreamLogo(searchLogo);
       }
     }
 
     if (!resolved && (alphaSym || bse6)) {
       const symbolLogo = await resolveGrowwLogoBySymbol(alphaSym || bse6);
       if (symbolLogo && !candidates.includes(symbolLogo)) {
-        resolved = await tryFetchUpstreamLogo(symbolLogo);
-      }
-    }
-
-    if (!resolved) {
-      const db = getDb();
-      const matchStock = (alphaSym || bse6)
-        ? db.stocks.find(
-            (s) =>
-              (alphaSym && s.symbol.toUpperCase() === alphaSym) ||
-              (bse6 && s.bseCode === bse6)
-          )
-        : null;
-      const matchIpo = (alphaSym || rawName)
-        ? db.ipos.find(
-            (i) =>
-              (alphaSym && (i.listing?.stockSymbol?.toUpperCase() === alphaSym || i.slug.toUpperCase() === alphaSym)) ||
-              (rawName && i.companyName.toLowerCase() === rawName.toLowerCase())
-          )
-        : null;
-      const dbLogo = matchStock?.logoUrl || matchIpo?.logoUrl;
-      if (dbLogo && !dbLogo.startsWith('/api/company-logo')) {
-        if (dbLogo.startsWith('/assets/')) {
-          const fullPath = path.join(process.cwd(), 'public', dbLogo.replace(/^\//, ''));
-          try {
-            if (fs.existsSync(fullPath)) {
-              const fileData = await fs.promises.readFile(fullPath);
-              const ext = path.extname(fullPath).toLowerCase();
-              resolved = {
-                contentType:
-                  ext === '.webp' ? 'image/webp' : ext === '.svg' ? 'image/svg+xml' : 'image/png',
-                data: fileData,
-              };
-            }
-          } catch {
-            // ignore
-          }
-        } else if (dbLogo.startsWith('http')) {
-          resolved = await tryFetchUpstreamLogo(dbLogo);
-        }
+        resolved = symbolLogo.startsWith('/assets/')
+          ? tryReadLocalAsset(symbolLogo)
+          : await tryFetchUpstreamLogo(symbolLogo);
       }
     }
 
@@ -1055,8 +1129,10 @@ async function startServer() {
       res.status(400).json({ error: 'Please provide a valid email address.' });
       return;
     }
-    if (!password || password.length < 8) {
-      res.status(400).json({ error: 'Password must be at least 8 characters long.' });
+    if (!isStrongPassword(password)) {
+      res.status(400).json({
+        error: 'Password must be at least 8 characters and include both letters and numbers.',
+      });
       return;
     }
 
@@ -1115,18 +1191,153 @@ async function startServer() {
     res.json({ ok: true });
   });
 
-  app.post('/api/auth/forgot-password', authRateLimit, (req, res) => {
+  app.post('/api/auth/forgot-password', authRateLimit, async (req, res) => {
     const { email } = req.body as { email?: string };
     const cleanEmail = typeof email === 'string' ? email.trim().toLowerCase() : '';
     if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       res.status(400).json({ error: 'Enter a valid registered email address.' });
       return;
     }
-    // Never reveal whether email exists; record honest message
+    const db = getDb();
+    const user = db.users.find((u) => u.email.toLowerCase() === cleanEmail);
+    if (user) {
+      const rawToken = crypto.randomBytes(32).toString('hex');
+      user.passwordResetTokenHash = crypto
+        .createHash('sha256')
+        .update(rawToken)
+        .digest('hex');
+      user.passwordResetExpiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
+      saveDb();
+
+      const resetUrl = `${resolveSiteBaseUrl(req)}/login?resetToken=${encodeURIComponent(rawToken)}`;
+      const delivered = await sendPasswordResetEmail({
+        to: user.email,
+        name: user.name,
+        resetUrl,
+      });
+      if (!delivered) {
+        console.info(
+          `[Auth] Password reset token generated for ${user.email} (SMTP/Resend not configured).`
+        );
+      }
+    }
+    // Never reveal whether email exists
     res.json({
-      message:
-        'If an account matches this email, password reset instructions have been queued for verification.',
+      message: isMailerConfigured()
+        ? 'If an account matches this email, a password reset link has been sent to your inbox.'
+        : 'Password reset token queued. Configure SMTP or RESEND_API_KEY in environment variables to deliver reset emails automatically.',
     });
+  });
+
+  app.post('/api/auth/reset-password', authRateLimit, async (req, res) => {
+    const { token, newPassword } = req.body as { token?: string; newPassword?: string };
+    const cleanToken = typeof token === 'string' ? token.trim() : '';
+    if (!cleanToken || cleanToken.length < 32) {
+      res.status(400).json({ error: 'Invalid or expired password reset token.' });
+      return;
+    }
+    if (!isStrongPassword(newPassword)) {
+      res.status(400).json({
+        error: 'New password must be at least 8 characters and include both letters and numbers.',
+      });
+      return;
+    }
+
+    const tokenHash = crypto.createHash('sha256').update(cleanToken).digest('hex');
+    const db = getDb();
+    const now = Date.now();
+    const user = db.users.find(
+      (u) =>
+        u.passwordResetTokenHash === tokenHash &&
+        u.passwordResetExpiresAt &&
+        new Date(u.passwordResetExpiresAt).getTime() > now
+    );
+    if (!user) {
+      res.status(400).json({ error: 'Reset token is invalid or has expired. Please request a new one.' });
+      return;
+    }
+
+    user.passwordHash = await bcrypt.hash(newPassword, 10);
+    user.passwordResetTokenHash = null;
+    user.passwordResetExpiresAt = null;
+    saveDb();
+    setSessionCookie(req, res, user);
+    res.json({
+      user: sanitizeUser(user),
+      message: 'Your password has been updated and you are now signed in.',
+    });
+  });
+
+  app.post('/api/auth/change-password', requireAuth, async (req: AuthedRequest, res) => {
+    const { currentPassword, newPassword } = req.body as {
+      currentPassword?: string;
+      newPassword?: string;
+    };
+    if (!currentPassword || !newPassword) {
+      res.status(400).json({ error: 'Current password and new password are required.' });
+      return;
+    }
+    if (!isStrongPassword(newPassword)) {
+      res.status(400).json({
+        error: 'New password must be at least 8 characters and include both letters and numbers.',
+      });
+      return;
+    }
+    const db = getDb();
+    const user = db.users.find((u) => u.id === req.currentUser!.id);
+    if (!user || !(await bcrypt.compare(currentPassword, user.passwordHash))) {
+      res.status(401).json({ error: 'Current password is incorrect.' });
+      return;
+    }
+    user.passwordHash = await bcrypt.hash(newPassword, 10);
+    user.passwordResetTokenHash = null;
+    user.passwordResetExpiresAt = null;
+    saveDb();
+    res.json({ message: 'Password updated successfully.' });
+  });
+
+  app.get('/api/auth/export-data', requireAuth, (req: AuthedRequest, res) => {
+    const db = getDb();
+    const uid = req.currentUser!.id;
+    res.json({
+      exportedAt: new Date().toISOString(),
+      account: sanitizeUser(req.currentUser!),
+      watchlist: db.watchlists.filter((w) => w.userId === uid),
+      priceAlerts: db.priceAlerts.filter((a) => a.userId === uid),
+      notifications: db.notifications.filter((n) => n.userId === uid),
+    });
+  });
+
+  app.delete('/api/auth/account', requireAuth, async (req: AuthedRequest, res) => {
+    const { password } = req.body as { password?: string };
+    const db = getDb();
+    const uid = req.currentUser!.id;
+    if (uid === 'usr-admin-root') {
+      res.status(403).json({ error: 'Primary compliance administrator account cannot be deleted.' });
+      return;
+    }
+    const userIdx = db.users.findIndex((u) => u.id === uid);
+    if (userIdx === -1) {
+      res.status(404).json({ error: 'Account not found.' });
+      return;
+    }
+    const user = db.users[userIdx];
+    if (!password || !(await bcrypt.compare(password, user.passwordHash))) {
+      res.status(401).json({ error: 'Please enter your current password to confirm deletion.' });
+      return;
+    }
+    db.users.splice(userIdx, 1);
+    db.watchlists = db.watchlists.filter((w) => w.userId !== uid);
+    db.priceAlerts = db.priceAlerts.filter((a) => a.userId !== uid);
+    db.notifications = db.notifications.filter((n) => n.userId !== uid);
+    saveDb();
+    res.clearCookie(SESSION_COOKIE, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isHttpsRequest(req) && process.env.NODE_ENV === 'production',
+      path: '/',
+    });
+    res.json({ ok: true });
   });
 
   app.get('/api/auth/me', (req: AuthedRequest, res) => {
@@ -1850,7 +2061,43 @@ async function startServer() {
     res.json({ updated, importLog: db.importLogs[0] });
   });
 
-  function injectSeoHtml(rawHtml: string, req: Request): string {
+  const KNOWN_STATIC_PATHS = new Set([
+    '/',
+    '/dashboard',
+    '/ipo',
+    '/ipo/mainboard',
+    '/ipo/sme',
+    '/ipo/upcoming',
+    '/ipo/open',
+    '/ipo/closed',
+    '/ipo/listed',
+    '/gmp',
+    '/live-prices',
+    '/nse-stocks',
+    '/bse-stocks',
+    '/listed',
+    '/stock-screener',
+    '/screener',
+    '/calendar',
+    '/market-insights',
+    '/blog',
+    '/calculators',
+    '/watchlist',
+    '/alerts',
+    '/profile',
+    '/login',
+    '/register',
+    '/admin',
+    '/privacy',
+    '/cookies',
+    '/terms',
+    '/about',
+    '/contact',
+    '/disclaimer',
+    '/editorial-policy',
+  ]);
+
+  function injectSeoHtml(rawHtml: string, req: Request): { html: string; statusCode: number } {
     const base = resolveSiteBaseUrl(req);
     const cleanPath = req.path === '/' ? '/' : req.path.replace(/\/+$/, '');
     const canonicalUrl = `${base}${cleanPath}`;
@@ -1861,16 +2108,27 @@ async function startServer() {
     let pageDesc =
       'Discover upcoming Indian IPOs, track Grey Market Premium (GMP) history, monitor NSE and BSE listed companies, and analyse listing gains with PriceAlerter.';
     let noIndex = false;
+    let statusCode = 200;
 
     const noIndexPrefixes = ['/login', '/register', '/profile', '/watchlist', '/alerts', '/admin'];
     if (noIndexPrefixes.some((prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`))) {
       noIndex = true;
-    } else if (cleanPath.startsWith('/ipo/')) {
-      const slug = cleanPath.slice(5);
-      const ipo = db.ipos.find((i) => i.slug === slug);
+    } else if (KNOWN_STATIC_PATHS.has(cleanPath)) {
+      statusCode = 200;
+    } else if (cleanPath.startsWith('/calculators/')) {
+      statusCode = 200;
+    } else if (cleanPath.startsWith('/ipo/') || cleanPath.startsWith('/gmp/')) {
+      const slug = cleanPath.startsWith('/ipo/') ? cleanPath.slice(5) : cleanPath.slice(5);
+      const ipo = db.ipos.find((i) => !i.archived && i.slug === slug);
       if (ipo) {
-        pageTitle = `${ipo.companyName} IPO – Price Band, GMP, Subscription & Valuation | PriceAlerter`;
+        pageTitle = cleanPath.startsWith('/gmp/')
+          ? `${ipo.companyName} IPO GMP Today & Kostak Rates | PriceAlerter`
+          : `${ipo.companyName} IPO – Price Band, GMP, Subscription & Valuation | PriceAlerter`;
         pageDesc = `Complete IPO research for ${ipo.companyName}: price band, issue size, subscription trend, 3-year financials, peer valuation, and official RHP links.`;
+      } else {
+        statusCode = 404;
+        noIndex = true;
+        pageTitle = 'IPO Not Found | PriceAlerter';
       }
     } else if (cleanPath.startsWith('/stock/')) {
       const sym = decodeURIComponent(cleanPath.slice(7)).toUpperCase();
@@ -1881,6 +2139,10 @@ async function startServer() {
       if (stk) {
         pageTitle = `${stk.companyName} (${stk.symbol}) Live Share Price & Financials | PriceAlerter`;
         pageDesc = `Live NSE & BSE share price, circuit limits, financials, shareholding pattern, and peer comparison for ${stk.companyName}.`;
+      } else {
+        statusCode = 404;
+        noIndex = true;
+        pageTitle = 'Stock Symbol Not Found | PriceAlerter';
       }
     } else if (cleanPath.startsWith('/blog/')) {
       const slug = cleanPath.slice(6);
@@ -1888,6 +2150,10 @@ async function startServer() {
       if (art) {
         pageTitle = `${art.title} | PriceAlerter`;
         pageDesc = art.metaDescription;
+      } else {
+        statusCode = 404;
+        noIndex = true;
+        pageTitle = 'Article Not Found | PriceAlerter';
       }
     } else if (cleanPath.startsWith('/market-insights/')) {
       const slug = cleanPath.slice('/market-insights/'.length);
@@ -1895,7 +2161,15 @@ async function startServer() {
       if (ins) {
         pageTitle = `${ins.title} | PriceAlerter`;
         pageDesc = ins.summary;
+      } else {
+        statusCode = 404;
+        noIndex = true;
+        pageTitle = 'Market Insight Not Found | PriceAlerter';
       }
+    } else {
+      statusCode = 404;
+      noIndex = true;
+      pageTitle = '404 Page Not Found | PriceAlerter';
     }
 
     const robotsContent = noIndex
@@ -1907,7 +2181,19 @@ async function startServer() {
         ? `<meta name="google-site-verification" content="${escapeHtmlAttr(verificationToken)}" />`
         : '';
 
+    const rawAdClient = (
+      process.env.ADSENSE_PUBLISHER_ID ||
+      process.env.VITE_ADSENSE_CLIENT_ID ||
+      ''
+    ).trim();
+    const adMatch = rawAdClient.match(/^(?:ca-)?(pub-\d{10,20})$/);
+    const effectiveAdClient = adMatch ? `ca-${adMatch[1]}` : null;
+
     let html = rawHtml;
+    html = html.replace(/https:\/\/pricealerter\.in\/og-image\.png/gi, `${base}/og-image.png`);
+    if (effectiveAdClient) {
+      html = html.replace(/ca-pub-\d{10,20}/g, effectiveAdClient);
+    }
     html = html.replace(
       /<title>[\s\S]*?<\/title>/i,
       `<title>${escapeHtmlAttr(pageTitle)}</title>`
@@ -1961,7 +2247,7 @@ async function startServer() {
         description: pageDesc,
       }).replace(/</g, '\\u003c')}</script>`
     );
-    return html;
+    return { html, statusCode };
   }
 
   app.use('/api', (_req, res) => {
@@ -2009,7 +2295,8 @@ async function startServer() {
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         res.setHeader('CDN-Cache-Control', 'no-store');
         res.setHeader('Cloudflare-CDN-Cache-Control', 'no-store');
-        res.type('text/html').send(injectSeoHtml(rawHtml, req));
+        const seo = injectSeoHtml(rawHtml, req);
+        res.status(seo.statusCode).type('text/html').send(seo.html);
       } else {
         res.status(404).send('Build output missing. Run npm run build.');
       }
@@ -2024,10 +2311,33 @@ async function startServer() {
     }
   });
 
-  app.listen(PORT, '0.0.0.0', () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`PriceAlerter server running on http://0.0.0.0:${PORT}`);
     startAutomationEngine();
   });
+
+  let shuttingDown = false;
+  const gracefulShutdown = (signal: string) => {
+    if (shuttingDown) return;
+    shuttingDown = true;
+    console.log(`[Lifecycle] Received ${signal}; closing server and flushing state...`);
+    stopAutomationEngine();
+    try {
+      flushDbSync();
+    } catch (err) {
+      console.error('[Lifecycle] DB flush error:', err instanceof Error ? err.message : err);
+    }
+    server.close(() => {
+      process.exit(0);
+    });
+    const forceTimer = setTimeout(() => {
+      process.exit(0);
+    }, 5000);
+    forceTimer.unref();
+  };
+
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 }
 
 startServer();

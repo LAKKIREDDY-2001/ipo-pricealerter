@@ -76,7 +76,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useLiveMarketStream({
     enabled: Boolean(user),
     onAlerts: () => {
-      void loadProtectedData();
+      void (async () => {
+        try {
+          const [wlRes, alertRes, notifRes] = await Promise.all([
+            api.getWatchlist(),
+            api.getAlerts(),
+            api.getNotifications(),
+          ]);
+          setWatchlist(wlRes.items);
+          setAlerts(alertRes.alerts);
+          setNotifications(notifRes.notifications);
+
+          if (
+            user?.preferences.browserNotifications &&
+            typeof window !== 'undefined' &&
+            'Notification' in window &&
+            Notification.permission === 'granted'
+          ) {
+            const latestUnread = notifRes.notifications.find(
+              (n) => !n.read && n.category === 'PRICE_ALERT'
+            );
+            if (latestUnread) {
+              new Notification(latestUnread.title, {
+                body: latestUnread.message,
+                icon: '/favicon-192x192.png',
+              });
+            }
+          }
+        } catch {
+          // ignore transient sync failure
+        }
+      })();
     },
   });
 

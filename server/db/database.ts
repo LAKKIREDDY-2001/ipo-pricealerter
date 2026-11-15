@@ -26,6 +26,8 @@ import {
 
 export interface StoredUser extends AuthUser {
   passwordHash: string;
+  passwordResetTokenHash?: string | null;
+  passwordResetExpiresAt?: string | null;
 }
 
 export interface DataImportLog {
@@ -64,10 +66,22 @@ export interface DatabaseSchema {
   contactMessages: ContactSubmission[];
 }
 
-const DATA_DIR = path.resolve(process.cwd(), 'server', 'data');
+const DEFAULT_DATA_DIR = path.resolve(process.cwd(), 'server', 'data');
+const DATA_DIR = process.env.DATA_DIR?.trim()
+  ? path.resolve(process.env.DATA_DIR.trim())
+  : DEFAULT_DATA_DIR;
 const DB_FILE = path.join(DATA_DIR, 'db.json');
+const DB_BACKUP_FILE = path.join(DATA_DIR, 'db.json.bak');
+const BUNDLED_DB_FILE = path.join(DEFAULT_DATA_DIR, 'db.json');
 
 let dbCache: DatabaseSchema | null = null;
+let saveTimer: ReturnType<typeof setTimeout> | null = null;
+let pendingSave = false;
+let writeChain: Promise<void> = Promise.resolve();
+
+export function getDbFilePath(): string {
+  return DB_FILE;
+}
 
 function createInitialDatabase(): DatabaseSchema {
   const now = new Date().toISOString();
@@ -250,9 +264,17 @@ export function getDb(): DatabaseSchema {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
-  if (fs.existsSync(DB_FILE)) {
+  if (!fs.existsSync(DB_FILE) && DATA_DIR !== DEFAULT_DATA_DIR && fs.existsSync(BUNDLED_DB_FILE)) {
     try {
-      const raw = fs.readFileSync(DB_FILE, 'utf8');
+      fs.copyFileSync(BUNDLED_DB_FILE, DB_FILE);
+    } catch {
+      // Fallback to initial database creation if copy fails
+    }
+  }
+  for (const candidateFile of [DB_FILE, DB_BACKUP_FILE]) {
+    if (!fs.existsSync(candidateFile)) continue;
+    try {
+      const raw = fs.readFileSync(candidateFile, 'utf8');
       dbCache = JSON.parse(raw) as DatabaseSchema;
       let dirty = false;
       if (!Array.isArray(dbCache.contactMessages)) {
@@ -278,29 +300,80 @@ export function getDb(): DatabaseSchema {
           dirty = true;
         }
       }
+      if (candidateFile === DB_BACKUP_FILE) {
+        dirty = true;
+      }
       if (dirty) saveDb();
       return dbCache;
     } catch {
-      // Rebuild clean store if file is unreadable
+      // Try backup or rebuild clean store if unreadable
     }
   }
   dbCache = createInitialDatabase();
-  saveDb();
+  flushDbSync();
   return dbCache;
+}
+
+async function performAsyncWrite(): Promise<void> {
+  if (!dbCache) return;
+  pendingSave = false;
+  if (!fs.existsSync(DATA_DIR)) {
+    await fs.promises.mkdir(DATA_DIR, { recursive: true });
+  }
+  const serialized = JSON.stringify(dbCache, null, 2);
+  const tmpFile = `${DB_FILE}.tmp.${process.pid}`;
+  await fs.promises.writeFile(tmpFile, serialized, 'utf8');
+  if (fs.existsSync(DB_FILE)) {
+    await fs.promises.copyFile(DB_FILE, DB_BACKUP_FILE).catch(() => {});
+  }
+  await fs.promises.rename(tmpFile, DB_FILE);
 }
 
 export function saveDb(): void {
   if (!dbCache) return;
+  pendingSave = true;
+  if (saveTimer) return;
+  saveTimer = setTimeout(() => {
+    saveTimer = null;
+    if (!pendingSave) return;
+    writeChain = writeChain
+      .then(() => performAsyncWrite())
+      .catch((err) => {
+        console.error('[Database] Async write failed:', err instanceof Error ? err.message : err);
+      });
+  }, 50);
+  saveTimer.unref?.();
+}
+
+export function flushDbSync(): void {
+  if (saveTimer) {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+  }
+  if (!dbCache) return;
+  pendingSave = false;
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
-  const tmpFile = `${DB_FILE}.tmp`;
+  const tmpFile = `${DB_FILE}.tmp.${process.pid}`;
   fs.writeFileSync(tmpFile, JSON.stringify(dbCache, null, 2), 'utf8');
+  if (fs.existsSync(DB_FILE)) {
+    try {
+      fs.copyFileSync(DB_FILE, DB_BACKUP_FILE);
+    } catch {
+      // ignore backup copy failure
+    }
+  }
   fs.renameSync(tmpFile, DB_FILE);
 }
 
 export function sanitizeUser(user: StoredUser): AuthUser {
-  const { passwordHash: _omit, ...safe } = user;
+  const {
+    passwordHash: _omitHash,
+    passwordResetTokenHash: _omitResetHash,
+    passwordResetExpiresAt: _omitResetExp,
+    ...safe
+  } = user;
   return safe;
 }
 

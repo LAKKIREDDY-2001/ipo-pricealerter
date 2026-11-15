@@ -33,7 +33,7 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
     assert.equal(satRes.isActiveTradingWindow, false);
   });
 
-  it('strips passwordHash cleanly in sanitizeUser without mutating source record', () => {
+  it('strips passwordHash and reset tokens cleanly in sanitizeUser without mutating source record', () => {
     const mockUser: StoredUser = {
       id: 'usr-test-1',
       name: 'Test Investor',
@@ -42,6 +42,8 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
       emailVerified: true,
       createdAt: '2026-11-14T00:00:00.000Z',
       passwordHash: bcrypt.hashSync('StrongPass@2026', 6),
+      passwordResetTokenHash: 'deadbeef1234',
+      passwordResetExpiresAt: '2026-11-15T12:00:00.000Z',
       preferences: {
         emailAlerts: true,
         browserNotifications: false,
@@ -52,6 +54,8 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
     const safe = sanitizeUser(mockUser) as unknown as Record<string, unknown>;
     assert.equal(safe.email, 'test@pricealerter.in');
     assert.equal('passwordHash' in safe, false);
+    assert.equal('passwordResetTokenHash' in safe, false);
+    assert.equal('passwordResetExpiresAt' in safe, false);
     assert.ok(mockUser.passwordHash.startsWith('$2'));
   });
 

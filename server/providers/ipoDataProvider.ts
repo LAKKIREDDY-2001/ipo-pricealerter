@@ -526,20 +526,13 @@ function resolveLinkedStock(params: {
     if (s) return s;
   }
   const uni = getLiveUniverseSnapshot().stocks;
-  const dbStocks = getDb().stocks;
-  const allPool = uni.length > 0 ? uni : dbStocks;
-
   if (parentSearchId) {
-    const found = allPool.find((s) => s.searchId === parentSearchId);
+    const found = uni.find((s) => s.searchId === parentSearchId);
     if (found) return found;
   }
   const norm = normalizeNameKey(companyName);
   if (norm.length >= 6) {
-    const found = allPool.find((s) => normalizeNameKey(s.companyName) === norm);
-    if (found) return found;
-  }
-  if (symbol && !symbol.startsWith('TEMP')) {
-    const found = dbStocks.find((s) => s.symbol.toUpperCase() === symbol.toUpperCase());
+    const found = uni.find((s) => normalizeNameKey(s.companyName) === norm);
     if (found) return found;
   }
   return null;
@@ -700,13 +693,20 @@ function buildIpoFromSources(params: {
   const exchanges = Array.from(exchangesSet);
 
   // Linked live stock for post-listing CMP
+  const candidateSymbol =
+    detail?.symbol && !detail.symbol.startsWith('TEMP')
+      ? detail.symbol
+      : summary?.symbol && !summary.symbol.startsWith('TEMP')
+        ? summary.symbol
+        : existing?.listing.stockSymbol || null;
+
   const linkedStock =
     status === 'Listed'
       ? resolveLinkedStock({
-          nseCode,
-          bseCode,
-          symbol: detail?.symbol || summary?.symbol,
-          parentSearchId: detail?.parentSearchId,
+          nseCode: nseCode || (candidateSymbol && !/^\d+$/.test(candidateSymbol) ? candidateSymbol : null),
+          bseCode: bseCode || (candidateSymbol && /^\d{6}$/.test(candidateSymbol) ? candidateSymbol : null),
+          symbol: candidateSymbol,
+          parentSearchId: detail?.parentSearchId || slug,
           companyName,
         })
       : null;
@@ -715,8 +715,7 @@ function buildIpoFromSources(params: {
     linkedStock?.symbol ||
     nseCode ||
     bseCode ||
-    (detail?.symbol && !detail.symbol.startsWith('TEMP') ? detail.symbol : null) ||
-    existing?.listing.stockSymbol ||
+    candidateSymbol ||
     null;
 
   const listingExchange: 'NSE' | 'BSE' | null =
@@ -827,88 +826,17 @@ function buildIpoFromSources(params: {
     }
   }
 
-  const issuePrice =
-    detail?.issuePrice ?? summary?.issuePrice ?? priceBandHigh ?? existing?.listing.issuePrice ?? null;
-
-  let parsedYears =
+  const parsedYears =
     yearsMap.size > 0
       ? Array.from(yearsMap.values()).sort((a, b) => a.year.localeCompare(b.year))
       : existing?.financials.years ?? [];
 
-  if (status === 'Listed' && parsedYears.length === 0) {
-    const baseRev = issueSizeCr ? Math.round(issueSizeCr * 1.5) : 120;
-    const basePat = issueSizeCr ? Math.round(issueSizeCr * 0.15) : 15;
-    const baseNw = linkedStock?.companyProfile?.bookValue ? Math.round(linkedStock.companyProfile.bookValue * 10) : (issueSizeCr ? Math.round(issueSizeCr * 0.8) : 80);
-    parsedYears = [
-      {
-        year: 'FY22',
-        revenueCr: round2(baseRev * 0.75),
-        ebitdaCr: round2(baseRev * 0.75 * 0.18),
-        patCr: round2(basePat * 0.7),
-        assetsCr: round2(baseNw * 1.4),
-        netWorthCr: round2(baseNw * 0.75),
-        borrowingsCr: round2(baseNw * 0.3),
-        eps: null,
-        roePct: null,
-        rocePct: null,
-        debtToEquity: null,
-      },
-      {
-        year: 'FY23',
-        revenueCr: round2(baseRev * 0.88),
-        ebitdaCr: round2(baseRev * 0.88 * 0.19),
-        patCr: round2(basePat * 0.85),
-        assetsCr: round2(baseNw * 1.6),
-        netWorthCr: round2(baseNw * 0.88),
-        borrowingsCr: round2(baseNw * 0.28),
-        eps: null,
-        roePct: null,
-        rocePct: null,
-        debtToEquity: null,
-      },
-      {
-        year: 'FY24',
-        revenueCr: round2(baseRev),
-        ebitdaCr: round2(baseRev * 0.2),
-        patCr: round2(basePat),
-        assetsCr: round2(baseNw * 1.8),
-        netWorthCr: round2(baseNw),
-        borrowingsCr: round2(baseNw * 0.25),
-        eps: null,
-        roePct: null,
-        rocePct: null,
-        debtToEquity: null,
-      },
-    ];
-  }
-
-  const currentMarketPrice =
-    linkedStock?.currentPrice ??
-    (status === 'Listed' ? existing?.listing.currentMarketPrice ?? actualListingPrice ?? issuePrice : null);
-  const previousClose =
-    linkedStock?.previousClose ??
-    existing?.listing.previousClose ??
-    (status === 'Listed' ? actualListingPrice ?? issuePrice : null);
-
   // Valuation
-  const cmpVal = currentMarketPrice ?? actualListingPrice;
   const peRatio =
-    (igInfo?.peRatio && igInfo.peRatio > 0 ? igInfo.peRatio : null) ??
-    (linkedStock?.fundamentals.pe && linkedStock.fundamentals.pe > 0 ? linkedStock.fundamentals.pe : null) ??
-    (existing?.valuation.peRatio && existing.valuation.peRatio > 0 ? existing.valuation.peRatio : null) ??
-    (status === 'Listed' && issuePrice && cmpVal ? round2(cmpVal / (issuePrice * 0.05)) : null);
-  const pbRatio =
-    (linkedStock?.fundamentals.pb && linkedStock.fundamentals.pb > 0 ? linkedStock.fundamentals.pb : null) ??
-    (existing?.valuation.pbRatio && existing.valuation.pbRatio > 0 ? existing.valuation.pbRatio : null) ??
-    (status === 'Listed' ? 2.8 : null);
-  const eps =
-    (linkedStock?.companyProfile?.epsTtm && linkedStock.companyProfile.epsTtm > 0 ? linkedStock.companyProfile.epsTtm : null) ??
-    (existing?.valuation.eps && existing.valuation.eps > 0 ? existing.valuation.eps : null) ??
-    (status === 'Listed' && cmpVal && peRatio ? round2(cmpVal / peRatio) : null);
-  const marketCapCr =
-    (linkedStock?.marketCapCr && linkedStock.marketCapCr > 0 ? linkedStock.marketCapCr : null) ??
-    (existing?.valuation.marketCapCr && existing.valuation.marketCapCr > 0 ? existing.valuation.marketCapCr : null) ??
-    (status === 'Listed' && issueSizeCr ? round2(issueSizeCr * 3.5) : null);
+    igInfo?.peRatio ?? linkedStock?.fundamentals.pe ?? existing?.valuation.peRatio ?? null;
+  const pbRatio = linkedStock?.fundamentals.pb ?? existing?.valuation.pbRatio ?? null;
+  const eps = linkedStock?.companyProfile?.epsTtm ?? existing?.valuation.eps ?? null;
+  const marketCapCr = linkedStock?.marketCapCr ?? existing?.valuation.marketCapCr ?? null;
   const industryAvgPe =
     linkedStock?.companyProfile?.industryPe ?? existing?.valuation.industryAvgPe ?? null;
 
@@ -956,6 +884,14 @@ function buildIpoFromSources(params: {
     foundersList.push(detail.aboutCompany.managingDirector);
   }
 
+  const issuePrice =
+    detail?.issuePrice ?? summary?.issuePrice ?? priceBandHigh ?? existing?.listing.issuePrice ?? null;
+
+  const currentMarketPrice =
+    linkedStock?.currentPrice ??
+    (status === 'Listed' ? existing?.listing.currentMarketPrice ?? actualListingPrice : null);
+  const previousClose = linkedStock?.previousClose ?? existing?.listing.previousClose ?? null;
+
   const priceStatus =
     status !== 'Listed'
       ? 'UNAVAILABLE'
@@ -972,24 +908,25 @@ function buildIpoFromSources(params: {
   const sourceLabel =
     sourceNames.length > 0 ? sourceNames.join(' · ') : existing?.provenance.source || 'NSE / BSE IPO Feed';
 
-  const rawLogo =
-    normalizeGrowwLogoUrl(detail?.logoUrl) ||
-    normalizeGrowwLogoUrl(summary?.logoUrl) ||
-    (existing?.logoUrl && !existing.logoUrl.startsWith('/api/company-logo') ? existing.logoUrl : null) ||
-    (linkedStock?.logoUrl && !linkedStock.logoUrl.startsWith('/api/company-logo') ? linkedStock.logoUrl : null) ||
-    null;
-
-  const staticLogo = resolveStaticMoverLogo(detail?.symbol || summary?.symbol || slug, companyName);
-
-  const finalLogoUrl =
-    staticLogo ||
-    (rawLogo && !rawLogo.startsWith('/api/') ? rawLogo : null) ||
-    buildStockLogoProxyUrl({
-      symbol: detail?.symbol || summary?.symbol || slug,
-      bseCode: detail?.listing?.bseScripCode || null,
-      searchId: slug,
-      companyName,
-    });
+  const normalizedDetailLogo = normalizeGrowwLogoUrl(detail?.logoUrl);
+  const normalizedSummaryLogo = normalizeGrowwLogoUrl(summary?.logoUrl);
+  const staticMoverLogo = resolveStaticMoverLogo(stockSymbol || nseCode || bseCode, companyName);
+  const existingRealLogo =
+    existing?.logoUrl && !existing.logoUrl.startsWith('/api/company-logo')
+      ? existing.logoUrl.startsWith('/assets/')
+        ? existing.logoUrl
+        : normalizeGrowwLogoUrl(existing.logoUrl)
+      : null;
+  const linkedRealLogo =
+    linkedStock?.logoUrl && !linkedStock.logoUrl.startsWith('/api/company-logo')
+      ? linkedStock.logoUrl
+      : null;
+  const fallbackProxyLogo = buildStockLogoProxyUrl({
+    symbol: stockSymbol,
+    bseCode,
+    searchId: detail?.parentSearchId || summary?.searchId || slug,
+    companyName,
+  });
 
   return {
     id: existing?.id || `ipo-${slug}`,
@@ -998,7 +935,13 @@ function buildIpoFromSources(params: {
     shortName,
     logoMonogram: monogramForName(shortName),
     logoColor: existing?.logoColor || colorForName(companyName),
-    logoUrl: finalLogoUrl,
+    logoUrl:
+      staticMoverLogo ||
+      normalizedDetailLogo ||
+      normalizedSummaryLogo ||
+      existingRealLogo ||
+      linkedRealLogo ||
+      fallbackProxyLogo,
     sector: detail?.sector || existing?.sector || 'Capital Markets',
     industry: detail?.sector || existing?.industry || `${category} Equity Issue`,
     category,
@@ -1232,12 +1175,18 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
         arr.forEach((item, idx) => {
           const slug = item.searchId?.trim();
           if (!slug) return;
+          const prevExisting = existingBySlug.get(slug);
           const norm = normalizeNameKey(item.companyName || slug);
           const ig = igByNorm.get(norm) || null;
           if (ig) matchedIgKeys.add(norm);
           if (ig?.['~urlrewrite_folder_name']) {
             igUrlBySlug.set(slug, ig['~urlrewrite_folder_name']);
           }
+          const missingRichDetail =
+            !prevExisting ||
+            prevExisting.financials.years.length === 0 ||
+            !prevExisting.logoUrl ||
+            prevExisting.logoUrl.startsWith('/api/company-logo');
           candidates.set(slug, {
             slug,
             summary: item,
@@ -1245,15 +1194,17 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
             ig,
             needsDetail:
               hintBucket === 'Open' ||
+              hintBucket === 'Upcoming' ||
               Boolean(item.bidStartTimestamp) ||
               Boolean(ig) ||
+              missingRichDetail ||
               idx < maxDetailCount,
           });
         });
       };
 
-      addGrowwItems(growwLists.open, 'Open', 20);
-      addGrowwItems(growwLists.upcoming, 'Upcoming', 20);
+      addGrowwItems(growwLists.open, 'Open', 30);
+      addGrowwItems(growwLists.upcoming, 'Upcoming', 40);
       // Keep recent 45 closed/listed IPOs from Groww so pages stay fast and rich
       addGrowwItems(growwLists.closed.slice(0, 45), 'Closed', 45);
 
@@ -1298,12 +1249,14 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
       const candidateList = Array.from(candidates.values());
       const detailTargets = candidateList.filter((c) => {
         if (!c.needsDetail) return false;
+        const existing = existingBySlug.get(c.slug);
+        if (!existing || existing.financials.years.length === 0) return true;
         const lastD = detailSyncedAt.get(c.slug) ?? 0;
         return force || Date.now() - lastD > IPO_DETAIL_TTL_MS;
       });
 
       const fetchedDetails = new Map<string, GrowwIpoDetail | null>();
-      await mapConcurrent(detailTargets, 6, async (c) => {
+      await mapConcurrent(detailTargets, 10, async (c) => {
         if (c.summary) {
           const det = await fetchGrowwIpoDetail(c.slug);
           fetchedDetails.set(c.slug, det);
@@ -1311,55 +1264,102 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
         }
       });
 
-      // Batch-fetch InvestorGain GMP histories for active IPOs
-      const activeIgTargets = candidateList.filter(
-        (c) =>
-          (c.hintBucket === 'Open' || c.hintBucket === 'Upcoming') &&
-          c.ig?.['~urlrewrite_folder_name']
-      );
-      const fetchedIgHistories = new Map<string, IPOGMPHistoryPoint[]>();
-      await mapConcurrent(activeIgTargets, 6, async (c) => {
-        const folder = c.ig?.['~urlrewrite_folder_name'];
-        if (folder) {
-          const res = await fetchInvestorGainDetail(folder);
-          if (res.history.length > 0) {
-            fetchedIgHistories.set(c.slug, res.history);
-          }
-        }
-      });
+      // Hydrate InvestorGain GMP history for Open/Upcoming/GMP-active IPOs missing multi-point history
+      const igHistoryTargets = candidateList.filter((c) => {
+        if (!igUrlBySlug.has(c.slug)) return false;
+        const existing = existingBySlug.get(c.slug);
+        const isActive = c.hintBucket === 'Open' || c.hintBucket === 'Upcoming' || c.hintBucket === 'Closed';
+        return isActive && (!existing || existing.gmp.history.length <= 1 || force);
+      }).slice(0, 20);
 
-      // Hydrate live post-listing CMP, previousClose, peRatio, pbRatio, marketCapCr, and eps for Listed IPOs
-      const listedTargets = candidateList.filter(
-        (c) => c.hintBucket === 'Listed' || c.summary?.isListed
-      );
-      await mapConcurrent(listedTargets, 8, async (c) => {
-        const det = fetchedDetails.get(c.slug);
-        const sym =
-          det?.symbol && !det.symbol.startsWith('TEMP')
-            ? det.symbol
-            : c.summary?.symbol && !c.summary.symbol.startsWith('TEMP')
-            ? c.summary.symbol
-            : det?.listing?.nseScripCode ||
-              det?.listing?.bseScripCode ||
-              c.summary?.searchId;
-        if (sym) {
-          await refreshStockBySymbol(sym).catch(() => null);
+      const fetchedIgHistories = new Map<string, IPOGMPHistoryPoint[]>();
+      await mapConcurrent(igHistoryTargets, 6, async (c) => {
+        const igPath = igUrlBySlug.get(c.slug);
+        if (!igPath) return;
+        const igDet = await fetchInvestorGainDetail(igPath);
+        if (igDet.history.length > 0) {
+          fetchedIgHistories.set(c.slug, igDet.history);
         }
       });
 
       const mergedList: IPOOffering[] = candidateList.map((c) => {
         const existing = existingBySlug.get(c.slug);
         const detail = fetchedDetails.get(c.slug) ?? null;
-        const igHistory = fetchedIgHistories.get(c.slug);
         return buildIpoFromSources({
           slug: c.slug,
           summary: c.summary,
           detail,
           ig: c.ig,
-          igHistory,
+          igHistory: fetchedIgHistories.get(c.slug),
           hintBucket: c.hintBucket,
           existing,
         });
+      });
+
+      // Hydrate live post-listing CMP & valuation (P/E, P/B, MCap, EPS) for Listed IPOs
+      const listedNeedingQuotes = mergedList.filter(
+        (i) =>
+          i.status === 'Listed' &&
+          i.listing.stockSymbol &&
+          (i.listing.currentMarketPrice === null ||
+            i.valuation.peRatio === null ||
+            i.valuation.marketCapCr === null ||
+            force)
+      ).slice(0, force ? 45 : 15);
+
+      await mapConcurrent(listedNeedingQuotes, 6, async (ipo) => {
+        if (!ipo.listing.stockSymbol) return;
+        try {
+          const { stock } = await refreshStockBySymbol(ipo.listing.stockSymbol, '1mo');
+          if (stock && stock.currentPrice !== null) {
+            ipo.listing.stockSymbol = stock.symbol;
+            ipo.listing.currentMarketPrice = stock.currentPrice;
+            ipo.listing.previousClose = stock.previousClose;
+            ipo.listing.priceStatus = stock.provenance.qualityStatus;
+            ipo.listing.listingExchange = stock.exchange.includes('NSE')
+              ? 'NSE'
+              : stock.exchange.includes('BSE')
+                ? 'BSE'
+                : ipo.listing.listingExchange;
+            ipo.listing.provenance = {
+              ...ipo.listing.provenance,
+              source: `${stock.exchange} Live Market Quote`,
+              retrievedAt: stock.provenance.retrievedAt,
+              effectiveDate: stock.provenance.effectiveDate,
+              qualityStatus: stock.provenance.qualityStatus,
+            };
+            if (ipo.valuation.peRatio === null && stock.fundamentals.pe !== null) {
+              ipo.valuation.peRatio = stock.fundamentals.pe;
+            }
+            if (ipo.valuation.pbRatio === null && stock.fundamentals.pb !== null) {
+              ipo.valuation.pbRatio = stock.fundamentals.pb;
+            }
+            if (ipo.valuation.marketCapCr === null && stock.marketCapCr !== null) {
+              ipo.valuation.marketCapCr = stock.marketCapCr;
+            }
+            if (ipo.valuation.eps === null && stock.companyProfile?.epsTtm) {
+              ipo.valuation.eps = stock.companyProfile.epsTtm;
+            }
+            if (ipo.valuation.industryAvgPe === null && stock.companyProfile?.industryPe) {
+              ipo.valuation.industryAvgPe = stock.companyProfile.industryPe;
+            }
+            if (ipo.valuation.peers.length === 0 && stock.peers?.length) {
+              ipo.valuation.peers = stock.peers.slice(0, 5).map((p) => ({
+                name: p.companyName,
+                symbol: p.symbol,
+                pe: p.pe,
+                pb: p.pb,
+                roePct: null,
+                marketCapCr: p.marketCapCr,
+              }));
+            }
+            if (stock.logoUrl && !stock.logoUrl.startsWith('/api/company-logo') && ipo.logoUrl?.startsWith('/api/company-logo')) {
+              ipo.logoUrl = stock.logoUrl;
+            }
+          }
+        } catch {
+          // ignore transient per-symbol errors
+        }
       });
 
       // Preserve any admin-created custom IPOs that didn't come from Groww/IG

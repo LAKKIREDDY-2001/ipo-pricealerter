@@ -13,6 +13,10 @@ import type {
   StockAnnouncement,
 } from '../../src/types/financial.ts';
 import { createId, getDb, saveDb } from '../db/database.ts';
+import {
+  dispatchWebhookNotification,
+  sendPriceAlertEmail,
+} from '../services/mailerService.ts';
 
 interface YahooChartResponse {
   chart?: {
@@ -830,6 +834,65 @@ const STATIC_MOVERS_MAP: Record<string, string> = {
   ZOMATO: '/assets/movers/zomato.png',
 };
 
+export const BRAND_NAME_MOVER_LOGOS: Array<[RegExp, string]> = [
+  [/\blarsen\s*&?\s*toubro\b/i, '/assets/movers/lt.png'],
+  [/\bmahindra\s*&?\s*mahindra\b/i, '/assets/movers/mm.png'],
+  [/\bindian\s*oil\b/i, '/assets/movers/ioc.png'],
+  [/\bhindustan\s*unilever\b/i, '/assets/movers/hul.png'],
+  [/\bhindustan\s*aeronautics\b/i, '/assets/movers/hal.png'],
+  [/\bbharat\s*electronics\b/i, '/assets/movers/bel.png'],
+  [/\bbharat\s*heavy\s*electricals\b/i, '/assets/movers/bhel.png'],
+  [/\bbharat\s*petroleum\b/i, '/assets/movers/bpcl.png'],
+  [/\bstate\s*bank\s*of\s*india\b/i, '/assets/movers/sbi.png'],
+  [/\bpunjab\s*national\s*bank\b/i, '/assets/movers/pnb.png'],
+  [/\bbank\s*of\s*baroda\b/i, '/assets/movers/bank-baroda.png'],
+  [/\bhdfc\s*bank\b/i, '/assets/movers/hdfc-bank.png'],
+  [/\bicici\s*bank\b/i, '/assets/movers/icici-bank.png'],
+  [/\baxis\s*bank\b/i, '/assets/movers/axis-bank.png'],
+  [/\bkotak\s*mahindra\b/i, '/assets/movers/kotak-bank.png'],
+  [/\btata\s*consultancy\b/i, '/assets/movers/tcs.png'],
+  [/\btata\s*motors\b/i, '/assets/movers/tatamotors.png'],
+  [/\bpower\s*finance\b/i, '/assets/movers/pfc.png'],
+  [/\brec\s+limited\b/i, '/assets/movers/rec.png'],
+  [/\bmulti\s*commodity\s*exchange\b/i, '/assets/movers/mcx.png'],
+  [/\bbombay\s*stock\s*exchange\b|\bbse\s+limited\b/i, '/assets/movers/bse.png'],
+  [/\babb\s+india\b/i, '/assets/movers/abb.webp'],
+  [/\bdlf\s+limited\b/i, '/assets/movers/dlf.png'],
+  [/\bgail\s+\(?india\)?/i, '/assets/movers/gail.png'],
+  [/\bitc\s+limited\b/i, '/assets/movers/itc.png'],
+  [/\bntpc\s+green\b/i, '/assets/movers/ntpc-green.png'],
+  [/\bntpc\s+limited\b/i, '/assets/movers/ntpc.png'],
+  [/\bongc\b/i, '/assets/movers/ongc.png'],
+];
+
+export function resolveStaticMoverLogo(
+  symbol?: string | null,
+  companyName?: string | null
+): string | null {
+  const sym = (symbol || '').toUpperCase().trim();
+  if (sym && STATIC_MOVERS_MAP[sym]) {
+    return STATIC_MOVERS_MAP[sym];
+  }
+  const cleanSym = sym.replace(/[^A-Za-z0-9]/g, '');
+  if (cleanSym && STATIC_MOVERS_MAP[cleanSym]) {
+    return STATIC_MOVERS_MAP[cleanSym];
+  }
+  const name = (companyName || '').trim();
+  if (!name) return null;
+  for (const [pattern, assetPath] of BRAND_NAME_MOVER_LOGOS) {
+    if (pattern.test(name)) return assetPath;
+  }
+  const nameUpper = name.toUpperCase();
+  for (const [key, assetPath] of Object.entries(STATIC_MOVERS_MAP)) {
+    if (key.length < 4) continue;
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (new RegExp(`\\b${escaped}\\b`).test(nameUpper)) {
+      return assetPath;
+    }
+  }
+  return null;
+}
+
 export function buildStockLogoProxyUrl(opts: {
   symbol?: string | null;
   bseCode?: string | null;
@@ -874,71 +937,11 @@ export async function resolveGrowwLogoBySearchId(searchId: string): Promise<stri
   return url;
 }
 
-const KNOWN_BRAND_NAMES: Array<[RegExp, string]> = [
-  [/\bLARSEN\s*(&|AND)?\s*TOUBRO\b/i, '/assets/movers/lt.png'],
-  [/\bBHARAT\s+ELECTRONICS\b/i, '/assets/movers/bel.png'],
-  [/\bHINDUSTAN\s+AERONAUTICS\b/i, '/assets/movers/hal.png'],
-  [/\bINDIAN\s+OIL\b/i, '/assets/movers/ioc.png'],
-  [/\bMAHINDRA\s*(&|AND)?\s*MAHINDRA\b/i, '/assets/movers/mm.png'],
-  [/\bSTATE\s+BANK\s+OF\s+INDIA\b/i, '/assets/movers/sbi.png'],
-  [/\bHINDUSTAN\s+UNILEVER\b/i, '/assets/movers/hul.png'],
-  [/\bINFOSYS\b/i, '/assets/movers/infosys.png'],
-  [/\bBHARTI\s+AIRTEL\b/i, '/assets/movers/airtel.png'],
-  [/\bLIFE\s+INSURANCE\s+CORP/i, '/assets/movers/lici.webp'],
-  [/\bTATA\s+CONSULTANCY\b/i, '/assets/movers/tcs.png'],
-  [/\bTATA\s+MOTORS\b/i, '/assets/movers/tatamotors.png'],
-  [/\bTATA\s+POWER\b/i, '/assets/movers/tata-power.png'],
-  [/\bTATA\s+STEEL\b/i, '/assets/movers/tata-steel.png'],
-  [/\bTATA\s+CONSUMER\b/i, '/assets/movers/tata-consumer.png'],
-  [/\bTATA\s+TECH\b/i, '/assets/movers/tata-tech.png'],
-  [/\bBHARAT\s+PETROLEUM\b/i, '/assets/movers/bpcl.png'],
-  [/\bCOAL\s+INDIA\b/i, '/assets/movers/coal-india.png'],
-  [/\bPOWER\s+GRID\b/i, '/assets/movers/power-grid.png'],
-  [/\bASIAN\s+PAINTS\b/i, '/assets/movers/asian-paints.png'],
-  [/\bBAJAJ\s+FINANCE\b/i, '/assets/movers/bajaj-finance.png'],
-  [/\bBAJAJ\s+FINSERV\b/i, '/assets/movers/bajajfinsv.webp'],
-  [/\bBAJAJ\s+AUTO\b/i, '/assets/movers/bajaj-auto.webp'],
-  [/\bBAJAJ\s+HOUSING\b/i, '/assets/movers/bajaj-housing.png'],
-  [/\bSUN\s+PHARMA\b/i, '/assets/movers/sun-pharma.png'],
-  [/\bAVENUE\s+SUPERMARTS\b/i, '/assets/movers/avenue-supermarts.png'],
-  [/\bDMART\b/i, '/assets/movers/dmart.png'],
-  [/\bZOMATO\b/i, '/assets/movers/zomato.png'],
-];
-
-export function resolveStaticMoverLogo(symbol?: string | null, companyName?: string | null): string | null {
-  const sym = (symbol || '').toUpperCase().trim();
-  if (sym && STATIC_MOVERS_MAP[sym]) {
-    return STATIC_MOVERS_MAP[sym];
-  }
-  const cleanSym = sym.replace(/[^A-Za-z0-9]/g, '');
-  if (cleanSym && STATIC_MOVERS_MAP[cleanSym]) {
-    return STATIC_MOVERS_MAP[cleanSym];
-  }
-  const nameUpper = (companyName || '').toUpperCase().trim();
-  if (!nameUpper) return null;
-
-  for (const [regex, path] of KNOWN_BRAND_NAMES) {
-    if (regex.test(nameUpper)) {
-      return path;
-    }
-  }
-
-  for (const [key, path] of Object.entries(STATIC_MOVERS_MAP)) {
-    if (key.length >= 4) {
-      const regex = new RegExp(`\\b${key}\\b`);
-      if (regex.test(nameUpper)) {
-        return path;
-      }
-    }
-  }
-  return null;
-}
-
 const growwSymbolLogoCache = new Map<string, string | null>();
 export async function resolveGrowwLogoBySymbol(symbolOrCode: string): Promise<string | null> {
   const key = symbolOrCode.trim().toUpperCase();
   if (!key) return null;
-  const staticMatch = resolveStaticMoverLogo(key);
+  const staticMatch = STATIC_MOVERS_MAP[key] || STATIC_MOVERS_MAP[key.replace(/[^A-Za-z0-9]/g, '')];
   if (staticMatch) return staticMatch;
   if (growwSymbolLogoCache.has(key)) {
     return growwSymbolLogoCache.get(key) ?? null;
@@ -957,12 +960,9 @@ export async function resolveGrowwLogoBySymbol(symbolOrCode: string): Promise<st
 
 function isDebtOrBondSymbol(sym: string, name: string): boolean {
   if (/^\d/.test(sym)) return true;
-  if (/-(N\d|N[A-Z]|Y\d|Z\d|D\d|GB|GS|SG|TB)$/i.test(sym)) return true;
-  if (/^(SGB|SDL|TBILL|GOI)/i.test(sym)) return true;
-  if (/^(NHAI|IRFC|PFC|REC|NTPC)\d+/i.test(sym)) return true;
-  if (/\d+GS\d+/i.test(sym)) return true;
-  if (/\b(NCD|BOND|DEBENTURE|G-SEC|GSEC|SDL|T-BILL|TREASURY BILL|GOLDBONDS|GOI STRIPS)\b/i.test(name)) return true;
-  if (/GOI.*STRIP|STRIP.*GOI/i.test(name) || /STRIPS/i.test(sym)) return true;
+  if (/-(N\d|N[A-Z]|Y\d|Z\d|D\d|GB|GS)$/i.test(sym)) return true;
+  if (/^(SGB|SDL|TBILL|GOI|NHAI|IRFC|PFC|REC|NTPC\d|GS\d)/i.test(sym)) return true;
+  if (/\b(NCD|BOND|DEBENTURE|G-SEC|SDL|T-BILL|TREASURY BILL|GOLDBONDS|GOI STRIPS)\b/i.test(name)) return true;
   return false;
 }
 
@@ -1450,7 +1450,7 @@ function mapGrowwRecordToStock(
     (nseCode ? 'NSE / BSE Equity' : 'BSE Listed Equity');
 
   const companyName = rec.companyName || curated?.companyName || symbol;
-  const staticLogo = resolveStaticMoverLogo(symbol, companyName);
+  const staticLogo = STATIC_MOVERS_MAP[symbol] || STATIC_MOVERS_MAP[symbol.replace(/[^A-Za-z0-9]/g, '')];
   const resolvedLogoUrl =
     staticLogo ||
     curated?.logoUrl ||
@@ -1665,6 +1665,7 @@ function buildRegistryEquityStock(params: {
         : [];
 
   const isNseYahoo = exchange.includes('NSE') && !/^\d+$/.test(symbol);
+  const resolvedStatic = resolveStaticMoverLogo(symbol, companyName);
   return {
     id: curated?.id || `stk-${symbol.toLowerCase().replace(/[^a-z0-9]/g, '')}-${bseCode !== 'N/A' ? bseCode : 'eq'}`,
     symbol,
@@ -1673,7 +1674,7 @@ function buildRegistryEquityStock(params: {
     searchId: curated?.searchId,
     companyName: companyName || symbol,
     logoUrl:
-      resolveStaticMoverLogo(symbol, companyName) ||
+      resolvedStatic ||
       curated?.logoUrl ||
       buildStockLogoProxyUrl({
         symbol,
@@ -2961,10 +2962,13 @@ export async function refreshStockBySymbol(
           if (!sym) return null;
           const matchedPeer = findStockInUniverse(sym);
           const peerName = p.companyHeader?.displayName || matchedPeer?.companyName || sym;
+          const peerStaticLogo =
+            STATIC_MOVERS_MAP[sym] || STATIC_MOVERS_MAP[sym.replace(/[^A-Za-z0-9]/g, '')];
           return {
             symbol: sym,
             companyName: peerName,
             logoUrl:
+              peerStaticLogo ??
               matchedPeer?.logoUrl ??
               buildStockLogoProxyUrl({
                 symbol: sym,
@@ -3025,8 +3029,10 @@ export async function refreshStockBySymbol(
     bseCode: finalBseCode || validExistingBse,
   });
 
+  const staticFinalLogo =
+    STATIC_MOVERS_MAP[finalSymbol] || STATIC_MOVERS_MAP[finalSymbol.replace(/[^A-Za-z0-9]/g, '')];
   const finalLogoUrl =
-    resolveStaticMoverLogo(finalSymbol, finalCompanyName) ??
+    staticFinalLogo ??
     normalizeGrowwLogoUrl(companyInfo?.header?.logoUrl) ??
     existing?.logoUrl ??
     buildStockLogoProxyUrl({
@@ -3202,6 +3208,31 @@ export function evaluatePriceAlerts(): number {
         read: false,
         createdAt: now,
       });
+
+      const owner = db.users.find((u) => u.id === alert.userId);
+      const siteBaseUrl =
+        process.env.PUBLIC_SITE_URL?.trim() ||
+        process.env.APP_URL?.trim() ||
+        'https://pricealerter.in';
+      if (owner?.preferences.emailAlerts) {
+        void sendPriceAlertEmail({
+          to: owner.email,
+          name: owner.name,
+          symbol: alert.symbol,
+          companyName: alert.companyName,
+          reason,
+          siteBaseUrl,
+          link: `/stock/${alert.symbol}`,
+        });
+      }
+      void dispatchWebhookNotification('price_alert_triggered', {
+        alertId: alert.id,
+        symbol: alert.symbol,
+        companyName: alert.companyName,
+        price: current,
+        reason,
+      });
+
       triggeredCount += 1;
     }
   }

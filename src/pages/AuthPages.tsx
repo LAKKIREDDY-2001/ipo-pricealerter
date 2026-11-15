@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { SEOHead } from '../components/common/SEOHead';
 import { PriceAlerterLogo } from '../components/brand/PriceAlerterLogo';
 
 export function LoginPage() {
-  const { login } = useAuth();
+  const { login, refreshUserData } = useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const resetToken = searchParams.get('resetToken') || '';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +19,9 @@ export function LoginPage() {
   const [forgotMode, setForgotMode] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
   const [forgotMsg, setForgotMsg] = useState<string | null>(null);
+
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,11 +41,34 @@ export function LoginPage() {
     e.preventDefault();
     setError(null);
     setForgotMsg(null);
+    setBusy(true);
     try {
       const res = await api.forgotPassword(forgotEmail);
       setForgotMsg(res.message);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to process reset request.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+    setBusy(true);
+    try {
+      const res = await api.resetPassword(resetToken, newPassword);
+      await refreshUserData();
+      setSearchParams({});
+      navigate(res.user.role === 'admin' ? '/admin' : '/profile');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to reset password.');
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -55,12 +83,18 @@ export function LoginPage() {
         <div className="flex flex-col items-center text-center space-y-2">
           <PriceAlerterLogo size="md" />
           <h1 className="font-display text-xl font-bold text-[#14263F] dark:text-white pt-1">
-            {forgotMode ? 'Reset Your Password' : 'Sign In to PriceAlerter'}
+            {resetToken
+              ? 'Set New Password'
+              : forgotMode
+                ? 'Reset Your Password'
+                : 'Sign In to PriceAlerter'}
           </h1>
           <p className="text-xs text-[#64748B] dark:text-slate-400">
-            {forgotMode
-              ? 'Enter your registered email address to request verification.'
-              : 'Access your saved IPOs, equity watchlist, and real-time alert rules.'}
+            {resetToken
+              ? 'Enter a strong new password (8+ characters with letters and numbers).'
+              : forgotMode
+                ? 'Enter your registered email address to receive a password reset link.'
+                : 'Access your saved IPOs, equity watchlist, and real-time alert rules.'}
           </p>
         </div>
 
@@ -75,7 +109,48 @@ export function LoginPage() {
           </div>
         )}
 
-        {forgotMode ? (
+        {resetToken ? (
+          <form onSubmit={handleResetPassword} className="space-y-4 text-xs">
+            <label className="block">
+              <span className="font-medium text-[#152338] dark:text-slate-200">New Password</span>
+              <input
+                type="password"
+                required
+                minLength={8}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="••••••••"
+                className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2.5 text-sm"
+              />
+            </label>
+            <label className="block">
+              <span className="font-medium text-[#152338] dark:text-slate-200">Confirm Password</span>
+              <input
+                type="password"
+                required
+                minLength={8}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+                className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2.5 text-sm"
+              />
+            </label>
+            <button
+              type="submit"
+              disabled={busy}
+              className="w-full rounded-lg bg-[#059669] py-2.5 text-xs font-semibold text-white hover:bg-emerald-700 disabled:opacity-50 cursor-pointer"
+            >
+              {busy ? 'Updating Password...' : 'Update Password & Sign In'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setSearchParams({})}
+              className="w-full text-center text-xs text-[#2563EB] hover:underline cursor-pointer"
+            >
+              Back to Sign In
+            </button>
+          </form>
+        ) : forgotMode ? (
           <form onSubmit={handleForgot} className="space-y-4 text-xs">
             <label className="block">
               <span className="font-medium text-[#152338] dark:text-slate-200">Email Address</span>
@@ -90,9 +165,10 @@ export function LoginPage() {
             </label>
             <button
               type="submit"
-              className="w-full rounded-lg bg-[#14263F] dark:bg-[#2563EB] py-2.5 text-xs font-semibold text-white cursor-pointer"
+              disabled={busy}
+              className="w-full rounded-lg bg-[#14263F] dark:bg-[#2563EB] py-2.5 text-xs font-semibold text-white disabled:opacity-50 cursor-pointer"
             >
-              Send Reset Request
+              {busy ? 'Sending Reset Link...' : 'Send Reset Link'}
             </button>
             <button
               type="button"
@@ -229,7 +305,7 @@ export function RegisterPage() {
           </label>
           <label className="block">
             <span className="font-medium text-[#152338] dark:text-slate-200">
-              Password (minimum 8 characters)
+              Password (min 8 characters, letters &amp; numbers)
             </span>
             <input
               type="password"

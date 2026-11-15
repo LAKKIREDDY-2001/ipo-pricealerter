@@ -368,6 +368,29 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ email }),
     }),
+  resetPassword: (token: string, newPassword: string) =>
+    request<{ user: AuthUser; message: string }>('/api/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ token, newPassword }),
+    }),
+  changePassword: (currentPassword: string, newPassword: string) =>
+    request<{ message: string }>('/api/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword, newPassword }),
+    }),
+  exportPersonalData: () =>
+    request<{
+      exportedAt: string;
+      account: AuthUser;
+      watchlist: WatchlistEntry[];
+      priceAlerts: PriceAlertRule[];
+      notifications: NotificationItem[];
+    }>('/api/auth/export-data'),
+  deleteAccount: (password: string) =>
+    request<{ ok: boolean }>('/api/auth/account', {
+      method: 'DELETE',
+      body: JSON.stringify({ password }),
+    }),
   updatePreferences: (payload: { name?: string; preferences?: Partial<AuthUser['preferences']> }) =>
     request<{ user: AuthUser }>('/api/auth/preferences', {
       method: 'PATCH',

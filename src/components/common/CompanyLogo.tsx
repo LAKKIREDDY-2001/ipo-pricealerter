@@ -241,35 +241,35 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   ZOMATO: '/assets/movers/zomato.png',
 };
 
-const KNOWN_BRAND_NAMES: Array<[RegExp, string]> = [
-  [/\bLARSEN\s*(&|AND)?\s*TOUBRO\b/i, '/assets/movers/lt.png'],
-  [/\bBHARAT\s+ELECTRONICS\b/i, '/assets/movers/bel.png'],
-  [/\bHINDUSTAN\s+AERONAUTICS\b/i, '/assets/movers/hal.png'],
-  [/\bINDIAN\s+OIL\b/i, '/assets/movers/ioc.png'],
-  [/\bMAHINDRA\s*(&|AND)?\s*MAHINDRA\b/i, '/assets/movers/mm.png'],
-  [/\bSTATE\s+BANK\s+OF\s+INDIA\b/i, '/assets/movers/sbi.png'],
-  [/\bHINDUSTAN\s+UNILEVER\b/i, '/assets/movers/hul.png'],
-  [/\bINFOSYS\b/i, '/assets/movers/infosys.png'],
-  [/\bBHARTI\s+AIRTEL\b/i, '/assets/movers/airtel.png'],
-  [/\bLIFE\s+INSURANCE\s+CORP/i, '/assets/movers/lici.webp'],
-  [/\bTATA\s+CONSULTANCY\b/i, '/assets/movers/tcs.png'],
-  [/\bTATA\s+MOTORS\b/i, '/assets/movers/tatamotors.png'],
-  [/\bTATA\s+POWER\b/i, '/assets/movers/tata-power.png'],
-  [/\bTATA\s+STEEL\b/i, '/assets/movers/tata-steel.png'],
-  [/\bTATA\s+CONSUMER\b/i, '/assets/movers/tata-consumer.png'],
-  [/\bTATA\s+TECH\b/i, '/assets/movers/tata-tech.png'],
-  [/\bBHARAT\s+PETROLEUM\b/i, '/assets/movers/bpcl.png'],
-  [/\bCOAL\s+INDIA\b/i, '/assets/movers/coal-india.png'],
-  [/\bPOWER\s+GRID\b/i, '/assets/movers/power-grid.png'],
-  [/\bASIAN\s+PAINTS\b/i, '/assets/movers/asian-paints.png'],
-  [/\bBAJAJ\s+FINANCE\b/i, '/assets/movers/bajaj-finance.png'],
-  [/\bBAJAJ\s+FINSERV\b/i, '/assets/movers/bajajfinsv.webp'],
-  [/\bBAJAJ\s+AUTO\b/i, '/assets/movers/bajaj-auto.webp'],
-  [/\bBAJAJ\s+HOUSING\b/i, '/assets/movers/bajaj-housing.png'],
-  [/\bSUN\s+PHARMA\b/i, '/assets/movers/sun-pharma.png'],
-  [/\bAVENUE\s+SUPERMARTS\b/i, '/assets/movers/avenue-supermarts.png'],
-  [/\bDMART\b/i, '/assets/movers/dmart.png'],
-  [/\bZOMATO\b/i, '/assets/movers/zomato.png'],
+const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
+  [/\blarsen\s*&?\s*toubro\b/i, '/assets/movers/lt.png'],
+  [/\bmahindra\s*&?\s*mahindra\b/i, '/assets/movers/mm.png'],
+  [/\bindian\s*oil\b/i, '/assets/movers/ioc.png'],
+  [/\bhindustan\s*unilever\b/i, '/assets/movers/hul.png'],
+  [/\bhindustan\s*aeronautics\b/i, '/assets/movers/hal.png'],
+  [/\bbharat\s*electronics\b/i, '/assets/movers/bel.png'],
+  [/\bbharat\s*heavy\s*electricals\b/i, '/assets/movers/bhel.png'],
+  [/\bbharat\s*petroleum\b/i, '/assets/movers/bpcl.png'],
+  [/\bstate\s*bank\s*of\s*india\b/i, '/assets/movers/sbi.png'],
+  [/\bpunjab\s*national\s*bank\b/i, '/assets/movers/pnb.png'],
+  [/\bbank\s*of\s*baroda\b/i, '/assets/movers/bank-baroda.png'],
+  [/\bhdfc\s*bank\b/i, '/assets/movers/hdfc-bank.png'],
+  [/\bicici\s*bank\b/i, '/assets/movers/icici-bank.png'],
+  [/\baxis\s*bank\b/i, '/assets/movers/axis-bank.png'],
+  [/\bkotak\s*mahindra\b/i, '/assets/movers/kotak-bank.png'],
+  [/\btata\s*consultancy\b/i, '/assets/movers/tcs.png'],
+  [/\btata\s*motors\b/i, '/assets/movers/tatamotors.png'],
+  [/\bpower\s*finance\b/i, '/assets/movers/pfc.png'],
+  [/\brec\s+limited\b/i, '/assets/movers/rec.png'],
+  [/\bmulti\s*commodity\s*exchange\b/i, '/assets/movers/mcx.png'],
+  [/\bbombay\s*stock\s*exchange\b|\bbse\s+limited\b/i, '/assets/movers/bse.png'],
+  [/\babb\s+india\b/i, '/assets/movers/abb.webp'],
+  [/\bdlf\s+limited\b/i, '/assets/movers/dlf.png'],
+  [/\bgail\s+\(?india\)?/i, '/assets/movers/gail.png'],
+  [/\bitc\s+limited\b/i, '/assets/movers/itc.png'],
+  [/\bntpc\s+green\b/i, '/assets/movers/ntpc-green.png'],
+  [/\bntpc\s+limited\b/i, '/assets/movers/ntpc.png'],
+  [/\bongc\b/i, '/assets/movers/ongc.png'],
 ];
 
 export function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
@@ -281,21 +281,17 @@ export function resolveStaticLogo(symbol?: string | null, companyName?: string |
   if (cleanSym && KNOWN_STATIC_LOGOS[cleanSym]) {
     return KNOWN_STATIC_LOGOS[cleanSym];
   }
-  const nameUpper = (companyName || '').toUpperCase().trim();
-  if (!nameUpper) return null;
-
-  for (const [regex, path] of KNOWN_BRAND_NAMES) {
-    if (regex.test(nameUpper)) {
-      return path;
-    }
+  const name = (companyName || '').trim();
+  if (!name) return null;
+  for (const [pattern, path] of BRAND_NAME_LOGOS) {
+    if (pattern.test(name)) return path;
   }
-
+  const nameUpper = name.toUpperCase();
   for (const [key, path] of Object.entries(KNOWN_STATIC_LOGOS)) {
-    if (key.length >= 4) {
-      const regex = new RegExp(`\\b${key}\\b`);
-      if (regex.test(nameUpper)) {
-        return path;
-      }
+    if (key.length < 4) continue;
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (new RegExp(`\\b${escaped}\\b`).test(nameUpper)) {
+      return path;
     }
   }
   return null;
