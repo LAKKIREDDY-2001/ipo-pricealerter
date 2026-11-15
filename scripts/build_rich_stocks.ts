@@ -983,26 +983,48 @@ async function main() {
         i.logoUrl ||
         buildStockLogoProxyUrl({ symbol: sym, searchId: i.slug, companyName: i.companyName });
       const issuePrice = i.listing.issuePrice ?? i.priceBandHigh ?? 0;
-      const cmp = i.listing.currentMarketPrice ?? i.listing.actualListingPrice ?? issuePrice;
-      const prev = i.listing.previousClose ?? issuePrice ?? cmp;
-      const chg = Number((cmp - prev).toFixed(2));
-      const pct = prev > 0 ? Number(((chg / prev) * 100).toFixed(2)) : 0;
+      const isListed = i.status === 'Listed';
+      const cmp = isListed
+        ? (i.listing.currentMarketPrice ?? i.listing.actualListingPrice ?? issuePrice)
+        : (i.priceBandHigh ?? issuePrice);
+      const prev = isListed
+        ? (i.listing.previousClose ?? issuePrice ?? cmp)
+        : (i.priceBandLow ?? issuePrice);
+      const chg = isListed ? Number((cmp - prev).toFixed(2)) : (i.gmp.latestGmp ?? 0);
+      const pct = isListed
+        ? (prev > 0 ? Number(((chg / prev) * 100).toFixed(2)) : 0)
+        : (issuePrice > 0 && i.gmp.latestGmp ? Number(((i.gmp.latestGmp / issuePrice) * 100).toFixed(2)) : 0);
+
+      const priceLabel = isListed
+        ? (cmp > 0 ? `₹${cmp.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'TBA')
+        : (i.priceBandHigh
+            ? (i.priceBandLow && i.priceBandLow !== i.priceBandHigh
+                ? `₹${i.priceBandLow} - ₹${i.priceBandHigh}`
+                : `₹${i.priceBandHigh}`)
+            : 'TBA');
+
+      const changeLabel = isListed
+        ? `${chg >= 0 ? '+' : ''}₹${chg.toFixed(2)} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`
+        : (i.gmp.latestGmp !== null
+            ? `GMP: +₹${i.gmp.latestGmp} (+${pct.toFixed(1)}%)`
+            : 'GMP: Awaiting Quotes');
+
       return {
         symbol: sym || 'IPO',
         bseCode: null,
         isin: '',
         name: i.companyName,
-        subtitle: `${i.category} • ${i.status}${i.dates.listingDate ? ` (${i.dates.listingDate})` : ''}`,
+        subtitle: `${i.category} • ${i.status}${i.dates.openDate ? ` (${i.dates.openDate})` : ''}`,
         category: 'RECENT_IPO',
         catLabel: '🚀 IPO Tracker',
         logo,
         initials: i.logoMonogram,
-        price: cmp > 0 ? `₹${cmp.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'TBA',
+        price: priceLabel,
         rawPrice: cmp,
-        change: `${chg >= 0 ? '+' : ''}₹${chg.toFixed(2)} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`,
+        change: changeLabel,
         rawChange: chg,
         pct,
-        isGain: chg >= 0,
+        isGain: isListed ? chg >= 0 : (i.gmp.latestGmp ?? 0) >= 0,
         issuePrice,
         listingPrice: i.listing.actualListingPrice,
         lotSize: i.lotSize ?? 1,
@@ -1057,7 +1079,11 @@ async function main() {
       });
 
     fs.writeFileSync(liveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
-    console.log('public/data/live-market-data.json updated.');
+    const distLiveMarketDataPath = path.resolve('dist/data/live-market-data.json');
+    if (fs.existsSync(path.dirname(distLiveMarketDataPath))) {
+      fs.writeFileSync(distLiveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
+    }
+    console.log('public/data/live-market-data.json and dist/data/live-market-data.json updated.');
   }
 
   console.log('=== All stocks, IPOs, logos, fundamentals & prices update complete! ===');

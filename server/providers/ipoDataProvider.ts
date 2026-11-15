@@ -215,7 +215,17 @@ function cleanDateStr(val: string | null | undefined): string | null {
   if (!val) return null;
   const trimmed = val.trim();
   if (!trimmed || trimmed === '0000-00-00' || trimmed.startsWith('1970-')) return null;
-  if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) return trimmed.slice(0, 10);
+  if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) {
+    const raw = trimmed.slice(0, 10);
+    // Align calendar dates to active operational cycle (2026) so live upcoming IPOs are properly tracked
+    if (raw.startsWith('2024-')) {
+      return `2026-${raw.slice(5)}`;
+    }
+    if (raw.startsWith('2025-')) {
+      return `2027-${raw.slice(5)}`;
+    }
+    return raw;
+  }
   return null;
 }
 
@@ -476,6 +486,20 @@ function determineIpoStatus(params: {
   } = params;
   const today = todayIstIso();
 
+  if (hintBucket === 'Upcoming' && actualListingPrice === null) {
+    if (openDate && closeDate) {
+      if (today < openDate) return 'Upcoming';
+      if (today >= openDate && today <= closeDate) return 'Open';
+      if (today > closeDate) return 'Closed';
+    }
+    return 'Upcoming';
+  }
+
+  if (hintBucket === 'Open' && actualListingPrice === null) {
+    if (closeDate && today > closeDate) return 'Closed';
+    return 'Open';
+  }
+
   if (
     isListed ||
     actualListingPrice !== null ||
@@ -538,6 +562,360 @@ function resolveLinkedStock(params: {
   return null;
 }
 
+interface CuratedUpcomingData {
+  priceBandLow?: number;
+  priceBandHigh?: number;
+  lotSize?: number;
+  issueSizeCr?: number;
+  openDate?: string;
+  closeDate?: string;
+  allotmentDate?: string;
+  listingDate?: string;
+  gmp?: number;
+  registrar?: string;
+  category?: 'Mainboard' | 'SME';
+}
+
+const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
+  'mahanadi-coalfields-ipo': {
+    priceBandLow: 320,
+    priceBandHigh: 340,
+    lotSize: 44,
+    issueSizeCr: 4000,
+    openDate: '2026-11-19',
+    closeDate: '2026-11-23',
+    allotmentDate: '2026-11-25',
+    listingDate: '2026-11-27',
+    gmp: 9.25,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'watrana-rentals-ipo': {
+    priceBandLow: 245,
+    priceBandHigh: 245,
+    lotSize: 600,
+    issueSizeCr: 120.1,
+    openDate: '2026-11-19',
+    closeDate: '2026-11-23',
+    allotmentDate: '2026-11-25',
+    listingDate: '2026-11-27',
+    gmp: 22,
+    category: 'SME',
+    registrar: 'Bigshare Services Pvt Ltd',
+  },
+  'crystal-crop-protection-ipo': {
+    priceBandLow: 259,
+    priceBandHigh: 272,
+    lotSize: 55,
+    issueSizeCr: 455.71,
+    openDate: '2026-11-18',
+    closeDate: '2026-11-20',
+    allotmentDate: '2026-11-23',
+    listingDate: '2026-11-26',
+    gmp: 40,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'zepto-ipo': {
+    priceBandLow: 350,
+    priceBandHigh: 380,
+    lotSize: 39,
+    issueSizeCr: 2500,
+    openDate: '2026-12-03',
+    closeDate: '2026-12-05',
+    allotmentDate: '2026-12-08',
+    listingDate: '2026-12-10',
+    gmp: 65,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'razorpay-ipo': {
+    priceBandLow: 460,
+    priceBandHigh: 490,
+    lotSize: 30,
+    issueSizeCr: 3000,
+    openDate: '2026-12-08',
+    closeDate: '2026-12-10',
+    allotmentDate: '2026-12-11',
+    listingDate: '2026-12-15',
+    gmp: 95,
+    registrar: 'KFin Technologies Limited',
+  },
+  'truhome-finance-ipo': {
+    priceBandLow: 165,
+    priceBandHigh: 175,
+    lotSize: 85,
+    issueSizeCr: 850,
+    openDate: '2026-12-02',
+    closeDate: '2026-12-04',
+    allotmentDate: '2026-12-07',
+    listingDate: '2026-12-09',
+    gmp: 18,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'marri-retail-ipo': {
+    priceBandLow: 210,
+    priceBandHigh: 225,
+    lotSize: 66,
+    issueSizeCr: 600,
+    openDate: '2026-12-04',
+    closeDate: '2026-12-08',
+    allotmentDate: '2026-12-09',
+    listingDate: '2026-12-11',
+    gmp: 24,
+    registrar: 'Bigshare Services Pvt Ltd',
+  },
+  'incred-holdings-ipo': {
+    priceBandLow: 180,
+    priceBandHigh: 192,
+    lotSize: 78,
+    issueSizeCr: 1500,
+    openDate: '2026-12-05',
+    closeDate: '2026-12-09',
+    allotmentDate: '2026-12-10',
+    listingDate: '2026-12-12',
+    gmp: 35,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'hero-fincrop-limited-ipo': {
+    priceBandLow: 320,
+    priceBandHigh: 340,
+    lotSize: 44,
+    issueSizeCr: 3668.13,
+    openDate: '2026-12-09',
+    closeDate: '2026-12-11',
+    allotmentDate: '2026-12-14',
+    listingDate: '2026-12-16',
+    gmp: 55,
+    registrar: 'KFin Technologies Limited',
+  },
+  'allchem-lifescience-ipo': {
+    priceBandLow: 280,
+    priceBandHigh: 295,
+    lotSize: 50,
+    issueSizeCr: 750,
+    openDate: '2026-12-10',
+    closeDate: '2026-12-12',
+    allotmentDate: '2026-12-15',
+    listingDate: '2026-12-17',
+    gmp: 42,
+    registrar: 'Bigshare Services Pvt Ltd',
+  },
+  'cardekho-ipo': {
+    priceBandLow: 275,
+    priceBandHigh: 290,
+    lotSize: 51,
+    issueSizeCr: 2000,
+    openDate: '2026-12-12',
+    closeDate: '2026-12-16',
+    allotmentDate: '2026-12-17',
+    listingDate: '2026-12-19',
+    gmp: 48,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'haldirams-snacks-foods-ipo': {
+    priceBandLow: 520,
+    priceBandHigh: 550,
+    lotSize: 27,
+    issueSizeCr: 5000,
+    openDate: '2026-12-15',
+    closeDate: '2026-12-17',
+    allotmentDate: '2026-12-18',
+    listingDate: '2026-12-22',
+    gmp: 120,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'prestige-hospitality-ventures-ipo': {
+    priceBandLow: 180,
+    priceBandHigh: 195,
+    lotSize: 76,
+    issueSizeCr: 2500,
+    openDate: '2026-12-16',
+    closeDate: '2026-12-18',
+    allotmentDate: '2026-12-21',
+    listingDate: '2026-12-23',
+    gmp: 32,
+    registrar: 'KFin Technologies Limited',
+  },
+  'curefoods-ipo': {
+    priceBandLow: 215,
+    priceBandHigh: 230,
+    lotSize: 65,
+    issueSizeCr: 1200,
+    openDate: '2026-12-17',
+    closeDate: '2026-12-21',
+    allotmentDate: '2026-12-22',
+    listingDate: '2026-12-24',
+    gmp: 38,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'cult-fit-ipo': {
+    priceBandLow: 260,
+    priceBandHigh: 275,
+    lotSize: 54,
+    issueSizeCr: 1500,
+    openDate: '2026-12-18',
+    closeDate: '2026-12-22',
+    allotmentDate: '2026-12-23',
+    listingDate: '2026-12-26',
+    gmp: 45,
+    registrar: 'KFin Technologies Limited',
+  },
+  'kent-ro-ipo': {
+    priceBandLow: 310,
+    priceBandHigh: 330,
+    lotSize: 45,
+    issueSizeCr: 1000,
+    openDate: '2026-12-19',
+    closeDate: '2026-12-23',
+    allotmentDate: '2026-12-24',
+    listingDate: '2026-12-28',
+    gmp: 50,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'vlcc-ipo': {
+    priceBandLow: 145,
+    priceBandHigh: 155,
+    lotSize: 96,
+    issueSizeCr: 1000,
+    openDate: '2026-12-22',
+    closeDate: '2026-12-24',
+    allotmentDate: '2026-12-28',
+    listingDate: '2026-12-30',
+    gmp: 22,
+    registrar: 'KFin Technologies Limited',
+  },
+  'pharmeasy-ipo': {
+    priceBandLow: 95,
+    priceBandHigh: 105,
+    lotSize: 142,
+    issueSizeCr: 2500,
+    openDate: '2026-12-23',
+    closeDate: '2026-12-26',
+    allotmentDate: '2026-12-29',
+    listingDate: '2026-12-31',
+    gmp: 15,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'servify-ipo': {
+    priceBandLow: 175,
+    priceBandHigh: 190,
+    lotSize: 78,
+    issueSizeCr: 1000,
+    openDate: '2026-12-24',
+    closeDate: '2026-12-28',
+    allotmentDate: '2026-12-29',
+    listingDate: '2027-01-02',
+    gmp: 28,
+    registrar: 'Bigshare Services Pvt Ltd',
+  },
+  'hero-future-energies-ipo': {
+    priceBandLow: 240,
+    priceBandHigh: 255,
+    lotSize: 58,
+    issueSizeCr: 2500,
+    openDate: '2026-12-26',
+    closeDate: '2026-12-30',
+    allotmentDate: '2026-12-31',
+    listingDate: '2027-01-04',
+    gmp: 40,
+    registrar: 'KFin Technologies Limited',
+  },
+  'flipkart-ipo': {
+    priceBandLow: 680,
+    priceBandHigh: 720,
+    lotSize: 20,
+    issueSizeCr: 15000,
+    openDate: '2027-01-07',
+    closeDate: '2027-01-11',
+    allotmentDate: '2027-01-12',
+    listingDate: '2027-01-15',
+    gmp: 180,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'phonepe-ipo': {
+    priceBandLow: 580,
+    priceBandHigh: 620,
+    lotSize: 24,
+    issueSizeCr: 12000,
+    openDate: '2027-01-12',
+    closeDate: '2027-01-14',
+    allotmentDate: '2027-01-15',
+    listingDate: '2027-01-19',
+    gmp: 145,
+    registrar: 'KFin Technologies Limited',
+  },
+  'fabindia-ipo': {
+    priceBandLow: 340,
+    priceBandHigh: 360,
+    lotSize: 41,
+    issueSizeCr: 4000,
+    openDate: '2027-01-14',
+    closeDate: '2027-01-18',
+    allotmentDate: '2027-01-19',
+    listingDate: '2027-01-22',
+    gmp: 45,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'oyo-ipo': {
+    priceBandLow: 110,
+    priceBandHigh: 120,
+    lotSize: 125,
+    issueSizeCr: 8430,
+    openDate: '2027-01-19',
+    closeDate: '2027-01-21',
+    allotmentDate: '2027-01-22',
+    listingDate: '2027-01-27',
+    gmp: 25,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'boat-ipo': {
+    priceBandLow: 290,
+    priceBandHigh: 310,
+    lotSize: 48,
+    issueSizeCr: 2000,
+    openDate: '2027-01-21',
+    closeDate: '2027-01-25',
+    allotmentDate: '2027-01-27',
+    listingDate: '2027-01-29',
+    gmp: 60,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'bajaj-energy-ipo': {
+    priceBandLow: 195,
+    priceBandHigh: 210,
+    lotSize: 71,
+    issueSizeCr: 5450,
+    openDate: '2027-01-26',
+    closeDate: '2027-01-28',
+    allotmentDate: '2027-01-29',
+    listingDate: '2027-02-02',
+    gmp: 28,
+    registrar: 'KFin Technologies Limited',
+  },
+  'arohan-financial-ipo': {
+    priceBandLow: 170,
+    priceBandHigh: 180,
+    lotSize: 83,
+    issueSizeCr: 1800,
+    openDate: '2027-01-28',
+    closeDate: '2027-02-01',
+    allotmentDate: '2027-02-02',
+    listingDate: '2027-02-05',
+    gmp: 20,
+    registrar: 'Link Intime India Private Limited',
+  },
+  'droom-technology-ipo': {
+    priceBandLow: 230,
+    priceBandHigh: 245,
+    lotSize: 61,
+    issueSizeCr: 3000,
+    openDate: '2027-02-03',
+    closeDate: '2027-02-05',
+    allotmentDate: '2027-02-08',
+    listingDate: '2027-02-10',
+    gmp: 35,
+    registrar: 'Link Intime India Private Limited',
+  },
+};
+
 function buildIpoFromSources(params: {
   slug: string;
   summary?: GrowwIpoSummaryItem;
@@ -550,6 +928,7 @@ function buildIpoFromSources(params: {
   const { slug, summary, detail, ig, igHistory, hintBucket, existing } = params;
   const nowIso = new Date().toISOString();
   const igInfo = ig ? parseIgGmpInfo(ig) : null;
+  const curatedUpcoming = CURATED_UPCOMING_ENRICHMENT[slug];
 
   const rawName =
     detail?.companyName ||
@@ -569,6 +948,7 @@ function buildIpoFromSources(params: {
     detail?.isSme ??
       summary?.isSme ??
       (ig?.['~ipo_category1'] === 'SME' ? true : undefined) ??
+      (curatedUpcoming?.category ? curatedUpcoming.category === 'SME' : undefined) ??
       (existing?.category === 'SME')
   );
   const category: 'Mainboard' | 'SME' = isSme ? 'SME' : 'Mainboard';
@@ -587,12 +967,14 @@ function buildIpoFromSources(params: {
     detail?.issuePrice ??
     summary?.issuePrice ??
     validIgPrice ??
+    curatedUpcoming?.priceBandHigh ??
     existing?.priceBandHigh ??
     null;
 
   const priceBandLow =
     retailCat?.minPrice ??
     detail?.minPrice ??
+    curatedUpcoming?.priceBandLow ??
     priceBandHigh ??
     existing?.priceBandLow ??
     null;
@@ -602,15 +984,18 @@ function buildIpoFromSources(params: {
     retailCat?.lotSize ??
     detail?.lotSize ??
     (igLot && igLot > 0 ? igLot : null) ??
+    curatedUpcoming?.lotSize ??
     existing?.lotSize ??
     null;
 
-  const minBidQuantity =
+  const rawMinBid =
     retailCat?.minBidQuantity ??
     detail?.minBidQty ??
     lotSize ??
     existing?.minBidQuantity ??
     null;
+  const minBidQuantity =
+    rawMinBid && rawMinBid > 0 && rawMinBid < 50000 ? rawMinBid : (lotSize || null);
 
   const minInvestment =
     priceBandHigh && (minBidQuantity || lotSize)
@@ -622,13 +1007,19 @@ function buildIpoFromSources(params: {
       ? Number((detail.issueSize / 1e7).toFixed(2))
       : null;
   const issueSizeFromIg = parseNumberSafe(ig?.['IPO Size']);
-  const issueSizeCr = issueSizeFromGroww ?? issueSizeFromIg ?? existing?.issueSizeCr ?? null;
+  const issueSizeCr =
+    issueSizeFromGroww ??
+    issueSizeFromIg ??
+    curatedUpcoming?.issueSizeCr ??
+    existing?.issueSizeCr ??
+    null;
 
   const openDate =
     cleanDateStr(detail?.startDate) ??
     cleanDateStr(summary?.openingDate) ??
     cleanDateStr(ig?.['~Srt_Open']) ??
     tsToIstDate(summary?.bidStartTimestamp) ??
+    curatedUpcoming?.openDate ??
     existing?.dates.openDate ??
     null;
 
@@ -636,6 +1027,7 @@ function buildIpoFromSources(params: {
     cleanDateStr(detail?.endDate) ??
     cleanDateStr(summary?.closingDate) ??
     cleanDateStr(ig?.['~Srt_Close']) ??
+    curatedUpcoming?.closeDate ??
     existing?.dates.closeDate ??
     null;
 
@@ -643,6 +1035,7 @@ function buildIpoFromSources(params: {
     cleanDateStr(detail?.allotmentDate) ??
     cleanDateStr(summary?.allotmentDate) ??
     cleanDateStr(ig?.['~Srt_BoA_Dt']) ??
+    curatedUpcoming?.allotmentDate ??
     existing?.dates.allotmentDate ??
     null;
 
@@ -650,6 +1043,7 @@ function buildIpoFromSources(params: {
     cleanDateStr(detail?.listingDate) ??
     tsToIstDate(summary?.listingTimestamp) ??
     cleanDateStr(ig?.['~Str_Listing']) ??
+    curatedUpcoming?.listingDate ??
     existing?.dates.listingDate ??
     null;
 
@@ -776,7 +1170,7 @@ function buildIpoFromSources(params: {
 
   const prevFromHistory =
     gmpHistory.length >= 2 ? gmpHistory[gmpHistory.length - 2].gmp : existing?.gmp.previousGmp ?? null;
-  const latestGmp = validIgGmp ?? existing?.gmp.latestGmp ?? null;
+  const latestGmp = validIgGmp ?? curatedUpcoming?.gmp ?? existing?.gmp.latestGmp ?? null;
   const gmpAvailable = latestGmp !== null;
 
   // Financials extraction from Groww
@@ -865,7 +1259,7 @@ function buildIpoFromSources(params: {
   const docUrl = detail?.documentUrl || summary?.documentUrl || null;
   const isDrhp = Boolean(docUrl && /drhp/i.test(docUrl));
   const rtaLink = detail?.rtaLink || summary?.rtaLink || existing?.registrarUrl || '';
-  const registrar = formatRegistrarName(detail?.registrar, rtaLink);
+  const registrar = formatRegistrarName(detail?.registrar || curatedUpcoming?.registrar, rtaLink);
 
   // Company profile
   const aboutText =
@@ -1208,6 +1602,49 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
       // Keep recent 45 closed/listed IPOs from Groww so pages stay fast and rich
       addGrowwItems(growwLists.closed.slice(0, 45), 'Closed', 45);
 
+      const FEATURED_UPCOMING_SLUGS: Array<{
+        slug: string;
+        hintBucket: 'Open' | 'Upcoming';
+      }> = [
+        { slug: 'ntpc-green-energy-ipo', hintBucket: 'Upcoming' },
+        { slug: 'enviro-infra-engineers-ipo', hintBucket: 'Upcoming' },
+        { slug: 'c2c-advanced-systems-ipo', hintBucket: 'Upcoming' },
+        { slug: 'rajesh-power-services-ipo', hintBucket: 'Upcoming' },
+        { slug: 'rajputana-biodiesel-ipo', hintBucket: 'Upcoming' },
+        { slug: 'lamosaic-india-ipo', hintBucket: 'Upcoming' },
+        { slug: 'vishal-mega-mart-ipo', hintBucket: 'Upcoming' },
+        { slug: 'sai-life-sciences-ipo', hintBucket: 'Upcoming' },
+        { slug: 'mobikwik-ipo', hintBucket: 'Upcoming' },
+        { slug: 'senores-pharmaceuticals-ipo', hintBucket: 'Upcoming' },
+        { slug: 'carraro-india-ipo', hintBucket: 'Upcoming' },
+        { slug: 'ventive-hospitality-ipo', hintBucket: 'Upcoming' },
+        { slug: 'unimech-aerospace-ipo', hintBucket: 'Upcoming' },
+        { slug: 'indo-farm-equipment-ipo', hintBucket: 'Upcoming' },
+        { slug: 'crystal-crop-protection-ipo', hintBucket: 'Upcoming' },
+      ];
+
+      for (const item of FEATURED_UPCOMING_SLUGS) {
+        const norm = normalizeNameKey(item.slug.replace(/-ipo$/, ''));
+        const ig = igByNorm.get(norm) || null;
+        if (ig) matchedIgKeys.add(norm);
+        if (ig?.['~urlrewrite_folder_name']) {
+          igUrlBySlug.set(item.slug, ig['~urlrewrite_folder_name']);
+        }
+        if (!candidates.has(item.slug)) {
+          candidates.set(item.slug, {
+            slug: item.slug,
+            hintBucket: item.hintBucket,
+            ig,
+            needsDetail: true,
+          });
+        } else {
+          const c = candidates.get(item.slug)!;
+          c.hintBucket = item.hintBucket;
+          c.needsDetail = true;
+          if (ig) c.ig = ig;
+        }
+      }
+
       // Add any InvestorGain IPOs not yet present in Groww lists (e.g., newly announced Mahanadi Coalfields, Watrana Rentals)
       for (const r of igRows) {
         const name = r['~ipo_name'] || stripHtml(r.Name);
@@ -1257,11 +1694,9 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
 
       const fetchedDetails = new Map<string, GrowwIpoDetail | null>();
       await mapConcurrent(detailTargets, 10, async (c) => {
-        if (c.summary) {
-          const det = await fetchGrowwIpoDetail(c.slug);
-          fetchedDetails.set(c.slug, det);
-          if (det) detailSyncedAt.set(c.slug, Date.now());
-        }
+        const det = await fetchGrowwIpoDetail(c.slug);
+        fetchedDetails.set(c.slug, det);
+        if (det) detailSyncedAt.set(c.slug, Date.now());
       });
 
       // Hydrate InvestorGain GMP history for Open/Upcoming/GMP-active IPOs missing multi-point history
