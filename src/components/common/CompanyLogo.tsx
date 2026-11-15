@@ -72,141 +72,192 @@ function getFallbackColor(name: string, colorHint?: string | null): string {
 }
 
 const KNOWN_STATIC_LOGOS: Record<string, string> = {
-  RELIANCE: '/assets/movers/reliance.png',
-  TCS: '/assets/movers/tcs.png',
-  HDFCBANK: '/assets/movers/hdfc-bank.png',
-  ICICIBANK: '/assets/movers/icici-bank.png',
-  INFY: '/assets/movers/infosys.png',
-  BHARTIARTL: '/assets/movers/airtel.png',
-  SBIN: '/assets/movers/sbi.png',
-  LT: '/assets/movers/lt.png',
-  ITC: '/assets/movers/itc.png',
-  SUNPHARMA: '/assets/movers/sun-pharma.png',
-  TATAMOTORS: '/assets/movers/tatamotors.png',
-  TMPV: '/assets/movers/tatamotors.png',
-  TMCV: '/assets/movers/tatamotors.png',
-  HINDUNILVR: '/assets/movers/hul.png',
-  BAJFINANCE: '/assets/movers/bajaj-finance.png',
-  KOTAKBANK: '/assets/movers/kotak-bank.png',
-  AXISBANK: '/assets/movers/axis-bank.png',
-  NTPC: '/assets/movers/ntpc.png',
-  NTPCGREEN: '/assets/movers/ntpc-green.png',
-  ONGC: '/assets/movers/ongc.png',
-  TITAN: '/assets/movers/titan.png',
-  MARUTI: '/assets/movers/maruti.png',
+  ABB: '/assets/movers/abb.webp',
+  ADANIENSOL: '/assets/movers/adaniensol.webp',
   ADANIENT: '/assets/movers/adani-enterprises.png',
+  ADANIGREEN: '/assets/movers/adani-green.png',
   ADANIPORTS: '/assets/movers/adani-ports.png',
   ADANIPOWER: '/assets/movers/adani-power.png',
-  ADANIGREEN: '/assets/movers/adani-green.png',
-  COALINDIA: '/assets/movers/coal-india.png',
-  TATASTEEL: '/assets/movers/tata-steel.png',
-  WIPRO: '/assets/movers/wipro.png',
-  CIPLA: '/assets/movers/cipla.png',
-  ULTRACEMCO: '/assets/movers/ultratech.png',
-  ASIANPAINT: '/assets/movers/asian-paints.png',
-  ZOMATO: '/assets/movers/zomato.png',
-  ETERNAL: '/assets/movers/zomato.png',
-  SWIGGY: '/assets/movers/swiggy.png',
-  TRENT: '/assets/movers/trent.png',
-  JIOFIN: '/assets/movers/jio-fin.png',
-  IRFC: '/assets/movers/irfc.png',
-  RVNL: '/assets/movers/rvnl.png',
-  SUZLON: '/assets/movers/suzlon.png',
-  HAL: '/assets/movers/hal.png',
-  MAZDOCK: '/assets/movers/mazdock.png',
-  COCHINSHIP: '/assets/movers/cochin-shipyard.png',
-  BHEL: '/assets/movers/bhel.png',
-  REC: '/assets/movers/rec.png',
-  PFC: '/assets/movers/pfc.png',
-  TATAPOWER: '/assets/movers/tata-power.png',
-  DLF: '/assets/movers/dlf.png',
-  POLYCAB: '/assets/movers/polycab.png',
-  HAVELLS: '/assets/movers/havells.png',
-  DIXON: '/assets/movers/dixon.png',
-  CDSL: '/assets/movers/cdsl.png',
-  BSE: '/assets/movers/bse.png',
-  MCX: '/assets/movers/mcx.png',
+  ALEMBICLTD: '/assets/movers/alembic-pharma.png',
   ANGELONE: '/assets/movers/angel-one.png',
-  DMART: '/assets/movers/dmart.png',
+  ANTALA: '/assets/movers/antala.png',
+  APLLTD: '/assets/movers/alembic-pharma.png',
+  APOLLOHOSP: '/assets/movers/apollo-hosp.png',
+  ARAVALLILF: '/assets/movers/aravallilf.svg',
+  ASIANPAINT: '/assets/movers/asian-paints.png',
   AVENUE: '/assets/movers/avenue-supermarts.png',
   AVENUESUPER: '/assets/movers/avenue-supermarts.png',
-  WAAREEENER: '/assets/movers/waaree.png',
-  HYUNDAI: '/assets/movers/hyundai.png',
-  PREMIERENE: '/assets/movers/premier-energies.png',
+  AWFIS: '/assets/movers/awfis.png',
+  AXISBANK: '/assets/movers/axis-bank.png',
+  BAJAJAUTO: '/assets/movers/bajaj-auto.webp',
+  'BAJAJ-AUTO': '/assets/movers/bajaj-auto.webp',
+  BAJAJ_AUTO: '/assets/movers/bajaj-auto.webp',
+  BAJAJFINSV: '/assets/movers/bajajfinsv.webp',
   BAJAJHFL: '/assets/movers/bajaj-housing.png',
-  OLAELEC: '/assets/movers/ola-electric.png',
-  FIRSTCRY: '/assets/movers/firstcry.png',
-  UNICOMMERCE: '/assets/movers/unicommerce.png',
-  KRN: '/assets/movers/krn.png',
-  MANBA: '/assets/movers/manba.png',
-  ORIENTTECH: '/assets/movers/orient-tech.png',
-  TATATECH: '/assets/movers/tata-tech.png',
-  KAYNES: '/assets/movers/kaynes.png',
-  TEJASNET: '/assets/movers/tejas.png',
-  JYOTICNC: '/assets/movers/jyoti-cnc.png',
-  EXIDEIND: '/assets/movers/exide.png',
-  ANTALA: '/assets/movers/antala.png',
-  VEDL: '/assets/movers/vedanta.png',
+  BAJFINANCE: '/assets/movers/bajaj-finance.png',
+  BANKBARODA: '/assets/movers/bank-baroda.png',
+  BCSSL: '/assets/movers/bombay-coated-steels.png',
+  BEL: '/assets/movers/bel.png',
+  BHARTIARTL: '/assets/movers/airtel.png',
+  BHEL: '/assets/movers/bhel.png',
+  BOB: '/assets/movers/bank-baroda.png',
+  BOMBAY: '/assets/movers/bombay-coated.png',
+  BOSCHLTD: '/assets/movers/boschltd.webp',
+  BPCL: '/assets/movers/bpcl.png',
+  BRITANNIA: '/assets/movers/britannia.png',
+  BSE: '/assets/movers/bse.png',
+  C2C: '/assets/movers/c2c-advanced.png',
+  C2CADVANCED: '/assets/movers/c2c-advanced-systems.png',
+  CANARABANK: '/assets/movers/canara-bank.png',
+  CANBK: '/assets/movers/canara-bank.png',
+  CDSL: '/assets/movers/cdsl.png',
+  CHOLAFIN: '/assets/movers/cholafin.webp',
+  CIPLA: '/assets/movers/cipla.png',
+  COALINDIA: '/assets/movers/coal-india.png',
+  COASTALPRT: '/assets/movers/coastalprt.svg',
+  COCHINSHIP: '/assets/movers/cochin-shipyard.png',
+  CONCOR: '/assets/movers/concor.png',
   CRYSTAL: '/assets/movers/crystal-crop.png',
   CRYSTALCRO: '/assets/movers/crystal-crop.png',
   CRYSTALCROP: '/assets/movers/crystal-crop-protection.png',
+  DECCANSOL: '/assets/movers/deccansol.svg',
+  DIVISLAB: '/assets/movers/divislab.webp',
+  DIXON: '/assets/movers/dixon.png',
+  DLF: '/assets/movers/dlf.png',
+  DMART: '/assets/movers/dmart.png',
+  EICHERMOT: '/assets/movers/eichermot.webp',
   ENVIRO: '/assets/movers/enviro-infra.png',
   ENVIROINFRA: '/assets/movers/enviro-infra-engineers.png',
-  C2C: '/assets/movers/c2c-advanced.png',
-  C2CADVANCED: '/assets/movers/c2c-advanced-systems.png',
+  ETERNAL: '/assets/movers/zomato.png',
+  EXIDE: '/assets/movers/exide.png',
+  EXIDEIND: '/assets/movers/exide.png',
+  FAZE3Q: '/assets/movers/faze-three.png',
+  FEDERALBNK: '/assets/movers/federal-bank.png',
+  FIRSTCRY: '/assets/movers/firstcry.png',
+  FLIPKART: '/assets/movers/flipkart.png',
+  FRACTAL: '/assets/movers/fractal-analytics.png',
+  GAIL: '/assets/movers/gail.png',
+  GRASIM: '/assets/movers/grasim.png',
+  HAL: '/assets/movers/hal.png',
+  HALDIRAM: '/assets/movers/haldiram.png',
+  HAVELLS: '/assets/movers/havells.png',
+  HCLTECH: '/assets/movers/hcltech.webp',
+  HDFCBANK: '/assets/movers/hdfc-bank.png',
+  HDFCLIFE: '/assets/movers/hdfc-life.png',
+  HINDALCO: '/assets/movers/hindalco.png',
+  HINDUNILVR: '/assets/movers/hul.png',
+  HINDZINC: '/assets/movers/hindustan-zinc.png',
+  HITACHI: '/assets/movers/hitachi-energy.png',
+  HYUNDAI: '/assets/movers/hyundai.png',
+  ICICIAMC: '/assets/movers/icici-bank.png',
+  ICICIBANK: '/assets/movers/icici-bank.png',
+  IDFCFIRSTB: '/assets/movers/idfc-first.png',
+  INDIGO: '/assets/movers/indigo.webp',
+  INFY: '/assets/movers/infosys.png',
+  IOC: '/assets/movers/ioc.png',
+  IRFC: '/assets/movers/irfc.png',
+  ITC: '/assets/movers/itc.png',
+  JIOFIN: '/assets/movers/jio-fin.png',
+  JSWSTEEL: '/assets/movers/jsw-steel.png',
+  JYOTICNC: '/assets/movers/jyoti-cnc.png',
+  KAYNES: '/assets/movers/kaynes.png',
+  KOTAKBANK: '/assets/movers/kotak-bank.png',
+  KRN: '/assets/movers/krn.png',
   LAMOSAIC: '/assets/movers/lamosaic.png',
   LAMOSAICIND: '/assets/movers/lamosaic-india.png',
+  LIC: '/assets/movers/lic.webp',
+  LICI: '/assets/movers/lici.webp',
+  LT: '/assets/movers/lt.png',
+  MM: '/assets/movers/mm.png',
+  'M&M': '/assets/movers/mm.png',
+  MANBA: '/assets/movers/manba.png',
+  MANYAVAR: '/assets/movers/vedant.png',
+  MARUTI: '/assets/movers/maruti.png',
+  MAZDOCK: '/assets/movers/mazdock.png',
+  MCX: '/assets/movers/mcx.png',
+  MERIDIANCL: '/assets/movers/meridiancl.svg',
+  MOTHERSON: '/assets/movers/motherson.webp',
+  MUTHOOTFIN: '/assets/movers/muthoot-finance.png',
+  NESTLEIND: '/assets/movers/nestle.png',
+  NTPC: '/assets/movers/ntpc.png',
+  NTPCGREEN: '/assets/movers/ntpc-green.png',
+  OLAELEC: '/assets/movers/ola-electric.png',
+  ONGC: '/assets/movers/ongc.png',
+  ORIENTTECH: '/assets/movers/orient-tech.png',
+  PFC: '/assets/movers/pfc.png',
+  PHONEPE: '/assets/movers/phonepe.png',
+  PIDILITE: '/assets/movers/pidilitind.webp',
+  PIDILITIND: '/assets/movers/pidilitind.webp',
+  PNB: '/assets/movers/pnb.png',
+  POLYCAB: '/assets/movers/polycab.png',
+  POWERGRID: '/assets/movers/power-grid.png',
+  POWERINDIA: '/assets/movers/hitachi-energy.png',
+  PREMIERENE: '/assets/movers/premier-energies.png',
   RAJESH: '/assets/movers/rajesh-power.png',
   RAJESHPOW: '/assets/movers/rajesh-power-services.png',
   RAJPUTANA: '/assets/movers/rajputana.png',
   RAJPUTANABIO: '/assets/movers/rajputana-biodiesel.png',
-  BOMBAY: '/assets/movers/bombay-coated.png',
-  BCSSL: '/assets/movers/bombay-coated-steels.png',
-  BEL: '/assets/movers/bel.png',
-  BPCL: '/assets/movers/bpcl.png',
-  BRITANNIA: '/assets/movers/britannia.png',
-  CANBK: '/assets/movers/canara-bank.png',
-  CANARABANK: '/assets/movers/canara-bank.png',
-  CONCOR: '/assets/movers/concor.png',
-  GAIL: '/assets/movers/gail.png',
-  GRASIM: '/assets/movers/grasim.png',
-  HDFCLIFE: '/assets/movers/hdfc-life.png',
-  HINDALCO: '/assets/movers/hindalco.png',
-  HINDZINC: '/assets/movers/hindustan-zinc.png',
-  HITACHI: '/assets/movers/hitachi-energy.png',
-  POWERINDIA: '/assets/movers/hitachi-energy.png',
-  IDFCFIRSTB: '/assets/movers/idfc-first.png',
-  IOC: '/assets/movers/ioc.png',
-  JSWSTEEL: '/assets/movers/jsw-steel.png',
-  MM: '/assets/movers/mm.png',
-  MUTHOOTFIN: '/assets/movers/muthoot-finance.png',
-  NESTLEIND: '/assets/movers/nestle.png',
-  PNB: '/assets/movers/pnb.png',
-  POWERGRID: '/assets/movers/power-grid.png',
+  RAZORPAY: '/assets/movers/razorpay.png',
+  REC: '/assets/movers/rec.png',
+  RELIANCE: '/assets/movers/reliance.png',
   RSYSTEMS: '/assets/movers/r-systems.png',
+  RVNL: '/assets/movers/rvnl.png',
   SAREGAMA: '/assets/movers/saregama.png',
   SBILIFE: '/assets/movers/sbi-life.png',
+  SBIN: '/assets/movers/sbi.png',
+  SHRIRAMFIN: '/assets/movers/shriramfin.webp',
   SIEMENS: '/assets/movers/siemens-energy.png',
+  SOLARINDS: '/assets/movers/solarinds.png',
+  SUNPHARMA: '/assets/movers/sun-pharma.png',
+  SUZLON: '/assets/movers/suzlon.png',
+  SWIGGY: '/assets/movers/swiggy.png',
+  TATACAP: '/assets/movers/tatamotors.png',
   TATACONSUM: '/assets/movers/tata-consumer.png',
+  TATAMOTORS: '/assets/movers/tatamotors.png',
+  TATAPOWER: '/assets/movers/tata-power.png',
+  TATASTEEL: '/assets/movers/tata-steel.png',
+  TATATECH: '/assets/movers/tata-tech.png',
+  TCS: '/assets/movers/tcs.png',
   TECHM: '/assets/movers/techm.png',
+  TEJAS: '/assets/movers/tejas.png',
+  TEJASNET: '/assets/movers/tejas.png',
+  TITAN: '/assets/movers/titan.png',
+  TMCV: '/assets/movers/tatamotors.png',
+  TMPV: '/assets/movers/tatamotors.png',
+  TORNTPHARM: '/assets/movers/torntpharm.png',
+  TRENT: '/assets/movers/trent.png',
+  TVSMOTOR: '/assets/movers/tvsmotor.webp',
+  ULTRACEMCO: '/assets/movers/ultratech.png',
+  UNICOMMERCE: '/assets/movers/unicommerce.png',
   UNIONBANK: '/assets/movers/union-bank.png',
-  BANKBARODA: '/assets/movers/bank-baroda.png',
-  BOB: '/assets/movers/bank-baroda.png',
-  APOLLOHOSP: '/assets/movers/apollo-hosp.png',
-  APLLTD: '/assets/movers/alembic-pharma.png',
-  ALEMBICLTD: '/assets/movers/alembic-pharma.png',
-  AWFIS: '/assets/movers/awfis.png',
-  FEDERALBNK: '/assets/movers/federal-bank.png',
-  FLIPKART: '/assets/movers/flipkart.png',
-  FRACTAL: '/assets/movers/fractal-analytics.png',
-  HALDIRAM: '/assets/movers/haldiram.png',
-  PHONEPE: '/assets/movers/phonepe.png',
-  RAZORPAY: '/assets/movers/razorpay.png',
-  ZEPTO: '/assets/movers/zepto.png',
-  FAZE3Q: '/assets/movers/faze-three.png',
-  MANYAVAR: '/assets/movers/vedant.png',
+  VAML: '/assets/movers/vedanta.png',
   VEDANT: '/assets/movers/vedant.png',
+  VEDANTA: '/assets/movers/vedanta.png',
+  VEDL: '/assets/movers/vedanta.png',
+  WAAREE: '/assets/movers/waaree.png',
+  WAAREEENER: '/assets/movers/waaree.png',
+  WIPRO: '/assets/movers/wipro.png',
+  ZEPTO: '/assets/movers/zepto.png',
+  ZOMATO: '/assets/movers/zomato.png',
 };
+
+function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
+  const sym = (symbol || '').toUpperCase().trim();
+  if (sym && KNOWN_STATIC_LOGOS[sym]) {
+    return KNOWN_STATIC_LOGOS[sym];
+  }
+  const cleanSym = sym.replace(/[^A-Za-z0-9]/g, '');
+  if (cleanSym && KNOWN_STATIC_LOGOS[cleanSym]) {
+    return KNOWN_STATIC_LOGOS[cleanSym];
+  }
+  const nameUpper = (companyName || '').toUpperCase();
+  for (const [key, path] of Object.entries(KNOWN_STATIC_LOGOS)) {
+    if (nameUpper.includes(key)) {
+      return path;
+    }
+  }
+  return null;
+}
 
 function buildCompanyLogoProxyUrl(opts: {
   companyName: string;
@@ -243,19 +294,22 @@ export function buildCompanyLogoUrl(opts: {
   searchId?: string | null;
   logoColor?: string | null;
 }): string {
+  // 1. Check known local static assets by symbol or company name first
+  const staticLogo = resolveStaticLogo(opts.symbol, opts.companyName);
+  if (staticLogo) {
+    return staticLogo;
+  }
+
+  // 2. Local asset specified in logoUrl
+  if (opts.logoUrl && opts.logoUrl.startsWith('/assets/')) {
+    return opts.logoUrl;
+  }
+
+  // 3. Remote URL specified
   if (opts.logoUrl && (opts.logoUrl.startsWith('/') || opts.logoUrl.startsWith('http'))) {
     return opts.logoUrl.startsWith('/api/') ? resolveApiUrl(opts.logoUrl) : opts.logoUrl;
   }
-  const sym = (opts.symbol || '').toUpperCase().trim();
-  if (sym && KNOWN_STATIC_LOGOS[sym]) {
-    return KNOWN_STATIC_LOGOS[sym];
-  }
-  const nameUpper = (opts.companyName || '').toUpperCase();
-  for (const [key, path] of Object.entries(KNOWN_STATIC_LOGOS)) {
-    if (nameUpper.includes(key)) {
-      return path;
-    }
-  }
+
   return buildCompanyLogoProxyUrl(opts);
 }
 
@@ -273,12 +327,16 @@ export function CompanyLogo({
     () => buildCompanyLogoUrl({ companyName, symbol, bseCode, logoUrl, searchId, logoColor }),
     [companyName, symbol, bseCode, logoUrl, searchId, logoColor]
   );
+  const staticSrc = useMemo(
+    () => resolveStaticLogo(symbol, companyName),
+    [symbol, companyName]
+  );
   const proxySrc = useMemo(
     () => buildCompanyLogoProxyUrl({ companyName, symbol, bseCode, searchId, logoColor }),
     [companyName, symbol, bseCode, searchId, logoColor]
   );
 
-  const [stage, setStage] = useState<'primary' | 'proxy' | 'initials'>('primary');
+  const [stage, setStage] = useState<'primary' | 'static' | 'proxy' | 'initials'>('primary');
 
   useEffect(() => {
     setStage('primary');
@@ -300,7 +358,12 @@ export function CompanyLogo({
     );
   }
 
-  const activeSrc = stage === 'proxy' ? proxySrc : primarySrc;
+  const activeSrc =
+    stage === 'static' && staticSrc
+      ? staticSrc
+      : stage === 'proxy'
+      ? proxySrc
+      : primarySrc;
 
   return (
     <div
@@ -313,8 +376,20 @@ export function CompanyLogo({
         decoding="async"
         referrerPolicy="no-referrer"
         onError={() => {
-          if (stage === 'primary' && primarySrc !== proxySrc) {
-            setStage('proxy');
+          if (stage === 'primary') {
+            if (staticSrc && staticSrc !== activeSrc) {
+              setStage('static');
+            } else if (primarySrc !== proxySrc) {
+              setStage('proxy');
+            } else {
+              setStage('initials');
+            }
+          } else if (stage === 'static') {
+            if (staticSrc !== proxySrc) {
+              setStage('proxy');
+            } else {
+              setStage('initials');
+            }
           } else {
             setStage('initials');
           }
