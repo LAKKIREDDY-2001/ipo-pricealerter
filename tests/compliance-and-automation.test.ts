@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import { getIstMarketSession, getAutomationStatus } from '../server/services/automationEngine.ts';
 import { getDb, sanitizeUser, type StoredUser } from '../server/db/database.ts';
 import { SEED_BLOG_ARTICLES } from '../server/data/seedData.ts';
+import { isNonEquityInstrument, normalizeSectorLabel } from '../server/providers/marketDataProvider.ts';
 
 describe('PriceAlerter Compliance, Security & Automation', () => {
   it('detects IST market sessions deterministically across weekday & weekend', () => {
@@ -33,7 +34,7 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
     assert.equal(satRes.isActiveTradingWindow, false);
   });
 
-  it('strips passwordHash and reset tokens cleanly in sanitizeUser without mutating source record', () => {
+  it('strips passwordHash cleanly in sanitizeUser without mutating source record', () => {
     const mockUser: StoredUser = {
       id: 'usr-test-1',
       name: 'Test Investor',
@@ -42,8 +43,6 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
       emailVerified: true,
       createdAt: '2026-11-14T00:00:00.000Z',
       passwordHash: bcrypt.hashSync('StrongPass@2026', 6),
-      passwordResetTokenHash: 'deadbeef1234',
-      passwordResetExpiresAt: '2026-11-15T12:00:00.000Z',
       preferences: {
         emailAlerts: true,
         browserNotifications: false,
@@ -54,8 +53,6 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
     const safe = sanitizeUser(mockUser) as unknown as Record<string, unknown>;
     assert.equal(safe.email, 'test@pricealerter.in');
     assert.equal('passwordHash' in safe, false);
-    assert.equal('passwordResetTokenHash' in safe, false);
-    assert.equal('passwordResetExpiresAt' in safe, false);
     assert.ok(mockUser.passwordHash.startsWith('$2'));
   });
 
@@ -137,6 +134,24 @@ describe('PriceAlerter Compliance, Security & Automation', () => {
       'utf8'
     );
     assert.ok(errorBoundarySource.includes('Failed to fetch dynamically imported module'));
+  });
+
+  it('filters ETF iNAVs, GOI Strips, warrants, rights entitlements, and NCD/debt tickers while keeping NSE/BSE equities and tradable ETFs', () => {
+    assert.equal(isNonEquityInstrument('HDFCSIINAV-RL', 'HDFC Silver ETF iNAV', 'RL', 'INF179KC1981'), true);
+    assert.equal(isNonEquityInstrument('GS220261P-GS', 'GOI STRIPS 2026', 'GS', 'IN000226C014'), true);
+    assert.equal(isNonEquityInstrument('SCLZC26G-YA', 'Zero Coupon Bond', 'YA', 'INE012345678'), true);
+    assert.equal(isNonEquityInstrument('KTKFMP336RG', 'Kotak FMP Series 336', 'MF', 'INF174KA1X01'), true);
+    assert.equal(isNonEquityInstrument('ELECTCAST-W1', 'Electrosteel Castings Warrant', 'W1', 'INE086A13018'), true);
+    assert.equal(isNonEquityInstrument('RELIANCE-RE', 'Reliance Industries Rights Entitlement', 'RE', 'INE002A20018'), true);
+
+    assert.equal(isNonEquityInstrument('RELIANCE', 'Reliance Industries Ltd', 'EQ', 'INE002A01018'), false);
+    assert.equal(isNonEquityInstrument('MHHL', 'Mohini Health & Hygiene Ltd', 'SM', 'INE450S01011'), false);
+    assert.equal(isNonEquityInstrument('NIFTYBEES', 'Nippon India ETF Nifty 50 BeES', 'EQ', 'INF204KB14I2'), false);
+    assert.equal(isNonEquityInstrument('500325', 'Reliance Industries Ltd', 'A', 'INE002A01018'), false);
+
+    assert.equal(normalizeSectorLabel('IT & Software'), 'Information Technology');
+    assert.equal(normalizeSectorLabel('Banking & Financial Services'), 'Financial Services');
+    assert.equal(normalizeSectorLabel('Pharmaceuticals & Healthcare'), 'Pharmaceuticals');
   });
 });
 

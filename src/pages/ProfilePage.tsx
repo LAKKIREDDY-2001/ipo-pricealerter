@@ -20,7 +20,16 @@ export function ProfilePage() {
       gmpAlerts: true,
     }
   );
+  const [saving, setSaving] = useState(false);
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setPrefs(user.preferences);
+    }
+  }, [user]);
 
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -80,12 +89,20 @@ export function ProfilePage() {
   const handleSavePrefs = async (e: React.FormEvent) => {
     e.preventDefault();
     setSavedMsg(null);
-    await api.updatePreferences({
-      name: name || user.name,
-      preferences: prefs,
-    });
-    await refreshUserData();
-    setSavedMsg('Profile & notification preferences updated.');
+    setSaveError(null);
+    setSaving(true);
+    try {
+      await api.updatePreferences({
+        name: name.trim() || user.name,
+        preferences: prefs,
+      });
+      await refreshUserData();
+      setSavedMsg('Profile & notification preferences updated.');
+    } catch (err) {
+      setSaveError(err instanceof Error ? err.message : 'Unable to save preferences.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleChangePassword = async (e: React.FormEvent) => {
@@ -241,7 +258,7 @@ export function ProfilePage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-slate-100"
             />
           </label>
 
@@ -272,13 +289,15 @@ export function ProfilePage() {
             ))}
           </div>
 
+          {saveError && <p className="text-[#DC2626] font-semibold">{saveError}</p>}
           {savedMsg && <p className="text-[#059669] font-semibold">{savedMsg}</p>}
 
           <button
             type="submit"
-            className="rounded-lg bg-[#14263F] dark:bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white cursor-pointer"
+            disabled={saving}
+            className="rounded-lg bg-[#14263F] dark:bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white disabled:opacity-50 cursor-pointer"
           >
-            Save Preferences
+            {saving ? 'Saving...' : 'Save Preferences'}
           </button>
         </form>
 

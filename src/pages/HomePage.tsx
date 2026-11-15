@@ -76,9 +76,16 @@ export function HomePage() {
   const [debouncedStockSearch, setDebouncedStockSearch] = useState('');
   const [stockSector, setStockSector] = useState('All');
   const [stockMoverFilter, setStockMoverFilter] = useState<'All' | 'Gainers' | 'Losers'>('All');
+  const [stockPage, setStockPage] = useState(1);
+  const [stockTotal, setStockTotal] = useState(0);
+  const [stockSortBy, setStockSortBy] = useState<string>('marketCapCr');
+  const [stockSortDir, setStockSortDir] = useState<'asc' | 'desc'>('desc');
 
   useEffect(() => {
-    const t = setTimeout(() => setDebouncedStockSearch(stockSearch.trim()), 200);
+    const t = setTimeout(() => {
+      setDebouncedStockSearch(stockSearch.trim());
+      setStockPage(1);
+    }, 200);
     return () => clearTimeout(t);
   }, [stockSearch]);
 
@@ -107,8 +114,17 @@ export function HomePage() {
       setIndices(nextIndices);
       setIpos(nextIpos);
       setHeatmapStocks(nextStocks);
-      if (!debouncedStockSearch && stockTab === 'All' && stockSector === 'All' && stockMoverFilter === 'All') {
-        setStocks(nextStocks);
+      if (
+        !debouncedStockSearch &&
+        stockTab === 'All' &&
+        stockSector === 'All' &&
+        stockMoverFilter === 'All' &&
+        stockPage === 1 &&
+        stockSortBy === 'marketCapCr' &&
+        stockSortDir === 'desc'
+      ) {
+        setStocks(nextStocks.slice(0, 20));
+        setStockTotal(stkRes?.total || nextStocks.length);
       }
       setTopGainers(nextGainers.slice(0, 5));
       setTopLosers(nextLosers.slice(0, 5));
@@ -190,48 +206,54 @@ export function HomePage() {
         .map((w) => w.itemKey.toUpperCase());
       if (savedSymbols.length === 0) {
         setStocks([]);
+        setStockTotal(0);
         return;
       }
       setStocksLoading(true);
       Promise.allSettled(savedSymbols.map((sym) => api.getStockBySymbol(sym, '1mo')))
         .then((res) => {
-          setStocks(
-            res
-              .filter(
-                (r): r is PromiseFulfilledResult<{
-                  stock: StockInstrument;
-                  fromUpstream: boolean;
-                  linkedIpo: null;
-                }> => r.status === 'fulfilled'
-              )
-              .map((r) => r.value.stock)
-          );
+          const list = res
+            .filter(
+              (r): r is PromiseFulfilledResult<{
+                stock: StockInstrument;
+                fromUpstream: boolean;
+                linkedIpo: null;
+              }> => r.status === 'fulfilled'
+            )
+            .map((r) => r.value.stock);
+          setStocks(list);
+          setStockTotal(list.length);
         })
         .finally(() => setStocksLoading(false));
       return;
     }
 
     setStocksLoading(true);
+    const tabParam =
+      stockMoverFilter === 'Gainers'
+        ? 'gainers'
+        : stockMoverFilter === 'Losers'
+          ? 'losers'
+          : undefined;
     api
       .getStocks({
         exchange: stockTab === 'NSE' || stockTab === 'BSE' ? stockTab : 'All',
         sector: stockSector !== 'All' ? stockSector : undefined,
         q: debouncedStockSearch || undefined,
-        tab:
-          stockMoverFilter === 'Gainers'
-            ? 'gainers'
-            : stockMoverFilter === 'Losers'
-              ? 'losers'
-              : undefined,
-        limit: 60,
+        tab: tabParam,
+        sortBy: tabParam ? undefined : stockSortBy,
+        sortDir: tabParam ? undefined : stockSortDir,
+        page: stockPage,
+        limit: 20,
       })
       .then((res) => {
         setStocks(res.stocks);
+        setStockTotal(res.total);
         if (res.sectors.length > 0) setAllSectors(res.sectors);
         if (res.totalUniverse) setTotalUniverse(res.totalUniverse);
       })
       .finally(() => setStocksLoading(false));
-  }, [stockTab, stockSector, stockMoverFilter, debouncedStockSearch, watchlist]);
+  }, [stockTab, stockSector, stockMoverFilter, debouncedStockSearch, stockPage, stockSortBy, stockSortDir, watchlist]);
 
   // Derived Overview Metrics from actual records
   const metrics = useMemo(() => {
@@ -726,7 +748,9 @@ export function HomePage() {
                 Live Stock Market (NSE &amp; BSE)
               </h2>
               <p className="text-xs text-[#64748B] dark:text-slate-400 mt-0.5">
-                Track exchange quotes, volume, market cap, and day ranges. Search any NSE/BSE ticker via global search.
+                {stockTotal > 0
+                  ? `Showing ${stockTotal.toLocaleString('en-IN')} matching equities across ${totalUniverse.toLocaleString('en-IN')} active NSE & BSE stocks.`
+                  : 'Track exchange quotes, volume, market cap, and day ranges across all NSE & BSE listed equities.'}
               </p>
             </div>
             <Link
@@ -743,7 +767,10 @@ export function HomePage() {
                 <button
                   key={tab}
                   type="button"
-                  onClick={() => setStockTab(tab)}
+                  onClick={() => {
+                    setStockTab(tab);
+                    setStockPage(1);
+                  }}
                   className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                     stockTab === tab
                       ? 'bg-[#14263F] text-white dark:bg-[#2563EB]'
@@ -766,7 +793,10 @@ export function HomePage() {
               <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
                 <select
                   value={stockSector}
-                  onChange={(e) => setStockSector(e.target.value)}
+                  onChange={(e) => {
+                    setStockSector(e.target.value);
+                    setStockPage(1);
+                  }}
                   aria-label="Filter stock sector"
                   className="rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 py-2 sm:py-1.5 text-sm sm:text-xs text-[#152338] dark:text-slate-100"
                 >
@@ -778,9 +808,10 @@ export function HomePage() {
                 </select>
                 <select
                   value={stockMoverFilter}
-                  onChange={(e) =>
-                    setStockMoverFilter(e.target.value as 'All' | 'Gainers' | 'Losers')
-                  }
+                  onChange={(e) => {
+                    setStockMoverFilter(e.target.value as 'All' | 'Gainers' | 'Losers');
+                    setStockPage(1);
+                  }}
                   aria-label="Filter gainers or losers"
                   className="rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 py-2 sm:py-1.5 text-sm sm:text-xs text-[#152338] dark:text-slate-100"
                 >
@@ -811,10 +842,33 @@ export function HomePage() {
                 setStockSector('All');
                 setStockMoverFilter('All');
                 setStockTab('All');
+                setStockPage(1);
               }}
             />
           ) : (
-            <StockTable stocks={filteredStocks} pageSize={10} compact />
+            <StockTable
+              stocks={filteredStocks}
+              pageSize={20}
+              compact
+              serverPagination={
+                stockTab === 'Watchlist'
+                  ? undefined
+                  : {
+                      page: stockPage,
+                      pageSize: 20,
+                      total: stockTotal,
+                      onPageChange: (next) => setStockPage(next),
+                    }
+              }
+              onSortChange={
+                stockTab === 'Watchlist'
+                  ? undefined
+                  : (key, asc) => {
+                      setStockSortBy(key);
+                      setStockSortDir(asc ? 'asc' : 'desc');
+                    }
+              }
+            />
           )}
         </section>
 

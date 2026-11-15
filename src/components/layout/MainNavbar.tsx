@@ -335,12 +335,20 @@ export function MainNavbar() {
                 )}
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="min-h-[38px] inline-flex items-center rounded-lg bg-[#14263F] dark:bg-[#2563EB] px-3 sm:px-3.5 py-1.5 text-xs font-semibold text-white hover:opacity-90 transition-opacity whitespace-nowrap shrink-0"
-              >
-                Sign In
-              </Link>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <Link
+                  to="/login"
+                  className="min-h-[38px] inline-flex items-center rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-[#152338] dark:text-slate-100 hover:border-[#14263F] dark:hover:border-slate-500 transition-colors whitespace-nowrap shrink-0"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="hidden sm:inline-flex min-h-[38px] items-center rounded-lg bg-[#059669] px-3 sm:px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors whitespace-nowrap shrink-0"
+                >
+                  Sign Up
+                </Link>
+              </div>
             )}
 
             <button
@@ -439,6 +447,12 @@ export function MainNavbar() {
                     { label: 'Watchlist', to: '/watchlist' },
                     { label: 'Profile', to: '/profile' },
                     { label: 'Contact & Help', to: '/contact' },
+                    ...(!user
+                      ? [
+                          { label: 'Sign In', to: '/login' },
+                          { label: 'Create Account', to: '/register' },
+                        ]
+                      : []),
                     ...(user?.role === 'admin' ? [{ label: 'Admin Console', to: '/admin' }] : []),
                   ].map((link) => (
                     <Link

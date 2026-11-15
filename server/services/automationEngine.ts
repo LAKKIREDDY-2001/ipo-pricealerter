@@ -2,8 +2,10 @@ import type { Response } from 'express';
 import { getDb } from '../db/database.ts';
 import {
   evaluatePriceAlerts,
+  getLiveUniverseSnapshot,
   refreshIndicesFromProvider,
   refreshStockBySymbol,
+  runBackgroundMarketEnrichment,
   syncAllIndianStocks,
 } from '../providers/marketDataProvider.ts';
 import { refreshIposFromProvider } from '../providers/ipoDataProvider.ts';
@@ -45,10 +47,12 @@ let indicesTimer: ReturnType<typeof setInterval> | null = null;
 let equitiesTimer: ReturnType<typeof setInterval> | null = null;
 let iposTimer: ReturnType<typeof setInterval> | null = null;
 let heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+let enrichmentTimer: ReturnType<typeof setInterval> | null = null;
 
 let inflightIndices = false;
 let inflightEquities = false;
 let inflightIpos = false;
+let inflightEnrichment = false;
 
 const cycles = {
   indices: 0,
@@ -211,6 +215,9 @@ export async function runEquitiesAndAlertsCycle(force = false): Promise<void> {
     cycles.alertsTriggeredTotal += triggered;
     lastRunAt.alerts = new Date().toISOString();
 
+    // Background batch enrichment: discover industry names, fill fundamentals/logos & hydrate missing prices
+    void runMarketEnrichmentCycle().catch(() => {});
+
     broadcastMarketEvent('stocks', {
       totalUniverse: universe.length,
       timestamp: lastRunAt.equities,
@@ -228,6 +235,28 @@ export async function runEquitiesAndAlertsCycle(force = false): Promise<void> {
     lastError = err instanceof Error ? err.message : 'Equities sync cycle failed';
   } finally {
     inflightEquities = false;
+  }
+}
+
+export async function runMarketEnrichmentCycle(): Promise<void> {
+  if (inflightEnrichment) return;
+  inflightEnrichment = true;
+  try {
+    const res = await runBackgroundMarketEnrichment(40);
+    if (
+      res.mappedIndustries + res.enrichedDetails + res.probedLogos + res.hydratedQuotes > 0
+    ) {
+      broadcastMarketEvent('stocks', {
+        totalUniverse: getLiveUniverseSnapshot().stocks.length,
+        timestamp: new Date().toISOString(),
+        triggeredAlerts: 0,
+        session: getIstMarketSession().session,
+      });
+    }
+  } catch {
+    // Non-fatal background enrichment
+  } finally {
+    inflightEnrichment = false;
   }
 }
 
@@ -262,7 +291,7 @@ export function startAutomationEngine(): void {
   // Warm up feeds right after server boot (non-blocking)
   void runIndicesSyncCycle(true);
   void runIposSyncCycle(true);
-  void runEquitiesAndAlertsCycle(true);
+  void runEquitiesAndAlertsCycle(true).then(() => runMarketEnrichmentCycle());
 
   indicesTimer = setInterval(() => {
     void runIndicesSyncCycle(false);
@@ -273,6 +302,11 @@ export function startAutomationEngine(): void {
     void runEquitiesAndAlertsCycle(false);
   }, 60_000);
   equitiesTimer.unref();
+
+  enrichmentTimer = setInterval(() => {
+    void runMarketEnrichmentCycle();
+  }, 20_000);
+  enrichmentTimer.unref();
 
   iposTimer = setInterval(() => {
     void runIposSyncCycle(false);
@@ -293,10 +327,12 @@ export function stopAutomationEngine(): void {
   engineRunning = false;
   if (indicesTimer) clearInterval(indicesTimer);
   if (equitiesTimer) clearInterval(equitiesTimer);
+  if (enrichmentTimer) clearInterval(enrichmentTimer);
   if (iposTimer) clearInterval(iposTimer);
   if (heartbeatTimer) clearInterval(heartbeatTimer);
   indicesTimer = null;
   equitiesTimer = null;
+  enrichmentTimer = null;
   iposTimer = null;
   heartbeatTimer = null;
   for (const res of Array.from(sseClients)) {

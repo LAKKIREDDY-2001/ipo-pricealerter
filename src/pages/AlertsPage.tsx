@@ -24,6 +24,8 @@ export function AlertsPage() {
   const [success, setSuccess] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
+  const [alertStocksBySym, setAlertStocksBySym] = useState<Record<string, StockInstrument>>({});
+
   useEffect(() => {
     const q = stockSearch.trim();
     const timer = setTimeout(async () => {
@@ -44,6 +46,25 @@ export function AlertsPage() {
     }, 180);
     return () => clearTimeout(timer);
   }, [stockSearch]);
+
+  useEffect(() => {
+    if (!user || alerts.length === 0) return;
+    const missing = Array.from(new Set(alerts.map((a) => a.symbol.toUpperCase()))).filter(
+      (sym) => !alertStocksBySym[sym]
+    );
+    if (missing.length === 0) return;
+    Promise.allSettled(missing.map((sym) => api.getStockBySymbol(sym, '1mo'))).then((settled) => {
+      const additions: Record<string, StockInstrument> = {};
+      for (const r of settled) {
+        if (r.status === 'fulfilled' && r.value.stock) {
+          additions[r.value.stock.symbol.toUpperCase()] = r.value.stock;
+        }
+      }
+      if (Object.keys(additions).length > 0) {
+        setAlertStocksBySym((prev) => ({ ...prev, ...additions }));
+      }
+    });
+  }, [user, alerts]);
 
   if (authLoading) {
     return (
@@ -293,7 +314,11 @@ export function AlertsPage() {
         />
       ) : (
         <div className="space-y-3">
-          {alerts.map((rule) => (
+          {alerts.map((rule) => {
+            const matchedStk =
+              alertStocksBySym[rule.symbol.toUpperCase()] ||
+              stockResults.find((s) => s.symbol.toUpperCase() === rule.symbol.toUpperCase());
+            return (
             <div
               key={rule.id}
               className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 space-y-3"
@@ -304,6 +329,9 @@ export function AlertsPage() {
                     size="sm"
                     companyName={rule.companyName}
                     symbol={rule.symbol}
+                    bseCode={matchedStk?.bseCode}
+                    logoUrl={matchedStk?.logoUrl}
+                    searchId={matchedStk?.searchId}
                   />
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
@@ -314,7 +342,7 @@ export function AlertsPage() {
                         {rule.companyName}
                       </Link>
                       <span className="text-xs font-data text-[#64748B]">
-                        ({formatStockTickerLabel(rule.symbol)})
+                        ({formatStockTickerLabel(rule.symbol, matchedStk?.bseCode)})
                       </span>
                       <span
                         className={`text-[11px] font-semibold px-2 py-0.5 rounded border ${
@@ -332,6 +360,7 @@ export function AlertsPage() {
                       Rule: {rule.conditionType.replace(/_/g, ' ')}{' '}
                       {rule.conditionType.startsWith('PCT') ? `${rule.targetValue}%` : formatINR(rule.targetValue)}
                       {rule.baselinePrice !== null && ` · Baseline: ${formatINR(rule.baselinePrice)}`}
+                      {matchedStk?.currentPrice != null && ` · Live: ${formatINR(matchedStk.currentPrice)}`}
                     </div>
                   </div>
                 </div>
@@ -367,7 +396,8 @@ export function AlertsPage() {
                 </div>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </main>

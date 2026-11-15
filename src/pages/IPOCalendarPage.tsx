@@ -6,6 +6,7 @@ import type { IPOOffering } from '../types/financial';
 import { formatDateIN } from '../utils/calculations';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs, LoadingSkeleton } from '../components/common/StateViews';
+import { CompanyLogo } from '../components/common/CompanyLogo';
 
 interface CalendarEvent {
   id: string;
@@ -247,9 +248,16 @@ export function IPOCalendarPage() {
                     </div>
                     <Link
                       to={`/ipo/${ev.ipo.slug}`}
-                      className="block text-sm font-semibold text-[#152338] dark:text-white hover:text-[#2563EB] truncate"
+                      className="flex items-center gap-2 text-sm font-semibold text-[#152338] dark:text-white hover:text-[#2563EB] min-w-0"
                     >
-                      {ev.ipo.companyName}
+                      <CompanyLogo
+                        companyName={ev.ipo.companyName}
+                        symbol={ev.ipo.listing.stockSymbol}
+                        logoUrl={ev.ipo.logoUrl}
+                        logoColor={ev.ipo.logoColor}
+                        size="xs"
+                      />
+                      <span className="truncate">{ev.ipo.companyName}</span>
                     </Link>
                     <div className="text-[11px] text-[#64748B]">
                       {ev.ipo.category} · {ev.ipo.exchanges.join('/')}
@@ -328,9 +336,16 @@ export function IPOCalendarPage() {
                   </div>
                   <Link
                     to={`/ipo/${ev.ipo.slug}`}
-                    className="block text-sm font-semibold text-[#152338] dark:text-white hover:text-[#2563EB] truncate"
+                    className="flex items-center gap-2 text-sm font-semibold text-[#152338] dark:text-white hover:text-[#2563EB] min-w-0"
                   >
-                    {ev.ipo.companyName}
+                    <CompanyLogo
+                      companyName={ev.ipo.companyName}
+                      symbol={ev.ipo.listing.stockSymbol}
+                      logoUrl={ev.ipo.logoUrl}
+                      logoColor={ev.ipo.logoColor}
+                      size="xs"
+                    />
+                    <span className="truncate">{ev.ipo.companyName}</span>
                   </Link>
                   <div className="text-[11px] text-[#64748B]">
                     {ev.ipo.category} · {ev.ipo.exchanges.join('/')}
@@ -370,9 +385,16 @@ export function IPOCalendarPage() {
                     <td className="py-3 px-3">
                       <Link
                         to={`/ipo/${ev.ipo.slug}`}
-                        className="font-semibold text-[#152338] dark:text-slate-100 hover:text-[#2563EB]"
+                        className="inline-flex items-center gap-2 font-semibold text-[#152338] dark:text-slate-100 hover:text-[#2563EB]"
                       >
-                        {ev.ipo.companyName}
+                        <CompanyLogo
+                          companyName={ev.ipo.companyName}
+                          symbol={ev.ipo.listing.stockSymbol}
+                          logoUrl={ev.ipo.logoUrl}
+                          logoColor={ev.ipo.logoColor}
+                          size="xs"
+                        />
+                        <span>{ev.ipo.companyName}</span>
                       </Link>
                     </td>
                     <td className="py-3 px-3 text-[#64748B]">

@@ -2,7 +2,6 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
@@ -10,9 +9,7 @@ import { createServer as createViteServer } from 'vite';
 import {
   appendAuditLog,
   createId,
-  flushDbSync,
   getDb,
-  getDbFilePath,
   sanitizeUser,
   saveDb,
   type StoredUser,
@@ -20,14 +17,14 @@ import {
 import {
   evaluatePriceAlerts,
   findStockInUniverse,
+  getCachedLogoUrl,
   getLiveUniverseSnapshot,
   normalizeGrowwLogoUrl,
   queryAllIndianStocks,
+  recordVerifiedLogoUrl,
   refreshIndicesFromProvider,
   refreshStockBySymbol,
   resolveGrowwLogoBySearchId,
-  resolveGrowwLogoBySymbol,
-  resolveStaticMoverLogo,
   syncAllIndianStocks,
 } from './server/providers/marketDataProvider.ts';
 import {
@@ -38,27 +35,39 @@ import {
   getAutomationStatus,
   registerSseClient,
   startAutomationEngine,
-  stopAutomationEngine,
 } from './server/services/automationEngine.ts';
-import {
-  dispatchWebhookNotification,
-  isMailerConfigured,
-  sendContactNotificationEmail,
-  sendPasswordResetEmail,
-} from './server/services/mailerService.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
 dotenv.config();
 
 const PORT = Number(process.env.PORT) || 3000;
 const SESSION_COOKIE = 'pa_session';
-const SESSION_SECRET =
-  process.env.SESSION_SECRET?.trim() || crypto.randomBytes(32).toString('hex');
-if (!process.env.SESSION_SECRET?.trim() && process.env.NODE_ENV === 'production') {
-  console.warn(
-    '[Security] SESSION_SECRET environment variable is not set; using ephemeral in-memory secret.'
-  );
+
+function resolveSessionSecret(): string {
+  const fromEnv = process.env.SESSION_SECRET?.trim();
+  if (fromEnv) return fromEnv;
+  const secretFile = path.resolve(process.cwd(), 'server', 'data', '.session_secret');
+  try {
+    if (fs.existsSync(secretFile)) {
+      const stored = fs.readFileSync(secretFile, 'utf8').trim();
+      if (stored.length >= 32) return stored;
+    }
+    const generated = crypto.randomBytes(32).toString('hex');
+    const dir = path.dirname(secretFile);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(secretFile, generated, { mode: 0o600, encoding: 'utf8' });
+    return generated;
+  } catch {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(
+        '[Security] SESSION_SECRET environment variable is not set; using ephemeral in-memory secret.'
+      );
+    }
+    return crypto.randomBytes(32).toString('hex');
+  }
 }
+
+const SESSION_SECRET = resolveSessionSecret();
 
 interface SessionPayload {
   uid: string;
@@ -95,8 +104,18 @@ interface AuthedRequest extends Request {
   currentUser?: StoredUser;
 }
 
+function extractSessionToken(req: Request): string | undefined {
+  const cookieToken = req.cookies?.[SESSION_COOKIE] as string | undefined;
+  if (cookieToken) return cookieToken;
+  const authHeader = req.get('authorization') || '';
+  if (authHeader.toLowerCase().startsWith('bearer ')) {
+    return authHeader.slice(7).trim() || undefined;
+  }
+  return undefined;
+}
+
 function attachUser(req: AuthedRequest, _res: Response, next: NextFunction): void {
-  const token = req.cookies?.[SESSION_COOKIE] as string | undefined;
+  const token = extractSessionToken(req);
   const session = verifySession(token);
   if (session) {
     const db = getDb();
@@ -135,16 +154,6 @@ function sanitizeText(input: unknown, maxLen = 500): string {
     .replace(/[\u0000-\u001F\u007F]/g, ' ')
     .trim()
     .slice(0, maxLen);
-}
-
-function isStrongPassword(password: unknown): password is string {
-  return (
-    typeof password === 'string' &&
-    password.length >= 8 &&
-    password.length <= 128 &&
-    /[A-Za-z]/.test(password) &&
-    /\d/.test(password)
-  );
 }
 
 function sanitizeHttpUrl(input: unknown): string {
@@ -252,20 +261,29 @@ const authRateLimit = createRateLimiter(25, 60_000);
 const apiRateLimit = createRateLimiter(300, 60_000);
 const logoRateLimit = createRateLimiter(600, 60_000);
 
-function setSessionCookie(req: Request, res: Response, user: StoredUser): void {
-  const token = signSession({
+function createSessionToken(user: StoredUser): string {
+  return signSession({
     uid: user.id,
     role: user.role,
     exp: Date.now() + 7 * 24 * 60 * 60 * 1000,
   });
-  const secureCookie = isHttpsRequest(req) && process.env.NODE_ENV === 'production';
-  res.cookie(SESSION_COOKIE, token, {
+}
+
+function getSessionCookieOptions(req: Request) {
+  const https = isHttpsRequest(req);
+  return {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: secureCookie,
+    sameSite: (https ? 'none' : 'lax') as 'none' | 'lax',
+    secure: https,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/',
-  });
+  };
+}
+
+function setSessionCookie(req: Request, res: Response, user: StoredUser): string {
+  const token = createSessionToken(user);
+  res.cookie(SESSION_COOKIE, token, getSessionCookieOptions(req));
+  return token;
 }
 
 function buildProductionCsp(isHttps: boolean): string {
@@ -324,14 +342,6 @@ async function startServer() {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
-  app.use(
-    compression({
-      filter: (req, res) => {
-        if (req.path === '/api/stream/market') return false;
-        return compression.filter(req, res);
-      },
-    })
-  );
 
   // Block accidental direct requests to backend/config source paths before Vite/static middleware
   app.use((req, res, next) => {
@@ -374,10 +384,41 @@ async function startServer() {
     next();
   });
 
-  // CORS & CSRF Origin verification on API requests (supports same-origin + optional CORS_ALLOWED_ORIGINS)
+  const PUBLIC_READ_PATHS = [
+    '/health',
+    '/public-config',
+    '/automation/status',
+    '/market',
+    '/ipos',
+    '/stocks',
+    '/search',
+    '/insights',
+    '/blogs',
+    '/company-logo',
+    '/stream/market',
+  ];
+
+  const PUBLIC_AUTH_AND_CONTACT_PATHS = [
+    '/auth/login',
+    '/auth/register',
+    '/auth/forgot-password',
+    '/auth/logout',
+    '/auth/me',
+    '/contact',
+  ];
+
+  // CORS & CSRF Origin verification on API requests (supports same-origin, CORS_ALLOWED_ORIGINS, Bearer-authenticated SPA calls, and public GET market/logo data)
   app.use('/api', (req, res, next) => {
     const origin = req.get('origin');
-    if (origin && isAllowedOrigin(req, origin)) {
+    const isPublicRead =
+      (req.method === 'GET' || req.method === 'HEAD' || req.method === 'OPTIONS') &&
+      PUBLIC_READ_PATHS.some((p) => req.path === p || req.path.startsWith(`${p}/`));
+    const isAuthOrContactPath = PUBLIC_AUTH_AND_CONTACT_PATHS.some((p) => req.path === p);
+    const hasBearerAuth =
+      (req.get('authorization') || '').toLowerCase().startsWith('bearer ') ||
+      (req.get('access-control-request-headers') || '').toLowerCase().includes('authorization');
+
+    if (origin && (isAllowedOrigin(req, origin) || isAuthOrContactPath || hasBearerAuth)) {
       res.setHeader('Access-Control-Allow-Origin', origin);
       res.setHeader('Vary', 'Origin');
       res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -387,9 +428,18 @@ async function startServer() {
         res.status(204).end();
         return;
       }
+    } else if (isPublicRead) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      if (req.method === 'OPTIONS') {
+        res.status(204).end();
+        return;
+      }
     }
     if (['POST', 'PATCH', 'PUT', 'DELETE'].includes(req.method)) {
-      if (origin && !isAllowedOrigin(req, origin)) {
+      const hasExplicitBearer = (req.get('authorization') || '').toLowerCase().startsWith('bearer ');
+      if (origin && !isAllowedOrigin(req, origin) && !isAuthOrContactPath && !hasExplicitBearer) {
         res.status(403).json({ error: 'Cross-origin request blocked by security policy.' });
         return;
       }
@@ -418,25 +468,14 @@ async function startServer() {
     const db = getDb();
     const uni = getLiveUniverseSnapshot();
     const auto = getAutomationStatus();
-    const mem = process.memoryUsage();
     res.json({
       status: 'ok',
       platform: 'PriceAlerter',
-      environment: process.env.NODE_ENV || 'development',
-      uptimeSec: Math.round(process.uptime()),
-      memoryRssMb: Math.round(mem.rss / (1024 * 1024)),
       timestamp: new Date().toISOString(),
-      persistence: {
-        ready: fs.existsSync(getDbFilePath()),
-        customDataDir: Boolean(process.env.DATA_DIR?.trim()),
-      },
-      mailerConfigured: isMailerConfigured(),
       automation: {
         running: auto.running,
         marketSession: auto.marketSession,
         istTimeLabel: auto.istTimeLabel,
-        cycles: auto.cycles,
-        lastRunAt: auto.lastRunAt,
       },
       counts: {
         ipos: db.ipos.filter((i) => !i.archived).length,
@@ -497,20 +536,6 @@ async function startServer() {
     res.type('text/plain').send(
       [
         'User-agent: Mediapartners-Google',
-        'Allow: /',
-        '',
-        'User-agent: Googlebot',
-        'Allow: /',
-        'Disallow: /admin',
-        'Disallow: /api/',
-        '',
-        'User-agent: Googlebot-Image',
-        'Allow: /',
-        '',
-        'User-agent: Google-Favicon',
-        'Allow: /',
-        '',
-        'User-agent: Google-Extended',
         'Allow: /',
         '',
         'User-agent: *',
@@ -633,19 +658,6 @@ async function startServer() {
       db.contactMessages = db.contactMessages.slice(0, 500);
     }
     saveDb();
-    void sendContactNotificationEmail({
-      ticketId: ticket.id,
-      name: ticket.name,
-      email: ticket.email,
-      topic: ticket.topic,
-      message: ticket.message,
-    });
-    void dispatchWebhookNotification('contact_ticket', {
-      ticketId: ticket.id,
-      name: ticket.name,
-      email: ticket.email,
-      topic: ticket.topic,
-    });
     res.status(201).json({
       ticketId: ticket.id,
       receivedAt: ticket.createdAt,
@@ -767,10 +779,13 @@ async function startServer() {
   const ALLOWED_LOGO_HOSTS = new Set([
     'assets-netstorage.groww.in',
     'groww.in',
+    'storage.googleapis.com',
     'static.tickertape.in',
     'images.dhan.co',
+    's3-symbol-logo.tradingview.com',
     'cdn.zerodha.com',
-    'storage.googleapis.com',
+    'cdn.nseindia.com',
+    's3-ap-south-1.amazonaws.com',
   ]);
   const LOGO_STOP_WORDS = new Set([
     'LTD',
@@ -840,6 +855,7 @@ async function startServer() {
   async function tryFetchUpstreamLogo(candidateUrl: string): Promise<{
     contentType: string;
     data: Buffer;
+    url: string;
   } | null> {
     try {
       const parsed = new URL(candidateUrl);
@@ -847,7 +863,7 @@ async function startServer() {
         return null;
       }
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 2800);
+      const timer = setTimeout(() => controller.abort(), 2200);
       try {
         const upstream = await fetch(parsed.toString(), {
           signal: controller.signal,
@@ -861,13 +877,26 @@ async function startServer() {
         if (!ct.startsWith('image/')) return null;
         const arr = Buffer.from(await upstream.arrayBuffer());
         if (arr.length < 80) return null;
-        return { contentType: ct, data: arr };
+        return { contentType: ct, data: arr, url: parsed.toString() };
       } finally {
         clearTimeout(timer);
       }
     } catch {
       return null;
     }
+  }
+
+  async function resolveFirstValidLogo(
+    urls: string[]
+  ): Promise<{ contentType: string; data: Buffer; url: string } | null> {
+    if (urls.length === 0) return null;
+    const settled = await Promise.allSettled(urls.map((u) => tryFetchUpstreamLogo(u)));
+    for (const r of settled) {
+      if (r.status === 'fulfilled' && r.value) {
+        return r.value;
+      }
+    }
+    return null;
   }
 
   app.get('/api/company-logo', logoRateLimit, async (req, res) => {
@@ -878,16 +907,30 @@ async function startServer() {
     const rawName = typeof req.query.name === 'string' ? req.query.name.trim() : '';
     const rawColor = typeof req.query.color === 'string' ? req.query.color.trim() : '';
 
+    // Auto-enrich missing metadata (logoUrl, bseCode, searchId, companyName) from live stock universe
+    const lookupKey = rawSym || rawBse;
+    const matchedStock = lookupKey ? findStockInUniverse(lookupKey) : undefined;
+
+    const effectiveSym = (matchedStock?.symbol || rawSym).trim().toUpperCase();
     const alphaSym =
-      rawSym && !/^\d+$/.test(rawSym) && /^[A-Z0-9&-]{1,24}$/.test(rawSym) ? rawSym : '';
-    const bse6 = /^\d{6}$/.test(rawBse)
-      ? rawBse
+      effectiveSym && !/^\d+$/.test(effectiveSym) && /^[A-Z0-9&-]{1,24}$/.test(effectiveSym)
+        ? effectiveSym
+        : '';
+    const candidateBse = rawBse || matchedStock?.bseCode || '';
+    const bse6 = /^\d{6}$/.test(candidateBse)
+      ? candidateBse
       : /^\d{6}$/.test(rawSym)
         ? rawSym
         : '';
+    const effectiveSearchId = rawSearchId || matchedStock?.searchId || '';
+    const effectiveName = rawName || matchedStock?.companyName || '';
+    const effectiveUrl = rawUrl || matchedStock?.logoUrl || '';
 
-    const { initials, bg } = computeMonogramAndColor(rawName, alphaSym || rawSym, rawColor);
-    const cacheKey = `${rawUrl}|${alphaSym}|${bse6}|${rawSearchId}|${initials}|${bg}`;
+    const { initials, bg } = computeMonogramAndColor(effectiveName, alphaSym || rawSym, rawColor);
+    const cacheKey = `${effectiveUrl}|${alphaSym}|${bse6}|${effectiveSearchId}|${initials}|${bg}`;
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
 
     const cached = companyLogoCache.get(cacheKey);
     if (cached) {
@@ -900,110 +943,67 @@ async function startServer() {
       }
     }
 
-    const tryReadLocalAsset = (assetPath: string): { contentType: string; data: Buffer } | null => {
-      if (!assetPath.startsWith('/assets/')) return null;
-      const cleanRel = assetPath.split('?')[0].replace(/^\/+/, '');
-      const fullPath = path.resolve(process.cwd(), 'public', cleanRel);
-      const publicRoot = path.resolve(process.cwd(), 'public', 'assets');
-      if (!fullPath.startsWith(publicRoot) || !fs.existsSync(fullPath)) return null;
-      const ext = path.extname(fullPath).toLowerCase();
-      const ct =
-        ext === '.webp'
-          ? 'image/webp'
-          : ext === '.svg'
-            ? 'image/svg+xml'
-            : ext === '.jpg' || ext === '.jpeg'
-              ? 'image/jpeg'
-              : 'image/png';
-      return { contentType: ct, data: fs.readFileSync(fullPath) };
+    const candidates: string[] = [];
+    const seenCandidates = new Set<string>();
+    const addCandidate = (u?: string | null) => {
+      if (!u || seenCandidates.has(u)) return;
+      seenCandidates.add(u);
+      candidates.push(u);
     };
 
-    const candidates: string[] = [];
-    const safeRawUrl = rawUrl && !rawUrl.startsWith('/api/company-logo') ? rawUrl : '';
-    let resolved: { contentType: string; data: Buffer } | null = safeRawUrl.startsWith('/assets/')
-      ? tryReadLocalAsset(safeRawUrl)
-      : null;
+    const cachedDiskLogo = getCachedLogoUrl(alphaSym || rawSym, bse6);
+    addCandidate(normalizeGrowwLogoUrl(effectiveUrl) || (effectiveUrl.startsWith('https://') ? effectiveUrl : null));
+    addCandidate(cachedDiskLogo);
 
-    if (!resolved) {
-      const staticAsset = resolveStaticMoverLogo(alphaSym || rawSym, rawName);
-      if (staticAsset) {
-        resolved = tryReadLocalAsset(staticAsset);
+    if (alphaSym) {
+      const enc = encodeURIComponent(alphaSym);
+      addCandidate(`https://assets-netstorage.groww.in/stock-assets/logos2/${enc}.webp`);
+      addCandidate(`https://assets-netstorage.groww.in/stock-assets/logos2/${enc}.png`);
+      addCandidate(`https://assets-netstorage.groww.in/stock-assets/logos/${enc}.png`);
+      addCandidate(`https://images.dhan.co/symbol/${enc}.png`);
+    }
+    if (bse6) {
+      addCandidate(`https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`);
+      addCandidate(`https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`);
+    }
+
+    // Check high-priority CDN candidates concurrently for fast response
+    let resolved = await resolveFirstValidLogo(candidates);
+
+    // Fallback 1: Resolve authoritative Groww logoUrl from company searchId
+    if (!resolved && effectiveSearchId) {
+      const searchLogo = await resolveGrowwLogoBySearchId(effectiveSearchId);
+      if (searchLogo && !seenCandidates.has(searchLogo)) {
+        seenCandidates.add(searchLogo);
+        resolved = await tryFetchUpstreamLogo(searchLogo);
       }
     }
 
-    if (!resolved) {
-      const normalizedExplicit = safeRawUrl ? normalizeGrowwLogoUrl(safeRawUrl) : null;
-      if (normalizedExplicit) candidates.push(normalizedExplicit);
-      if (alphaSym) {
-        candidates.push(
-          `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`,
-          `https://images.dhan.co/symbol/${encodeURIComponent(alphaSym)}.png`,
-          `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
-          `https://static.tickertape.in/stock-logos/${encodeURIComponent(alphaSym)}.png`
-        );
+    // Fallback 2: TradingView company symbol logo CDN
+    if (!resolved && (alphaSym || effectiveName)) {
+      const tvSlugs = new Set<string>();
+      const cleanBrand = effectiveName
+        .toLowerCase()
+        .replace(/\b(limited|ltd|private|pvt|india|industries|enterprises|corp|corporation|holdings|services|solutions|technologies|systems)\b/g, ' ')
+        .replace(/[^a-z0-9\s]+/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+      if (cleanBrand.length >= 1) {
+        tvSlugs.add(cleanBrand.slice(0, 2).join('-'));
+        tvSlugs.add(cleanBrand[0]);
       }
-      if (bse6) {
-        candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`);
+      if (alphaSym && alphaSym.length >= 3) {
+        tvSlugs.add(alphaSym.toLowerCase());
       }
-
-      for (const url of candidates) {
-        resolved = await tryFetchUpstreamLogo(url);
-        if (resolved) break;
-      }
+      const tvUrls = Array.from(tvSlugs)
+        .filter((s) => s.length >= 2 && s.length <= 40)
+        .map((s) => `https://s3-symbol-logo.tradingview.com/${encodeURIComponent(s)}--big.svg`);
+      resolved = await resolveFirstValidLogo(tvUrls);
     }
 
-    if (!resolved) {
-      const db = getDb();
-      const matchedStock =
-        (alphaSym ? db.stocks.find((s) => s.symbol.toUpperCase() === alphaSym) : undefined) ||
-        (bse6 ? db.stocks.find((s) => s.bseCode === bse6) : undefined);
-      const stockLogo =
-        matchedStock?.logoUrl && !matchedStock.logoUrl.startsWith('/api/')
-          ? matchedStock.logoUrl
-          : null;
-      if (stockLogo) {
-        resolved = stockLogo.startsWith('/assets/')
-          ? tryReadLocalAsset(stockLogo)
-          : await tryFetchUpstreamLogo(stockLogo);
-      }
-
-      if (!resolved) {
-        const cleanNameKey = rawName.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const matchedIpo = db.ipos.find(
-          (i) =>
-            (rawSearchId && i.slug === rawSearchId) ||
-            (alphaSym && i.listing.stockSymbol?.toUpperCase() === alphaSym) ||
-            (cleanNameKey.length >= 6 &&
-              i.companyName.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cleanNameKey))
-        );
-        const ipoLogo =
-          matchedIpo?.logoUrl && !matchedIpo.logoUrl.startsWith('/api/')
-            ? matchedIpo.logoUrl
-            : null;
-        if (ipoLogo) {
-          resolved = ipoLogo.startsWith('/assets/')
-            ? tryReadLocalAsset(ipoLogo)
-            : await tryFetchUpstreamLogo(ipoLogo);
-        }
-      }
-    }
-
-    if (!resolved && rawSearchId) {
-      const searchLogo = await resolveGrowwLogoBySearchId(rawSearchId);
-      if (searchLogo && !candidates.includes(searchLogo)) {
-        resolved = searchLogo.startsWith('/assets/')
-          ? tryReadLocalAsset(searchLogo)
-          : await tryFetchUpstreamLogo(searchLogo);
-      }
-    }
-
-    if (!resolved && (alphaSym || bse6)) {
-      const symbolLogo = await resolveGrowwLogoBySymbol(alphaSym || bse6);
-      if (symbolLogo && !candidates.includes(symbolLogo)) {
-        resolved = symbolLogo.startsWith('/assets/')
-          ? tryReadLocalAsset(symbolLogo)
-          : await tryFetchUpstreamLogo(symbolLogo);
-      }
+    if (resolved) {
+      recordVerifiedLogoUrl(alphaSym || rawSym, bse6, resolved.url);
     }
 
     const entry = resolved
@@ -1114,7 +1114,7 @@ async function startServer() {
 
   // --- Authentication ---
   app.post('/api/auth/register', authRateLimit, async (req, res) => {
-    const { name, email, password } = req.body as {
+    const { name, email, password } = (req.body || {}) as {
       name?: string;
       email?: string;
       password?: string;
@@ -1129,10 +1129,8 @@ async function startServer() {
       res.status(400).json({ error: 'Please provide a valid email address.' });
       return;
     }
-    if (!isStrongPassword(password)) {
-      res.status(400).json({
-        error: 'Password must be at least 8 characters and include both letters and numbers.',
-      });
+    if (!password || typeof password !== 'string' || password.length < 6) {
+      res.status(400).json({ error: 'Password must be at least 6 characters long.' });
       return;
     }
 
@@ -1160,14 +1158,14 @@ async function startServer() {
     };
     db.users.push(newUser);
     saveDb();
-    setSessionCookie(req, res, newUser);
-    res.status(201).json({ user: sanitizeUser(newUser) });
+    const token = setSessionCookie(req, res, newUser);
+    res.status(201).json({ user: sanitizeUser(newUser), token });
   });
 
   app.post('/api/auth/login', authRateLimit, async (req, res) => {
-    const { email, password } = req.body as { email?: string; password?: string };
+    const { email, password } = (req.body || {}) as { email?: string; password?: string };
     const cleanEmail = typeof email === 'string' ? email.trim().toLowerCase() : '';
-    if (!cleanEmail || !password) {
+    if (!cleanEmail || typeof password !== 'string' || !password) {
       res.status(400).json({ error: 'Email and password are required.' });
       return;
     }
@@ -1177,167 +1175,28 @@ async function startServer() {
       res.status(401).json({ error: 'Invalid email or password.' });
       return;
     }
-    setSessionCookie(req, res, user);
-    res.json({ user: sanitizeUser(user) });
+    const token = setSessionCookie(req, res, user);
+    res.json({ user: sanitizeUser(user), token });
   });
 
   app.post('/api/auth/logout', (req, res) => {
-    res.clearCookie(SESSION_COOKIE, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: isHttpsRequest(req) && process.env.NODE_ENV === 'production',
-      path: '/',
-    });
+    const { maxAge: _omit, ...clearOpts } = getSessionCookieOptions(req);
+    res.clearCookie(SESSION_COOKIE, clearOpts);
     res.json({ ok: true });
   });
 
-  app.post('/api/auth/forgot-password', authRateLimit, async (req, res) => {
-    const { email } = req.body as { email?: string };
+  app.post('/api/auth/forgot-password', authRateLimit, (req, res) => {
+    const { email } = (req.body || {}) as { email?: string };
     const cleanEmail = typeof email === 'string' ? email.trim().toLowerCase() : '';
     if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       res.status(400).json({ error: 'Enter a valid registered email address.' });
       return;
     }
-    const db = getDb();
-    const user = db.users.find((u) => u.email.toLowerCase() === cleanEmail);
-    if (user) {
-      const rawToken = crypto.randomBytes(32).toString('hex');
-      user.passwordResetTokenHash = crypto
-        .createHash('sha256')
-        .update(rawToken)
-        .digest('hex');
-      user.passwordResetExpiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
-      saveDb();
-
-      const resetUrl = `${resolveSiteBaseUrl(req)}/login?resetToken=${encodeURIComponent(rawToken)}`;
-      const delivered = await sendPasswordResetEmail({
-        to: user.email,
-        name: user.name,
-        resetUrl,
-      });
-      if (!delivered) {
-        console.info(
-          `[Auth] Password reset token generated for ${user.email} (SMTP/Resend not configured).`
-        );
-      }
-    }
-    // Never reveal whether email exists
+    // Never reveal whether email exists; record honest message
     res.json({
-      message: isMailerConfigured()
-        ? 'If an account matches this email, a password reset link has been sent to your inbox.'
-        : 'Password reset token queued. Configure SMTP or RESEND_API_KEY in environment variables to deliver reset emails automatically.',
+      message:
+        'If an account matches this email, password reset instructions have been queued for verification.',
     });
-  });
-
-  app.post('/api/auth/reset-password', authRateLimit, async (req, res) => {
-    const { token, newPassword } = req.body as { token?: string; newPassword?: string };
-    const cleanToken = typeof token === 'string' ? token.trim() : '';
-    if (!cleanToken || cleanToken.length < 32) {
-      res.status(400).json({ error: 'Invalid or expired password reset token.' });
-      return;
-    }
-    if (!isStrongPassword(newPassword)) {
-      res.status(400).json({
-        error: 'New password must be at least 8 characters and include both letters and numbers.',
-      });
-      return;
-    }
-
-    const tokenHash = crypto.createHash('sha256').update(cleanToken).digest('hex');
-    const db = getDb();
-    const now = Date.now();
-    const user = db.users.find(
-      (u) =>
-        u.passwordResetTokenHash === tokenHash &&
-        u.passwordResetExpiresAt &&
-        new Date(u.passwordResetExpiresAt).getTime() > now
-    );
-    if (!user) {
-      res.status(400).json({ error: 'Reset token is invalid or has expired. Please request a new one.' });
-      return;
-    }
-
-    user.passwordHash = await bcrypt.hash(newPassword, 10);
-    user.passwordResetTokenHash = null;
-    user.passwordResetExpiresAt = null;
-    saveDb();
-    setSessionCookie(req, res, user);
-    res.json({
-      user: sanitizeUser(user),
-      message: 'Your password has been updated and you are now signed in.',
-    });
-  });
-
-  app.post('/api/auth/change-password', requireAuth, async (req: AuthedRequest, res) => {
-    const { currentPassword, newPassword } = req.body as {
-      currentPassword?: string;
-      newPassword?: string;
-    };
-    if (!currentPassword || !newPassword) {
-      res.status(400).json({ error: 'Current password and new password are required.' });
-      return;
-    }
-    if (!isStrongPassword(newPassword)) {
-      res.status(400).json({
-        error: 'New password must be at least 8 characters and include both letters and numbers.',
-      });
-      return;
-    }
-    const db = getDb();
-    const user = db.users.find((u) => u.id === req.currentUser!.id);
-    if (!user || !(await bcrypt.compare(currentPassword, user.passwordHash))) {
-      res.status(401).json({ error: 'Current password is incorrect.' });
-      return;
-    }
-    user.passwordHash = await bcrypt.hash(newPassword, 10);
-    user.passwordResetTokenHash = null;
-    user.passwordResetExpiresAt = null;
-    saveDb();
-    res.json({ message: 'Password updated successfully.' });
-  });
-
-  app.get('/api/auth/export-data', requireAuth, (req: AuthedRequest, res) => {
-    const db = getDb();
-    const uid = req.currentUser!.id;
-    res.json({
-      exportedAt: new Date().toISOString(),
-      account: sanitizeUser(req.currentUser!),
-      watchlist: db.watchlists.filter((w) => w.userId === uid),
-      priceAlerts: db.priceAlerts.filter((a) => a.userId === uid),
-      notifications: db.notifications.filter((n) => n.userId === uid),
-    });
-  });
-
-  app.delete('/api/auth/account', requireAuth, async (req: AuthedRequest, res) => {
-    const { password } = req.body as { password?: string };
-    const db = getDb();
-    const uid = req.currentUser!.id;
-    if (uid === 'usr-admin-root') {
-      res.status(403).json({ error: 'Primary compliance administrator account cannot be deleted.' });
-      return;
-    }
-    const userIdx = db.users.findIndex((u) => u.id === uid);
-    if (userIdx === -1) {
-      res.status(404).json({ error: 'Account not found.' });
-      return;
-    }
-    const user = db.users[userIdx];
-    if (!password || !(await bcrypt.compare(password, user.passwordHash))) {
-      res.status(401).json({ error: 'Please enter your current password to confirm deletion.' });
-      return;
-    }
-    db.users.splice(userIdx, 1);
-    db.watchlists = db.watchlists.filter((w) => w.userId !== uid);
-    db.priceAlerts = db.priceAlerts.filter((a) => a.userId !== uid);
-    db.notifications = db.notifications.filter((n) => n.userId !== uid);
-    saveDb();
-    res.clearCookie(SESSION_COOKIE, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: isHttpsRequest(req) && process.env.NODE_ENV === 'production',
-      path: '/',
-    });
-    res.json({ ok: true });
   });
 
   app.get('/api/auth/me', (req: AuthedRequest, res) => {
@@ -1345,7 +1204,8 @@ async function startServer() {
       res.json({ user: null });
       return;
     }
-    res.json({ user: sanitizeUser(req.currentUser) });
+    const token = createSessionToken(req.currentUser);
+    res.json({ user: sanitizeUser(req.currentUser), token });
   });
 
   app.patch('/api/auth/preferences', requireAuth, (req: AuthedRequest, res) => {
@@ -2061,43 +1921,7 @@ async function startServer() {
     res.json({ updated, importLog: db.importLogs[0] });
   });
 
-  const KNOWN_STATIC_PATHS = new Set([
-    '/',
-    '/dashboard',
-    '/ipo',
-    '/ipo/mainboard',
-    '/ipo/sme',
-    '/ipo/upcoming',
-    '/ipo/open',
-    '/ipo/closed',
-    '/ipo/listed',
-    '/gmp',
-    '/live-prices',
-    '/nse-stocks',
-    '/bse-stocks',
-    '/listed',
-    '/stock-screener',
-    '/screener',
-    '/calendar',
-    '/market-insights',
-    '/blog',
-    '/calculators',
-    '/watchlist',
-    '/alerts',
-    '/profile',
-    '/login',
-    '/register',
-    '/admin',
-    '/privacy',
-    '/cookies',
-    '/terms',
-    '/about',
-    '/contact',
-    '/disclaimer',
-    '/editorial-policy',
-  ]);
-
-  function injectSeoHtml(rawHtml: string, req: Request): { html: string; statusCode: number } {
+  function injectSeoHtml(rawHtml: string, req: Request): string {
     const base = resolveSiteBaseUrl(req);
     const cleanPath = req.path === '/' ? '/' : req.path.replace(/\/+$/, '');
     const canonicalUrl = `${base}${cleanPath}`;
@@ -2108,27 +1932,16 @@ async function startServer() {
     let pageDesc =
       'Discover upcoming Indian IPOs, track Grey Market Premium (GMP) history, monitor NSE and BSE listed companies, and analyse listing gains with PriceAlerter.';
     let noIndex = false;
-    let statusCode = 200;
 
-    const noIndexPrefixes = ['/login', '/register', '/profile', '/watchlist', '/alerts', '/admin'];
+    const noIndexPrefixes = ['/login', '/signin', '/register', '/signup', '/profile', '/watchlist', '/alerts', '/admin'];
     if (noIndexPrefixes.some((prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`))) {
       noIndex = true;
-    } else if (KNOWN_STATIC_PATHS.has(cleanPath)) {
-      statusCode = 200;
-    } else if (cleanPath.startsWith('/calculators/')) {
-      statusCode = 200;
-    } else if (cleanPath.startsWith('/ipo/') || cleanPath.startsWith('/gmp/')) {
-      const slug = cleanPath.startsWith('/ipo/') ? cleanPath.slice(5) : cleanPath.slice(5);
-      const ipo = db.ipos.find((i) => !i.archived && i.slug === slug);
+    } else if (cleanPath.startsWith('/ipo/')) {
+      const slug = cleanPath.slice(5);
+      const ipo = db.ipos.find((i) => i.slug === slug);
       if (ipo) {
-        pageTitle = cleanPath.startsWith('/gmp/')
-          ? `${ipo.companyName} IPO GMP Today & Kostak Rates | PriceAlerter`
-          : `${ipo.companyName} IPO – Price Band, GMP, Subscription & Valuation | PriceAlerter`;
+        pageTitle = `${ipo.companyName} IPO – Price Band, GMP, Subscription & Valuation | PriceAlerter`;
         pageDesc = `Complete IPO research for ${ipo.companyName}: price band, issue size, subscription trend, 3-year financials, peer valuation, and official RHP links.`;
-      } else {
-        statusCode = 404;
-        noIndex = true;
-        pageTitle = 'IPO Not Found | PriceAlerter';
       }
     } else if (cleanPath.startsWith('/stock/')) {
       const sym = decodeURIComponent(cleanPath.slice(7)).toUpperCase();
@@ -2139,10 +1952,6 @@ async function startServer() {
       if (stk) {
         pageTitle = `${stk.companyName} (${stk.symbol}) Live Share Price & Financials | PriceAlerter`;
         pageDesc = `Live NSE & BSE share price, circuit limits, financials, shareholding pattern, and peer comparison for ${stk.companyName}.`;
-      } else {
-        statusCode = 404;
-        noIndex = true;
-        pageTitle = 'Stock Symbol Not Found | PriceAlerter';
       }
     } else if (cleanPath.startsWith('/blog/')) {
       const slug = cleanPath.slice(6);
@@ -2150,10 +1959,6 @@ async function startServer() {
       if (art) {
         pageTitle = `${art.title} | PriceAlerter`;
         pageDesc = art.metaDescription;
-      } else {
-        statusCode = 404;
-        noIndex = true;
-        pageTitle = 'Article Not Found | PriceAlerter';
       }
     } else if (cleanPath.startsWith('/market-insights/')) {
       const slug = cleanPath.slice('/market-insights/'.length);
@@ -2161,15 +1966,7 @@ async function startServer() {
       if (ins) {
         pageTitle = `${ins.title} | PriceAlerter`;
         pageDesc = ins.summary;
-      } else {
-        statusCode = 404;
-        noIndex = true;
-        pageTitle = 'Market Insight Not Found | PriceAlerter';
       }
-    } else {
-      statusCode = 404;
-      noIndex = true;
-      pageTitle = '404 Page Not Found | PriceAlerter';
     }
 
     const robotsContent = noIndex
@@ -2181,19 +1978,7 @@ async function startServer() {
         ? `<meta name="google-site-verification" content="${escapeHtmlAttr(verificationToken)}" />`
         : '';
 
-    const rawAdClient = (
-      process.env.ADSENSE_PUBLISHER_ID ||
-      process.env.VITE_ADSENSE_CLIENT_ID ||
-      ''
-    ).trim();
-    const adMatch = rawAdClient.match(/^(?:ca-)?(pub-\d{10,20})$/);
-    const effectiveAdClient = adMatch ? `ca-${adMatch[1]}` : null;
-
     let html = rawHtml;
-    html = html.replace(/https:\/\/pricealerter\.in\/og-image\.png/gi, `${base}/og-image.png`);
-    if (effectiveAdClient) {
-      html = html.replace(/ca-pub-\d{10,20}/g, effectiveAdClient);
-    }
     html = html.replace(
       /<title>[\s\S]*?<\/title>/i,
       `<title>${escapeHtmlAttr(pageTitle)}</title>`
@@ -2247,7 +2032,7 @@ async function startServer() {
         description: pageDesc,
       }).replace(/</g, '\\u003c')}</script>`
     );
-    return { html, statusCode };
+    return html;
   }
 
   app.use('/api', (_req, res) => {
@@ -2295,8 +2080,7 @@ async function startServer() {
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         res.setHeader('CDN-Cache-Control', 'no-store');
         res.setHeader('Cloudflare-CDN-Cache-Control', 'no-store');
-        const seo = injectSeoHtml(rawHtml, req);
-        res.status(seo.statusCode).type('text/html').send(seo.html);
+        res.type('text/html').send(injectSeoHtml(rawHtml, req));
       } else {
         res.status(404).send('Build output missing. Run npm run build.');
       }
@@ -2311,33 +2095,10 @@ async function startServer() {
     }
   });
 
-  const server = app.listen(PORT, '0.0.0.0', () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`PriceAlerter server running on http://0.0.0.0:${PORT}`);
     startAutomationEngine();
   });
-
-  let shuttingDown = false;
-  const gracefulShutdown = (signal: string) => {
-    if (shuttingDown) return;
-    shuttingDown = true;
-    console.log(`[Lifecycle] Received ${signal}; closing server and flushing state...`);
-    stopAutomationEngine();
-    try {
-      flushDbSync();
-    } catch (err) {
-      console.error('[Lifecycle] DB flush error:', err instanceof Error ? err.message : err);
-    }
-    server.close(() => {
-      process.exit(0);
-    });
-    const forceTimer = setTimeout(() => {
-      process.exit(0);
-    }, 5000);
-    forceTimer.unref();
-  };
-
-  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 }
 
 startServer();

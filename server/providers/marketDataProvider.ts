@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import zlib from 'node:zlib';
 import type {
   ExchangeLiveQuote,
@@ -10,13 +12,8 @@ import type {
   StockPeerComparison,
   StockRegistryMetadata,
   StockShareholdingQuarter,
-  StockAnnouncement,
 } from '../../src/types/financial.ts';
 import { createId, getDb, saveDb } from '../db/database.ts';
-import {
-  dispatchWebhookNotification,
-  sendPriceAlertEmail,
-} from '../services/mailerService.ts';
 
 interface YahooChartResponse {
   chart?: {
@@ -249,11 +246,124 @@ const bseBhavBySym = new Map<string, BhavcopyEntry>();
 let bhavcopyLastSynced = 0;
 let inflightBhavcopySync: Promise<void> | null = null;
 
-// Per-symbol live quote cache for stocks hydrated via accord_points outside Groww all_stocks
+// Per-symbol live quote cache for stocks hydrated via accord_points / Yahoo outside Groww all_stocks
 const liveQuoteHydrationCache = new Map<
   string,
   { quote: ExchangeLiveQuote; fetchedAt: number }
 >();
+
+// Persistent disk enrichment cache (industryCode -> industryName, verified logoUrls, fundamentals, hydrated quotes)
+interface CachedStockEnrichment {
+  searchId?: string;
+  sector?: string;
+  industry?: string;
+  logoUrl?: string | null;
+  marketCapCr?: number | null;
+  week52High?: number | null;
+  week52Low?: number | null;
+  fundamentals?: StockInstrument['fundamentals'];
+  companyProfile?: StockCompanyProfile | null;
+  updatedAt: string;
+}
+
+interface MarketEnrichmentStore {
+  industryCodes: Record<string, string>;
+  logos: Record<string, string>;
+  details: Record<string, CachedStockEnrichment>;
+  quotes: Record<string, { quote: ExchangeLiveQuote; fetchedAt: number }>;
+}
+
+const ENRICHMENT_FILE = path.resolve(process.cwd(), 'server', 'data', 'market-enrichment.json');
+let enrichmentStore: MarketEnrichmentStore | null = null;
+let enrichmentSaveTimer: ReturnType<typeof setTimeout> | null = null;
+const industryCodeSamples = new Map<number, string>();
+const negativeLogoProbeCache = new Map<string, number>();
+
+function getEnrichmentStore(): MarketEnrichmentStore {
+  if (enrichmentStore) return enrichmentStore;
+  try {
+    if (fs.existsSync(ENRICHMENT_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(ENRICHMENT_FILE, 'utf8')) as Partial<MarketEnrichmentStore>;
+      enrichmentStore = {
+        industryCodes: parsed.industryCodes || {},
+        logos: parsed.logos || {},
+        details: parsed.details || {},
+        quotes: parsed.quotes || {},
+      };
+      // Warm in-memory quote hydration cache from disk (if < 24h old)
+      const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+      for (const [sym, q] of Object.entries(enrichmentStore.quotes)) {
+        if (q && q.quote && q.fetchedAt > cutoff) {
+          liveQuoteHydrationCache.set(sym, q);
+        }
+      }
+      return enrichmentStore;
+    }
+  } catch {
+    // ignore corrupted cache and recreate cleanly
+  }
+  enrichmentStore = { industryCodes: {}, logos: {}, details: {}, quotes: {} };
+  return enrichmentStore;
+}
+
+function scheduleEnrichmentSave(): void {
+  if (enrichmentSaveTimer) return;
+  enrichmentSaveTimer = setTimeout(() => {
+    enrichmentSaveTimer = null;
+    if (!enrichmentStore) return;
+    try {
+      const dir = path.dirname(ENRICHMENT_FILE);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      const tmp = `${ENRICHMENT_FILE}.tmp`;
+      fs.writeFileSync(tmp, JSON.stringify(enrichmentStore), 'utf8');
+      fs.renameSync(tmp, ENRICHMENT_FILE);
+    } catch {
+      // ignore disk write issues in read-only environments
+    }
+  }, 1500);
+  if (typeof enrichmentSaveTimer.unref === 'function') {
+    enrichmentSaveTimer.unref();
+  }
+}
+
+export function getCachedLogoUrl(symbol?: string | null, bseCode?: string | null): string | null {
+  const store = getEnrichmentStore();
+  const sym = symbol ? symbol.trim().toUpperCase() : '';
+  const bse = bseCode && /^\d{6}$/.test(bseCode.trim()) ? bseCode.trim() : '';
+  if (sym && store.logos[sym]) return store.logos[sym];
+  if (bse && store.logos[bse]) return store.logos[bse];
+  if (sym && store.details[sym]?.logoUrl) return store.details[sym].logoUrl ?? null;
+  return null;
+}
+
+export function recordVerifiedLogoUrl(
+  symbol: string | null | undefined,
+  bseCode: string | null | undefined,
+  logoUrl: string | null | undefined
+): void {
+  const normalized = normalizeGrowwLogoUrl(logoUrl) || (logoUrl && logoUrl.startsWith('https://') ? logoUrl : null);
+  if (!normalized) return;
+  const store = getEnrichmentStore();
+  let changed = false;
+  const sym = symbol ? symbol.trim().toUpperCase() : '';
+  const bse = bseCode && /^\d{6}$/.test(bseCode.trim()) ? bseCode.trim() : '';
+  if (sym && store.logos[sym] !== normalized) {
+    store.logos[sym] = normalized;
+    changed = true;
+  }
+  if (bse && store.logos[bse] !== normalized) {
+    store.logos[bse] = normalized;
+    changed = true;
+  }
+  if (liveUniverseCache.length > 0 && (sym || bse)) {
+    for (const s of liveUniverseCache) {
+      if ((sym && s.symbol.toUpperCase() === sym) || (bse && s.bseCode === bse)) {
+        if (!s.logoUrl) s.logoUrl = normalized;
+      }
+    }
+  }
+  if (changed) scheduleEnrichmentSave();
+}
 
 function round2(n: number | null | undefined): number | null {
   if (n === null || n === undefined || !Number.isFinite(n)) return null;
@@ -533,382 +643,6 @@ function pickBestCompanyName(params: {
   return params.symbol;
 }
 
-const GROWW_INDUSTRY_SECTOR_MAP: Record<number, string> = {
-  1: 'Bearings & Industrials',
-  2: 'Agriculture & Allied',
-  3: 'Electrical Appliances',
-  4: 'Aviation',
-  6: 'Metals & Mining',
-  10: 'Auto Ancillary',
-  11: 'Automobile',
-  12: 'Automobile',
-  13: 'Automobile',
-  14: 'Automobile',
-  15: 'Banking & Finance',
-  16: 'Banking & Finance',
-  17: 'Batteries & Energy Storage',
-  18: 'Auto Ancillary',
-  19: 'Food & Beverages',
-  20: 'Electrical Equipment',
-  21: 'Chemicals',
-  22: 'Capital Goods & Engineering',
-  23: 'Cement & Construction',
-  24: 'Ceramic Products',
-  25: 'Chemicals',
-  26: 'FMCG & Consumer',
-  27: 'Capital Goods & Engineering',
-  29: 'Real Estate',
-  30: 'Electrical Appliances',
-  31: 'Consumer Electronics',
-  32: 'Food & Beverages',
-  33: 'Logistics & Transport',
-  35: 'Jewellery & Luxury',
-  36: 'Capital Goods & Engineering',
-  37: 'Cement & Construction',
-  38: 'Chemicals',
-  39: 'Electrical Equipment',
-  40: 'Refractories & Materials',
-  41: 'Electronic Manufacturers',
-  42: 'Capital Goods & Engineering',
-  43: 'Infrastructure & EPC',
-  44: 'Power & Electrical Equipment',
-  46: 'Auto Ancillary',
-  47: 'Agriculture & Allied',
-  48: 'Housing Finance',
-  49: 'Financial Services',
-  50: 'Financial Services',
-  51: 'Financial Services',
-  53: 'Power Finance & NBFC',
-  54: 'Infrastructure & EPC',
-  56: 'Auto Ancillary',
-  57: 'Building Materials',
-  59: 'Healthcare & Hospitals',
-  60: 'Hospitality & Hotels',
-  61: 'FMCG',
-  62: 'Chemicals & Industrial Gases',
-  64: 'Electronic Manufacturers',
-  65: 'Information Technology',
-  66: 'Building Materials',
-  68: 'Logistics & Transport',
-  69: 'Chemicals',
-  70: 'Retail Chains',
-  72: 'Metals & Mining',
-  73: 'Metals & Mining',
-  74: 'Oil & Gas',
-  75: 'Oil & Gas',
-  76: 'Packaging',
-  77: 'Paints & Coatings',
-  78: 'Paper & Forest Products',
-  79: 'Chemicals',
-  80: 'Pharmaceuticals',
-  82: 'Building Materials',
-  83: 'Power & Energy',
-  85: 'Paper & Forest Products',
-  86: 'Rating Agencies & Financial Services',
-  87: 'Refractories & Materials',
-  88: 'Retail & Supermarkets',
-  90: 'Maritime & Shipping',
-  91: 'Food & Beverages',
-  92: 'Metals & Mining',
-  93: 'Metals & Mining',
-  94: 'Sugar & Agri',
-  95: 'FMCG & Beverages',
-  96: 'Telecom Equipment',
-  97: 'Telecom',
-  98: 'Apparel & Textiles',
-  99: 'Capital Goods & Engineering',
-  101: 'Textiles',
-  104: 'Trading & Diversified',
-  105: 'Railways & Infrastructure',
-  106: 'Media & Entertainment',
-  107: 'Tyres & Rubber',
-  108: 'Jewellery & Luxury',
-  109: 'Building Materials',
-  110: 'Ports & Logistics',
-  111: 'Capital Goods & Engineering',
-  112: 'Media & Entertainment',
-  115: 'Aerospace & Defence',
-  143: 'Insurance',
-  144: 'Power & Energy',
-  145: 'Gas Distribution',
-  146: 'Oil, Gas & Petrochemicals',
-  148: 'Education',
-  149: 'Internet & Consumer Tech',
-  151: 'Consumer Tech',
-  155: 'Consumer Tech',
-  156: 'Aerospace & Defence',
-  157: 'Insurance',
-  158: 'Footwear & Retail',
-  160: 'Asset Management',
-  161: 'FMCG',
-  162: 'Capital Markets & FinTech',
-  164: 'Capital Goods & Engineering',
-  165: 'Infrastructure & EPC',
-  166: 'Hospitality & Hotels',
-  167: 'Information Technology',
-  168: 'Water & Enviro Infra',
-  169: 'Professional Services',
-  170: 'Telecom Equipment',
-  171: 'Financial Services',
-  172: 'Agriculture & Allied',
-  173: 'Airports & Aviation',
-  176: 'Capital Markets',
-};
-
-const TICKER_ALIASES: Record<string, string> = {
-  ZOMATO: 'ETERNAL',
-  TATAMOTORS: 'TMPV',
-  MM: 'M&M',
-  UNICOMMERCE: 'UNIECOM',
-  BAJAJAUTO: 'BAJAJ-AUTO',
-};
-
-const STATIC_MOVERS_MAP: Record<string, string> = {
-  ABB: '/assets/movers/abb.webp',
-  ADANIENSOL: '/assets/movers/adaniensol.webp',
-  ADANIENT: '/assets/movers/adani-enterprises.png',
-  ADANIGREEN: '/assets/movers/adani-green.png',
-  ADANIPORTS: '/assets/movers/adani-ports.png',
-  ADANIPOWER: '/assets/movers/adani-power.png',
-  ALEMBICLTD: '/assets/movers/alembic-pharma.png',
-  ANGELONE: '/assets/movers/angel-one.png',
-  ANTALA: '/assets/movers/antala.png',
-  APLLTD: '/assets/movers/alembic-pharma.png',
-  APOLLOHOSP: '/assets/movers/apollo-hosp.png',
-  ARAVALLILF: '/assets/movers/aravallilf.svg',
-  ASIANPAINT: '/assets/movers/asian-paints.png',
-  AVENUE: '/assets/movers/avenue-supermarts.png',
-  AVENUESUPER: '/assets/movers/avenue-supermarts.png',
-  AWFIS: '/assets/movers/awfis.png',
-  AXISBANK: '/assets/movers/axis-bank.png',
-  BAJAJAUTO: '/assets/movers/bajaj-auto.webp',
-  'BAJAJ-AUTO': '/assets/movers/bajaj-auto.webp',
-  BAJAJ_AUTO: '/assets/movers/bajaj-auto.webp',
-  BAJAJFINSV: '/assets/movers/bajajfinsv.webp',
-  BAJAJHFL: '/assets/movers/bajaj-housing.png',
-  BAJFINANCE: '/assets/movers/bajaj-finance.png',
-  BANKBARODA: '/assets/movers/bank-baroda.png',
-  BCSSL: '/assets/movers/bombay-coated-steels.png',
-  BEL: '/assets/movers/bel.png',
-  BHARTIARTL: '/assets/movers/airtel.png',
-  BHEL: '/assets/movers/bhel.png',
-  BOB: '/assets/movers/bank-baroda.png',
-  BOMBAY: '/assets/movers/bombay-coated.png',
-  BOSCHLTD: '/assets/movers/boschltd.webp',
-  BPCL: '/assets/movers/bpcl.png',
-  BRITANNIA: '/assets/movers/britannia.png',
-  BSE: '/assets/movers/bse.png',
-  C2C: '/assets/movers/c2c-advanced.png',
-  C2CADVANCED: '/assets/movers/c2c-advanced-systems.png',
-  CANARABANK: '/assets/movers/canara-bank.png',
-  CANBK: '/assets/movers/canara-bank.png',
-  CDSL: '/assets/movers/cdsl.png',
-  CHOLAFIN: '/assets/movers/cholafin.webp',
-  CIPLA: '/assets/movers/cipla.png',
-  COALINDIA: '/assets/movers/coal-india.png',
-  COASTALPRT: '/assets/movers/coastalprt.svg',
-  COCHINSHIP: '/assets/movers/cochin-shipyard.png',
-  CONCOR: '/assets/movers/concor.png',
-  CRYSTAL: '/assets/movers/crystal-crop.png',
-  CRYSTALCRO: '/assets/movers/crystal-crop.png',
-  CRYSTALCROP: '/assets/movers/crystal-crop-protection.png',
-  DECCANSOL: '/assets/movers/deccansol.svg',
-  DIVISLAB: '/assets/movers/divislab.webp',
-  DIXON: '/assets/movers/dixon.png',
-  DLF: '/assets/movers/dlf.png',
-  DMART: '/assets/movers/dmart.png',
-  EICHERMOT: '/assets/movers/eichermot.webp',
-  ENVIRO: '/assets/movers/enviro-infra.png',
-  ENVIROINFRA: '/assets/movers/enviro-infra-engineers.png',
-  ETERNAL: '/assets/movers/zomato.png',
-  EXIDE: '/assets/movers/exide.png',
-  EXIDEIND: '/assets/movers/exide.png',
-  FAZE3Q: '/assets/movers/faze-three.png',
-  FEDERALBNK: '/assets/movers/federal-bank.png',
-  FIRSTCRY: '/assets/movers/firstcry.png',
-  FLIPKART: '/assets/movers/flipkart.png',
-  FRACTAL: '/assets/movers/fractal-analytics.png',
-  GAIL: '/assets/movers/gail.png',
-  GRASIM: '/assets/movers/grasim.png',
-  HAL: '/assets/movers/hal.png',
-  HALDIRAM: '/assets/movers/haldiram.png',
-  HAVELLS: '/assets/movers/havells.png',
-  HCLTECH: '/assets/movers/hcltech.webp',
-  HDFCBANK: '/assets/movers/hdfc-bank.png',
-  HDFCLIFE: '/assets/movers/hdfc-life.png',
-  HINDALCO: '/assets/movers/hindalco.png',
-  HINDUNILVR: '/assets/movers/hul.png',
-  HINDZINC: '/assets/movers/hindustan-zinc.png',
-  HITACHI: '/assets/movers/hitachi-energy.png',
-  HYUNDAI: '/assets/movers/hyundai.png',
-  ICICIAMC: '/assets/movers/icici-bank.png',
-  ICICIBANK: '/assets/movers/icici-bank.png',
-  IDFCFIRSTB: '/assets/movers/idfc-first.png',
-  INDIGO: '/assets/movers/indigo.webp',
-  INFY: '/assets/movers/infosys.png',
-  IOC: '/assets/movers/ioc.png',
-  IRFC: '/assets/movers/irfc.png',
-  ITC: '/assets/movers/itc.png',
-  JIOFIN: '/assets/movers/jio-fin.png',
-  JSWSTEEL: '/assets/movers/jsw-steel.png',
-  JYOTICNC: '/assets/movers/jyoti-cnc.png',
-  KAYNES: '/assets/movers/kaynes.png',
-  KOTAKBANK: '/assets/movers/kotak-bank.png',
-  KRN: '/assets/movers/krn.png',
-  LAMOSAIC: '/assets/movers/lamosaic.png',
-  LAMOSAICIND: '/assets/movers/lamosaic-india.png',
-  LIC: '/assets/movers/lic.webp',
-  LICI: '/assets/movers/lici.webp',
-  LT: '/assets/movers/lt.png',
-  MM: '/assets/movers/mm.png',
-  'M&M': '/assets/movers/mm.png',
-  MANBA: '/assets/movers/manba.png',
-  MANYAVAR: '/assets/movers/vedant.png',
-  MARUTI: '/assets/movers/maruti.png',
-  MAZDOCK: '/assets/movers/mazdock.png',
-  MCX: '/assets/movers/mcx.png',
-  MERIDIANCL: '/assets/movers/meridiancl.svg',
-  MOTHERSON: '/assets/movers/motherson.webp',
-  MUTHOOTFIN: '/assets/movers/muthoot-finance.png',
-  NESTLEIND: '/assets/movers/nestle.png',
-  NTPC: '/assets/movers/ntpc.png',
-  NTPCGREEN: '/assets/movers/ntpc-green.png',
-  OLAELEC: '/assets/movers/ola-electric.png',
-  ONGC: '/assets/movers/ongc.png',
-  ORIENTTECH: '/assets/movers/orient-tech.png',
-  PFC: '/assets/movers/pfc.png',
-  PHONEPE: '/assets/movers/phonepe.png',
-  PIDILITE: '/assets/movers/pidilitind.webp',
-  PIDILITIND: '/assets/movers/pidilitind.webp',
-  PNB: '/assets/movers/pnb.png',
-  POLYCAB: '/assets/movers/polycab.png',
-  POWERGRID: '/assets/movers/power-grid.png',
-  POWERINDIA: '/assets/movers/hitachi-energy.png',
-  PREMIERENE: '/assets/movers/premier-energies.png',
-  RAJESH: '/assets/movers/rajesh-power.png',
-  RAJESHPOW: '/assets/movers/rajesh-power-services.png',
-  RAJPUTANA: '/assets/movers/rajputana.png',
-  RAJPUTANABIO: '/assets/movers/rajputana-biodiesel.png',
-  RAZORPAY: '/assets/movers/razorpay.png',
-  REC: '/assets/movers/rec.png',
-  RELIANCE: '/assets/movers/reliance.png',
-  RSYSTEMS: '/assets/movers/r-systems.png',
-  RVNL: '/assets/movers/rvnl.png',
-  SAREGAMA: '/assets/movers/saregama.png',
-  SBILIFE: '/assets/movers/sbi-life.png',
-  SBIN: '/assets/movers/sbi.png',
-  SHRIRAMFIN: '/assets/movers/shriramfin.webp',
-  SIEMENS: '/assets/movers/siemens-energy.png',
-  SOLARINDS: '/assets/movers/solarinds.png',
-  SUNPHARMA: '/assets/movers/sun-pharma.png',
-  SUZLON: '/assets/movers/suzlon.png',
-  SWIGGY: '/assets/movers/swiggy.png',
-  TATACAP: '/assets/movers/tatamotors.png',
-  TATACONSUM: '/assets/movers/tata-consumer.png',
-  TATAMOTORS: '/assets/movers/tatamotors.png',
-  TATAPOWER: '/assets/movers/tata-power.png',
-  TATASTEEL: '/assets/movers/tata-steel.png',
-  TATATECH: '/assets/movers/tata-tech.png',
-  TCS: '/assets/movers/tcs.png',
-  TECHM: '/assets/movers/techm.png',
-  TEJAS: '/assets/movers/tejas.png',
-  TEJASNET: '/assets/movers/tejas.png',
-  TITAN: '/assets/movers/titan.png',
-  TMCV: '/assets/movers/tatamotors.png',
-  TMPV: '/assets/movers/tatamotors.png',
-  TORNTPHARM: '/assets/movers/torntpharm.png',
-  TRENT: '/assets/movers/trent.png',
-  TVSMOTOR: '/assets/movers/tvsmotor.webp',
-  ULTRACEMCO: '/assets/movers/ultratech.png',
-  UNICOMMERCE: '/assets/movers/unicommerce.png',
-  UNIECOM: '/assets/movers/unicommerce.png',
-  UNIONBANK: '/assets/movers/union-bank.png',
-  VAML: '/assets/movers/vedanta.png',
-  VEDANT: '/assets/movers/vedant.png',
-  VEDANTA: '/assets/movers/vedanta.png',
-  VEDL: '/assets/movers/vedanta.png',
-  WAAREE: '/assets/movers/waaree.png',
-  WAAREEENER: '/assets/movers/waaree.png',
-  WIPRO: '/assets/movers/wipro.png',
-  ZEPTO: '/assets/movers/zepto.png',
-  ZOMATO: '/assets/movers/zomato.png',
-};
-
-export const BRAND_NAME_MOVER_LOGOS: Array<[RegExp, string]> = [
-  [/\blarsen\s*&?\s*toubro\b/i, '/assets/movers/lt.png'],
-  [/\bmahindra\s*&?\s*mahindra\b/i, '/assets/movers/mm.png'],
-  [/\bindian\s*oil\b/i, '/assets/movers/ioc.png'],
-  [/\bhindustan\s*unilever\b/i, '/assets/movers/hul.png'],
-  [/\bhindustan\s*aeronautics\b/i, '/assets/movers/hal.png'],
-  [/\bbharat\s*electronics\b/i, '/assets/movers/bel.png'],
-  [/\bbharat\s*heavy\s*electricals\b/i, '/assets/movers/bhel.png'],
-  [/\bbharat\s*petroleum\b/i, '/assets/movers/bpcl.png'],
-  [/\bstate\s*bank\s*of\s*india\b/i, '/assets/movers/sbi.png'],
-  [/\bpunjab\s*national\s*bank\b/i, '/assets/movers/pnb.png'],
-  [/\bbank\s*of\s*baroda\b/i, '/assets/movers/bank-baroda.png'],
-  [/\bhdfc\s*bank\b/i, '/assets/movers/hdfc-bank.png'],
-  [/\bicici\s*bank\b/i, '/assets/movers/icici-bank.png'],
-  [/\baxis\s*bank\b/i, '/assets/movers/axis-bank.png'],
-  [/\bkotak\s*mahindra\b/i, '/assets/movers/kotak-bank.png'],
-  [/\btata\s*consultancy\b/i, '/assets/movers/tcs.png'],
-  [/\btata\s*motors\b/i, '/assets/movers/tatamotors.png'],
-  [/\bpower\s*finance\b/i, '/assets/movers/pfc.png'],
-  [/\brec\s+limited\b/i, '/assets/movers/rec.png'],
-  [/\bmulti\s*commodity\s*exchange\b/i, '/assets/movers/mcx.png'],
-  [/\bbombay\s*stock\s*exchange\b|\bbse\s+limited\b/i, '/assets/movers/bse.png'],
-  [/\babb\s+india\b/i, '/assets/movers/abb.webp'],
-  [/\bdlf\s+limited\b/i, '/assets/movers/dlf.png'],
-  [/\bgail\s+\(?india\)?/i, '/assets/movers/gail.png'],
-  [/\bitc\s+limited\b/i, '/assets/movers/itc.png'],
-  [/\bntpc\s+green\b/i, '/assets/movers/ntpc-green.png'],
-  [/\bntpc\s+limited\b/i, '/assets/movers/ntpc.png'],
-  [/\bongc\b/i, '/assets/movers/ongc.png'],
-];
-
-export function resolveStaticMoverLogo(
-  symbol?: string | null,
-  companyName?: string | null
-): string | null {
-  const sym = (symbol || '').toUpperCase().trim();
-  if (sym && STATIC_MOVERS_MAP[sym]) {
-    return STATIC_MOVERS_MAP[sym];
-  }
-  const cleanSym = sym.replace(/[^A-Za-z0-9]/g, '');
-  if (cleanSym && STATIC_MOVERS_MAP[cleanSym]) {
-    return STATIC_MOVERS_MAP[cleanSym];
-  }
-  const name = (companyName || '').trim();
-  if (!name) return null;
-  for (const [pattern, assetPath] of BRAND_NAME_MOVER_LOGOS) {
-    if (pattern.test(name)) return assetPath;
-  }
-  const nameUpper = name.toUpperCase();
-  for (const [key, assetPath] of Object.entries(STATIC_MOVERS_MAP)) {
-    if (key.length < 4) continue;
-    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    if (new RegExp(`\\b${escaped}\\b`).test(nameUpper)) {
-      return assetPath;
-    }
-  }
-  return null;
-}
-
-export function buildStockLogoProxyUrl(opts: {
-  symbol?: string | null;
-  bseCode?: string | null;
-  searchId?: string | null;
-  companyName?: string | null;
-}): string {
-  const sp = new URLSearchParams();
-  if (opts.symbol) sp.set('symbol', opts.symbol.trim().toUpperCase());
-  if (opts.bseCode && opts.bseCode !== 'N/A' && /^\d{6}$/.test(opts.bseCode.trim())) {
-    sp.set('bseCode', opts.bseCode.trim());
-  }
-  if (opts.searchId) sp.set('searchId', opts.searchId.trim());
-  if (opts.companyName) sp.set('name', opts.companyName.trim().slice(0, 60));
-  return `/api/company-logo?${sp.toString()}`;
-}
-
 export function normalizeGrowwLogoUrl(raw?: string | null): string | null {
   if (!raw || typeof raw !== 'string') return null;
   const trimmed = raw.trim();
@@ -937,33 +671,203 @@ export async function resolveGrowwLogoBySearchId(searchId: string): Promise<stri
   return url;
 }
 
-const growwSymbolLogoCache = new Map<string, string | null>();
-export async function resolveGrowwLogoBySymbol(symbolOrCode: string): Promise<string | null> {
-  const key = symbolOrCode.trim().toUpperCase();
-  if (!key) return null;
-  const staticMatch = STATIC_MOVERS_MAP[key] || STATIC_MOVERS_MAP[key.replace(/[^A-Za-z0-9]/g, '')];
-  if (staticMatch) return staticMatch;
-  if (growwSymbolLogoCache.has(key)) {
-    return growwSymbolLogoCache.get(key) ?? null;
+export function isNonEquityInstrument(
+  sym: string,
+  name: string,
+  series = '',
+  isin = ''
+): boolean {
+  const s = sym.trim().toUpperCase();
+  const n = name.trim();
+  const srs = series.trim().toUpperCase();
+  const isinU = isin.trim().toUpperCase();
+
+  // Exclude ETF indicative NAV (iNAV) tickers and Sovereign / GOI Strips / NCDs / Debt
+  if (!s) return true;
+  if (/INAV/i.test(s) || /-RL$/i.test(s) || /\bI-?NAV\b/i.test(n)) return true;
+  if (/^GS\d{4,}/i.test(s)) return true;
+  if (/^\d+(?:GS|GSEC|TB|SDL|NCD)/i.test(s)) return true;
+  if (/-(N\d|N[A-Z]|Y[A-Z0-9]|Z[A-Z0-9]|S[A-Z]|D\d|GB|GS|SG|SD|RL)$/i.test(s)) return true;
+  if (/^(SGB|SDL|TBILL|GOI|NHAI\d|IRFC\d|PFC\d|REC\d|NTPC\d)/i.test(s)) return true;
+  if (/FMP\d+[A-Z]*$/i.test(s) || /\bFMP\b/i.test(n)) return true;
+  if (/-(W\d+|RE\d*|PP)$/i.test(s) || /\b(WARRANTS?|RIGHTS\s+ENTITLEMENT)\b/i.test(n)) return true;
+  // Allow valid 6-digit BSE equity scrip codes (e.g. 500325), reject debt codes starting with digits
+  if (/^\d/.test(s) && !/^5\d{5}$/.test(s)) return true;
+
+  if (
+    /\b(GOI\s+STRIPS?|G-?SEC|T-?BILL|TREASURY\s+BILL|GOLDBONDS|NON[- ]?CONVERTIBLE\s+DEBENTURE|ZERO\s+COUPON\s+BOND|SOVEREIGN\s+GOLD)\b/i.test(
+      n
+    )
+  ) {
+    return true;
   }
-  const hits = await fetchGrowwSearch(key);
-  const exact =
-    hits.find((h) => h.nseSymbol?.toUpperCase() === key || h.bseCode === key) || hits[0];
-  const url = exact?.searchId ? await resolveGrowwLogoBySearchId(exact.searchId) : null;
-  if (growwSymbolLogoCache.size > 2000) {
-    const first = growwSymbolLogoCache.keys().next().value;
-    if (first) growwSymbolLogoCache.delete(first);
+  if (/(?:^|\s)\d+(?:\.\d+)?%\s*(?:GOI|G-?SEC|SDL|BOND|NCD|DEBENTURE)/i.test(n)) {
+    return true;
   }
-  growwSymbolLogoCache.set(key, url);
-  return url;
+
+  if (srs) {
+    if (['GB', 'GS', 'TB', 'SG', 'RL', 'F', 'G', 'H', 'W1', 'W2', 'RE'].includes(srs)) return true;
+    if (/^(N|Y|Z)[A-Z0-9]$/.test(srs)) return true;
+  }
+  if (isinU && isinU.startsWith('IN00')) return true; // Government securities ISIN prefix
+  return false;
 }
 
-function isDebtOrBondSymbol(sym: string, name: string): boolean {
-  if (/^\d/.test(sym)) return true;
-  if (/-(N\d|N[A-Z]|Y\d|Z\d|D\d|GB|GS)$/i.test(sym)) return true;
-  if (/^(SGB|SDL|TBILL|GOI|NHAI|IRFC|PFC|REC|NTPC\d|GS\d)/i.test(sym)) return true;
-  if (/\b(NCD|BOND|DEBENTURE|G-SEC|SDL|T-BILL|TREASURY BILL|GOLDBONDS|GOI STRIPS)\b/i.test(name)) return true;
-  return false;
+const GENERIC_SECTORS = new Set([
+  'NSE / BSE Equity',
+  'NSE Listed Equity',
+  'BSE Listed Equity',
+  'NSE / BSE SME',
+  'Listed Equity',
+  'Indian Listed Equity',
+  'SME Growth Equities',
+]);
+
+function isGenericSector(sec?: string | null): boolean {
+  return !sec || !sec.trim() || GENERIC_SECTORS.has(sec.trim());
+}
+
+export function normalizeSectorLabel(sec: string): string {
+  const s = sec.trim();
+  if (s === 'Banking & Financial Services') return 'Financial Services';
+  if (s === 'IT & Software') return 'Information Technology';
+  if (s === 'Pharmaceuticals & Healthcare') return 'Pharmaceuticals';
+  if (s === 'Infrastructure & Realty') return 'Infrastructure';
+  if (s === 'FMCG & Consumer') return 'FMCG';
+  if (s === 'Power & Renewables') return 'Power';
+  if (s === 'Oil, Gas & Petrochemicals') return 'Oil';
+  return s;
+}
+
+function inferSectorFromCompanyName(name: string, isEtf = false): string {
+  if (isEtf || /\bETF\b|\bBEES\b|\bNIFTY\b.*\bFUND\b|\bINDEX FUND\b/i.test(name)) {
+    return 'ETF & Index Funds';
+  }
+  const n = name.toUpperCase();
+  if (/\b(BANKS?|BANKING)\b/.test(n)) {
+    return 'Banks';
+  }
+  if (/\b(INSURANCE|ASSURANCE|REINSURANCE|GENERAL INS|LIFE INS)\b/.test(n)) {
+    return 'Insurance';
+  }
+  if (/\b(FINANCE|FINSERV|FINANCIAL|CREDIT|CAPITAL|NBFC|SECURITIES|BROKING|INVESTMENTS?|FINVEST|VENTURES?|HOLDINGS?|LEASING|HOUSING FIN|MICROFINANCE|ASSET MANAGEMENT|AMC|TRUST|MERCANTILE|FINCORP|MONEY)\b/.test(n)) {
+    return 'Financial Services';
+  }
+  if (/\b(PHARMA|PHARMACEUTICALS?|HEALTHCARE|HOSPITALS?|LABS?|LABORATORIES|LIFESCIENCES?|LIFE SCIENCES?|BIOSCIENCES?|BIOTECH|DIAGNOSTICS?|MEDTECH|MEDITECH|MEDICAL|REMEDIES|SURGICALS?|HEALTH|CLINICS?|WELLNESS)\b/.test(n)) {
+    return 'Pharmaceuticals';
+  }
+  if (/\b(SOFTWARES?|INFOTECH|TECH|TECHNOLOG(?:Y|IES)|SYSTEMS?|DIGITAL|IT SERVICES|CYBER|CLOUD|DATA|TELEMATICS|SOLUTIONS?|COMPUTECH|COMPUTERS?|INFORMATICS?|AI|SEMICONDUCTOR)\b/.test(n)) {
+    return 'Information Technology';
+  }
+  if (/\b(POWER|ENERGY|SOLAR|RENEWABLES?|WIND|HYDRO|ELECTRIC|GRID|TURBINES?|GENCO|TRANSCO|GREEN ENERGY)\b/.test(n)) {
+    return 'Power';
+  }
+  if (/\b(PETROL|PETROLEUM|REFINER(?:Y|IES)|OIL|GAS|PETROCHEM|LUBRICANTS?|DRILLING|FUELS?)\b/.test(n)) {
+    return 'Oil';
+  }
+  if (/\b(AUTO|AUTOMOTIVE|MOTORS?|TYRES?|FORGINGS?|AXLES?|GEARS?|MOBILITY|SCOOTERS?|TRACTORS?|COACH|FURNISH|AUTOPARTS|AUTO PARTS)\b/.test(n)) {
+    return 'Auto Manufacturers';
+  }
+  if (/\b(STEELS?|METALS?|ALUMINIUM|ALUMINUM|COPPER|ZINC|IRON|MINING|MINERALS?|ALLOYS?|FERRO|FORGE|CASTINGS?|FOUNDRY|PIPES?|TUBES?|ISPAT|METALLICS?|STAINLESS)\b/.test(n)) {
+    return 'Metals & Mining';
+  }
+  if (/\b(CEMENTS?|CONCRETE)\b/.test(n)) {
+    return 'Cement';
+  }
+  if (/\b(PAINTS?|COATINGS?)\b/.test(n)) {
+    return 'Paints';
+  }
+  if (/\b(CHEM|CHEMICALS?|PETROCHEMICALS?|FERTILIZERS?|AGROCHEM|PESTICIDES?|POLYMERS?|PLASTICS?|RESINS?|DYES|PIGMENTS?|ALKALI|SODA|ACIDS?|SPECIALTY|ORGANICS?|SOLVENTS?)\b/.test(n)) {
+    return 'Chemicals & Materials';
+  }
+  if (/\b(INFRA|INFRASTRUCTURE|CONSTRUCTIONS?|REALTY|ESTATES?|HOUSING|BUILDERS?|DEVELOPERS?|BUILDCON|PROJECTS?|HIGHWAYS?|TOLL|PROPERTIES|LAND|REAL\s*ESTATE|ENGINEERS?)\b/.test(n)) {
+    return 'Infrastructure';
+  }
+  if (/\b(JEWELL?ER[YS]?|GEMS?|DIAMONDS?|GOLD|BULLION|ORNAMENTS?)\b/.test(n)) {
+    return 'Jewellery';
+  }
+  if (/\b(FOODS?|DAIRY|SUGARS?|TEA|COFFEE|BEVERAGES?|BREWERIES|DISTILLERIES|FLOUR|SPICES?|MILK|CHOCOLATES?|SWEETS?|ANGITHI|CATERING|RESTAURANTS?|GRAIN|RICE|EDIBLE)\b/.test(n)) {
+    return 'Food & Beverages';
+  }
+  if (/\b(AGRO|AGRICULTURE|SEEDS?|PLANTATIONS?|AQUA|SEAFOODS?|POULTRY|CROPS?|FARMING)\b/.test(n)) {
+    return 'Agro & Commodities';
+  }
+  if (/\b(RETAIL|MART|SUPERMARKET|HYPERMARKET|STORES?|FASHION|LIFESTYLE|FOOTWEAR|BAZAAR)\b/.test(n)) {
+    return 'Retail Chains';
+  }
+  if (/\b(FMCG|CONSUMER|PERSONAL CARE|COSMETICS?|HYGIENE|HOME CARE)\b/.test(n)) {
+    return 'FMCG';
+  }
+  if (/\b(TEXTILES?|APPARELS?|GARMENTS?|SPINNING|SPINNERS?|WEAVERS?|YARNS?|COTTON|FABRICS?|DENIM|WEAVING|MILLS?|SYNTHETICS?|SILKS?|KNITWEAR|WOOL)\b/.test(n)) {
+    return 'Textiles & Apparel';
+  }
+  if (/\b(MARITIME|SHIPPING|PORTS?|MARINE|DOCK|SHIPYARD)\b/.test(n)) {
+    return 'Maritime Industries';
+  }
+  if (/\b(AVIATION|AIRLINES?|AIRWAYS|AIRPORTS?)\b/.test(n)) {
+    return 'Aviation';
+  }
+  if (/\b(LOGISTICS?|TRANSPORTS?|CARGO|FREIGHT|WAREHOUS(?:ING|E)|RAIL|CONTAINER|COURIER|SUPPLY CHAIN)\b/.test(n)) {
+    return 'Logistics & Transport';
+  }
+  if (/\b(TELECOM|COMMUNICATIONS?|OPTICAL FIBER|CABLE TV|NETWORKS?)\b/.test(n)) {
+    return 'Telecom';
+  }
+  if (/\b(MEDIA|ENTERTAINMENT|BROADCAST|TELEVISION|FILMS?|PUBLISHING|PRINTING|STUDIOS?|NEWS)\b/.test(n)) {
+    return 'Media & Publishing';
+  }
+  if (/\b(DEFENCE|DEFENSE|AEROSPACE|MUNITIONS?|ORDNANCE)\b/.test(n)) {
+    return 'Defence';
+  }
+  if (/\b(ENGINEERING|ELECTRONICS?|ELECTRICALS?|MACHINERY|EQUIPMENTS?|CABLES?|WIRES?|SWITCHGEAR|BEARINGS?|TRANSFORMERS?|PUMPS?|VALVES?|PRECISION|HEAVY|MOTORS?|TOOLS|AUTOMATION)\b/.test(n)) {
+    return 'Capital Goods & Engineering';
+  }
+  if (/\b(HOTELS?|HOSPITALITY|RESORTS?|TOURISM|TRAVEL|LEISURE|CLUBS?)\b/.test(n)) {
+    return 'Hospitality & Tourism';
+  }
+  if (/\b(PAPERS?|PACKAGING|BOX|CARTONS?|PRINTPACK|GLASS|CERAMICS?|TILES?|MARBLES?|GRANITES?|PLYWOOD|LAMINATES?)\b/.test(n)) {
+    return 'Packaging & Building Materials';
+  }
+  if (/\b(TRADING|EXPORTS?|IMPORTS?|OVERSEAS|DISTRIBUTORS?|DISTRIBUTIONS?|COMMERCE|TRADELINK|GLOBAL|ENTERPRISES?|MERCHANDISE)\b/.test(n)) {
+    return 'Distributors';
+  }
+  return 'Diversified Industrials';
+}
+
+function resolveSectorForStock(params: {
+  companyName: string;
+  industryCode?: number;
+  curatedSector?: string | null;
+  curatedIndustry?: string | null;
+  symbol: string;
+  isEtf?: boolean;
+  isSme?: boolean;
+}): { sector: string; industry: string } {
+  const store = getEnrichmentStore();
+  const detail = store.details[params.symbol.toUpperCase()];
+  const mappedCodeName =
+    typeof params.industryCode === 'number' && params.industryCode > 0
+      ? store.industryCodes[String(params.industryCode)]
+      : undefined;
+
+  const explicitSector =
+    (!isGenericSector(detail?.sector) ? detail?.sector : undefined) ??
+    mappedCodeName ??
+    (!isGenericSector(params.curatedSector) ? params.curatedSector : undefined);
+
+  const rawSector =
+    explicitSector ||
+    inferSectorFromCompanyName(params.companyName, params.isEtf);
+  const sector = normalizeSectorLabel(rawSector);
+
+  const rawIndustry =
+    (!isGenericSector(detail?.industry) ? detail?.industry : undefined) ??
+    mappedCodeName ??
+    (!isGenericSector(params.curatedIndustry) ? params.curatedIndustry : undefined) ??
+    sector;
+  const industry = normalizeSectorLabel(rawIndustry);
+
+  return { sector, industry };
 }
 
 async function syncOfficialRegistries(): Promise<void> {
@@ -995,14 +899,17 @@ async function syncOfficialRegistries(): Promise<void> {
           const cols = splitCsvLine(line);
           if (cols.length < 8) continue;
           const sym = cols[0]?.toUpperCase();
-          if (!sym) continue;
+          const compName = cols[1] || sym;
+          const series = cols[2] || 'EQ';
+          const isin = cols[6] || '';
+          if (!sym || isNonEquityInstrument(sym, compName, series, isin)) continue;
           nseArchiveMap.set(sym, {
             symbol: sym,
-            companyName: cols[1] || sym,
-            series: cols[2] || 'EQ',
+            companyName: compName,
+            series,
             listingDate: cols[3] || '',
             marketLot: Number.isFinite(Number(cols[5])) ? Number(cols[5]) : null,
-            isin: cols[6] || '',
+            isin,
             faceValue: Number.isFinite(Number(cols[7])) ? Number(cols[7]) : null,
           });
         }
@@ -1033,7 +940,7 @@ async function syncOfficialRegistries(): Promise<void> {
           zerodhaNseMap.set(sym, entry);
           const cleanBase = stripNseSeriesSuffix(sym);
           if (!zerodhaNseMap.has(cleanBase)) zerodhaNseMap.set(cleanBase, entry);
-          if (!isDebtOrBondSymbol(sym, entry.companyName)) {
+          if (!isNonEquityInstrument(sym, entry.companyName)) {
             nextList.push(entry);
           }
         }
@@ -1062,7 +969,11 @@ async function syncOfficialRegistries(): Promise<void> {
           };
           zerodhaBseMap.set(exToken, entry);
           if (sym) zerodhaBseMap.set(sym, entry);
-          if (exToken.startsWith('5') && exToken.length === 6 && !isDebtOrBondSymbol(entry.tradingsymbol, entry.companyName)) {
+          if (
+            exToken.startsWith('5') &&
+            exToken.length === 6 &&
+            !isNonEquityInstrument(entry.tradingsymbol, entry.companyName)
+          ) {
             nextList.push(entry);
           }
         }
@@ -1143,10 +1054,12 @@ function parseBhavcopyRows(
     const isin = (cols[iIsin] || '').trim().toUpperCase();
     const series = (cols[iSrs] || '').trim().toUpperCase();
     const sym = (cols[iSym] || '').trim().toUpperCase();
+    const instName = (cols[iNm] || sym).trim();
     if (!sym || !isin) continue;
 
     if (exchange === 'NSE' && !isNseEquitySeries(series, isin)) continue;
     if (exchange === 'BSE' && !isBseEquitySeries(series, isin)) continue;
+    if (isNonEquityInstrument(sym, instName, series, isin)) continue;
 
     const num = (idx: number) => {
       const v = Number(cols[idx]);
@@ -1304,15 +1217,10 @@ async function fetchGrowwLiveQuote(
     return null;
   }
   const ltp = round2(dto.ltp ?? dto.close);
-  let previousClose = round2(dto.close ?? dto.ltp);
-  if (
-    ltp !== null &&
-    previousClose === ltp &&
-    typeof dto.dayChange === 'number' &&
-    dto.dayChange !== 0
-  ) {
-    previousClose = round2(ltp - dto.dayChange);
-  }
+  const previousClose =
+    typeof dto.dayChange === 'number' && dto.dayChange !== 0 && ltp !== null
+      ? round2(ltp - dto.dayChange)
+      : round2(dto.close ?? dto.ltp);
   return {
     ltp,
     previousClose,
@@ -1331,7 +1239,7 @@ async function fetchGrowwLiveQuote(
   };
 }
 
-async function fetchGrowwSearch(query: string): Promise<
+export async function fetchGrowwSearch(query: string): Promise<
   Array<{
     searchId: string;
     title: string;
@@ -1398,26 +1306,41 @@ function mapGrowwRecordToStock(
   const bseCode = /^\d{6}$/.test(rawBse) ? rawBse : '';
   const symbol = nseCode || bseCode;
   if (!symbol) return null;
+  if (isNonEquityInstrument(symbol, rec.companyName || symbol, '', rec.isin || '')) {
+    return null;
+  }
+
+  const store = getEnrichmentStore();
+  if (typeof rec.industryCode === 'number' && rec.industryCode > 0 && rec.searchId && !industryCodeSamples.has(rec.industryCode)) {
+    industryCodeSamples.set(rec.industryCode, rec.searchId);
+  }
+  const detailEnrich = store.details[symbol] || (bseCode ? store.details[bseCode] : undefined);
 
   const dto = rec.livePriceDto;
   const ltp = round2(dto?.ltp ?? rec.closePrice ?? curated?.currentPrice ?? null);
-  let prevClose = round2(dto?.close ?? rec.closePrice ?? curated?.previousClose ?? ltp);
-  // When post-close dto.close has already rolled to ltp and dayChange=0, rec.closePrice holds the prior session close
+  let prevClose: number | null = null;
+  if (dto && typeof dto.dayChange === 'number' && dto.dayChange !== 0 && ltp !== null) {
+    prevClose = round2(ltp - dto.dayChange);
+  } else if (dto && typeof dto.close === 'number' && dto.close > 0 && dto.close !== ltp) {
+    prevClose = round2(dto.close);
+  }
   if (
-    ltp !== null &&
-    prevClose === ltp &&
-    (!dto?.dayChange || dto.dayChange === 0) &&
+    (prevClose === null || (prevClose === ltp && (!dto?.dayChange || dto.dayChange === 0))) &&
     typeof rec.closePrice === 'number' &&
     rec.closePrice > 0 &&
-    round2(rec.closePrice) !== ltp
+    rec.closePrice !== ltp
   ) {
     prevClose = round2(rec.closePrice);
   }
+  if (prevClose === null) {
+    prevClose = round2(dto?.close ?? rec.closePrice ?? curated?.previousClose ?? ltp);
+  }
+
   const open = round2(dto?.open ?? curated?.open ?? prevClose);
   const dayHigh = round2(dto?.high ?? curated?.dayHigh ?? ltp);
   const dayLow = round2(dto?.low ?? curated?.dayLow ?? ltp);
-  const week52High = round2(rec.yearlyHighPrice ?? curated?.week52High ?? null);
-  const week52Low = round2(rec.yearlyLowPrice ?? curated?.week52Low ?? null);
+  const week52High = round2(rec.yearlyHighPrice ?? detailEnrich?.week52High ?? curated?.week52High ?? null);
+  const week52Low = round2(rec.yearlyLowPrice ?? detailEnrich?.week52Low ?? curated?.week52Low ?? null);
   const volume =
     typeof dto?.volume === 'number'
       ? Math.round(dto.volume)
@@ -1427,7 +1350,7 @@ function mapGrowwRecordToStock(
   const marketCapCr =
     typeof rec.marketCap === 'number' && rec.marketCap > 0
       ? Number((rec.marketCap / 1e9).toFixed(2))
-      : curated?.marketCapCr ?? null;
+      : detailEnrich?.marketCapCr ?? curated?.marketCapCr ?? null;
 
   const lastTradeIso =
     toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis) ??
@@ -1441,64 +1364,34 @@ function mapGrowwRecordToStock(
     curated && curated.sparkline.length > 0
       ? [...curated.sparkline.slice(0, -1), ltp ?? curated.sparkline[curated.sparkline.length - 1]]
       : prevClose !== null && ltp !== null
-        ? [prevClose, Number(((prevClose + ltp) / 2).toFixed(2)), ltp]
+        ? [prevClose, Number((((prevClose + ltp) / 2)).toFixed(2)), ltp]
         : [];
 
-  const mappedSector =
-    (typeof rec.industryCode === 'number' && GROWW_INDUSTRY_SECTOR_MAP[rec.industryCode]) ||
-    (curated?.sector && !curated.sector.includes('Equity') ? curated.sector : null) ||
-    (nseCode ? 'NSE / BSE Equity' : 'BSE Listed Equity');
-
   const companyName = rec.companyName || curated?.companyName || symbol;
-  const staticLogo = STATIC_MOVERS_MAP[symbol] || STATIC_MOVERS_MAP[symbol.replace(/[^A-Za-z0-9]/g, '')];
-  const resolvedLogoUrl =
-    staticLogo ||
-    curated?.logoUrl ||
-    buildStockLogoProxyUrl({
-      symbol,
-      bseCode: bseCode || curated?.bseCode,
-      searchId: rec.searchId || curated?.searchId,
-      companyName,
-    });
+  const { sector, industry } = resolveSectorForStock({
+    companyName,
+    industryCode: rec.industryCode,
+    curatedSector: curated?.sector,
+    curatedIndustry: curated?.industry,
+    symbol,
+  });
 
-  const dayChg =
-    ltp !== null && prevClose !== null ? round2(ltp - prevClose) : round2(dto?.dayChange);
-  const dayChgPct =
-    dayChg !== null && prevClose && prevClose > 0
-      ? round2((dayChg / prevClose) * 100)
-      : round2(dto?.dayChangePerc);
-
-  const dtoQuote: ExchangeLiveQuote | null =
-    dto && ltp !== null
-      ? {
-          ltp,
-          previousClose: prevClose,
-          open,
-          high: dayHigh,
-          low: dayLow,
-          dayChange: dayChg,
-          dayChangePct: dayChgPct,
-          volume,
-          lastTradeTime: lastTradeIso,
-          lastTradeQty: typeof dto.lastTradeQty === 'number' ? Math.round(dto.lastTradeQty) : null,
-          totalBuyQty: typeof dto.totalBuyQty === 'number' ? Math.round(dto.totalBuyQty) : null,
-          totalSellQty: typeof dto.totalSellQty === 'number' ? Math.round(dto.totalSellQty) : null,
-          upperCircuit: round2(dto.highPriceRange),
-          lowerCircuit: round2(dto.lowPriceRange),
-        }
-      : null;
+  const resolvedLogo =
+    getCachedLogoUrl(symbol, bseCode) ??
+    normalizeGrowwLogoUrl(detailEnrich?.logoUrl ?? curated?.logoUrl) ??
+    null;
 
   return {
     id: curated?.id || `stk-${symbol.toLowerCase()}`,
     symbol,
     bseCode: bseCode || curated?.bseCode || 'N/A',
     yahooSymbol: nseCode ? `${nseCode}.NS` : `${bseCode}.BO`,
-    searchId: rec.searchId || curated?.searchId,
+    searchId: rec.searchId || detailEnrich?.searchId || curated?.searchId,
     companyName,
-    logoUrl: resolvedLogoUrl,
+    logoUrl: resolvedLogo,
     exchange,
-    sector: mappedSector,
-    industry: curated?.industry && curated.industry !== 'Indian Listed Equity' ? curated.industry : mappedSector,
+    sector,
+    industry,
     isin: rec.isin || curated?.isin || 'Available on Exchange',
     currentPrice: ltp,
     previousClose: prevClose,
@@ -1510,9 +1403,9 @@ function mapGrowwRecordToStock(
     volume,
     marketCapCr,
     lastTradeTime: lastTradeIso,
-    nseQuote: curated?.nseQuote ?? (nseCode ? dtoQuote : null),
-    bseQuote: curated?.bseQuote ?? (!nseCode && bseCode ? dtoQuote : null),
-    fundamentals: curated?.fundamentals || {
+    nseQuote: curated?.nseQuote ?? null,
+    bseQuote: curated?.bseQuote ?? null,
+    fundamentals: detailEnrich?.fundamentals || curated?.fundamentals || {
       pe: null,
       pb: null,
       roePct: null,
@@ -1524,7 +1417,7 @@ function mapGrowwRecordToStock(
       reportingPeriod: 'Exchange Live Feed',
       source: 'NSE / BSE Exchange Adapter',
     },
-    companyProfile: curated?.companyProfile,
+    companyProfile: detailEnrich?.companyProfile ?? curated?.companyProfile,
     registry: curated?.registry,
     shareholding: curated?.shareholding,
     financialStatements: curated?.financialStatements,
@@ -1632,17 +1525,21 @@ function buildRegistryEquityStock(params: {
   const series = (nseBhav?.series || nseArch?.series || bseBhav?.series || '').toUpperCase();
   const isEtf = isin.startsWith('INF') || /\bETF\b/i.test(companyName);
   const isSme = ['SM', 'ST', 'M', 'MT', 'MS', 'TS'].includes(series);
-  const sector =
-    curated?.sector ||
-    (isEtf
-      ? 'ETF / Index Fund'
-      : isSme
-        ? 'NSE / BSE SME'
-        : exchange === 'NSE'
-          ? 'NSE Listed Equity'
-          : exchange === 'BSE'
-            ? 'BSE Listed Equity'
-            : 'NSE / BSE Equity');
+  const { sector, industry } = resolveSectorForStock({
+    companyName,
+    curatedSector: curated?.sector,
+    curatedIndustry: curated?.industry,
+    symbol,
+    isEtf,
+    isSme,
+  });
+
+  const store = getEnrichmentStore();
+  const detailEnrich = store.details[symbol] || (bseCode && bseCode !== 'N/A' ? store.details[bseCode] : undefined);
+  const resolvedLogo =
+    getCachedLogoUrl(symbol, bseCode) ??
+    normalizeGrowwLogoUrl(detailEnrich?.logoUrl ?? curated?.logoUrl) ??
+    null;
 
   const effectiveDate =
     hydQ?.lastTradeTime?.slice(0, 10) ||
@@ -1650,7 +1547,7 @@ function buildRegistryEquityStock(params: {
     curated?.lastTradeTime?.slice(0, 10) ||
     retrievedAtIso.slice(0, 10);
 
-  const hasLiveHydration = Boolean(hydQ && Date.now() - (hydrated?.fetchedAt ?? 0) < 120_000);
+  const hasLiveHydration = Boolean(hydQ && Date.now() - (hydrated?.fetchedAt ?? 0) < 300_000);
   const qualityStatus: StockInstrument['provenance']['qualityStatus'] = hasLiveHydration
     ? 'VERIFIED'
     : ltp !== null
@@ -1665,40 +1562,31 @@ function buildRegistryEquityStock(params: {
         : [];
 
   const isNseYahoo = exchange.includes('NSE') && !/^\d+$/.test(symbol);
-  const resolvedStatic = resolveStaticMoverLogo(symbol, companyName);
   return {
     id: curated?.id || `stk-${symbol.toLowerCase().replace(/[^a-z0-9]/g, '')}-${bseCode !== 'N/A' ? bseCode : 'eq'}`,
     symbol,
     bseCode: bseCode || 'N/A',
     yahooSymbol: isNseYahoo ? `${symbol}.NS` : (bseCode && bseCode !== 'N/A' ? `${bseCode}.BO` : `${symbol}.BO`),
-    searchId: curated?.searchId,
+    searchId: detailEnrich?.searchId || curated?.searchId,
     companyName: companyName || symbol,
-    logoUrl:
-      resolvedStatic ||
-      curated?.logoUrl ||
-      buildStockLogoProxyUrl({
-        symbol,
-        bseCode,
-        searchId: curated?.searchId,
-        companyName: companyName || symbol,
-      }),
+    logoUrl: resolvedLogo,
     exchange,
     sector,
-    industry: isEtf ? 'Exchange Traded Fund' : isSme ? 'SME Listed Equity' : 'Indian Listed Equity',
+    industry,
     isin: isin || 'Available on Exchange',
     currentPrice: ltp,
     previousClose: prevClose,
     open,
     dayHigh,
     dayLow,
-    week52High: curated?.week52High ?? null,
-    week52Low: curated?.week52Low ?? null,
+    week52High: detailEnrich?.week52High ?? curated?.week52High ?? null,
+    week52Low: detailEnrich?.week52Low ?? curated?.week52Low ?? null,
     volume,
-    marketCapCr: curated?.marketCapCr ?? null,
+    marketCapCr: detailEnrich?.marketCapCr ?? curated?.marketCapCr ?? null,
     lastTradeTime: hydQ?.lastTradeTime || (primaryBhav?.tradDt ? `${primaryBhav.tradDt}T10:00:00.000Z` : retrievedAtIso),
     nseQuote: curated?.nseQuote ?? null,
     bseQuote: curated?.bseQuote ?? null,
-    fundamentals: curated?.fundamentals || {
+    fundamentals: detailEnrich?.fundamentals || curated?.fundamentals || {
       pe: null,
       pb: null,
       roePct: null,
@@ -1710,7 +1598,7 @@ function buildRegistryEquityStock(params: {
       reportingPeriod: primaryBhav ? 'Exchange Bhavcopy & Feed' : 'Exchange Registry',
       source: 'NSE / BSE Official Registry',
     },
-    companyProfile: curated?.companyProfile,
+    companyProfile: detailEnrich?.companyProfile ?? curated?.companyProfile,
     registry: {
       nseSeries: nseBhav?.series || nseArch?.series || null,
       nseListingDate: nseArch?.listingDate || null,
@@ -1878,9 +1766,59 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
           bseCode: mapped.bseCode,
         });
 
-        if (mapped.currentPrice === null && (nseBhav || bseBhav)) {
-          mapped.currentPrice = nseBhav?.last ?? nseBhav?.close ?? bseBhav?.last ?? bseBhav?.close ?? null;
-          mapped.previousClose = nseBhav?.prevClose ?? bseBhav?.prevClose ?? mapped.currentPrice;
+        // Re-resolve sector after upgrading companyName & symbol
+        if (isGenericSector(mapped.sector) || isGenericSector(mapped.industry)) {
+          const updatedSec = resolveSectorForStock({
+            companyName: mapped.companyName,
+            industryCode: rec.industryCode,
+            curatedSector: curated?.sector,
+            curatedIndustry: curated?.industry,
+            symbol: mapped.symbol,
+          });
+          mapped.sector = updatedSec.sector;
+          mapped.industry = updatedSec.industry;
+        }
+        if (!mapped.logoUrl) {
+          mapped.logoUrl = getCachedLogoUrl(mapped.symbol, mapped.bseCode) ?? curated?.logoUrl ?? null;
+        }
+
+        // Apply cached hydrated quote or Bhavcopy prices/prevClose when Groww all_stocks had stale/missing quotes
+        const hydQ = liveQuoteHydrationCache.get(mapped.symbol)?.quote;
+        if (mapped.currentPrice === null) {
+          if (hydQ && hydQ.ltp !== null) {
+            mapped.currentPrice = hydQ.ltp;
+            mapped.previousClose = hydQ.previousClose ?? hydQ.ltp;
+            mapped.open = hydQ.open ?? mapped.open;
+            mapped.dayHigh = hydQ.high ?? mapped.dayHigh;
+            mapped.dayLow = hydQ.low ?? mapped.dayLow;
+            mapped.volume = hydQ.volume ?? mapped.volume;
+          } else if (nseBhav || bseBhav) {
+            mapped.currentPrice = nseBhav?.last ?? nseBhav?.close ?? bseBhav?.last ?? bseBhav?.close ?? null;
+            mapped.previousClose = nseBhav?.prevClose ?? bseBhav?.prevClose ?? mapped.currentPrice;
+            mapped.open = mapped.open ?? nseBhav?.open ?? bseBhav?.open ?? mapped.previousClose;
+            mapped.dayHigh = mapped.dayHigh ?? nseBhav?.high ?? bseBhav?.high ?? mapped.currentPrice;
+            mapped.dayLow = mapped.dayLow ?? nseBhav?.low ?? bseBhav?.low ?? mapped.currentPrice;
+          }
+        } else if (
+          mapped.previousClose === mapped.currentPrice &&
+          (nseBhav?.prevClose || bseBhav?.prevClose)
+        ) {
+          const officialPrev = nseBhav?.prevClose ?? bseBhav?.prevClose ?? null;
+          const bhavClose = nseBhav?.close ?? nseBhav?.last ?? bseBhav?.close ?? bseBhav?.last ?? null;
+          if (
+            officialPrev &&
+            officialPrev !== mapped.currentPrice &&
+            (!bhavClose || Math.abs(bhavClose - mapped.currentPrice) / mapped.currentPrice < 0.015)
+          ) {
+            mapped.previousClose = officialPrev;
+          }
+        }
+        if (mapped.previousClose !== null && mapped.currentPrice !== null && mapped.sparkline.length <= 3) {
+          mapped.sparkline = [
+            mapped.previousClose,
+            Number(((mapped.previousClose + mapped.currentPrice) / 2).toFixed(2)),
+            mapped.currentPrice,
+          ];
         }
         if (mapped.volume === null && (nseBhav?.volume || bseBhav?.volume)) {
           mapped.volume = (nseBhav?.volume ?? 0) + (bseBhav?.volume ?? 0);
@@ -1910,6 +1848,9 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
           curated.volume = mapped.volume ?? curated.volume;
           curated.marketCapCr = mapped.marketCapCr ?? curated.marketCapCr;
           curated.searchId = mapped.searchId ?? curated.searchId;
+          curated.logoUrl = mapped.logoUrl ?? curated.logoUrl;
+          curated.sector = isGenericSector(curated.sector) ? mapped.sector : curated.sector;
+          curated.industry = isGenericSector(curated.industry) ? mapped.industry : curated.industry;
           curated.companyName = mapped.companyName;
           curated.lastTradeTime = mapped.lastTradeTime;
           curated.provenance = { ...mapped.provenance };
@@ -2079,6 +2020,9 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
 
       // 6. Preserve any curated/recently-viewed DB stocks not matched above
       for (const stk of db.stocks) {
+        if (isNonEquityInstrument(stk.symbol, stk.companyName, stk.registry?.nseSeries || '', stk.isin)) {
+          continue;
+        }
         const key = stk.isin && stk.isin.startsWith('IN') ? stk.isin : stk.symbol;
         if (!seenIsin.has(key) && !seenNseSym.has(stk.symbol.toUpperCase()) && !seenBseCode.has(stk.bseCode)) {
           unified.push(stk);
@@ -2151,13 +2095,11 @@ export function getLiveUniverseSnapshot(): {
 export function findStockInUniverse(symbolOrCode: string): StockInstrument | undefined {
   const raw = symbolOrCode.trim().toUpperCase().replace(/\.(NS|BO)$/i, '');
   const clean = stripNseSeriesSuffix(raw);
-  const aliased = TICKER_ALIASES[clean] || clean;
   const pool = liveUniverseCache.length > 0 ? liveUniverseCache : getDb().stocks;
   return (
     pool.find((s) => s.symbol.toUpperCase() === raw || s.symbol.toUpperCase() === clean) ||
     pool.find((s) => s.bseCode === raw || s.bseCode === clean) ||
     pool.find((s) => s.isin.toUpperCase() === raw) ||
-    (aliased !== clean ? pool.find((s) => s.symbol.toUpperCase() === aliased) : undefined) ||
     getDb().stocks.find((s) => s.symbol.toUpperCase() === clean || s.bseCode === clean)
   );
 }
@@ -2175,194 +2117,245 @@ export interface StockUniverseQueryOptions {
   refresh?: boolean;
 }
 
-const companyFundamentalsHydrationCache = new Map<
-  string,
-  {
-    pe: number | null;
-    pb: number | null;
-    roePct: number | null;
-    debtToEquity: number | null;
-    dividendYieldPct: number | null;
-    marketCapCr: number | null;
-    sector: string | null;
-    logoUrl: string | null;
-    fetchedAt: number;
+async function fetchHydrationQuote(s: StockInstrument): Promise<{
+  quote: ExchangeLiveQuote;
+  sourceLabel: string;
+} | null> {
+  const useNse = s.exchange.includes('NSE') && !/^\d+$/.test(s.symbol);
+  const growwQ =
+    (useNse ? await fetchGrowwLiveQuote('NSE', s.symbol) : null) ??
+    (s.bseCode && s.bseCode !== 'N/A' ? await fetchGrowwLiveQuote('BSE', s.bseCode) : null);
+  if (growwQ && growwQ.ltp !== null) {
+    return { quote: growwQ, sourceLabel: `${s.exchange} Live Quote (Groww Adapter)` };
   }
->();
+
+  // Fallback to Yahoo Finance for NSE/BSE tickers absent from Groww accord_points
+  const primaryYahoo = s.yahooSymbol || (useNse ? `${s.symbol}.NS` : `${s.bseCode || s.symbol}.BO`);
+  let yChart = await fetchYahooChart(primaryYahoo, '5d', '1d');
+  if (!yChart && s.bseCode && s.bseCode !== 'N/A' && !primaryYahoo.endsWith('.BO')) {
+    yChart = await fetchYahooChart(`${s.bseCode}.BO`, '5d', '1d');
+  }
+  const meta = yChart?.chart?.result?.[0]?.meta;
+  if (!meta || typeof meta.regularMarketPrice !== 'number') return null;
+
+  const ltp = round2(meta.regularMarketPrice);
+  const previousClose = round2(meta.chartPreviousClose ?? meta.previousClose ?? ltp);
+  const candles = parseYahooCandles(yChart!);
+  const latestCandle = candles.length > 0 ? candles[candles.length - 1] : null;
+  const lastTradeIso =
+    toIsoFromEpochSec(meta.regularMarketTime) ?? new Date().toISOString();
+
+  return {
+    quote: {
+      ltp,
+      previousClose,
+      open: round2(latestCandle?.open ?? previousClose),
+      high: round2(meta.regularMarketDayHigh ?? latestCandle?.high ?? ltp),
+      low: round2(meta.regularMarketDayLow ?? latestCandle?.low ?? ltp),
+      dayChange:
+        ltp !== null && previousClose !== null ? round2(ltp - previousClose) : null,
+      dayChangePct:
+        ltp !== null && previousClose !== null && previousClose > 0
+          ? round2(((ltp - previousClose) / previousClose) * 100)
+          : null,
+      volume:
+        typeof meta.regularMarketVolume === 'number'
+          ? Math.round(meta.regularMarketVolume)
+          : latestCandle?.volume ?? null,
+      lastTradeTime: lastTradeIso,
+      lastTradeQty: null,
+      totalBuyQty: null,
+      totalSellQty: null,
+      upperCircuit: null,
+      lowerCircuit: null,
+    },
+    sourceLabel: `${s.exchange} Quote (Yahoo Exchange Feed)`,
+  };
+}
+
+function applyHydratedQuoteToStock(
+  s: StockInstrument,
+  quote: ExchangeLiveQuote,
+  sourceLabel: string
+): void {
+  const nowMs = Date.now();
+  const cachedEntry = { quote, fetchedAt: nowMs };
+  liveQuoteHydrationCache.set(s.symbol, cachedEntry);
+  const store = getEnrichmentStore();
+  store.quotes[s.symbol] = cachedEntry;
+  scheduleEnrichmentSave();
+
+  s.currentPrice = quote.ltp;
+  s.previousClose = quote.previousClose ?? s.previousClose;
+  s.open = quote.open ?? s.open;
+  s.dayHigh = quote.high ?? s.dayHigh;
+  s.dayLow = quote.low ?? s.dayLow;
+  s.volume = quote.volume ?? s.volume;
+  if (quote.lastTradeTime) s.lastTradeTime = quote.lastTradeTime;
+  if (s.previousClose !== null && s.currentPrice !== null) {
+    s.sparkline = [
+      s.previousClose,
+      Number(((s.previousClose + s.currentPrice) / 2).toFixed(2)),
+      s.currentPrice,
+    ];
+  }
+  s.provenance = {
+    ...s.provenance,
+    source: sourceLabel,
+    retrievedAt: new Date(nowMs).toISOString(),
+    effectiveDate: (quote.lastTradeTime || new Date(nowMs).toISOString()).slice(0, 10),
+    verificationStatus: 'Verified',
+    qualityStatus: sourceLabel.includes('Groww') ? 'VERIFIED' : 'DELAYED',
+  };
+}
+
+async function headImageOk(candidateUrl: string): Promise<boolean> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 1600);
+  try {
+    const res = await fetch(candidateUrl, {
+      method: 'HEAD',
+      signal: controller.signal,
+      headers: { 'User-Agent': 'PriceAlerter/1.0' },
+    });
+    if (!res.ok) return false;
+    const ct = (res.headers.get('content-type') || '').toLowerCase();
+    return ct.startsWith('image/');
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export async function probeAndCacheStockLogo(stock: {
+  symbol: string;
+  bseCode?: string | null;
+  searchId?: string | null;
+  logoUrl?: string | null;
+  companyName?: string | null;
+}): Promise<string | null> {
+  const sym = stock.symbol.trim().toUpperCase();
+  const bse = stock.bseCode && /^\d{6}$/.test(stock.bseCode.trim()) ? stock.bseCode.trim() : '';
+  const cached = getCachedLogoUrl(sym, bse);
+  if (cached) return cached;
+  if (stock.logoUrl) {
+    const norm = normalizeGrowwLogoUrl(stock.logoUrl);
+    if (norm) {
+      recordVerifiedLogoUrl(sym, bse, norm);
+      return norm;
+    }
+  }
+
+  const probeKey = `${sym}|${bse}`;
+  const lastNeg = negativeLogoProbeCache.get(probeKey) ?? 0;
+  if (Date.now() - lastNeg < 30 * 60_000) return null;
+
+  const alpha = !/^\d+$/.test(sym) ? sym : '';
+  const candidates: string[] = [];
+  if (alpha) {
+    const enc = encodeURIComponent(alpha);
+    candidates.push(
+      `https://assets-netstorage.groww.in/stock-assets/logos2/${enc}.webp`,
+      `https://assets-netstorage.groww.in/stock-assets/logos2/${enc}.png`,
+      `https://assets-netstorage.groww.in/stock-assets/logos/${enc}.png`,
+      `https://images.dhan.co/symbol/${enc}.png`
+    );
+  }
+  if (bse) {
+    candidates.push(
+      `https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse}.png`,
+      `https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse}.webp`
+    );
+  }
+
+  const checks = await Promise.all(candidates.map((u) => headImageOk(u)));
+  const hitIdx = checks.findIndex(Boolean);
+  if (hitIdx >= 0) {
+    const hitUrl = candidates[hitIdx];
+    recordVerifiedLogoUrl(sym, bse, hitUrl);
+    return hitUrl;
+  }
+
+  if (stock.searchId) {
+    const searchLogo = await resolveGrowwLogoBySearchId(stock.searchId);
+    if (searchLogo) {
+      recordVerifiedLogoUrl(sym, bse, searchLogo);
+      return searchLogo;
+    }
+  }
+
+  if (alpha || stock.companyName) {
+    const tvSlugs = new Set<string>();
+    const cleanBrand = (stock.companyName || '')
+      .toLowerCase()
+      .replace(/\b(limited|ltd|private|pvt|india|industries|enterprises|corp|corporation|holdings|services|solutions|technologies|systems)\b/g, ' ')
+      .replace(/[^a-z0-9\s]+/g, ' ')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+    if (cleanBrand.length >= 1) {
+      tvSlugs.add(cleanBrand.slice(0, 2).join('-'));
+      tvSlugs.add(cleanBrand[0]);
+    }
+    if (alpha && alpha.length >= 3) {
+      tvSlugs.add(alpha.toLowerCase());
+    }
+    const tvUrls = Array.from(tvSlugs)
+      .filter((s) => s.length >= 2 && s.length <= 40)
+      .map((s) => `https://s3-symbol-logo.tradingview.com/${encodeURIComponent(s)}--big.svg`);
+    if (tvUrls.length > 0) {
+      const tvChecks = await Promise.all(tvUrls.map((u) => headImageOk(u)));
+      const tvIdx = tvChecks.findIndex(Boolean);
+      if (tvIdx >= 0) {
+        recordVerifiedLogoUrl(sym, bse, tvUrls[tvIdx]);
+        return tvUrls[tvIdx];
+      }
+    }
+  }
+
+  negativeLogoProbeCache.set(probeKey, Date.now());
+  return null;
+}
 
 async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean): Promise<void> {
   const now = Date.now();
-  const candidates = items
+  const quoteCandidates = items
     .filter((s) => {
       const cached = liveQuoteHydrationCache.get(s.symbol);
       if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 30_000;
-      if (force) return !cached || now - cached.fetchedAt > 15_000;
       if (s.provenance.source.includes('Groww')) return false;
+      if (force) return !cached || now - cached.fetchedAt > 20_000;
       return !cached;
     })
     .slice(0, 50);
 
-  if (candidates.length > 0) {
-    await Promise.all(
-      candidates.map(async (s) => {
-        const useNse = s.exchange.includes('NSE') && !/^\d+$/.test(s.symbol);
-        let quote =
-          (useNse ? await fetchGrowwLiveQuote('NSE', s.symbol) : null) ??
-          (s.bseCode && s.bseCode !== 'N/A' ? await fetchGrowwLiveQuote('BSE', s.bseCode) : null);
+  const logoCandidates = items.filter((s) => !s.logoUrl);
 
-        if (!quote && s.currentPrice === null && s.yahooSymbol) {
-          const yData = await fetchYahooChart(s.yahooSymbol, '5d', '1d');
-          const yMeta = yData?.chart?.result?.[0]?.meta;
-          if (yMeta && typeof yMeta.regularMarketPrice === 'number') {
-            const candles = parseYahooCandles(yData!);
-            const ltp = round2(yMeta.regularMarketPrice);
-            const prevCandle =
-              ltp !== null
-                ? [...candles].reverse().find((c) => Math.abs(c.close - ltp) > 0.001)
-                : candles.length >= 2
-                  ? candles[candles.length - 2]
-                  : undefined;
-            const prev = round2(
-              (typeof yMeta.previousClose === 'number' ? yMeta.previousClose : undefined) ??
-                prevCandle?.close ??
-                yMeta.chartPreviousClose ??
-                ltp
-            );
-            quote = {
-              ltp,
-              previousClose: prev,
-              open: candles.length > 0 ? candles[candles.length - 1].open : prev,
-              high: round2(yMeta.regularMarketDayHigh) ?? ltp,
-              low: round2(yMeta.regularMarketDayLow) ?? ltp,
-              dayChange: ltp !== null && prev !== null ? round2(ltp - prev) : null,
-              dayChangePct: ltp !== null && prev && prev > 0 ? round2(((ltp - prev) / prev) * 100) : null,
-              volume: typeof yMeta.regularMarketVolume === 'number' ? Math.round(yMeta.regularMarketVolume) : null,
-              lastTradeTime: toIsoFromEpochSec(yMeta.regularMarketTime),
-            };
-          }
-        }
-
-        if (!quote || quote.ltp === null) return;
-
-        liveQuoteHydrationCache.set(s.symbol, { quote, fetchedAt: Date.now() });
-        s.currentPrice = quote.ltp;
-        if (quote.previousClose !== null && (quote.previousClose !== quote.ltp || s.previousClose === null)) {
-          s.previousClose = quote.previousClose;
-        }
-        s.open = quote.open ?? s.open;
-        s.dayHigh = quote.high ?? s.dayHigh;
-        s.dayLow = quote.low ?? s.dayLow;
-        s.volume = quote.volume ?? s.volume;
-        if (quote.lastTradeTime) s.lastTradeTime = quote.lastTradeTime;
-        if (useNse) s.nseQuote = quote;
-        else if (s.bseCode && s.bseCode !== 'N/A') s.bseQuote = quote;
-        if (s.previousClose !== null && s.currentPrice !== null) {
-          s.sparkline = [
-            s.previousClose,
-            Number(((s.previousClose + s.currentPrice) / 2).toFixed(2)),
-            s.currentPrice,
-          ];
-        }
-        s.provenance = {
-          ...s.provenance,
-          source: `${s.exchange} Live Quote (Groww Adapter)`,
-          retrievedAt: new Date().toISOString(),
-          effectiveDate: (quote.lastTradeTime || new Date().toISOString()).slice(0, 10),
-          verificationStatus: 'Verified',
-          qualityStatus: 'VERIFIED',
-        };
-      })
-    );
-  }
-
-  // Enrich visible stocks missing live TTM fundamentals/sector (e.g. from Groww company filings)
-  const fundCandidates = items
-    .filter((s) => s.searchId && s.fundamentals.pe === null && !companyFundamentalsHydrationCache.has(s.searchId))
-    .slice(0, 12);
-  if (fundCandidates.length > 0) {
-    await Promise.all(
-      fundCandidates.map(async (s) => {
-        const sid = s.searchId!;
-        const info = await fetchGrowwCompanyDetails(sid);
-        if (!info) {
-          companyFundamentalsHydrationCache.set(sid, {
-            pe: null,
-            pb: null,
-            roePct: null,
-            debtToEquity: null,
-            dividendYieldPct: null,
-            marketCapCr: null,
-            sector: null,
-            logoUrl: null,
-            fetchedAt: Date.now(),
-          });
-          return;
-        }
-        const fMap = new Map<string, string>();
-        for (const f of info.fundamentals ?? []) {
-          if (f.shortName && f.value) fMap.set(f.shortName.toLowerCase(), f.value);
-          if (f.name && f.value) fMap.set(f.name.toLowerCase(), f.value);
-        }
-        const pe = parseNumericFundamental(fMap.get('p/e ratio(ttm)'));
-        const pb = parseNumericFundamental(fMap.get('p/b ratio'));
-        const roePct = parseNumericFundamental(fMap.get('roe'));
-        const debtToEquity = parseNumericFundamental(fMap.get('debt to equity'));
-        const dividendYieldPct = parseNumericFundamental(fMap.get('div yield') || fMap.get('dividend yield'));
-        const mcap = parseNumericFundamental(fMap.get('mkt cap') || fMap.get('market cap'));
-        const sector = info.header?.industryName || null;
-        const logoUrl = normalizeGrowwLogoUrl(info.header?.logoUrl);
-
-        companyFundamentalsHydrationCache.set(sid, {
-          pe,
-          pb,
-          roePct,
-          debtToEquity,
-          dividendYieldPct,
-          marketCapCr: mcap,
-          sector,
-          logoUrl,
-          fetchedAt: Date.now(),
-        });
-
-        s.fundamentals = {
-          ...s.fundamentals,
-          pe: pe ?? s.fundamentals.pe,
-          pb: pb ?? s.fundamentals.pb,
-          roePct: roePct ?? s.fundamentals.roePct,
-          debtToEquity: debtToEquity ?? s.fundamentals.debtToEquity,
-          dividendYieldPct: dividendYieldPct ?? s.fundamentals.dividendYieldPct,
-          reportingPeriod: info.fundamentals?.length ? 'TTM Live Filings' : s.fundamentals.reportingPeriod,
-          source: info.fundamentals?.length ? 'NSE/BSE Company Filings' : s.fundamentals.source,
-        };
-        if (sector && (s.sector.includes('Equity') || s.sector === 'Listed Equity')) {
-          s.sector = sector;
-          s.industry = sector;
-        }
-        if (mcap && !s.marketCapCr) s.marketCapCr = mcap;
-        if (logoUrl && (!s.logoUrl || s.logoUrl.startsWith('/api/company-logo'))) {
-          s.logoUrl = logoUrl;
-        }
-      })
-    );
-  } else {
-    for (const s of items) {
-      if (!s.searchId) continue;
-      const cached = companyFundamentalsHydrationCache.get(s.searchId);
-      if (!cached) continue;
-      if (s.fundamentals.pe === null && cached.pe !== null) s.fundamentals.pe = cached.pe;
-      if (s.fundamentals.pb === null && cached.pb !== null) s.fundamentals.pb = cached.pb;
-      if (s.fundamentals.roePct === null && cached.roePct !== null) s.fundamentals.roePct = cached.roePct;
-      if (s.fundamentals.debtToEquity === null && cached.debtToEquity !== null) s.fundamentals.debtToEquity = cached.debtToEquity;
-      if (s.fundamentals.dividendYieldPct === null && cached.dividendYieldPct !== null) s.fundamentals.dividendYieldPct = cached.dividendYieldPct;
-      if (cached.sector && s.sector.includes('Equity')) {
-        s.sector = cached.sector;
-        s.industry = cached.sector;
+  await Promise.all([
+    ...quoteCandidates.map(async (s) => {
+      const hit = await fetchHydrationQuote(s);
+      if (!hit || hit.quote.ltp === null) return;
+      applyHydratedQuoteToStock(s, hit.quote, hit.sourceLabel);
+    }),
+    (async () => {
+      for (let i = 0; i < logoCandidates.length; i += 25) {
+        const chunk = logoCandidates.slice(i, i + 25);
+        await Promise.all(
+          chunk.map(async (s) => {
+            const resolved = await probeAndCacheStockLogo({
+              symbol: s.symbol,
+              bseCode: s.bseCode,
+              searchId: s.searchId,
+              logoUrl: s.logoUrl,
+              companyName: s.companyName,
+            });
+            if (resolved) s.logoUrl = resolved;
+          })
+        );
       }
-      if (cached.logoUrl && (!s.logoUrl || s.logoUrl.startsWith('/api/company-logo'))) {
-        s.logoUrl = cached.logoUrl;
-      }
-    }
-  }
+    })(),
+  ]);
 }
 
 export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {}): Promise<{
@@ -2523,17 +2516,6 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
   };
 }
 
-interface NseAllIndicesResponse {
-  data?: Array<{
-    index?: string;
-    last?: number;
-    previousClose?: number;
-    variation?: number;
-    percentChange?: number;
-  }>;
-  timestamp?: string;
-}
-
 export async function refreshIndicesFromProvider(force = false): Promise<{
   indices: MarketIndexInstrument[];
   liveFeedReachable: boolean;
@@ -2553,150 +2535,42 @@ export async function refreshIndicesFromProvider(force = false): Promise<{
   lastFetchMap.set('__INDICES__', now);
   let successCount = 0;
 
-  const nseIndicesPromise = fetchJsonWithTimeout<NseAllIndicesResponse>(
-    'https://www.nseindia.com/api/allIndices',
-    {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      },
-    },
-    4500
-  );
-
-  const [nseIndicesData] = await Promise.all([
-    nseIndicesPromise,
-    Promise.all(
-      db.indices.map(async (idx) => {
-        const data = await fetchYahooChart(idx.yahooSymbol, '5d', '1d');
-        const meta = data?.chart?.result?.[0]?.meta;
-        if (meta && typeof meta.regularMarketPrice === 'number') {
-          successCount += 1;
-          const val = Number(meta.regularMarketPrice.toFixed(2));
-          const yCandles = parseYahooCandles(data!);
-          const prevCandle = yCandles.length >= 2
-            ? [...yCandles].reverse().find((c) => Math.abs(c.close - val) > 0.001) ??
-              yCandles[yCandles.length - 2]
-            : undefined;
-          const prev =
-            (typeof meta.previousClose === 'number' ? meta.previousClose : undefined) ??
-            prevCandle?.close ??
-            meta.chartPreviousClose ??
-            idx.previousClose ??
-            val;
-          const chg = Number((val - prev).toFixed(2));
-          const chgPct = prev > 0 ? Number(((chg / prev) * 100).toFixed(2)) : 0;
-          const effectiveTs = meta.regularMarketTime
-            ? new Date(meta.regularMarketTime * 1000).toISOString()
-            : new Date().toISOString();
-
-          idx.value = val;
-          idx.previousClose = Number(prev.toFixed(2));
-          idx.change = chg;
-          idx.changePercent = chgPct;
-          idx.provenance = {
-            ...idx.provenance,
-            source: 'Yahoo Finance Indian Index Feed',
-            retrievedAt: new Date().toISOString(),
-            effectiveDate: effectiveTs.slice(0, 10),
-            qualityStatus: 'DELAYED',
-            verificationStatus: 'Verified',
-          };
-        }
-      })
-    ),
-  ]);
-
-  if (nseIndicesData?.data?.length) {
-    const nseMap = new Map<string, NonNullable<NseAllIndicesResponse['data']>[number]>();
-    for (const row of nseIndicesData.data) {
-      if (row.index) nseMap.set(row.index.toUpperCase(), row);
-    }
-    const nseKeyMap: Record<string, string> = {
-      nifty50: 'NIFTY 50',
-      banknifty: 'NIFTY BANK',
-      indiavix: 'INDIA VIX',
-    };
-    const retrievedIso = new Date().toISOString();
-    for (const idx of db.indices) {
-      const targetName = nseKeyMap[idx.id];
-      if (!targetName) continue;
-      const nseRow = nseMap.get(targetName);
-      if (nseRow && typeof nseRow.last === 'number') {
+  await Promise.all(
+    db.indices.map(async (idx) => {
+      const data = await fetchYahooChart(idx.yahooSymbol, '5d', '1d');
+      const meta = data?.chart?.result?.[0]?.meta;
+      if (meta && typeof meta.regularMarketPrice === 'number') {
         successCount += 1;
-        idx.value = Number(nseRow.last.toFixed(2));
-        if (typeof nseRow.previousClose === 'number') {
-          idx.previousClose = Number(nseRow.previousClose.toFixed(2));
-        }
-        if (typeof nseRow.variation === 'number') {
-          idx.change = Number(nseRow.variation.toFixed(2));
-        }
-        if (typeof nseRow.percentChange === 'number') {
-          idx.changePercent = Number(nseRow.percentChange.toFixed(2));
-        }
+        const prev =
+          meta.chartPreviousClose ??
+          meta.previousClose ??
+          idx.previousClose ??
+          meta.regularMarketPrice;
+        const val = Number(meta.regularMarketPrice.toFixed(2));
+        const chg = Number((val - prev).toFixed(2));
+        const chgPct = prev > 0 ? Number(((chg / prev) * 100).toFixed(2)) : 0;
+        const effectiveTs = meta.regularMarketTime
+          ? new Date(meta.regularMarketTime * 1000).toISOString()
+          : new Date().toISOString();
+
+        idx.value = val;
+        idx.previousClose = Number(prev.toFixed(2));
+        idx.change = chg;
+        idx.changePercent = chgPct;
         idx.provenance = {
           ...idx.provenance,
-          source: 'NSE India Official Index Feed',
-          retrievedAt: retrievedIso,
-          effectiveDate: retrievedIso.slice(0, 10),
-          qualityStatus: 'VERIFIED',
+          source: 'Yahoo Finance Indian Index Feed',
+          retrievedAt: new Date().toISOString(),
+          effectiveDate: effectiveTs.slice(0, 10),
+          qualityStatus: 'DELAYED',
           verificationStatus: 'Verified',
         };
       }
-    }
-  }
+    })
+  );
 
   saveDb();
   return { indices: db.indices, liveFeedReachable: successCount > 0 };
-}
-
-interface NseAnnouncementRaw {
-  symbol?: string;
-  desc?: string;
-  an_dt?: string;
-  attchmntText?: string;
-  seq_id?: string;
-}
-
-async function fetchNseAnnouncements(symbol: string): Promise<StockAnnouncement[]> {
-  if (!symbol || /^\d+$/.test(symbol)) return [];
-  const url = `https://www.nseindia.com/api/corporate-announcements?index=equities&symbol=${encodeURIComponent(
-    symbol.toUpperCase()
-  )}`;
-  const rows = await fetchJsonWithTimeout<NseAnnouncementRaw[]>(
-    url,
-    {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      },
-    },
-    3500
-  );
-  if (!Array.isArray(rows) || rows.length === 0) return [];
-  return rows.slice(0, 8).map((r, i) => {
-    const dtParts = (r.an_dt || '').split(' ')[0];
-    const parsedDate = dtParts ? new Date(dtParts) : null;
-    const isoDate =
-      parsedDate && !Number.isNaN(parsedDate.getTime())
-        ? parsedDate.toISOString().slice(0, 10)
-        : new Date().toISOString().slice(0, 10);
-    return {
-      id: r.seq_id ? `nse-${r.seq_id}` : `nse-${symbol}-${i}`,
-      date: isoDate,
-      title: (r.attchmntText || r.desc || 'Exchange Disclosure').trim().slice(0, 220),
-      category: (r.desc || 'Exchange Filing').trim(),
-      source: 'NSE India Corporate Filings',
-    };
-  });
-}
-
-function computeYoYGrowthPct(series: Array<{ period: string; valueCr: number }> | undefined): number | null {
-  if (!series || series.length < 2) return null;
-  const latest = series[series.length - 1]?.valueCr;
-  const prev = series[series.length - 2]?.valueCr;
-  if (typeof latest !== 'number' || typeof prev !== 'number' || prev === 0) return null;
-  return round2(((latest - prev) / Math.abs(prev)) * 100);
 }
 
 export async function refreshStockBySymbol(
@@ -2704,8 +2578,7 @@ export async function refreshStockBySymbol(
   range = '3mo'
 ): Promise<{ stock: StockInstrument | null; fromUpstream: boolean }> {
   const db = getDb();
-  const rawUpper = rawSymbol.trim().toUpperCase().replace(/\.(NS|BO)$/i, '');
-  const cleanSymbol = TICKER_ALIASES[rawUpper] || rawUpper;
+  const cleanSymbol = rawSymbol.trim().toUpperCase().replace(/\.(NS|BO)$/i, '');
 
   if (liveUniverseCache.length === 0) {
     await syncAllIndianStocks();
@@ -2719,7 +2592,6 @@ export async function refreshStockBySymbol(
     existing.historicalSeries.length > 0 &&
     existing.companyProfile !== undefined &&
     existing.nseQuote !== undefined &&
-    existing.announcements.length > 0 &&
     Date.now() - lastCheck < QUOTE_CACHE_TTL_MS
   ) {
     return { stock: existing, fromUpstream: false };
@@ -2769,12 +2641,11 @@ export async function refreshStockBySymbol(
 
   const interval = range === '1d' ? '15m' : range === '5d' ? '1h' : '1d';
 
-  const [nseQuote, bseQuote, companyInfo, yahooChart, nseAnnouncements] = await Promise.all([
+  const [nseQuote, bseQuote, companyInfo, yahooChart] = await Promise.all([
     nseCode ? fetchGrowwLiveQuote('NSE', nseCode) : Promise.resolve(null),
     bseCode ? fetchGrowwLiveQuote('BSE', bseCode) : Promise.resolve(null),
     searchId ? fetchGrowwCompanyDetails(searchId) : Promise.resolve(null),
     fetchYahooChart(yahooCandidate, range, interval),
-    nseCode ? fetchNseAnnouncements(nseCode) : Promise.resolve([]),
     syncOfficialRegistries(),
   ]);
 
@@ -2823,27 +2694,29 @@ export async function refreshStockBySymbol(
     round2(yahooMeta?.regularMarketPrice) ??
     existing?.currentPrice ??
     null;
-  const livePrevCandidate =
-    primaryLive?.previousClose !== null && primaryLive?.previousClose !== undefined
-      ? primaryLive.previousClose === price &&
-        existing?.previousClose !== null &&
-        existing?.previousClose !== undefined &&
-        existing.previousClose !== price
-        ? existing.previousClose
-        : primaryLive.previousClose
-      : null;
+  const nseBhavMatch = finalNseCode ? nseBhavBySym.get(finalNseCode.toUpperCase()) : undefined;
+  const secondLastCandleClose =
+    candles.length >= 2 && candles[candles.length - 1]?.close === price
+      ? round2(candles[candles.length - 2].close)
+      : candles.length >= 1 && candles[candles.length - 1]?.close !== price
+        ? round2(candles[candles.length - 1].close)
+        : null;
   let prevClose =
-    livePrevCandidate ??
-    (typeof yahooMeta?.previousClose === 'number' ? round2(yahooMeta.previousClose) : null) ??
+    primaryLive?.previousClose ??
+    round2(yahooMeta?.previousClose) ??
     existing?.previousClose ??
-    round2(yahooMeta?.chartPreviousClose) ??
     price;
-  if (price !== null && prevClose === price && candles.length >= 2) {
-    const distinctPrevCandle = [...candles]
-      .reverse()
-      .find((c) => Math.abs(c.close - price) > 0.001);
-    if (distinctPrevCandle) {
-      prevClose = distinctPrevCandle.close;
+  if (prevClose === null || (prevClose === price && (!primaryLive?.dayChange || primaryLive.dayChange === 0))) {
+    const candidatePrev =
+      (existing?.previousClose && existing.previousClose !== price ? existing.previousClose : null) ??
+      (nseBhavMatch?.prevClose && nseBhavMatch.prevClose !== price ? nseBhavMatch.prevClose : null) ??
+      (bseBhavMatch?.prevClose && bseBhavMatch.prevClose !== price ? bseBhavMatch.prevClose : null) ??
+      (round2(yahooMeta?.previousClose) && round2(yahooMeta?.previousClose) !== price
+        ? round2(yahooMeta?.previousClose)
+        : null) ??
+      (secondLastCandleClose && secondLastCandleClose !== price ? secondLastCandleClose : null);
+    if (candidatePrev !== null && price !== null && Math.abs(candidatePrev - price) / price < 0.35) {
+      prevClose = round2(candidatePrev);
     }
   }
   const open =
@@ -2887,7 +2760,6 @@ export async function refreshStockBySymbol(
   const peParsed = parseNumericFundamental(fundMap.get('p/e ratio(ttm)'));
   const pbParsed = parseNumericFundamental(fundMap.get('p/b ratio'));
   const roeParsed = parseNumericFundamental(fundMap.get('roe'));
-  const roceParsed = parseNumericFundamental(fundMap.get('roce'));
   const epsParsed = parseNumericFundamental(fundMap.get('eps(ttm)'));
   const bookValParsed = parseNumericFundamental(fundMap.get('book value'));
   const industryPeParsed = parseNumericFundamental(fundMap.get('industry p/e'));
@@ -2944,11 +2816,7 @@ export async function refreshStockBySymbol(
   const finalFinancials =
     financialStatements.length > 0 ? financialStatements : existing?.financialStatements || [];
 
-  const primaryFin = finalFinancials[0];
-  const revGrowthComputed = computeYoYGrowthPct(primaryFin?.revenueYearly);
-  const profitGrowthComputed = computeYoYGrowthPct(primaryFin?.profitYearly);
-
-  // Peer comparisons (resolve alphabetical symbol & real logoUrl where available)
+  // Peer comparisons (resolve alphabetical symbol where available instead of numeric BSE scrip code)
   const peers: StockPeerComparison[] = companyInfo?.similarAssets?.peerList
     ? companyInfo.similarAssets.peerList
         .map((p): StockPeerComparison | null => {
@@ -2961,21 +2829,10 @@ export async function refreshStockBySymbol(
           );
           if (!sym) return null;
           const matchedPeer = findStockInUniverse(sym);
-          const peerName = p.companyHeader?.displayName || matchedPeer?.companyName || sym;
-          const peerStaticLogo =
-            STATIC_MOVERS_MAP[sym] || STATIC_MOVERS_MAP[sym.replace(/[^A-Za-z0-9]/g, '')];
           return {
             symbol: sym,
-            companyName: peerName,
-            logoUrl:
-              peerStaticLogo ??
-              matchedPeer?.logoUrl ??
-              buildStockLogoProxyUrl({
-                symbol: sym,
-                bseCode: pBse || matchedPeer?.bseCode,
-                searchId: matchedPeer?.searchId,
-                companyName: peerName,
-              }),
+            companyName: p.companyHeader?.displayName || matchedPeer?.companyName || sym,
+            logoUrl: matchedPeer?.logoUrl ?? null,
             marketCapCr: round2(p.marketCap),
             pe: round2(p.peRatio),
             pb: round2(p.pbRatio),
@@ -2998,7 +2855,7 @@ export async function refreshStockBySymbol(
     : existing?.fundsInvested || [];
 
   const dataSourcesUsed: string[] = [];
-  if (nseQuote || nseArch || nseAnnouncements.length > 0) dataSourcesUsed.push('NSE India');
+  if (nseQuote || nseArch) dataSourcesUsed.push('NSE India');
   if (bseQuote || finalBseCode) dataSourcesUsed.push('BSE India');
   if (companyInfo || primaryLive) dataSourcesUsed.push('Groww Exchange & Filings');
   if (kiteNse || kiteBse) dataSourcesUsed.push('Zerodha Kite Registry');
@@ -3017,30 +2874,78 @@ export async function refreshStockBySymbol(
   const validExistingBse =
     existing?.bseCode && /^\d{6}$/.test(existing.bseCode) ? existing.bseCode : null;
 
-  const finalCompanyName = pickBestCompanyName({
-    primary: companyInfo?.header?.displayName,
-    curated: existing?.companyName,
-    nseArch: nseArch?.companyName,
-    kiteNse: kiteNse?.companyName,
-    kiteBse: kiteBse?.companyName,
-    bhavName: yahooMeta?.longName || yahooMeta?.shortName || resolvedName,
-    searchId: searchId || existing?.searchId,
+  // Compute YoY Revenue & Profit growth from latest yearly statements when available
+  const extractYoYGrowth = (rows: GrowwFinRow[] | undefined, title: string): number | null => {
+    const row = rows?.find((r) => (r.title || '').toLowerCase() === title.toLowerCase());
+    if (!row?.yearly) return null;
+    const vals = Object.entries(row.yearly)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([, v]) => v);
+    if (vals.length < 2) return null;
+    const prev = vals[vals.length - 2];
+    const curr = vals[vals.length - 1];
+    if (!Number.isFinite(prev) || !Number.isFinite(curr) || Math.abs(prev) < 0.01) return null;
+    return Number((((curr - prev) / Math.abs(prev)) * 100).toFixed(2));
+  };
+  const stmtRows =
+    companyInfo?.financialStatementV2?.CONSOLIDATED?.length
+      ? companyInfo.financialStatementV2.CONSOLIDATED
+      : companyInfo?.financialStatementV2?.STANDALONE;
+  const revGrowthParsed = extractYoYGrowth(stmtRows, 'Revenue');
+  const profGrowthParsed = extractYoYGrowth(stmtRows, 'Profit');
+
+  const resolvedLogoUrl =
+    normalizeGrowwLogoUrl(companyInfo?.header?.logoUrl) ??
+    getCachedLogoUrl(finalSymbol, finalBseCode) ??
+    existing?.logoUrl ??
+    null;
+  if (resolvedLogoUrl) {
+    recordVerifiedLogoUrl(finalSymbol, finalBseCode, resolvedLogoUrl);
+  }
+
+  const sectorInfo = resolveSectorForStock({
+    companyName: resolvedName,
+    curatedSector: companyInfo?.header?.industryName || existing?.sector,
+    curatedIndustry: companyInfo?.header?.industryName || existing?.industry,
     symbol: finalSymbol,
-    bseCode: finalBseCode || validExistingBse,
   });
 
-  const staticFinalLogo =
-    STATIC_MOVERS_MAP[finalSymbol] || STATIC_MOVERS_MAP[finalSymbol.replace(/[^A-Za-z0-9]/g, '')];
-  const finalLogoUrl =
-    staticFinalLogo ??
-    normalizeGrowwLogoUrl(companyInfo?.header?.logoUrl) ??
-    existing?.logoUrl ??
-    buildStockLogoProxyUrl({
-      symbol: finalSymbol,
-      bseCode: finalBseCode || validExistingBse,
+  const resolvedFundamentals: StockInstrument['fundamentals'] = {
+    pe: peParsed ?? existing?.fundamentals.pe ?? null,
+    pb: pbParsed ?? existing?.fundamentals.pb ?? null,
+    roePct: roeParsed ?? existing?.fundamentals.roePct ?? null,
+    rocePct: existing?.fundamentals.rocePct ?? null,
+    debtToEquity: debtParsed ?? existing?.fundamentals.debtToEquity ?? null,
+    revenueGrowthPct: revGrowthParsed ?? existing?.fundamentals.revenueGrowthPct ?? null,
+    profitGrowthPct: profGrowthParsed ?? existing?.fundamentals.profitGrowthPct ?? null,
+    dividendYieldPct: divParsed ?? existing?.fundamentals.dividendYieldPct ?? null,
+    reportingPeriod: companyInfo?.fundamentals?.length
+      ? 'TTM Live Exchange Filings'
+      : existing?.fundamentals.reportingPeriod || 'Exchange Quote Feed',
+    source: companyInfo?.fundamentals?.length
+      ? 'NSE/BSE Company Filings (via Groww)'
+      : existing?.fundamentals.source || 'NSE/BSE Adapter',
+  };
+
+  const resolvedSector = normalizeSectorLabel(companyInfo?.header?.industryName || sectorInfo.sector);
+  const resolvedIndustry = normalizeSectorLabel(companyInfo?.header?.industryName || sectorInfo.industry);
+
+  if (companyInfo) {
+    const store = getEnrichmentStore();
+    store.details[finalSymbol] = {
       searchId: searchId || existing?.searchId,
-      companyName: finalCompanyName,
-    });
+      sector: resolvedSector,
+      industry: resolvedIndustry,
+      logoUrl: resolvedLogoUrl,
+      marketCapCr: mcapParsed ?? existing?.marketCapCr ?? null,
+      week52High,
+      week52Low,
+      fundamentals: resolvedFundamentals,
+      companyProfile,
+      updatedAt: nowIso,
+    };
+    scheduleEnrichmentSave();
+  }
 
   const updated: StockInstrument = {
     id: existing?.id || createId('stk'),
@@ -3048,17 +2953,21 @@ export async function refreshStockBySymbol(
     bseCode: finalBseCode || validExistingBse || 'N/A',
     yahooSymbol: finalNseCode ? `${finalNseCode}.NS` : `${finalBseCode || cleanSymbol}.BO`,
     searchId: searchId || existing?.searchId,
-    companyName: finalCompanyName,
-    logoUrl: finalLogoUrl,
+    companyName: pickBestCompanyName({
+      primary: companyInfo?.header?.displayName,
+      curated: existing?.companyName,
+      nseArch: nseArch?.companyName,
+      kiteNse: kiteNse?.companyName,
+      kiteBse: kiteBse?.companyName,
+      bhavName: yahooMeta?.longName || yahooMeta?.shortName || resolvedName,
+      searchId: searchId || existing?.searchId,
+      symbol: finalSymbol,
+      bseCode: finalBseCode || validExistingBse,
+    }),
+    logoUrl: resolvedLogoUrl,
     exchange: finalExchange,
-    sector:
-      companyInfo?.header?.industryName ||
-      existing?.sector ||
-      'Listed Equity',
-    industry:
-      companyInfo?.header?.industryName ||
-      existing?.industry ||
-      'NSE/BSE Universe',
+    sector: resolvedSector,
+    industry: resolvedIndustry,
     isin: nseArch?.isin || companyInfo?.header?.isin || existing?.isin || resolvedIsin,
     currentPrice: price,
     previousClose: prevClose,
@@ -3072,22 +2981,7 @@ export async function refreshStockBySymbol(
     lastTradeTime: lastTradeIso,
     nseQuote,
     bseQuote,
-    fundamentals: {
-      pe: peParsed ?? existing?.fundamentals.pe ?? null,
-      pb: pbParsed ?? existing?.fundamentals.pb ?? null,
-      roePct: roeParsed ?? existing?.fundamentals.roePct ?? null,
-      rocePct: roceParsed ?? existing?.fundamentals.rocePct ?? null,
-      debtToEquity: debtParsed ?? existing?.fundamentals.debtToEquity ?? null,
-      revenueGrowthPct: revGrowthComputed ?? existing?.fundamentals.revenueGrowthPct ?? null,
-      profitGrowthPct: profitGrowthComputed ?? existing?.fundamentals.profitGrowthPct ?? null,
-      dividendYieldPct: divParsed ?? existing?.fundamentals.dividendYieldPct ?? null,
-      reportingPeriod: companyInfo?.fundamentals?.length
-        ? 'TTM Live Exchange Filings'
-        : existing?.fundamentals.reportingPeriod || 'Exchange Quote Feed',
-      source: companyInfo?.fundamentals?.length
-        ? 'NSE/BSE Company Filings (via Groww)'
-        : existing?.fundamentals.source || 'NSE/BSE Adapter',
-    },
+    fundamentals: resolvedFundamentals,
     companyProfile,
     registry,
     shareholding,
@@ -3101,7 +2995,7 @@ export async function refreshStockBySymbol(
         : existing?.sparkline || [],
     historicalSeries:
       candles.length > 0 ? candles : existing?.historicalSeries || [],
-    announcements: nseAnnouncements.length > 0 ? nseAnnouncements : existing?.announcements || [],
+    announcements: existing?.announcements || [],
     ipoHistorySlug: existing?.ipoHistorySlug,
     provenance: {
       source: dataSourcesUsed.length > 0 ? dataSourcesUsed.join(' · ') : `${finalExchange} Feed`,
@@ -3208,31 +3102,6 @@ export function evaluatePriceAlerts(): number {
         read: false,
         createdAt: now,
       });
-
-      const owner = db.users.find((u) => u.id === alert.userId);
-      const siteBaseUrl =
-        process.env.PUBLIC_SITE_URL?.trim() ||
-        process.env.APP_URL?.trim() ||
-        'https://pricealerter.in';
-      if (owner?.preferences.emailAlerts) {
-        void sendPriceAlertEmail({
-          to: owner.email,
-          name: owner.name,
-          symbol: alert.symbol,
-          companyName: alert.companyName,
-          reason,
-          siteBaseUrl,
-          link: `/stock/${alert.symbol}`,
-        });
-      }
-      void dispatchWebhookNotification('price_alert_triggered', {
-        alertId: alert.id,
-        symbol: alert.symbol,
-        companyName: alert.companyName,
-        price: current,
-        reason,
-      });
-
       triggeredCount += 1;
     }
   }
@@ -3241,4 +3110,225 @@ export function evaluatePriceAlerts(): number {
     saveDb();
   }
   return triggeredCount;
+}
+
+const enrichmentAttemptedSymbols = new Set<string>();
+const logoSweepAttemptedSymbols = new Set<string>();
+const missingQuoteAttemptedSymbols = new Map<string, number>();
+
+export async function runBackgroundMarketEnrichment(batchSize = 40): Promise<{
+  mappedIndustries: number;
+  enrichedDetails: number;
+  probedLogos: number;
+  hydratedQuotes: number;
+}> {
+  if (liveUniverseCache.length === 0) {
+    await syncAllIndianStocks();
+  }
+  const store = getEnrichmentStore();
+  let mappedIndustries = 0;
+  let enrichedDetails = 0;
+  let probedLogos = 0;
+  let hydratedQuotes = 0;
+
+  // 1. Discover official industryNames for unknown Groww industryCodes
+  const unknownCodes = Array.from(industryCodeSamples.entries())
+    .filter(([code]) => !store.industryCodes[String(code)])
+    .slice(0, 35);
+  if (unknownCodes.length > 0) {
+    await Promise.all(
+      unknownCodes.map(async ([code, sampleSearchId]) => {
+        const info = await fetchGrowwCompanyDetails(sampleSearchId);
+        const indName = info?.header?.industryName?.trim();
+        if (indName) {
+          store.industryCodes[String(code)] = normalizeSectorLabel(indName);
+          mappedIndustries += 1;
+        }
+      })
+    );
+    if (mappedIndustries > 0) {
+      scheduleEnrichmentSave();
+      await syncAllIndianStocks(true).catch(() => []);
+    }
+  }
+
+  // 2. Enrich top large/mid-cap stocks with P/E, P/B, ROE, growth, marketCap, profile, and official logos
+  const detailTargets = liveUniverseCache
+    .filter(
+      (s) =>
+        s.searchId &&
+        !enrichmentAttemptedSymbols.has(s.symbol) &&
+        (s.fundamentals.pe === null || !s.companyProfile?.businessSummary || !s.logoUrl)
+    )
+    .slice(0, batchSize);
+
+  const detailChunkSize = 8;
+  for (let i = 0; i < detailTargets.length; i += detailChunkSize) {
+    const chunk = detailTargets.slice(i, i + detailChunkSize);
+    await Promise.all(
+      chunk.map(async (s) => {
+        enrichmentAttemptedSymbols.add(s.symbol);
+        const info = await fetchGrowwCompanyDetails(s.searchId!);
+        if (!info) return;
+
+        const fundMap = new Map<string, string>();
+        for (const f of info.fundamentals ?? []) {
+          if (f.shortName && f.value) fundMap.set(f.shortName.toLowerCase(), f.value);
+          if (f.name && f.value) fundMap.set(f.name.toLowerCase(), f.value);
+        }
+
+        const extractYoY = (rows: GrowwFinRow[] | undefined, title: string): number | null => {
+          const row = rows?.find((r) => (r.title || '').toLowerCase() === title.toLowerCase());
+          if (!row?.yearly) return null;
+          const vals = Object.entries(row.yearly)
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([, v]) => v);
+          if (vals.length < 2) return null;
+          const prev = vals[vals.length - 2];
+          const curr = vals[vals.length - 1];
+          if (!Number.isFinite(prev) || !Number.isFinite(curr) || Math.abs(prev) < 0.01) return null;
+          return Number((((curr - prev) / Math.abs(prev)) * 100).toFixed(2));
+        };
+        const stRows = info.financialStatementV2?.CONSOLIDATED?.length
+          ? info.financialStatementV2.CONSOLIDATED
+          : info.financialStatementV2?.STANDALONE;
+
+        const mcap = parseNumericFundamental(fundMap.get('mkt cap') || fundMap.get('market cap'));
+        if (mcap && s.marketCapCr === null) s.marketCapCr = mcap;
+        const yHigh = round2(info.priceData?.nse?.yearHighPrice ?? info.priceData?.bse?.yearHighPrice);
+        const yLow = round2(info.priceData?.nse?.yearLowPrice ?? info.priceData?.bse?.yearLowPrice);
+        if (yHigh && s.week52High === null) s.week52High = yHigh;
+        if (yLow && s.week52Low === null) s.week52Low = yLow;
+
+        const nextFund: StockInstrument['fundamentals'] = {
+          pe: parseNumericFundamental(fundMap.get('p/e ratio(ttm)')) ?? s.fundamentals.pe,
+          pb: parseNumericFundamental(fundMap.get('p/b ratio')) ?? s.fundamentals.pb,
+          roePct: parseNumericFundamental(fundMap.get('roe')) ?? s.fundamentals.roePct,
+          rocePct: s.fundamentals.rocePct,
+          debtToEquity: parseNumericFundamental(fundMap.get('debt to equity')) ?? s.fundamentals.debtToEquity,
+          revenueGrowthPct: extractYoY(stRows, 'Revenue') ?? s.fundamentals.revenueGrowthPct,
+          profitGrowthPct: extractYoY(stRows, 'Profit') ?? s.fundamentals.profitGrowthPct,
+          dividendYieldPct:
+            parseNumericFundamental(fundMap.get('div yield') || fundMap.get('dividend yield')) ??
+            s.fundamentals.dividendYieldPct,
+          reportingPeriod: info.fundamentals?.length ? 'TTM Live Exchange Filings' : s.fundamentals.reportingPeriod,
+          source: info.fundamentals?.length ? 'NSE/BSE Company Filings (via Groww)' : s.fundamentals.source,
+        };
+
+        const logo =
+          normalizeGrowwLogoUrl(info.header?.logoUrl) ??
+          (await probeAndCacheStockLogo({
+            symbol: s.symbol,
+            bseCode: s.bseCode,
+            searchId: s.searchId,
+            logoUrl: s.logoUrl,
+            companyName: s.companyName,
+          }));
+        if (logo) {
+          s.logoUrl = logo;
+          recordVerifiedLogoUrl(s.symbol, s.bseCode, logo);
+        }
+
+        const indName = info.header?.industryName?.trim();
+        if (indName) {
+          const cleanSec = normalizeSectorLabel(indName);
+          s.sector = cleanSec;
+          s.industry = cleanSec;
+        }
+        s.fundamentals = nextFund;
+        if (info.details) {
+          s.companyProfile = {
+            ceo: info.details.ceo ?? null,
+            managingDirector: info.details.managingDirector ?? null,
+            foundedYear: info.details.foundedYear ?? null,
+            businessSummary: info.details.businessSummary ?? null,
+            epsTtm: parseNumericFundamental(fundMap.get('eps(ttm)')),
+            bookValue: parseNumericFundamental(fundMap.get('book value')),
+            industryPe: parseNumericFundamental(fundMap.get('industry p/e')),
+            faceValue: parseNumericFundamental(fundMap.get('face value')),
+          };
+        }
+        store.details[s.symbol.toUpperCase()] = {
+          searchId: s.searchId,
+          sector: s.sector,
+          industry: s.industry,
+          logoUrl: s.logoUrl,
+          marketCapCr: s.marketCapCr,
+          week52High: s.week52High,
+          week52Low: s.week52Low,
+          fundamentals: s.fundamentals,
+          companyProfile: s.companyProfile,
+          updatedAt: new Date().toISOString(),
+        };
+        enrichedDetails += 1;
+      })
+    );
+  }
+
+  // 3. Dedicated fast company-logo sweep across top equities missing logoUrl
+  const logoSweepTargets = liveUniverseCache
+    .filter((s) => !s.logoUrl && !logoSweepAttemptedSymbols.has(s.symbol))
+    .slice(0, 60);
+  for (let i = 0; i < logoSweepTargets.length; i += 20) {
+    const chunk = logoSweepTargets.slice(i, i + 20);
+    await Promise.all(
+      chunk.map(async (s) => {
+        logoSweepAttemptedSymbols.add(s.symbol);
+        const logo = await probeAndCacheStockLogo({
+          symbol: s.symbol,
+          bseCode: s.bseCode,
+          searchId: s.searchId,
+          logoUrl: s.logoUrl,
+          companyName: s.companyName,
+        });
+        if (logo) {
+          s.logoUrl = logo;
+          probedLogos += 1;
+        }
+      })
+    );
+  }
+
+  // 4. Hydrate missing live prices across remaining NSE/BSE equities in background
+  const now = Date.now();
+  const missingPriceTargets = liveUniverseCache
+    .filter((s) => {
+      if (s.currentPrice !== null) return false;
+      const lastTry = missingQuoteAttemptedSymbols.get(s.symbol) ?? 0;
+      return now - lastTry > 10 * 60_000;
+    })
+    .slice(0, 50);
+
+  const quoteChunkSize = 10;
+  for (let i = 0; i < missingPriceTargets.length; i += quoteChunkSize) {
+    const chunk = missingPriceTargets.slice(i, i + quoteChunkSize);
+    await Promise.all(
+      chunk.map(async (s) => {
+        missingQuoteAttemptedSymbols.set(s.symbol, Date.now());
+        const hit = await fetchHydrationQuote(s);
+        if (hit && hit.quote.ltp !== null) {
+          applyHydratedQuoteToStock(s, hit.quote, hit.sourceLabel);
+          hydratedQuotes += 1;
+        }
+        if (!s.logoUrl) {
+          const logo = await probeAndCacheStockLogo({
+            symbol: s.symbol,
+            bseCode: s.bseCode,
+            searchId: s.searchId,
+            logoUrl: s.logoUrl,
+            companyName: s.companyName,
+          });
+          if (logo) {
+            s.logoUrl = logo;
+            probedLogos += 1;
+          }
+        }
+      })
+    );
+  }
+
+  if (enrichedDetails > 0 || probedLogos > 0 || hydratedQuotes > 0) {
+    scheduleEnrichmentSave();
+  }
+  return { mappedIndustries, enrichedDetails, probedLogos, hydratedQuotes };
 }
