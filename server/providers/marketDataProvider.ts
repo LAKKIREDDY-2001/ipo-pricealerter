@@ -874,11 +874,71 @@ export async function resolveGrowwLogoBySearchId(searchId: string): Promise<stri
   return url;
 }
 
+const KNOWN_BRAND_NAMES: Array<[RegExp, string]> = [
+  [/\bLARSEN\s*(&|AND)?\s*TOUBRO\b/i, '/assets/movers/lt.png'],
+  [/\bBHARAT\s+ELECTRONICS\b/i, '/assets/movers/bel.png'],
+  [/\bHINDUSTAN\s+AERONAUTICS\b/i, '/assets/movers/hal.png'],
+  [/\bINDIAN\s+OIL\b/i, '/assets/movers/ioc.png'],
+  [/\bMAHINDRA\s*(&|AND)?\s*MAHINDRA\b/i, '/assets/movers/mm.png'],
+  [/\bSTATE\s+BANK\s+OF\s+INDIA\b/i, '/assets/movers/sbi.png'],
+  [/\bHINDUSTAN\s+UNILEVER\b/i, '/assets/movers/hul.png'],
+  [/\bINFOSYS\b/i, '/assets/movers/infosys.png'],
+  [/\bBHARTI\s+AIRTEL\b/i, '/assets/movers/airtel.png'],
+  [/\bLIFE\s+INSURANCE\s+CORP/i, '/assets/movers/lici.webp'],
+  [/\bTATA\s+CONSULTANCY\b/i, '/assets/movers/tcs.png'],
+  [/\bTATA\s+MOTORS\b/i, '/assets/movers/tatamotors.png'],
+  [/\bTATA\s+POWER\b/i, '/assets/movers/tata-power.png'],
+  [/\bTATA\s+STEEL\b/i, '/assets/movers/tata-steel.png'],
+  [/\bTATA\s+CONSUMER\b/i, '/assets/movers/tata-consumer.png'],
+  [/\bTATA\s+TECH\b/i, '/assets/movers/tata-tech.png'],
+  [/\bBHARAT\s+PETROLEUM\b/i, '/assets/movers/bpcl.png'],
+  [/\bCOAL\s+INDIA\b/i, '/assets/movers/coal-india.png'],
+  [/\bPOWER\s+GRID\b/i, '/assets/movers/power-grid.png'],
+  [/\bASIAN\s+PAINTS\b/i, '/assets/movers/asian-paints.png'],
+  [/\bBAJAJ\s+FINANCE\b/i, '/assets/movers/bajaj-finance.png'],
+  [/\bBAJAJ\s+FINSERV\b/i, '/assets/movers/bajajfinsv.webp'],
+  [/\bBAJAJ\s+AUTO\b/i, '/assets/movers/bajaj-auto.webp'],
+  [/\bBAJAJ\s+HOUSING\b/i, '/assets/movers/bajaj-housing.png'],
+  [/\bSUN\s+PHARMA\b/i, '/assets/movers/sun-pharma.png'],
+  [/\bAVENUE\s+SUPERMARTS\b/i, '/assets/movers/avenue-supermarts.png'],
+  [/\bDMART\b/i, '/assets/movers/dmart.png'],
+  [/\bZOMATO\b/i, '/assets/movers/zomato.png'],
+];
+
+export function resolveStaticMoverLogo(symbol?: string | null, companyName?: string | null): string | null {
+  const sym = (symbol || '').toUpperCase().trim();
+  if (sym && STATIC_MOVERS_MAP[sym]) {
+    return STATIC_MOVERS_MAP[sym];
+  }
+  const cleanSym = sym.replace(/[^A-Za-z0-9]/g, '');
+  if (cleanSym && STATIC_MOVERS_MAP[cleanSym]) {
+    return STATIC_MOVERS_MAP[cleanSym];
+  }
+  const nameUpper = (companyName || '').toUpperCase().trim();
+  if (!nameUpper) return null;
+
+  for (const [regex, path] of KNOWN_BRAND_NAMES) {
+    if (regex.test(nameUpper)) {
+      return path;
+    }
+  }
+
+  for (const [key, path] of Object.entries(STATIC_MOVERS_MAP)) {
+    if (key.length >= 4) {
+      const regex = new RegExp(`\\b${key}\\b`);
+      if (regex.test(nameUpper)) {
+        return path;
+      }
+    }
+  }
+  return null;
+}
+
 const growwSymbolLogoCache = new Map<string, string | null>();
 export async function resolveGrowwLogoBySymbol(symbolOrCode: string): Promise<string | null> {
   const key = symbolOrCode.trim().toUpperCase();
   if (!key) return null;
-  const staticMatch = STATIC_MOVERS_MAP[key] || STATIC_MOVERS_MAP[key.replace(/[^A-Za-z0-9]/g, '')];
+  const staticMatch = resolveStaticMoverLogo(key);
   if (staticMatch) return staticMatch;
   if (growwSymbolLogoCache.has(key)) {
     return growwSymbolLogoCache.get(key) ?? null;
@@ -897,9 +957,12 @@ export async function resolveGrowwLogoBySymbol(symbolOrCode: string): Promise<st
 
 function isDebtOrBondSymbol(sym: string, name: string): boolean {
   if (/^\d/.test(sym)) return true;
-  if (/-(N\d|N[A-Z]|Y\d|Z\d|D\d|GB)$/i.test(sym)) return true;
-  if (/^(SGB|SDL|TBILL|GOI|NHAI|IRFC|PFC|REC|NTPC\d)/i.test(sym)) return true;
-  if (/\b(NCD|BOND|DEBENTURE|G-SEC|SDL|T-BILL|TREASURY BILL|GOLDBONDS)\b/i.test(name)) return true;
+  if (/-(N\d|N[A-Z]|Y\d|Z\d|D\d|GB|GS|SG|TB)$/i.test(sym)) return true;
+  if (/^(SGB|SDL|TBILL|GOI)/i.test(sym)) return true;
+  if (/^(NHAI|IRFC|PFC|REC|NTPC)\d+/i.test(sym)) return true;
+  if (/\d+GS\d+/i.test(sym)) return true;
+  if (/\b(NCD|BOND|DEBENTURE|G-SEC|GSEC|SDL|T-BILL|TREASURY BILL|GOLDBONDS|GOI STRIPS)\b/i.test(name)) return true;
+  if (/GOI.*STRIP|STRIP.*GOI/i.test(name) || /STRIPS/i.test(sym)) return true;
   return false;
 }
 
@@ -1387,7 +1450,7 @@ function mapGrowwRecordToStock(
     (nseCode ? 'NSE / BSE Equity' : 'BSE Listed Equity');
 
   const companyName = rec.companyName || curated?.companyName || symbol;
-  const staticLogo = STATIC_MOVERS_MAP[symbol] || STATIC_MOVERS_MAP[symbol.replace(/[^A-Za-z0-9]/g, '')];
+  const staticLogo = resolveStaticMoverLogo(symbol, companyName);
   const resolvedLogoUrl =
     staticLogo ||
     curated?.logoUrl ||
@@ -1610,6 +1673,7 @@ function buildRegistryEquityStock(params: {
     searchId: curated?.searchId,
     companyName: companyName || symbol,
     logoUrl:
+      resolveStaticMoverLogo(symbol, companyName) ||
       curated?.logoUrl ||
       buildStockLogoProxyUrl({
         symbol,
@@ -2962,6 +3026,7 @@ export async function refreshStockBySymbol(
   });
 
   const finalLogoUrl =
+    resolveStaticMoverLogo(finalSymbol, finalCompanyName) ??
     normalizeGrowwLogoUrl(companyInfo?.header?.logoUrl) ??
     existing?.logoUrl ??
     buildStockLogoProxyUrl({

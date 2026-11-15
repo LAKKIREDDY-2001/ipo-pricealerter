@@ -241,7 +241,38 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   ZOMATO: '/assets/movers/zomato.png',
 };
 
-function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
+const KNOWN_BRAND_NAMES: Array<[RegExp, string]> = [
+  [/\bLARSEN\s*(&|AND)?\s*TOUBRO\b/i, '/assets/movers/lt.png'],
+  [/\bBHARAT\s+ELECTRONICS\b/i, '/assets/movers/bel.png'],
+  [/\bHINDUSTAN\s+AERONAUTICS\b/i, '/assets/movers/hal.png'],
+  [/\bINDIAN\s+OIL\b/i, '/assets/movers/ioc.png'],
+  [/\bMAHINDRA\s*(&|AND)?\s*MAHINDRA\b/i, '/assets/movers/mm.png'],
+  [/\bSTATE\s+BANK\s+OF\s+INDIA\b/i, '/assets/movers/sbi.png'],
+  [/\bHINDUSTAN\s+UNILEVER\b/i, '/assets/movers/hul.png'],
+  [/\bINFOSYS\b/i, '/assets/movers/infosys.png'],
+  [/\bBHARTI\s+AIRTEL\b/i, '/assets/movers/airtel.png'],
+  [/\bLIFE\s+INSURANCE\s+CORP/i, '/assets/movers/lici.webp'],
+  [/\bTATA\s+CONSULTANCY\b/i, '/assets/movers/tcs.png'],
+  [/\bTATA\s+MOTORS\b/i, '/assets/movers/tatamotors.png'],
+  [/\bTATA\s+POWER\b/i, '/assets/movers/tata-power.png'],
+  [/\bTATA\s+STEEL\b/i, '/assets/movers/tata-steel.png'],
+  [/\bTATA\s+CONSUMER\b/i, '/assets/movers/tata-consumer.png'],
+  [/\bTATA\s+TECH\b/i, '/assets/movers/tata-tech.png'],
+  [/\bBHARAT\s+PETROLEUM\b/i, '/assets/movers/bpcl.png'],
+  [/\bCOAL\s+INDIA\b/i, '/assets/movers/coal-india.png'],
+  [/\bPOWER\s+GRID\b/i, '/assets/movers/power-grid.png'],
+  [/\bASIAN\s+PAINTS\b/i, '/assets/movers/asian-paints.png'],
+  [/\bBAJAJ\s+FINANCE\b/i, '/assets/movers/bajaj-finance.png'],
+  [/\bBAJAJ\s+FINSERV\b/i, '/assets/movers/bajajfinsv.webp'],
+  [/\bBAJAJ\s+AUTO\b/i, '/assets/movers/bajaj-auto.webp'],
+  [/\bBAJAJ\s+HOUSING\b/i, '/assets/movers/bajaj-housing.png'],
+  [/\bSUN\s+PHARMA\b/i, '/assets/movers/sun-pharma.png'],
+  [/\bAVENUE\s+SUPERMARTS\b/i, '/assets/movers/avenue-supermarts.png'],
+  [/\bDMART\b/i, '/assets/movers/dmart.png'],
+  [/\bZOMATO\b/i, '/assets/movers/zomato.png'],
+];
+
+export function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
   const sym = (symbol || '').toUpperCase().trim();
   if (sym && KNOWN_STATIC_LOGOS[sym]) {
     return KNOWN_STATIC_LOGOS[sym];
@@ -250,10 +281,21 @@ function resolveStaticLogo(symbol?: string | null, companyName?: string | null):
   if (cleanSym && KNOWN_STATIC_LOGOS[cleanSym]) {
     return KNOWN_STATIC_LOGOS[cleanSym];
   }
-  const nameUpper = (companyName || '').toUpperCase();
-  for (const [key, path] of Object.entries(KNOWN_STATIC_LOGOS)) {
-    if (nameUpper.includes(key)) {
+  const nameUpper = (companyName || '').toUpperCase().trim();
+  if (!nameUpper) return null;
+
+  for (const [regex, path] of KNOWN_BRAND_NAMES) {
+    if (regex.test(nameUpper)) {
       return path;
+    }
+  }
+
+  for (const [key, path] of Object.entries(KNOWN_STATIC_LOGOS)) {
+    if (key.length >= 4) {
+      const regex = new RegExp(`\\b${key}\\b`);
+      if (regex.test(nameUpper)) {
+        return path;
+      }
     }
   }
   return null;

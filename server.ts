@@ -24,6 +24,7 @@ import {
   refreshStockBySymbol,
   resolveGrowwLogoBySearchId,
   resolveGrowwLogoBySymbol,
+  resolveStaticMoverLogo,
   syncAllIndianStocks,
 } from './server/providers/marketDataProvider.ts';
 import {
@@ -703,6 +704,7 @@ async function startServer() {
     'static.tickertape.in',
     'images.dhan.co',
     'cdn.zerodha.com',
+    'storage.googleapis.com',
   ]);
   const LOGO_STOP_WORDS = new Set([
     'LTD',
@@ -832,6 +834,29 @@ async function startServer() {
       }
     }
 
+    const staticLogoPath = resolveStaticMoverLogo(alphaSym || rawSym, rawName);
+    if (staticLogoPath && staticLogoPath.startsWith('/assets/')) {
+      const fullPath = path.join(process.cwd(), 'public', staticLogoPath.replace(/^\//, ''));
+      try {
+        if (fs.existsSync(fullPath)) {
+          const fileData = await fs.promises.readFile(fullPath);
+          const ext = path.extname(fullPath).toLowerCase();
+          const contentType =
+            ext === '.webp'
+              ? 'image/webp'
+              : ext === '.svg'
+              ? 'image/svg+xml'
+              : 'image/png';
+          res.setHeader('Cache-Control', 'public, max-age=86400');
+          res.setHeader('X-Logo-Fallback', '0');
+          res.type(contentType).send(fileData);
+          return;
+        }
+      } catch {
+        // continue
+      }
+    }
+
     const candidates: string[] = [];
     const safeRawUrl = rawUrl && !rawUrl.startsWith('/api/company-logo') ? rawUrl : '';
     const normalizedExplicit = safeRawUrl ? normalizeGrowwLogoUrl(safeRawUrl) : null;
@@ -865,6 +890,45 @@ async function startServer() {
       const symbolLogo = await resolveGrowwLogoBySymbol(alphaSym || bse6);
       if (symbolLogo && !candidates.includes(symbolLogo)) {
         resolved = await tryFetchUpstreamLogo(symbolLogo);
+      }
+    }
+
+    if (!resolved) {
+      const db = getDb();
+      const matchStock = (alphaSym || bse6)
+        ? db.stocks.find(
+            (s) =>
+              (alphaSym && s.symbol.toUpperCase() === alphaSym) ||
+              (bse6 && s.bseCode === bse6)
+          )
+        : null;
+      const matchIpo = (alphaSym || rawName)
+        ? db.ipos.find(
+            (i) =>
+              (alphaSym && (i.listing?.stockSymbol?.toUpperCase() === alphaSym || i.slug.toUpperCase() === alphaSym)) ||
+              (rawName && i.companyName.toLowerCase() === rawName.toLowerCase())
+          )
+        : null;
+      const dbLogo = matchStock?.logoUrl || matchIpo?.logoUrl;
+      if (dbLogo && !dbLogo.startsWith('/api/company-logo')) {
+        if (dbLogo.startsWith('/assets/')) {
+          const fullPath = path.join(process.cwd(), 'public', dbLogo.replace(/^\//, ''));
+          try {
+            if (fs.existsSync(fullPath)) {
+              const fileData = await fs.promises.readFile(fullPath);
+              const ext = path.extname(fullPath).toLowerCase();
+              resolved = {
+                contentType:
+                  ext === '.webp' ? 'image/webp' : ext === '.svg' ? 'image/svg+xml' : 'image/png',
+                data: fileData,
+              };
+            }
+          } catch {
+            // ignore
+          }
+        } else if (dbLogo.startsWith('http')) {
+          resolved = await tryFetchUpstreamLogo(dbLogo);
+        }
       }
     }
 

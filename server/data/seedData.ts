@@ -8,7 +8,7 @@ import type {
 } from '../../src/types/financial.ts';
 
 const BASELINE_EFFECTIVE_DATE = '2026-11-15';
-const BASELINE_RETRIEVED_AT = '2026-11-15T07:04:56.965Z';
+const BASELINE_RETRIEVED_AT = '2026-11-15T10:14:52.151Z';
 
 export const SEED_INDICES: MarketIndexInstrument[] = [
   {
@@ -23,7 +23,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "NSE India Official Index Feed",
-      "retrievedAt": "2026-11-15T07:04:45.405Z",
+      "retrievedAt": "2026-11-15T10:14:40.923Z",
       "effectiveDate": "2026-11-15",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
@@ -44,7 +44,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-15T07:04:43.954Z",
+      "retrievedAt": "2026-11-15T10:14:39.753Z",
       "effectiveDate": "2026-11-13",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -65,7 +65,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "NSE India Official Index Feed",
-      "retrievedAt": "2026-11-15T07:04:45.405Z",
+      "retrievedAt": "2026-11-15T10:14:40.923Z",
       "effectiveDate": "2026-11-15",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
@@ -86,7 +86,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "NSE India Official Index Feed",
-      "retrievedAt": "2026-11-15T07:04:45.405Z",
+      "retrievedAt": "2026-11-15T10:14:40.923Z",
       "effectiveDate": "2026-11-15",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
@@ -107,7 +107,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "INR",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-15T07:04:44.111Z",
+      "retrievedAt": "2026-11-15T10:14:37.653Z",
       "effectiveDate": "2026-11-15",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -128,7 +128,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "USD/oz",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-15T07:04:45.405Z",
+      "retrievedAt": "2026-11-15T10:14:37.637Z",
       "effectiveDate": "2026-11-13",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -149,7 +149,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "USD/oz",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-15T07:04:44.107Z",
+      "retrievedAt": "2026-11-15T10:14:38.629Z",
       "effectiveDate": "2026-11-13",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -170,7 +170,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "USD/bbl",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-15T07:04:43.823Z",
+      "retrievedAt": "2026-11-15T10:14:37.377Z",
       "effectiveDate": "2026-11-13",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -44010,47 +44010,47 @@ const RAW_STOCKS: Array<{
   {
     "symbol": "DECCANSOL",
     "bseCode": "544812",
-    "companyName": "Deccan Solar & Renewables Ltd",
+    "companyName": "Atharva Poly-Plast Limited",
     "logoUrl": "/assets/movers/deccansol.svg",
     "exchange": "BSE",
-    "sector": "Power & Renewable Energy",
-    "industry": "Renewable & Power Generation",
-    "isin": "INE099Z01014",
+    "sector": "NSE / BSE SME",
+    "industry": "SME Listed Equity",
+    "isin": "INE226801012",
     "currentPrice": 171.85,
     "previousClose": 165.2,
     "volume": 62000,
-    "marketCapCr": 18420,
-    "pe": 21.51,
-    "pb": 5.1,
-    "roePct": 18.5,
-    "rocePct": 22.4,
-    "debtToEquity": 0.25,
-    "revenueGrowthPct": 14.8,
-    "profitGrowthPct": 16.2,
-    "dividendYieldPct": 0.85,
+    "marketCapCr": 580,
+    "pe": 29.4,
+    "pb": 4.12,
+    "roePct": null,
+    "rocePct": null,
+    "debtToEquity": null,
+    "revenueGrowthPct": null,
+    "profitGrowthPct": null,
+    "dividendYieldPct": null,
     "ipoHistorySlug": "deccan-solar-ipo"
   },
   {
     "symbol": "COASTALPRT",
     "bseCode": "544790",
-    "companyName": "Coastal Maritime & Ports Ltd",
+    "companyName": "Mirae Asset Mutual Fund",
     "logoUrl": "/assets/movers/coastalprt.svg",
     "exchange": "BSE",
-    "sector": "Logistics & Infrastructure",
-    "industry": "Ports, Rail & Multimodal Freight",
-    "isin": "INE088Z01019",
+    "sector": "BSE Listed Equity",
+    "industry": "Indian Listed Equity",
+    "isin": "INE0X1501011",
     "currentPrice": 250,
     "previousClose": 248.75,
-    "volume": 3600000,
-    "marketCapCr": 7210,
-    "pe": 22.7,
-    "pb": 3.1,
-    "roePct": 18.5,
-    "rocePct": 22.4,
-    "debtToEquity": 0.25,
-    "revenueGrowthPct": 14.8,
-    "profitGrowthPct": 16.2,
-    "dividendYieldPct": 0.85,
+    "volume": 6400000,
+    "marketCapCr": 490,
+    "pe": 24.2,
+    "pb": 3.25,
+    "roePct": null,
+    "rocePct": null,
+    "debtToEquity": null,
+    "revenueGrowthPct": null,
+    "profitGrowthPct": null,
+    "dividendYieldPct": null,
     "ipoHistorySlug": "coastal-maritime-ipo"
   },
   {
@@ -45186,9 +45186,9 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Official Equities & Indices",
     "providerType": "Official Exchange Market Data (Real-Time & Delayed Feed)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
-    "recordsCount": 7146,
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
+    "recordsCount": 7129,
     "notes": "Primary exchange book for all NSE listed equities (.NS), NIFTY 50, Bank Nifty, and India VIX benchmarks."
   },
   {
@@ -45197,8 +45197,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Official Equities & SME Board",
     "providerType": "Official Exchange Market Data (Bhavcopy & Scrip Code Feeds)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
     "recordsCount": 5420,
     "notes": "Secondary exchange and primary venue for BSE SME, scrip codes (e.g. 500325), and SENSEX benchmark."
   },
@@ -45208,9 +45208,9 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Broker Security Tokens & F&O Status",
     "providerType": "Broker Instrument Registry (Kite Instrument Dump)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
-    "recordsCount": 7146,
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
+    "recordsCount": 7129,
     "notes": "Authoritative mapping for exchange trading symbols, BSE/NSE instrument tokens, tick sizes, and F&O eligibility."
   },
   {
@@ -45219,9 +45219,9 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Market Cap, P/E Ratios & Financial Statements",
     "providerType": "Institutional Financial Data & Company Filings Store",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
-    "recordsCount": 7146,
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
+    "recordsCount": 7129,
     "notes": "Real-time market cap (Cr), P/E, P/B, quarterly balance sheet, shareholding patterns, and peer comparisons."
   },
   {
@@ -45230,8 +45230,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Global & Domestic Benchmarks",
     "providerType": "Real-Time FX & Commodity Feed",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
     "recordsCount": 8,
     "notes": "Continuous live quotes for USD/INR, Gold (10g INR), Silver (1kg INR), India VIX, NIFTY 50, and SENSEX."
   },
@@ -45241,10 +45241,10 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "IPO Offerings & Offering Financials",
     "providerType": "Statutory Regulator Filings & Registrar Registry",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
-    "recordsCount": 283,
-    "notes": "Tracks Mainboard and SME IPOs with 3-year restated financials, Link Intime, KFintech, and Bigshare allotment links."
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
+    "recordsCount": 73,
+    "notes": "Tracks 73 Mainboard and SME IPOs with 3-year restated financials, Link Intime, KFintech, and Bigshare allotment links."
   },
   {
     "id": "src-gmp-tracker",
@@ -45252,9 +45252,9 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Indicative GMP & Listing Estimates",
     "providerType": "Multi-Dealer Broker Syndicate Feed (Curated & Verified)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
-    "recordsCount": 18,
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
+    "recordsCount": 21,
     "notes": "Subject to statutory disclaimer. Indicative unofficial grey market dealer rates with strict verification."
   },
   {
@@ -45263,8 +45263,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Macroeconomics & Sovereign Yields",
     "providerType": "Central Bank Reference Rates",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-15T07:04:56.965Z",
-    "lastSuccessAt": "2026-11-15T07:04:56.965Z",
+    "lastCheckedAt": "2026-11-15T10:14:52.151Z",
+    "lastSuccessAt": "2026-11-15T10:14:52.151Z",
     "recordsCount": 4,
     "notes": "Official RBI reference exchange rates for INR pairs and benchmark 10-year Indian Government Bond yields."
   }
