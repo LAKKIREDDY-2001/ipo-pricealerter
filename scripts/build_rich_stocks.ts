@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  buildStockLogoProxyUrl,
   refreshIndicesFromProvider,
   refreshStockBySymbol,
-  resolveStaticMoverLogo,
   syncAllIndianStocks,
 } from '../server/providers/marketDataProvider.ts';
 import { refreshIposFromProvider } from '../server/providers/ipoDataProvider.ts';
@@ -185,6 +183,34 @@ const STATIC_MOVERS_MAP: Record<string, string> = {
   ZEPTO: '/assets/movers/zepto.png',
   ZOMATO: '/assets/movers/zomato.png',
 };
+
+function resolveStaticMoverLogo(symbol?: string | null, companyName?: string | null): string | null {
+  if (symbol) {
+    const clean = symbol.trim().toUpperCase();
+    if (STATIC_MOVERS_MAP[clean]) return STATIC_MOVERS_MAP[clean];
+    const compact = clean.replace(/[^A-Z0-9]/g, '');
+    if (STATIC_MOVERS_MAP[compact]) return STATIC_MOVERS_MAP[compact];
+  }
+  if (companyName) {
+    const firstWord = companyName.trim().toUpperCase().split(/\s+/)[0]?.replace(/[^A-Z0-9]/g, '');
+    if (firstWord && STATIC_MOVERS_MAP[firstWord]) return STATIC_MOVERS_MAP[firstWord];
+  }
+  return null;
+}
+
+function buildStockLogoProxyUrl(opts: {
+  symbol?: string | null;
+  bseCode?: string | null;
+  searchId?: string | null;
+  companyName?: string | null;
+}): string {
+  const sp = new URLSearchParams();
+  if (opts.symbol) sp.set('symbol', opts.symbol);
+  if (opts.bseCode && opts.bseCode !== 'N/A') sp.set('bse', opts.bseCode);
+  if (opts.searchId) sp.set('searchId', opts.searchId);
+  if (opts.companyName) sp.set('name', opts.companyName);
+  return `/api/company-logo?${sp.toString()}`;
+}
 
 async function main() {
   console.log('1. Refreshing live market indices, stock universe & IPO registry...');

@@ -1247,6 +1247,89 @@ async function startServer() {
     res.json({ user: sanitizeUser(user) });
   });
 
+  app.post('/api/auth/change-password', requireAuth, async (req: AuthedRequest, res) => {
+    const { currentPassword, newPassword } = (req.body || {}) as {
+      currentPassword?: string;
+      newPassword?: string;
+    };
+    if (typeof currentPassword !== 'string' || !currentPassword) {
+      res.status(400).json({ error: 'Current password is required.' });
+      return;
+    }
+    if (
+      typeof newPassword !== 'string' ||
+      newPassword.length < 8 ||
+      !/[A-Za-z]/.test(newPassword) ||
+      !/\d/.test(newPassword)
+    ) {
+      res.status(400).json({ error: 'New password must be at least 8 characters with letters and numbers.' });
+      return;
+    }
+    const db = getDb();
+    const user = db.users.find((u) => u.id === req.currentUser!.id);
+    if (!user) {
+      res.status(404).json({ error: 'User not found.' });
+      return;
+    }
+    const ok = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!ok) {
+      res.status(401).json({ error: 'Current password is incorrect.' });
+      return;
+    }
+    user.passwordHash = await bcrypt.hash(newPassword, 10);
+    saveDb();
+    res.json({ message: 'Password updated successfully.' });
+  });
+
+  app.get('/api/auth/export', requireAuth, (req: AuthedRequest, res) => {
+    const db = getDb();
+    const uid = req.currentUser!.id;
+    const user = db.users.find((u) => u.id === uid);
+    if (!user) {
+      res.status(404).json({ error: 'User not found.' });
+      return;
+    }
+    res.json({
+      exportedAt: new Date().toISOString(),
+      user: sanitizeUser(user),
+      watchlist: db.watchlists.filter((w) => w.userId === uid),
+      priceAlerts: db.priceAlerts.filter((a) => a.userId === uid),
+      notifications: db.notifications.filter((n) => n.userId === uid),
+    });
+  });
+
+  app.delete('/api/auth/account', requireAuth, async (req: AuthedRequest, res) => {
+    const { password } = (req.body || {}) as { password?: string };
+    if (typeof password !== 'string' || !password) {
+      res.status(400).json({ error: 'Current password is required to delete your account.' });
+      return;
+    }
+    const db = getDb();
+    const uid = req.currentUser!.id;
+    if (uid === 'usr-admin-root') {
+      res.status(403).json({ error: 'Primary administrator account cannot be self-deleted.' });
+      return;
+    }
+    const userIdx = db.users.findIndex((u) => u.id === uid);
+    if (userIdx < 0) {
+      res.status(404).json({ error: 'User not found.' });
+      return;
+    }
+    const ok = await bcrypt.compare(password, db.users[userIdx].passwordHash);
+    if (!ok) {
+      res.status(401).json({ error: 'Incorrect password.' });
+      return;
+    }
+    db.users.splice(userIdx, 1);
+    db.watchlists = db.watchlists.filter((w) => w.userId !== uid);
+    db.priceAlerts = db.priceAlerts.filter((a) => a.userId !== uid);
+    db.notifications = db.notifications.filter((n) => n.userId !== uid);
+    saveDb();
+    const { maxAge: _omit, ...clearOpts } = getSessionCookieOptions(req);
+    res.clearCookie(SESSION_COOKIE, clearOpts);
+    res.json({ ok: true });
+  });
+
   // --- Watchlist ---
   app.get('/api/watchlist', requireAuth, (req: AuthedRequest, res) => {
     const db = getDb();
