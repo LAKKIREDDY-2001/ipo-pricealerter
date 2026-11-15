@@ -18,13 +18,36 @@ export function WatchlistPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([api.getIpos(), api.getStocks()])
-      .then(([iRes, sRes]) => {
+    Promise.all([api.getIpos(), api.getStocks({ limit: 100 })])
+      .then(async ([iRes, sRes]) => {
         setIpos(iRes.ipos);
-        setStocks(sRes.stocks);
+        const baseStocks = sRes.stocks;
+        const knownSymbols = new Set(baseStocks.map((s) => s.symbol.toUpperCase()));
+        const savedStockSyms = watchlist
+          .filter((w) => w.itemType === 'stock')
+          .map((w) => w.itemKey.toUpperCase())
+          .filter((sym) => !knownSymbols.has(sym));
+
+        if (savedStockSyms.length > 0) {
+          const settled = await Promise.allSettled(
+            savedStockSyms.map((sym) => api.getStockBySymbol(sym, '1mo'))
+          );
+          const extra = settled
+            .filter(
+              (r): r is PromiseFulfilledResult<{
+                stock: StockInstrument;
+                fromUpstream: boolean;
+                linkedIpo: null;
+              }> => r.status === 'fulfilled'
+            )
+            .map((r) => r.value.stock);
+          setStocks([...baseStocks, ...extra]);
+        } else {
+          setStocks(baseStocks);
+        }
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [watchlist]);
 
   if (authLoading || loading) {
     return (

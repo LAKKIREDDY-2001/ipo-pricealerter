@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import zlib from 'node:zlib';
 import type {
   ExchangeLiveQuote,
@@ -254,6 +256,117 @@ const liveQuoteHydrationCache = new Map<
   string,
   { quote: ExchangeLiveQuote; fetchedAt: number }
 >();
+
+// Persistent disk enrichment cache (industryCode -> industryName, verified logoUrls, fundamentals, hydrated quotes)
+interface CachedStockEnrichment {
+  searchId?: string;
+  sector?: string;
+  industry?: string;
+  logoUrl?: string | null;
+  marketCapCr?: number | null;
+  week52High?: number | null;
+  week52Low?: number | null;
+  fundamentals?: StockInstrument['fundamentals'];
+  companyProfile?: StockCompanyProfile | null;
+  updatedAt: string;
+}
+
+interface MarketEnrichmentStore {
+  industryCodes: Record<string, string>;
+  logos: Record<string, string>;
+  details: Record<string, CachedStockEnrichment>;
+  quotes: Record<string, { quote: ExchangeLiveQuote; fetchedAt: number }>;
+}
+
+const ENRICHMENT_FILE = path.resolve(process.cwd(), 'server', 'data', 'market-enrichment.json');
+let enrichmentStore: MarketEnrichmentStore | null = null;
+let enrichmentSaveTimer: ReturnType<typeof setTimeout> | null = null;
+
+function getEnrichmentStore(): MarketEnrichmentStore {
+  if (enrichmentStore) return enrichmentStore;
+  try {
+    if (fs.existsSync(ENRICHMENT_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(ENRICHMENT_FILE, 'utf8')) as Partial<MarketEnrichmentStore>;
+      enrichmentStore = {
+        industryCodes: parsed.industryCodes || {},
+        logos: parsed.logos || {},
+        details: parsed.details || {},
+        quotes: parsed.quotes || {},
+      };
+      // Warm in-memory quote hydration cache from disk (if < 24h old)
+      const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+      for (const [sym, q] of Object.entries(enrichmentStore.quotes)) {
+        if (q && q.quote && q.fetchedAt > cutoff) {
+          liveQuoteHydrationCache.set(sym, q);
+        }
+      }
+      return enrichmentStore;
+    }
+  } catch {
+    // ignore corrupted cache and recreate cleanly
+  }
+  enrichmentStore = { industryCodes: {}, logos: {}, details: {}, quotes: {} };
+  return enrichmentStore;
+}
+
+function scheduleEnrichmentSave(): void {
+  if (enrichmentSaveTimer) return;
+  enrichmentSaveTimer = setTimeout(() => {
+    enrichmentSaveTimer = null;
+    if (!enrichmentStore) return;
+    try {
+      const dir = path.dirname(ENRICHMENT_FILE);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      const tmp = `${ENRICHMENT_FILE}.tmp`;
+      fs.writeFileSync(tmp, JSON.stringify(enrichmentStore), 'utf8');
+      fs.renameSync(tmp, ENRICHMENT_FILE);
+    } catch {
+      // ignore disk write issues in read-only environments
+    }
+  }, 1500);
+  if (typeof enrichmentSaveTimer.unref === 'function') {
+    enrichmentSaveTimer.unref();
+  }
+}
+
+export function getCachedLogoUrl(symbol?: string | null, bseCode?: string | null): string | null {
+  const store = getEnrichmentStore();
+  const sym = symbol ? symbol.trim().toUpperCase() : '';
+  const bse = bseCode && /^\d{6}$/.test(bseCode.trim()) ? bseCode.trim() : '';
+  if (sym && store.logos[sym]) return store.logos[sym];
+  if (bse && store.logos[bse]) return store.logos[bse];
+  if (sym && store.details[sym]?.logoUrl) return store.details[sym].logoUrl ?? null;
+  return null;
+}
+
+export function recordVerifiedLogoUrl(
+  symbol: string | null | undefined,
+  bseCode: string | null | undefined,
+  logoUrl: string | null | undefined
+): void {
+  const normalized = normalizeGrowwLogoUrl(logoUrl) || (logoUrl && logoUrl.startsWith('https://') ? logoUrl : null);
+  if (!normalized) return;
+  const store = getEnrichmentStore();
+  let changed = false;
+  const sym = symbol ? symbol.trim().toUpperCase() : '';
+  const bse = bseCode && /^\d{6}$/.test(bseCode.trim()) ? bseCode.trim() : '';
+  if (sym && store.logos[sym] !== normalized) {
+    store.logos[sym] = normalized;
+    changed = true;
+  }
+  if (bse && store.logos[bse] !== normalized) {
+    store.logos[bse] = normalized;
+    changed = true;
+  }
+  if (liveUniverseCache.length > 0 && (sym || bse)) {
+    for (const s of liveUniverseCache) {
+      if ((sym && s.symbol.toUpperCase() === sym) || (bse && s.bseCode === bse)) {
+        if (!s.logoUrl) s.logoUrl = normalized;
+      }
+    }
+  }
+  if (changed) scheduleEnrichmentSave();
+}
 
 function round2(n: number | null | undefined): number | null {
   if (n === null || n === undefined || !Number.isFinite(n)) return null;

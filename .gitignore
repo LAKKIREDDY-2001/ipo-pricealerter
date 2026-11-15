@@ -7,4 +7,6 @@ coverage/
 !.env.example
 server/data/db.json.bak
 server/data/*.tmp*
+server/data/.session_secret
+.session_secret
 

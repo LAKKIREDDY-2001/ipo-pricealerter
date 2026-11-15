@@ -214,7 +214,9 @@ export default function App() {
                     <Route path="/alerts" element={<AlertsPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signin" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/signup" element={<RegisterPage />} />
                     <Route path="/admin" element={<AdminPage />} />
 
                     {/* Governance & Disclosures */}

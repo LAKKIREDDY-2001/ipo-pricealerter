@@ -20,9 +20,11 @@ import {
 import {
   evaluatePriceAlerts,
   findStockInUniverse,
+  getCachedLogoUrl,
   getLiveUniverseSnapshot,
   normalizeGrowwLogoUrl,
   queryAllIndianStocks,
+  recordVerifiedLogoUrl,
   refreshIndicesFromProvider,
   refreshStockBySymbol,
   resolveGrowwLogoBySearchId,
@@ -52,13 +54,32 @@ dotenv.config();
 
 const PORT = Number(process.env.PORT) || 3000;
 const SESSION_COOKIE = 'pa_session';
-const SESSION_SECRET =
-  process.env.SESSION_SECRET?.trim() || crypto.randomBytes(32).toString('hex');
-if (!process.env.SESSION_SECRET?.trim() && process.env.NODE_ENV === 'production') {
-  console.warn(
-    '[Security] SESSION_SECRET environment variable is not set; using ephemeral in-memory secret.'
-  );
+
+function resolveSessionSecret(): string {
+  const fromEnv = process.env.SESSION_SECRET?.trim();
+  if (fromEnv) return fromEnv;
+  const secretFile = path.resolve(process.cwd(), 'server', 'data', '.session_secret');
+  try {
+    if (fs.existsSync(secretFile)) {
+      const stored = fs.readFileSync(secretFile, 'utf8').trim();
+      if (stored.length >= 32) return stored;
+    }
+    const generated = crypto.randomBytes(32).toString('hex');
+    const dir = path.dirname(secretFile);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(secretFile, generated, { mode: 0o600, encoding: 'utf8' });
+    return generated;
+  } catch {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(
+        '[Security] SESSION_SECRET environment variable is not set; using ephemeral in-memory secret.'
+      );
+    }
+    return crypto.randomBytes(32).toString('hex');
+  }
 }
+
+const SESSION_SECRET = resolveSessionSecret();
 
 interface SessionPayload {
   uid: string;
@@ -95,8 +116,18 @@ interface AuthedRequest extends Request {
   currentUser?: StoredUser;
 }
 
+function extractSessionToken(req: Request): string | undefined {
+  const cookieToken = req.cookies?.[SESSION_COOKIE] as string | undefined;
+  if (cookieToken) return cookieToken;
+  const authHeader = req.get('authorization') || '';
+  if (authHeader.toLowerCase().startsWith('bearer ')) {
+    return authHeader.slice(7).trim() || undefined;
+  }
+  return undefined;
+}
+
 function attachUser(req: AuthedRequest, _res: Response, next: NextFunction): void {
-  const token = req.cookies?.[SESSION_COOKIE] as string | undefined;
+  const token = extractSessionToken(req);
   const session = verifySession(token);
   if (session) {
     const db = getDb();
@@ -252,12 +283,16 @@ const authRateLimit = createRateLimiter(25, 60_000);
 const apiRateLimit = createRateLimiter(300, 60_000);
 const logoRateLimit = createRateLimiter(600, 60_000);
 
-function setSessionCookie(req: Request, res: Response, user: StoredUser): void {
-  const token = signSession({
+function createSessionToken(user: StoredUser): string {
+  return signSession({
     uid: user.id,
     role: user.role,
     exp: Date.now() + 7 * 24 * 60 * 60 * 1000,
   });
+}
+
+function setSessionCookie(req: Request, res: Response, user: StoredUser): string {
+  const token = createSessionToken(user);
   const secureCookie = isHttpsRequest(req) && process.env.NODE_ENV === 'production';
   res.cookie(SESSION_COOKIE, token, {
     httpOnly: true,
@@ -266,6 +301,7 @@ function setSessionCookie(req: Request, res: Response, user: StoredUser): void {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/',
   });
+  return token;
 }
 
 function buildProductionCsp(isHttps: boolean): string {
@@ -932,6 +968,14 @@ async function startServer() {
     }
 
     if (!resolved) {
+      const cachedDiskLogo = getCachedLogoUrl(alphaSym || rawSym, bse6);
+      if (cachedDiskLogo) {
+        if (cachedDiskLogo.startsWith('/assets/')) {
+          resolved = tryReadLocalAsset(cachedDiskLogo);
+        } else {
+          candidates.push(cachedDiskLogo);
+        }
+      }
       const normalizedExplicit = safeRawUrl ? normalizeGrowwLogoUrl(safeRawUrl) : null;
       if (normalizedExplicit) candidates.push(normalizedExplicit);
       if (alphaSym) {
@@ -944,11 +988,15 @@ async function startServer() {
       }
       if (bse6) {
         candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`);
+        candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`);
       }
 
       for (const url of candidates) {
         resolved = await tryFetchUpstreamLogo(url);
-        if (resolved) break;
+        if (resolved) {
+          recordVerifiedLogoUrl(alphaSym || rawSym, bse6, url);
+          break;
+        }
       }
     }
 
@@ -1160,8 +1208,8 @@ async function startServer() {
     };
     db.users.push(newUser);
     saveDb();
-    setSessionCookie(req, res, newUser);
-    res.status(201).json({ user: sanitizeUser(newUser) });
+    const token = setSessionCookie(req, res, newUser);
+    res.status(201).json({ user: sanitizeUser(newUser), token });
   });
 
   app.post('/api/auth/login', authRateLimit, async (req, res) => {
@@ -1177,8 +1225,8 @@ async function startServer() {
       res.status(401).json({ error: 'Invalid email or password.' });
       return;
     }
-    setSessionCookie(req, res, user);
-    res.json({ user: sanitizeUser(user) });
+    const token = setSessionCookie(req, res, user);
+    res.json({ user: sanitizeUser(user), token });
   });
 
   app.post('/api/auth/logout', (req, res) => {
@@ -1230,8 +1278,8 @@ async function startServer() {
   });
 
   app.post('/api/auth/reset-password', authRateLimit, async (req, res) => {
-    const { token, newPassword } = req.body as { token?: string; newPassword?: string };
-    const cleanToken = typeof token === 'string' ? token.trim() : '';
+    const { token: rawResetToken, newPassword } = req.body as { token?: string; newPassword?: string };
+    const cleanToken = typeof rawResetToken === 'string' ? rawResetToken.trim() : '';
     if (!cleanToken || cleanToken.length < 32) {
       res.status(400).json({ error: 'Invalid or expired password reset token.' });
       return;
@@ -1261,9 +1309,10 @@ async function startServer() {
     user.passwordResetTokenHash = null;
     user.passwordResetExpiresAt = null;
     saveDb();
-    setSessionCookie(req, res, user);
+    const token = setSessionCookie(req, res, user);
     res.json({
       user: sanitizeUser(user),
+      token,
       message: 'Your password has been updated and you are now signed in.',
     });
   });
@@ -1296,17 +1345,21 @@ async function startServer() {
     res.json({ message: 'Password updated successfully.' });
   });
 
-  app.get('/api/auth/export-data', requireAuth, (req: AuthedRequest, res) => {
+  const handleExportData = (req: AuthedRequest, res: Response) => {
     const db = getDb();
     const uid = req.currentUser!.id;
+    const user = db.users.find((u) => u.id === uid) || req.currentUser!;
     res.json({
       exportedAt: new Date().toISOString(),
-      account: sanitizeUser(req.currentUser!),
+      user: sanitizeUser(user),
+      account: sanitizeUser(user),
       watchlist: db.watchlists.filter((w) => w.userId === uid),
       priceAlerts: db.priceAlerts.filter((a) => a.userId === uid),
       notifications: db.notifications.filter((n) => n.userId === uid),
     });
-  });
+  };
+  app.get('/api/auth/export', requireAuth, handleExportData);
+  app.get('/api/auth/export-data', requireAuth, handleExportData);
 
   app.delete('/api/auth/account', requireAuth, async (req: AuthedRequest, res) => {
     const { password } = req.body as { password?: string };
@@ -1345,7 +1398,8 @@ async function startServer() {
       res.json({ user: null });
       return;
     }
-    res.json({ user: sanitizeUser(req.currentUser) });
+    const token = extractSessionToken(req) || createSessionToken(req.currentUser);
+    res.json({ user: sanitizeUser(req.currentUser), token });
   });
 
   app.patch('/api/auth/preferences', requireAuth, (req: AuthedRequest, res) => {

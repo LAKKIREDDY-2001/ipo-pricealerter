@@ -310,6 +310,7 @@ function buildCompanyLogoProxyUrl(opts: {
   companyName: string;
   symbol?: string | null;
   bseCode?: string | null;
+  logoUrl?: string | null;
   searchId?: string | null;
   logoColor?: string | null;
 }): string {
@@ -320,6 +321,9 @@ function buildCompanyLogoProxyUrl(opts: {
   }
   if (opts.bseCode && opts.bseCode !== 'N/A' && /^\d{6}$/.test(opts.bseCode.trim())) {
     params.set('bseCode', opts.bseCode.trim());
+  }
+  if (opts.logoUrl && opts.logoUrl.trim()) {
+    params.set('url', opts.logoUrl.trim());
   }
   if (opts.searchId && opts.searchId.trim()) {
     params.set('searchId', opts.searchId.trim());
