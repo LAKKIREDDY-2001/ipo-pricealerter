@@ -23,6 +23,7 @@ import {
   refreshIndicesFromProvider,
   refreshStockBySymbol,
   resolveGrowwLogoBySearchId,
+  resolveGrowwLogoBySymbol,
   syncAllIndianStocks,
 } from './server/providers/marketDataProvider.ts';
 import {
@@ -832,11 +833,15 @@ async function startServer() {
     }
 
     const candidates: string[] = [];
-    const normalizedExplicit = normalizeGrowwLogoUrl(rawUrl);
+    const safeRawUrl = rawUrl && !rawUrl.startsWith('/api/company-logo') ? rawUrl : '';
+    const normalizedExplicit = safeRawUrl ? normalizeGrowwLogoUrl(safeRawUrl) : null;
     if (normalizedExplicit) candidates.push(normalizedExplicit);
     if (alphaSym) {
       candidates.push(
-        `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`
+        `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`,
+        `https://images.dhan.co/symbol/${encodeURIComponent(alphaSym)}.png`,
+        `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
+        `https://static.tickertape.in/stock-logos/${encodeURIComponent(alphaSym)}.png`
       );
     }
     if (bse6) {
@@ -853,6 +858,13 @@ async function startServer() {
       const searchLogo = await resolveGrowwLogoBySearchId(rawSearchId);
       if (searchLogo && !candidates.includes(searchLogo)) {
         resolved = await tryFetchUpstreamLogo(searchLogo);
+      }
+    }
+
+    if (!resolved && (alphaSym || bse6)) {
+      const symbolLogo = await resolveGrowwLogoBySymbol(alphaSym || bse6);
+      if (symbolLogo && !candidates.includes(symbolLogo)) {
+        resolved = await tryFetchUpstreamLogo(symbolLogo);
       }
     }
 

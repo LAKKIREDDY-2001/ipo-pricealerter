@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { resolveApiUrl } from '../../services/api';
 
 export interface CompanyLogoProps {
@@ -83,6 +83,8 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   ITC: '/assets/movers/itc.png',
   SUNPHARMA: '/assets/movers/sun-pharma.png',
   TATAMOTORS: '/assets/movers/tatamotors.png',
+  TMPV: '/assets/movers/tatamotors.png',
+  TMCV: '/assets/movers/tatamotors.png',
   HINDUNILVR: '/assets/movers/hul.png',
   BAJFINANCE: '/assets/movers/bajaj-finance.png',
   KOTAKBANK: '/assets/movers/kotak-bank.png',
@@ -103,6 +105,7 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   ULTRACEMCO: '/assets/movers/ultratech.png',
   ASIANPAINT: '/assets/movers/asian-paints.png',
   ZOMATO: '/assets/movers/zomato.png',
+  ETERNAL: '/assets/movers/zomato.png',
   SWIGGY: '/assets/movers/swiggy.png',
   TRENT: '/assets/movers/trent.png',
   JIOFIN: '/assets/movers/jio-fin.png',
@@ -205,6 +208,33 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   VEDANT: '/assets/movers/vedant.png',
 };
 
+function buildCompanyLogoProxyUrl(opts: {
+  companyName: string;
+  symbol?: string | null;
+  bseCode?: string | null;
+  searchId?: string | null;
+  logoColor?: string | null;
+}): string {
+  const sym = (opts.symbol || '').toUpperCase().trim();
+  const params = new URLSearchParams();
+  if (sym) {
+    params.set('symbol', sym);
+  }
+  if (opts.bseCode && opts.bseCode !== 'N/A' && /^\d{6}$/.test(opts.bseCode.trim())) {
+    params.set('bseCode', opts.bseCode.trim());
+  }
+  if (opts.searchId && opts.searchId.trim()) {
+    params.set('searchId', opts.searchId.trim());
+  }
+  if (opts.companyName) {
+    params.set('name', opts.companyName.slice(0, 60));
+  }
+  if (opts.logoColor && /^#[0-9a-fA-F]{6}$/.test(opts.logoColor)) {
+    params.set('color', opts.logoColor);
+  }
+  return resolveApiUrl(`/api/company-logo?${params.toString()}`);
+}
+
 export function buildCompanyLogoUrl(opts: {
   companyName: string;
   symbol?: string | null;
@@ -214,7 +244,7 @@ export function buildCompanyLogoUrl(opts: {
   logoColor?: string | null;
 }): string {
   if (opts.logoUrl && (opts.logoUrl.startsWith('/') || opts.logoUrl.startsWith('http'))) {
-    return opts.logoUrl;
+    return opts.logoUrl.startsWith('/api/') ? resolveApiUrl(opts.logoUrl) : opts.logoUrl;
   }
   const sym = (opts.symbol || '').toUpperCase().trim();
   if (sym && KNOWN_STATIC_LOGOS[sym]) {
@@ -226,20 +256,7 @@ export function buildCompanyLogoUrl(opts: {
       return path;
     }
   }
-  const params = new URLSearchParams();
-  if (sym) {
-    params.set('symbol', sym);
-  }
-  if (opts.bseCode && opts.bseCode !== 'N/A' && /^\d{6}$/.test(opts.bseCode.trim())) {
-    params.set('bseCode', opts.bseCode.trim());
-  }
-  if (opts.companyName) {
-    params.set('name', opts.companyName.slice(0, 60));
-  }
-  if (opts.logoColor && /^#[0-9a-fA-F]{6}$/.test(opts.logoColor)) {
-    params.set('color', opts.logoColor);
-  }
-  return resolveApiUrl(`/api/company-logo?${params.toString()}`);
+  return buildCompanyLogoProxyUrl(opts);
 }
 
 export function CompanyLogo({
@@ -252,18 +269,26 @@ export function CompanyLogo({
   size = 'sm',
   className = '',
 }: CompanyLogoProps) {
-  const [errored, setErrored] = useState(false);
-
-  const src = useMemo(
+  const primarySrc = useMemo(
     () => buildCompanyLogoUrl({ companyName, symbol, bseCode, logoUrl, searchId, logoColor }),
     [companyName, symbol, bseCode, logoUrl, searchId, logoColor]
   );
+  const proxySrc = useMemo(
+    () => buildCompanyLogoProxyUrl({ companyName, symbol, bseCode, searchId, logoColor }),
+    [companyName, symbol, bseCode, searchId, logoColor]
+  );
+
+  const [stage, setStage] = useState<'primary' | 'proxy' | 'initials'>('primary');
+
+  useEffect(() => {
+    setStage('primary');
+  }, [primarySrc]);
 
   const sizeClass = SIZE_CLASSES[size];
   const initials = useMemo(() => getInitials(companyName, symbol), [companyName, symbol]);
   const bg = useMemo(() => getFallbackColor(companyName, logoColor), [companyName, logoColor]);
 
-  if (errored) {
+  if (stage === 'initials') {
     return (
       <div
         className={`${sizeClass} flex items-center justify-center text-white font-display font-bold shrink-0 select-none ${className}`}
@@ -275,17 +300,25 @@ export function CompanyLogo({
     );
   }
 
+  const activeSrc = stage === 'proxy' ? proxySrc : primarySrc;
+
   return (
     <div
       className={`${sizeClass} bg-white border border-[#E2E8F0] dark:border-slate-700/80 overflow-hidden shrink-0 flex items-center justify-center ${className}`}
     >
       <img
-        src={src}
+        src={activeSrc}
         alt={`${companyName} logo`}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
-        onError={() => setErrored(true)}
+        onError={() => {
+          if (stage === 'primary' && primarySrc !== proxySrc) {
+            setStage('proxy');
+          } else {
+            setStage('initials');
+          }
+        }}
         className="h-full w-full object-contain p-0.5"
       />
     </div>

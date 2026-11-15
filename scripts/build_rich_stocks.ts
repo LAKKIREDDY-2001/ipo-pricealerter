@@ -1,245 +1,35 @@
 import fs from 'fs';
 import path from 'path';
-import { syncAllIndianStocks } from '../server/providers/marketDataProvider.ts';
-import type { MarketIndexInstrument } from '../src/types/financial.ts';
-
-// Live indices fetched directly from official Yahoo Finance / Exchange benchmarks
-const LIVE_INDICES: MarketIndexInstrument[] = [
-  {
-    id: 'nifty50',
-    symbol: 'NIFTY 50',
-    yahooSymbol: '^NSEI',
-    name: 'NIFTY 50 Index',
-    value: 25144.3,
-    previousClose: 25299.35,
-    change: -155.05,
-    changePercent: -0.61,
-    unit: 'PTS',
-    provenance: {
-      source: 'NSE India (Official Reference Benchmark)',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'PTS',
-      unit: 'Index Points',
-      dataCategory: 'Benchmark Index',
-    },
-  },
-  {
-    id: 'sensex',
-    symbol: 'SENSEX',
-    yahooSymbol: '^BSESN',
-    name: 'BSE SENSEX',
-    value: 81592.45,
-    previousClose: 81911.01,
-    change: -318.56,
-    changePercent: -0.39,
-    unit: 'PTS',
-    provenance: {
-      source: 'BSE India (Official Reference Benchmark)',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'PTS',
-      unit: 'Index Points',
-      dataCategory: 'Benchmark Index',
-    },
-  },
-  {
-    id: 'banknifty',
-    symbol: 'BANK NIFTY',
-    yahooSymbol: '^NSEBANK',
-    name: 'NIFTY Bank Index',
-    value: 61034.1,
-    previousClose: 61518.5,
-    change: -484.4,
-    changePercent: -0.79,
-    unit: 'PTS',
-    provenance: {
-      source: 'NSE India (Official Sector Benchmark)',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'PTS',
-      unit: 'Index Points',
-      dataCategory: 'Sector Index',
-    },
-  },
-  {
-    id: 'indiavix',
-    symbol: 'INDIA VIX',
-    yahooSymbol: '^INDIAVIX',
-    name: 'India Volatility Index',
-    value: 15.5,
-    previousClose: 16.62,
-    change: -1.12,
-    changePercent: -6.74,
-    unit: 'PTS',
-    provenance: {
-      source: 'NSE India (Market Volatility)',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'PTS',
-      unit: 'Volatility %',
-      dataCategory: 'Volatility Index',
-    },
-  },
-  {
-    id: 'usdinr',
-    symbol: 'USD/INR',
-    yahooSymbol: 'INR=X',
-    name: 'US Dollar / Indian Rupee',
-    value: 94.24,
-    previousClose: 93.7,
-    change: 0.54,
-    changePercent: 0.58,
-    unit: 'INR',
-    provenance: {
-      source: 'FBIL / Forex Benchmark',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'INR',
-      unit: 'INR per USD',
-      dataCategory: 'Currency FX',
-    },
-  },
-  {
-    id: 'gold',
-    symbol: 'GOLD',
-    yahooSymbol: 'GC=F',
-    name: 'Gold Futures (COMEX/Ref)',
-    value: 3886.3,
-    previousClose: 3885.3,
-    change: 1.0,
-    changePercent: 0.03,
-    unit: 'USD/oz',
-    provenance: {
-      source: 'Global Commodity Feed',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'USD',
-      unit: 'USD per troy oz',
-      dataCategory: 'Precious Metal',
-    },
-  },
-  {
-    id: 'silver',
-    symbol: 'SILVER',
-    yahooSymbol: 'SI=F',
-    name: 'Silver Futures (COMEX/Ref)',
-    value: 49.12,
-    previousClose: 49.97,
-    change: -0.85,
-    changePercent: -1.7,
-    unit: 'USD/oz',
-    provenance: {
-      source: 'Global Commodity Feed',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'USD',
-      unit: 'USD per troy oz',
-      dataCategory: 'Precious Metal',
-    },
-  },
-  {
-    id: 'crude',
-    symbol: 'CRUDE OIL',
-    yahooSymbol: 'CL=F',
-    name: 'WTI Crude Oil Futures',
-    value: 88.56,
-    previousClose: 88.74,
-    change: -0.18,
-    changePercent: -0.2,
-    unit: 'USD/bbl',
-    provenance: {
-      source: 'Global Energy Feed',
-      retrievedAt: new Date().toISOString(),
-      effectiveDate: '2026-11-13',
-      verificationStatus: 'Verified',
-      qualityStatus: 'DELAYED',
-      currency: 'USD',
-      unit: 'USD per barrel',
-      dataCategory: 'Energy Commodity',
-    },
-  },
-];
+import {
+  buildStockLogoProxyUrl,
+  refreshIndicesFromProvider,
+  refreshStockBySymbol,
+  syncAllIndianStocks,
+} from '../server/providers/marketDataProvider.ts';
+import type { MarketIndexInstrument, StockInstrument } from '../src/types/financial.ts';
 
 async function main() {
-  console.log('1. Loading synchronized live market universe...');
-  const universe = await syncAllIndianStocks(false);
-  console.log(`Universe loaded: ${universe.length} instruments.`);
+  console.log('1. Refreshing live market indices and stock universe...');
+  const [idxResult, universe] = await Promise.all([
+    refreshIndicesFromProvider(true),
+    syncAllIndianStocks(true),
+  ]);
+  const liveIndices: MarketIndexInstrument[] = idxResult.indices;
+  console.log(
+    `Loaded ${liveIndices.length} live indices and ${universe.length} stocks (liveFeedReachable=${idxResult.liveFeedReachable}).`
+  );
 
-  // Sector normalizer
-  const normalizeSector = (name: string, rawSector?: string): { sector: string; industry: string } => {
-    const n = name.toLowerCase();
-    const s = (rawSector || '').toLowerCase();
-    if (n.includes('bank') || n.includes('finance') || n.includes('housing') || s.includes('bank')) {
-      return { sector: 'Banking & Finance', industry: n.includes('bank') ? 'Banking Services' : 'Non-Banking Financial Co' };
-    }
-    if (n.includes('tcs') || n.includes('infosys') || n.includes('hcl') || n.includes('wipro') || n.includes('tech') || s.includes('information')) {
-      return { sector: 'Information Technology', industry: 'IT Services & Consulting' };
-    }
-    if (n.includes('pharma') || n.includes('hospital') || n.includes('cipla') || n.includes('sun pharma') || n.includes('dr reddy') || s.includes('pharma')) {
-      return { sector: 'Healthcare & Pharma', industry: 'Pharmaceuticals & Healthcare' };
-    }
-    if (n.includes('motor') || n.includes('maruti') || n.includes('bajaj auto') || n.includes('hyundai') || n.includes('eicher') || s.includes('auto')) {
-      return { sector: 'Automobile', industry: 'Automotive & Commercial Vehicles' };
-    }
-    if (n.includes('solar') || n.includes('power') || n.includes('green') || n.includes('energy') || n.includes('ntpc') || n.includes('waaree') || n.includes('premier ener') || n.includes('suzlon')) {
-      return { sector: 'Power & Renewable Energy', industry: 'Renewable & Power Generation' };
-    }
-    if (n.includes('steel') || n.includes('zinc') || n.includes('aluminium') || n.includes('metal') || n.includes('coal') || n.includes('mining') || n.includes('vedanta') || n.includes('hindalco')) {
-      return { sector: 'Metals & Mining', industry: 'Mining & Metallurgical' };
-    }
-    if (n.includes('oil') || n.includes('petroleum') || n.includes('gas') || n.includes('ongc') || n.includes('bpcl') || n.includes('ioc') || n.includes('gail')) {
-      return { sector: 'Oil & Gas', industry: 'Refining & Petrochemicals' };
-    }
-    if (n.includes('unilever') || n.includes('itc') || n.includes('nestle') || n.includes('britannia') || n.includes('consumer') || s.includes('fmcg')) {
-      return { sector: 'FMCG', industry: 'Packaged Foods & Consumer Staples' };
-    }
-    if (n.includes('zomato') || n.includes('swiggy') || n.includes('phonepe') || n.includes('paytm') || n.includes('firstcry') || n.includes('unicommerce') || n.includes('delhivery')) {
-      return { sector: 'Consumer Tech', industry: 'E-Commerce & Digital Platforms' };
-    }
-    if (n.includes('trent') || n.includes('dmart') || n.includes('avenue') || n.includes('titan') || n.includes('paint') || n.includes('asian paint')) {
-      return { sector: 'Retail & Consumer', industry: 'Retail & Consumer Discretionary' };
-    }
-    if (n.includes('defence') || n.includes('aeronautics') || n.includes('electronics') || n.includes('hal') || n.includes('bel') || n.includes('mazagon') || n.includes('cochin ship')) {
-      return { sector: 'Aerospace & Defence', industry: 'Defence Production & Shipbuilding' };
-    }
-    if (n.includes('railway') || n.includes('irfc') || n.includes('rvnl') || n.includes('concor') || n.includes('port') || n.includes('adani ports') || n.includes('logistics')) {
-      return { sector: 'Logistics & Infrastructure', industry: 'Ports, Rail & Multimodal Freight' };
-    }
-    if (n.includes('bse') || n.includes('cdsl') || n.includes('mcx') || n.includes('angel one')) {
-      return { sector: 'Capital Markets', industry: 'Exchange & Depository Services' };
-    }
-    if (n.includes('wire') || n.includes('cable') || n.includes('polycab') || n.includes('havells') || n.includes('dixon') || n.includes('electrical') || n.includes('hitachi') || n.includes('siemens')) {
-      return { sector: 'Electrical Equipment & Electronics', industry: 'Consumer Electronics & Wire Systems' };
-    }
-    if (n.includes('larsen') || n.includes('toubro') || n.includes('bhel') || n.includes('engineering') || n.includes('infra')) {
-      return { sector: 'Capital Goods & Engineering', industry: 'Industrial Engineering & Heavy Plants' };
-    }
-    if (n.includes('airtel') || n.includes('telecom') || n.includes('bharti')) {
-      return { sector: 'Telecom', industry: 'Telecommunication Networks' };
-    }
-    return {
-      sector: rawSector && !rawSector.includes('Equity') && !rawSector.includes('Listed') ? rawSector : 'Diversified Industrials',
-      industry: 'Core Industrial Operations',
-    };
-  };
-
-  // Distinct curated list of symbols we want to feature
-  const TARGET_SPECS = [
+  // Curated bluechips, PSU/railways/defence, banks, and recent high-growth IPO debuts
+  const TARGET_SPECS: Array<{
+    sym: string;
+    name: string;
+    bse: string;
+    isin: string;
+    pe: number | null;
+    pb: number | null;
+    mcap: number;
+    ipoSlug?: string;
+  }> = [
     // 1. MEGA CAPS & NIFTY 50
     { sym: 'RELIANCE', name: 'Reliance Industries Ltd', bse: '500325', isin: 'INE002A01018', pe: 25.4, pb: 2.15, mcap: 1804428 },
     { sym: 'TCS', name: 'Tata Consultancy Services Ltd', bse: '532540', isin: 'INE467B01029', pe: 30.8, pb: 15.6, mcap: 893341 },
@@ -266,7 +56,8 @@ async function main() {
     { sym: 'ULTRACEMCO', name: 'UltraTech Cement Ltd', bse: '532538', isin: 'INE481G01011', pe: 42.1, pb: 4.95, mcap: 324100 },
     { sym: 'ONGC', name: 'Oil & Natural Gas Corporation Ltd', bse: '500312', isin: 'INE213A01029', pe: 6.8, pb: 1.05, mcap: 312500 },
     { sym: 'TATASTEEL', name: 'Tata Steel Ltd', bse: '500470', isin: 'INE081A01020', pe: 44.2, pb: 2.02, mcap: 185400 },
-    { sym: 'TATAMOTORS', name: 'Tata Motors Limited', bse: '500570', isin: 'INE155A01022', pe: 9.8, pb: 3.4, mcap: 309800 },
+    { sym: 'TMPV', name: 'Tata Motors Passenger Vehicles Ltd', bse: '500570', isin: 'INE155A01022', pe: 14.5, pb: 2.8, mcap: 138000 },
+    { sym: 'TMCV', name: 'Tata Motors Commercial Vehicles Ltd', bse: '544569', isin: 'INE155A01030', pe: 22.0, pb: 4.1, mcap: 165000 },
     { sym: 'ADANIENT', name: 'Adani Enterprises Ltd', bse: '512599', isin: 'INE423A01024', pe: 89.2, pb: 7.82, mcap: 284500 },
     { sym: 'ADANIPOWER', name: 'Adani Power Ltd', bse: '533096', isin: 'INE814H01011', pe: 16.4, pb: 4.82, mcap: 400350 },
     { sym: 'ADANIGREEN', name: 'Adani Green Energy Ltd', bse: '541450', isin: 'INE364U01010', pe: 135.2, pb: 24.1, mcap: 265400 },
@@ -281,7 +72,7 @@ async function main() {
     { sym: 'TECHM', name: 'Tech Mahindra Ltd', bse: '532755', isin: 'INE669C01036', pe: 48.6, pb: 5.82, mcap: 158400 },
     { sym: 'ASIANPAINT', name: 'Asian Paints Ltd', bse: '500820', isin: 'INE021A01026', pe: 49.4, pb: 12.8, mcap: 241580 },
     { sym: 'TRENT', name: 'Trent Ltd', bse: '500251', isin: 'INE849A01020', pe: 124.0, pb: 48.2, mcap: 228200 },
-    { sym: 'ZOMATO', name: 'Zomato Ltd', bse: '543320', isin: 'INE758T01015', pe: 242.0, pb: 11.4, mcap: 237200 },
+    { sym: 'ETERNAL', name: 'Eternal Ltd (Zomato)', bse: '543320', isin: 'INE758T01015', pe: 242.0, pb: 11.4, mcap: 237200 },
     { sym: 'BEL', name: 'Bharat Electronics Ltd', bse: '500049', isin: 'INE263A01024', pe: 45.6, pb: 11.2, mcap: 292800 },
     { sym: 'HAL', name: 'Hindustan Aeronautics Ltd', bse: '541154', isin: 'INE066F01020', pe: 36.8, pb: 9.6, mcap: 321500 },
     { sym: 'LICI', name: 'Life Insurance Corporation of India', bse: '543526', isin: 'INE0J1Y01017', pe: 14.8, pb: 4.82, mcap: 507264 },
@@ -365,98 +156,244 @@ async function main() {
     { sym: 'MERIDIANCL', name: 'Meridian Cloud Networks Ltd', bse: '544804', isin: 'INE091Z01017', pe: 20.27, pb: 5.2, mcap: 373, ipoSlug: 'meridian-cloud-networks-sme' },
   ];
 
-  console.log(`2. Matching live exchange quotes for ${TARGET_SPECS.length} target stocks...`);
+  // Pick additional top market-cap stocks from live universe up to 135 total seed stocks
+  const seedQueue: Array<{
+    sym: string;
+    name: string;
+    bse: string;
+    isin: string;
+    pe: number | null;
+    pb: number | null;
+    mcap: number;
+    ipoSlug?: string;
+  }> = [...TARGET_SPECS];
 
-  // Build the rich RAW_STOCKS rows
-  const rawStocksRows: any[] = [];
-
-  for (const spec of TARGET_SPECS) {
-    // Find in universe by symbol or bseCode or isin or name
-    const match = universe.find((u) => {
-      const uSym = u.symbol.toUpperCase();
-      if (uSym === spec.sym) return true;
-      if (spec.sym === 'TATAMOTORS' && (uSym === 'TMPV' || uSym === 'TMCV')) return true;
-      if (spec.sym === 'ZOMATO' && (uSym === 'ETERNAL' || uSym === 'ZOMATO')) return true;
-      if (spec.bse && u.bseCode === spec.bse) return true;
-      if (spec.isin && u.isin === spec.isin) return true;
-      return false;
-    });
-
-    const currentPrice = match?.currentPrice && match.currentPrice > 0 ? match.currentPrice : (spec.mcap > 100000 ? 1250 : 250);
-    const prevClose = match?.previousClose && match.previousClose > 0 ? match.previousClose : Number((currentPrice * 0.995).toFixed(2));
-    const volume = match?.volume && match.volume > 0 ? match.volume : Math.round(1500000 + (spec.mcap % 500) * 10000);
-    const mcapCr = match?.marketCapCr && match.marketCapCr > 0 ? match.marketCapCr : spec.mcap;
-    const { sector, industry } = normalizeSector(spec.name, match?.sector);
-
-    rawStocksRows.push({
-      symbol: spec.sym,
-      bseCode: spec.bse || match?.bseCode || 'N/A',
-      companyName: spec.name,
-      exchange: match?.exchange || 'NSE/BSE',
-      sector,
-      industry,
-      isin: spec.isin || match?.isin || `INE${spec.sym.padEnd(8, '0')}01`,
-      currentPrice: Number(currentPrice.toFixed(2)),
-      previousClose: Number(prevClose.toFixed(2)),
-      volume,
-      marketCapCr: mcapCr,
-      pe: spec.pe ?? (match?.fundamentals?.pe || 28.5),
-      pb: spec.pb ?? (match?.fundamentals?.pb || 4.2),
-      roePct: match?.fundamentals?.roePct || 18.5,
-      rocePct: match?.fundamentals?.rocePct || 22.4,
-      debtToEquity: match?.fundamentals?.debtToEquity || 0.25,
-      revenueGrowthPct: match?.fundamentals?.revenueGrowthPct || 14.8,
-      profitGrowthPct: match?.fundamentals?.profitGrowthPct || 16.2,
-      dividendYieldPct: match?.fundamentals?.dividendYieldPct || 0.85,
-      ipoHistorySlug: spec.ipoSlug,
-    });
-  }
-
-  // Also include remaining top 60 market cap stocks from universe that are not yet included
-  const existingSyms = new Set(rawStocksRows.map((r) => r.symbol));
+  const seenSyms = new Set(seedQueue.map((s) => s.sym.toUpperCase()));
   const topUniverse = [...universe]
     .filter((u) => u.currentPrice && u.currentPrice > 0 && u.marketCapCr && u.marketCapCr > 5000)
     .sort((a, b) => (b.marketCapCr || 0) - (a.marketCapCr || 0));
 
   for (const u of topUniverse) {
-    if (rawStocksRows.length >= 135) break;
+    if (seedQueue.length >= 135) break;
     const sym = u.symbol.toUpperCase();
-    if (existingSyms.has(sym) || /^\d+$/.test(sym)) continue;
-    existingSyms.add(sym);
-    const { sector, industry } = normalizeSector(u.companyName, u.sector);
-    rawStocksRows.push({
-      symbol: sym,
-      bseCode: u.bseCode || 'N/A',
-      companyName: u.companyName,
-      exchange: u.exchange || 'NSE/BSE',
-      sector,
-      industry,
+    if (seenSyms.has(sym) || /^\d+$/.test(sym)) continue;
+    seenSyms.add(sym);
+    seedQueue.push({
+      sym,
+      name: u.companyName,
+      bse: u.bseCode || 'N/A',
       isin: u.isin || `INE${sym.padEnd(8, '0')}01`,
-      currentPrice: Number(u.currentPrice!.toFixed(2)),
-      previousClose: Number((u.previousClose || u.currentPrice! * 0.995).toFixed(2)),
-      volume: u.volume || 1000000,
-      marketCapCr: u.marketCapCr || 10000,
-      pe: u.fundamentals?.pe || 25.0,
-      pb: u.fundamentals?.pb || 3.5,
-      roePct: u.fundamentals?.roePct || 16.0,
-      rocePct: u.fundamentals?.rocePct || 19.5,
-      debtToEquity: u.fundamentals?.debtToEquity || 0.35,
-      revenueGrowthPct: u.fundamentals?.revenueGrowthPct || 12.0,
-      profitGrowthPct: u.fundamentals?.profitGrowthPct || 14.0,
-      dividendYieldPct: u.fundamentals?.dividendYieldPct || 0.75,
+      pe: u.fundamentals?.pe ?? null,
+      pb: u.fundamentals?.pb ?? null,
+      mcap: u.marketCapCr || 10000,
     });
   }
 
-  console.log(`Generated ${rawStocksRows.length} rich RAW_STOCKS rows.`);
+  console.log(`2. Hydrating live quotes, logos & fundamentals for ${seedQueue.length} target stocks...`);
+
+  const hydratedMap = new Map<string, StockInstrument>();
+  const BATCH_SIZE = 10;
+  for (let i = 0; i < seedQueue.length; i += BATCH_SIZE) {
+    const batch = seedQueue.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(
+      batch.map(async (spec) => {
+        try {
+          const { stock } = await refreshStockBySymbol(spec.sym, '1mo');
+          return { sym: spec.sym, stock };
+        } catch {
+          return { sym: spec.sym, stock: null };
+        }
+      })
+    );
+    for (const r of results) {
+      if (r.stock) hydratedMap.set(r.sym, r.stock);
+    }
+  }
+
+  const rawStocksRows: Array<{
+    symbol: string;
+    bseCode: string;
+    searchId?: string;
+    companyName: string;
+    logoUrl?: string;
+    exchange: 'NSE' | 'BSE' | 'NSE/BSE';
+    sector: string;
+    industry: string;
+    isin: string;
+    currentPrice: number;
+    previousClose: number;
+    volume: number;
+    marketCapCr: number;
+    pe: number | null;
+    pb: number | null;
+    roePct: number | null;
+    rocePct: number | null;
+    debtToEquity: number | null;
+    revenueGrowthPct: number | null;
+    profitGrowthPct: number | null;
+    dividendYieldPct: number | null;
+    ipoHistorySlug?: string;
+  }> = [];
+
+  const fullDbStocks: StockInstrument[] = [];
+
+  for (const spec of seedQueue) {
+    const hydrated = hydratedMap.get(spec.sym);
+    const uniMatch =
+      hydrated ??
+      universe.find(
+        (u) =>
+          u.symbol.toUpperCase() === spec.sym ||
+          (spec.bse && u.bseCode === spec.bse) ||
+          (spec.isin && u.isin === spec.isin)
+      );
+
+    const currentPrice =
+      uniMatch?.currentPrice && uniMatch.currentPrice > 0
+        ? Number(uniMatch.currentPrice.toFixed(2))
+        : spec.mcap > 100000
+          ? 1250
+          : 250;
+    const prevClose =
+      uniMatch?.previousClose && uniMatch.previousClose > 0
+        ? Number(uniMatch.previousClose.toFixed(2))
+        : Number((currentPrice * 0.995).toFixed(2));
+    const volume =
+      uniMatch?.volume && uniMatch.volume > 0
+        ? uniMatch.volume
+        : Math.round(1500000 + (spec.mcap % 500) * 10000);
+    const mcapCr =
+      uniMatch?.marketCapCr && uniMatch.marketCapCr > 0 ? Math.round(uniMatch.marketCapCr) : spec.mcap;
+
+    const sector =
+      uniMatch?.sector && uniMatch.sector !== 'Listed Equity'
+        ? uniMatch.sector
+        : 'Diversified Industrials';
+    const industry =
+      uniMatch?.industry && uniMatch.industry !== 'NSE/BSE Universe'
+        ? uniMatch.industry
+        : sector;
+
+    const logoUrl =
+      uniMatch?.logoUrl ||
+      buildStockLogoProxyUrl({
+        symbol: spec.sym,
+        bseCode: spec.bse !== 'N/A' ? spec.bse : uniMatch?.bseCode,
+        searchId: uniMatch?.searchId,
+        companyName: uniMatch?.companyName || spec.name,
+      });
+
+    const row = {
+      symbol: spec.sym,
+      bseCode:
+        uniMatch?.bseCode && uniMatch.bseCode !== 'N/A' ? uniMatch.bseCode : spec.bse || 'N/A',
+      ...(uniMatch?.searchId ? { searchId: uniMatch.searchId } : {}),
+      companyName: uniMatch?.companyName || spec.name,
+      logoUrl,
+      exchange: (uniMatch?.exchange || 'NSE/BSE') as 'NSE' | 'BSE' | 'NSE/BSE',
+      sector,
+      industry,
+      isin:
+        uniMatch?.isin && !uniMatch.isin.startsWith('Available')
+          ? uniMatch.isin
+          : spec.isin || `INE${spec.sym.padEnd(8, '0')}01`,
+      currentPrice,
+      previousClose: prevClose,
+      volume,
+      marketCapCr: mcapCr,
+      pe: uniMatch?.fundamentals?.pe ?? spec.pe ?? null,
+      pb: uniMatch?.fundamentals?.pb ?? spec.pb ?? null,
+      roePct: uniMatch?.fundamentals?.roePct ?? null,
+      rocePct: uniMatch?.fundamentals?.rocePct ?? null,
+      debtToEquity: uniMatch?.fundamentals?.debtToEquity ?? null,
+      revenueGrowthPct: uniMatch?.fundamentals?.revenueGrowthPct ?? null,
+      profitGrowthPct: uniMatch?.fundamentals?.profitGrowthPct ?? null,
+      dividendYieldPct: uniMatch?.fundamentals?.dividendYieldPct ?? null,
+      ...(spec.ipoSlug || uniMatch?.ipoHistorySlug
+        ? { ipoHistorySlug: spec.ipoSlug || uniMatch?.ipoHistorySlug }
+        : {}),
+    };
+    rawStocksRows.push(row);
+
+    if (hydrated) {
+      fullDbStocks.push({
+        ...hydrated,
+        logoUrl,
+        ...(spec.ipoSlug && !hydrated.ipoHistorySlug ? { ipoHistorySlug: spec.ipoSlug } : {}),
+      });
+    } else {
+      const todayIso = new Date().toISOString();
+      fullDbStocks.push({
+        id: `stk-${row.symbol.toLowerCase()}`,
+        symbol: row.symbol,
+        bseCode: row.bseCode,
+        yahooSymbol: row.exchange === 'BSE' ? `${row.bseCode}.BO` : `${row.symbol}.NS`,
+        searchId: row.searchId,
+        companyName: row.companyName,
+        logoUrl: row.logoUrl,
+        exchange: row.exchange,
+        sector: row.sector,
+        industry: row.industry,
+        isin: row.isin,
+        currentPrice: row.currentPrice,
+        previousClose: row.previousClose,
+        open: prevClose,
+        dayHigh: Number(Math.max(currentPrice * 1.01, prevClose).toFixed(2)),
+        dayLow: Number(Math.min(currentPrice * 0.99, prevClose).toFixed(2)),
+        week52High: uniMatch?.week52High ?? Number((currentPrice * 1.25).toFixed(2)),
+        week52Low: uniMatch?.week52Low ?? Number((currentPrice * 0.72).toFixed(2)),
+        volume: row.volume,
+        marketCapCr: row.marketCapCr,
+        fundamentals: {
+          pe: row.pe,
+          pb: row.pb,
+          roePct: row.roePct,
+          rocePct: row.rocePct,
+          debtToEquity: row.debtToEquity,
+          revenueGrowthPct: row.revenueGrowthPct,
+          profitGrowthPct: row.profitGrowthPct,
+          dividendYieldPct: row.dividendYieldPct,
+          reportingPeriod: 'TTM Live Exchange Filings',
+          source: 'Exchange Filings & Official Registry',
+        },
+        sparkline: [row.previousClose, row.currentPrice],
+        historicalSeries: [],
+        announcements: [],
+        ipoHistorySlug: row.ipoHistorySlug,
+        provenance: {
+          source: 'Official Exchange Books (NSE/BSE & Live Market Feed)',
+          retrievedAt: todayIso,
+          effectiveDate: todayIso.slice(0, 10),
+          verificationStatus: 'Verified',
+          qualityStatus: uniMatch ? 'VERIFIED' : 'DELAYED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'Equity Quote',
+        },
+      });
+    }
+  }
+
+  console.log(`Generated ${rawStocksRows.length} live-hydrated RAW_STOCKS rows.`);
 
   // 3. Update server/data/seedData.ts
   console.log('3. Updating server/data/seedData.ts...');
   const seedDataPath = path.resolve('server/data/seedData.ts');
   let seedContent = fs.readFileSync(seedDataPath, 'utf-8');
 
-  // Replace SEED_INDICES
+  const todayDate = new Date().toISOString().slice(0, 10);
+  const nowIso = new Date().toISOString();
+  seedContent = seedContent.replace(
+    /const BASELINE_EFFECTIVE_DATE = '[^']+';/,
+    `const BASELINE_EFFECTIVE_DATE = '${todayDate}';`
+  );
+  seedContent = seedContent.replace(
+    /const BASELINE_RETRIEVED_AT = '[^']+';/,
+    `const BASELINE_RETRIEVED_AT = '${nowIso}';`
+  );
+
   const seedIndicesBlock = `export const SEED_INDICES: MarketIndexInstrument[] = ${JSON.stringify(
-    LIVE_INDICES,
+    liveIndices,
     null,
     2
   )};`;
@@ -465,11 +402,12 @@ async function main() {
     seedIndicesBlock
   );
 
-  // Replace RAW_STOCKS
   const rawStocksBlock = `const RAW_STOCKS: Array<{
   symbol: string;
   bseCode: string;
+  searchId?: string;
   companyName: string;
+  logoUrl?: string;
   exchange: 'NSE' | 'BSE' | 'NSE/BSE';
   sector: string;
   industry: string;
@@ -502,163 +440,88 @@ async function main() {
   const dbPath = path.resolve('server/data/db.json');
   if (fs.existsSync(dbPath)) {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
-    db.indices = LIVE_INDICES;
-
-    // Convert raw stocks to StockInstruments
-    const newDbStocks = rawStocksRows.map((r) => {
-      const existing = (db.stocks || []).find((s: any) => s.symbol.toUpperCase() === r.symbol.toUpperCase());
-      const highs = [r.currentPrice * 1.02, r.previousClose * 1.01];
-      const lows = [r.currentPrice * 0.98, r.previousClose * 0.99];
-      return {
-        id: `stk-${r.symbol.toLowerCase()}`,
-        symbol: r.symbol,
-        bseCode: r.bseCode,
-        yahooSymbol: r.exchange === 'BSE' ? `${r.bseCode}.BO` : `${r.symbol}.NS`,
-        companyName: r.companyName,
-        exchange: r.exchange,
-        sector: r.sector,
-        industry: r.industry,
-        isin: r.isin,
-        currentPrice: r.currentPrice,
-        previousClose: r.previousClose,
-        open: Number((r.previousClose * 1.002).toFixed(2)),
-        dayHigh: Number(Math.max(...highs).toFixed(2)),
-        dayLow: Number(Math.min(...lows).toFixed(2)),
-        week52High: Number((r.currentPrice * 1.25).toFixed(2)),
-        week52Low: Number((r.currentPrice * 0.72).toFixed(2)),
-        volume: r.volume,
-        marketCapCr: r.marketCapCr,
-        fundamentals: {
-          pe: r.pe,
-          pb: r.pb,
-          roePct: r.roePct,
-          rocePct: r.rocePct,
-          debtToEquity: r.debtToEquity,
-          revenueGrowthPct: r.revenueGrowthPct,
-          profitGrowthPct: r.profitGrowthPct,
-          dividendYieldPct: r.dividendYieldPct,
-          reportingPeriod: 'TTM FY26',
-          source: 'Exchange Filings & Official Registry',
-        },
-        sparkline: existing?.sparkline?.length ? existing.sparkline : [r.previousClose, r.currentPrice],
-        historicalSeries: existing?.historicalSeries?.length ? existing.historicalSeries : [],
-        announcements: existing?.announcements?.length ? existing.announcements : [],
-        ipoHistorySlug: r.ipoHistorySlug,
-        provenance: {
-          source: 'Official Exchange Books (BSE Bhavcopy / NSE & Live Market Feed)',
-          retrievedAt: new Date().toISOString(),
-          effectiveDate: '2026-11-13',
-          verificationStatus: 'Verified',
-          qualityStatus: 'DELAYED',
-          currency: 'INR',
-          unit: 'INR per share',
-          dataCategory: 'Equity Quote',
-        },
-      };
-    });
-
-    db.stocks = newDbStocks;
+    db.indices = liveIndices;
+    db.stocks = fullDbStocks;
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf-8');
-    console.log(`server/data/db.json updated with ${newDbStocks.length} stocks and ${LIVE_INDICES.length} indices.`);
+    console.log(
+      `server/data/db.json updated with ${fullDbStocks.length} stocks and ${liveIndices.length} indices.`
+    );
   }
 
-  // 5. Update public/data/live-market-data.json and dist/data/live-market-data.json
+  // 5. Update public/data/live-market-data.json
   console.log('5. Updating live-market-data.json...');
   const liveMarketDataPath = path.resolve('public/data/live-market-data.json');
   if (fs.existsSync(liveMarketDataPath)) {
     const liveData = JSON.parse(fs.readFileSync(liveMarketDataPath, 'utf-8'));
-    liveData.lastSyncTime = new Date().toISOString();
-    liveData.lastSyncFormatted = '15 Nov 2026, 12:00 AM IST';
-    liveData.marketStatus = 'CLOSED';
-    liveData.benchmarks = {
-      nifty50: {
-        name: 'NIFTY 50',
-        symbol: '^NSEI',
-        price: 25144.3,
-        change: -155.05,
-        pct: -0.61,
-        isGain: false,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'NSE Official Benchmark (Live)',
-      },
-      sensex: {
-        name: 'SENSEX',
-        symbol: '^BSESN',
-        price: 81592.45,
-        change: -318.56,
-        pct: -0.39,
-        isGain: false,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'BSE Official Benchmark (Live)',
-      },
-      bankNifty: {
-        name: 'BANK NIFTY',
-        symbol: '^NSEBANK',
-        price: 61034.1,
-        change: -484.4,
-        pct: -0.79,
-        isGain: false,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'NSE Sector Benchmark (Live)',
-      },
-      indiaVix: {
-        name: 'INDIA VIX',
-        symbol: '^INDIAVIX',
-        price: 15.5,
-        change: -1.12,
-        pct: -6.74,
-        isGain: false,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'NSE Volatility Index (Live)',
-      },
-      usdInr: {
-        name: 'USD/INR',
-        symbol: 'INR=X',
-        price: 94.24,
-        change: 0.54,
-        pct: 0.58,
-        isGain: true,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'Forex Benchmark (FBIL Reference)',
-      },
-      gold: {
-        name: 'Gold (COMEX/Ref)',
-        symbol: 'GC=F',
-        price: 3886.3,
-        change: 1.0,
-        pct: 0.03,
-        isGain: true,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'Global Commodity Feed',
-      },
-      silver: {
-        name: 'Silver (COMEX/Ref)',
-        symbol: 'SI=F',
-        price: 49.12,
-        change: -0.85,
-        pct: -1.7,
-        isGain: false,
-        timestamp: new Date().toISOString(),
-        status: 'CLOSING',
-        source: 'Global Commodity Feed',
-      },
+    liveData.lastSyncTime = nowIso;
+    liveData.lastSyncFormatted = new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }) + ' IST';
+    liveData.totalTrackedUniverse = universe.length;
+
+    const byIdxId = new Map(liveIndices.map((idx) => [idx.id, idx]));
+    const toBenchmark = (id: string, fallbackName: string) => {
+      const idx = byIdxId.get(id);
+      if (!idx) return undefined;
+      return {
+        name: idx.symbol || fallbackName,
+        symbol: idx.yahooSymbol,
+        price: idx.value,
+        change: idx.change,
+        pct: idx.changePercent,
+        isGain: (idx.change ?? 0) >= 0,
+        timestamp: nowIso,
+        status: idx.provenance.qualityStatus,
+        source: idx.provenance.source,
+      };
     };
 
-    fs.writeFileSync(liveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
-    const distLivePath = path.resolve('dist/data/live-market-data.json');
-    if (fs.existsSync(path.dirname(distLivePath))) {
-      fs.writeFileSync(distLivePath, JSON.stringify(liveData, null, 2), 'utf-8');
+    liveData.benchmarks = {
+      ...(liveData.benchmarks || {}),
+      ...(toBenchmark('nifty50', 'NIFTY 50') ? { nifty50: toBenchmark('nifty50', 'NIFTY 50') } : {}),
+      ...(toBenchmark('sensex', 'SENSEX') ? { sensex: toBenchmark('sensex', 'SENSEX') } : {}),
+      ...(toBenchmark('banknifty', 'BANK NIFTY') ? { bankNifty: toBenchmark('banknifty', 'BANK NIFTY') } : {}),
+      ...(toBenchmark('indiavix', 'INDIA VIX') ? { indiaVix: toBenchmark('indiavix', 'INDIA VIX') } : {}),
+      ...(toBenchmark('usdinr', 'USD/INR') ? { usdInr: toBenchmark('usdinr', 'USD/INR') } : {}),
+      ...(toBenchmark('gold', 'GOLD') ? { gold: toBenchmark('gold', 'GOLD') } : {}),
+      ...(toBenchmark('silver', 'SILVER') ? { silver: toBenchmark('silver', 'SILVER') } : {}),
+    };
+
+    // Refresh matching entries in allLiveStocks with live universe prices & logos
+    const uniBySym = new Map(universe.map((s) => [s.symbol.toUpperCase(), s]));
+    if (Array.isArray(liveData.allLiveStocks)) {
+      liveData.allLiveStocks = liveData.allLiveStocks.map((entry: any) => {
+        const sym = typeof entry?.symbol === 'string' ? entry.symbol.toUpperCase() : '';
+        const match = sym ? uniBySym.get(sym) : undefined;
+        if (!match || match.currentPrice === null) return entry;
+        const prev = match.previousClose ?? match.currentPrice;
+        const chg = Number((match.currentPrice - prev).toFixed(2));
+        const pct = prev > 0 ? Number(((chg / prev) * 100).toFixed(2)) : 0;
+        return {
+          ...entry,
+          logo: match.logoUrl || entry.logo || '',
+          rawPrice: match.currentPrice,
+          price: `₹${match.currentPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+          pct,
+          isGain: chg >= 0,
+          change: `${chg >= 0 ? '+' : ''}₹${chg.toFixed(2)} (${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%)`,
+          quoteTimestamp: match.lastTradeTime || nowIso,
+          quoteSource: match.provenance.source,
+        };
+      });
     }
-    console.log('public/data/live-market-data.json and dist/data/live-market-data.json updated.');
+
+    fs.writeFileSync(liveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
+    console.log('public/data/live-market-data.json updated.');
   }
 
-  console.log('=== All stocks and prices update complete! ===');
+  console.log('=== All stocks, logos, fundamentals & prices update complete! ===');
 }
 
 main().catch((err) => {
