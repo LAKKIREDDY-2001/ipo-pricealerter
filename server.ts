@@ -2333,6 +2333,11 @@ async function startServer() {
       })
     );
     app.get('*', (req, res) => {
+      // Never return index.html for API endpoints
+      if (req.path.startsWith('/api/') || req.path === '/api') {
+        res.status(404).json({ error: `API endpoint '${req.path}' not found.` });
+        return;
+      }
       // Never return index.html for missing JS/CSS/font/image asset requests (prevents MIME white screen behind CDN)
       if (
         req.path.startsWith('/assets/') ||

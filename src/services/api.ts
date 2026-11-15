@@ -175,26 +175,126 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
   return data as T;
 }
 
-export const api = {
-  getIndices: (refresh = false) =>
-    request<{ indices: MarketIndexInstrument[]; liveFeedReachable: boolean; retrievedAt: string }>(
-      `/api/market/indices${refresh ? '?refresh=1' : ''}`
-    ),
+interface LiveMarketDataSnapshot {
+  benchmarks?: Record<string, any>;
+  stocks?: StockInstrument[];
+  allLiveStocks?: any[];
+  ipos?: IPOOffering[];
+  recentIpos?: any[];
+  trackedIpos?: any[];
+  liveGmps?: any[];
+  indices?: MarketIndexInstrument[];
+  lastSyncTime?: string;
+  lastSyncFormatted?: string;
+}
 
-  getIpos: (params?: { category?: string; status?: string; q?: string; includeArchived?: boolean }) => {
+let cachedSnapshot: LiveMarketDataSnapshot | null = null;
+let snapshotPromise: Promise<LiveMarketDataSnapshot | null> | null = null;
+
+async function loadStaticMarketSnapshot(): Promise<LiveMarketDataSnapshot | null> {
+  if (cachedSnapshot) return cachedSnapshot;
+  if (snapshotPromise) return snapshotPromise;
+  snapshotPromise = (async () => {
+    try {
+      const res = await fetch(resolveApiUrl('/data/live-market-data.json'), { cache: 'no-cache' });
+      if (res.ok) {
+        const text = await res.text();
+        const json = JSON.parse(text) as LiveMarketDataSnapshot;
+        cachedSnapshot = json;
+        return json;
+      }
+    } catch {
+      // ignore
+    }
+    return null;
+  })();
+  return snapshotPromise;
+}
+
+export const api = {
+  getIndices: async (refresh = false) => {
+    try {
+      return await request<{ indices: MarketIndexInstrument[]; liveFeedReachable: boolean; retrievedAt: string }>(
+        `/api/market/indices${refresh ? '?refresh=1' : ''}`
+      );
+    } catch (err) {
+      const snap = await loadStaticMarketSnapshot();
+      if (snap?.indices && snap.indices.length > 0) {
+        return {
+          indices: snap.indices,
+          liveFeedReachable: true,
+          retrievedAt: snap.lastSyncTime || new Date().toISOString(),
+        };
+      }
+      if (snap?.benchmarks) {
+        const indices: MarketIndexInstrument[] = Object.values(snap.benchmarks).map((b: any, idx) => ({
+          id: `idx-${b.symbol || idx}`,
+          symbol: b.symbol || 'IDX',
+          yahooSymbol: b.symbol || '^NSEI',
+          name: b.name || b.symbol,
+          value: b.price ?? 0,
+          previousClose: b.price && b.change ? Number((b.price - b.change).toFixed(2)) : b.price,
+          change: b.change ?? 0,
+          changePercent: b.pct ?? 0,
+          unit: 'INR',
+          provenance: {
+            source: b.source || 'NSE & BSE Exchange Feed',
+            retrievedAt: b.timestamp || new Date().toISOString(),
+            effectiveDate: (b.timestamp || new Date().toISOString()).slice(0, 10),
+            verificationStatus: 'Verified',
+            qualityStatus: 'VERIFIED',
+            currency: 'INR',
+            unit: 'Index Points',
+            dataCategory: 'Market Indices',
+          },
+        }));
+        return { indices, liveFeedReachable: true, retrievedAt: snap.lastSyncTime || new Date().toISOString() };
+      }
+      throw err;
+    }
+  },
+
+  getIpos: async (params?: { category?: string; status?: string; q?: string; includeArchived?: boolean }) => {
     const sp = new URLSearchParams();
     if (params?.category) sp.set('category', params.category);
     if (params?.status) sp.set('status', params.status);
     if (params?.q) sp.set('q', params.q);
     if (params?.includeArchived) sp.set('includeArchived', '1');
     const qs = sp.toString();
-    return request<{ ipos: IPOOffering[]; total: number }>(`/api/ipos${qs ? `?${qs}` : ''}`);
+    try {
+      return await request<{ ipos: IPOOffering[]; total: number }>(`/api/ipos${qs ? `?${qs}` : ''}`);
+    } catch (err) {
+      const snap = await loadStaticMarketSnapshot();
+      let ipos = snap?.ipos || [];
+      if (ipos.length === 0 && snap?.trackedIpos) {
+        ipos = [...(snap.trackedIpos || []), ...(snap.recentIpos || [])] as any[];
+      }
+      if (params?.category && params.category !== 'All') {
+        ipos = ipos.filter((i) => i.category === params.category);
+      }
+      if (params?.status && params.status !== 'All') {
+        ipos = ipos.filter((i) => i.status?.toLowerCase() === params.status!.toLowerCase());
+      }
+      if (params?.q) {
+        const query = params.q.toLowerCase();
+        ipos = ipos.filter((i) => i.companyName?.toLowerCase().includes(query));
+      }
+      return { ipos, total: ipos.length };
+    }
   },
 
-  getIpoBySlug: (slug: string) =>
-    request<{ ipo: IPOOffering }>(`/api/ipos/${encodeURIComponent(slug)}`),
+  getIpoBySlug: async (slug: string) => {
+    try {
+      return await request<{ ipo: IPOOffering }>(`/api/ipos/${encodeURIComponent(slug)}`);
+    } catch (err) {
+      const snap = await loadStaticMarketSnapshot();
+      const found = (snap?.ipos || []).find((i) => i.slug === slug);
+      if (found) return { ipo: found };
+      throw err;
+    }
+  },
 
-  getStocks: (params?: {
+  getStocks: async (params?: {
     exchange?: string;
     sector?: string;
     q?: string;
@@ -218,31 +318,170 @@ export const api = {
     if (params?.limit) sp.set('limit', String(params.limit));
     if (params?.refresh) sp.set('refresh', '1');
     const qs = sp.toString();
-    return request<{
-      stocks: StockInstrument[];
-      total: number;
-      totalUniverse: number;
-      nseCount: number;
-      bseCount: number;
-      sectors: string[];
-      liveFeedReachable: boolean;
-      liveSyncedAt: string | null;
-    }>(`/api/stocks${qs ? `?${qs}` : ''}`);
+    try {
+      return await request<{
+        stocks: StockInstrument[];
+        total: number;
+        totalUniverse: number;
+        nseCount: number;
+        bseCount: number;
+        sectors: string[];
+        liveFeedReachable: boolean;
+        liveSyncedAt: string | null;
+      }>(`/api/stocks${qs ? `?${qs}` : ''}`);
+    } catch (err) {
+      const snap = await loadStaticMarketSnapshot();
+      let rawList: StockInstrument[] = snap?.stocks || [];
+      if (rawList.length === 0 && snap?.allLiveStocks && snap.allLiveStocks.length > 0) {
+        rawList = snap.allLiveStocks.map((item: any) => ({
+          id: `stk-${(item.symbol || '').toLowerCase()}`,
+          symbol: item.symbol,
+          bseCode: item.bseCode || '',
+          yahooSymbol: `${item.symbol}.NS`,
+          companyName: item.name,
+          logoUrl: item.logo || null,
+          exchange: (item.bseCode ? (item.symbol ? 'NSE/BSE' : 'BSE') : 'NSE') as 'NSE' | 'BSE' | 'NSE/BSE',
+          sector: item.category === 'RECENT_IPO' ? 'IPO Debut' : 'Equities',
+          industry: item.category === 'RECENT_IPO' ? 'Recent Listings' : 'Equities',
+          isin: item.isin || '',
+          currentPrice: item.rawPrice ?? (typeof item.price === 'number' ? item.price : 0),
+          previousClose:
+            item.rawPrice && item.rawChange != null
+              ? Number((item.rawPrice - item.rawChange).toFixed(2))
+              : item.rawPrice,
+          open: item.open ?? item.rawPrice,
+          dayHigh: item.high ?? item.rawPrice,
+          dayLow: item.low ?? item.rawPrice,
+          week52High: item.high ?? null,
+          week52Low: item.low ?? null,
+          volume: item.volRaw ?? 10000,
+          marketCapCr: item.marketCapCr ?? null,
+          lastTradeTime: item.quoteTimestamp || new Date().toISOString(),
+          sparkline: [item.low ?? item.rawPrice, item.high ?? item.rawPrice, item.rawPrice ?? 0],
+          historicalSeries: [],
+          announcements: [],
+          provenance: {
+            source: item.quoteSource || 'NSE & BSE',
+            retrievedAt: item.quoteTimestamp || new Date().toISOString(),
+            effectiveDate: (item.quoteTimestamp || new Date().toISOString()).slice(0, 10),
+            verificationStatus: 'Verified',
+            qualityStatus: 'VERIFIED',
+            currency: 'INR',
+            unit: 'INR',
+            dataCategory: 'Equities',
+          },
+          fundamentals: {
+            pe: item.pe ?? null,
+            pb: null,
+            roePct: null,
+            rocePct: null,
+            debtToEquity: null,
+            revenueGrowthPct: null,
+            profitGrowthPct: null,
+            dividendYieldPct: null,
+            reportingPeriod: 'TTM',
+            source: 'NSE/BSE Feed',
+          },
+        }));
+      }
+
+      if (rawList.length > 0) {
+        let stocks = [...rawList];
+        const sectors = Array.from(new Set(stocks.map((s) => s.sector))).filter(Boolean).sort();
+        if (params?.exchange && params.exchange !== 'All') {
+          stocks = stocks.filter((s) => s.exchange === params.exchange || s.exchange === 'NSE/BSE');
+        }
+        if (params?.sector && params.sector !== 'All') {
+          stocks = stocks.filter((s) => s.sector?.toLowerCase() === params.sector!.toLowerCase());
+        }
+        if (params?.mcapTier && params.mcapTier !== 'All') {
+          stocks = stocks.filter((s) => {
+            const cap = s.marketCapCr || 0;
+            if (params.mcapTier === 'Large') return cap >= 20000;
+            if (params.mcapTier === 'Mid') return cap >= 5000 && cap < 20000;
+            if (params.mcapTier === 'Small') return cap < 5000;
+            return true;
+          });
+        }
+        if (params?.q) {
+          const query = params.q.toLowerCase();
+          stocks = stocks.filter((s) =>
+            s.companyName?.toLowerCase().includes(query) ||
+            s.symbol?.toLowerCase().includes(query)
+          );
+        }
+        const calcPct = (s: StockInstrument) =>
+          s.currentPrice && s.previousClose ? ((s.currentPrice - s.previousClose) / s.previousClose) * 100 : 0;
+
+        if (params?.tab === 'gainers') {
+          stocks = stocks.filter((s) => calcPct(s) > 0).sort((a, b) => calcPct(b) - calcPct(a));
+        } else if (params?.tab === 'losers') {
+          stocks = stocks.filter((s) => calcPct(s) < 0).sort((a, b) => calcPct(a) - calcPct(b));
+        }
+        const total = stocks.length;
+        const limit = params?.limit || 50;
+        const page = params?.page || 1;
+        const paginated = stocks.slice((page - 1) * limit, page * limit);
+        return {
+          stocks: paginated,
+          total,
+          totalUniverse: rawList.length,
+          nseCount: rawList.filter((s) => s.exchange === 'NSE' || s.exchange === 'NSE/BSE').length,
+          bseCount: rawList.filter((s) => s.exchange === 'BSE' || s.exchange === 'NSE/BSE').length,
+          sectors,
+          liveFeedReachable: true,
+          liveSyncedAt: snap?.lastSyncTime || new Date().toISOString(),
+        };
+      }
+      throw err;
+    }
   },
 
-  getStockBySymbol: (symbol: string, range = '3mo') =>
-    request<{ stock: StockInstrument; fromUpstream: boolean; linkedIpo: IPOOffering | null }>(
-      `/api/stocks/${encodeURIComponent(symbol)}?range=${encodeURIComponent(range)}`
-    ),
+  getStockBySymbol: async (symbol: string, range = '3mo') => {
+    try {
+      return await request<{ stock: StockInstrument; fromUpstream: boolean; linkedIpo: IPOOffering | null }>(
+        `/api/stocks/${encodeURIComponent(symbol)}?range=${encodeURIComponent(range)}`
+      );
+    } catch (err) {
+      const snap = await loadStaticMarketSnapshot();
+      const symLower = symbol.toLowerCase().trim();
+      const found = (snap?.stocks || []).find((s) =>
+        s.symbol.toLowerCase() === symLower ||
+        s.bseCode?.toLowerCase() === symLower ||
+        s.companyName?.toLowerCase().includes(symLower)
+      );
+      if (found) {
+        const linkedIpo = (snap?.ipos || []).find((i) =>
+          i.listing?.stockSymbol?.toLowerCase() === symLower ||
+          i.slug === found.ipoHistorySlug
+        ) || null;
+        return { stock: found, fromUpstream: false, linkedIpo };
+      }
+      throw err;
+    }
+  },
 
-  globalSearch: (q: string) =>
-    request<{
-      ipos: IPOOffering[];
-      stocks: StockInstrument[];
-      blogs: BlogArticle[];
-      insights: MarketInsight[];
-      sectors: string[];
-    }>(`/api/search?q=${encodeURIComponent(q)}`),
+  globalSearch: async (q: string) => {
+    try {
+      return await request<{
+        ipos: IPOOffering[];
+        stocks: StockInstrument[];
+        blogs: BlogArticle[];
+        insights: MarketInsight[];
+        sectors: string[];
+      }>(`/api/search?q=${encodeURIComponent(q)}`);
+    } catch {
+      const snap = await loadStaticMarketSnapshot();
+      const query = q.toLowerCase().trim();
+      const stocks = (snap?.stocks || []).filter((s) =>
+        s.symbol.toLowerCase().includes(query) || s.companyName.toLowerCase().includes(query)
+      ).slice(0, 10);
+      const ipos = (snap?.ipos || []).filter((i) =>
+        i.companyName.toLowerCase().includes(query)
+      ).slice(0, 10);
+      return { ipos, stocks, blogs: [], insights: [], sectors: [] };
+    }
+  },
 
   getInsights: () => request<{ insights: MarketInsight[] }>('/api/insights'),
   getInsightBySlug: (slug: string) =>

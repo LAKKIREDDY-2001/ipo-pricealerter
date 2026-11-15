@@ -1078,6 +1078,10 @@ async function main() {
         };
       });
 
+    liveData.stocks = fullDbStocks;
+    liveData.ipos = liveIpos;
+    liveData.indices = liveIndices;
+
     fs.writeFileSync(liveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
     const distLiveMarketDataPath = path.resolve('dist/data/live-market-data.json');
     if (fs.existsSync(path.dirname(distLiveMarketDataPath))) {
