@@ -35,6 +35,7 @@ import { IPOTable } from '../components/ipo/IPOTable';
 import { GMPChart } from '../components/gmp/GMPChart';
 import { StockTable } from '../components/stocks/StockTable';
 import { SectorHeatmap } from '../components/stocks/SectorHeatmap';
+import { MacroCommoditiesBar } from '../components/market/MacroCommoditiesBar';
 import {
   DisclaimerBanner,
   EmptyState,
@@ -317,6 +318,11 @@ export function HomePage() {
     [ipos]
   );
 
+  const upcomingSpotlights = useMemo(() => {
+    const symbols = ['CRYSTALCROP', 'MAHANADI', 'WATRANA'];
+    return ipos.filter((i) => symbols.includes(i.listing?.stockSymbol || ''));
+  }, [ipos]);
+
   const handleHeroSearchSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const q = heroSearch.trim();
@@ -452,6 +458,9 @@ export function HomePage() {
       <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">
         {error && <ErrorRetryState message={error} onRetry={loadDashboard} />}
 
+        {/* Global Macro & Commodities Live Feed (Alpha Vantage) */}
+        <MacroCommoditiesBar />
+
         {/* Section 4: Interactive IPO Activity Dashboard */}
         <section aria-labelledby="ipo-activity-heading" className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
@@ -473,6 +482,56 @@ export function HomePage() {
               Open Full IPO Explorer <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
+
+          {/* Upcoming IPO Spotlight (Crystal Crop, Mahanadi Coalfields, Watrana Rentals) */}
+          {upcomingSpotlights.length > 0 && (
+            <div className="rounded-xl border border-blue-200/80 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-slate-50/70 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-slate-900/40 p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                  </span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-800 dark:text-blue-300">
+                    Upcoming IPO Spotlight · Zerodha Verified Issue Calendar
+                  </span>
+                </div>
+                <span className="text-[11px] text-[#64748B] dark:text-slate-400">
+                  Subscription opening 18th – 19th Nov 2026
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {upcomingSpotlights.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={`/ipo/${item.slug}`}
+                    className="rounded-lg border border-white/90 dark:border-slate-800/80 bg-white/95 dark:bg-[#111C2E]/95 p-3 hover:border-blue-400 dark:hover:border-blue-500 transition-all shadow-xs flex items-center justify-between gap-3 group"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <CompanyLogo
+                        companyName={item.companyName}
+                        symbol={item.listing?.stockSymbol}
+                        logoUrl={item.logoUrl}
+                        logoColor={item.logoColor}
+                        size="sm"
+                      />
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-[#14263F] dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {item.companyName}
+                        </div>
+                        <div className="text-[10px] text-[#64748B] dark:text-slate-400 font-data">
+                          {item.dates.openDate ? formatDateIN(item.dates.openDate) : 'Nov 2026'} – {item.dates.closeDate ? formatDateIN(item.dates.closeDate) : 'Nov 2026'} · <span className="font-semibold text-emerald-600 dark:text-emerald-400">₹{item.priceBandLow} – ₹{item.priceBandHigh}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shrink-0">
+                      {item.category}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-white dark:bg-[#111C2E] border border-[#E2E8F0] dark:border-slate-800 p-1">

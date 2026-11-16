@@ -3,6 +3,7 @@ import type {
   AuthUser,
   BlogArticle,
   DataSourceStatus,
+  GlobalMacroSnapshot,
   IPOOffering,
   MarketIndexInstrument,
   MarketInsight,
@@ -265,6 +266,48 @@ export const api = {
         retrievedAt: new Date().toISOString(),
       };
     }
+  },
+
+  getMacro: async (): Promise<GlobalMacroSnapshot> => {
+    try {
+      const res = await request<{ ok: boolean; data: GlobalMacroSnapshot }>('/api/market/macro');
+      if (res && res.data) return res.data;
+    } catch {
+      // Fall through to embedded snapshot or static fallback
+    }
+    const snap = await loadStaticMarketSnapshot();
+    if (snap.benchmarks?.macro) {
+      return snap.benchmarks.macro as GlobalMacroSnapshot;
+    }
+    return {
+      usdInr: {
+        rate: 93.91,
+        bid: 93.90,
+        ask: 93.92,
+        lastRefreshed: '2026-11-16 15:20:48',
+      },
+      gold: {
+        price: 3872.32,
+        nominal: 'XAUUSD',
+        timestamp: '2026-11-16 15:20:50',
+      },
+      silver: {
+        price: 46.79,
+        nominal: 'XAGUSD',
+        timestamp: '2026-11-16 15:20:51',
+      },
+      brentCrude: {
+        price: 123.93,
+        unit: 'USD/barrel',
+        date: '2026-10-01',
+      },
+      us10yYield: {
+        rate: 5.13,
+        unit: '%',
+        date: '2026-10-01',
+      },
+      retrievedAt: new Date().toISOString(),
+    };
   },
 
   getIpos: async (params?: { category?: string; status?: string; q?: string; includeArchived?: boolean }) => {

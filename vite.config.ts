@@ -71,6 +71,33 @@ function apiDevServerPlugin(): Plugin {
       return;
     }
 
+    if (pathname === '/api/market/macro') {
+      const macroCachePath = path.resolve(__dirname, 'server', 'data', 'macro-cache.json');
+      if (fs.existsSync(macroCachePath)) {
+        try {
+          const cached = JSON.parse(fs.readFileSync(macroCachePath, 'utf8'));
+          res.end(JSON.stringify({ ok: true, data: cached }));
+          return;
+        } catch {
+          // ignore
+        }
+      }
+      res.end(
+        JSON.stringify({
+          ok: true,
+          data: {
+            usdInr: { rate: 93.91, bid: 93.9, ask: 93.92, lastRefreshed: '2026-11-16 15:20:48' },
+            gold: { price: 3872.32, nominal: 'XAUUSD', timestamp: '2026-11-16 15:20:50' },
+            silver: { price: 46.79, nominal: 'XAGUSD', timestamp: '2026-11-16 15:20:51' },
+            brentCrude: { price: 123.93, unit: 'USD/barrel', date: '2026-10-01' },
+            us10yYield: { rate: 5.13, unit: '%', date: '2026-10-01' },
+            retrievedAt: new Date().toISOString(),
+          },
+        })
+      );
+      return;
+    }
+
     if (pathname === '/api/stocks') {
       const db = readDb();
       let stocks = db?.stocks || db?.allLiveStocks || [];

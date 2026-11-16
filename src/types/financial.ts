@@ -442,3 +442,34 @@ export interface DataSourceStatus {
   recordsCount: number;
   notes: string;
 }
+
+export interface GlobalMacroSnapshot {
+  usdInr: {
+    rate: number;
+    bid: number;
+    ask: number;
+    lastRefreshed: string;
+  } | null;
+  gold: {
+    price: number;
+    nominal: string;
+    timestamp: string;
+  } | null;
+  silver: {
+    price: number;
+    nominal: string;
+    timestamp: string;
+  } | null;
+  brentCrude: {
+    price: number;
+    unit: string;
+    date: string;
+  } | null;
+  us10yYield: {
+    rate: number;
+    unit: string;
+    date: string;
+  } | null;
+  retrievedAt: string;
+}
+
