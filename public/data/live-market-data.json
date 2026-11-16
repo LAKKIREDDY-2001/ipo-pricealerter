@@ -1,6 +1,6 @@
 {
-  "lastSyncTime": "2026-11-16T15:02:51.379Z",
-  "lastSyncFormatted": "16 Nov 2026, 08:32 pm IST",
+  "lastSyncTime": "2026-11-16T15:13:34.045Z",
+  "lastSyncFormatted": "16 Nov 2026, 08:43 pm IST",
   "nextSyncCountdownSeconds": 300,
   "syncIntervalMinutes": 5,
   "totalTrackedUniverse": 7131,
@@ -26,7 +26,7 @@
       "change": 146.8,
       "pct": 0.58,
       "isGain": true,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "VERIFIED",
       "source": "NSE India Official Index Feed"
     },
@@ -37,7 +37,7 @@
       "change": 512.34,
       "pct": 0.63,
       "isGain": true,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "DELAYED",
       "source": "Yahoo Finance Indian Index Feed"
     },
@@ -48,7 +48,7 @@
       "change": 541.8,
       "pct": 0.89,
       "isGain": true,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "VERIFIED",
       "source": "NSE India Official Index Feed"
     },
@@ -59,7 +59,7 @@
       "change": 0.2,
       "pct": 1.32,
       "isGain": true,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "VERIFIED",
       "source": "NSE India Official Index Feed"
     },
@@ -70,29 +70,29 @@
       "change": -0.12,
       "pct": -0.13,
       "isGain": false,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "DELAYED",
       "source": "Yahoo Finance Indian Index Feed"
     },
     "gold": {
       "name": "GOLD",
       "symbol": "GC=F",
-      "price": 3887.8,
-      "change": 1.5,
-      "pct": 0.04,
-      "isGain": true,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "price": 3884.7,
+      "change": -1.6,
+      "pct": -0.04,
+      "isGain": false,
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "DELAYED",
       "source": "Yahoo Finance Indian Index Feed"
     },
     "silver": {
       "name": "SILVER",
       "symbol": "SI=F",
-      "price": 47.16,
+      "price": 47.02,
       "change": -0.01,
       "pct": -0.02,
       "isGain": false,
-      "timestamp": "2026-11-16T15:02:51.379Z",
+      "timestamp": "2026-11-16T15:13:34.045Z",
       "status": "DELAYED",
       "source": "Yahoo Finance Indian Index Feed"
     }
@@ -698,7 +698,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.845Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.130Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -725,7 +725,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.847Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.131Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE Live Feed"
     },
     {
@@ -752,7 +752,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.848Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.132Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -779,7 +779,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.849Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.132Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE Live Feed"
     },
     {
@@ -806,7 +806,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.849Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.133Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -833,7 +833,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.850Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.133Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE Live Feed"
     },
     {
@@ -860,7 +860,7 @@
       "board": "MAINBOARD",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.850Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.133Z",
       "quoteSource": "InvestorGain GMP Tracker · NSE/BSE Live Feed"
     },
     {
@@ -887,7 +887,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.851Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.134Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -914,7 +914,7 @@
       "board": "MAINBOARD",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.851Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.134Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed"
     },
     {
@@ -941,7 +941,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.851Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.134Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -968,7 +968,7 @@
       "board": "MAINBOARD",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.852Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.135Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed"
     },
     {
@@ -995,7 +995,7 @@
       "board": "MAINBOARD",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.852Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.135Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed"
     },
     {
@@ -1022,7 +1022,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.852Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.135Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -1049,7 +1049,7 @@
       "board": "MAINBOARD",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.853Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.136Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed"
     },
     {
@@ -1076,7 +1076,7 @@
       "board": "SME",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.853Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.136Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed"
     },
     {
@@ -1103,7 +1103,7 @@
       "board": "MAINBOARD",
       "status": "LISTED",
       "priceStatus": "VERIFIED",
-      "quoteTimestamp": "2026-11-16T15:02:33.854Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.137Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed"
     }
   ],
@@ -1445,9 +1445,9 @@
       "volume": "662k",
       "high": 12990,
       "low": 12535,
-      "marketCapCr": 404888,
+      "marketCapCr": 404887,
       "pe": 30.1,
-      "sector": "Auto Manufacturers",
+      "sector": "Automobile",
       "quoteSource": "National Stock Exchange of India (NSE) & BSE India"
     },
     {
@@ -1610,13 +1610,13 @@
       "bseCode": "532555",
       "isin": "INE733E01010",
       "logo": "/assets/movers/ntpc.png",
-      "price": "₹321.25",
-      "rawPrice": 321.25,
-      "change": "+₹2.15 (+0.67%)",
-      "pct": 0.67,
+      "price": "₹321.00",
+      "rawPrice": 321,
+      "change": "+₹2.20 (+0.69%)",
+      "pct": 0.69,
       "isGain": true,
-      "volume": "5540k",
-      "high": 321.3,
+      "volume": "215k",
+      "high": 321.25,
       "low": 316.85,
       "marketCapCr": 309130,
       "pe": 10.15,
@@ -2063,14 +2063,14 @@
   ],
   "trackedIpos": [
     {
-      "symbol": "IPO",
+      "symbol": "CRYSTALCROP",
       "bseCode": null,
       "isin": "",
       "name": "Crystal Crop Protection Ltd",
       "subtitle": "Mainboard • Upcoming (2026-11-18)",
       "category": "RECENT_IPO",
       "catLabel": "🚀 IPO Tracker",
-      "logo": "/assets/movers/crystal-crop.png",
+      "logo": "/assets/movers/crystal-crop-protection.png",
       "initials": "CC",
       "price": "₹259 - ₹272",
       "rawPrice": 272,
@@ -2086,11 +2086,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.831Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.115Z",
       "quoteSource": "Groww Primary Issue Registry · InvestorGain GMP Tracker"
     },
     {
-      "symbol": "IPO",
+      "symbol": "NTPCGREEN",
       "bseCode": null,
       "isin": "",
       "name": "NTPC Green Energy Ltd",
@@ -2112,27 +2112,27 @@
       "exchange": "NSE / BSE",
       "board": "MAINBOARD",
       "status": "UPCOMING",
-      "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "priceStatus": "VERIFIED",
+      "quoteTimestamp": "2026-11-16T15:13:10.146Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "MAHANADI",
       "bseCode": null,
       "isin": "",
       "name": "Mahanadi Coalfields",
       "subtitle": "Mainboard • Upcoming (2026-11-19)",
       "category": "RECENT_IPO",
       "catLabel": "🚀 IPO Tracker",
-      "logo": "/api/company-logo?searchId=mahanadi-coalfields-ipo&name=Mahanadi+Coalfields",
+      "logo": "/assets/movers/mahanadi.svg",
       "initials": "MC",
-      "price": "₹320 - ₹340",
-      "rawPrice": 340,
-      "change": "GMP: +₹4.25 (+1.3%)",
+      "price": "₹129 - ₹136",
+      "rawPrice": 136,
+      "change": "GMP: +₹4.25 (+3.1%)",
       "rawChange": 4.25,
-      "pct": 1.25,
+      "pct": 3.13,
       "isGain": true,
-      "issuePrice": 340,
+      "issuePrice": 136,
       "listingPrice": null,
       "lotSize": 110,
       "slug": "mahanadi-coalfields-ipo",
@@ -2140,20 +2140,20 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.864Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.147Z",
       "quoteSource": "InvestorGain GMP Tracker"
     },
     {
-      "symbol": "IPO",
+      "symbol": "WATRANA",
       "bseCode": null,
       "isin": "",
       "name": "Watrana Rentals",
       "subtitle": "SME • Upcoming (2026-11-19)",
       "category": "RECENT_IPO",
       "catLabel": "🚀 IPO Tracker",
-      "logo": "/api/company-logo?searchId=watrana-rentals-ipo&name=Watrana+Rentals",
+      "logo": "/assets/movers/watrana.svg",
       "initials": "WR",
-      "price": "₹245",
+      "price": "₹232 - ₹245",
       "rawPrice": 245,
       "change": "GMP: +₹25 (+10.2%)",
       "rawChange": 25,
@@ -2167,11 +2167,11 @@
       "board": "SME",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.864Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.147Z",
       "quoteSource": "InvestorGain GMP Tracker"
     },
     {
-      "symbol": "IPO",
+      "symbol": "LAMOSAIC",
       "bseCode": null,
       "isin": "",
       "name": "Lamosaic India Ltd",
@@ -2193,12 +2193,12 @@
       "exchange": "NSE / BSE",
       "board": "SME",
       "status": "UPCOMING",
-      "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "priceStatus": "VERIFIED",
+      "quoteTimestamp": "2026-11-16T15:13:10.146Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "C2C",
       "bseCode": null,
       "isin": "",
       "name": "C2C Advanced Systems Ltd",
@@ -2220,12 +2220,12 @@
       "exchange": "NSE / BSE",
       "board": "SME",
       "status": "UPCOMING",
-      "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "priceStatus": "VERIFIED",
+      "quoteTimestamp": "2026-11-16T15:13:10.146Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "EIEL",
       "bseCode": null,
       "isin": "",
       "name": "Enviro Infra Engineers Ltd",
@@ -2248,11 +2248,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.146Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "544291",
       "bseCode": null,
       "isin": "",
       "name": "Rajesh Power Services Ltd",
@@ -2275,11 +2275,11 @@
       "board": "SME",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.146Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "RAJPUTANA",
       "bseCode": null,
       "isin": "",
       "name": "Rajputana Biodiesel Ltd",
@@ -2301,8 +2301,8 @@
       "exchange": "NSE / BSE",
       "board": "SME",
       "status": "UPCOMING",
-      "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "priceStatus": "VERIFIED",
+      "quoteTimestamp": "2026-11-16T15:13:10.146Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
@@ -2329,11 +2329,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.842Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.124Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "ZEPTEMP",
       "bseCode": null,
       "isin": "",
       "name": "Zepto",
@@ -2356,11 +2356,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.842Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.124Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "MARRI",
       "bseCode": null,
       "isin": "",
       "name": "Marri Retail",
@@ -2383,11 +2383,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.842Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.125Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "INCREDTEMP",
       "bseCode": null,
       "isin": "",
       "name": "InCred Holdings",
@@ -2410,7 +2410,7 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.843Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.127Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
@@ -2437,7 +2437,7 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.842Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.124Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
@@ -2464,7 +2464,7 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.843Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.127Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
@@ -2491,11 +2491,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.843Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.127Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "VMM",
       "bseCode": null,
       "isin": "",
       "name": "Vishal Mega Mart Ltd",
@@ -2518,11 +2518,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.147Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "SAILIFE",
       "bseCode": null,
       "isin": "",
       "name": "Sai Life Sciences Ltd",
@@ -2545,11 +2545,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.863Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.147Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "MOBIKWIK",
       "bseCode": null,
       "isin": "",
       "name": "One Mobikwik Systems Ltd",
@@ -2572,11 +2572,11 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.864Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.147Z",
       "quoteSource": "Groww Primary Issue Registry"
     },
     {
-      "symbol": "IPO",
+      "symbol": "CDTEMP",
       "bseCode": null,
       "isin": "",
       "name": "CarDekho",
@@ -2599,7 +2599,7 @@
       "board": "MAINBOARD",
       "status": "UPCOMING",
       "priceStatus": "UNAVAILABLE",
-      "quoteTimestamp": "2026-11-16T15:02:33.843Z",
+      "quoteTimestamp": "2026-11-16T15:13:10.128Z",
       "quoteSource": "Groww Primary Issue Registry"
     }
   ],
@@ -2607,7 +2607,7 @@
     {
       "company": "Crystal Crop Protection Ltd",
       "slug": "crystal-crop-protection-ipo",
-      "logo": "/assets/movers/crystal-crop.png",
+      "logo": "/assets/movers/crystal-crop-protection.png",
       "price": 272,
       "gmp": 13,
       "gmpPct": 4.78,
@@ -2640,18 +2640,18 @@
       "closeDate": "2026-11-22",
       "allotDate": "2026-11-25",
       "listingDate": "2026-11-27",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
     {
       "company": "Mahanadi Coalfields",
       "slug": "mahanadi-coalfields-ipo",
-      "logo": "/api/company-logo?searchId=mahanadi-coalfields-ipo&name=Mahanadi+Coalfields",
-      "price": 340,
+      "logo": "/assets/movers/mahanadi.svg",
+      "price": 136,
       "gmp": 4.25,
-      "gmpPct": 1.25,
-      "estListing": 344.25,
+      "gmpPct": 3.13,
+      "estListing": 140.25,
       "estProfitLot": 468,
       "sub": 0,
       "sizeCr": 4000,
@@ -2667,7 +2667,7 @@
     {
       "company": "Watrana Rentals",
       "slug": "watrana-rentals-ipo",
-      "logo": "/api/company-logo?searchId=watrana-rentals-ipo&name=Watrana+Rentals",
+      "logo": "/assets/movers/watrana.svg",
       "price": 245,
       "gmp": 25,
       "gmpPct": 10.2,
@@ -2700,7 +2700,7 @@
       "closeDate": "2026-11-26",
       "allotDate": "2026-11-27",
       "listingDate": "2026-11-29",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2720,7 +2720,7 @@
       "closeDate": "2026-11-26",
       "allotDate": "2026-11-27",
       "listingDate": "2026-12-03",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2740,7 +2740,7 @@
       "closeDate": "2026-11-26",
       "allotDate": "2026-11-27",
       "listingDate": "2026-11-29",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2760,7 +2760,7 @@
       "closeDate": "2026-11-27",
       "allotDate": "2026-11-28",
       "listingDate": "2026-12-02",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2780,7 +2780,7 @@
       "closeDate": "2026-11-28",
       "allotDate": "2026-11-29",
       "listingDate": "2026-12-03",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2800,7 +2800,7 @@
       "closeDate": "2026-12-04",
       "allotDate": "2026-12-07",
       "listingDate": "2026-12-09",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2820,7 +2820,7 @@
       "closeDate": "2026-12-05",
       "allotDate": "2026-12-08",
       "listingDate": "2026-12-10",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2840,7 +2840,7 @@
       "closeDate": "2026-12-08",
       "allotDate": "2026-12-09",
       "listingDate": "2026-12-11",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2860,7 +2860,7 @@
       "closeDate": "2026-12-09",
       "allotDate": "2026-12-10",
       "listingDate": "2026-12-12",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2880,7 +2880,7 @@
       "closeDate": "2026-12-10",
       "allotDate": "2026-12-11",
       "listingDate": "2026-12-15",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2900,7 +2900,7 @@
       "closeDate": "2026-12-11",
       "allotDate": "2026-12-14",
       "listingDate": "2026-12-16",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2920,7 +2920,7 @@
       "closeDate": "2026-12-12",
       "allotDate": "2026-12-15",
       "listingDate": "2026-12-17",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2940,7 +2940,7 @@
       "closeDate": "2026-12-13",
       "allotDate": "2026-12-16",
       "listingDate": "2026-12-18",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2960,7 +2960,7 @@
       "closeDate": "2026-12-13",
       "allotDate": "2026-12-16",
       "listingDate": "2026-12-18",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -2980,7 +2980,7 @@
       "closeDate": "2026-12-13",
       "allotDate": "2026-12-16",
       "listingDate": "2026-12-18",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3000,7 +3000,7 @@
       "closeDate": "2026-12-16",
       "allotDate": "2026-12-17",
       "listingDate": "2026-12-19",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3020,7 +3020,7 @@
       "closeDate": "2026-12-17",
       "allotDate": "2026-12-18",
       "listingDate": "2026-12-22",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3040,7 +3040,7 @@
       "closeDate": "2026-12-18",
       "allotDate": "2026-12-21",
       "listingDate": "2026-12-23",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3060,7 +3060,7 @@
       "closeDate": "2026-12-21",
       "allotDate": "2026-12-22",
       "listingDate": "2026-12-24",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3080,7 +3080,7 @@
       "closeDate": "2026-12-22",
       "allotDate": "2026-12-23",
       "listingDate": "2026-12-26",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3100,7 +3100,7 @@
       "closeDate": "2026-12-23",
       "allotDate": "2026-12-24",
       "listingDate": "2026-12-28",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3114,13 +3114,13 @@
       "estListing": 456,
       "estProfitLot": 2470,
       "sub": 90.43,
-      "sizeCr": 582.11,
+      "sizeCr": 592.1,
       "lot": 38,
       "openDate": "2026-12-20",
-      "closeDate": "2026-12-24",
-      "allotDate": "2026-12-26",
+      "closeDate": "2026-12-23",
+      "allotDate": "2026-12-24",
       "listingDate": "2026-12-30",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3128,19 +3128,19 @@
       "company": "Carraro India Ltd",
       "slug": "carraro-india-ipo",
       "logo": "https://assets-netstorage.groww.in/stocks-ipo/logos/CarraroIndiaLtd_51934019_7636.png",
-      "price": 704,
+      "price": 674,
       "gmp": 55,
-      "gmpPct": 7.81,
-      "estListing": 759,
-      "estProfitLot": 1155,
+      "gmpPct": 8.16,
+      "estListing": 729,
+      "estProfitLot": 1210,
       "sub": 1.07,
-      "sizeCr": 1250,
-      "lot": 21,
+      "sizeCr": 1811.65,
+      "lot": 22,
       "openDate": "2026-12-20",
-      "closeDate": "2026-12-24",
-      "allotDate": "2026-12-26",
+      "closeDate": "2026-12-23",
+      "allotDate": "2026-12-24",
       "listingDate": "2026-12-30",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3148,19 +3148,19 @@
       "company": "Ventive Hospitality Ltd",
       "slug": "ventive-hospitality-ipo",
       "logo": "https://assets-netstorage.groww.in/stocks-ipo/logos/VentiveHospitalityLtd_19888170_40188.png",
-      "price": 643,
+      "price": 647,
       "gmp": 75,
-      "gmpPct": 11.66,
-      "estListing": 718,
+      "gmpPct": 11.59,
+      "estListing": 722,
       "estProfitLot": 1725,
       "sub": 9.57,
-      "sizeCr": 1600,
+      "sizeCr": 2000,
       "lot": 23,
       "openDate": "2026-12-20",
-      "closeDate": "2026-12-24",
-      "allotDate": "2026-12-26",
+      "closeDate": "2026-12-23",
+      "allotDate": "2026-12-24",
       "listingDate": "2026-12-30",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3180,7 +3180,7 @@
       "closeDate": "2026-12-24",
       "allotDate": "2026-12-28",
       "listingDate": "2026-12-30",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     },
@@ -3200,7 +3200,7 @@
       "closeDate": "2026-12-26",
       "allotDate": "2026-12-29",
       "listingDate": "2026-12-31",
-      "updatedOn": "2026-11-16T15:02:51.379Z",
+      "updatedOn": "2026-11-16T15:13:34.045Z",
       "confidence": "Positive",
       "source": "InvestorGain Grey Market Tracker (Indicative)"
     }
@@ -62770,7 +62770,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:37.847Z",
+        "retrievedAt": "2026-11-16T15:13:14.036Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -65287,7 +65287,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:37.139Z",
+        "retrievedAt": "2026-11-16T15:13:13.693Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -67814,7 +67814,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:37.242Z",
+        "retrievedAt": "2026-11-16T15:13:13.648Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -70341,7 +70341,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:37.512Z",
+        "retrievedAt": "2026-11-16T15:13:13.663Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -70388,7 +70388,22 @@
         "upperCircuit": 2215.3,
         "lowerCircuit": 2086.3
       },
-      "bseQuote": null,
+      "bseQuote": {
+        "ltp": 2152,
+        "previousClose": 2106.4,
+        "open": 2125,
+        "high": 2172.1,
+        "low": 2119,
+        "dayChange": 45.6,
+        "dayChangePct": 2.16,
+        "volume": 277585,
+        "lastTradeTime": "2026-11-16T10:28:24.000Z",
+        "lastTradeQty": 1,
+        "totalBuyQty": 8408,
+        "totalSellQty": 25228,
+        "upperCircuit": 2214.95,
+        "lowerCircuit": 2085.95
+      },
       "fundamentals": {
         "pe": 34.17,
         "pb": 8.32,
@@ -72853,7 +72868,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.106Z",
+        "retrievedAt": "2026-11-16T15:13:15.813Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -72900,22 +72915,7 @@
         "upperCircuit": 1122.15,
         "lowerCircuit": 1056.85
       },
-      "bseQuote": {
-        "ltp": 1090,
-        "previousClose": 1080.5,
-        "open": 1081.25,
-        "high": 1099.7,
-        "low": 1081.25,
-        "dayChange": 9.5,
-        "dayChangePct": 0.88,
-        "volume": 1272061,
-        "lastTradeTime": "2026-11-16T10:29:23.000Z",
-        "lastTradeQty": 5,
-        "totalBuyQty": 15336,
-        "totalSellQty": 167071,
-        "upperCircuit": 1122.15,
-        "lowerCircuit": 1056.85
-      },
+      "bseQuote": null,
       "fundamentals": {
         "pe": 10.61,
         "pb": 1.57,
@@ -75380,7 +75380,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:37.418Z",
+        "retrievedAt": "2026-11-16T15:13:16.329Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -77907,7 +77907,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.232Z",
+        "retrievedAt": "2026-11-16T15:13:17.331Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -80434,7 +80434,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:38.963Z",
+        "retrievedAt": "2026-11-16T15:13:13.566Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -82961,7 +82961,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:38.238Z",
+        "retrievedAt": "2026-11-16T15:13:13.889Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -85488,7 +85488,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:37.331Z",
+        "retrievedAt": "2026-11-16T15:13:14.074Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -88005,7 +88005,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.646Z",
+        "retrievedAt": "2026-11-16T15:13:17.948Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -90532,7 +90532,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.650Z",
+        "retrievedAt": "2026-11-16T15:13:20.350Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -93059,7 +93059,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.030Z",
+        "retrievedAt": "2026-11-16T15:13:20.366Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -95586,7 +95586,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.837Z",
+        "retrievedAt": "2026-11-16T15:13:20.452Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -95604,7 +95604,7 @@
       "companyName": "Maruti Suzuki India Limited",
       "logoUrl": "/assets/movers/maruti.png",
       "exchange": "NSE/BSE",
-      "sector": "Auto Manufacturers",
+      "sector": "Automobile",
       "industry": "Auto Manufacturers",
       "isin": "INE585B01010",
       "currentPrice": 12571,
@@ -95615,7 +95615,7 @@
       "week52High": 17370,
       "week52Low": 10985,
       "volume": 662372,
-      "marketCapCr": 404888,
+      "marketCapCr": 404887,
       "lastTradeTime": "2026-11-16T10:26:24.000Z",
       "nseQuote": {
         "ltp": 12571,
@@ -98113,7 +98113,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.834Z",
+        "retrievedAt": "2026-11-16T15:13:21.843Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -98134,32 +98134,17 @@
       "sector": "Power",
       "industry": "Power",
       "isin": "INE733E01010",
-      "currentPrice": 321.25,
-      "previousClose": 319.1,
-      "open": 319.35,
-      "dayHigh": 321.3,
+      "currentPrice": 321,
+      "previousClose": 318.8,
+      "open": 319.95,
+      "dayHigh": 321.25,
       "dayLow": 316.85,
       "week52High": 414.4,
       "week52Low": 292.05,
-      "volume": 5540177,
+      "volume": 214686,
       "marketCapCr": 309130,
-      "lastTradeTime": "2026-11-16T10:28:46.000Z",
-      "nseQuote": {
-        "ltp": 321.25,
-        "previousClose": 319.1,
-        "open": 319.35,
-        "high": 321.3,
-        "low": 316.85,
-        "dayChange": 2.15,
-        "dayChangePct": 0.67,
-        "volume": 5540177,
-        "lastTradeTime": "2026-11-16T10:28:46.000Z",
-        "lastTradeQty": 2,
-        "totalBuyQty": 0,
-        "totalSellQty": 1419,
-        "upperCircuit": 329.25,
-        "lowerCircuit": 310.15
-      },
+      "lastTradeTime": "2026-11-16T09:59:24.000Z",
+      "nseQuote": null,
       "bseQuote": {
         "ltp": 321,
         "previousClose": 318.8,
@@ -100640,7 +100625,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.479Z",
+        "retrievedAt": "2026-11-16T15:13:20.843Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -103167,7 +103152,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.748Z",
+        "retrievedAt": "2026-11-16T15:13:18.541Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -105694,7 +105679,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:40.667Z",
+        "retrievedAt": "2026-11-16T15:13:18.050Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -108221,7 +108206,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.199Z",
+        "retrievedAt": "2026-11-16T15:13:18.055Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -110738,7 +110723,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.468Z",
+        "retrievedAt": "2026-11-16T15:13:18.262Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -113265,7 +113250,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.105Z",
+        "retrievedAt": "2026-11-16T15:13:23.206Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -115782,7 +115767,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.956Z",
+        "retrievedAt": "2026-11-16T15:13:22.358Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -118309,7 +118294,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.124Z",
+        "retrievedAt": "2026-11-16T15:13:22.664Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -120785,14 +120770,14 @@
           "source": "NSE India Corporate Filings"
         },
         {
-          "id": "nse-106854487",
+          "id": "nse-106854488",
           "date": "2026-11-09",
           "title": "Oil & Natural Gas Corporation Limited has informed the Exchange about Schedule of meet",
           "category": "Analysts/Institutional Investor Meet/Con. Call Updates",
           "source": "NSE India Corporate Filings"
         },
         {
-          "id": "nse-106854488",
+          "id": "nse-106854487",
           "date": "2026-11-09",
           "title": "Oil & Natural Gas Corporation Limited has informed the Exchange about Schedule of meet",
           "category": "Analysts/Institutional Investor Meet/Con. Call Updates",
@@ -120836,7 +120821,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.768Z",
+        "retrievedAt": "2026-11-16T15:13:22.511Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -123363,7 +123348,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.188Z",
+        "retrievedAt": "2026-11-16T15:13:23.307Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -125890,7 +125875,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.042Z",
+        "retrievedAt": "2026-11-16T15:13:23.784Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -128345,7 +128330,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.732Z",
+        "retrievedAt": "2026-11-16T15:13:24.918Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -130872,7 +130857,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.020Z",
+        "retrievedAt": "2026-11-16T15:13:22.761Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -133399,7 +133384,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.942Z",
+        "retrievedAt": "2026-11-16T15:13:22.852Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -135926,7 +135911,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:41.907Z",
+        "retrievedAt": "2026-11-16T15:13:22.937Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -138443,7 +138428,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.995Z",
+        "retrievedAt": "2026-11-16T15:13:26.253Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -140970,7 +140955,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.590Z",
+        "retrievedAt": "2026-11-16T15:13:25.997Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -143497,7 +143482,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.677Z",
+        "retrievedAt": "2026-11-16T15:13:25.814Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -146024,7 +146009,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.840Z",
+        "retrievedAt": "2026-11-16T15:13:25.627Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -148551,7 +148536,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.759Z",
+        "retrievedAt": "2026-11-16T15:13:25.725Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -151078,7 +151063,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.761Z",
+        "retrievedAt": "2026-11-16T15:13:25.914Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -153605,7 +153590,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.690Z",
+        "retrievedAt": "2026-11-16T15:13:25.266Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -156108,7 +156093,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.407Z",
+        "retrievedAt": "2026-11-16T15:13:25.214Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -158635,7 +158620,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.502Z",
+        "retrievedAt": "2026-11-16T15:13:26.040Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -161162,7 +161147,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:42.767Z",
+        "retrievedAt": "2026-11-16T15:13:26.129Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -163689,7 +163674,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.513Z",
+        "retrievedAt": "2026-11-16T15:13:26.754Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -166216,7 +166201,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.796Z",
+        "retrievedAt": "2026-11-16T15:13:26.687Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -168743,7 +168728,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.348Z",
+        "retrievedAt": "2026-11-16T15:13:26.722Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -171270,7 +171255,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.430Z",
+        "retrievedAt": "2026-11-16T15:13:26.720Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -173797,7 +173782,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.424Z",
+        "retrievedAt": "2026-11-16T15:13:26.561Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -176325,7 +176310,7 @@
       "ipoHistorySlug": "swiggy-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.274Z",
+        "retrievedAt": "2026-11-16T15:13:26.979Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -178853,7 +178838,7 @@
       "ipoHistorySlug": "waaree-energies-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.338Z",
+        "retrievedAt": "2026-11-16T15:13:26.639Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -181381,7 +181366,7 @@
       "ipoHistorySlug": "premier-energies-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.260Z",
+        "retrievedAt": "2026-11-16T15:13:26.553Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -183909,7 +183894,7 @@
       "ipoHistorySlug": "hyundai-motor-india-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.240Z",
+        "retrievedAt": "2026-11-16T15:13:26.456Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -186322,7 +186307,7 @@
       "ipoHistorySlug": "bajaj-housing-finance-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.275Z",
+        "retrievedAt": "2026-11-16T15:13:26.638Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -188840,7 +188825,7 @@
       "ipoHistorySlug": "ola-electric-mobility-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.088Z",
+        "retrievedAt": "2026-11-16T15:13:27.978Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -191368,7 +191353,7 @@
       "ipoHistorySlug": "brainbees-solutions-firstcry-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.125Z",
+        "retrievedAt": "2026-11-16T15:13:27.215Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -193858,7 +193843,7 @@
       "ipoHistorySlug": "unicommerce-esolutions-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.095Z",
+        "retrievedAt": "2026-11-16T15:13:27.365Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -196362,7 +196347,7 @@
       "ipoHistorySlug": "krn-heat-exchanger-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.168Z",
+        "retrievedAt": "2026-11-16T15:13:27.581Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -198738,7 +198723,7 @@
       "ipoHistorySlug": "manba-finance-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.215Z",
+        "retrievedAt": "2026-11-16T15:13:27.222Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -201181,7 +201166,7 @@
       "ipoHistorySlug": "orient-technologies-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.295Z",
+        "retrievedAt": "2026-11-16T15:13:27.319Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -203709,7 +203694,7 @@
       "ipoHistorySlug": "tata-technologies-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.086Z",
+        "retrievedAt": "2026-11-16T15:13:27.235Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -206236,7 +206221,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.170Z",
+        "retrievedAt": "2026-11-16T15:13:27.228Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -208742,7 +208727,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.325Z",
+        "retrievedAt": "2026-11-16T15:13:27.276Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -211269,7 +211254,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:43.987Z",
+        "retrievedAt": "2026-11-16T15:13:27.188Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -213796,7 +213781,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.682Z",
+        "retrievedAt": "2026-11-16T15:13:28.388Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -216323,7 +216308,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.686Z",
+        "retrievedAt": "2026-11-16T15:13:28.419Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -218850,7 +218835,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.660Z",
+        "retrievedAt": "2026-11-16T15:13:28.507Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -221377,7 +221362,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.815Z",
+        "retrievedAt": "2026-11-16T15:13:28.297Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -223889,7 +223874,7 @@
       ],
       "provenance": {
         "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.690Z",
+        "retrievedAt": "2026-11-16T15:13:28.380Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -226401,7 +226386,7 @@
       ],
       "provenance": {
         "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.708Z",
+        "retrievedAt": "2026-11-16T15:13:28.370Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -228900,7 +228885,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:45.079Z",
+        "retrievedAt": "2026-11-16T15:13:28.163Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -231417,7 +231402,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.664Z",
+        "retrievedAt": "2026-11-16T15:13:28.602Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -233944,7 +233929,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:45.695Z",
+        "retrievedAt": "2026-11-16T15:13:28.261Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -236356,7 +236341,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:44.795Z",
+        "retrievedAt": "2026-11-16T15:13:28.471Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -238883,7 +238868,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.090Z",
+        "retrievedAt": "2026-11-16T15:13:28.973Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -241410,7 +241395,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.275Z",
+        "retrievedAt": "2026-11-16T15:13:29.015Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -243927,7 +243912,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.055Z",
+        "retrievedAt": "2026-11-16T15:13:29.057Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -246444,7 +246429,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.057Z",
+        "retrievedAt": "2026-11-16T15:13:29.018Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -248954,7 +248939,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:46.050Z",
+        "retrievedAt": "2026-11-16T15:13:28.971Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -251471,7 +251456,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.065Z",
+        "retrievedAt": "2026-11-16T15:13:29.005Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -253998,7 +253983,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.394Z",
+        "retrievedAt": "2026-11-16T15:13:29.387Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -256525,7 +256510,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.171Z",
+        "retrievedAt": "2026-11-16T15:13:29.001Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -259052,7 +259037,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.273Z",
+        "retrievedAt": "2026-11-16T15:13:29.218Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -261557,7 +261542,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:45.949Z",
+        "retrievedAt": "2026-11-16T15:13:28.832Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -264084,7 +264069,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.891Z",
+        "retrievedAt": "2026-11-16T15:13:29.883Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -266611,7 +266596,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:47.661Z",
+        "retrievedAt": "2026-11-16T15:13:29.961Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -269138,7 +269123,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.842Z",
+        "retrievedAt": "2026-11-16T15:13:29.806Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -271665,7 +271650,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:47.060Z",
+        "retrievedAt": "2026-11-16T15:13:29.771Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -274192,7 +274177,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:47.057Z",
+        "retrievedAt": "2026-11-16T15:13:30.498Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -276719,7 +276704,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:47.144Z",
+        "retrievedAt": "2026-11-16T15:13:30.151Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -277158,32 +277143,32 @@
       ],
       "fundsInvested": [
         {
-          "name": "UTI Banking and Financial Services Fund Direct Plan Growth",
-          "investedAumPct": 0.74,
-          "rating": 3,
-          "return1y": 5.93,
-          "return3y": 15.41
+          "name": "Nippon India Conservative Hybrid Fund Direct Growth",
+          "investedAumPct": 0.05,
+          "rating": 5,
+          "return1y": 6.1,
+          "return3y": 8.84
         },
         {
-          "name": "UTI Large Cap Fund Direct Growth",
-          "investedAumPct": 1.34,
-          "rating": 3,
-          "return1y": -0.78,
-          "return3y": 10.1
+          "name": "ICICI Prudential Conservative Hybrid Fund Direct Growth",
+          "investedAumPct": 0.71,
+          "rating": 4,
+          "return1y": 3.44,
+          "return3y": 9.11
         },
         {
-          "name": "Mahindra Manulife Large Cap Fund Direct Growth",
-          "investedAumPct": 2.26,
-          "rating": 3,
-          "return1y": -1.02,
-          "return3y": 11.58
+          "name": "SBI Conservative Hybrid Fund Direct Growth",
+          "investedAumPct": 0.87,
+          "rating": 4,
+          "return1y": 3.78,
+          "return3y": 8.49
         },
         {
-          "name": "Canara Robeco ELSS Tax Saver Fund Direct Growth",
-          "investedAumPct": 0.66,
-          "rating": 3,
-          "return1y": 3.66,
-          "return3y": 13.32
+          "name": "ICICI Prudential Retirement Fund Pure Equity Plan Direct Growth",
+          "investedAumPct": 0.75,
+          "rating": 5,
+          "return1y": 4.07,
+          "return3y": 20.23
         }
       ],
       "dataSourcesUsed": [
@@ -279246,7 +279231,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.916Z",
+        "retrievedAt": "2026-11-16T15:13:29.688Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -281668,7 +281653,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.896Z",
+        "retrievedAt": "2026-11-16T15:13:29.970Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -284185,7 +284170,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.792Z",
+        "retrievedAt": "2026-11-16T15:13:29.663Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -286712,7 +286697,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:46.888Z",
+        "retrievedAt": "2026-11-16T15:13:29.856Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -289239,7 +289224,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.251Z",
+        "retrievedAt": "2026-11-16T15:13:30.613Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -291766,7 +291751,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.073Z",
+        "retrievedAt": "2026-11-16T15:13:30.968Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -294188,7 +294173,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.075Z",
+        "retrievedAt": "2026-11-16T15:13:30.938Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -296707,7 +296692,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.102Z",
+        "retrievedAt": "2026-11-16T15:13:30.756Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -299234,7 +299219,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.246Z",
+        "retrievedAt": "2026-11-16T15:13:30.943Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -301761,7 +301746,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.249Z",
+        "retrievedAt": "2026-11-16T15:13:30.979Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -304288,7 +304273,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.434Z",
+        "retrievedAt": "2026-11-16T15:13:30.864Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -306815,7 +306800,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:47.967Z",
+        "retrievedAt": "2026-11-16T15:13:30.745Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -309305,7 +309290,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.194Z",
+        "retrievedAt": "2026-11-16T15:13:30.833Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -311832,7 +311817,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.160Z",
+        "retrievedAt": "2026-11-16T15:13:31.125Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -314349,7 +314334,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.877Z",
+        "retrievedAt": "2026-11-16T15:13:31.672Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -316876,7 +316861,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:49.081Z",
+        "retrievedAt": "2026-11-16T15:13:31.583Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -319395,7 +319380,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.784Z",
+        "retrievedAt": "2026-11-16T15:13:31.446Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -321908,7 +321893,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.997Z",
+        "retrievedAt": "2026-11-16T15:13:31.492Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -322232,7 +322217,7 @@
       "ipoHistorySlug": "crystal-crop-protection-ipo",
       "provenance": {
         "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:48.581Z",
+        "retrievedAt": "2026-11-16T15:13:31.270Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -324736,7 +324721,7 @@
       "ipoHistorySlug": "ntpc-green-energy-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:48.782Z",
+        "retrievedAt": "2026-11-16T15:13:31.440Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -325046,7 +325031,7 @@
       "ipoHistorySlug": "enviro-infra-engineers-ipo",
       "provenance": {
         "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:48.684Z",
+        "retrievedAt": "2026-11-16T15:13:31.309Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -325347,7 +325332,7 @@
       "ipoHistorySlug": "c2c-advanced-systems-ipo",
       "provenance": {
         "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:48.630Z",
+        "retrievedAt": "2026-11-16T15:13:31.358Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -325614,7 +325599,7 @@
       "ipoHistorySlug": "lamosaic-india-ipo",
       "provenance": {
         "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:48.872Z",
+        "retrievedAt": "2026-11-16T15:13:31.358Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -325933,7 +325918,7 @@
       "ipoHistorySlug": "rajesh-power-services-ipo",
       "provenance": {
         "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:48.632Z",
+        "retrievedAt": "2026-11-16T15:13:31.269Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -326348,7 +326333,7 @@
       "ipoHistorySlug": "rajputana-biodiesel-ipo",
       "provenance": {
         "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:49.334Z",
+        "retrievedAt": "2026-11-16T15:13:31.878Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -326665,7 +326650,7 @@
       "ipoHistorySlug": "bombay-coated-steels-ipo",
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:49.212Z",
+        "retrievedAt": "2026-11-16T15:13:31.815Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -326833,7 +326818,7 @@
       "ipoHistorySlug": "antala-industries-ipo",
       "provenance": {
         "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:49.298Z",
+        "retrievedAt": "2026-11-16T15:13:31.782Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -326890,8 +326875,8 @@
         "faceValue": 10,
         "marketLot": 1200,
         "tickSize": 0.05,
-        "zerodhaNseToken": 1386008,
-        "zerodhaBseToken": 128029057,
+        "zerodhaNseToken": 1248671,
+        "zerodhaBseToken": 128004453,
         "isFnoEnabled": false
       },
       "shareholding": [
@@ -327044,7 +327029,7 @@
       "ipoHistorySlug": "deccan-solar-ipo",
       "provenance": {
         "source": "Official Exchange Books (NSE/BSE & Live Market Feed)",
-        "retrievedAt": "2026-11-16T15:02:51.372Z",
+        "retrievedAt": "2026-11-16T15:13:34.035Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -327101,8 +327086,8 @@
         "faceValue": 10,
         "marketLot": 1200,
         "tickSize": 0.05,
-        "zerodhaNseToken": 1419213,
-        "zerodhaBseToken": 128463852,
+        "zerodhaNseToken": 1416182,
+        "zerodhaBseToken": 128196512,
         "isFnoEnabled": false
       },
       "shareholding": [
@@ -327255,7 +327240,7 @@
       "ipoHistorySlug": "coastal-maritime-ipo",
       "provenance": {
         "source": "Official Exchange Books (NSE/BSE & Live Market Feed)",
-        "retrievedAt": "2026-11-16T15:02:51.372Z",
+        "retrievedAt": "2026-11-16T15:13:34.035Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -327449,7 +327434,7 @@
       "ipoHistorySlug": "aravalli-lifesciences-ipo",
       "provenance": {
         "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:49.296Z",
+        "retrievedAt": "2026-11-16T15:13:31.867Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -327643,7 +327628,7 @@
       "ipoHistorySlug": "meridian-cloud-ipo",
       "provenance": {
         "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-        "retrievedAt": "2026-11-16T15:02:49.390Z",
+        "retrievedAt": "2026-11-16T15:13:31.866Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -330160,7 +330145,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:49.583Z",
+        "retrievedAt": "2026-11-16T15:13:31.953Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -332687,7 +332672,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:49.419Z",
+        "retrievedAt": "2026-11-16T15:13:32.339Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -335204,7 +335189,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:49.711Z",
+        "retrievedAt": "2026-11-16T15:13:32.108Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -337721,7 +337706,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.862Z",
+        "retrievedAt": "2026-11-16T15:13:33.326Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -340248,7 +340233,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.444Z",
+        "retrievedAt": "2026-11-16T15:13:32.758Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -342765,7 +342750,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.680Z",
+        "retrievedAt": "2026-11-16T15:13:33.128Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -345292,7 +345277,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.437Z",
+        "retrievedAt": "2026-11-16T15:13:32.876Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -347819,7 +347804,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.561Z",
+        "retrievedAt": "2026-11-16T15:13:32.740Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -350346,7 +350331,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.146Z",
+        "retrievedAt": "2026-11-16T15:13:33.174Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -352873,7 +352858,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:49.961Z",
+        "retrievedAt": "2026-11-16T15:13:32.744Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -355392,7 +355377,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.101Z",
+        "retrievedAt": "2026-11-16T15:13:32.934Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -357919,7 +357904,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.563Z",
+        "retrievedAt": "2026-11-16T15:13:32.846Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -360436,7 +360421,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:50.115Z",
+        "retrievedAt": "2026-11-16T15:13:32.940Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -362666,7 +362651,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:51.098Z",
+        "retrievedAt": "2026-11-16T15:13:33.637Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -363962,7 +363947,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:51.369Z",
+        "retrievedAt": "2026-11-16T15:13:33.636Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -366479,7 +366464,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:51.115Z",
+        "retrievedAt": "2026-11-16T15:13:33.537Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -369006,7 +368991,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:51.372Z",
+        "retrievedAt": "2026-11-16T15:13:33.808Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -371521,7 +371506,7 @@
       ],
       "provenance": {
         "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-        "retrievedAt": "2026-11-16T15:02:51.198Z",
+        "retrievedAt": "2026-11-16T15:13:34.035Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -371539,7 +371524,7 @@
       "shortName": "Crystal Crop Protection",
       "logoMonogram": "CC",
       "logoColor": "#15803D",
-      "logoUrl": "/assets/movers/crystal-crop.png",
+      "logoUrl": "/assets/movers/crystal-crop-protection.png",
       "sector": "Agrochemicals",
       "industry": "Agrochemicals & Crop Protection",
       "category": "Mainboard",
@@ -371548,7 +371533,7 @@
         "NSE",
         "BSE"
       ],
-      "website": "https://groww.in/ipo/crystal-crop-protection-ipo",
+      "website": "https://zerodha.com/ipo/450777/crystal-crop-protection-limited",
       "registrar": "MUFG Intime India Pvt Ltd",
       "registrarUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
       "issueSizeCr": 455.71,
@@ -371579,7 +371564,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.831Z",
+          "retrievedAt": "2026-11-16T15:13:10.115Z",
           "effectiveDate": "2026-11-20",
           "verificationStatus": "Provisional",
           "qualityStatus": "VERIFIED",
@@ -371621,14 +371606,14 @@
         "issuePrice": 272,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "CRYSTALCROP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.831Z",
+          "retrievedAt": "2026-11-16T15:13:10.115Z",
           "effectiveDate": "2026-11-26",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -371692,7 +371677,7 @@
         "peers": []
       },
       "profile": {
-        "overview": "Crystal Crop Protection Limited is an agrochemical and seed company established in 1994. The company develops, manufactures, and distributes crop protection products, natural crop solutions, technical-grade active ingredients, and seeds. Its crop protection portfolio includes herbicides, fungicides, insecticides, bio-stimulants, bio-protectants, plant growth regulators, liquid fertilisers, and micronutrients. \nIts seed portfolio covers field crops such as cotton, mustard, maize, rice, and wheat, along with vegetable and flower seeds. The company also manufactures self-propelled boom sprayers and sells conventional sprayers. It operates four formulation manufacturing units in Haryana, Gujarat, and Jammu and two technical manufacturing units in Gujarat and Maharashtra. \nIts seed processing facilities are located in Hyderabad, Telangana, and Bengaluru, Karnataka. The company also operates research and development facilities across multiple states, including its Key Research and Development Centre in Sonipat, Haryana.",
+        "overview": "Crystal Crop Protection Limited is an R&D-driven agrochemical company engaged in manufacturing, formulating, and marketing crop protection products including insecticides, fungicides, herbicides, and plant growth regulators.",
         "productsAndServices": "Crystal Crop Protection Ltd operates in Agro Chemicals (Founded 1994).",
         "businessModel": "Mainboard issue (EQUITY) listed on NSE / BSE · ISIN INE101P01016.",
         "industryOverview": "Agro Chemicals primary market offering tracked via SEBI & exchange filings.",
@@ -371736,7 +371721,7 @@
       "archived": false,
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker",
-        "retrievedAt": "2026-11-16T15:02:33.831Z",
+        "retrievedAt": "2026-11-16T15:13:10.115Z",
         "effectiveDate": "2026-11-26",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -371813,20 +371798,20 @@
         "issuePrice": 108,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
-        "currentMarketPrice": null,
-        "previousClose": null,
+        "stockSymbol": "NTPCGREEN",
+        "currentMarketPrice": 82.33,
+        "previousClose": 82.97,
         "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "priceStatus": "VERIFIED",
         "provenance": {
-          "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
-          "effectiveDate": "2026-11-27",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
+          "retrievedAt": "2026-11-16T15:13:31.440Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
-          "dataCategory": "Mainboard IPO Listing"
+          "dataCategory": "Equity Quote & Fundamentals"
         }
       },
       "financials": {
@@ -371946,7 +371931,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-11-27",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -371962,7 +371947,7 @@
       "shortName": "Mahanadi Coalfields",
       "logoMonogram": "MC",
       "logoColor": "#0F766E",
-      "logoUrl": "/api/company-logo?searchId=mahanadi-coalfields-ipo&name=Mahanadi+Coalfields",
+      "logoUrl": "/assets/movers/mahanadi.svg",
       "sector": "Energy & Mining",
       "industry": "Coal Mining & Power Utilities",
       "category": "Mainboard",
@@ -371971,17 +371956,17 @@
         "NSE",
         "BSE"
       ],
-      "website": "",
+      "website": "https://zerodha.com/ipo/463024/mahanadi-coalfields",
       "registrar": "Link Intime India Private Limited",
       "registrarUrl": "https://www.sebi.gov.in",
       "issueSizeCr": 4000,
       "freshIssueCr": null,
       "ofsCr": null,
-      "priceBandLow": 320,
-      "priceBandHigh": 340,
+      "priceBandLow": 129,
+      "priceBandHigh": 136,
       "lotSize": 110,
       "minBidQuantity": 110,
-      "minInvestment": 37400,
+      "minInvestment": 14960,
       "faceValue": null,
       "dates": {
         "openDate": "2026-11-19",
@@ -372002,7 +371987,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-11-23",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -372036,17 +372021,17 @@
         ]
       },
       "listing": {
-        "issuePrice": 340,
+        "issuePrice": 136,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "MAHANADI",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-11-27",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -372070,7 +372055,7 @@
         "peers": []
       },
       "profile": {
-        "overview": "Mahanadi Coalfields has filed public issue offer documents for a Mainboard IPO on NSE / BSE.",
+        "overview": "Mahanadi Coalfields Limited (MCL) is one of the major coal producing companies of India and a key subsidiary of Coal India Limited.",
         "productsAndServices": "Mahanadi Coalfields operates in its core segment.",
         "businessModel": "Mainboard issue (Book Built) listed on NSE / BSE.",
         "industryOverview": "Sector primary market offering tracked via SEBI & exchange filings.",
@@ -372090,7 +372075,7 @@
       },
       "provenance": {
         "source": "InvestorGain GMP Tracker",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-11-27",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -372106,7 +372091,7 @@
       "shortName": "Watrana Rentals",
       "logoMonogram": "WR",
       "logoColor": "#0F766E",
-      "logoUrl": "/api/company-logo?searchId=watrana-rentals-ipo&name=Watrana+Rentals",
+      "logoUrl": "/assets/movers/watrana.svg",
       "sector": "Capital Goods",
       "industry": "Industrial & Material Handling Equipment",
       "category": "SME",
@@ -372114,13 +372099,13 @@
       "exchanges": [
         "NSE"
       ],
-      "website": "",
+      "website": "https://zerodha.com/ipo/463042/watrana-rentals",
       "registrar": "Bigshare Services Pvt Ltd",
       "registrarUrl": "https://www.sebi.gov.in",
       "issueSizeCr": 120.1,
       "freshIssueCr": null,
       "ofsCr": null,
-      "priceBandLow": 245,
+      "priceBandLow": 232,
       "priceBandHigh": 245,
       "lotSize": 600,
       "minBidQuantity": 600,
@@ -372145,7 +372130,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-11-23",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -372187,14 +372172,14 @@
         "issuePrice": 245,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "WATRANA",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-11-27",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -372218,7 +372203,7 @@
         "peers": []
       },
       "profile": {
-        "overview": "Watrana Rentals has filed public issue offer documents for a SME IPO on NSE.",
+        "overview": "Watrana Rentals Limited specializes in renting and leasing warehousing equipment, material handling equipment, and rough terrain cranes.",
         "productsAndServices": "Watrana Rentals operates in its core segment.",
         "businessModel": "SME issue (Book Built) listed on NSE.",
         "industryOverview": "Sector primary market offering tracked via SEBI & exchange filings.",
@@ -372238,7 +372223,7 @@
       },
       "provenance": {
         "source": "InvestorGain GMP Tracker",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-11-27",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -372315,20 +372300,20 @@
         "issuePrice": 200,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
-        "currentMarketPrice": null,
-        "previousClose": null,
+        "stockSymbol": "LAMOSAIC",
+        "currentMarketPrice": 50.4,
+        "previousClose": 48.9,
         "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "priceStatus": "VERIFIED",
         "provenance": {
-          "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
-          "effectiveDate": "2026-11-29",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry",
+          "retrievedAt": "2026-11-16T15:13:31.358Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
-          "dataCategory": "SME IPO Listing"
+          "dataCategory": "Equity Quote & Fundamentals"
         }
       },
       "financials": {
@@ -372461,7 +372446,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-11-29",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -372538,20 +372523,20 @@
         "issuePrice": 226,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
-        "currentMarketPrice": null,
-        "previousClose": null,
+        "stockSymbol": "C2C",
+        "currentMarketPrice": 133.4,
+        "previousClose": 143.15,
         "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "priceStatus": "VERIFIED",
         "provenance": {
-          "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
-          "effectiveDate": "2026-12-03",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "NSE India · Groww Exchange & Filings · Zerodha Kite Registry",
+          "retrievedAt": "2026-11-16T15:13:31.358Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
-          "dataCategory": "SME IPO Listing"
+          "dataCategory": "Equity Quote & Fundamentals"
         }
       },
       "financials": {
@@ -372686,7 +372671,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-12-03",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -372763,14 +372748,14 @@
         "issuePrice": 148,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "EIEL",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
+          "retrievedAt": "2026-11-16T15:13:10.146Z",
           "effectiveDate": "2026-11-29",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -372872,7 +372857,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-11-29",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -372948,14 +372933,14 @@
         "issuePrice": 335,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "544291",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
+          "retrievedAt": "2026-11-16T15:13:10.146Z",
           "effectiveDate": "2026-12-02",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -373095,7 +373080,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-12-02",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -373172,20 +373157,20 @@
         "issuePrice": 130,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
-        "currentMarketPrice": null,
-        "previousClose": null,
+        "stockSymbol": "RAJPUTANA",
+        "currentMarketPrice": 26.61,
+        "previousClose": 26.6,
         "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "priceStatus": "VERIFIED",
         "provenance": {
-          "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
-          "effectiveDate": "2026-12-03",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
+          "retrievedAt": "2026-11-16T15:13:31.878Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
-          "dataCategory": "SME IPO Listing"
+          "dataCategory": "Equity Quote & Fundamentals"
         }
       },
       "financials": {
@@ -373319,7 +373304,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-12-03",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -373375,7 +373360,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.124Z",
           "effectiveDate": "2026-12-04",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -373403,7 +373388,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.124Z",
           "effectiveDate": "2026-12-09",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -373461,7 +373446,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.842Z",
+        "retrievedAt": "2026-11-16T15:13:10.124Z",
         "effectiveDate": "2026-12-09",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -373517,7 +373502,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.124Z",
           "effectiveDate": "2026-12-05",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -373538,14 +373523,14 @@
         "issuePrice": 380,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "ZEPTEMP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.124Z",
           "effectiveDate": "2026-12-10",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -373647,7 +373632,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.842Z",
+        "retrievedAt": "2026-11-16T15:13:10.124Z",
         "effectiveDate": "2026-12-10",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -373703,7 +373688,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.125Z",
           "effectiveDate": "2026-12-08",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -373724,14 +373709,14 @@
         "issuePrice": 225,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "MARRI",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.125Z",
           "effectiveDate": "2026-12-11",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -373789,7 +373774,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.842Z",
+        "retrievedAt": "2026-11-16T15:13:10.125Z",
         "effectiveDate": "2026-12-11",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -373845,7 +373830,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.127Z",
           "effectiveDate": "2026-12-09",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -373866,14 +373851,14 @@
         "issuePrice": 192,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "INCREDTEMP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.127Z",
           "effectiveDate": "2026-12-12",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -373935,7 +373920,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.843Z",
+        "retrievedAt": "2026-11-16T15:13:10.127Z",
         "effectiveDate": "2026-12-12",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -373991,7 +373976,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.124Z",
           "effectiveDate": "2026-12-10",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -374019,7 +374004,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.842Z",
+          "retrievedAt": "2026-11-16T15:13:10.124Z",
           "effectiveDate": "2026-12-15",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -374077,7 +374062,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.842Z",
+        "retrievedAt": "2026-11-16T15:13:10.124Z",
         "effectiveDate": "2026-12-15",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -374133,7 +374118,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.127Z",
           "effectiveDate": "2026-12-11",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -374161,7 +374146,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.127Z",
           "effectiveDate": "2026-12-16",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -374270,7 +374255,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.843Z",
+        "retrievedAt": "2026-11-16T15:13:10.127Z",
         "effectiveDate": "2026-12-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -374326,7 +374311,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.127Z",
           "effectiveDate": "2026-12-12",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -374354,7 +374339,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.127Z",
           "effectiveDate": "2026-12-17",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -374416,7 +374401,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.843Z",
+        "retrievedAt": "2026-11-16T15:13:10.127Z",
         "effectiveDate": "2026-12-17",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -374493,14 +374478,14 @@
         "issuePrice": 78,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "VMM",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-18",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -374601,7 +374586,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -374678,14 +374663,14 @@
         "issuePrice": 549,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "SAILIFE",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.863Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-18",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -374828,7 +374813,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -374905,14 +374890,14 @@
         "issuePrice": 279,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "MOBIKWIK",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-18",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375016,7 +375001,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375072,7 +375057,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-16",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -375093,14 +375078,14 @@
         "issuePrice": 290,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "CDTEMP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-19",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375162,7 +375147,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.843Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375218,7 +375203,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-17",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -375239,14 +375224,14 @@
         "issuePrice": 550,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "HALDITEMP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-22",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375308,7 +375293,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.843Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-22",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375364,7 +375349,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-18",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -375392,7 +375377,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.843Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-23",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375454,7 +375439,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.843Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-23",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375510,7 +375495,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-21",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -375538,7 +375523,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-24",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375600,7 +375585,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-24",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375656,7 +375641,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-22",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -375684,7 +375669,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-26",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375746,7 +375731,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-26",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375802,7 +375787,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-23",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -375830,7 +375815,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-28",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -375937,7 +375922,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-28",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -375965,7 +375950,7 @@
       "website": "",
       "registrar": "MUFG Intime India Pvt Ltd",
       "registrarUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
-      "issueSizeCr": 582.11,
+      "issueSizeCr": 592.1,
       "freshIssueCr": 500,
       "ofsCr": 92.1,
       "priceBandLow": 372,
@@ -375976,8 +375961,8 @@
       "faceValue": 10,
       "dates": {
         "openDate": "2026-12-20",
-        "closeDate": "2026-12-24",
-        "allotmentDate": "2026-12-26",
+        "closeDate": "2026-12-23",
+        "allotmentDate": "2026-12-24",
         "refundDate": null,
         "dematCreditDate": null,
         "listingDate": "2026-12-30"
@@ -375994,7 +375979,7 @@
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
           "retrievedAt": "2024-12-24T16:00:19",
-          "effectiveDate": "2026-12-24",
+          "effectiveDate": "2026-12-23",
           "verificationStatus": "Provisional",
           "qualityStatus": "VERIFIED",
           "currency": "PTS",
@@ -376014,14 +375999,14 @@
         "issuePrice": 391,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "SENORES",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-30",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -376127,7 +376112,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-30",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -376155,19 +376140,19 @@
       "website": "",
       "registrar": "MUFG Intime India Pvt Ltd",
       "registrarUrl": "https://linkintime.co.in/initial_offer/",
-      "issueSizeCr": 1250,
+      "issueSizeCr": 1811.65,
       "freshIssueCr": 0,
       "ofsCr": 1811.65,
-      "priceBandLow": 668,
-      "priceBandHigh": 704,
-      "lotSize": 21,
+      "priceBandLow": 640,
+      "priceBandHigh": 674,
+      "lotSize": 22,
       "minBidQuantity": 21,
-      "minInvestment": 14784,
+      "minInvestment": 14154,
       "faceValue": 10,
       "dates": {
         "openDate": "2026-12-20",
-        "closeDate": "2026-12-24",
-        "allotmentDate": "2026-12-26",
+        "closeDate": "2026-12-23",
+        "allotmentDate": "2026-12-24",
         "refundDate": null,
         "dematCreditDate": null,
         "listingDate": "2026-12-30"
@@ -376184,7 +376169,7 @@
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
           "retrievedAt": "2024-12-24T16:00:18",
-          "effectiveDate": "2026-12-24",
+          "effectiveDate": "2026-12-23",
           "verificationStatus": "Provisional",
           "qualityStatus": "VERIFIED",
           "currency": "PTS",
@@ -376204,14 +376189,14 @@
         "issuePrice": 704,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "CARRARO",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-30",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -376313,7 +376298,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-30",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -376341,19 +376326,19 @@
       "website": "",
       "registrar": "KFin Technologies Ltd",
       "registrarUrl": "https://ris.kfintech.com/ipostatus/",
-      "issueSizeCr": 1600,
+      "issueSizeCr": 2000,
       "freshIssueCr": 2000,
       "ofsCr": 0,
-      "priceBandLow": 610,
-      "priceBandHigh": 643,
+      "priceBandLow": 615,
+      "priceBandHigh": 647,
       "lotSize": 23,
       "minBidQuantity": 23,
-      "minInvestment": 14789,
+      "minInvestment": 14881,
       "faceValue": 1,
       "dates": {
         "openDate": "2026-12-20",
-        "closeDate": "2026-12-24",
-        "allotmentDate": "2026-12-26",
+        "closeDate": "2026-12-23",
+        "allotmentDate": "2026-12-24",
         "refundDate": null,
         "dematCreditDate": null,
         "listingDate": "2026-12-30"
@@ -376370,7 +376355,7 @@
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
           "retrievedAt": "2024-12-24T16:00:19",
-          "effectiveDate": "2026-12-24",
+          "effectiveDate": "2026-12-23",
           "verificationStatus": "Provisional",
           "qualityStatus": "VERIFIED",
           "currency": "PTS",
@@ -376390,14 +376375,14 @@
         "issuePrice": 643,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "VENTIVE",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-30",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -376502,7 +376487,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-30",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -376558,7 +376543,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-24",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -376586,7 +376571,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-30",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -376648,7 +376633,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-30",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -376704,7 +376689,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-26",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -376732,7 +376717,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.128Z",
           "effectiveDate": "2026-12-31",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -376794,7 +376779,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.128Z",
         "effectiveDate": "2026-12-31",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -376825,11 +376810,11 @@
       "issueSizeCr": 500,
       "freshIssueCr": 250,
       "ofsCr": 250,
-      "priceBandLow": 745,
-      "priceBandHigh": 785,
-      "lotSize": 19,
+      "priceBandLow": 680,
+      "priceBandHigh": 715,
+      "lotSize": 20,
       "minBidQuantity": 19,
-      "minInvestment": 14915,
+      "minInvestment": 13585,
       "faceValue": 5,
       "dates": {
         "openDate": "2026-12-23",
@@ -376871,14 +376856,14 @@
         "issuePrice": 785,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "UNIMECH",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2026-12-31",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -376982,7 +376967,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2026-12-31",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -377038,7 +377023,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2026-12-28",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -377066,7 +377051,7 @@
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-02",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -377128,7 +377113,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-02",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -377184,7 +377169,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2026-12-30",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -377205,14 +377190,14 @@
         "issuePrice": 255,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "HEROTEMP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-04",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -377276,7 +377261,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-04",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -377304,19 +377289,19 @@
       "website": "",
       "registrar": "MAS",
       "registrarUrl": "https://www.masserv.com/opt.asp",
-      "issueSizeCr": 260.15,
+      "issueSizeCr": 275,
       "freshIssueCr": 220,
       "ofsCr": 55,
-      "priceBandLow": 204,
-      "priceBandHigh": 215,
-      "lotSize": 69,
+      "priceBandLow": 215,
+      "priceBandHigh": 225,
+      "lotSize": 66,
       "minBidQuantity": 69,
-      "minInvestment": 14835,
+      "minInvestment": 15525,
       "faceValue": 10,
       "dates": {
         "openDate": "2026-12-31",
-        "closeDate": "2027-01-02",
-        "allotmentDate": "2027-01-03",
+        "closeDate": "2027-01-04",
+        "allotmentDate": "2027-01-05",
         "refundDate": null,
         "dematCreditDate": null,
         "listingDate": "2027-01-07"
@@ -377333,7 +377318,7 @@
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
           "retrievedAt": "2025-01-02T17:00:16",
-          "effectiveDate": "2027-01-02",
+          "effectiveDate": "2027-01-04",
           "verificationStatus": "Provisional",
           "qualityStatus": "VERIFIED",
           "currency": "PTS",
@@ -377353,14 +377338,14 @@
         "issuePrice": 215,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "INDOFARM",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.864Z",
+          "retrievedAt": "2026-11-16T15:13:10.147Z",
           "effectiveDate": "2027-01-07",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -377459,7 +377444,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.864Z",
+        "retrievedAt": "2026-11-16T15:13:10.147Z",
         "effectiveDate": "2027-01-07",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -377515,7 +377500,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-11",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -377536,14 +377521,14 @@
         "issuePrice": 720,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "FLIPTEMP",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-15",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -377615,7 +377600,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-15",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -377671,7 +377656,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-14",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -377692,14 +377677,14 @@
         "issuePrice": 620,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "PH123",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-19",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -377776,7 +377761,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -377832,7 +377817,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-18",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -377853,14 +377838,14 @@
         "issuePrice": 360,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "FABINDIA",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.844Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-22",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -377965,7 +377950,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.844Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-22",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -378021,7 +378006,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-21",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -378042,14 +378027,14 @@
         "issuePrice": 120,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "OYO",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-27",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -378153,7 +378138,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.845Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-27",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -378209,7 +378194,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-25",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -378230,14 +378215,14 @@
         "issuePrice": 310,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "BOAT",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-29",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -378339,7 +378324,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.845Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-01-29",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -378395,7 +378380,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-01-28",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -378416,14 +378401,14 @@
         "issuePrice": 210,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "BAJAJENER",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-02-02",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -378527,7 +378512,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.845Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-02-02",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -378583,7 +378568,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-02-01",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -378604,14 +378589,14 @@
         "issuePrice": 180,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "AROHAN",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.129Z",
           "effectiveDate": "2027-02-05",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -378721,7 +378706,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.845Z",
+        "retrievedAt": "2026-11-16T15:13:10.129Z",
         "effectiveDate": "2027-02-05",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -378777,7 +378762,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "Issue Not Yet Open",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.130Z",
           "effectiveDate": "2027-02-05",
           "verificationStatus": "Provisional",
           "qualityStatus": "UNAVAILABLE",
@@ -378798,14 +378783,14 @@
         "issuePrice": 245,
         "actualListingPrice": null,
         "listingExchange": null,
-        "stockSymbol": null,
+        "stockSymbol": "DROOM",
         "currentMarketPrice": null,
         "previousClose": null,
         "listingDate": null,
         "priceStatus": "UNAVAILABLE",
         "provenance": {
           "source": "Listing Awaiting Exchange Debut",
-          "retrievedAt": "2026-11-16T15:02:33.845Z",
+          "retrievedAt": "2026-11-16T15:13:10.130Z",
           "effectiveDate": "2027-02-10",
           "verificationStatus": "Unverified",
           "qualityStatus": "UNAVAILABLE",
@@ -378909,7 +378894,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry",
-        "retrievedAt": "2026-11-16T15:02:33.845Z",
+        "retrievedAt": "2026-11-16T15:13:10.130Z",
         "effectiveDate": "2027-02-10",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -378992,7 +378977,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE India · Groww Exchange & Filings · Zerodha Kite Registry",
-          "retrievedAt": "2026-11-16T15:02:49.298Z",
+          "retrievedAt": "2026-11-16T15:13:31.782Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -379100,7 +379085,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.845Z",
+        "retrievedAt": "2026-11-16T15:13:10.130Z",
         "effectiveDate": "2026-11-11",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -379190,7 +379175,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.433Z",
+          "retrievedAt": "2026-11-16T15:13:10.590Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -379293,7 +379278,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.847Z",
+        "retrievedAt": "2026-11-16T15:13:10.131Z",
         "effectiveDate": "2026-11-09",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -379376,7 +379361,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.095Z",
+          "retrievedAt": "2026-11-16T15:13:10.562Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -379479,7 +379464,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.848Z",
+        "retrievedAt": "2026-11-16T15:13:10.132Z",
         "effectiveDate": "2026-11-06",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -379569,7 +379554,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.839Z",
+          "retrievedAt": "2026-11-16T15:13:10.579Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -379672,7 +379657,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.849Z",
+        "retrievedAt": "2026-11-16T15:13:10.132Z",
         "effectiveDate": "2026-11-06",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -379761,7 +379746,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.594Z",
+          "retrievedAt": "2026-11-16T15:13:10.283Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -379865,7 +379850,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.849Z",
+        "retrievedAt": "2026-11-16T15:13:10.133Z",
         "effectiveDate": "2026-11-06",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -379955,7 +379940,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.316Z",
+          "retrievedAt": "2026-11-16T15:13:10.934Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380060,7 +380045,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.850Z",
+        "retrievedAt": "2026-11-16T15:13:10.133Z",
         "effectiveDate": "2026-11-06",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -380116,7 +380101,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.850Z",
+          "retrievedAt": "2026-11-16T15:13:10.133Z",
           "effectiveDate": "2026-11-02",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380215,7 +380200,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE India · BSE India · Groww Exchange & Filings · Zerodha Kite Registry · Yahoo Finance Historical",
-          "retrievedAt": "2026-11-16T15:02:49.212Z",
+          "retrievedAt": "2026-11-16T15:13:31.815Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380318,7 +380303,7 @@
       },
       "provenance": {
         "source": "InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.850Z",
+        "retrievedAt": "2026-11-16T15:13:10.133Z",
         "effectiveDate": "2026-11-05",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -380407,7 +380392,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.292Z",
+          "retrievedAt": "2026-11-16T15:13:10.470Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380508,7 +380493,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.851Z",
+        "retrievedAt": "2026-11-16T15:13:10.134Z",
         "effectiveDate": "2026-11-04",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -380598,7 +380583,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.933Z",
+          "retrievedAt": "2026-11-16T15:13:10.664Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380701,7 +380686,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.851Z",
+        "retrievedAt": "2026-11-16T15:13:10.134Z",
         "effectiveDate": "2026-11-04",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -380756,7 +380741,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.851Z",
+          "retrievedAt": "2026-11-16T15:13:10.134Z",
           "effectiveDate": "2026-10-30",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380790,7 +380775,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.435Z",
+          "retrievedAt": "2026-11-16T15:13:10.672Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -380892,7 +380877,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.851Z",
+        "retrievedAt": "2026-11-16T15:13:10.134Z",
         "effectiveDate": "2026-11-04",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -380982,7 +380967,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.927Z",
+          "retrievedAt": "2026-11-16T15:13:10.795Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -381084,7 +381069,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.852Z",
+        "retrievedAt": "2026-11-16T15:13:10.135Z",
         "effectiveDate": "2026-11-03",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -381174,7 +381159,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.597Z",
+          "retrievedAt": "2026-11-16T15:13:10.885Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -381276,7 +381261,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.852Z",
+        "retrievedAt": "2026-11-16T15:13:10.135Z",
         "effectiveDate": "2026-11-03",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -381359,7 +381344,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.746Z",
+          "retrievedAt": "2026-11-16T15:13:10.820Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -381459,7 +381444,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.852Z",
+        "retrievedAt": "2026-11-16T15:13:10.135Z",
         "effectiveDate": "2026-11-03",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -381549,7 +381534,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.958Z",
+          "retrievedAt": "2026-11-16T15:13:10.898Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -381649,7 +381634,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.853Z",
+        "retrievedAt": "2026-11-16T15:13:10.136Z",
         "effectiveDate": "2026-11-02",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -381732,7 +381717,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:34.957Z",
+          "retrievedAt": "2026-11-16T15:13:10.884Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -381836,7 +381821,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.853Z",
+        "retrievedAt": "2026-11-16T15:13:10.136Z",
         "effectiveDate": "2026-10-30",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -381926,7 +381911,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.441Z",
+          "retrievedAt": "2026-11-16T15:13:11.240Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -382030,7 +382015,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.854Z",
+        "retrievedAt": "2026-11-16T15:13:10.137Z",
         "effectiveDate": "2026-10-28",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -382120,7 +382105,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.404Z",
+          "retrievedAt": "2026-11-16T15:13:10.999Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -382222,7 +382207,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.854Z",
+        "retrievedAt": "2026-11-16T15:13:10.137Z",
         "effectiveDate": "2026-10-28",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -382312,7 +382297,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.294Z",
+          "retrievedAt": "2026-11-16T15:13:11.102Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -382410,7 +382395,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.854Z",
+        "retrievedAt": "2026-11-16T15:13:10.137Z",
         "effectiveDate": "2026-10-23",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -382500,7 +382485,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.508Z",
+          "retrievedAt": "2026-11-16T15:13:11.103Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -382609,7 +382594,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.854Z",
+        "retrievedAt": "2026-11-16T15:13:10.137Z",
         "effectiveDate": "2026-10-23",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -382699,7 +382684,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.427Z",
+          "retrievedAt": "2026-11-16T15:13:11.356Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -382804,7 +382789,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.855Z",
+        "retrievedAt": "2026-11-16T15:13:10.138Z",
         "effectiveDate": "2026-10-23",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -382893,7 +382878,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.072Z",
+          "retrievedAt": "2026-11-16T15:13:11.127Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -382994,7 +382979,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.855Z",
+        "retrievedAt": "2026-11-16T15:13:10.138Z",
         "effectiveDate": "2026-10-23",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -383084,7 +383069,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.415Z",
+          "retrievedAt": "2026-11-16T15:13:11.336Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -383191,7 +383176,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · InvestorGain GMP Tracker · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.855Z",
+        "retrievedAt": "2026-11-16T15:13:10.139Z",
         "effectiveDate": "2026-10-23",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -383275,7 +383260,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.611Z",
+          "retrievedAt": "2026-11-16T15:13:11.262Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -383378,7 +383363,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.856Z",
+        "retrievedAt": "2026-11-16T15:13:10.139Z",
         "effectiveDate": "2026-10-22",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -383462,7 +383447,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.601Z",
+          "retrievedAt": "2026-11-16T15:13:11.350Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -383565,7 +383550,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.856Z",
+        "retrievedAt": "2026-11-16T15:13:10.139Z",
         "effectiveDate": "2026-10-22",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -383649,7 +383634,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.681Z",
+          "retrievedAt": "2026-11-16T15:13:11.351Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -383752,7 +383737,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.856Z",
+        "retrievedAt": "2026-11-16T15:13:10.140Z",
         "effectiveDate": "2026-10-21",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -383836,7 +383821,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.651Z",
+          "retrievedAt": "2026-11-16T15:13:11.587Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -383939,7 +383924,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.857Z",
+        "retrievedAt": "2026-11-16T15:13:10.140Z",
         "effectiveDate": "2026-10-21",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -384022,7 +384007,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.761Z",
+          "retrievedAt": "2026-11-16T15:13:11.498Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -384164,7 +384149,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.857Z",
+        "retrievedAt": "2026-11-16T15:13:10.140Z",
         "effectiveDate": "2026-10-12",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -384247,7 +384232,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.684Z",
+          "retrievedAt": "2026-11-16T15:13:11.589Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -384349,7 +384334,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.857Z",
+        "retrievedAt": "2026-11-16T15:13:10.141Z",
         "effectiveDate": "2026-10-09",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -384432,7 +384417,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.783Z",
+          "retrievedAt": "2026-11-16T15:13:11.499Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -384534,7 +384519,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.858Z",
+        "retrievedAt": "2026-11-16T15:13:10.141Z",
         "effectiveDate": "2026-10-09",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -384617,7 +384602,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.885Z",
+          "retrievedAt": "2026-11-16T15:13:11.509Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -384761,7 +384746,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.858Z",
+        "retrievedAt": "2026-11-16T15:13:10.141Z",
         "effectiveDate": "2026-10-09",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -384844,7 +384829,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.883Z",
+          "retrievedAt": "2026-11-16T15:13:11.523Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -384946,7 +384931,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.858Z",
+        "retrievedAt": "2026-11-16T15:13:10.142Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -385029,7 +385014,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.915Z",
+          "retrievedAt": "2026-11-16T15:13:11.670Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -385172,7 +385157,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.859Z",
+        "retrievedAt": "2026-11-16T15:13:10.142Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -385255,7 +385240,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.884Z",
+          "retrievedAt": "2026-11-16T15:13:11.775Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -385358,7 +385343,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.859Z",
+        "retrievedAt": "2026-11-16T15:13:10.142Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -385441,7 +385426,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:35.975Z",
+          "retrievedAt": "2026-11-16T15:13:11.671Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -385583,7 +385568,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.859Z",
+        "retrievedAt": "2026-11-16T15:13:10.143Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -385667,7 +385652,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.095Z",
+          "retrievedAt": "2026-11-16T15:13:11.751Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -385812,7 +385797,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.860Z",
+        "retrievedAt": "2026-11-16T15:13:10.143Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -385867,7 +385852,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.860Z",
+          "retrievedAt": "2026-11-16T15:13:10.143Z",
           "effectiveDate": "2026-10-05",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -385895,7 +385880,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.070Z",
+          "retrievedAt": "2026-11-16T15:13:11.944Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386042,7 +386027,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.860Z",
+        "retrievedAt": "2026-11-16T15:13:10.143Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -386097,7 +386082,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.860Z",
+          "retrievedAt": "2026-11-16T15:13:10.144Z",
           "effectiveDate": "2026-10-05",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386125,7 +386110,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.059Z",
+          "retrievedAt": "2026-11-16T15:13:11.753Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386267,7 +386252,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.860Z",
+        "retrievedAt": "2026-11-16T15:13:10.144Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -386323,7 +386308,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.861Z",
+          "retrievedAt": "2026-11-16T15:13:10.144Z",
           "effectiveDate": "2026-10-05",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386351,7 +386336,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.145Z",
+          "retrievedAt": "2026-11-16T15:13:11.876Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386495,7 +386480,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.861Z",
+        "retrievedAt": "2026-11-16T15:13:10.144Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -386579,7 +386564,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.142Z",
+          "retrievedAt": "2026-11-16T15:13:11.861Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386723,7 +386708,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.861Z",
+        "retrievedAt": "2026-11-16T15:13:10.144Z",
         "effectiveDate": "2026-10-08",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -386779,7 +386764,7 @@
         "dailyBreakdown": [],
         "provenance": {
           "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:02:33.861Z",
+          "retrievedAt": "2026-11-16T15:13:10.144Z",
           "effectiveDate": "2026-10-01",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386807,7 +386792,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.264Z",
+          "retrievedAt": "2026-11-16T15:13:11.961Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -386950,7 +386935,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.861Z",
+        "retrievedAt": "2026-11-16T15:13:10.144Z",
         "effectiveDate": "2026-10-07",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -387033,7 +387018,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.265Z",
+          "retrievedAt": "2026-11-16T15:13:11.946Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -387176,7 +387161,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.862Z",
+        "retrievedAt": "2026-11-16T15:13:10.145Z",
         "effectiveDate": "2026-10-07",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -387260,7 +387245,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.600Z",
+          "retrievedAt": "2026-11-16T15:13:12.025Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -387404,7 +387389,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.862Z",
+        "retrievedAt": "2026-11-16T15:13:10.145Z",
         "effectiveDate": "2026-10-07",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -387487,7 +387472,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.277Z",
+          "retrievedAt": "2026-11-16T15:13:11.987Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -387631,7 +387616,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.862Z",
+        "retrievedAt": "2026-11-16T15:13:10.145Z",
         "effectiveDate": "2026-10-07",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -387715,7 +387700,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "NSE/BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.431Z",
+          "retrievedAt": "2026-11-16T15:13:12.822Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -387860,7 +387845,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · NSE/BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.862Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-10-06",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -387943,7 +387928,7 @@
         "priceStatus": "VERIFIED",
         "provenance": {
           "source": "BSE Live Market Quote",
-          "retrievedAt": "2026-11-16T15:02:36.301Z",
+          "retrievedAt": "2026-11-16T15:13:12.130Z",
           "effectiveDate": "2026-11-16",
           "verificationStatus": "Verified",
           "qualityStatus": "VERIFIED",
@@ -388086,7 +388071,7 @@
       },
       "provenance": {
         "source": "Groww Primary Issue Registry · BSE Live Feed",
-        "retrievedAt": "2026-11-16T15:02:33.863Z",
+        "retrievedAt": "2026-11-16T15:13:10.146Z",
         "effectiveDate": "2026-10-06",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -388109,7 +388094,7 @@
       "unit": "PTS",
       "provenance": {
         "source": "NSE India Official Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
+        "retrievedAt": "2026-11-16T15:13:05.622Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -388130,7 +388115,7 @@
       "unit": "PTS",
       "provenance": {
         "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:28.975Z",
+        "retrievedAt": "2026-11-16T15:13:05.227Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -388151,7 +388136,7 @@
       "unit": "PTS",
       "provenance": {
         "source": "NSE India Official Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
+        "retrievedAt": "2026-11-16T15:13:05.622Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -388172,7 +388157,7 @@
       "unit": "PTS",
       "provenance": {
         "source": "NSE India Official Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
+        "retrievedAt": "2026-11-16T15:13:05.622Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -388193,7 +388178,7 @@
       "unit": "INR",
       "provenance": {
         "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.067Z",
+        "retrievedAt": "2026-11-16T15:13:05.237Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -388207,14 +388192,14 @@
       "symbol": "GOLD",
       "yahooSymbol": "GC=F",
       "name": "Gold Futures (COMEX/Ref)",
-      "value": 3887.8,
+      "value": 3884.7,
       "previousClose": 3886.3,
-      "change": 1.5,
-      "changePercent": 0.04,
+      "change": -1.6,
+      "changePercent": -0.04,
       "unit": "USD/oz",
       "provenance": {
         "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
+        "retrievedAt": "2026-11-16T15:13:05.450Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -388228,14 +388213,14 @@
       "symbol": "SILVER",
       "yahooSymbol": "SI=F",
       "name": "Silver Futures (COMEX/Ref)",
-      "value": 47.16,
-      "previousClose": 47.17,
+      "value": 47.02,
+      "previousClose": 47.03,
       "change": -0.01,
       "changePercent": -0.02,
       "unit": "USD/oz",
       "provenance": {
         "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.005Z",
+        "retrievedAt": "2026-11-16T15:13:05.245Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -388249,14 +388234,14 @@
       "symbol": "CRUDE OIL",
       "yahooSymbol": "CL=F",
       "name": "WTI Crude Oil Futures",
-      "value": 86.9,
+      "value": 86.6,
       "previousClose": 88.56,
-      "change": -1.66,
-      "changePercent": -1.87,
+      "change": -1.96,
+      "changePercent": -2.21,
       "unit": "USD/bbl",
       "provenance": {
         "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.068Z",
+        "retrievedAt": "2026-11-16T15:13:05.218Z",
         "effectiveDate": "2026-11-16",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",

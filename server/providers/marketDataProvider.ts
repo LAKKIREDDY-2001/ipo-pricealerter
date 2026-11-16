@@ -873,6 +873,7 @@ const STATIC_MOVERS_MAP: Record<string, string> = {
   LIC: '/assets/movers/lic.webp',
   LICI: '/assets/movers/lici.webp',
   LT: '/assets/movers/lt.png',
+  MAHANADI: '/assets/movers/mahanadi.svg',
   MM: '/assets/movers/mm.png',
   'M&M': '/assets/movers/mm.png',
   MANBA: '/assets/movers/manba.png',
@@ -942,6 +943,7 @@ const STATIC_MOVERS_MAP: Record<string, string> = {
   VEDL: '/assets/movers/vedanta.png',
   WAAREE: '/assets/movers/waaree.png',
   WAAREEENER: '/assets/movers/waaree.png',
+  WATRANA: '/assets/movers/watrana.svg',
   WIPRO: '/assets/movers/wipro.png',
   ZEPTO: '/assets/movers/zepto.png',
   ZOMATO: '/assets/movers/zomato.png',
@@ -1001,6 +1003,8 @@ export const BRAND_NAME_MOVER_LOGOS: Array<[RegExp, string]> = [
   [/\bbajaj\s+housing\b/i, '/assets/movers/bajaj-housing.png'],
   [/\bunicommerce\b/i, '/assets/movers/unicommerce.png'],
   [/\bawfis\b/i, '/assets/movers/awfis.png'],
+  [/\bmahanadi\b/i, '/assets/movers/mahanadi.svg'],
+  [/\bwatrana\b/i, '/assets/movers/watrana.svg'],
 ];
 
 export function resolveStaticMoverLogo(

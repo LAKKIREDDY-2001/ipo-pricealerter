@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="Mahanadi Coalfields">
+  <rect width="80" height="80" rx="16" fill="#0F172A"/>
+  <circle cx="40" cy="40" r="24" fill="#38BDF8" opacity="0.15"/>
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="24" font-weight="800" letter-spacing="1">MCL</text>
+</svg>

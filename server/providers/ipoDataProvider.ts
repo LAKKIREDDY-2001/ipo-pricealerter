@@ -587,6 +587,8 @@ interface CuratedUpcomingData {
   sector?: string;
   industry?: string;
   overview?: string;
+  symbol?: string;
+  website?: string;
 }
 
 const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
@@ -843,9 +845,9 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     overview: 'Indo Farm Equipment Ltd manufactures agricultural tractors, mobile pick-and-carry cranes, harvester combines, and diesel gensets for industrial and farming applications.',
   },
   'mahanadi-coalfields-ipo': {
-    priceBandLow: 320,
-    priceBandHigh: 340,
-    lotSize: 44,
+    priceBandLow: 129,
+    priceBandHigh: 136,
+    lotSize: 110,
     issueSizeCr: 4000,
     openDate: '2026-11-19',
     closeDate: '2026-11-23',
@@ -853,11 +855,15 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-11-27',
     gmp: 9.25,
     registrar: 'Link Intime India Private Limited',
+    category: 'Mainboard',
     sector: 'Energy & Mining',
     industry: 'Coal Mining & Power Utilities',
+    symbol: 'MAHANADI',
+    website: 'https://zerodha.com/ipo/463024/mahanadi-coalfields',
+    overview: 'Mahanadi Coalfields Limited (MCL) is one of the major coal producing companies of India and a key subsidiary of Coal India Limited.',
   },
   'watrana-rentals-ipo': {
-    priceBandLow: 245,
+    priceBandLow: 232,
     priceBandHigh: 245,
     lotSize: 600,
     issueSizeCr: 120.1,
@@ -870,6 +876,9 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     registrar: 'Bigshare Services Pvt Ltd',
     sector: 'Capital Goods',
     industry: 'Industrial & Material Handling Equipment',
+    symbol: 'WATRANA',
+    website: 'https://zerodha.com/ipo/463042/watrana-rentals',
+    overview: 'Watrana Rentals Limited specializes in renting and leasing warehousing equipment, material handling equipment, and rough terrain cranes.',
   },
   'crystal-crop-protection-ipo': {
     priceBandLow: 259,
@@ -882,8 +891,12 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-11-26',
     gmp: 40,
     registrar: 'Link Intime India Private Limited',
+    category: 'Mainboard',
     sector: 'Agrochemicals',
     industry: 'Agrochemicals & Crop Protection',
+    symbol: 'CRYSTALCROP',
+    website: 'https://zerodha.com/ipo/450777/crystal-crop-protection-limited',
+    overview: 'Crystal Crop Protection Limited is an R&D-driven agrochemical company engaged in manufacturing, formulating, and marketing crop protection products including insecticides, fungicides, herbicides, and plant growth regulators.',
   },
   'zepto-ipo': {
     priceBandLow: 350,
@@ -1283,19 +1296,19 @@ function buildIpoFromSources(params: {
   const validIgPrice = igPrice !== null && igPrice > 0 ? igPrice : null;
 
   let priceBandHigh =
+    curatedUpcoming?.priceBandHigh ??
     retailCat?.maxPrice ??
     detail?.maxPrice ??
     detail?.issuePrice ??
     summary?.issuePrice ??
-    curatedUpcoming?.priceBandHigh ??
     validIgPrice ??
     existing?.priceBandHigh ??
     null;
 
   let priceBandLow =
+    curatedUpcoming?.priceBandLow ??
     retailCat?.minPrice ??
     detail?.minPrice ??
-    curatedUpcoming?.priceBandLow ??
     priceBandHigh ??
     existing?.priceBandLow ??
     null;
@@ -1308,10 +1321,10 @@ function buildIpoFromSources(params: {
 
   const igLot = parseNumberSafe(ig?.Lot);
   const lotSize =
+    curatedUpcoming?.lotSize ??
     retailCat?.lotSize ??
     detail?.lotSize ??
     (igLot && igLot > 0 ? igLot : null) ??
-    curatedUpcoming?.lotSize ??
     existing?.lotSize ??
     null;
 
@@ -1335,42 +1348,42 @@ function buildIpoFromSources(params: {
       : null;
   const issueSizeFromIg = parseNumberSafe(ig?.['IPO Size']);
   const issueSizeCr =
+    curatedUpcoming?.issueSizeCr ??
     issueSizeFromGroww ??
     issueSizeFromIg ??
-    curatedUpcoming?.issueSizeCr ??
     existing?.issueSizeCr ??
     null;
 
   const openDate =
+    curatedUpcoming?.openDate ??
     cleanDateStr(detail?.startDate) ??
     cleanDateStr(summary?.openingDate) ??
     cleanDateStr(ig?.['~Srt_Open']) ??
     tsToIstDate(summary?.bidStartTimestamp) ??
-    curatedUpcoming?.openDate ??
     existing?.dates.openDate ??
     null;
 
   const closeDate =
+    curatedUpcoming?.closeDate ??
     cleanDateStr(detail?.endDate) ??
     cleanDateStr(summary?.closingDate) ??
     cleanDateStr(ig?.['~Srt_Close']) ??
-    curatedUpcoming?.closeDate ??
     existing?.dates.closeDate ??
     null;
 
   const allotmentDate =
+    curatedUpcoming?.allotmentDate ??
     cleanDateStr(detail?.allotmentDate) ??
     cleanDateStr(summary?.allotmentDate) ??
     cleanDateStr(ig?.['~Srt_BoA_Dt']) ??
-    curatedUpcoming?.allotmentDate ??
     existing?.dates.allotmentDate ??
     null;
 
   const listingDate =
+    curatedUpcoming?.listingDate ??
     cleanDateStr(detail?.listingDate) ??
     tsToIstDate(summary?.listingTimestamp) ??
     cleanDateStr(ig?.['~Str_Listing']) ??
-    curatedUpcoming?.listingDate ??
     existing?.dates.listingDate ??
     null;
 
@@ -1415,11 +1428,12 @@ function buildIpoFromSources(params: {
 
   // Linked live stock for post-listing CMP
   const candidateSymbol =
-    detail?.symbol && !detail.symbol.startsWith('TEMP')
+    curatedUpcoming?.symbol ||
+    (detail?.symbol && !detail.symbol.startsWith('TEMP')
       ? detail.symbol
       : summary?.symbol && !summary.symbol.startsWith('TEMP')
         ? summary.symbol
-        : existing?.listing.stockSymbol || null;
+        : existing?.listing.stockSymbol || null);
 
   const linkedStock =
     status === 'Listed'
@@ -1433,6 +1447,7 @@ function buildIpoFromSources(params: {
       : null;
 
   const stockSymbol =
+    curatedUpcoming?.symbol ||
     linkedStock?.symbol ||
     nseCode ||
     bseCode ||
@@ -1684,9 +1699,11 @@ function buildIpoFromSources(params: {
     category,
     status,
     exchanges,
-    website: existing?.website && !/nseindia\.com|bseindia\.com|sebi\.gov\.in/i.test(existing.website)
-      ? existing.website
-      : '',
+    website:
+      curatedUpcoming?.website ||
+      (existing?.website && !/nseindia\.com|bseindia\.com|sebi\.gov\.in/i.test(existing.website)
+        ? existing.website
+        : ''),
     registrar,
     registrarUrl: rtaLink || existing?.registrarUrl || 'https://www.sebi.gov.in',
     issueSizeCr,
@@ -1738,7 +1755,7 @@ function buildIpoFromSources(params: {
       issuePrice,
       actualListingPrice: status === 'Listed' ? resolvedActualListingPrice : null,
       listingExchange: status === 'Listed' ? listingExchange : null,
-      stockSymbol: status === 'Listed' ? stockSymbol : null,
+      stockSymbol: status === 'Listed' ? stockSymbol : (curatedUpcoming?.symbol || stockSymbol || null),
       currentMarketPrice: status === 'Listed' ? currentMarketPrice : null,
       previousClose: status === 'Listed' ? previousClose : null,
       listingDate: status === 'Listed' ? listingDate : null,
