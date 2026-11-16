@@ -137,6 +137,8 @@ export function MainNavbar() {
                   location.pathname.startsWith('/live-prices') ||
                   location.pathname.startsWith('/nse-stocks') ||
                   location.pathname.startsWith('/bse-stocks') ||
+                  location.pathname.startsWith('/us-stocks') ||
+                  location.pathname.startsWith('/global-stocks') ||
                   location.pathname.startsWith('/stock/')
                     ? 'text-[#14263F] dark:text-white border-[#059669]'
                     : 'text-[#64748B] dark:text-slate-300 border-transparent hover:text-[#152338] dark:hover:text-white'
@@ -146,10 +148,11 @@ export function MainNavbar() {
                 <ChevronDown className="w-3.5 h-3.5" />
               </button>
               {openDropdown === 'stocks' && (
-                <div className="absolute left-0 top-full pt-2 w-56 z-50">
+                <div className="absolute left-0 top-full pt-2 w-60 z-50">
                   <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] shadow-lg p-1.5 grid gap-0.5">
                     {[
                       { label: 'All NSE & BSE Stocks', to: '/live-prices' },
+                      { label: 'US & Global Stocks (INDmoney)', to: '/us-stocks' },
                       { label: 'NSE Stocks', to: '/nse-stocks' },
                       { label: 'BSE Stocks', to: '/bse-stocks' },
                       { label: 'Stock Screener', to: '/stock-screener' },
@@ -398,6 +401,7 @@ export function MainNavbar() {
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: 'Live Stocks', to: '/live-prices' },
+                    { label: 'US Stocks (INDmoney)', to: '/us-stocks' },
                     { label: 'NSE Stocks', to: '/nse-stocks' },
                     { label: 'BSE Stocks', to: '/bse-stocks' },
                     { label: 'Stock Screener', to: '/stock-screener' },

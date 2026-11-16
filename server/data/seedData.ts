@@ -45967,5 +45967,16 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "lastSuccessAt": "2026-11-16T16:30:00.000Z",
     "recordsCount": 7129,
     "notes": "Categorizes complete Indian equity universe into Large Cap, Mid Cap, Small Cap, Top Gainers, Losers, Most Active, and Sectors referencing https://www.indstocks.com/investments/stocks/explore-all."
+  },
+  {
+    "id": "src-indmoney-us-stocks",
+    "name": "INDmoney US Stocks & Global Markets Explore Directory",
+    "category": "Global Equities & US Index ETFs",
+    "providerType": "Direct Broker Global API & INDmoney US Stocks Directory",
+    "status": "HEALTHY",
+    "lastCheckedAt": "2026-11-16T16:45:00.000Z",
+    "lastSuccessAt": "2026-11-16T16:45:00.000Z",
+    "recordsCount": 120,
+    "notes": "Live coverage across Magnificent 7, AI & semiconductors, S&P 500, top US ETFs, and Warren Buffett holdings referencing https://www.indmoney.com/investments/us-stocks/explore-all."
   }
 ];

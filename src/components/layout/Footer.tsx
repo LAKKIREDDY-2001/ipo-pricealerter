@@ -48,6 +48,7 @@ export function Footer() {
               <li><Link to="/live-prices" className="hover:text-white transition-colors">Live Stock Dashboard</Link></li>
               <li><Link to="/nse-stocks" className="hover:text-white transition-colors">NSE Stocks</Link></li>
               <li><Link to="/bse-stocks" className="hover:text-white transition-colors">BSE Stocks</Link></li>
+              <li><Link to="/us-stocks" className="hover:text-white transition-colors">US Stocks (INDmoney)</Link></li>
               <li><Link to="/stock-screener" className="hover:text-white transition-colors">Stock Screener</Link></li>
               <li><Link to="/calculators" className="hover:text-white transition-colors">Financial Calculators</Link></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">IPO Guides &amp; Education</Link></li>

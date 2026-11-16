@@ -245,14 +245,19 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 <div>
                   <div className="text-xs font-semibold text-[#64748B] dark:text-slate-400 mb-2 flex items-center gap-1.5">
                     <TrendingUp className="w-3.5 h-3.5" />
-                    <span>Listed Stocks (NSE / BSE)</span>
+                    <span>Listed Equities (NSE / BSE / NASDAQ / NYSE)</span>
                   </div>
                   <div className="space-y-1">
                     {results.stocks.map((stk) => (
                       <button
                         key={stk.id}
                         type="button"
-                        onClick={() => goTo(`/stock/${stk.symbol}`, stk.companyName)}
+                        onClick={() =>
+                          goTo(
+                            stk.isUsStock ? `/us-stocks` : `/stock/${stk.symbol}`,
+                            stk.companyName
+                          )
+                        }
                         className="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800/70 transition-colors cursor-pointer"
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
@@ -273,12 +278,17 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                             </div>
                             <div className="text-xs text-[#64748B] dark:text-slate-400 truncate">
                               {stk.exchange}
-                              {stk.bseCode && stk.bseCode !== 'N/A' ? ` · BSE ${stk.bseCode}` : ''} · {stk.sector}
+                              {stk.bseCode && stk.bseCode !== 'N/A' && stk.bseCode !== 'US'
+                                ? ` · BSE ${stk.bseCode}`
+                                : ''}{' '}
+                              · {stk.sector}
                             </div>
                           </div>
                         </div>
                         <span className="font-data text-xs font-semibold text-[#152338] dark:text-slate-200 shrink-0">
-                          {formatINR(stk.currentPrice)}
+                          {stk.currency === 'USD'
+                            ? `$${stk.currentPrice?.toFixed(2)}`
+                            : formatINR(stk.currentPrice)}
                         </span>
                       </button>
                     ))}

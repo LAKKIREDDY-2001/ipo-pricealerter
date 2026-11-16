@@ -4,6 +4,8 @@ import type {
   BlogArticle,
   DataSourceStatus,
   GlobalMacroSnapshot,
+  GlobalStockInstrument,
+  IndmoneyUsExploreSnapshot,
   IPOOffering,
   MarketIndexInstrument,
   MarketInsight,
@@ -982,4 +984,41 @@ export const api = {
       status: string;
       data: Record<string, unknown>;
     }>(`/api/market/quotes/full?scrip-codes=${encodeURIComponent(scripCodes)}`),
+  getIndmoneyUsExplore: () =>
+    request<IndmoneyUsExploreSnapshot>('/api/market/us-stocks/explore'),
+  getUsStocks: (params?: {
+    exchange?: string;
+    sector?: string;
+    category?: string;
+    mcapTier?: string;
+    q?: string;
+    tab?: string;
+    page?: number;
+    limit?: number;
+  }) => {
+    const qp = new URLSearchParams();
+    if (params?.exchange) qp.set('exchange', params.exchange);
+    if (params?.sector) qp.set('sector', params.sector);
+    if (params?.category) qp.set('category', params.category);
+    if (params?.mcapTier) qp.set('mcapTier', params.mcapTier);
+    if (params?.q) qp.set('q', params.q);
+    if (params?.tab) qp.set('tab', params.tab);
+    if (params?.page) qp.set('page', String(params.page));
+    if (params?.limit) qp.set('limit', String(params.limit));
+    const qs = qp.toString();
+    return request<{
+      success: boolean;
+      stocks: GlobalStockInstrument[];
+      total: number;
+      page: number;
+      limit: number;
+      usdInrRate: number;
+      categories: Array<{ id: string; label: string; count: number; description: string }>;
+      sourceUrl: string;
+    }>(`/api/market/us-stocks${qs ? `?${qs}` : ''}`);
+  },
+  getUsStockBySymbol: (symbol: string) =>
+    request<{ success: boolean; stock: GlobalStockInstrument; usdInrRate: number }>(
+      `/api/market/us-stocks/${encodeURIComponent(symbol)}`
+    ),
 };

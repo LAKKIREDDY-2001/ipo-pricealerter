@@ -30,6 +30,9 @@ const GMPTrackerPage = lazy(() =>
 const LiveStocksPage = lazy(() =>
   import('./pages/LiveStocksPage').then((m) => ({ default: m.LiveStocksPage }))
 );
+const GlobalStocksPage = lazy(() =>
+  import('./pages/GlobalStocksPage').then((m) => ({ default: m.GlobalStocksPage }))
+);
 const StockDetailPage = lazy(() =>
   import('./pages/StockDetailPage').then((m) => ({ default: m.StockDetailPage }))
 );
@@ -195,6 +198,8 @@ export default function App() {
                     <Route path="/live-prices" element={<LiveStocksPage />} />
                     <Route path="/nse-stocks" element={<LiveStocksPage presetExchange="NSE" />} />
                     <Route path="/bse-stocks" element={<LiveStocksPage presetExchange="BSE" />} />
+                    <Route path="/us-stocks" element={<GlobalStocksPage />} />
+                    <Route path="/global-stocks" element={<GlobalStocksPage />} />
                     <Route path="/listed" element={<ListedPerformancePage />} />
                     <Route path="/stock-screener" element={<StockScreenerPage />} />
                     <Route path="/screener" element={<StockScreenerPage />} />

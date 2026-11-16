@@ -60,6 +60,12 @@ import {
   getIndstocksExploreFeed,
   mapToIndstocksInterval,
 } from './server/providers/indstocksProvider.ts';
+import {
+  getIndmoneyUsExploreSnapshot,
+  buildGlobalStockInstruments,
+  getLiveUsdInrRate,
+  globalStockToStockInstrument,
+} from './server/providers/indmoneyUsStocksProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
 dotenv.config();
@@ -957,6 +963,114 @@ async function startServer() {
     }
   });
 
+  // --- INDmoney US Stocks & Global Markets API (explore-all source) ---
+  app.get('/api/market/us-stocks/explore', async (_req, res) => {
+    try {
+      const snapshot = getIndmoneyUsExploreSnapshot();
+      res.json(snapshot);
+    } catch (err) {
+      res.status(500).json({
+        error: err instanceof Error ? err.message : 'Failed to retrieve INDmoney US stocks snapshot',
+      });
+    }
+  });
+
+  app.get('/api/market/us-stocks', async (req, res) => {
+    try {
+      const snapshot = getIndmoneyUsExploreSnapshot();
+      let list = snapshot.stocks;
+
+      const exchange = typeof req.query.exchange === 'string' ? req.query.exchange : 'All';
+      if (exchange !== 'All') {
+        list = list.filter((s) => s.exchange === exchange);
+      }
+
+      const sector = typeof req.query.sector === 'string' ? req.query.sector : 'All';
+      if (sector !== 'All') {
+        list = list.filter((s) => s.sector.toLowerCase() === sector.toLowerCase());
+      }
+
+      const category = typeof req.query.category === 'string' ? req.query.category : 'All';
+      if (category !== 'All') {
+        list = list.filter((s) => s.indmoneyCategory.toLowerCase().includes(category.toLowerCase()));
+      }
+
+      const mcapTier = typeof req.query.mcapTier === 'string' ? req.query.mcapTier : 'All';
+      if (mcapTier === 'Mega') {
+        list = list.filter((s) => s.marketCapUsd >= 200_000_000_000);
+      } else if (mcapTier === 'Large') {
+        list = list.filter((s) => s.marketCapUsd >= 10_000_000_000 && s.marketCapUsd < 200_000_000_000);
+      } else if (mcapTier === 'Mid') {
+        list = list.filter((s) => s.marketCapUsd < 10_000_000_000);
+      }
+
+      const q = typeof req.query.q === 'string' ? req.query.q.trim().toLowerCase() : '';
+      if (q) {
+        list = list.filter(
+          (s) =>
+            s.symbol.toLowerCase().includes(q) ||
+            s.companyName.toLowerCase().includes(q) ||
+            s.sector.toLowerCase().includes(q) ||
+            s.industry.toLowerCase().includes(q)
+        );
+      }
+
+      const tab = typeof req.query.tab === 'string' ? req.query.tab : '';
+      if (tab === 'gainers') {
+        list = [...list].sort((a, b) => b.changePercent - a.changePercent);
+      } else if (tab === 'losers') {
+        list = [...list].sort((a, b) => a.changePercent - b.changePercent);
+      } else if (tab === 'popular') {
+        list = [...list].sort((a, b) => b.volume - a.volume);
+      } else if (tab === 'etfs') {
+        list = list.filter((s) => s.isEtf);
+      } else if (tab === 'dividend') {
+        list = list
+          .filter((s) => (s.dividendYieldPct || 0) > 0)
+          .sort((a, b) => (b.dividendYieldPct || 0) - (a.dividendYieldPct || 0));
+      }
+
+      const total = list.length;
+      const page = Math.max(1, parseInt(String(req.query.page), 10) || 1);
+      const limit = Math.min(100, Math.max(1, parseInt(String(req.query.limit), 10) || 50));
+      const paginated = list.slice((page - 1) * limit, page * limit);
+
+      res.json({
+        success: true,
+        stocks: paginated,
+        total,
+        page,
+        limit,
+        usdInrRate: snapshot.usdInrRate,
+        categories: snapshot.categories,
+        sourceUrl: snapshot.sourceUrl,
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        error: err instanceof Error ? err.message : 'Failed to query US stocks',
+      });
+    }
+  });
+
+  app.get('/api/market/us-stocks/:symbol', async (req, res) => {
+    try {
+      const sym = req.params.symbol.trim().toUpperCase();
+      const snapshot = getIndmoneyUsExploreSnapshot();
+      const stock = snapshot.stocks.find((s) => s.symbol === sym);
+      if (!stock) {
+        res.status(404).json({ success: false, message: `US stock symbol "${sym}" not found` });
+        return;
+      }
+      res.json({ success: true, stock, usdInrRate: snapshot.usdInrRate });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        error: err instanceof Error ? err.message : 'Failed to fetch US stock',
+      });
+    }
+  });
+
   // --- Cached Company Logo Proxy & Monogram Emblem Generator (Zero 404s) ---
   const LOGO_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
   const LOGO_FALLBACK_TTL_MS = 6 * 60 * 60 * 1000;
@@ -1269,7 +1383,18 @@ async function startServer() {
             i.slug.toLowerCase().includes(q))
       )
       .slice(0, 6);
-    const stocks = universe
+    const usSnapshot = getIndmoneyUsExploreSnapshot();
+    const matchingUsStocks = usSnapshot.stocks
+      .filter(
+        (s) =>
+          s.symbol.toLowerCase().includes(q) ||
+          s.companyName.toLowerCase().includes(q) ||
+          s.sector.toLowerCase().includes(q)
+      )
+      .slice(0, 6)
+      .map(globalStockToStockInstrument);
+
+    const stocks = [...matchingUsStocks, ...universe
       .filter(
         (s) =>
           s.symbol.toLowerCase().includes(q) ||
@@ -1277,8 +1402,8 @@ async function startServer() {
           s.bseCode.toLowerCase().includes(q) ||
           s.isin.toLowerCase().includes(q) ||
           s.sector.toLowerCase().includes(q)
-      )
-      .slice(0, 12);
+      )]
+      .slice(0, 16);
     const blogs = db.blogs
       .filter(
         (b) => b.title.toLowerCase().includes(q) || b.category.toLowerCase().includes(q)

@@ -271,7 +271,7 @@ export interface StockInstrument {
   searchId?: string;
   companyName: string;
   logoUrl?: string | null;
-  exchange: 'NSE' | 'BSE' | 'NSE/BSE';
+  exchange: 'NSE' | 'BSE' | 'NSE/BSE' | 'NASDAQ' | 'NYSE' | 'AMEX' | 'GLOBAL';
   sector: string;
   industry: string;
   isin: string;
@@ -284,6 +284,11 @@ export interface StockInstrument {
   week52Low: number | null;
   volume: number | null;
   marketCapCr: number | null;
+  currency?: 'INR' | 'USD';
+  priceInInr?: number;
+  marketCapUsd?: number;
+  indmoneyCategory?: string;
+  isUsStock?: boolean;
   lastTradeTime?: string | null;
   nseQuote?: ExchangeLiveQuote | null;
   bseQuote?: ExchangeLiveQuote | null;
@@ -311,6 +316,64 @@ export interface StockInstrument {
   announcements: StockAnnouncement[];
   ipoHistorySlug?: string;
   provenance: ProvenanceMetadata;
+}
+
+export interface GlobalStockInstrument {
+  id: string;
+  symbol: string;
+  companyName: string;
+  exchange: 'NASDAQ' | 'NYSE' | 'AMEX';
+  sector: string;
+  industry: string;
+  priceUsd: number;
+  changeUsd: number;
+  changePercent: number;
+  previousCloseUsd: number;
+  openUsd: number;
+  dayHighUsd: number;
+  dayLowUsd: number;
+  week52HighUsd: number;
+  week52LowUsd: number;
+  volume: number;
+  marketCapUsd: number;
+  marketCapFormatted: string;
+  priceInInr: number;
+  peRatio: number | null;
+  dividendYieldPct: number | null;
+  indmoneyCategory: string;
+  logoUrl?: string | null;
+  description: string;
+  isEtf?: boolean;
+  fractionalAllowed?: boolean;
+  sparkline?: number[];
+  provenance: ProvenanceMetadata;
+}
+
+export interface IndmoneyUsExploreSnapshot {
+  sourceUrl: string;
+  provenance: string;
+  retrievedAt: string;
+  usdInrRate: number;
+  totalUniverse: number;
+  categories: Array<{
+    id: string;
+    label: string;
+    count: number;
+    description: string;
+  }>;
+  collections: Record<string, GlobalStockInstrument[]>;
+  marketCapTiers: {
+    megaCap: GlobalStockInstrument[];
+    largeCap: GlobalStockInstrument[];
+    midCap: GlobalStockInstrument[];
+  };
+  highlights: {
+    topGainers: GlobalStockInstrument[];
+    topLosers: GlobalStockInstrument[];
+    mostPopular: GlobalStockInstrument[];
+    near52wHigh: GlobalStockInstrument[];
+  };
+  stocks: GlobalStockInstrument[];
 }
 
 export interface MarketInsight {
