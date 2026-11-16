@@ -19,6 +19,7 @@ import {
   dispatchWebhookNotification,
   sendPriceAlertEmail,
 } from '../services/mailerService.ts';
+import { getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
 
 interface YahooChartResponse {
   chart?: {
@@ -2914,13 +2915,28 @@ export async function refreshStockBySymbol(
 
   const interval = range === '1d' ? '15m' : range === '5d' ? '1h' : '1d';
 
-  const [nseQuote, bseQuote, companyInfo, yahooChart, nseAnnouncements] = await Promise.all([
+  const [
+    nseQuote,
+    bseQuote,
+    companyInfo,
+    yahooChart,
+    nseAnnouncements,
+    ,
+    indstocksCandles,
+  ] = await Promise.all([
     nseCode ? fetchGrowwLiveQuote('NSE', nseCode) : Promise.resolve(null),
     bseCode ? fetchGrowwLiveQuote('BSE', bseCode) : Promise.resolve(null),
     searchId ? fetchGrowwCompanyDetails(searchId) : Promise.resolve(null),
     fetchYahooChart(yahooCandidate, range, interval),
     nseCode ? fetchNseAnnouncements(nseCode) : Promise.resolve([]),
     syncOfficialRegistries(),
+    getStockHistoricalFromIndstocks({
+      symbol: cleanSymbol,
+      bseCode,
+      instrumentToken: existing?.registry?.zerodhaNseToken,
+      range,
+      interval,
+    }),
   ]);
 
   let finalYahoo = yahooChart;
@@ -2931,7 +2947,12 @@ export async function refreshStockBySymbol(
   const primaryLive = nseQuote ?? bseQuote;
   const yahooResult = finalYahoo?.chart?.result?.[0];
   const yahooMeta = yahooResult?.meta;
-  const candles = finalYahoo ? parseYahooCandles(finalYahoo) : [];
+  const candles =
+    indstocksCandles && indstocksCandles.length > 0
+      ? indstocksCandles
+      : finalYahoo
+        ? parseYahooCandles(finalYahoo)
+        : [];
 
   if (!primaryLive && !yahooMeta && !existing) {
     return { stock: null, fromUpstream: false };
@@ -3143,11 +3164,14 @@ export async function refreshStockBySymbol(
     : existing?.fundsInvested || [];
 
   const dataSourcesUsed: string[] = [];
+  if (indstocksCandles && indstocksCandles.length > 0) {
+    dataSourcesUsed.push('INDstocks Flash API (OHLCV Time-Series)');
+  }
   if (nseQuote || nseArch || nseAnnouncements.length > 0) dataSourcesUsed.push('NSE India');
   if (bseQuote || finalBseCode) dataSourcesUsed.push('BSE India');
   if (companyInfo || primaryLive) dataSourcesUsed.push('Groww Exchange & Filings');
   if (kiteNse || kiteBse) dataSourcesUsed.push('Zerodha Kite Registry');
-  if (finalYahoo) dataSourcesUsed.push('Yahoo Finance Historical');
+  if (finalYahoo && (!indstocksCandles || indstocksCandles.length === 0)) dataSourcesUsed.push('Yahoo Finance Historical');
 
   const nowIso = new Date().toISOString();
   const lastTradeIso =

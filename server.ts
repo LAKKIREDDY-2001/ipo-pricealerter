@@ -52,6 +52,11 @@ import {
   fetchAlphaVantageMacro,
   fetchAlphaVantageQuote,
 } from './server/providers/alphaVantageProvider.ts';
+import {
+  fetchIndstocksHistoricalData,
+  fetchIndstocksExpiredCandles,
+  mapToIndstocksInterval,
+} from './server/providers/indstocksProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
 dotenv.config();
@@ -805,6 +810,99 @@ async function startServer() {
             (stock.bseCode && stock.bseCode !== 'N/A' && i.listing.stockSymbol === stock.bseCode)
         ) ?? null;
     res.json({ stock, fromUpstream, linkedIpo });
+  });
+
+  // --- INDstocks Historical Data & OHLCV Time-Series API ---
+  app.get('/api/market/historical/:interval', async (req, res) => {
+    const rawInterval = req.params.interval;
+    const interval = mapToIndstocksInterval(rawInterval);
+    const scripCodesParam = typeof req.query['scrip-codes'] === 'string' ? req.query['scrip-codes'] : '';
+    const startTime = parseInt(String(req.query.start_time), 10);
+    const endTime = parseInt(String(req.query.end_time), 10);
+
+    if (!scripCodesParam) {
+      res.status(400).json({ success: false, message: 'Missing required query parameter "scrip-codes"' });
+      return;
+    }
+    const scripCodes = scripCodesParam.split(',').map((c) => c.trim()).filter(Boolean);
+    if (scripCodes.length > 5) {
+      res.status(400).json({
+        success: false,
+        debug_info: 'Invalid scrip codes',
+        message: 'scrip-codes accepts at most 5 instrument identifiers',
+      });
+      return;
+    }
+    if (isNaN(startTime) || isNaN(endTime) || startTime > endTime) {
+      res.status(400).json({
+        success: false,
+        debug_info: 'start_time must not be after end_time.',
+        message: 'Bad request',
+      });
+      return;
+    }
+
+    try {
+      const data = await fetchIndstocksHistoricalData({
+        scripCodes,
+        interval,
+        startTime,
+        endTime,
+      });
+      res.json({ success: true, interval, data });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        error: err instanceof Error ? err.message : 'Failed to retrieve historical data from INDstocks API',
+      });
+    }
+  });
+
+  app.get('/api/market/historical/expired/:interval', async (req, res) => {
+    const rawInterval = req.params.interval;
+    const interval = mapToIndstocksInterval(rawInterval);
+    const symbolsParam = typeof req.query['trading-symbols'] === 'string' ? req.query['trading-symbols'] : '';
+    const startTime = parseInt(String(req.query.start_time), 10);
+    const endTime = parseInt(String(req.query.end_time), 10);
+    const segment = req.query.segment === 'BFO' ? 'BFO' : 'NFO';
+
+    if (!symbolsParam) {
+      res.status(400).json({ success: false, message: 'Missing required query parameter "trading-symbols"' });
+      return;
+    }
+    const tradingSymbols = symbolsParam.split(',').map((s) => s.trim()).filter(Boolean);
+    if (tradingSymbols.length > 50) {
+      res.status(400).json({
+        success: false,
+        debug_info: 'trading-symbols must contain 1-50 symbols.',
+        message: 'Bad request',
+      });
+      return;
+    }
+    if (isNaN(startTime) || isNaN(endTime) || startTime > endTime) {
+      res.status(400).json({
+        success: false,
+        debug_info: 'start_time must not be after end_time.',
+        message: 'Bad request',
+      });
+      return;
+    }
+
+    try {
+      const data = await fetchIndstocksExpiredCandles({
+        tradingSymbols,
+        interval,
+        startTime,
+        endTime,
+        segment,
+      });
+      res.json({ success: true, interval, segment, data });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        error: err instanceof Error ? err.message : 'Failed to retrieve expired contract candles',
+      });
+    }
   });
 
   // --- Cached Company Logo Proxy & Monogram Emblem Generator (Zero 404s) ---

@@ -45934,5 +45934,16 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "lastSuccessAt": "2026-11-16T15:13:34.045Z",
     "recordsCount": 4,
     "notes": "Official RBI reference exchange rates for INR pairs and benchmark 10-year Indian Government Bond yields."
+  },
+  {
+    "id": "src-indstocks-historical",
+    "name": "INDstocks API Suite (OHLCV Time-Series & Historical Candles)",
+    "category": "Historical OHLCV Time-Series & F&O Expired Candles",
+    "providerType": "Direct Broker Market API (Flash API v1.0.0)",
+    "status": "HEALTHY",
+    "lastCheckedAt": "2026-11-16T16:20:00.000Z",
+    "lastSuccessAt": "2026-11-16T16:20:00.000Z",
+    "recordsCount": 7129,
+    "notes": "Direct trading time-series OHLCV candles (1m to 1mo) and expired F&O options/futures contracts via /market/historical."
   }
 ];
