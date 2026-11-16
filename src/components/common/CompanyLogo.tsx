@@ -279,6 +279,22 @@ const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
   [/\bvedant\s+poly\b/i, '/assets/movers/vedant.png'],
   [/\bntpc\s+limited\b/i, '/assets/movers/ntpc.png'],
   [/\bongc\b/i, '/assets/movers/ongc.png'],
+  [/\bfirstcry\b/i, '/assets/movers/firstcry.png'],
+  [/\bflipkart\b/i, '/assets/movers/flipkart.png'],
+  [/\bhaldiram\b/i, '/assets/movers/haldiram.png'],
+  [/\bhyundai\b/i, '/assets/movers/hyundai.png'],
+  [/\bola\s+electric\b/i, '/assets/movers/ola-electric.png'],
+  [/\borient\s+tech/i, '/assets/movers/orient-tech.png'],
+  [/\bphonepe\b/i, '/assets/movers/phonepe.png'],
+  [/\bpremier\s+energies\b/i, '/assets/movers/premier-energies.png'],
+  [/\brazorpay\b/i, '/assets/movers/razorpay.png'],
+  [/\bswiggy\b/i, '/assets/movers/swiggy.png'],
+  [/\bzepto\b/i, '/assets/movers/zepto.png'],
+  [/\bzomato\b/i, '/assets/movers/zomato.png'],
+  [/\bwaaree\b/i, '/assets/movers/waaree.png'],
+  [/\bbajaj\s+housing\b/i, '/assets/movers/bajaj-housing.png'],
+  [/\bunicommerce\b/i, '/assets/movers/unicommerce.png'],
+  [/\bawfis\b/i, '/assets/movers/awfis.png'],
 ];
 
 export function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {

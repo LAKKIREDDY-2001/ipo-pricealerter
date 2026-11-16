@@ -486,20 +486,30 @@ function determineIpoStatus(params: {
   } = params;
   const today = todayIstIso();
 
-  if (hintBucket === 'Upcoming' && actualListingPrice === null) {
-    if (openDate && closeDate) {
-      if (today < openDate) return 'Upcoming';
-      if (today >= openDate && today <= closeDate) return 'Open';
-      if (today > closeDate) return 'Closed';
-    }
+  // 1. If openDate is strictly in the future, the IPO cannot have opened or listed yet -> strictly Upcoming
+  if (openDate && today < openDate) {
     return 'Upcoming';
   }
 
-  if (hintBucket === 'Open' && actualListingPrice === null) {
-    if (closeDate && today > closeDate) return 'Closed';
+  // 2. If it is currently within the active bidding window -> Open
+  if (openDate && closeDate && today >= openDate && today <= closeDate) {
     return 'Open';
   }
 
+  // 3. Hint bucket checks when listing price is not yet confirmed
+  if (hintBucket === 'Upcoming') {
+    if (openDate && today < openDate) return 'Upcoming';
+    if (openDate && closeDate && today >= openDate && today <= closeDate) return 'Open';
+    if (closeDate && today > closeDate) return actualListingPrice !== null ? 'Listed' : 'Closed';
+    return 'Upcoming';
+  }
+
+  if (hintBucket === 'Open') {
+    if (closeDate && today > closeDate) return actualListingPrice !== null ? 'Listed' : 'Closed';
+    return 'Open';
+  }
+
+  // 4. Past the close date, check if listed
   if (
     isListed ||
     actualListingPrice !== null ||
@@ -513,10 +523,8 @@ function determineIpoStatus(params: {
   if (listingDate && today >= listingDate && actualListingPrice !== null) {
     return 'Listed';
   }
-  if (openDate && closeDate) {
-    if (today >= openDate && today <= closeDate) return 'Open';
-    if (today < openDate) return 'Upcoming';
-    if (today > closeDate) return 'Closed';
+  if (closeDate && today > closeDate) {
+    return 'Closed';
   }
   if (growwStatus?.toUpperCase() === 'ACTIVE' || growwStatus?.toUpperCase() === 'OPEN') {
     return 'Open';
@@ -567,6 +575,8 @@ interface CuratedUpcomingData {
   priceBandHigh?: number;
   lotSize?: number;
   issueSizeCr?: number;
+  freshIssueCr?: number;
+  ofsCr?: number;
   openDate?: string;
   closeDate?: string;
   allotmentDate?: string;
@@ -576,9 +586,262 @@ interface CuratedUpcomingData {
   category?: 'Mainboard' | 'SME';
   sector?: string;
   industry?: string;
+  overview?: string;
 }
 
 const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
+  'ntpc-green-energy-ipo': {
+    priceBandLow: 102,
+    priceBandHigh: 108,
+    lotSize: 138,
+    issueSizeCr: 10000,
+    freshIssueCr: 10000,
+    ofsCr: 0,
+    openDate: '2026-11-19',
+    closeDate: '2026-11-22',
+    allotmentDate: '2026-11-25',
+    listingDate: '2026-11-27',
+    gmp: 3.5,
+    registrar: 'KFin Technologies Limited',
+    category: 'Mainboard',
+    sector: 'Renewable Energy',
+    industry: 'Solar & Wind Clean Power Generation',
+    overview: 'NTPC Green Energy Ltd is a wholly owned subsidiary of NTPC Limited, dedicated to spearheading renewable energy projects including solar power, wind power, and green hydrogen ventures across India.',
+  },
+  'enviro-infra-engineers-ipo': {
+    priceBandLow: 140,
+    priceBandHigh: 148,
+    lotSize: 101,
+    issueSizeCr: 650.43,
+    freshIssueCr: 572.46,
+    ofsCr: 77.97,
+    openDate: '2026-11-22',
+    closeDate: '2026-11-26',
+    allotmentDate: '2026-11-27',
+    listingDate: '2026-11-29',
+    gmp: 24,
+    registrar: 'Bigshare Services Pvt Ltd',
+    category: 'Mainboard',
+    sector: 'Environmental Infrastructure & Utilities',
+    industry: 'Water & Wastewater Treatment Plants (WWTP)',
+    overview: 'Enviro Infra Engineers Ltd designs, constructs, operates, and maintains water and wastewater treatment plants and water supply schemes for government agencies across India.',
+  },
+  'c2c-advanced-systems-ipo': {
+    priceBandLow: 214,
+    priceBandHigh: 226,
+    lotSize: 600,
+    issueSizeCr: 99.07,
+    freshIssueCr: 99.07,
+    ofsCr: 0,
+    openDate: '2026-11-22',
+    closeDate: '2026-11-26',
+    allotmentDate: '2026-11-27',
+    listingDate: '2026-12-03',
+    gmp: 125,
+    registrar: 'Link Intime India Private Limited',
+    category: 'SME',
+    sector: 'Defence & Aerospace',
+    industry: 'C4I Defence Systems & Naval Combat Architecture',
+    overview: 'C2C Advanced Systems Ltd specializes in command, control, communications, computers and intelligence (C4I) systems, combat management software, and electronic defence subsystems for Indian armed forces.',
+  },
+  'rajesh-power-services-ipo': {
+    priceBandLow: 319,
+    priceBandHigh: 335,
+    lotSize: 400,
+    issueSizeCr: 160.47,
+    freshIssueCr: 130.47,
+    ofsCr: 30,
+    openDate: '2026-11-25',
+    closeDate: '2026-11-27',
+    allotmentDate: '2026-11-28',
+    listingDate: '2026-12-02',
+    gmp: 130,
+    registrar: 'Bigshare Services Pvt Ltd',
+    category: 'SME',
+    sector: 'Power Infrastructure',
+    industry: 'Underground Cabling, Substation EPC & Solar Utilities',
+    overview: 'Rajesh Power Services Ltd is an EPC contractor specializing in extra high voltage underground cabling, GIS substations, transmission lines, and solar power generation infrastructure.',
+  },
+  'rajputana-biodiesel-ipo': {
+    priceBandLow: 123,
+    priceBandHigh: 130,
+    lotSize: 1000,
+    issueSizeCr: 24.7,
+    freshIssueCr: 24.7,
+    ofsCr: 0,
+    openDate: '2026-11-26',
+    closeDate: '2026-11-28',
+    allotmentDate: '2026-11-29',
+    listingDate: '2026-12-03',
+    gmp: 60,
+    registrar: 'Maashitla Securities Pvt Ltd',
+    category: 'SME',
+    sector: 'Biofuels & Clean Energy',
+    industry: 'Bio-Diesel & Glycerin Manufacturing',
+    overview: 'Rajputana Biodiesel Ltd manufactures biofuels, glycerin, and bio-based energy solutions produced from used cooking oil and non-edible agricultural oils.',
+  },
+  'lamosaic-india-ipo': {
+    priceBandLow: 200,
+    priceBandHigh: 200,
+    lotSize: 600,
+    issueSizeCr: 61.2,
+    freshIssueCr: 61.2,
+    ofsCr: 0,
+    openDate: '2026-11-21',
+    closeDate: '2026-11-26',
+    allotmentDate: '2026-11-27',
+    listingDate: '2026-11-29',
+    gmp: 15,
+    registrar: 'KFin Technologies Limited',
+    category: 'SME',
+    sector: 'Building Materials',
+    industry: 'Decorative Laminates & Plywood Trading',
+    overview: 'Lamosaic India Ltd trades and supplies decorative laminates, acrylic sheets, plywood, and interior architectural decorative surface panels.',
+  },
+  'vishal-mega-mart-ipo': {
+    priceBandLow: 74,
+    priceBandHigh: 78,
+    lotSize: 190,
+    issueSizeCr: 8000,
+    freshIssueCr: 0,
+    ofsCr: 8000,
+    openDate: '2026-12-11',
+    closeDate: '2026-12-13',
+    allotmentDate: '2026-12-16',
+    listingDate: '2026-12-18',
+    gmp: 18,
+    registrar: 'KFin Technologies Limited',
+    category: 'Mainboard',
+    sector: 'Consumer Retail',
+    industry: 'Value Apparel & Hypermarket Superstores',
+    overview: 'Vishal Mega Mart Ltd is one of India’s largest value retail hypermarket chains offering apparel, general merchandise, and FMCG products across 600+ departmental superstores in tier-2 and tier-3 cities.',
+  },
+  'sai-life-sciences-ipo': {
+    priceBandLow: 522,
+    priceBandHigh: 549,
+    lotSize: 27,
+    issueSizeCr: 3042.62,
+    freshIssueCr: 950,
+    ofsCr: 2092.62,
+    openDate: '2026-12-11',
+    closeDate: '2026-12-13',
+    allotmentDate: '2026-12-16',
+    listingDate: '2026-12-18',
+    gmp: 45,
+    registrar: 'KFin Technologies Limited',
+    category: 'Mainboard',
+    sector: 'Healthcare & Pharma',
+    industry: 'Contract Research, Development & Manufacturing (CRDMO)',
+    overview: 'Sai Life Sciences Ltd is a leading global contract research, development, and manufacturing organization (CRDMO) partnering with innovative biotech and pharma companies across the US, Europe, and Japan.',
+  },
+  'mobikwik-ipo': {
+    priceBandLow: 265,
+    priceBandHigh: 279,
+    lotSize: 53,
+    issueSizeCr: 572,
+    freshIssueCr: 572,
+    ofsCr: 0,
+    openDate: '2026-12-11',
+    closeDate: '2026-12-13',
+    allotmentDate: '2026-12-16',
+    listingDate: '2026-12-18',
+    gmp: 85,
+    registrar: 'Link Intime India Private Limited',
+    category: 'Mainboard',
+    sector: 'Financial Technology',
+    industry: 'Digital Wallet, BNPL & Payment Gateway',
+    overview: 'One Mobikwik Systems Ltd is a leading Indian fintech platform powering consumer digital wallets, Zip BNPL credit, merchant UPI QR payments, and wealth distribution services.',
+  },
+  'senores-pharmaceuticals-ipo': {
+    priceBandLow: 372,
+    priceBandHigh: 391,
+    lotSize: 38,
+    issueSizeCr: 592.1,
+    freshIssueCr: 500,
+    ofsCr: 92.1,
+    openDate: '2026-12-20',
+    closeDate: '2026-12-23',
+    allotmentDate: '2026-12-24',
+    listingDate: '2026-12-30',
+    gmp: 65,
+    registrar: 'Link Intime India Private Limited',
+    category: 'Mainboard',
+    sector: 'Healthcare & Pharma',
+    industry: 'Speciality Generics & Complex Formulations',
+    overview: 'Senores Pharmaceuticals Ltd develops, manufactures, and commercializes complex generic pharmaceutical formulations, sterile injectables, and specialty oral dosage forms for global regulated markets.',
+  },
+  'carraro-india-ipo': {
+    priceBandLow: 640,
+    priceBandHigh: 674,
+    lotSize: 22,
+    issueSizeCr: 1811.65,
+    freshIssueCr: 0,
+    ofsCr: 1811.65,
+    openDate: '2026-12-20',
+    closeDate: '2026-12-23',
+    allotmentDate: '2026-12-24',
+    listingDate: '2026-12-30',
+    gmp: 55,
+    registrar: 'Link Intime India Private Limited',
+    category: 'Mainboard',
+    sector: 'Auto Ancillaries',
+    industry: 'Transmission Systems & Agricultural Axles',
+    overview: 'Carraro India Ltd is a premier manufacturer of high-precision drivelines, planetary axles, transaxles, and gear transmission units for agricultural tractors and heavy construction equipment.',
+  },
+  'ventive-hospitality-ipo': {
+    priceBandLow: 615,
+    priceBandHigh: 647,
+    lotSize: 23,
+    issueSizeCr: 2000,
+    freshIssueCr: 2000,
+    ofsCr: 0,
+    openDate: '2026-12-20',
+    closeDate: '2026-12-23',
+    allotmentDate: '2026-12-24',
+    listingDate: '2026-12-30',
+    gmp: 75,
+    registrar: 'KFin Technologies Limited',
+    category: 'Mainboard',
+    sector: 'Hospitality & Tourism',
+    industry: 'Luxury Resorts & Urban Business Hotels',
+    overview: 'Ventive Hospitality Ltd is a luxury hospitality asset owner with landmark properties managed by global brands including Marriott, JW Marriott, Conrad, and Hilton across India and the Maldives.',
+  },
+  'unimech-aerospace-ipo': {
+    priceBandLow: 680,
+    priceBandHigh: 715,
+    lotSize: 20,
+    issueSizeCr: 500,
+    freshIssueCr: 250,
+    ofsCr: 250,
+    openDate: '2026-12-23',
+    closeDate: '2026-12-26',
+    allotmentDate: '2026-12-27',
+    listingDate: '2026-12-31',
+    gmp: 110,
+    registrar: 'KFin Technologies Limited',
+    category: 'Mainboard',
+    sector: 'Aerospace & Defence',
+    industry: 'High-Precision Tooling & Mechanical Assemblies for Aircraft Engines',
+    overview: 'Unimech Aerospace and Manufacturing Ltd designs and manufactures precision mechanical tooling, ground support equipment, and airframe subassemblies for tier-1 global aerospace OEMs.',
+  },
+  'indo-farm-equipment-ipo': {
+    priceBandLow: 215,
+    priceBandHigh: 225,
+    lotSize: 66,
+    issueSizeCr: 275,
+    freshIssueCr: 220,
+    ofsCr: 55,
+    openDate: '2026-12-31',
+    closeDate: '2027-01-04',
+    allotmentDate: '2027-01-05',
+    listingDate: '2027-01-07',
+    gmp: 35,
+    registrar: 'Mas Services Limited',
+    category: 'Mainboard',
+    sector: 'Capital Goods & Agri Machinery',
+    industry: 'Tractors, Pick & Carry Cranes and Diesel Generators',
+    overview: 'Indo Farm Equipment Ltd manufactures agricultural tractors, mobile pick-and-carry cranes, harvester combines, and diesel gensets for industrial and farming applications.',
+  },
   'mahanadi-coalfields-ipo': {
     priceBandLow: 320,
     priceBandHigh: 340,
@@ -1327,6 +1590,7 @@ function buildIpoFromSources(params: {
 
   // Company profile
   const aboutText =
+    curatedUpcoming?.overview ||
     detail?.aboutCompany?.aboutCompany?.trim() ||
     existing?.profile.overview ||
     `${companyName} has filed public issue offer documents for a ${category} IPO on ${exchanges.join(' / ')}.`;
@@ -1426,8 +1690,8 @@ function buildIpoFromSources(params: {
     registrar,
     registrarUrl: rtaLink || existing?.registrarUrl || 'https://www.sebi.gov.in',
     issueSizeCr,
-    freshIssueCr: existing?.freshIssueCr ?? null,
-    ofsCr: existing?.ofsCr ?? null,
+    freshIssueCr: curatedUpcoming?.freshIssueCr ?? existing?.freshIssueCr ?? null,
+    ofsCr: curatedUpcoming?.ofsCr ?? existing?.ofsCr ?? null,
     priceBandLow,
     priceBandHigh,
     lotSize,
@@ -1684,23 +1948,10 @@ export async function refreshIposFromProvider(force = false): Promise<IPOOfferin
       const FEATURED_UPCOMING_SLUGS: Array<{
         slug: string;
         hintBucket: 'Open' | 'Upcoming';
-      }> = [
-        { slug: 'ntpc-green-energy-ipo', hintBucket: 'Upcoming' },
-        { slug: 'enviro-infra-engineers-ipo', hintBucket: 'Upcoming' },
-        { slug: 'c2c-advanced-systems-ipo', hintBucket: 'Upcoming' },
-        { slug: 'rajesh-power-services-ipo', hintBucket: 'Upcoming' },
-        { slug: 'rajputana-biodiesel-ipo', hintBucket: 'Upcoming' },
-        { slug: 'lamosaic-india-ipo', hintBucket: 'Upcoming' },
-        { slug: 'vishal-mega-mart-ipo', hintBucket: 'Upcoming' },
-        { slug: 'sai-life-sciences-ipo', hintBucket: 'Upcoming' },
-        { slug: 'mobikwik-ipo', hintBucket: 'Upcoming' },
-        { slug: 'senores-pharmaceuticals-ipo', hintBucket: 'Upcoming' },
-        { slug: 'carraro-india-ipo', hintBucket: 'Upcoming' },
-        { slug: 'ventive-hospitality-ipo', hintBucket: 'Upcoming' },
-        { slug: 'unimech-aerospace-ipo', hintBucket: 'Upcoming' },
-        { slug: 'indo-farm-equipment-ipo', hintBucket: 'Upcoming' },
-        { slug: 'crystal-crop-protection-ipo', hintBucket: 'Upcoming' },
-      ];
+      }> = Object.keys(CURATED_UPCOMING_ENRICHMENT).map((slug) => ({
+        slug,
+        hintBucket: 'Upcoming',
+      }));
 
       for (const item of FEATURED_UPCOMING_SLUGS) {
         const norm = normalizeNameKey(item.slug.replace(/-ipo$/, ''));

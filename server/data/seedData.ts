@@ -8,7 +8,7 @@ import type {
 } from '../../src/types/financial.ts';
 
 const BASELINE_EFFECTIVE_DATE = '2026-11-16';
-const BASELINE_RETRIEVED_AT = '2026-11-16T14:44:22.467Z';
+const BASELINE_RETRIEVED_AT = '2026-11-16T15:02:51.379Z';
 
 export const SEED_INDICES: MarketIndexInstrument[] = [
   {
@@ -23,7 +23,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "NSE India Official Index Feed",
-      "retrievedAt": "2026-11-16T14:44:09.470Z",
+      "retrievedAt": "2026-11-16T15:02:29.601Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
@@ -44,7 +44,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-16T14:44:08.518Z",
+      "retrievedAt": "2026-11-16T15:02:28.975Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -65,7 +65,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "NSE India Official Index Feed",
-      "retrievedAt": "2026-11-16T14:44:09.470Z",
+      "retrievedAt": "2026-11-16T15:02:29.601Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
@@ -86,7 +86,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "PTS",
     "provenance": {
       "source": "NSE India Official Index Feed",
-      "retrievedAt": "2026-11-16T14:44:09.470Z",
+      "retrievedAt": "2026-11-16T15:02:29.601Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
@@ -107,7 +107,7 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "unit": "INR",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-16T14:44:08.277Z",
+      "retrievedAt": "2026-11-16T15:02:29.067Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -121,14 +121,14 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "symbol": "GOLD",
     "yahooSymbol": "GC=F",
     "name": "Gold Futures (COMEX/Ref)",
-    "value": 3876.1,
+    "value": 3887.8,
     "previousClose": 3886.3,
-    "change": -10.2,
-    "changePercent": -0.26,
+    "change": 1.5,
+    "changePercent": 0.04,
     "unit": "USD/oz",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-16T14:44:09.470Z",
+      "retrievedAt": "2026-11-16T15:02:29.601Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -142,14 +142,14 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "symbol": "SILVER",
     "yahooSymbol": "SI=F",
     "name": "Silver Futures (COMEX/Ref)",
-    "value": 47.13,
-    "previousClose": 49.03,
-    "change": -1.9,
-    "changePercent": -3.88,
+    "value": 47.16,
+    "previousClose": 47.17,
+    "change": -0.01,
+    "changePercent": -0.02,
     "unit": "USD/oz",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-16T14:44:08.268Z",
+      "retrievedAt": "2026-11-16T15:02:29.005Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -163,14 +163,14 @@ export const SEED_INDICES: MarketIndexInstrument[] = [
     "symbol": "CRUDE OIL",
     "yahooSymbol": "CL=F",
     "name": "WTI Crude Oil Futures",
-    "value": 86.85,
+    "value": 86.9,
     "previousClose": 88.56,
-    "change": -1.71,
-    "changePercent": -1.93,
+    "change": -1.66,
+    "changePercent": -1.87,
     "unit": "USD/bbl",
     "provenance": {
       "source": "Yahoo Finance Indian Index Feed",
-      "retrievedAt": "2026-11-16T14:44:08.541Z",
+      "retrievedAt": "2026-11-16T15:02:29.068Z",
       "effectiveDate": "2026-11-16",
       "verificationStatus": "Verified",
       "qualityStatus": "DELAYED",
@@ -41512,9 +41512,9 @@ const RAW_STOCKS: Array<{
     "sector": "Banks",
     "industry": "Banks",
     "isin": "INE062A01020",
-    "currentPrice": 1090,
-    "previousClose": 1080.5,
-    "volume": 1272061,
+    "currentPrice": 1090.5,
+    "previousClose": 1080,
+    "volume": 16216839,
     "marketCapCr": 997384,
     "pe": 10.61,
     "pb": 1.57,
@@ -45186,8 +45186,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Official Equities & Indices",
     "providerType": "Official Exchange Market Data (Real-Time & Delayed Feed)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 7131,
     "notes": "Primary exchange book for all NSE listed equities (.NS), NIFTY 50, Bank Nifty, and India VIX benchmarks."
   },
@@ -45197,8 +45197,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Official Equities & SME Board",
     "providerType": "Official Exchange Market Data (Bhavcopy & Scrip Code Feeds)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 5420,
     "notes": "Secondary exchange and primary venue for BSE SME, scrip codes (e.g. 500325), and SENSEX benchmark."
   },
@@ -45208,8 +45208,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Broker Security Tokens & F&O Status",
     "providerType": "Broker Instrument Registry (Kite Instrument Dump)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 7131,
     "notes": "Authoritative mapping for exchange trading symbols, BSE/NSE instrument tokens, tick sizes, and F&O eligibility."
   },
@@ -45219,8 +45219,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Market Cap, P/E Ratios & Financial Statements",
     "providerType": "Institutional Financial Data & Company Filings Store",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 7131,
     "notes": "Real-time market cap (Cr), P/E, P/B, quarterly balance sheet, shareholding patterns, and peer comparisons."
   },
@@ -45230,8 +45230,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Global & Domestic Benchmarks",
     "providerType": "Real-Time FX & Commodity Feed",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 8,
     "notes": "Continuous live quotes for USD/INR, Gold (10g INR), Silver (1kg INR), India VIX, NIFTY 50, and SENSEX."
   },
@@ -45241,8 +45241,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "IPO Offerings & Offering Financials",
     "providerType": "Statutory Regulator Filings & Registrar Registry",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 87,
     "notes": "Tracks Mainboard and SME IPOs with 3-year restated financials, Link Intime, KFintech, and Bigshare allotment links."
   },
@@ -45252,9 +45252,9 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Indicative GMP & Listing Estimates",
     "providerType": "Multi-Dealer Broker Syndicate Feed (Curated & Verified)",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
-    "recordsCount": 46,
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
+    "recordsCount": 60,
     "notes": "Subject to statutory disclaimer. Indicative unofficial grey market dealer rates with strict verification."
   },
   {
@@ -45263,8 +45263,8 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "category": "Macroeconomics & Sovereign Yields",
     "providerType": "Central Bank Reference Rates",
     "status": "HEALTHY",
-    "lastCheckedAt": "2026-11-16T14:44:22.467Z",
-    "lastSuccessAt": "2026-11-16T14:44:22.467Z",
+    "lastCheckedAt": "2026-11-16T15:02:51.379Z",
+    "lastSuccessAt": "2026-11-16T15:02:51.379Z",
     "recordsCount": 4,
     "notes": "Official RBI reference exchange rates for INR pairs and benchmark 10-year Indian Government Bond yields."
   }

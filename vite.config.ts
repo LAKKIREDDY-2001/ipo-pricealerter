@@ -314,6 +314,66 @@ function apiDevServerPlugin(): Plugin {
       return;
     }
 
+    if (pathname === '/api/company-logo') {
+      const rawUrl = urlObj.searchParams.get('url')?.trim() || '';
+      const rawSym = (urlObj.searchParams.get('symbol') || '').trim().toUpperCase();
+      const rawName = (urlObj.searchParams.get('name') || '').trim();
+      const rawColor = (urlObj.searchParams.get('color') || '').trim();
+
+      // 1. Try local asset in public/
+      if (rawUrl && rawUrl.startsWith('/assets/')) {
+        const filePath = path.resolve(__dirname, 'public', rawUrl.replace(/^\/+/, ''));
+        if (fs.existsSync(filePath)) {
+          const ext = path.extname(filePath).toLowerCase();
+          const ct = ext === '.webp' ? 'image/webp' : ext === '.svg' ? 'image/svg+xml' : 'image/png';
+          res.setHeader('Content-Type', ct);
+          res.setHeader('Cache-Control', 'public, max-age=86400');
+          res.end(fs.readFileSync(filePath));
+          return;
+        }
+      }
+
+      // 2. Check movers directory by symbol
+      const cleanSym = rawSym.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const moversDir = path.resolve(__dirname, 'public', 'assets', 'movers');
+      if (fs.existsSync(moversDir) && cleanSym) {
+        const extensions = ['.png', '.webp', '.svg'];
+        for (const ext of extensions) {
+          const p = path.join(moversDir, `${cleanSym}${ext}`);
+          if (fs.existsSync(p)) {
+            const ct = ext === '.webp' ? 'image/webp' : ext === '.svg' ? 'image/svg+xml' : 'image/png';
+            res.setHeader('Content-Type', ct);
+            res.setHeader('Cache-Control', 'public, max-age=86400');
+            res.end(fs.readFileSync(p));
+            return;
+          }
+        }
+      }
+
+      // 3. Crisp SVG Monogram Fallback
+      const STOP_WORDS = new Set(['LTD', 'LIMITED', 'PVT', 'PRIVATE', 'INDIA', 'THE', 'AND', 'OF', 'CO', 'CORP', 'IPO', 'PLC', 'INC']);
+      const words = (rawName || rawSym || 'IN').replace(/[^A-Za-z0-9\s&.-]/g, ' ').trim().split(/\s+/).filter((w: string) => w && !STOP_WORDS.has(w.toUpperCase()));
+      let initials = 'EQ';
+      if (words.length >= 2) initials = `${words[0][0]}${words[1][0]}`.toUpperCase();
+      else if (words.length === 1 && words[0].length >= 2) initials = words[0].slice(0, 2).toUpperCase();
+      else if (rawSym) initials = rawSym.slice(0, 2).toUpperCase();
+
+      let bg = /^#[0-9a-fA-F]{6}$/.test(rawColor) ? rawColor : '#14263F';
+      if (!rawColor) {
+        const PALETTE = ['#14263F', '#0F4C81', '#059669', '#1D4ED8', '#334155', '#0E7490', '#4338CA', '#1E3A5F'];
+        let hash = 0;
+        const seed = rawName || rawSym || 'PriceAlerter';
+        for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+        bg = PALETTE[hash % PALETTE.length];
+      }
+
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="${initials}"><rect width="80" height="80" rx="16" fill="${bg}"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="30" font-weight="700" letter-spacing="0.5">${initials}</text></svg>`;
+      res.setHeader('Content-Type', 'image/svg+xml; charset=utf-8');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      res.end(svg);
+      return;
+    }
+
     // Always return JSON for any unmatched /api endpoint, never fall through to HTML
     res.end(JSON.stringify({ ok: true, data: [] }));
   };
