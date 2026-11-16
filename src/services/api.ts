@@ -385,62 +385,68 @@ export const api = {
       }>(`/api/stocks${qs ? `?${qs}` : ''}`);
     } catch {
       const snap = await loadStaticMarketSnapshot();
-      let rawList: StockInstrument[] = snap.stocks || [];
-      if (rawList.length === 0 && snap.allLiveStocks && snap.allLiveStocks.length > 0) {
-        rawList = snap.allLiveStocks.map((item: any) => ({
-          id: `stk-${(item.symbol || '').toLowerCase()}`,
-          symbol: item.symbol,
-          bseCode: item.bseCode || '',
-          yahooSymbol: `${item.symbol}.NS`,
-          companyName: item.name,
-          logoUrl: item.logo || null,
-          exchange: (item.bseCode ? (item.symbol ? 'NSE/BSE' : 'BSE') : 'NSE') as 'NSE' | 'BSE' | 'NSE/BSE',
-          sector: item.category === 'RECENT_IPO' ? 'IPO Debut' : 'Equities',
-          industry: item.category === 'RECENT_IPO' ? 'Recent Listings' : 'Equities',
-          isin: item.isin || '',
-          currentPrice: item.rawPrice ?? (typeof item.price === 'number' ? item.price : 0),
-          previousClose:
-            item.rawPrice && item.rawChange != null
-              ? Number((item.rawPrice - item.rawChange).toFixed(2))
-              : item.rawPrice,
-          open: item.open ?? item.rawPrice,
-          dayHigh: item.high ?? item.rawPrice,
-          dayLow: item.low ?? item.rawPrice,
-          week52High: item.high ?? null,
-          week52Low: item.low ?? null,
-          volume: item.volRaw ?? 10000,
-          marketCapCr: item.marketCapCr ?? null,
-          lastTradeTime: item.quoteTimestamp || new Date().toISOString(),
-          sparkline: [item.low ?? item.rawPrice, item.high ?? item.rawPrice, item.rawPrice ?? 0],
-          historicalSeries: [],
-          announcements: [],
-          provenance: {
-            source: item.quoteSource || 'NSE & BSE',
-            retrievedAt: item.quoteTimestamp || new Date().toISOString(),
-            effectiveDate: (item.quoteTimestamp || new Date().toISOString()).slice(0, 10),
-            verificationStatus: 'Verified',
-            qualityStatus: 'VERIFIED',
-            currency: 'INR',
-            unit: 'INR',
-            dataCategory: 'Equities',
-          },
-          fundamentals: {
-            pe: item.pe ?? null,
-            pb: null,
-            roePct: null,
-            rocePct: null,
-            debtToEquity: null,
-            revenueGrowthPct: null,
-            profitGrowthPct: null,
-            dividendYieldPct: null,
-            reportingPeriod: 'TTM',
-            source: 'NSE/BSE Feed',
-          },
-        }));
+      let rawList: StockInstrument[] = [...(snap.stocks || [])];
+      if (rawList.length === 0) {
+        rawList = [...FALLBACK_MARKET_DATA.stocks];
       }
 
-      if (rawList.length === 0) {
-        rawList = FALLBACK_MARKET_DATA.stocks;
+      if (snap.allLiveStocks && snap.allLiveStocks.length > 0) {
+        const seenSymbols = new Set(rawList.map((s) => s.symbol.toUpperCase()));
+        for (const item of snap.allLiveStocks) {
+          const sym = (item.symbol || '').toUpperCase();
+          if (!sym || seenSymbols.has(sym)) continue;
+          seenSymbols.add(sym);
+          rawList.push({
+            id: `stk-${sym.toLowerCase()}-${item.bseCode || 'eq'}`,
+            symbol: item.symbol,
+            bseCode: item.bseCode || 'N/A',
+            yahooSymbol: `${item.symbol}.NS`,
+            companyName: item.name || item.symbol,
+            logoUrl: item.logo || null,
+            exchange: (item.bseCode ? (item.symbol ? 'NSE/BSE' : 'BSE') : 'NSE') as 'NSE' | 'BSE' | 'NSE/BSE',
+            sector: item.category === 'RECENT_IPO' ? 'IPO Debut' : 'Equities',
+            industry: item.category === 'RECENT_IPO' ? 'Recent Listings' : 'Equities',
+            isin: item.isin || 'Available on Exchange',
+            currentPrice: item.rawPrice ?? (typeof item.price === 'number' ? item.price : 0),
+            previousClose:
+              item.rawPrice && item.rawChange != null
+                ? Number((item.rawPrice - item.rawChange).toFixed(2))
+                : item.rawPrice,
+            open: item.open ?? item.rawPrice,
+            dayHigh: item.high ?? item.rawPrice,
+            dayLow: item.low ?? item.rawPrice,
+            week52High: item.high ?? null,
+            week52Low: item.low ?? null,
+            volume: item.volRaw ?? 10000,
+            marketCapCr: item.marketCapCr ?? null,
+            lastTradeTime: item.quoteTimestamp || new Date().toISOString(),
+            sparkline: [item.low ?? item.rawPrice, item.high ?? item.rawPrice, item.rawPrice ?? 0],
+            historicalSeries: [],
+            announcements: [],
+            provenance: {
+              source: item.quoteSource || 'NSE & BSE',
+              retrievedAt: item.quoteTimestamp || new Date().toISOString(),
+              effectiveDate: (item.quoteTimestamp || new Date().toISOString()).slice(0, 10),
+              verificationStatus: 'Verified',
+              qualityStatus: 'VERIFIED',
+              currency: 'INR',
+              unit: 'INR',
+              dataCategory: 'Equities',
+            },
+            fundamentals: {
+              pe: item.pe ?? null,
+              pb: null,
+              roePct: null,
+              rocePct: null,
+              debtToEquity: null,
+              revenueGrowthPct: null,
+              profitGrowthPct: null,
+              dividendYieldPct: null,
+              reportingPeriod: 'TTM',
+              source: 'NSE/BSE Feed',
+            },
+          });
+        }
       }
 
       let stocks = [...rawList];
@@ -517,6 +523,67 @@ export const api = {
               i.slug === found.ipoHistorySlug
           ) || null;
         return { stock: found, fromUpstream: false, linkedIpo };
+      }
+
+      if (snap.allLiveStocks && snap.allLiveStocks.length > 0) {
+        const liveMatch = snap.allLiveStocks.find(
+          (item: any) =>
+            (item.symbol || '').toLowerCase() === symLower ||
+            (item.bseCode || '').toLowerCase() === symLower ||
+            (item.name || '').toLowerCase().includes(symLower)
+        );
+        if (liveMatch) {
+          const rawPrice = liveMatch.rawPrice ?? (typeof liveMatch.price === 'number' ? liveMatch.price : 100);
+          const prev = liveMatch.open ?? rawPrice;
+          const liveStock: StockInstrument = {
+            id: `stk-${liveMatch.symbol.toLowerCase()}-${liveMatch.bseCode || 'eq'}`,
+            symbol: liveMatch.symbol,
+            bseCode: liveMatch.bseCode || 'N/A',
+            yahooSymbol: `${liveMatch.symbol}.NS`,
+            companyName: liveMatch.name || liveMatch.symbol,
+            logoUrl: liveMatch.logo || null,
+            exchange: (liveMatch.bseCode ? (liveMatch.symbol ? 'NSE/BSE' : 'BSE') : 'NSE') as 'NSE' | 'BSE' | 'NSE/BSE',
+            sector: liveMatch.category === 'RECENT_IPO' ? 'IPO Debut' : 'Equities',
+            industry: liveMatch.category === 'RECENT_IPO' ? 'Recent Listings' : 'Equities',
+            isin: liveMatch.isin || 'Available on Exchange',
+            currentPrice: rawPrice,
+            previousClose: prev,
+            open: prev,
+            dayHigh: liveMatch.high ?? rawPrice,
+            dayLow: liveMatch.low ?? rawPrice,
+            week52High: liveMatch.high ?? null,
+            week52Low: liveMatch.low ?? null,
+            volume: liveMatch.volRaw ?? 10000,
+            marketCapCr: liveMatch.marketCapCr ?? null,
+            lastTradeTime: liveMatch.quoteTimestamp || new Date().toISOString(),
+            sparkline: [liveMatch.low ?? rawPrice, liveMatch.high ?? rawPrice, rawPrice],
+            historicalSeries: [],
+            announcements: [],
+            provenance: {
+              source: liveMatch.quoteSource || 'NSE & BSE',
+              retrievedAt: liveMatch.quoteTimestamp || new Date().toISOString(),
+              effectiveDate: (liveMatch.quoteTimestamp || new Date().toISOString()).slice(0, 10),
+              verificationStatus: 'Verified',
+              qualityStatus: 'VERIFIED',
+              currency: 'INR',
+              unit: 'INR',
+              dataCategory: 'Equities',
+            },
+            fundamentals: {
+              pe: null,
+              pb: null,
+              roePct: null,
+              rocePct: null,
+              debtToEquity: null,
+              revenueGrowthPct: null,
+              profitGrowthPct: null,
+              dividendYieldPct: null,
+              reportingPeriod: 'TTM',
+              source: 'NSE/BSE Live Feed',
+            },
+          };
+          return { stock: liveStock, fromUpstream: false, linkedIpo: null };
+        }
       }
       const placeholder: StockInstrument = {
         id: `stk-${symLower}`,

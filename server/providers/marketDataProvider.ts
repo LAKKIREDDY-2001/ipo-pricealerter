@@ -2259,6 +2259,9 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
       liveUniverseCache = unified;
       liveUniverseLastSynced = Date.now();
       liveUniverseReachable = allRaw.length > 0 || nseBhavByIsin.size > 0 || bseBhavByIsin.size > 0;
+      if (unified.length >= 2000) {
+        db.stocks = unified.slice(0, 2500);
+      }
       saveDb();
       evaluatePriceAlerts();
       return liveUniverseCache;

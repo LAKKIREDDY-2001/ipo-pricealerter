@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "alphavantage": {
+      "command": "uvx",
+      "args": ["marketdata-mcp-server", "K2UZXJYH6HDX8QGF"],
+      "env": {
+        "ALPHA_VANTAGE_API_KEY": "K2UZXJYH6HDX8QGF"
+      }
+    }
+  }
+}

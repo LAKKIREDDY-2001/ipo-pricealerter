@@ -268,9 +268,7 @@ export function HomePage() {
     const active = ipos.filter((i) => i.status === 'Open').length;
     const upcoming = ipos.filter((i) => i.status === 'Upcoming').length;
     const closed = ipos.filter((i) => i.status === 'Closed').length;
-    const listedThisYear = ipos.filter(
-      (i) => i.status === 'Listed' && (i.listing.listingDate || '').startsWith('2026')
-    ).length;
+    const listedThisYear = ipos.filter((i) => i.status === 'Listed').length;
     const gmpAvailable = ipos.filter((i) => i.gmp.availability === 'Available').length;
     return {
       active,
@@ -432,7 +430,7 @@ export function HomePage() {
                 { label: 'Active IPOs', value: metrics.active, sub: 'Open for bidding', to: '/ipo/open' },
                 { label: 'Upcoming IPOs', value: metrics.upcoming, sub: 'Scheduled issues', to: '/ipo/upcoming' },
                 { label: 'Recently Closed', value: metrics.closed, sub: 'Awaiting allotment / listing', to: '/ipo/closed' },
-                { label: 'Listed This Year', value: metrics.listedThisYear, sub: '2026 debuts tracked', to: '/listed' },
+                { label: 'Listed Debuts', value: metrics.listedThisYear, sub: 'Exchange debuts tracked', to: '/listed' },
                 { label: 'Tracked Stocks', value: metrics.totalStocks.toLocaleString('en-IN'), sub: 'Live NSE & BSE universe', to: '/live-prices' },
                 { label: 'GMP Updates', value: metrics.gmpAvailable, sub: 'Indicative records', to: '/gmp' },
               ].map((card) => (

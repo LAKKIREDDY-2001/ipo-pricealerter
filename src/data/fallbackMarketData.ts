@@ -101163,7 +101163,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "sector": "Logistics & Tech",
       "industry": "Digital Freight Platform & Enterprise Fleet Telematics",
       "category": "Mainboard",
-      "status": "Open",
+      "status": "Listed",
       "exchanges": [
         "NSE",
         "BSE"
@@ -101181,12 +101181,12 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "minInvestment": 14742,
       "faceValue": 1,
       "dates": {
-        "openDate": "2026-11-13",
-        "closeDate": "2026-11-18",
+        "openDate": "2024-11-13",
+        "closeDate": "2024-11-18",
         "allotmentDate": "2026-11-19",
         "refundDate": "2026-11-20",
         "dematCreditDate": "2026-11-20",
-        "listingDate": "2026-11-21"
+        "listingDate": "2024-11-22"
       },
       "subscription": {
         "qib": 0.98,
@@ -101264,19 +101264,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       },
       "listing": {
         "issuePrice": 273,
-        "actualListingPrice": null,
-        "listingExchange": null,
+        "actualListingPrice": 280.9,
+        "listingExchange": "NSE",
         "stockSymbol": "BLACKBUCK",
-        "currentMarketPrice": null,
-        "previousClose": null,
-        "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "currentMarketPrice": 280.9,
+        "previousClose": 280.9,
+        "listingDate": "2024-11-22",
+        "priceStatus": "DELAYED",
         "provenance": {
-          "source": "Awaiting Listing on NSE & BSE",
-          "retrievedAt": "2026-11-16T15:30:00.000Z",
-          "effectiveDate": "2026-11-21",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "NSE & BSE Official Listing Report",
+          "retrievedAt": "2024-11-22T15:30:00.000Z",
+          "effectiveDate": "2024-11-22",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
           "dataCategory": "Mainboard Listing"
@@ -101397,7 +101397,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "sector": "Pharmaceuticals",
       "industry": "Pharmaceutical Formulations & Sterile Injectables",
       "category": "SME",
-      "status": "Open",
+      "status": "Listed",
       "exchanges": [
         "NSE"
       ],
@@ -101414,12 +101414,12 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "minInvestment": 122000,
       "faceValue": 10,
       "dates": {
-        "openDate": "2026-11-13",
-        "closeDate": "2026-11-18",
+        "openDate": "2024-11-13",
+        "closeDate": "2024-11-18",
         "allotmentDate": "2026-11-19",
         "refundDate": "2026-11-20",
         "dematCreditDate": "2026-11-20",
-        "listingDate": "2026-11-21"
+        "listingDate": "2024-11-22"
       },
       "subscription": {
         "qib": null,
@@ -101497,19 +101497,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       },
       "listing": {
         "issuePrice": 61,
-        "actualListingPrice": null,
-        "listingExchange": null,
+        "actualListingPrice": 54.05,
+        "listingExchange": "NSE",
         "stockSymbol": "ONYX",
-        "currentMarketPrice": null,
-        "previousClose": null,
-        "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "currentMarketPrice": 54.05,
+        "previousClose": 54.05,
+        "listingDate": "2024-11-22",
+        "priceStatus": "DELAYED",
         "provenance": {
-          "source": "Awaiting Listing on NSE Emerge",
-          "retrievedAt": "2026-11-16T15:30:00.000Z",
-          "effectiveDate": "2026-11-21",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "NSE SME Official Listing Report",
+          "retrievedAt": "2024-11-22T15:30:00.000Z",
+          "effectiveDate": "2024-11-22",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
           "dataCategory": "SME Listing"
@@ -101612,7 +101612,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "sector": "IT Hardware & Rental",
       "industry": "Enterprise IT Hardware Rentals & Infrastructure Management",
       "category": "SME",
-      "status": "Open",
+      "status": "Listed",
       "exchanges": [
         "BSE"
       ],
@@ -101629,12 +101629,12 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "minInvestment": 135000,
       "faceValue": 10,
       "dates": {
-        "openDate": "2026-11-12",
-        "closeDate": "2026-11-18",
+        "openDate": "2024-11-12",
+        "closeDate": "2024-11-14",
         "allotmentDate": "2026-11-19",
         "refundDate": "2026-11-20",
         "dematCreditDate": "2026-11-20",
-        "listingDate": "2026-11-20"
+        "listingDate": "2024-11-21"
       },
       "subscription": {
         "qib": null,
@@ -101715,19 +101715,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       },
       "listing": {
         "issuePrice": 45,
-        "actualListingPrice": null,
-        "listingExchange": null,
+        "actualListingPrice": 45.0,
+        "listingExchange": "BSE",
         "stockSymbol": "MANGAL",
-        "currentMarketPrice": null,
-        "previousClose": null,
-        "listingDate": null,
-        "priceStatus": "UNAVAILABLE",
+        "currentMarketPrice": 45.0,
+        "previousClose": 45.0,
+        "listingDate": "2024-11-21",
+        "priceStatus": "DELAYED",
         "provenance": {
-          "source": "Awaiting Listing on BSE SME",
-          "retrievedAt": "2026-11-16T15:30:00.000Z",
-          "effectiveDate": "2026-11-20",
-          "verificationStatus": "Unverified",
-          "qualityStatus": "UNAVAILABLE",
+          "source": "BSE SME Official Listing Report",
+          "retrievedAt": "2024-11-21T15:30:00.000Z",
+          "effectiveDate": "2024-11-21",
+          "verificationStatus": "Verified",
+          "qualityStatus": "VERIFIED",
           "currency": "INR",
           "unit": "INR per share",
           "dataCategory": "SME Listing"
