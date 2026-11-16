@@ -1,0 +1,29 @@
+{
+  "usdInr": {
+    "rate": 93.91236166,
+    "bid": 93.90895734,
+    "ask": 93.91483625,
+    "lastRefreshed": "2026-11-16 15:20:48"
+  },
+  "gold": {
+    "price": 3872.3218054313,
+    "nominal": "XAUUSD",
+    "timestamp": "2026-11-16 15:20:50"
+  },
+  "silver": {
+    "price": 46.7869806038,
+    "nominal": "XAGUSD",
+    "timestamp": "2026-11-16 15:20:51"
+  },
+  "brentCrude": {
+    "price": 123.93,
+    "unit": "USD/barrel",
+    "date": "2026-10-01"
+  },
+  "us10yYield": {
+    "rate": 5.13,
+    "unit": "%",
+    "date": "2026-10-01"
+  },
+  "retrievedAt": "2026-11-16T15:20:55.150Z"
+}

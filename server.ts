@@ -48,6 +48,10 @@ import {
   sendContactNotificationEmail,
   sendPasswordResetEmail,
 } from './server/services/mailerService.ts';
+import {
+  fetchAlphaVantageMacro,
+  fetchAlphaVantageQuote,
+} from './server/providers/alphaVantageProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
 dotenv.config();
@@ -700,6 +704,17 @@ async function startServer() {
     });
   });
 
+  // --- Global Macro & Commodities (Alpha Vantage) ---
+  app.get('/api/market/macro', async (_req, res) => {
+    try {
+      const data = await fetchAlphaVantageMacro();
+      res.setHeader('Cache-Control', 'public, max-age=300');
+      res.json({ ok: true, data });
+    } catch {
+      res.status(500).json({ ok: false, error: 'Failed to fetch macroeconomic indicators.' });
+    }
+  });
+
   // --- IPOs (Live Real Indian Mainboard & SME Registry) ---
   app.get('/api/ipos', async (req, res) => {
     const force = req.query.refresh === '1';
@@ -806,6 +821,7 @@ async function startServer() {
     'static.tickertape.in',
     'images.dhan.co',
     'cdn.zerodha.com',
+    'cdn.alphavantage.co',
     'storage.googleapis.com',
   ]);
   const LOGO_STOP_WORDS = new Set([
@@ -982,6 +998,8 @@ async function startServer() {
         candidates.push(
           `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`,
           `https://images.dhan.co/symbol/${encodeURIComponent(alphaSym)}.png`,
+          `https://cdn.alphavantage.co/logos/${encodeURIComponent(alphaSym)}.png`,
+          `https://cdn.alphavantage.co/logos/${encodeURIComponent(alphaSym)}.svg`,
           `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
           `https://static.tickertape.in/stock-logos/${encodeURIComponent(alphaSym)}.png`
         );
