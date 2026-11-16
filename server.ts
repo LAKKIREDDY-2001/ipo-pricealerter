@@ -55,6 +55,9 @@ import {
 import {
   fetchIndstocksHistoricalData,
   fetchIndstocksExpiredCandles,
+  fetchIndstocksQuotes,
+  fetchIndstocksLtp,
+  getIndstocksExploreFeed,
   mapToIndstocksInterval,
 } from './server/providers/indstocksProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
@@ -901,6 +904,55 @@ async function startServer() {
       res.status(500).json({
         success: false,
         error: err instanceof Error ? err.message : 'Failed to retrieve expired contract candles',
+      });
+    }
+  });
+
+  // --- INDstocks Explore All Stocks & Quotes API (explore-all source) ---
+  app.get('/api/market/indstocks/explore', async (_req, res) => {
+    try {
+      const db = getDb();
+      const feed = getIndstocksExploreFeed(db.stocks);
+      res.json(feed);
+    } catch (err) {
+      res.status(500).json({
+        error: err instanceof Error ? err.message : 'Failed to generate INDstocks explore feed',
+      });
+    }
+  });
+
+  app.get('/api/market/quotes/full', async (req, res) => {
+    const scripCodesParam = typeof req.query['scrip-codes'] === 'string' ? req.query['scrip-codes'] : '';
+    if (!scripCodesParam) {
+      res.status(400).json({ status: 'error', message: 'Missing scrip-codes query parameter' });
+      return;
+    }
+    const codes = scripCodesParam.split(',').map((c) => c.trim()).filter(Boolean);
+    try {
+      const data = await fetchIndstocksQuotes(codes);
+      res.json({ status: 'success', data });
+    } catch (err) {
+      res.status(500).json({
+        status: 'error',
+        message: err instanceof Error ? err.message : 'Failed to fetch INDstocks quotes',
+      });
+    }
+  });
+
+  app.get('/api/market/quotes/ltp', async (req, res) => {
+    const scripCodesParam = typeof req.query['scrip-codes'] === 'string' ? req.query['scrip-codes'] : '';
+    if (!scripCodesParam) {
+      res.status(400).json({ status: 'error', message: 'Missing scrip-codes query parameter' });
+      return;
+    }
+    const codes = scripCodesParam.split(',').map((c) => c.trim()).filter(Boolean);
+    try {
+      const data = await fetchIndstocksLtp(codes);
+      res.json({ status: 'success', data });
+    } catch (err) {
+      res.status(500).json({
+        status: 'error',
+        message: err instanceof Error ? err.message : 'Failed to fetch INDstocks LTP quotes',
       });
     }
   });

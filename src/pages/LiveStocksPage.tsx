@@ -332,8 +332,8 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
       </div>
 
       <DisclaimerBanner
-        title="Live NSE & BSE Exchange Data Provenance"
-        text="Quotes reflect the latest traded price (LTP), day change, OHLC, and volume synced from the connected NSE/BSE market adapter with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST) or on weekends, prices reflect the latest settled session."
+        title="Live NSE, BSE & INDstocks Market Data Provenance"
+        text="Quotes reflect the latest traded price (LTP), day change, OHLC, circuits, and volume synced from the connected NSE & BSE exchange registry and INDstocks Explore All universe (https://www.indstocks.com/investments/stocks/explore-all) with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST) or on weekends, prices reflect the latest settled session."
       />
 
       {/* Tabs */}

@@ -45945,5 +45945,27 @@ export const SEED_DATA_SOURCES: DataSourceStatus[] = [
     "lastSuccessAt": "2026-11-16T16:20:00.000Z",
     "recordsCount": 7129,
     "notes": "Direct trading time-series OHLCV candles (1m to 1mo) and expired F&O options/futures contracts via /market/historical."
+  },
+  {
+    "id": "src-indstocks-quotes",
+    "name": "INDstocks Full Quote & Real-time Batch LTP Feed",
+    "category": "Live Market Quotes & Circuits",
+    "providerType": "Direct Broker Market API (Batch Quotes up to 1000 scrips)",
+    "status": "HEALTHY",
+    "lastCheckedAt": "2026-11-16T16:30:00.000Z",
+    "lastSuccessAt": "2026-11-16T16:30:00.000Z",
+    "recordsCount": 7129,
+    "notes": "Live tick streaming, day change %, high, low, open, circuits, and volume via /market/quotes/full & /market/quotes/ltp."
+  },
+  {
+    "id": "src-indstocks-explore",
+    "name": "INDstocks Explore All Categorized Screener & Universe",
+    "category": "Market Cap Tiers, Sector Distribution & Market Movers",
+    "providerType": "Curated Stock Discovery & Categorization Service",
+    "status": "HEALTHY",
+    "lastCheckedAt": "2026-11-16T16:30:00.000Z",
+    "lastSuccessAt": "2026-11-16T16:30:00.000Z",
+    "recordsCount": 7129,
+    "notes": "Categorizes complete Indian equity universe into Large Cap, Mid Cap, Small Cap, Top Gainers, Losers, Most Active, and Sectors referencing https://www.indstocks.com/investments/stocks/explore-all."
   }
 ];

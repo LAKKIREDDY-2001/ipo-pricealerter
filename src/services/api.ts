@@ -945,4 +945,41 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
+  getIndstocksExplore: () =>
+    request<{
+      sourceUrl: string;
+      totalUniverse: number;
+      lastUpdated: string;
+      marketCapTiers: {
+        largeCap: StockInstrument[];
+        midCap: StockInstrument[];
+        smallCap: StockInstrument[];
+      };
+      highlights: {
+        topGainers: StockInstrument[];
+        topLosers: StockInstrument[];
+        mostActive: StockInstrument[];
+        near52wHigh: StockInstrument[];
+        near52wLow: StockInstrument[];
+      };
+      sectors: Record<string, StockInstrument[]>;
+    }>('/api/market/indstocks/explore'),
+  getIndstocksHistorical: (
+    interval: string,
+    params: { scripCodes: string; fromTime: number; toTime: number }
+  ) =>
+    request<{
+      success: boolean;
+      interval: string;
+      data: Record<string, { candles?: unknown[]; status?: string; message?: string }>;
+    }>(
+      `/api/market/historical/${encodeURIComponent(interval)}?scrip-code=${encodeURIComponent(
+        params.scripCodes
+      )}&from-time=${params.fromTime}&to-time=${params.toTime}`
+    ),
+  getIndstocksQuotes: (scripCodes: string) =>
+    request<{
+      status: string;
+      data: Record<string, unknown>;
+    }>(`/api/market/quotes/full?scrip-codes=${encodeURIComponent(scripCodes)}`),
 };

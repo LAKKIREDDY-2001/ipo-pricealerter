@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import type { StockHistoricalPoint } from '../../src/types/financial';
+import type { StockHistoricalPoint, StockInstrument } from '../../src/types/financial';
 
 const INDSTOCKS_API_BASE = (
   process.env.INDSTOCKS_API_BASE_URL || 'https://api.indstocks.com'
@@ -444,4 +444,288 @@ export async function getStockHistoricalFromIndstocks(opts: {
   }
 
   return null;
+}
+
+export interface IndstocksQuoteRecord {
+  live_price?: number;
+  day_change?: number;
+  day_change_percentage?: number;
+  day_low?: number;
+  day_high?: number;
+  day_open?: number;
+  prev_close?: number;
+  '52week_high'?: number;
+  '52week_low'?: number;
+  upper_circuit?: number;
+  lower_circuit?: number;
+  volume?: number;
+  market_depth?: any;
+}
+
+export interface IndstocksQuotesResponse {
+  status: 'success' | 'error';
+  data?: Record<string, IndstocksQuoteRecord>;
+  message?: string;
+  debug_info?: string;
+}
+
+const quoteBatchCache = new Map<
+  string,
+  { quote: IndstocksQuoteRecord; fetchedAt: number }
+>();
+const QUOTE_CACHE_TTL_MS = 15 * 1000; // 15 seconds
+
+/**
+ * Fetch full real-time market quotes (LTP, OHLC, 52W high/low, circuit limits, volume)
+ * from INDstocks GET /market/quotes/full?scrip-codes=...
+ * Supports up to 1000 instruments per call.
+ */
+export async function fetchIndstocksQuotes(
+  scripCodes: string[],
+  timeoutMs = 8000
+): Promise<Record<string, IndstocksQuoteRecord>> {
+  const token = getIndstocksAccessToken();
+  const result: Record<string, IndstocksQuoteRecord> = {};
+  if (!scripCodes || scripCodes.length === 0) return result;
+
+  const cleanCodes = Array.from(
+    new Set(scripCodes.map((c) => c.trim()).filter(Boolean))
+  );
+  const toFetch: string[] = [];
+  const now = Date.now();
+
+  for (const code of cleanCodes) {
+    const cached = quoteBatchCache.get(code);
+    if (cached && now - cached.fetchedAt < QUOTE_CACHE_TTL_MS) {
+      result[code] = cached.quote;
+    } else {
+      toFetch.push(code);
+    }
+  }
+
+  if (toFetch.length === 0) return result;
+
+  // Up to 1000 instruments per request batch
+  const BATCH_SIZE = 500;
+  for (let i = 0; i < toFetch.length; i += BATCH_SIZE) {
+    const batch = toFetch.slice(i, i + BATCH_SIZE);
+    const url = `${INDSTOCKS_API_BASE}/market/quotes/full?scrip-codes=${encodeURIComponent(
+      batch.join(',')
+    )}`;
+
+    const headers: Record<string, string> = { Accept: 'application/json' };
+    if (token) {
+      headers['Authorization'] = token.startsWith('Bearer ')
+        ? token
+        : `Bearer ${token}`;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+      const res = await fetch(url, { headers, signal: controller.signal });
+      if (res.ok) {
+        const body = (await res.json()) as IndstocksQuotesResponse;
+        if (body.status === 'success' && body.data) {
+          for (const [code, q] of Object.entries(body.data)) {
+            result[code] = q;
+            quoteBatchCache.set(code, { quote: q, fetchedAt: now });
+          }
+        }
+      }
+    } catch (err) {
+      console.warn(
+        `[INDstocks] Quotes full batch failed:`,
+        err instanceof Error ? err.message : err
+      );
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Fetch lightweight Last Traded Price (LTP) from INDstocks GET /market/quotes/ltp
+ */
+export async function fetchIndstocksLtp(
+  scripCodes: string[],
+  timeoutMs = 6000
+): Promise<Record<string, { livePrice: number; prevClose: number }>> {
+  const quotes = await fetchIndstocksQuotes(scripCodes, timeoutMs);
+  const result: Record<string, { livePrice: number; prevClose: number }> = {};
+  for (const [code, q] of Object.entries(quotes)) {
+    if (typeof q.live_price === 'number') {
+      result[code] = {
+        livePrice: q.live_price,
+        prevClose: q.prev_close ?? q.live_price,
+      };
+    }
+  }
+  return result;
+}
+
+/**
+ * Enrich an existing list of StockInstrument records with INDstocks live prices & stats
+ */
+export async function enrichStocksWithIndstocksQuotes(
+  stocks: StockInstrument[]
+): Promise<StockInstrument[]> {
+  const token = getIndstocksAccessToken();
+  if (!token || stocks.length === 0) return stocks;
+
+  const codeToStockMap = new Map<string, StockInstrument>();
+  const scripCodes: string[] = [];
+
+  for (const s of stocks) {
+    if (s.registry?.zerodhaNseToken) {
+      const code = `NSE_${s.registry.zerodhaNseToken}`;
+      scripCodes.push(code);
+      codeToStockMap.set(code, s);
+    }
+    const nseSymCode = `NSE_${s.symbol.toUpperCase()}`;
+    scripCodes.push(nseSymCode);
+    codeToStockMap.set(nseSymCode, s);
+
+    if (s.bseCode && /^\d{6}$/.test(s.bseCode)) {
+      const bseCode = `BSE_${s.bseCode}`;
+      scripCodes.push(bseCode);
+      codeToStockMap.set(bseCode, s);
+    }
+  }
+
+  try {
+    const quotes = await fetchIndstocksQuotes(scripCodes);
+    const nowIso = new Date().toISOString();
+
+    for (const [code, q] of Object.entries(quotes)) {
+      const stock = codeToStockMap.get(code);
+      if (!stock || !q) continue;
+
+      if (typeof q.live_price === 'number' && q.live_price > 0) {
+        stock.currentPrice = q.live_price;
+      }
+      if (typeof q.prev_close === 'number' && q.prev_close > 0) {
+        stock.previousClose = q.prev_close;
+      }
+      if (typeof q.day_open === 'number') stock.open = q.day_open;
+      if (typeof q.day_high === 'number') stock.dayHigh = q.day_high;
+      if (typeof q.day_low === 'number') stock.dayLow = q.day_low;
+      if (typeof q['52week_high'] === 'number') stock.week52High = q['52week_high'];
+      if (typeof q['52week_low'] === 'number') stock.week52Low = q['52week_low'];
+      if (typeof q.volume === 'number') stock.volume = q.volume;
+
+      if (!stock.dataSourcesUsed) stock.dataSourcesUsed = [];
+      if (!stock.dataSourcesUsed.includes('INDstocks Live Market Feed')) {
+        stock.dataSourcesUsed.push('INDstocks Live Market Feed');
+      }
+      stock.provenance.source = `${stock.provenance.source} · INDstocks`;
+      stock.provenance.retrievedAt = nowIso;
+      stock.lastTradeTime = nowIso;
+    }
+  } catch (err) {
+    console.warn(
+      `[INDstocks] Failed to enrich stocks with quotes:`,
+      err instanceof Error ? err.message : err
+    );
+  }
+
+  return stocks;
+}
+
+export interface IndstocksExploreSnapshot {
+  sourceUrl: string;
+  provenance: string;
+  retrievedAt: string;
+  totalUniverse: number;
+  marketCapTiers: {
+    largeCap: StockInstrument[];
+    midCap: StockInstrument[];
+    smallCap: StockInstrument[];
+  };
+  highlights: {
+    topGainers: StockInstrument[];
+    topLosers: StockInstrument[];
+    mostActive: StockInstrument[];
+    near52WeekHigh: StockInstrument[];
+    near52WeekLow: StockInstrument[];
+  };
+  sectors: Record<string, StockInstrument[]>;
+}
+
+/**
+ * Generate the Explore All Stocks feed categorized matching INDstocks explore-all:
+ * https://www.indstocks.com/investments/stocks/explore-all
+ */
+export function getIndstocksExploreFeed(
+  stocks: StockInstrument[]
+): IndstocksExploreSnapshot {
+  const calcPct = (s: StockInstrument) =>
+    s.currentPrice && s.previousClose
+      ? Number(
+          (((s.currentPrice - s.previousClose) / s.previousClose) * 100).toFixed(
+            2
+          )
+        )
+      : 0;
+
+  const valid = stocks.filter((s) => s.currentPrice && s.currentPrice > 0);
+
+  // Large Cap >= 20000 Cr, Mid Cap 5000 - 20000 Cr, Small Cap < 5000 Cr
+  const largeCap = valid.filter((s) => (s.marketCapCr ?? 0) >= 20000);
+  const midCap = valid.filter(
+    (s) => (s.marketCapCr ?? 0) >= 5000 && (s.marketCapCr ?? 0) < 20000
+  );
+  const smallCap = valid.filter((s) => (s.marketCapCr ?? 0) < 5000);
+
+  const topGainers = [...valid]
+    .sort((a, b) => calcPct(b) - calcPct(a))
+    .slice(0, 25);
+  const topLosers = [...valid]
+    .sort((a, b) => calcPct(a) - calcPct(b))
+    .slice(0, 25);
+  const mostActive = [...valid]
+    .sort((a, b) => (b.volume || 0) - (a.volume || 0))
+    .slice(0, 25);
+
+  const near52WeekHigh = valid
+    .filter(
+      (s) => s.week52High && s.currentPrice && s.currentPrice >= s.week52High * 0.95
+    )
+    .slice(0, 25);
+  const near52WeekLow = valid
+    .filter(
+      (s) => s.week52Low && s.currentPrice && s.currentPrice <= s.week52Low * 1.05
+    )
+    .slice(0, 25);
+
+  const sectors: Record<string, StockInstrument[]> = {};
+  for (const s of valid) {
+    const sec = s.sector || 'Equities';
+    if (!sectors[sec]) sectors[sec] = [];
+    sectors[sec].push(s);
+  }
+
+  return {
+    sourceUrl: 'https://www.indstocks.com/investments/stocks/explore-all',
+    provenance:
+      'INDstocks Explore All Stocks Intelligence Feed (NSE & BSE Equities)',
+    retrievedAt: new Date().toISOString(),
+    totalUniverse: valid.length,
+    marketCapTiers: {
+      largeCap: largeCap.slice(0, 50),
+      midCap: midCap.slice(0, 50),
+      smallCap: smallCap.slice(0, 50),
+    },
+    highlights: {
+      topGainers,
+      topLosers,
+      mostActive,
+      near52WeekHigh,
+      near52WeekLow,
+    },
+    sectors,
+  };
 }
