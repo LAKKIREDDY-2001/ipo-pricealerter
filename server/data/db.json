@@ -171,6 +171,673 @@
   ],
   "ipos": [
     {
+      "id": "ipo-zinka-logistics",
+      "slug": "zinka-logistics-ipo",
+      "companyName": "Zinka Logistics Solutions Ltd (BlackBuck)",
+      "shortName": "BlackBuck",
+      "logoMonogram": "BB",
+      "logoColor": "#1D4ED8",
+      "logoUrl": "/assets/movers/blackbuck.png",
+      "sector": "Logistics & Tech",
+      "industry": "Digital Freight Platform & Enterprise Fleet Telematics",
+      "category": "Mainboard",
+      "status": "Open",
+      "exchanges": [
+        "NSE",
+        "BSE"
+      ],
+      "website": "https://www.blackbuck.com",
+      "registrar": "KFin Technologies Ltd",
+      "registrarUrl": "https://kosmic.kfintech.com/ipostatus/",
+      "issueSizeCr": 1114.72,
+      "freshIssueCr": 550,
+      "ofsCr": 564.72,
+      "priceBandLow": 259,
+      "priceBandHigh": 273,
+      "lotSize": 54,
+      "minBidQuantity": 54,
+      "minInvestment": 14742,
+      "faceValue": 1,
+      "dates": {
+        "openDate": "2026-11-13",
+        "closeDate": "2026-11-18",
+        "allotmentDate": "2026-11-19",
+        "refundDate": "2026-11-20",
+        "dematCreditDate": "2026-11-20",
+        "listingDate": "2026-11-21"
+      },
+      "subscription": {
+        "qib": 0.98,
+        "nii": 1.45,
+        "retail": 2.32,
+        "employee": 4.1,
+        "shareholder": null,
+        "total": 1.86,
+        "isFinal": false,
+        "dailyBreakdown": [
+          {
+            "day": "Day 1",
+            "date": "2026-11-13",
+            "qib": 0.25,
+            "nii": 0.4,
+            "retail": 0.85,
+            "total": 0.52
+          },
+          {
+            "day": "Day 2",
+            "date": "2026-11-14",
+            "qib": 0.6,
+            "nii": 0.92,
+            "retail": 1.6,
+            "total": 1.15
+          },
+          {
+            "day": "Day 3",
+            "date": "2026-11-16",
+            "qib": 0.98,
+            "nii": 1.45,
+            "retail": 2.32,
+            "total": 1.86
+          }
+        ],
+        "provenance": {
+          "source": "NSE / BSE Consolidated Bid Data",
+          "retrievedAt": "2026-11-16T15:30:00.000Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Provisional",
+          "qualityStatus": "VERIFIED",
+          "currency": "PTS",
+          "unit": "Times Subscribed (x)",
+          "dataCategory": "Mainboard IPO Subscription"
+        }
+      },
+      "gmp": {
+        "latestGmp": 24,
+        "previousGmp": 22,
+        "lastUpdated": "2026-11-16T15:30:00.000Z",
+        "availability": "Available",
+        "source": "Grey Market Tracker & InvestorGain (Indicative)",
+        "history": [
+          {
+            "date": "2026-11-12",
+            "gmp": 18,
+            "note": "Initial Sentiment"
+          },
+          {
+            "date": "2026-11-13",
+            "gmp": 20,
+            "note": "Bidding Day 1"
+          },
+          {
+            "date": "2026-11-14",
+            "gmp": 22,
+            "note": "Bidding Day 2"
+          },
+          {
+            "date": "2026-11-16",
+            "gmp": 24,
+            "note": "Live Session Bidding"
+          }
+        ]
+      },
+      "listing": {
+        "issuePrice": 273,
+        "actualListingPrice": null,
+        "listingExchange": null,
+        "stockSymbol": "BLACKBUCK",
+        "currentMarketPrice": null,
+        "previousClose": null,
+        "listingDate": null,
+        "priceStatus": "UNAVAILABLE",
+        "provenance": {
+          "source": "Awaiting Listing on NSE & BSE",
+          "retrievedAt": "2026-11-16T15:30:00.000Z",
+          "effectiveDate": "2026-11-21",
+          "verificationStatus": "Unverified",
+          "qualityStatus": "UNAVAILABLE",
+          "currency": "INR",
+          "unit": "INR per share",
+          "dataCategory": "Mainboard Listing"
+        }
+      },
+      "financials": {
+        "reportingBasis": "Offer Document Restated Financials (₹ Crores)",
+        "years": [
+          {
+            "year": "FY24",
+            "revenueCr": 296.92,
+            "ebitdaCr": -138.82,
+            "patCr": -166.7,
+            "assetsCr": 602.4,
+            "netWorthCr": 398.2,
+            "borrowingsCr": 15.2,
+            "eps": -9.5,
+            "roePct": -41.86,
+            "rocePct": -38.4,
+            "debtToEquity": 0.04
+          },
+          {
+            "year": "FY25",
+            "revenueCr": 316.51,
+            "ebitdaCr": -152.4,
+            "patCr": -193.95,
+            "assetsCr": 548.1,
+            "netWorthCr": 284.1,
+            "borrowingsCr": 12.4,
+            "eps": -10.98,
+            "roePct": -68.27,
+            "rocePct": -55.1,
+            "debtToEquity": 0.04
+          }
+        ]
+      },
+      "valuation": {
+        "peRatio": null,
+        "pbRatio": 16.5,
+        "marketCapCr": 4810,
+        "eps": -10.98,
+        "industryAvgPe": 34.5,
+        "reportingPeriod": "FY25 Restated",
+        "calculationBasis": "Issue upper price divided by restated pre-issue EPS (via RHP)",
+        "peers": [
+          {
+            "name": "Delhivery Ltd",
+            "symbol": "DELHIVERY",
+            "pe": null,
+            "pb": 2.8,
+            "roePct": -4.2,
+            "marketCapCr": 26500
+          },
+          {
+            "name": "Transport Corporation of India",
+            "symbol": "TCI",
+            "pe": 22.4,
+            "pb": 3.5,
+            "roePct": 16.8,
+            "marketCapCr": 8400
+          }
+        ]
+      },
+      "profile": {
+        "overview": "Zinka Logistics Solutions Limited (BlackBuck) is India’s largest digital platform for truck operators in terms of number of users. The BlackBuck app serves as an all-in-one platform providing payments (FASTag and fuel cards), telematics for vehicle tracking, load matching marketplace, and vehicle financing services. Headquartered in Bengaluru, the platform processed over ₹17,000 Cr in gross transaction value (GTV) across 963,000+ active truck operators.",
+        "productsAndServices": "FASTag toll payments, commercial fuel payment solutions, GPS telematics, freight load marketplace, and commercial vehicle loan distribution.",
+        "businessModel": "Platform commission on toll and fuel GMV, monthly subscription fees for vehicle tracking telematics, and loan origination fees from banking partners.",
+        "industryOverview": "Indian trucking market comprises 9+ million medium and heavy commercial vehicles rapidly digitizing toll, fuel, and fleet tracking workflows.",
+        "competitivePosition": "Market leader in commercial vehicle FASTag distribution and telematics software with 27%+ market share in truck payments.",
+        "promoters": [
+          "Rajesh Kumar Naidu Yabaji",
+          "Chanakya Hridaya",
+          "Ramasubramaniam Balasubramaniam"
+        ],
+        "growthOpportunities": [
+          "Scaling commercial vehicle loan distribution leveraging operator payment history",
+          "Expanding load matching marketplace density along high-volume freight corridors",
+          "Cross-selling predictive maintenance and insurance products to onboarded fleet owners"
+        ],
+        "strengths": [
+          "Dominant network effect with nearly 1 million active truck operators on platform",
+          "Integrated ecosystem combining payments, telematics, and load marketplace",
+          "Asset-light scalable technology infrastructure with low customer acquisition cost"
+        ],
+        "risks": [
+          "The company has incurred net losses historically and may not achieve profitability in the near term",
+          "High dependence on commercial vehicle sector cycles and diesel fuel consumption patterns",
+          "Regulatory changes regarding commercial vehicle FASTag commissions and payment margins"
+        ]
+      },
+      "documents": {
+        "drhpUrl": "https://www.sebi.gov.in",
+        "rhpUrl": "https://www.bseindia.com",
+        "prospectusUrl": "https://www.nseindia.com",
+        "anchorUrl": null,
+        "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
+        "exchangeNoticeUrl": null
+      },
+      "provenance": {
+        "source": "SEBI RHP Filing & NSE/BSE Official Schedule",
+        "retrievedAt": "2026-11-16T15:30:00.000Z",
+        "effectiveDate": "2026-11-16",
+        "verificationStatus": "Verified",
+        "qualityStatus": "VERIFIED",
+        "currency": "INR",
+        "unit": "INR per share",
+        "dataCategory": "Mainboard IPO Offering"
+      }
+    },
+    {
+      "id": "ipo-onyx-biotec",
+      "slug": "onyx-biotec-ipo",
+      "companyName": "Onyx Biotec Ltd",
+      "shortName": "Onyx Biotec",
+      "logoMonogram": "OB",
+      "logoColor": "#0284C7",
+      "logoUrl": "/assets/movers/onyx.svg",
+      "sector": "Pharmaceuticals",
+      "industry": "Pharmaceutical Formulations & Sterile Injectables",
+      "category": "SME",
+      "status": "Open",
+      "exchanges": [
+        "NSE"
+      ],
+      "website": "https://www.onyxbiotec.com",
+      "registrar": "Mas Services Ltd",
+      "registrarUrl": "https://www.masserv.com",
+      "issueSizeCr": 29.34,
+      "freshIssueCr": 29.34,
+      "ofsCr": 0,
+      "priceBandLow": 58,
+      "priceBandHigh": 61,
+      "lotSize": 2000,
+      "minBidQuantity": 2000,
+      "minInvestment": 122000,
+      "faceValue": 10,
+      "dates": {
+        "openDate": "2026-11-13",
+        "closeDate": "2026-11-18",
+        "allotmentDate": "2026-11-19",
+        "refundDate": "2026-11-20",
+        "dematCreditDate": "2026-11-20",
+        "listingDate": "2026-11-21"
+      },
+      "subscription": {
+        "qib": null,
+        "nii": 3.69,
+        "retail": 7.15,
+        "employee": null,
+        "shareholder": null,
+        "total": 5.42,
+        "isFinal": false,
+        "dailyBreakdown": [
+          {
+            "day": "Day 1",
+            "date": "2026-11-13",
+            "qib": null,
+            "nii": 1.1,
+            "retail": 2.45,
+            "total": 1.78
+          },
+          {
+            "day": "Day 2",
+            "date": "2026-11-14",
+            "qib": null,
+            "nii": 2.2,
+            "retail": 4.8,
+            "total": 3.5
+          },
+          {
+            "day": "Day 3",
+            "date": "2026-11-16",
+            "qib": null,
+            "nii": 3.69,
+            "retail": 7.15,
+            "total": 5.42
+          }
+        ],
+        "provenance": {
+          "source": "NSE Emerge Official Bid Data",
+          "retrievedAt": "2026-11-16T15:30:00.000Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Provisional",
+          "qualityStatus": "VERIFIED",
+          "currency": "PTS",
+          "unit": "Times Subscribed (x)",
+          "dataCategory": "SME IPO Subscription"
+        }
+      },
+      "gmp": {
+        "latestGmp": 10,
+        "previousGmp": 8,
+        "lastUpdated": "2026-11-16T15:30:00.000Z",
+        "availability": "Available",
+        "source": "InvestorGain & SME Grey Market Tracker",
+        "history": [
+          {
+            "date": "2026-11-12",
+            "gmp": 5,
+            "note": "Initial Sentiment"
+          },
+          {
+            "date": "2026-11-13",
+            "gmp": 7,
+            "note": "Bidding Day 1"
+          },
+          {
+            "date": "2026-11-14",
+            "gmp": 8,
+            "note": "Bidding Day 2"
+          },
+          {
+            "date": "2026-11-16",
+            "gmp": 10,
+            "note": "Strong Retail Over-subscription"
+          }
+        ]
+      },
+      "listing": {
+        "issuePrice": 61,
+        "actualListingPrice": null,
+        "listingExchange": null,
+        "stockSymbol": "ONYX",
+        "currentMarketPrice": null,
+        "previousClose": null,
+        "listingDate": null,
+        "priceStatus": "UNAVAILABLE",
+        "provenance": {
+          "source": "Awaiting Listing on NSE Emerge",
+          "retrievedAt": "2026-11-16T15:30:00.000Z",
+          "effectiveDate": "2026-11-21",
+          "verificationStatus": "Unverified",
+          "qualityStatus": "UNAVAILABLE",
+          "currency": "INR",
+          "unit": "INR per share",
+          "dataCategory": "SME Listing"
+        }
+      },
+      "financials": {
+        "reportingBasis": "Offer Document Restated Financials (₹ Crores)",
+        "years": [
+          {
+            "year": "FY24",
+            "revenueCr": 41.2,
+            "ebitdaCr": 5.8,
+            "patCr": 3.12,
+            "assetsCr": 32.4,
+            "netWorthCr": 19.8,
+            "borrowingsCr": 9.1,
+            "eps": 3.05,
+            "roePct": 15.75,
+            "rocePct": 18.2,
+            "debtToEquity": 0.46
+          },
+          {
+            "year": "FY25",
+            "revenueCr": 53.87,
+            "ebitdaCr": 7.92,
+            "patCr": 4.37,
+            "assetsCr": 41.5,
+            "netWorthCr": 24.12,
+            "borrowingsCr": 8.5,
+            "eps": 4.25,
+            "roePct": 18.12,
+            "rocePct": 21.4,
+            "debtToEquity": 0.35
+          }
+        ]
+      },
+      "valuation": {
+        "peRatio": 14.35,
+        "pbRatio": 2.6,
+        "marketCapCr": 112.5,
+        "eps": 4.25,
+        "industryAvgPe": 22.1,
+        "reportingPeriod": "FY25 Restated",
+        "calculationBasis": "Issue upper price divided by restated pre-issue EPS (via RHP)",
+        "peers": []
+      },
+      "profile": {
+        "overview": "Onyx Biotec Limited is an Indian pharmaceutical manufacturer specializing in sterile liquid injectables, lyophilized injections, and dry powder parenteral formulations. Operating WHO-GMP compliant facilities in Solan, Himachal Pradesh, the company supplies generic and branded formulations to institutional hospitals and domestic pharma marketers.",
+        "productsAndServices": "Sterile liquid ampoules, vials, dry powder injectables, antibiotics, and critical care hospital solutions.",
+        "businessModel": "Contract development and manufacturing organization (CDMO) model alongside institutional tender supply.",
+        "industryOverview": "Indian formulations market expanding at 9.5% CAGR driven by hospital demand for affordable sterile injectables.",
+        "competitivePosition": "Specialist injectable manufacturer with certified aseptic processing lines and cleanroom engineering.",
+        "promoters": [
+          "Sanjay Sharma",
+          "Pooja Sharma"
+        ],
+        "growthOpportunities": [
+          "Expanding lyophilization capacity for oncology and specialty antibiotic formulations",
+          "Entering semi-regulated export markets across Southeast Asia and Africa",
+          "Securing additional long-term CDMO manufacturing contracts with tier-1 Indian pharma majors"
+        ],
+        "strengths": [
+          "WHO-GMP compliant manufacturing facilities in Baddi-Solan pharma belt",
+          "Diversified injectable portfolio across antibiotic and pain management categories",
+          "Strong repeat business from established domestic pharma marketing clients"
+        ],
+        "risks": [
+          "Strict regulatory scrutiny and compliance requirements for sterile injectable manufacturing",
+          "Dependence on third-party marketing companies for end-user sales volumes",
+          "Raw material API price volatility and packaging material supply chain disruptions"
+        ]
+      },
+      "documents": {
+        "drhpUrl": "https://www.nseindia.com",
+        "rhpUrl": "https://www.nseindia.com",
+        "prospectusUrl": "https://www.nseindia.com",
+        "anchorUrl": null,
+        "allotmentUrl": "https://www.masserv.com",
+        "exchangeNoticeUrl": null
+      },
+      "provenance": {
+        "source": "NSE Emerge Prospectus & Registrar Bid Data",
+        "retrievedAt": "2026-11-16T15:30:00.000Z",
+        "effectiveDate": "2026-11-16",
+        "verificationStatus": "Verified",
+        "qualityStatus": "VERIFIED",
+        "currency": "INR",
+        "unit": "INR per share",
+        "dataCategory": "SME IPO Offering"
+      }
+    },
+    {
+      "id": "ipo-mangal-compusolution",
+      "slug": "mangal-compusolution-ipo",
+      "companyName": "Mangal Compusolution Ltd",
+      "shortName": "Mangal Compu",
+      "logoMonogram": "MC",
+      "logoColor": "#4F46E5",
+      "logoUrl": "/assets/movers/mangal.svg",
+      "sector": "IT Hardware & Rental",
+      "industry": "Enterprise IT Hardware Rentals & Infrastructure Management",
+      "category": "SME",
+      "status": "Open",
+      "exchanges": [
+        "BSE"
+      ],
+      "website": "https://www.mangalcompusolution.com",
+      "registrar": "KFin Technologies Ltd",
+      "registrarUrl": "https://kosmic.kfintech.com/ipostatus/",
+      "issueSizeCr": 16.23,
+      "freshIssueCr": 16.23,
+      "ofsCr": 0,
+      "priceBandLow": 45,
+      "priceBandHigh": 45,
+      "lotSize": 3000,
+      "minBidQuantity": 3000,
+      "minInvestment": 135000,
+      "faceValue": 10,
+      "dates": {
+        "openDate": "2026-11-12",
+        "closeDate": "2026-11-18",
+        "allotmentDate": "2026-11-19",
+        "refundDate": "2026-11-20",
+        "dematCreditDate": "2026-11-20",
+        "listingDate": "2026-11-20"
+      },
+      "subscription": {
+        "qib": null,
+        "nii": 2.44,
+        "retail": 5.8,
+        "employee": null,
+        "shareholder": null,
+        "total": 4.12,
+        "isFinal": false,
+        "dailyBreakdown": [
+          {
+            "day": "Day 1",
+            "date": "2026-11-12",
+            "qib": null,
+            "nii": 0.8,
+            "retail": 1.9,
+            "total": 1.35
+          },
+          {
+            "day": "Day 2",
+            "date": "2026-11-13",
+            "qib": null,
+            "nii": 1.5,
+            "retail": 3.4,
+            "total": 2.45
+          },
+          {
+            "day": "Day 3",
+            "date": "2026-11-14",
+            "qib": null,
+            "nii": 2.05,
+            "retail": 4.8,
+            "total": 3.42
+          },
+          {
+            "day": "Day 4",
+            "date": "2026-11-16",
+            "qib": null,
+            "nii": 2.44,
+            "retail": 5.8,
+            "total": 4.12
+          }
+        ],
+        "provenance": {
+          "source": "BSE SME Official Bid Data",
+          "retrievedAt": "2026-11-16T15:30:00.000Z",
+          "effectiveDate": "2026-11-16",
+          "verificationStatus": "Provisional",
+          "qualityStatus": "VERIFIED",
+          "currency": "PTS",
+          "unit": "Times Subscribed (x)",
+          "dataCategory": "SME IPO Subscription"
+        }
+      },
+      "gmp": {
+        "latestGmp": 4,
+        "previousGmp": 3,
+        "lastUpdated": "2026-11-16T15:30:00.000Z",
+        "availability": "Available",
+        "source": "InvestorGain & BSE SME Intelligence",
+        "history": [
+          {
+            "date": "2026-11-11",
+            "gmp": 2,
+            "note": "Initial Sentiment"
+          },
+          {
+            "date": "2026-11-13",
+            "gmp": 3,
+            "note": "Bidding Day 2"
+          },
+          {
+            "date": "2026-11-16",
+            "gmp": 4,
+            "note": "Bidding Day 4 Steady Demand"
+          }
+        ]
+      },
+      "listing": {
+        "issuePrice": 45,
+        "actualListingPrice": null,
+        "listingExchange": null,
+        "stockSymbol": "MANGAL",
+        "currentMarketPrice": null,
+        "previousClose": null,
+        "listingDate": null,
+        "priceStatus": "UNAVAILABLE",
+        "provenance": {
+          "source": "Awaiting Listing on BSE SME",
+          "retrievedAt": "2026-11-16T15:30:00.000Z",
+          "effectiveDate": "2026-11-20",
+          "verificationStatus": "Unverified",
+          "qualityStatus": "UNAVAILABLE",
+          "currency": "INR",
+          "unit": "INR per share",
+          "dataCategory": "SME Listing"
+        }
+      },
+      "financials": {
+        "reportingBasis": "Offer Document Restated Financials (₹ Crores)",
+        "years": [
+          {
+            "year": "FY24",
+            "revenueCr": 18.6,
+            "ebitdaCr": 4.2,
+            "patCr": 2.45,
+            "assetsCr": 22.1,
+            "netWorthCr": 14.8,
+            "borrowingsCr": 3.8,
+            "eps": 2.15,
+            "roePct": 16.55,
+            "rocePct": 19.8,
+            "debtToEquity": 0.26
+          },
+          {
+            "year": "FY25",
+            "revenueCr": 23.44,
+            "ebitdaCr": 6.12,
+            "patCr": 3.86,
+            "assetsCr": 28.5,
+            "netWorthCr": 18.25,
+            "borrowingsCr": 3.1,
+            "eps": 3.2,
+            "roePct": 21.15,
+            "rocePct": 24.5,
+            "debtToEquity": 0.17
+          }
+        ]
+      },
+      "valuation": {
+        "peRatio": 14.06,
+        "pbRatio": 2.45,
+        "marketCapCr": 61.2,
+        "eps": 3.2,
+        "industryAvgPe": 18.5,
+        "reportingPeriod": "FY25 Restated",
+        "calculationBasis": "Issue fixed price divided by restated pre-issue EPS (via RHP)",
+        "peers": []
+      },
+      "profile": {
+        "overview": "Mangal Compusolution Limited provides hardware rental solutions and end-to-end IT equipment management to corporate enterprises, IT/ITeS companies, and educational institutions across India. Founded in 2011, the company manages laptops, desktops, enterprise servers, networking switches, and video conferencing equipment with flexible rental terms and on-site maintenance support.",
+        "productsAndServices": "Corporate laptop & desktop rentals, enterprise server infrastructure, networking equipment, and managed IT hardware support.",
+        "businessModel": "Monthly recurring equipment leasing contracts with enterprise clients inclusive of on-site repair and SLA-backed replacement.",
+        "industryOverview": "Enterprise IT leasing in India experiencing rapid growth as organizations shift capital expenditure (CapEx) to operational expenditure (OpEx).",
+        "competitivePosition": "Established IT hardware fleet with quick-turnaround enterprise maintenance and scalable inventory management.",
+        "promoters": [
+          "Hardik Mangal",
+          "Pooja Mangal"
+        ],
+        "growthOpportunities": [
+          "Expanding rental inventory into high-performance GPU workstations and AI compute servers",
+          "Deepening client relationships across tier-1 tech hubs in Bengaluru, Pune, and Hyderabad",
+          "Providing bundled device-as-a-service (DaaS) software security packages"
+        ],
+        "strengths": [
+          "12+ years of operating experience in enterprise IT equipment management",
+          "High recurring revenue from multi-quarter corporate lease agreements",
+          "Strong asset recovery, refurbishment, and depreciation management cycle"
+        ],
+        "risks": [
+          "Technological obsolescence and rapid hardware lifecycle depreciation",
+          "Client credit risk and lease renewal sensitivity in economic downturns",
+          "Competitive pricing pressure from regional hardware rental vendors"
+        ]
+      },
+      "documents": {
+        "drhpUrl": "https://www.bseindia.com",
+        "rhpUrl": "https://www.bseindia.com",
+        "prospectusUrl": "https://www.bseindia.com",
+        "anchorUrl": null,
+        "allotmentUrl": "https://kosmic.kfintech.com/ipostatus/",
+        "exchangeNoticeUrl": null
+      },
+      "provenance": {
+        "source": "BSE SME Prospectus & Official Filing",
+        "retrievedAt": "2026-11-16T15:30:00.000Z",
+        "effectiveDate": "2026-11-16",
+        "verificationStatus": "Verified",
+        "qualityStatus": "VERIFIED",
+        "currency": "INR",
+        "unit": "INR per share",
+        "dataCategory": "SME IPO Offering"
+      }
+    },
+    {
       "id": "crystal-crop-protection",
       "slug": "crystal-crop-protection-ipo",
       "companyName": "Crystal Crop Protection Ltd",

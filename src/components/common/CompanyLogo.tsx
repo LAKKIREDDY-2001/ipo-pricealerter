@@ -100,6 +100,7 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   BEL: '/assets/movers/bel.png',
   BHARTIARTL: '/assets/movers/airtel.png',
   BHEL: '/assets/movers/bhel.png',
+  BLACKBUCK: '/assets/movers/blackbuck.png',
   BOB: '/assets/movers/bank-baroda.png',
   BOMBAY: '/assets/movers/bombay-coated.png',
   BOSCHLTD: '/assets/movers/boschltd.webp',
@@ -169,6 +170,8 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   LICI: '/assets/movers/lici.webp',
   LT: '/assets/movers/lt.png',
   MAHANADI: '/assets/movers/mahanadi.svg',
+  MANGAL: '/assets/movers/mangal.svg',
+  MANGALCOMP: '/assets/movers/mangal.svg',
   MM: '/assets/movers/mm.png',
   'M&M': '/assets/movers/mm.png',
   MANBA: '/assets/movers/manba.png',
@@ -184,6 +187,8 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   NTPCGREEN: '/assets/movers/ntpc-green.png',
   OLAELEC: '/assets/movers/ola-electric.png',
   ONGC: '/assets/movers/ongc.png',
+  ONYX: '/assets/movers/onyx.svg',
+  ONYXBIOTEC: '/assets/movers/onyx.svg',
   ORIENTTECH: '/assets/movers/orient-tech.png',
   PFC: '/assets/movers/pfc.png',
   PHONEPE: '/assets/movers/phonepe.png',
@@ -240,6 +245,7 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   WATRANA: '/assets/movers/watrana.svg',
   WIPRO: '/assets/movers/wipro.png',
   ZEPTO: '/assets/movers/zepto.png',
+  ZINKA: '/assets/movers/blackbuck.png',
   ZOMATO: '/assets/movers/zomato.png',
 };
 
@@ -299,6 +305,9 @@ const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
   [/\bawfis\b/i, '/assets/movers/awfis.png'],
   [/\bmahanadi\b/i, '/assets/movers/mahanadi.svg'],
   [/\bwatrana\b/i, '/assets/movers/watrana.svg'],
+  [/\bblackbuck\b|\bzinka\s*logistics\b/i, '/assets/movers/blackbuck.png'],
+  [/\bonyx\s*biotec\b/i, '/assets/movers/onyx.svg'],
+  [/\bmangal\s*compusolution\b/i, '/assets/movers/mangal.svg'],
 ];
 
 export function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
@@ -357,6 +366,71 @@ function buildCompanyLogoProxyUrl(opts: {
   return resolveApiUrl(`/api/company-logo?${params.toString()}`);
 }
 
+export function buildLogoCandidateList(opts: {
+  companyName: string;
+  symbol?: string | null;
+  bseCode?: string | null;
+  logoUrl?: string | null;
+  searchId?: string | null;
+  logoColor?: string | null;
+}): string[] {
+  const candidates: string[] = [];
+  const sym = (opts.symbol || '').toUpperCase().trim();
+  const cleanSym = sym.replace(/[^A-Z0-9]/g, '');
+  const bse6 = (opts.bseCode || '').trim();
+
+  // 1. Static mapped local asset
+  const staticLogo = resolveStaticLogo(opts.symbol, opts.companyName);
+  if (staticLogo && !candidates.includes(staticLogo)) {
+    candidates.push(staticLogo);
+  }
+
+  // 2. Explicit logoUrl if specified
+  if (opts.logoUrl && opts.logoUrl.trim()) {
+    const trimmed = opts.logoUrl.trim();
+    if (trimmed.startsWith('/assets/')) {
+      if (!candidates.includes(trimmed)) candidates.push(trimmed);
+    } else if (trimmed.startsWith('http')) {
+      if (!candidates.includes(trimmed)) candidates.push(trimmed);
+    } else if (trimmed.startsWith('/api/')) {
+      const resolved = resolveApiUrl(trimmed);
+      if (!candidates.includes(resolved)) candidates.push(resolved);
+    }
+  }
+
+  // 3. Groww WebP CDN (covers 2,000+ Indian equities directly in browser)
+  if (cleanSym && !/^\d+$/.test(cleanSym)) {
+    const growwWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSym}.webp`;
+    if (!candidates.includes(growwWebp)) candidates.push(growwWebp);
+
+    // 4. Dhan PNG CDN
+    const dhanPng = `https://images.dhan.co/symbol/${cleanSym}.png`;
+    if (!candidates.includes(dhanPng)) candidates.push(dhanPng);
+
+    // 5. Groww PNG CDN
+    const growwPng = `https://assets-netstorage.groww.in/stock-assets/logos/${cleanSym}.png`;
+    if (!candidates.includes(growwPng)) candidates.push(growwPng);
+  }
+
+  // 6. BSE GSTK CDN if 6-digit BSE code
+  if (bse6 && /^\d{6}$/.test(bse6)) {
+    const bseUrl = `https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`;
+    if (!candidates.includes(bseUrl)) candidates.push(bseUrl);
+  }
+
+  // 7. Alpha Vantage CDN
+  if (cleanSym && !/^\d+$/.test(cleanSym)) {
+    const avPng = `https://cdn.alphavantage.co/logos/${cleanSym}.png`;
+    if (!candidates.includes(avPng)) candidates.push(avPng);
+  }
+
+  // 8. Backend proxy endpoint
+  const proxyUrl = buildCompanyLogoProxyUrl(opts);
+  if (!candidates.includes(proxyUrl)) candidates.push(proxyUrl);
+
+  return candidates;
+}
+
 export function buildCompanyLogoUrl(opts: {
   companyName: string;
   symbol?: string | null;
@@ -365,23 +439,8 @@ export function buildCompanyLogoUrl(opts: {
   searchId?: string | null;
   logoColor?: string | null;
 }): string {
-  // 1. Check known local static assets by symbol or company name first
-  const staticLogo = resolveStaticLogo(opts.symbol, opts.companyName);
-  if (staticLogo) {
-    return staticLogo;
-  }
-
-  // 2. Local asset specified in logoUrl
-  if (opts.logoUrl && opts.logoUrl.startsWith('/assets/')) {
-    return opts.logoUrl;
-  }
-
-  // 3. Remote URL specified
-  if (opts.logoUrl && (opts.logoUrl.startsWith('/') || opts.logoUrl.startsWith('http'))) {
-    return opts.logoUrl.startsWith('/api/') ? resolveApiUrl(opts.logoUrl) : opts.logoUrl;
-  }
-
-  return buildCompanyLogoProxyUrl(opts);
+  const list = buildLogoCandidateList(opts);
+  return list[0] || buildCompanyLogoProxyUrl(opts);
 }
 
 export function CompanyLogo({
@@ -394,30 +453,22 @@ export function CompanyLogo({
   size = 'sm',
   className = '',
 }: CompanyLogoProps) {
-  const primarySrc = useMemo(
-    () => buildCompanyLogoUrl({ companyName, symbol, bseCode, logoUrl, searchId, logoColor }),
+  const candidates = useMemo(
+    () => buildLogoCandidateList({ companyName, symbol, bseCode, logoUrl, searchId, logoColor }),
     [companyName, symbol, bseCode, logoUrl, searchId, logoColor]
   );
-  const staticSrc = useMemo(
-    () => resolveStaticLogo(symbol, companyName),
-    [symbol, companyName]
-  );
-  const proxySrc = useMemo(
-    () => buildCompanyLogoProxyUrl({ companyName, symbol, bseCode, searchId, logoColor }),
-    [companyName, symbol, bseCode, searchId, logoColor]
-  );
 
-  const [stage, setStage] = useState<'primary' | 'static' | 'proxy' | 'initials'>('primary');
+  const [candidateIndex, setCandidateIndex] = useState(0);
 
   useEffect(() => {
-    setStage('primary');
-  }, [primarySrc]);
+    setCandidateIndex(0);
+  }, [candidates]);
 
   const sizeClass = SIZE_CLASSES[size];
   const initials = useMemo(() => getInitials(companyName, symbol), [companyName, symbol]);
   const bg = useMemo(() => getFallbackColor(companyName, logoColor), [companyName, logoColor]);
 
-  if (stage === 'initials') {
+  if (candidateIndex >= candidates.length) {
     return (
       <div
         className={`${sizeClass} flex items-center justify-center text-white font-display font-bold shrink-0 select-none ${className}`}
@@ -429,12 +480,7 @@ export function CompanyLogo({
     );
   }
 
-  const activeSrc =
-    stage === 'static' && staticSrc
-      ? staticSrc
-      : stage === 'proxy'
-      ? proxySrc
-      : primarySrc;
+  const activeSrc = candidates[candidateIndex];
 
   return (
     <div
@@ -447,23 +493,7 @@ export function CompanyLogo({
         decoding="async"
         referrerPolicy="no-referrer"
         onError={() => {
-          if (stage === 'primary') {
-            if (staticSrc && staticSrc !== activeSrc) {
-              setStage('static');
-            } else if (primarySrc !== proxySrc) {
-              setStage('proxy');
-            } else {
-              setStage('initials');
-            }
-          } else if (stage === 'static') {
-            if (staticSrc !== proxySrc) {
-              setStage('proxy');
-            } else {
-              setStage('initials');
-            }
-          } else {
-            setStage('initials');
-          }
+          setCandidateIndex((prev) => prev + 1);
         }}
         className="h-full w-full object-contain p-0.5"
       />
