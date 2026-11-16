@@ -823,13 +823,14 @@ async function main() {
   // 4. Update server/data/db.json
   console.log('4. Updating server/data/db.json...');
   const dbPath = path.resolve('server/data/db.json');
+  let existingDb: any = null;
   if (fs.existsSync(dbPath)) {
-    const db = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
-    db.indices = liveIndices;
-    db.stocks = fullDbStocks;
-    db.ipos = liveIpos;
-    db.dataSources = officialDataSources;
-    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf-8');
+    existingDb = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+    existingDb.indices = liveIndices;
+    existingDb.stocks = fullDbStocks;
+    existingDb.ipos = liveIpos;
+    existingDb.dataSources = officialDataSources;
+    fs.writeFileSync(dbPath, JSON.stringify(existingDb, null, 2), 'utf-8');
     console.log(
       `server/data/db.json updated with ${fullDbStocks.length} stocks, ${liveIpos.length} IPOs, ${liveIndices.length} indices, and ${officialDataSources.length} sources.`
     );
@@ -1081,6 +1082,8 @@ async function main() {
     liveData.stocks = fullDbStocks;
     liveData.ipos = liveIpos;
     liveData.indices = liveIndices;
+    liveData.blogs = existingDb?.blogs || [];
+    liveData.insights = existingDb?.insights || [];
 
     fs.writeFileSync(liveMarketDataPath, JSON.stringify(liveData, null, 2), 'utf-8');
     const distLiveMarketDataPath = path.resolve('dist/data/live-market-data.json');

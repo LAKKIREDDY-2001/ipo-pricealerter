@@ -93,7 +93,7 @@ export function HomePage() {
     if (!background) setLoading(true);
     setError(null);
     try {
-      const [idxRes, ipoRes, stkRes, gRes, lRes, insRes, blogRes] = await Promise.all([
+      const results = await Promise.allSettled([
         api.getIndices(background),
         api.getIpos(),
         api.getStocks({ limit: 100, refresh: background }),
@@ -102,6 +102,13 @@ export function HomePage() {
         api.getInsights(),
         api.getBlogs(),
       ]);
+      const idxRes = results[0].status === 'fulfilled' ? results[0].value : null;
+      const ipoRes = results[1].status === 'fulfilled' ? results[1].value : null;
+      const stkRes = results[2].status === 'fulfilled' ? results[2].value : null;
+      const gRes = results[3].status === 'fulfilled' ? results[3].value : null;
+      const lRes = results[4].status === 'fulfilled' ? results[4].value : null;
+      const insRes = results[5].status === 'fulfilled' ? results[5].value : null;
+      const blogRes = results[6].status === 'fulfilled' ? results[6].value : null;
       const nextIndices = Array.isArray(idxRes?.indices) ? idxRes.indices : [];
       const nextIpos = Array.isArray(ipoRes?.ipos) ? ipoRes.ipos : [];
       const nextStocks = Array.isArray(stkRes?.stocks) ? stkRes.stocks : [];

@@ -574,6 +574,8 @@ interface CuratedUpcomingData {
   gmp?: number;
   registrar?: string;
   category?: 'Mainboard' | 'SME';
+  sector?: string;
+  industry?: string;
 }
 
 const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
@@ -588,6 +590,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-11-27',
     gmp: 9.25,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Energy & Mining',
+    industry: 'Coal Mining & Power Utilities',
   },
   'watrana-rentals-ipo': {
     priceBandLow: 245,
@@ -601,6 +605,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     gmp: 22,
     category: 'SME',
     registrar: 'Bigshare Services Pvt Ltd',
+    sector: 'Capital Goods',
+    industry: 'Industrial & Material Handling Equipment',
   },
   'crystal-crop-protection-ipo': {
     priceBandLow: 259,
@@ -613,6 +619,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-11-26',
     gmp: 40,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Agrochemicals',
+    industry: 'Agrochemicals & Crop Protection',
   },
   'zepto-ipo': {
     priceBandLow: 350,
@@ -625,6 +633,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-10',
     gmp: 65,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Technology',
+    industry: 'Quick Commerce & Hyperlocal Logistics',
   },
   'razorpay-ipo': {
     priceBandLow: 460,
@@ -637,6 +647,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-15',
     gmp: 95,
     registrar: 'KFin Technologies Limited',
+    sector: 'Financial Technology',
+    industry: 'Digital Payments & Fintech Infrastructure',
   },
   'truhome-finance-ipo': {
     priceBandLow: 165,
@@ -649,6 +661,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-09',
     gmp: 18,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Financial Services',
+    industry: 'Housing Finance & NBFC',
   },
   'marri-retail-ipo': {
     priceBandLow: 210,
@@ -661,6 +675,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-11',
     gmp: 24,
     registrar: 'Bigshare Services Pvt Ltd',
+    sector: 'Consumer Retail',
+    industry: 'Apparel & Departmental Retail',
   },
   'incred-holdings-ipo': {
     priceBandLow: 180,
@@ -673,6 +689,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-12',
     gmp: 35,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Financial Services',
+    industry: 'Diversified NBFC & Wealth Management',
   },
   'hero-fincrop-limited-ipo': {
     priceBandLow: 320,
@@ -685,6 +703,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-16',
     gmp: 55,
     registrar: 'KFin Technologies Limited',
+    sector: 'Financial Services',
+    industry: 'Retail & MSME Lending NBFC',
   },
   'allchem-lifescience-ipo': {
     priceBandLow: 280,
@@ -697,6 +717,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-17',
     gmp: 42,
     registrar: 'Bigshare Services Pvt Ltd',
+    sector: 'Healthcare & Pharma',
+    industry: 'Active Pharmaceutical Ingredients (API)',
   },
   'cardekho-ipo': {
     priceBandLow: 275,
@@ -709,6 +731,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-19',
     gmp: 48,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Technology',
+    industry: 'Auto-Tech & Digital Marketplace',
   },
   'haldirams-snacks-foods-ipo': {
     priceBandLow: 520,
@@ -721,6 +745,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-22',
     gmp: 120,
     registrar: 'Link Intime India Private Limited',
+    sector: 'FMCG',
+    industry: 'Packaged Foods & Confectionery',
   },
   'prestige-hospitality-ventures-ipo': {
     priceBandLow: 180,
@@ -733,6 +759,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-23',
     gmp: 32,
     registrar: 'KFin Technologies Limited',
+    sector: 'Hospitality & Real Estate',
+    industry: 'Hotels, Resorts & Commercial Real Estate',
   },
   'curefoods-ipo': {
     priceBandLow: 215,
@@ -745,6 +773,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-24',
     gmp: 38,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Food & Beverage',
+    industry: 'Cloud Kitchens & Multi-Brand Food Network',
   },
   'cult-fit-ipo': {
     priceBandLow: 260,
@@ -757,6 +787,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-26',
     gmp: 45,
     registrar: 'KFin Technologies Limited',
+    sector: 'Consumer Services',
+    industry: 'Fitness, Wellness & Sports Technology',
   },
   'kent-ro-ipo': {
     priceBandLow: 310,
@@ -769,6 +801,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-28',
     gmp: 50,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Electricals',
+    industry: 'Water Purification & Home Appliances',
   },
   'vlcc-ipo': {
     priceBandLow: 145,
@@ -781,6 +815,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-30',
     gmp: 22,
     registrar: 'KFin Technologies Limited',
+    sector: 'Personal Care & Wellness',
+    industry: 'Beauty Clinics, Skincare & Wellness',
   },
   'pharmeasy-ipo': {
     priceBandLow: 95,
@@ -793,6 +829,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2026-12-31',
     gmp: 15,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Healthcare & Pharma',
+    industry: 'Digital Pharmacy & Diagnostic Services',
   },
   'servify-ipo': {
     priceBandLow: 175,
@@ -805,6 +843,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-02',
     gmp: 28,
     registrar: 'Bigshare Services Pvt Ltd',
+    sector: 'Information Technology',
+    industry: 'Device Lifecycle Management & Tech Care',
   },
   'hero-future-energies-ipo': {
     priceBandLow: 240,
@@ -817,6 +857,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-04',
     gmp: 40,
     registrar: 'KFin Technologies Limited',
+    sector: 'Renewable Energy',
+    industry: 'Solar & Wind Clean Power Generation',
   },
   'flipkart-ipo': {
     priceBandLow: 680,
@@ -829,6 +871,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-15',
     gmp: 180,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Technology',
+    industry: 'E-Commerce Platform & Logistics',
   },
   'phonepe-ipo': {
     priceBandLow: 580,
@@ -841,6 +885,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-19',
     gmp: 145,
     registrar: 'KFin Technologies Limited',
+    sector: 'Financial Technology',
+    industry: 'UPI Payments & Financial Super-App',
   },
   'fabindia-ipo': {
     priceBandLow: 340,
@@ -853,6 +899,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-22',
     gmp: 45,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Retail',
+    industry: 'Ethnic Apparel & Home Lifestyle Products',
   },
   'oyo-ipo': {
     priceBandLow: 110,
@@ -865,6 +913,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-27',
     gmp: 25,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Hospitality & Travel',
+    industry: 'Budget Hospitality & Hotel Chain Aggregation',
   },
   'boat-ipo': {
     priceBandLow: 290,
@@ -877,6 +927,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-01-29',
     gmp: 60,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Electronics',
+    industry: 'Audio Wearables & Smart Electronics',
   },
   'bajaj-energy-ipo': {
     priceBandLow: 195,
@@ -889,6 +941,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-02-02',
     gmp: 28,
     registrar: 'KFin Technologies Limited',
+    sector: 'Power Generation',
+    industry: 'Thermal Power & Utilities',
   },
   'arohan-financial-ipo': {
     priceBandLow: 170,
@@ -901,6 +955,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-02-05',
     gmp: 20,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Financial Services',
+    industry: 'Microfinance & Financial Inclusion',
   },
   'droom-technology-ipo': {
     priceBandLow: 230,
@@ -913,6 +969,8 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     listingDate: '2027-02-10',
     gmp: 35,
     registrar: 'Link Intime India Private Limited',
+    sector: 'Consumer Technology',
+    industry: 'Automobile E-Commerce & AI Pricing',
   },
 };
 
@@ -961,23 +1019,29 @@ function buildIpoFromSources(params: {
   const igPrice = parseNumberSafe(ig?.['Price (₹)']);
   const validIgPrice = igPrice !== null && igPrice > 0 ? igPrice : null;
 
-  const priceBandHigh =
+  let priceBandHigh =
     retailCat?.maxPrice ??
     detail?.maxPrice ??
     detail?.issuePrice ??
     summary?.issuePrice ??
-    validIgPrice ??
     curatedUpcoming?.priceBandHigh ??
+    validIgPrice ??
     existing?.priceBandHigh ??
     null;
 
-  const priceBandLow =
+  let priceBandLow =
     retailCat?.minPrice ??
     detail?.minPrice ??
     curatedUpcoming?.priceBandLow ??
     priceBandHigh ??
     existing?.priceBandLow ??
     null;
+
+  if (priceBandLow !== null && priceBandHigh !== null && priceBandLow > priceBandHigh) {
+    const temp = priceBandLow;
+    priceBandLow = priceBandHigh;
+    priceBandHigh = temp;
+  }
 
   const igLot = parseNumberSafe(ig?.Lot);
   const lotSize =
@@ -1281,17 +1345,32 @@ function buildIpoFromSources(params: {
   const issuePrice =
     detail?.issuePrice ?? summary?.issuePrice ?? priceBandHigh ?? existing?.listing.issuePrice ?? null;
 
+  const resolvedActualListingPrice =
+    status === 'Listed'
+      ? (detail?.listing?.listingPrice ??
+         summary?.listingPrice ??
+         igInfo?.listingPrice ??
+         existing?.listing.actualListingPrice ??
+         null)
+      : null;
+
   const currentMarketPrice =
-    linkedStock?.currentPrice ??
-    (status === 'Listed' ? existing?.listing.currentMarketPrice ?? actualListingPrice : null);
-  const previousClose = linkedStock?.previousClose ?? existing?.listing.previousClose ?? null;
+    status === 'Listed'
+      ? (linkedStock?.currentPrice ??
+         existing?.listing.currentMarketPrice ??
+         resolvedActualListingPrice)
+      : null;
+  const previousClose =
+    status === 'Listed'
+      ? (linkedStock?.previousClose ?? existing?.listing.previousClose ?? null)
+      : null;
 
   const priceStatus =
     status !== 'Listed'
       ? 'UNAVAILABLE'
       : linkedStock
         ? linkedStock.provenance.qualityStatus
-        : actualListingPrice !== null
+        : resolvedActualListingPrice !== null
           ? 'DELAYED'
           : 'UNAVAILABLE';
 
@@ -1336,8 +1415,8 @@ function buildIpoFromSources(params: {
       existingRealLogo ||
       linkedRealLogo ||
       fallbackProxyLogo,
-    sector: detail?.sector || existing?.sector || 'Capital Markets',
-    industry: detail?.sector || existing?.industry || `${category} Equity Issue`,
+    sector: curatedUpcoming?.sector || detail?.sector || existing?.sector || 'Capital Markets',
+    industry: curatedUpcoming?.industry || detail?.sector || existing?.industry || `${category} Equity Issue`,
     category,
     status,
     exchanges,
@@ -1393,23 +1472,23 @@ function buildIpoFromSources(params: {
     },
     listing: {
       issuePrice,
-      actualListingPrice,
-      listingExchange,
-      stockSymbol,
-      currentMarketPrice,
-      previousClose,
-      listingDate,
+      actualListingPrice: status === 'Listed' ? resolvedActualListingPrice : null,
+      listingExchange: status === 'Listed' ? listingExchange : null,
+      stockSymbol: status === 'Listed' ? stockSymbol : null,
+      currentMarketPrice: status === 'Listed' ? currentMarketPrice : null,
+      previousClose: status === 'Listed' ? previousClose : null,
+      listingDate: status === 'Listed' ? listingDate : null,
       priceStatus,
       provenance: {
         source:
-          linkedStock
+          status === 'Listed' && linkedStock
             ? `${linkedStock.exchange} Live Quote & Listing Record`
-            : actualListingPrice !== null
-              ? 'Exchange Listing Price (via Groww / InvestorGain)'
-              : 'Pending Listing',
+            : status === 'Listed' && resolvedActualListingPrice !== null
+              ? 'Exchange Settlement Record'
+              : 'Listing Awaiting Exchange Debut',
         retrievedAt: nowIso,
         effectiveDate: listingDate || nowIso.slice(0, 10),
-        verificationStatus: linkedStock || actualListingPrice !== null ? 'Verified' : 'Unverified',
+        verificationStatus: linkedStock || resolvedActualListingPrice !== null ? 'Verified' : 'Unverified',
         qualityStatus: priceStatus,
         currency: 'INR',
         unit: 'INR per share',
