@@ -194,6 +194,39 @@ function normalizeStockDetail(stock: any) {
   };
 }
 
+async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
+  // Keep the number of upstream requests bounded for Cloudflare Pages.
+  // Quotes for other symbols remain explicitly marked as snapshot values.
+  const MAX_QUOTE_LOOKUPS = 20;
+  const CONCURRENCY = 4;
+  const result = [...stocks];
+  let successful = 0;
+  let next = 0;
+  async function worker() {
+    while (next < Math.min(stocks.length, MAX_QUOTE_LOOKUPS)) {
+      const index = next++;
+      const stock = stocks[index];
+      const quote = await fetchYahooQuote(stock);
+      if (!quote) continue;
+      successful++;
+      result[index] = {
+        ...stock,
+        ...quote,
+        provenance: {
+          ...(stock.provenance || {}),
+          source: quote.quoteSource,
+          retrievedAt: quote.lastTradeTime,
+          verificationStatus: "Third-party quote; may be delayed",
+          qualityStatus: "UNOFFICIAL_DELAYED_OR_LATEST",
+          currency: quote.quoteCurrency,
+        },
+      };
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, stocks.length, MAX_QUOTE_LOOKUPS) }, () => worker()));
+  return { stocks: result, successful };
+}
+
 function normalizeStocks(snapshot: Snapshot): any[] {
   const base = Array.isArray(snapshot.stocks) ? [...snapshot.stocks] : [];
   const seen = new Set(base.map((s) => String(s.symbol || "").toUpperCase()));
