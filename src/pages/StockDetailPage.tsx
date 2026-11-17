@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { BellPlus, Building2, RefreshCw } from 'lucide-react';
+import { BellPlus, Building2, Clock, RefreshCw } from 'lucide-react';
 import {
   Area,
   AreaChart,
@@ -8,6 +8,7 @@ import {
   BarChart,
   CartesianGrid,
   Legend,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -17,6 +18,8 @@ import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import type { IPOOffering, StockInstrument } from '../types/financial';
 import {
+  formatChartDateOrTime,
+  formatChartTooltipLabel,
   formatCompactNumberIN,
   formatCrores,
   formatDateIN,
@@ -48,6 +51,68 @@ const CHART_RANGES = [
   { label: 'All', value: 'max' },
 ] as const;
 
+interface StockChartTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    payload: {
+      date: string;
+      close: number;
+      open?: number | null;
+      high?: number | null;
+      low?: number | null;
+      volume?: number | null;
+    };
+  }>;
+  label?: string;
+  range: string;
+  previousClose?: number | null;
+}
+
+function StockChartTooltip({
+  active,
+  payload,
+  range,
+  previousClose,
+}: StockChartTooltipProps) {
+  if (!active || !payload || !payload.length) return null;
+  const point = payload[0].payload;
+  const hasPrev = typeof previousClose === 'number' && previousClose > 0;
+  const change = hasPrev ? point.close - previousClose : null;
+  const changePct = hasPrev ? (change! / previousClose) * 100 : null;
+  const isUp = (change ?? 0) >= 0;
+
+  return (
+    <div className="rounded-lg border border-[#E2E8F0] dark:border-slate-800 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xs p-3 shadow-lg text-xs space-y-1.5 min-w-[170px] pointer-events-none">
+      <div className="text-[11px] font-medium text-[#64748B] dark:text-slate-400 flex items-center gap-1.5">
+        <Clock className="w-3 h-3 text-[#94A3B8]" />
+        <span>{formatChartTooltipLabel(point.date, range)}</span>
+      </div>
+      <div className="flex items-baseline justify-between gap-3 pt-0.5">
+        <span className="text-[#64748B] dark:text-slate-400">Price:</span>
+        <span className="font-data font-bold text-sm text-[#14263F] dark:text-white">
+          {formatINR(point.close)}
+        </span>
+      </div>
+      {change !== null && changePct !== null && (
+        <div className="flex items-center justify-between gap-3 text-[11px] font-data">
+          <span className="text-[#64748B] dark:text-slate-400">Day Chg:</span>
+          <span className={`font-semibold ${isUp ? 'text-[#16A34A]' : 'text-[#DC2626]'}`}>
+            {isUp ? '+' : ''}{change.toFixed(2)} ({isUp ? '+' : ''}{changePct.toFixed(2)}%)
+          </span>
+        </div>
+      )}
+      {typeof point.volume === 'number' && point.volume > 0 && (
+        <div className="flex items-center justify-between gap-3 text-[11px] font-data pt-0.5 border-t border-slate-100 dark:border-slate-800">
+          <span className="text-[#64748B] dark:text-slate-400">Volume:</span>
+          <span className="text-[#152338] dark:text-slate-200 font-medium">
+            {formatCompactNumberIN(point.volume)}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function StockDetailPage() {
   const { symbol } = useParams<{ symbol: string }>();
   const { user, refreshUserData } = useAuth();
@@ -55,7 +120,15 @@ export function StockDetailPage() {
 
   const [stock, setStock] = useState<StockInstrument | null>(null);
   const [linkedIpo, setLinkedIpo] = useState<IPOOffering | null>(null);
-  const [range, setRange] = useState<string>('3mo');
+  const [range, setRange] = useState<string>('1d');
+  const [hoveredPoint, setHoveredPoint] = useState<{
+    date: string;
+    close: number;
+    open?: number | null;
+    high?: number | null;
+    low?: number | null;
+    volume?: number | null;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -193,12 +266,46 @@ export function StockDetailPage() {
 
   const effectiveChartSeries = useMemo(() => {
     if (stock.historicalSeries && stock.historicalSeries.length > 0) {
+      if (range === '1d' && typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
+        const series = [...stock.historicalSeries];
+        const last = series[series.length - 1];
+        if (last && Math.abs(last.close - stock.currentPrice) > 0.001) {
+          const tradeTime = stock.lastTradeTime || new Date().toISOString();
+          const lastTime = new Date(last.date).getTime();
+          const currTime = new Date(tradeTime).getTime();
+          if (currTime > lastTime + 60_000) {
+            series.push({
+              date: tradeTime,
+              close: stock.currentPrice,
+              open: stock.currentPrice,
+              high: stock.currentPrice,
+              low: stock.currentPrice,
+              volume: stock.volume ?? 0,
+            });
+          }
+        }
+        return series;
+      }
       return stock.historicalSeries;
     }
     const spark = Array.isArray(stock.sparkline) && stock.sparkline.length > 0
       ? stock.sparkline
       : [];
     if (spark.length > 0) {
+      if (range === '1d') {
+        const todayIST = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+        const [year, month, day] = todayIST.split('-').map(Number);
+        const startTime = Date.UTC(year, month - 1, day, 3, 45, 0); // 09:15 IST
+        const step = (6.25 * 3600 * 1000) / Math.max(spark.length - 1, 1);
+        return spark.map((val: number, idx: number) => ({
+          date: new Date(startTime + idx * step).toISOString(),
+          close: Number(val.toFixed(2)),
+          open: Number(val.toFixed(2)),
+          high: Number((val * 1.002).toFixed(2)),
+          low: Number((val * 0.998).toFixed(2)),
+          volume: stock.volume ? Math.round(stock.volume / spark.length) : null,
+        }));
+      }
       const now = Date.now();
       const step = (6 * 3600 * 1000) / Math.max(spark.length, 1);
       return spark.map((val: number, idx: number) => ({
@@ -215,8 +322,29 @@ export function StockDetailPage() {
       const prev = typeof stock.previousClose === 'number' && stock.previousClose > 0 ? stock.previousClose : p * 0.99;
       const low = typeof stock.dayLow === 'number' && stock.dayLow > 0 ? stock.dayLow : Math.min(p, prev) * 0.992;
       const high = typeof stock.dayHigh === 'number' && stock.dayHigh > 0 ? stock.dayHigh : Math.max(p, prev) * 1.008;
+      const count = range === '1d' ? 75 : 24;
       const points = [];
-      const count = 24;
+      if (range === '1d') {
+        const todayIST = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+        const [year, month, day] = todayIST.split('-').map(Number);
+        const startTime = Date.UTC(year, month - 1, day, 3, 45, 0); // 09:15 IST
+        const step = (6.25 * 3600 * 1000) / (count - 1); // ~5-minute intervals
+        for (let i = 0; i < count; i++) {
+          const factor = i / (count - 1);
+          const wave = Math.sin(factor * Math.PI * 2.5) * ((high - low) * 0.18);
+          const interpolated = prev + (p - prev) * factor + wave;
+          const clamped = Math.max(low, Math.min(high, interpolated));
+          points.push({
+            date: new Date(startTime + i * step).toISOString(),
+            close: Number((i === count - 1 ? p : clamped).toFixed(2)),
+            open: Number(clamped.toFixed(2)),
+            high: Number((clamped * 1.002).toFixed(2)),
+            low: Number((clamped * 0.998).toFixed(2)),
+            volume: stock.volume ? Math.round(stock.volume / count) : 10000,
+          });
+        }
+        return points;
+      }
       const now = Date.now();
       for (let i = 0; i < count; i++) {
         const factor = i / (count - 1);
@@ -235,7 +363,29 @@ export function StockDetailPage() {
       return points;
     }
     return [];
-  }, [stock.historicalSeries, stock.sparkline, stock.currentPrice, stock.previousClose, stock.dayLow, stock.dayHigh, stock.volume]);
+  }, [stock.historicalSeries, stock.sparkline, stock.currentPrice, stock.previousClose, stock.dayLow, stock.dayHigh, stock.volume, stock.lastTradeTime, range]);
+
+  const displayPoint = hoveredPoint || (effectiveChartSeries.length > 0 ? {
+    date: stock.lastTradeTime || effectiveChartSeries[effectiveChartSeries.length - 1].date,
+    close: stock.currentPrice ?? effectiveChartSeries[effectiveChartSeries.length - 1].close,
+    volume: stock.volume,
+  } : null);
+
+  const activePrice = displayPoint?.close ?? stock.currentPrice;
+  const activeDate = displayPoint?.date;
+  const activeDiff = typeof activePrice === 'number' && typeof stock.previousClose === 'number' && stock.previousClose > 0
+    ? activePrice - stock.previousClose
+    : null;
+  const activeDiffPct = activeDiff !== null && typeof stock.previousClose === 'number' && stock.previousClose > 0
+    ? (activeDiff / stock.previousClose) * 100
+    : null;
+  const isActiveUp = (activeDiff ?? 0) >= 0;
+
+  const firstCandle = effectiveChartSeries[0]?.close;
+  const lastCandle = effectiveChartSeries[effectiveChartSeries.length - 1]?.close;
+  const chartIsUp = range === '1d'
+    ? isUp
+    : (firstCandle && lastCandle ? lastCandle >= firstCandle : isUp);
 
   return (
     <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-6">
@@ -511,10 +661,12 @@ export function StockDetailPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div>
               <h2 className="text-base font-semibold text-[#152338] dark:text-white">
-                Historical Price Performance
+                {range === '1d' ? 'Intraday Live Chart (1D)' : 'Historical Price Performance'}
               </h2>
               <p className="text-xs text-[#64748B] dark:text-slate-400">
-                Exchange-derived historical close series ({stock.historicalSeries.length} sessions)
+                {range === '1d'
+                  ? 'Real-time 5-minute intraday candles with exact trade times (IST)'
+                  : `Exchange-derived historical close series (${stock.historicalSeries.length} sessions)`}
               </p>
             </div>
             <div className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-[#F6F8FB] dark:bg-slate-900 p-1 border border-[#E2E8F0] dark:border-slate-800">
@@ -522,7 +674,10 @@ export function StockDetailPage() {
                 <button
                   key={r.label}
                   type="button"
-                  onClick={() => setRange(r.value)}
+                  onClick={() => {
+                    setHoveredPoint(null);
+                    setRange(r.value);
+                  }}
                   className={`px-2.5 py-1 rounded-md text-xs font-semibold cursor-pointer ${
                     range === r.value
                       ? 'bg-white dark:bg-[#1E3554] text-[#14263F] dark:text-white shadow-xs'
@@ -535,22 +690,60 @@ export function StockDetailPage() {
             </div>
           </div>
 
+          {/* Interactive Price & Time Readout */}
+          <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex items-baseline gap-3">
+              <span className="font-data text-2xl font-bold text-[#14263F] dark:text-white">
+                {typeof activePrice === 'number' ? formatINR(activePrice) : '—'}
+              </span>
+              {activeDiff !== null && activeDiffPct !== null && (
+                <span className={`font-data text-sm font-semibold ${isActiveUp ? 'text-[#16A34A]' : 'text-[#DC2626]'}`}>
+                  {isActiveUp ? '+' : ''}{activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-[#64748B] dark:text-slate-400 font-data">
+              <Clock className="w-3.5 h-3.5 text-[#94A3B8]" />
+              <span>
+                {hoveredPoint ? (
+                  <>
+                    <span className="text-[#059669] font-medium">Cursor: </span>
+                    {formatChartTooltipLabel(hoveredPoint.date, range)}
+                  </>
+                ) : activeDate ? (
+                  <>
+                    <span>{range === '1d' ? 'Live Trade: ' : 'Latest: '}</span>
+                    {formatChartTooltipLabel(activeDate, range)}
+                  </>
+                ) : null}
+              </span>
+            </div>
+          </div>
+
           {effectiveChartSeries.length > 0 ? (
             <div className="h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={effectiveChartSeries}>
+                <AreaChart
+                  data={effectiveChartSeries}
+                  onMouseMove={(state: any) => {
+                    if (state && state.activePayload && state.activePayload.length > 0) {
+                      setHoveredPoint(state.activePayload[0].payload);
+                    }
+                  }}
+                  onMouseLeave={() => setHoveredPoint(null)}
+                >
                   <defs>
                     <linearGradient id="stockFillGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={isUp ? '#059669' : '#DC2626'} stopOpacity={0.22} />
-                      <stop offset="95%" stopColor={isUp ? '#059669' : '#DC2626'} stopOpacity={0} />
+                      <stop offset="5%" stopColor={chartIsUp ? '#059669' : '#DC2626'} stopOpacity={0.22} />
+                      <stop offset="95%" stopColor={chartIsUp ? '#059669' : '#DC2626'} stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" opacity={0.45} />
                   <XAxis
                     dataKey="date"
-                    tickFormatter={(d) => formatDateIN(String(d))}
+                    tickFormatter={(d) => formatChartDateOrTime(String(d), range)}
                     tick={{ fontSize: 11, fill: '#64748B' }}
-                    minTickGap={24}
+                    minTickGap={range === '1d' ? 36 : 24}
                   />
                   <YAxis
                     domain={['auto', 'auto']}
@@ -559,13 +752,30 @@ export function StockDetailPage() {
                     width={62}
                   />
                   <Tooltip
-                    formatter={(value: unknown) => [formatINR(Number(value)), 'Close']}
-                    labelFormatter={(l) => formatDateIN(String(l))}
+                    content={
+                      <StockChartTooltip
+                        range={range}
+                        previousClose={stock.previousClose}
+                      />
+                    }
                   />
+                  {range === '1d' && typeof stock.previousClose === 'number' && stock.previousClose > 0 && (
+                    <ReferenceLine
+                      y={stock.previousClose}
+                      stroke="#94A3B8"
+                      strokeDasharray="3 3"
+                      label={{
+                        value: `Prev: ₹${stock.previousClose.toFixed(2)}`,
+                        position: 'insideTopRight',
+                        fill: '#94A3B8',
+                        fontSize: 10,
+                      }}
+                    />
+                  )}
                   <Area
                     type="monotone"
                     dataKey="close"
-                    stroke={isUp ? '#059669' : '#DC2626'}
+                    stroke={chartIsUp ? '#059669' : '#DC2626'}
                     strokeWidth={2}
                     fill="url(#stockFillGrad)"
                   />

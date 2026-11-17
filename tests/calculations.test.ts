@@ -9,6 +9,9 @@ import {
   formatCrores,
   formatINR,
   formatPercent,
+  formatTimeIN,
+  formatChartDateOrTime,
+  formatChartTooltipLabel,
 } from '../src/utils/calculations.ts';
 
 describe('PriceAlerter Financial Calculations', () => {
@@ -83,5 +86,22 @@ describe('PriceAlerter Financial Calculations', () => {
     assert.equal(formatCrores(undefined), 'Unavailable');
     assert.equal(formatPercent(null), 'Unavailable');
     assert.equal(formatPercent(12.345), '+12.35%');
+  });
+
+  it('formats chart dates and intraday timestamps in IST correctly', () => {
+    // 03:45 UTC = 09:15 AM IST
+    const sampleUtc = '2026-11-17T03:45:00.000Z';
+    const formattedTime = formatTimeIN(sampleUtc);
+    assert.match(formattedTime, /09:15/);
+
+    const chartTime1D = formatChartDateOrTime(sampleUtc, '1d');
+    assert.match(chartTime1D, /09:15/);
+
+    const chartDate1M = formatChartDateOrTime(sampleUtc, '1mo');
+    assert.match(chartDate1M, /17/);
+
+    const tooltipLabel1D = formatChartTooltipLabel(sampleUtc, '1d');
+    assert.match(tooltipLabel1D, /09:15/);
+    assert.match(tooltipLabel1D, /IST/);
   });
 });

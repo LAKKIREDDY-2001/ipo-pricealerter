@@ -89,6 +89,101 @@ export function formatTimestampIN(isoString: string | null | undefined): string 
   );
 }
 
+export function formatTimeIN(isoString: string | null | undefined): string {
+  if (!isoString) return '';
+  const parsed = new Date(isoString);
+  if (Number.isNaN(parsed.getTime())) return isoString;
+  return parsed.toLocaleTimeString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'Asia/Kolkata',
+  });
+}
+
+export function formatChartDateOrTime(isoString: string | null | undefined, range: string): string {
+  if (!isoString) return '';
+  const parsed = new Date(isoString);
+  if (Number.isNaN(parsed.getTime())) return isoString;
+  if (range === '1d') {
+    return parsed.toLocaleTimeString('en-IN', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'Asia/Kolkata',
+    });
+  }
+  if (range === '5d') {
+    return (
+      parsed.toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'short',
+        timeZone: 'Asia/Kolkata',
+      }) +
+      ' ' +
+      parsed.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Asia/Kolkata',
+      })
+    );
+  }
+  return parsed.toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'Asia/Kolkata',
+  });
+}
+
+export function formatChartTooltipLabel(isoString: string | null | undefined, range: string): string {
+  if (!isoString) return '';
+  const parsed = new Date(isoString);
+  if (Number.isNaN(parsed.getTime())) return isoString;
+  if (range === '1d') {
+    return (
+      parsed.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Asia/Kolkata',
+      }) +
+      ' IST (' +
+      parsed.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'Asia/Kolkata',
+      }) +
+      ')'
+    );
+  }
+  if (range === '5d') {
+    return (
+      parsed.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'Asia/Kolkata',
+      }) +
+      ' at ' +
+      parsed.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Asia/Kolkata',
+      }) +
+      ' IST'
+    );
+  }
+  return parsed.toLocaleDateString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'Asia/Kolkata',
+  });
+}
+
 /**
  * Hypothetical GMP estimation formula:
  * Estimated listing price = IPO upper price + GMP

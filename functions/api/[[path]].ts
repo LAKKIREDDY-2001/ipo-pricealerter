@@ -155,40 +155,48 @@ async function fetchYahooQuote(stock: any, force = false): Promise<any | null> {
 async function fetchYahooHistory(stock: any, requestedRange: string, force = false): Promise<any[]> {
   const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
   if (!symbol) return [];
-  const ticker = symbol.includes(".") || symbol.startsWith("^") ? symbol : `${symbol}.NS`;
-  const range = ["1d", "5d", "1mo", "3mo", "6mo", "1y", "5y"].includes(requestedRange) ? requestedRange : "3mo";
-  const cacheKey = `${ticker}:${range}`;
-  if (!force) {
-    const cached = historyCache.get(cacheKey);
-    if (cached && cached.expiresAt > Date.now()) return cached.history;
+  const range = ["1d", "5d", "1mo", "3mo", "6mo", "1y", "5y", "max"].includes(requestedRange) ? requestedRange : "1d";
+  const interval = range === "1d" ? "5m" : range === "5d" ? "15m" : range === "5y" || range === "max" ? "1wk" : "1d";
+  const candidates = symbol.includes(".") || symbol.startsWith("^")
+    ? [symbol]
+    : [`${symbol}.NS`, `${symbol}.BO`];
+
+  for (const ticker of candidates) {
+    const cacheKey = `${ticker}:${range}`;
+    if (!force) {
+      const cached = historyCache.get(cacheKey);
+      if (cached && cached.expiresAt > Date.now()) return cached.history;
+    }
+    try {
+      const endpoint = new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}`);
+      endpoint.searchParams.set("range", range === "max" ? "10y" : range);
+      endpoint.searchParams.set("interval", interval);
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!response.ok) continue;
+      const result = ((await response.json()) as YahooChart).chart?.result?.[0];
+      const timestamps = result?.timestamp || [];
+      const quote = result?.indicators?.quote?.[0];
+      if (!quote || !timestamps.length) continue;
+      const history = timestamps.map((timestamp, index) => ({
+        date: new Date(timestamp * 1000).toISOString(),
+        open: quote.open?.[index] ?? null,
+        high: quote.high?.[index] ?? null,
+        low: quote.low?.[index] ?? null,
+        close: quote.close?.[index] ?? null,
+        volume: quote.volume?.[index] ?? null,
+      })).filter((point) => typeof point.close === "number" && Number.isFinite(point.close));
+      if (history.length > 0) {
+        historyCache.set(cacheKey, { history, expiresAt: Date.now() + 60_000 });
+        return history;
+      }
+    } catch {
+      // try next candidate
+    }
   }
-  const interval = range === "1d" ? "5m" : range === "5d" ? "15m" : range === "5y" ? "1wk" : "1d";
-  try {
-    const endpoint = new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}`);
-    endpoint.searchParams.set("range", range);
-    endpoint.searchParams.set("interval", interval);
-    const response = await fetch(endpoint.toString(), {
-      headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
-      signal: AbortSignal.timeout(5000),
-    });
-    if (!response.ok) return [];
-    const result = ((await response.json()) as YahooChart).chart?.result?.[0];
-    const timestamps = result?.timestamp || [];
-    const quote = result?.indicators?.quote?.[0];
-    if (!quote) return [];
-    const history = timestamps.map((timestamp, index) => ({
-      date: new Date(timestamp * 1000).toISOString(),
-      open: quote.open?.[index] ?? null,
-      high: quote.high?.[index] ?? null,
-      low: quote.low?.[index] ?? null,
-      close: quote.close?.[index] ?? null,
-      volume: quote.volume?.[index] ?? null,
-    })).filter((point) => typeof point.close === "number" && Number.isFinite(point.close));
-    historyCache.set(cacheKey, { history, expiresAt: Date.now() + 60_000 });
-    return history;
-  } catch {
-    return [];
-  }
+  return [];
 }
 
 function normalizeStockDetail(stock: any) {
@@ -828,7 +836,7 @@ export async function onRequest(context: {
       );
       if (!stock) return json({ error: `Stock "${symbol}" not found` }, 404);
       const forceStock = url.searchParams.get("refresh") === "1";
-      const requestedRange = url.searchParams.get("range") || "3mo";
+      const requestedRange = url.searchParams.get("range") || "1d";
       const [enriched, history, companyInfo] = await Promise.all([
         fetchYahooQuote(stock, forceStock),
         fetchYahooHistory(stock, requestedRange, forceStock),
