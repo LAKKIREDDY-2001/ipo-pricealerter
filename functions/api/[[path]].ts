@@ -453,7 +453,7 @@ export async function onRequest(context: {
       });
     }
     if (pathname === "/api/market/macro") {
-      if (macroCache.data && macroCache.expiresAt > Date.now()) {
+      if (!url.searchParams.has("refresh") && macroCache.data && macroCache.expiresAt > Date.now()) {
         return json({ ok: true, data: macroCache.data, liveFeedReachable: macroCache.data.liveFeedReachable, dataSource: macroCache.data.dataSource });
       }
       const base = snapshot.benchmarks?.macro || snapshot.benchmarks || {};
