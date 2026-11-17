@@ -275,40 +275,27 @@ export const api = {
       const res = await request<{ ok: boolean; data: GlobalMacroSnapshot }>('/api/market/macro');
       if (res && res.data) return res.data;
     } catch {
-      // Fall through to embedded snapshot or static fallback
+      // Use the last published snapshot if the upstream feed is unavailable.
     }
     const snap = await loadStaticMarketSnapshot();
     if (snap.benchmarks?.macro) {
-      return snap.benchmarks.macro as GlobalMacroSnapshot;
+      return {
+        ...(snap.benchmarks.macro as GlobalMacroSnapshot),
+        source: 'Published snapshot',
+        liveFeedReachable: false,
+        dataSource: 'published-market-snapshot',
+      };
     }
     return {
-      usdInr: {
-        rate: 93.91,
-        bid: 93.90,
-        ask: 93.92,
-        lastRefreshed: '2026-11-16 15:20:48',
-      },
-      gold: {
-        price: 3872.32,
-        nominal: 'XAUUSD',
-        timestamp: '2026-11-16 15:20:50',
-      },
-      silver: {
-        price: 46.79,
-        nominal: 'XAGUSD',
-        timestamp: '2026-11-16 15:20:51',
-      },
-      brentCrude: {
-        price: 123.93,
-        unit: 'USD/barrel',
-        date: '2026-10-01',
-      },
-      us10yYield: {
-        rate: 5.13,
-        unit: '%',
-        date: '2026-10-01',
-      },
+      usdInr: null,
+      gold: null,
+      silver: null,
+      brentCrude: null,
+      us10yYield: null,
       retrievedAt: new Date().toISOString(),
+      source: 'Unavailable',
+      liveFeedReachable: false,
+      dataSource: 'unavailable',
     };
   },
 
