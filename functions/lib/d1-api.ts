@@ -9,7 +9,7 @@ interface D1Database {
   prepare(query: string): D1Statement;
   batch<T = unknown>(statements: D1Statement[]): Promise<D1Result<T>[]>;
 }
-export interface D1Env { DB?: D1Database; ADMIN_EMAIL?: string; }
+export interface D1Env { DB?: D1Database; ADMIN_EMAIL?: string; RESEND_API_KEY?: string; MAIL_FROM?: string; SITE_URL?: string; }
 const encoder = new TextEncoder();
 const nowIso = () => new Date().toISOString();
 const id = (prefix: string) => `${prefix}_${crypto.randomUUID().replace(/-/g, "")}`;
@@ -54,6 +54,23 @@ async function readBody(request: Request): Promise<any> {
   const length = Number(request.headers.get("content-length") || 0);
   if (length > 32_000) throw new Error("Request body is too large.");
   return await request.json();
+}
+async function sendPasswordResetEmail(env: D1Env, to: string, name: string, resetUrl: string): Promise<boolean> {
+  const apiKey = (env.RESEND_API_KEY || "").trim();
+  if (!apiKey) return false;
+  const from = (env.MAIL_FROM || "PriceAlerter <no-reply@pricealerter.in>").trim();
+  const safeName = name.replace(/[<>&"]/g, "");
+  const text = "Hello " + name + ",\n\nWe received a request to reset your PriceAlerter password.\nOpen this link within 30 minutes: " + resetUrl + "\n\nIf you did not request this, ignore this email.";
+  const html = "<div style='font-family:system-ui,sans-serif;max-width:560px;margin:auto;padding:24px;color:#152338'><h2>Reset your PriceAlerter password</h2><p>Hello " + safeName + ",</p><p>This one-time link expires in 30 minutes.</p><p><a href='" + resetUrl + "'>Set a new password</a></p><p>If you did not request this, ignore this email.</p></div>";
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { authorization: "Bearer " + apiKey, "content-type": "application/json" },
+      body: JSON.stringify({ from, to: [to], subject: "Reset your PriceAlerter password", text, html }),
+      signal: AbortSignal.timeout(8000),
+    });
+    return response.ok;
+  } catch { return false; }
 }
 async function authenticate(request: Request, db: D1Database): Promise<any | null> {
   const token = (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
@@ -125,7 +142,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     "users", "sessions", "watchlist_items", "price_alerts", "notifications",
     "ipo_offerings", "stock_instruments", "stock_quotes", "ipo_gmp_history",
     "audit_logs", "contact_messages", "rate_limits", "stock_quote_history",
-    "data_sync_runs",
+    "data_sync_runs", "password_reset_tokens",
   ];
   const tableRows = await db.prepare(
     "SELECT name FROM sqlite_master WHERE type='table' AND name IN (" +
@@ -184,7 +201,45 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const user = await authenticate(request, db);
     return json({ user: user ? publicUser(user) : null });
   }
-  if (path === "/api/auth/forgot-password" && method === "POST") return fail("Password reset email is not configured yet. Contact support to reset your account.", 501);
+  if (path === "/api/auth/forgot-password" && method === "POST") {
+    if (!(env.RESEND_API_KEY || "").trim()) return json({ error: "Password reset email is not configured. The site owner must add RESEND_API_KEY and MAIL_FROM in Cloudflare Pages settings.", code: "PASSWORD_RESET_EMAIL_NOT_CONFIGURED" }, 503);
+    const body = await readBody(request);
+    const email = String(body.email || "").trim().toLowerCase();
+    if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return fail("Enter a valid email address.", 400);
+    if (!(await rateLimit(db, "forgot:" + email, 3, 15 * 60_000))) return fail("Too many reset requests. Try again later.", 429);
+    const genericMessage = "If an account exists for that email, a password reset link has been sent.";
+    const user = await db.prepare("SELECT id,name,email FROM users WHERE email=?").bind(email).first<any>();
+    if (!user) return json({ message: genericMessage });
+    await db.prepare("DELETE FROM password_reset_tokens WHERE user_id=?").bind(user.id).run();
+    const token = toB64(crypto.getRandomValues(new Uint8Array(32))).replace(/\\+/g, "-").replace(/\\//g, "_").replace(/=+$/g, "");
+    const timestamp = nowIso();
+    await db.prepare("INSERT INTO password_reset_tokens(id,user_id,token_hash,expires_at,created_at) VALUES(?,?,?,?,?)")
+      .bind(id("prt"), user.id, await digest(token), new Date(Date.now() + 30 * 60_000).toISOString(), timestamp).run();
+    const resetUrl = new URL("/reset-password", (env.SITE_URL || url.origin).trim());
+    resetUrl.searchParams.set("token", token);
+    if (!(await sendPasswordResetEmail(env, user.email, user.name, resetUrl.toString()))) {
+      await db.prepare("DELETE FROM password_reset_tokens WHERE user_id=?").bind(user.id).run();
+      return fail("We could not send the reset email. Please try again later or contact support.", 502);
+    }
+    return json({ message: genericMessage });
+  }
+  if (path === "/api/auth/reset-password" && method === "POST") {
+    const body = await readBody(request);
+    const token = String(body.token || "").trim();
+    const password = String(body.password || "");
+    if (!token || token.length > 256) return fail("This password reset link is invalid or expired.", 400);
+    if (password.length < 10 || password.length > 128 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) return fail("Password must be 10–128 characters and include at least one letter and one number.", 400);
+    const reset = await db.prepare("SELECT id,user_id FROM password_reset_tokens WHERE token_hash=? AND expires_at>?")
+      .bind(await digest(token), nowIso()).first<any>();
+    if (!reset) return fail("This password reset link is invalid or expired. Request a new one.", 400);
+    const timestamp = nowIso();
+    await db.batch([
+      db.prepare("UPDATE users SET password_hash=?,updated_at=? WHERE id=?").bind(await newPasswordHash(password), timestamp, reset.user_id),
+      db.prepare("DELETE FROM sessions WHERE user_id=?").bind(reset.user_id),
+      db.prepare("DELETE FROM password_reset_tokens WHERE user_id=?").bind(reset.user_id),
+    ]);
+    return json({ message: "Your password has been reset. Please sign in with your new password." });
+  }
   if (path === "/api/auth/logout" && (method === "POST" || method === "DELETE")) {
     const token = (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
     if (token) await db.prepare("DELETE FROM sessions WHERE token_hash=?").bind(await digest(token)).run();
@@ -210,7 +265,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const body = await readBody(request);
     if (!(await verifyPassword(String(body.currentPassword || ""), user.password_hash))) return fail("Current password is incorrect.", 400);
     const next = String(body.newPassword || "");
-    if (next.length < 10 || next.length > 128) return fail("New password must be 10–128 characters.", 400);
+    if (next.length < 10 || next.length > 128 || !/[A-Za-z]/.test(next) || !/[0-9]/.test(next)) return fail("New password must be 10–128 characters and include at least one letter and one number.", 400);
     await db.prepare("UPDATE users SET password_hash=?,updated_at=? WHERE id=?").bind(await newPasswordHash(next), nowIso(), user.id).run();
     await db.prepare("DELETE FROM sessions WHERE user_id=?").bind(user.id).run();
     return json({ message: "Password changed. Please sign in again." });
