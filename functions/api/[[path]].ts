@@ -308,14 +308,14 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
   const header = info.header || {};
   const details = info.details || {};
   const profile = {
-    ceo: details.ceo || null,
-    managingDirector: details.managingDirector || null,
-    foundedYear: details.foundedYear || null,
-    businessSummary: details.businessSummary || null,
-    epsTtm: get("eps(ttm)", "eps"),
-    bookValue: get("book value"),
-    industryPe: get("industry p/e"),
-    faceValue: get("face value"),
+    ceo: details.ceo || stock.companyProfile?.ceo || null,
+    managingDirector: details.managingDirector || stock.companyProfile?.managingDirector || null,
+    foundedYear: details.foundedYear || stock.companyProfile?.foundedYear || null,
+    businessSummary: details.businessSummary || stock.companyProfile?.businessSummary || null,
+    epsTtm: get("eps(ttm)", "eps") ?? stock.companyProfile?.epsTtm ?? null,
+    bookValue: get("book value") ?? stock.companyProfile?.bookValue ?? null,
+    industryPe: get("industry p/e") ?? stock.companyProfile?.industryPe ?? null,
+    faceValue: get("face value") ?? stock.companyProfile?.faceValue ?? null,
   };
   const fundamentals = {
     ...(stock.fundamentals || {}),
@@ -333,6 +333,7 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
   return {
     ...stock,
     companyName: header.displayName || stock.companyName,
+    marketCapCr: get("mkt cap", "market cap") ?? stock.marketCapCr,
     sector: header.industryName || stock.sector,
     industry: header.industryName || stock.industry,
     logoUrl: header.logoUrl || stock.logoUrl,
@@ -395,6 +396,7 @@ function normalizeStocks(snapshot: Snapshot): any[] {
       id: `snapshot-${symbol}`,
       symbol,
       bseCode: item.bseCode || null,
+      searchId: item.searchId || null,
       companyName: item.name || symbol,
       exchange: item.bseCode ? "NSE/BSE" : "NSE",
       sector: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
@@ -711,12 +713,14 @@ export async function onRequest(context: {
       );
       if (!stock) return json({ error: `Stock "${symbol}" not found` }, 404);
       const requestedRange = url.searchParams.get("range") || "3mo";
-      const [enriched, history] = await Promise.all([
+      const [enriched, history, companyInfo] = await Promise.all([
         fetchYahooQuote(stock),
         fetchYahooHistory(stock, requestedRange),
+        fetchGrowwCompanyInfo(stock),
       ]);
+      const companyEnriched = mergeGrowwCompanyDetails(normalizeStockDetail(stock), companyInfo);
       let output = {
-        ...normalizeStockDetail(stock),
+        ...companyEnriched,
         ...(enriched || {}),
         historicalSeries: history.length ? history : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []),
         sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : []),
@@ -727,9 +731,9 @@ export async function onRequest(context: {
       }
       return json({
         stock: output,
-        fromUpstream: Boolean(enriched || history.length),
+        fromUpstream: Boolean(enriched || history.length || companyInfo),
         linkedIpo: null,
-        dataSource: enriched ? "Yahoo Finance" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
+        dataSource: enriched ? "Yahoo Finance" : companyInfo ? "Groww company profile / filings" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
         quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
       });
     }
