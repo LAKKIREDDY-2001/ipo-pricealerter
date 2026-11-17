@@ -32,11 +32,16 @@ export function MacroCommoditiesBar() {
     return () => clearInterval(interval);
   }, []);
 
-  const usdInr = macro?.usdInr?.rate ?? 93.91;
-  const gold = macro?.gold?.price ?? 3872.32;
-  const silver = macro?.silver?.price ?? 46.79;
-  const crude = macro?.brentCrude?.price ?? 123.93;
-  const us10y = macro?.us10yYield?.rate ?? 5.13;
+  const usdInr = macro?.usdInr?.rate;
+  const gold = macro?.gold?.price;
+  const silver = macro?.silver?.price;
+  const crude = macro?.brentCrude?.price;
+  const us10y = macro?.us10yYield?.rate;
+  const formatValue = (value: unknown, digits = 2) =>
+    typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
+  const sourceLabel = macro?.liveFeedReachable
+    ? 'Yahoo Finance · delayed / latest'
+    : 'Snapshot / last available';
 
   return (
     <div className="rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#0F172A] p-4 sm:p-5 shadow-xs transition-all">
@@ -51,25 +56,25 @@ export function MacroCommoditiesBar() {
                 Global Macro &amp; Commodities Feed
               </h3>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Alpha Vantage Live
+                <span className={`w-1.5 h-1.5 rounded-full ${macro?.liveFeedReachable ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+                {sourceLabel}
               </span>
             </div>
             <p className="text-[11px] text-[#64748B] dark:text-slate-400 mt-0.5">
-              Live forex rates, bullion spot, Brent energy &amp; sovereign yields impacting Indian equities &amp; IPO valuations
+              Latest available forex, bullion, Brent energy and sovereign-yield indicators. Third-party prices may be delayed.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <span className="text-[10px] text-[#94A3B8] font-data">
-            {macro?.retrievedAt ? `Synced ${macro.retrievedAt.slice(11, 19)} UTC` : 'Synced'}
+            {macro?.retrievedAt ? `Updated ${new Date(macro.retrievedAt).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST` : 'Update time unavailable'}
           </span>
           <button
             type="button"
             onClick={() => loadData(true)}
             disabled={refreshing}
-            title="Refresh Alpha Vantage indicators"
+            title="Refresh global macro indicators"
             className="inline-flex items-center gap-1 rounded-md border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-[#111C2E] px-2.5 py-1 text-[11px] font-semibold text-[#152338] dark:text-slate-200 hover:bg-[#EEF2F6] dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <RefreshCw className={`w-3 h-3 ${refreshing ? 'animate-spin' : ''}`} />
@@ -86,10 +91,10 @@ export function MacroCommoditiesBar() {
             <DollarSign className="w-3.5 h-3.5 text-blue-500" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
-            {loading ? '—' : `₹${usdInr.toFixed(2)}`}
+            {loading ? '—' : usdInr == null ? 'Unavailable' : `₹${formatValue(usdInr)}`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400 font-data">
-            Bid: {macro?.usdInr?.bid?.toFixed(2) ?? '93.90'} · Ask: {macro?.usdInr?.ask?.toFixed(2) ?? '93.92'}
+            Bid: {formatValue(macro?.usdInr?.bid)} · Ask: {formatValue(macro?.usdInr?.ask)}
           </div>
         </div>
 
@@ -100,7 +105,7 @@ export function MacroCommoditiesBar() {
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
-            {loading ? '—' : `$${formatNumberIN(gold)}/oz`}
+            {loading ? '—' : gold == null ? 'Unavailable' : `${formatNumberIN(gold)}/oz`}
           </div>
           <div className="mt-0.5 text-[10px] text-amber-600 dark:text-amber-400 font-semibold">
             Bullion Spot Benchmark
@@ -114,7 +119,7 @@ export function MacroCommoditiesBar() {
             <Sparkles className="w-3.5 h-3.5 text-slate-400" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
-            {loading ? '—' : `$${silver.toFixed(2)}/oz`}
+            {loading ? '—' : silver == null ? 'Unavailable' : `${formatValue(silver)}/oz`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400 font-semibold">
             Industrial &amp; Jewellery
@@ -128,7 +133,7 @@ export function MacroCommoditiesBar() {
             <Flame className="w-3.5 h-3.5 text-rose-500" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
-            {loading ? '—' : `$${crude.toFixed(2)}/bbl`}
+            {loading ? '—' : crude == null ? 'Unavailable' : `${formatValue(crude)}/bbl`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400">
             Energy Input Cost
@@ -142,7 +147,7 @@ export function MacroCommoditiesBar() {
             <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
-            {loading ? '—' : `${us10y.toFixed(2)}%`}
+            {loading ? '—' : us10y == null ? 'Unavailable' : `${formatValue(us10y)}%`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400">
             Global Risk-Free Rate
