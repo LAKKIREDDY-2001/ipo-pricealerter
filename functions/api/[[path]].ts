@@ -78,7 +78,7 @@ async function fetchYahooTickerQuote(ticker: string): Promise<any | null> {
   const cached = quoteCache.get(ticker);
   if (cached && cached.expiresAt > Date.now()) return cached.quote;
   try {
-    const endpoint = new URL(\`https://query1.finance.yahoo.com/v8/finance/chart/\${encodeURIComponent(ticker)}\`);
+    const endpoint = new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}`);
     endpoint.searchParams.set("range", "1d");
     endpoint.searchParams.set("interval", "5m");
     const response = await fetch(endpoint.toString(), {
@@ -123,7 +123,7 @@ async function fetchYahooQuote(stock: any): Promise<any | null> {
   if (!symbol) return null;
   const candidates = symbol.includes(".") || symbol.startsWith("^") || symbol.includes("=") || symbol.endsWith("=F")
     ? [symbol]
-    : [\`\${symbol}.NS\`, \`\${symbol}.BO\`];
+    : [`${symbol}.NS`, `${symbol}.BO`];
   for (const ticker of candidates) {
     const quote = await fetchYahooTickerQuote(ticker);
     if (quote) return quote;
@@ -134,14 +134,14 @@ async function fetchYahooQuote(stock: any): Promise<any | null> {
 async function fetchYahooHistory(stock: any, requestedRange: string): Promise<any[]> {
   const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
   if (!symbol) return [];
-  const ticker = symbol.includes(".") || symbol.startsWith("^") ? symbol : \`\${symbol}.NS\`;
+  const ticker = symbol.includes(".") || symbol.startsWith("^") ? symbol : `${symbol}.NS`;
   const range = ["1d", "5d", "1mo", "3mo", "6mo", "1y", "5y"].includes(requestedRange) ? requestedRange : "3mo";
-  const cacheKey = \`\${ticker}:\${range}\`;
+  const cacheKey = `${ticker}:${range}`;
   const cached = historyCache.get(cacheKey);
   if (cached && cached.expiresAt > Date.now()) return cached.history;
   const interval = range === "1d" ? "5m" : range === "5d" ? "15m" : range === "5y" ? "1wk" : "1d";
   try {
-    const endpoint = new URL(\`https://query1.finance.yahoo.com/v8/finance/chart/\${encodeURIComponent(ticker)}\`);
+    const endpoint = new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}`);
     endpoint.searchParams.set("range", range);
     endpoint.searchParams.set("interval", interval);
     const response = await fetch(endpoint.toString(), {
