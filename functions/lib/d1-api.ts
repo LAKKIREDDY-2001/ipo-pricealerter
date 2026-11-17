@@ -107,7 +107,9 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   const isAccountRoute = path.startsWith("/api/auth/") || path === "/api/watchlist" || path.startsWith("/api/watchlist/") ||
     path === "/api/alerts" || path.startsWith("/api/alerts/") || path === "/api/notifications" || path.startsWith("/api/notifications/");
   if (!isAccountRoute && path !== "/api/health") return null;
-  if (!env.DB) return fail("Cloudflare D1 is not connected. Add a D1 binding named DB and redeploy.", 503);
+  // Keep the existing Pages API operational until the owner attaches D1.
+  // The legacy route handler below will serve health/auth fallbacks in that case.
+  if (!env.DB) return null;
   const db = env.DB;
 
   if (path === "/api/health" && method === "GET") {
