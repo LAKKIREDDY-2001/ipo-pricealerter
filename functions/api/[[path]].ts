@@ -289,9 +289,10 @@ export async function onRequest(context: {
         status: "ok",
         platform: "PriceAlerter",
         runtime: "cloudflare-pages-functions",
-        backendMode: "read-only-static-snapshot",
+        backendMode: "Pages Functions with snapshot IPO data and on-demand quotes",
         persistentDatabaseConfigured: false,
-        liveProviderConnected: false,
+        liveQuoteProvider: "Yahoo Finance (best effort, may be delayed)",
+        ipoProvider: "build-time snapshot",
         counts: {
           stocks: normalizeStocks(snapshot).length,
           ipos: snapshot.ipos?.length || 0,
@@ -387,7 +388,7 @@ export async function onRequest(context: {
     if (pathname === "/api/automation/status") {
       return json({
         running: false,
-        backendMode: "read-only-static-snapshot",
+        backendMode: "Pages Functions with snapshot IPO data and on-demand quotes",
         marketSession: "UNKNOWN",
         liveClients: 0,
         lastRunAt: null,
