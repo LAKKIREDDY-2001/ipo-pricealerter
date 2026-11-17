@@ -111,24 +111,57 @@ function FloatingBackToTop() {
 }
 
 function MobileQuickNav() {
+  const [moreOpen, setMoreOpen] = React.useState(false);
   const items = [
     { label: 'Home', to: '/', icon: Home, end: true },
     { label: 'IPOs', to: '/ipo', icon: Building2 },
     { label: 'GMP', to: '/gmp', icon: BadgePercent },
     { label: 'Stocks', to: '/live-prices', icon: ChartNoAxesCombined },
-    { label: 'More', to: '/calculators', icon: Grid2X2 },
+  ];
+  const moreItems = [
+    { label: 'IPO Calendar', to: '/calendar' },
+    { label: 'Listed IPOs', to: '/listed' },
+    { label: 'Stock Screener', to: '/stock-screener' },
+    { label: 'Market Insights', to: '/market-insights' },
+    { label: 'Watchlist', to: '/watchlist' },
+    { label: 'Alerts', to: '/alerts' },
+    { label: 'Calculators', to: '/calculators' },
+    { label: 'Learning Library', to: '/blog' },
   ];
   return (
-    <nav aria-label="Quick navigation" className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/90 dark:border-slate-700 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-lg pb-safe shadow-[0_-8px_24px_rgba(15,23,42,0.08)]">
-      <div className="mx-auto grid max-w-xl grid-cols-5 px-2 pt-2 pb-1">
-        {items.map(({ label, to, icon: Icon, end }) => (
-          <NavLink key={to} to={to} end={end} aria-label={label}
-            className={({ isActive }) => `flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl px-1 text-[10px] font-semibold transition-colors ${isActive ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}>
-            {({ isActive }) => <><Icon className={`h-5 w-5 ${isActive ? 'stroke-[2.5]' : ''}`} /><span>{label}</span></>}
-          </NavLink>
-        ))}
-      </div>
-    </nav>
+    <>
+      {moreOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 bg-slate-950/30" onClick={() => setMoreOpen(false)} aria-hidden="true" />
+      )}
+      {moreOpen && (
+        <div id="mobile-more-menu" role="dialog" aria-label="More navigation" className="lg:hidden fixed inset-x-3 bottom-[5.25rem] z-50 mx-auto max-w-xl rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C2E] p-3 shadow-2xl">
+          <div className="mb-2 flex items-center justify-between px-1">
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Explore PriceAlerter</p>
+            <button type="button" onClick={() => setMoreOpen(false)} aria-label="Close more navigation" className="rounded-lg px-2 py-1 text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {moreItems.map((item) => (
+              <NavLink key={item.to} to={item.to} onClick={() => setMoreOpen(false)} className={({ isActive }) => `rounded-xl border px-3 py-3 text-xs font-semibold transition-colors ${isActive ? 'border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300' : 'border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800'}`}>
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      )}
+      <nav aria-label="Quick navigation" className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/90 dark:border-slate-700 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-lg pb-safe shadow-[0_-8px_24px_rgba(15,23,42,0.08)]">
+        <div className="mx-auto grid max-w-xl grid-cols-5 px-2 pt-2 pb-1">
+          {items.map(({ label, to, icon: Icon, end }) => (
+            <NavLink key={to} to={to} end={end} aria-label={label}
+              className={({ isActive }) => `flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl px-1 text-[10px] font-semibold transition-colors ${isActive ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}>
+              {({ isActive }) => <><Icon className={`h-5 w-5 ${isActive ? 'stroke-[2.5]' : ''}`} /><span>{label}</span></>}
+            </NavLink>
+          ))}
+          <button type="button" aria-label="More navigation" aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen((open) => !open)} className={`flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl px-1 text-[10px] font-semibold transition-colors ${moreOpen ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}>
+            <Grid2X2 className="h-5 w-5" /><span>More</span>
+          </button>
+        </div>
+      </nav>
+    </>
   );
 }
 
