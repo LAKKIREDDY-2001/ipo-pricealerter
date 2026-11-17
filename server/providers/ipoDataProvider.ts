@@ -215,18 +215,13 @@ function cleanDateStr(val: string | null | undefined): string | null {
   if (!val) return null;
   const trimmed = val.trim();
   if (!trimmed || trimmed === '0000-00-00' || trimmed.startsWith('1970-')) return null;
-  if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) {
-    const raw = trimmed.slice(0, 10);
-    // Align calendar dates to active operational cycle (2026) so live upcoming IPOs are properly tracked
-    if (raw.startsWith('2024-')) {
-      return `2026-${raw.slice(5)}`;
-    }
-    if (raw.startsWith('2025-')) {
-      return `2027-${raw.slice(5)}`;
-    }
-    return raw;
-  }
-  return null;
+  if (!/^\d{4}-\d{2}-\d{2}/.test(trimmed)) return null;
+
+  // Keep the exchange-reported calendar date unchanged. Shifting 2024/2025
+  // dates into future years corrupts historical listing dates and IPO status.
+  const raw = trimmed.slice(0, 10);
+  const parsed = new Date(`${raw}T00:00:00.000Z`);
+  return Number.isNaN(parsed.getTime()) ? null : raw;
 }
 
 function stripHtml(raw: string | undefined): string {
