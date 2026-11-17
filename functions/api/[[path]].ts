@@ -386,16 +386,66 @@ export async function onRequest(context: {
     const snapshot = await loadSnapshot(request, env.ASSETS);
 
     if (pathname === "/api/market/indices") {
+      const baseIndices = Array.isArray(snapshot.indices) ? snapshot.indices : [];
+      const refreshed = await Promise.all(baseIndices.map(async (item: any, index: number) => {
+        if (index >= 5) return item;
+        const label = `${item.symbol || ""} ${item.name || ""}`.toUpperCase();
+        const ticker = item.yahooSymbol || (label.includes("SENSEX") ? "^BSESN" : label.includes("BANK NIFTY") ? "^NSEBANK" : label.includes("NIFTY 50") || label.includes("NIFTY50") ? "^NSEI" : "");
+        if (!ticker) return item;
+        const quote = await fetchYahooTickerQuote(ticker);
+        if (!quote) return item;
+        return {
+          ...item,
+          value: quote.currentPrice,
+          previousClose: quote.previousClose,
+          change: quote.dayChange,
+          changePercent: quote.dayChangePercent,
+          provenance: {
+            ...(item.provenance || {}),
+            source: quote.quoteSource,
+            retrievedAt: quote.lastTradeTime,
+            qualityStatus: "UNOFFICIAL_DELAYED_OR_LATEST",
+            verificationStatus: "Third-party quote; may be delayed",
+            currency: "PTS",
+          },
+        };
+      }));
+      const liveCount = refreshed.filter((item: any, index: number) => item !== baseIndices[index]).length;
       return json({
-        indices: snapshot.indices || [],
-        liveFeedReachable: false,
-        dataSource: "published-market-snapshot",
-        retrievedAt: snapshot.lastSyncTime || snapshot.generatedAt || null,
+        indices: refreshed,
+        liveFeedReachable: liveCount > 0,
+        quotesUpdated: liveCount,
+        dataSource: liveCount ? "Yahoo Finance (delayed or latest available)" : "published-market-snapshot",
+        retrievedAt: new Date().toISOString(),
       });
     }
     if (pathname === "/api/market/macro") {
-      const macro = snapshot.benchmarks?.macro || snapshot.benchmarks || null;
-      return json({ ok: Boolean(macro), data: macro, liveFeedReachable: false, dataSource: "published-market-snapshot" });
+      if (macroCache.data && macroCache.expiresAt > Date.now()) {
+        return json({ ok: true, data: macroCache.data, liveFeedReachable: macroCache.data.liveFeedReachable, dataSource: macroCache.data.dataSource });
+      }
+      const base = snapshot.benchmarks?.macro || snapshot.benchmarks || {};
+      const [fx, gold, silver, crude, yield10y] = await Promise.all([
+        fetchYahooTickerQuote("USDINR=X"),
+        fetchYahooTickerQuote("GC=F"),
+        fetchYahooTickerQuote("SI=F"),
+        fetchYahooTickerQuote("BZ=F"),
+        fetchYahooTickerQuote("^TNX"),
+      ]);
+      const now = new Date().toISOString();
+      const data = {
+        usdInr: fx ? { rate: fx.currentPrice, bid: fx.currentPrice, ask: fx.currentPrice, lastRefreshed: fx.lastTradeTime } : base.usdInr || null,
+        gold: gold ? { price: gold.currentPrice, nominal: "GC=F · USD/oz", timestamp: gold.lastTradeTime } : base.gold || null,
+        silver: silver ? { price: silver.currentPrice, nominal: "SI=F · USD/oz", timestamp: silver.lastTradeTime } : base.silver || null,
+        brentCrude: crude ? { price: crude.currentPrice, unit: "USD/barrel", date: crude.lastTradeTime } : base.brentCrude || null,
+        us10yYield: yield10y ? { rate: yield10y.currentPrice, unit: "%", date: yield10y.lastTradeTime } : base.us10yYield || null,
+        retrievedAt: now,
+        source: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Yahoo Finance" : "Published snapshot",
+        liveFeedReachable: [fx, gold, silver, crude, yield10y].some(Boolean),
+        dataSource: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Yahoo Finance (delayed or latest available)" : "published-market-snapshot",
+      };
+      macroCache.data = data;
+      macroCache.expiresAt = Date.now() + 45_000;
+      return json({ ok: true, data, liveFeedReachable: data.liveFeedReachable, dataSource: data.dataSource });
     }
     if (pathname === "/api/stocks") {
       let universe = normalizeStocks(snapshot);
@@ -472,15 +522,24 @@ export async function onRequest(context: {
         String(s.bseCode || "").toLowerCase() === symbol
       );
       if (!stock) return json({ error: `Stock "${symbol}" not found` }, 404);
-      const enriched = await fetchYahooQuote(stock);
-      let output = enriched ? { ...stock, ...enriched } : stock;
+      const requestedRange = url.searchParams.get("range") || "3mo";
+      const [enriched, history] = await Promise.all([
+        fetchYahooQuote(stock),
+        fetchYahooHistory(stock, requestedRange),
+      ]);
+      let output = {
+        ...normalizeStockDetail(stock),
+        ...(enriched || {}),
+        historicalSeries: history.length ? history : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []),
+        sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : []),
+      };
       if (!enriched && env.DB) {
         const saved = await env.DB.prepare("SELECT * FROM stock_quotes WHERE symbol=?").bind(String(stock.symbol).toUpperCase()).first<any>();
-        if (saved) output = { ...stock, currentPrice: saved.price, previousClose: saved.previous_close, dayChange: saved.day_change, dayChangePercent: saved.day_change_percent, volume: saved.volume, lastTradeTime: saved.quote_time, quoteSource: saved.provider, quoteStatus: "stored-not-live", quoteRetrievedAt: saved.retrieved_at };
+        if (saved) output = normalizeStockDetail({ ...output, currentPrice: saved.price, previousClose: saved.previous_close, dayChange: saved.day_change, dayChangePercent: saved.day_change_percent, volume: saved.volume, lastTradeTime: saved.quote_time, quoteSource: saved.provider, quoteStatus: "stored-not-live", quoteRetrievedAt: saved.retrieved_at });
       }
       return json({
         stock: output,
-        fromUpstream: Boolean(enriched),
+        fromUpstream: Boolean(enriched || history.length),
         linkedIpo: null,
         dataSource: enriched ? "Yahoo Finance" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
         quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
