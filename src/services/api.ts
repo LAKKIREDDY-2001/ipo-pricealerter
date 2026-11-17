@@ -553,6 +553,40 @@ export const api = {
           s.companyName?.toLowerCase().includes(symLower)
       );
       if (found) {
+        const liveMatchForFound = snap.allLiveStocks?.find(
+          (item: any) =>
+            (item.symbol || '').toLowerCase() === symLower ||
+            (item.bseCode || '').toLowerCase() === symLower ||
+            (item.name || '').toLowerCase().includes(symLower) ||
+            (item.symbol || '').toUpperCase() === found.symbol.toUpperCase() ||
+            (item.bseCode && item.bseCode === found.bseCode)
+        );
+        const livePrice =
+          typeof liveMatchForFound?.rawPrice === 'number' && liveMatchForFound.rawPrice > 0
+            ? liveMatchForFound.rawPrice
+            : typeof liveMatchForFound?.price === 'number' && liveMatchForFound.price > 0
+              ? liveMatchForFound.price
+              : null;
+        const livePreviousClose =
+          typeof liveMatchForFound?.previousClose === 'number' && liveMatchForFound.previousClose > 0
+            ? liveMatchForFound.previousClose
+            : livePrice !== null && typeof liveMatchForFound?.rawChange === 'number'
+              ? Number((livePrice - liveMatchForFound.rawChange).toFixed(2))
+              : null;
+        const stock = liveMatchForFound
+          ? {
+              ...found,
+              currentPrice: livePrice ?? found.currentPrice,
+              previousClose: livePreviousClose ?? found.previousClose,
+              open: typeof liveMatchForFound.open === 'number' ? liveMatchForFound.open : found.open,
+              dayHigh: typeof liveMatchForFound.high === 'number' ? liveMatchForFound.high : found.dayHigh,
+              dayLow: typeof liveMatchForFound.low === 'number' ? liveMatchForFound.low : found.dayLow,
+              week52High: typeof liveMatchForFound.week52High === 'number' ? liveMatchForFound.week52High : found.week52High,
+              week52Low: typeof liveMatchForFound.week52Low === 'number' ? liveMatchForFound.week52Low : found.week52Low,
+              volume: typeof liveMatchForFound.volRaw === 'number' ? liveMatchForFound.volRaw : found.volume,
+              lastTradeTime: liveMatchForFound.quoteTimestamp || found.lastTradeTime,
+            }
+          : found;
         const allIpos = [...(snap.ipos || []), ...FALLBACK_MARKET_DATA.ipos];
         const linkedIpo =
           allIpos.find(
@@ -560,7 +594,7 @@ export const api = {
               i.listing?.stockSymbol?.toLowerCase() === symLower ||
               i.slug === found.ipoHistorySlug
           ) || null;
-        return { stock: found, fromUpstream: false, linkedIpo };
+        return { stock, fromUpstream: false, linkedIpo };
       }
 
       if (snap.allLiveStocks && snap.allLiveStocks.length > 0) {
