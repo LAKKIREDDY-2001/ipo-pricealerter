@@ -14,7 +14,7 @@ This repository remains a **Cloudflare Pages** application. The existing React/V
 - Protected admin snapshot import endpoint: `POST /api/admin/sync-snapshot`.
 - IPO and stock records are read from D1 after snapshot import; fetched stock quote observations are persisted to D1.
 - Market quotes are best-effort third-party data and may be delayed. D1 does not make a third-party feed exchange-authoritative.
-- Password reset email, scheduled alert evaluation, SSE streaming, admin editing tools and mail delivery are not enabled by this D1 migration alone.
+- Password reset is implemented with one-time D1 tokens and Resend delivery; it requires `RESEND_API_KEY`, `MAIL_FROM` and `SITE_URL` Pages variables. Scheduled alert evaluation, SSE streaming, admin editing tools and automatic alert delivery require separate services.
 
 ## 1. Create the D1 database
 
@@ -27,25 +27,17 @@ npx wrangler@latest d1 create pricealerter-db
 
 When Wrangler asks whether it should add the D1 binding to your Wrangler config, choose **Yes**. Copy the UUID returned by Cloudflare. Do not put secrets or the database UUID into public frontend variables.
 
-Copy the example Wrangler file and replace the placeholder:
-
-```bash
-cp wrangler.d1.example.toml wrangler.d1.toml
-```
-
-Edit `wrangler.d1.toml` and replace `REPLACE_WITH_D1_DATABASE_UUID` with the database UUID from the create command.
-
-The temporary file `wrangler.d1.toml` is git-ignored and is used for CLI migrations. Keep the existing Pages build settings in `wrangler.toml` unchanged; after you have the database UUID, uncomment the D1 block at the bottom of `wrangler.toml`, replace the placeholder UUID, and commit that config change. This keeps the Pages deployment's binding definition in source control.
+The D1 database already exists as `pricealerter-db`, ID `7f9ae459-221b-4076-be7f-0e755d7db363`, and is bound to the Pages project as `DB` in Production and Preview. The committed `wrangler.d1.example.toml` is a CLI-only config with this ID; do not use it as the Pages deployment config or create a second database/binding. Keep the existing Pages `wrangler.toml` unchanged.
 
 ## 2. Apply the schema to the remote database
 
 ```bash
-npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.toml
-npx wrangler@latest d1 migrations apply pricealerter-db --remote --config wrangler.d1.toml
-npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.toml
+npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.example.toml
+npx wrangler@latest d1 migrations apply pricealerter-db --remote --config wrangler.d1.example.toml
+npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.example.toml
 ```
 
-The migrations create users, sessions, watchlists, price alerts, notifications, IPO records, stock instruments, latest stock quotes, quote history, GMP history, audit logs, contact messages, sync-run history and rate-limit tables. The migration is additive and does not drop existing website files or data.
+The three migrations create users, sessions, watchlists, price alerts, notifications, password-reset tokens, IPO records, stock instruments, latest stock quotes, quote history, GMP history, audit logs, contact messages, sync-run history and rate-limit tables. The migration is additive and does not drop existing website files or data.
 
 ## 3. Bind D1 to the existing Pages project
 
@@ -131,6 +123,6 @@ Do not use local D1 to validate production records. Cloudflare documents that Pa
 - The migration intentionally does not insert demo users or passwords.
 - Registration is rate-limited and passwords are hashed. Sessions expire after 30 days and are revocable on logout.
 - Alert records are persistent, but alert evaluation is deliberately not simulated. A scheduled Worker/cron or other trusted scheduler and a dependable quote feed must be added before claiming automatic alerts.
-- Password reset currently returns a clear unavailable response because email delivery and one-time reset tokens are not configured in Pages.
+- Password reset uses a 30-minute one-time token. Configure `RESEND_API_KEY` as an encrypted Pages secret, `MAIL_FROM` as a verified Resend sender, and `SITE_URL=https://pricealerter.in` before testing it.
 - Quote records carry provider and quality metadata. Third-party quote data can be delayed, missing or blocked; verify investment decisions against official exchange data.
 - D1 is the persistence layer, not a market-data license or exchange feed. IPO/GMP freshness still depends on the upstream source and import schedule.
