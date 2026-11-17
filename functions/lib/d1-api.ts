@@ -112,7 +112,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
 
   if (path === "/api/health" && method === "GET") {
     const counts = await db.prepare("SELECT (SELECT COUNT(*) FROM users) AS users,(SELECT COUNT(*) FROM watchlist_items) AS watchlistItems,(SELECT COUNT(*) FROM price_alerts) AS alerts,(SELECT COUNT(*) FROM ipo_offerings) AS ipos,(SELECT COUNT(*) FROM stock_instruments) AS stocks").first<any>();
-    return json({ database: "connected", databaseType: "Cloudflare D1", counts, timestamp: nowIso() });
+    return json({ status: "ok", platform: "PriceAlerter", runtime: "cloudflare-pages-functions", database: "connected", databaseType: "Cloudflare D1", persistentDatabaseConfigured: true, counts, timestamp: nowIso() });
   }
 
   if (path === "/api/auth/register" && method === "POST") {
@@ -152,6 +152,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const user = await authenticate(request, db);
     return json({ user: user ? publicUser(user) : null });
   }
+  if (path === "/api/auth/forgot-password" && method === "POST") return fail("Password reset email is not configured yet. Contact support to reset your account.", 501);
   if (path === "/api/auth/logout" && (method === "POST" || method === "DELETE")) {
     const token = (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
     if (token) await db.prepare("DELETE FROM sessions WHERE token_hash=?").bind(await digest(token)).run();
@@ -164,7 +165,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   if (path === "/api/auth/preferences" && method === "PATCH") {
     const body = await readBody(request);
     const current = publicUser(user);
-    const preferences = { ...current.preferences, ...(body.preferences || {}) };
+    const preferences: Record<string, boolean> = { ...current.preferences, ...(body.preferences || {}) };
     const allowed = ["emailAlerts", "browserNotifications", "ipoReminders", "gmpAlerts"];
     for (const key of allowed) preferences[key] = Boolean(preferences[key]);
     const name = body.name == null ? current.name : String(body.name).trim().slice(0, 80);
@@ -196,7 +197,6 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     await db.prepare("DELETE FROM users WHERE id=?").bind(user.id).run();
     return json({ ok: true });
   }
-  if (path === "/api/auth/forgot-password" && method === "POST") return fail("Password reset email is not configured yet. Contact support to reset your account.", 501);
 
   if (path === "/api/watchlist" && method === "GET") {
     const result = await db.prepare("SELECT * FROM watchlist_items WHERE user_id=? ORDER BY created_at DESC").bind(user.id).all<any>();
