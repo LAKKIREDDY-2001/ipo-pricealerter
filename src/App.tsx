@@ -61,6 +61,9 @@ const LoginPage = lazy(() =>
 const RegisterPage = lazy(() =>
   import('./pages/AuthPages').then((m) => ({ default: m.RegisterPage }))
 );
+const ResetPasswordPage = lazy(() =>
+  import('./pages/AuthPages').then((m) => ({ default: m.ResetPasswordPage }))
+);
 const WatchlistPage = lazy(() =>
   import('./pages/WatchlistPage').then((m) => ({ default: m.WatchlistPage }))
 );
@@ -278,6 +281,7 @@ export default function App() {
                     <Route path="/signin" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/signup" element={<RegisterPage />} />
+                    <Route path="/reset-password" element={<ResetPasswordPage />} />
                     <Route path="/admin" element={<AdminPage />} />
 
                     {/* Governance & Disclosures */}
