@@ -194,6 +194,161 @@ function normalizeStockDetail(stock: any) {
   };
 }
 
+const growwCompanyCache = new Map<string, { expiresAt: number; data: any }>();
+
+function parseGrowwNumber(value: unknown): number | null {
+  if (typeof value === "number") return Number.isFinite(value) ? value : null;
+  if (typeof value !== "string") return null;
+  const cleaned = value.replace(/,/g, "").match(/-?\\d+(?:\\.\\d+)?/);
+  if (!cleaned) return null;
+  const parsed = Number(cleaned[0]);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
+  let searchId = String(stock.searchId || "").trim();
+  if (!searchId) {
+    const symbol = String(stock.symbol || "").trim();
+    if (!symbol) return null;
+    try {
+      const searchUrl = new URL("https://groww.in/v1/api/search/v3/query/global/st_p_query");
+      searchUrl.searchParams.set("page", "0");
+      searchUrl.searchParams.set("query", symbol);
+      searchUrl.searchParams.set("size", "10");
+      searchUrl.searchParams.set("web", "true");
+      const searchResponse = await fetch(searchUrl.toString(), {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(3500),
+      });
+      if (!searchResponse.ok) return null;
+      const searchData = await searchResponse.json() as any;
+      const matches = searchData?.data?.content || [];
+      const exact = matches.find((item: any) =>
+        item.entity_type === "Stocks" &&
+        String(item.nse_scrip_code || "").toUpperCase() === symbol.toUpperCase()
+      ) || matches.find((item: any) => item.entity_type === "Stocks");
+      searchId = String(exact?.search_id || "");
+    } catch {
+      return null;
+    }
+  }
+  if (!searchId) return null;
+  const cached = growwCompanyCache.get(searchId);
+  if (cached && cached.expiresAt > Date.now()) return cached.data;
+  try {
+    const endpoint = `https://groww.in/v1/api/stocks_data/v1/company/search_id/${encodeURIComponent(searchId)}?page=0&size=10`;
+    const response = await fetch(endpoint, {
+      headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+      signal: AbortSignal.timeout(4500),
+    });
+    if (!response.ok) return null;
+    const data = await response.json() as any;
+    if (!data || typeof data !== "object") return null;
+    growwCompanyCache.set(searchId, { data, expiresAt: Date.now() + 6 * 60 * 60 * 1000 });
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function mergeGrowwCompanyDetails(stock: any, info: any) {
+  if (!info) return stock;
+  const values = new Map<string, string>();
+  for (const item of info.fundamentals || []) {
+    if (item?.shortName && item?.value) values.set(String(item.shortName).toLowerCase(), String(item.value));
+    if (item?.name && item?.value) values.set(String(item.name).toLowerCase(), String(item.value));
+  }
+  const get = (...keys: string[]) => {
+    for (const key of keys) {
+      const value = values.get(key.toLowerCase());
+      if (value) return parseGrowwNumber(value);
+    }
+    return null;
+  };
+  const parseRows = (rows: any[], basis: string) => {
+    if (!Array.isArray(rows) || !rows.length) return null;
+    const row = (name: string) => rows.find((item: any) => String(item.title || "").toLowerCase() === name.toLowerCase());
+    const series = (obj: any) => obj && typeof obj === "object"
+      ? Object.entries(obj).map(([period, value]) => ({ period, valueCr: parseGrowwNumber(value) })).filter((x) => x.valueCr !== null)
+      : [];
+    return {
+      basis,
+      revenueYearly: series(row("Revenue")?.yearly),
+      profitYearly: series(row("Profit")?.yearly),
+      netWorthYearly: series(row("Net Worth")?.yearly),
+      revenueQuarterly: series(row("Revenue")?.quarterly),
+      profitQuarterly: series(row("Profit")?.quarterly),
+    };
+  };
+  const financialStatements = [
+    parseRows(info.financialStatementV2?.CONSOLIDATED, "CONSOLIDATED"),
+    parseRows(info.financialStatementV2?.STANDALONE, "STANDALONE"),
+  ].filter(Boolean);
+  const shareholding = info.shareholdingPatternV2?.data
+    ? Object.entries(info.shareholdingPatternV2.data).map(([quarter, raw]: [string, any]) => ({
+        quarter,
+        promoters: parseGrowwNumber(raw?.promoters),
+        fii: parseGrowwNumber(raw?.fii),
+        dii: parseGrowwNumber(raw?.dii),
+        public: parseGrowwNumber(raw?.public),
+        others: parseGrowwNumber(raw?.others),
+      }))
+    : [];
+  const peers = Array.isArray(info.similarAssets?.peerList)
+    ? info.similarAssets.peerList.slice(0, 8).map((peer: any) => ({
+        symbol: peer.companyHeader?.nseScriptCode || String(peer.companyHeader?.bseScriptCode || ""),
+        companyName: peer.companyHeader?.displayName || peer.companyHeader?.nseScriptCode || "Peer company",
+        marketCapCr: parseGrowwNumber(peer.marketCap),
+        pe: parseGrowwNumber(peer.peRatio),
+        pb: parseGrowwNumber(peer.pbRatio),
+        yearHigh: parseGrowwNumber(peer.nseYearHigh ?? peer.bseYearHigh),
+        yearLow: parseGrowwNumber(peer.nseYearLow ?? peer.bseYearLow),
+      })).filter((peer: any) => peer.symbol)
+    : [];
+  const header = info.header || {};
+  const details = info.details || {};
+  const profile = {
+    ceo: details.ceo || null,
+    managingDirector: details.managingDirector || null,
+    foundedYear: details.foundedYear || null,
+    businessSummary: details.businessSummary || null,
+    epsTtm: get("eps(ttm)", "eps"),
+    bookValue: get("book value"),
+    industryPe: get("industry p/e"),
+    faceValue: get("face value"),
+  };
+  const fundamentals = {
+    ...(stock.fundamentals || {}),
+    pe: get("p/e ratio(ttm)") ?? stock.fundamentals?.pe ?? null,
+    pb: get("p/b ratio") ?? stock.fundamentals?.pb ?? null,
+    roePct: get("roe") ?? stock.fundamentals?.roePct ?? null,
+    rocePct: get("roce") ?? stock.fundamentals?.rocePct ?? null,
+    debtToEquity: get("debt to equity") ?? stock.fundamentals?.debtToEquity ?? null,
+    revenueGrowthPct: get("revenue growth") ?? stock.fundamentals?.revenueGrowthPct ?? null,
+    profitGrowthPct: get("profit growth") ?? stock.fundamentals?.profitGrowthPct ?? null,
+    dividendYieldPct: get("div yield", "dividend yield") ?? stock.fundamentals?.dividendYieldPct ?? null,
+    reportingPeriod: "Latest available Groww company data",
+    source: "Groww company profile / filings",
+  };
+  return {
+    ...stock,
+    companyName: header.displayName || stock.companyName,
+    sector: header.industryName || stock.sector,
+    industry: header.industryName || stock.industry,
+    logoUrl: header.logoUrl || stock.logoUrl,
+    searchId: header.searchId || stock.searchId,
+    week52High: parseGrowwNumber(info.priceData?.nse?.yearHighPrice ?? info.priceData?.bse?.yearHighPrice) ?? stock.week52High,
+    week52Low: parseGrowwNumber(info.priceData?.nse?.yearLowPrice ?? info.priceData?.bse?.yearLowPrice) ?? stock.week52Low,
+    companyProfile: { ...(stock.companyProfile || {}), ...profile },
+    fundamentals,
+    registry: { ...(stock.registry || {}), faceValue: profile.faceValue ?? stock.registry?.faceValue ?? null, isFnoEnabled: Boolean(header.isFnoEnabled || header.isNseFnoEnabled || stock.registry?.isFnoEnabled) },
+    shareholding: shareholding.length ? shareholding : (stock.shareholding || []),
+    financialStatements: financialStatements.length ? financialStatements : (stock.financialStatements || []),
+    peers: peers.length ? peers : (stock.peers || []),
+    dataSourcesUsed: [...new Set([...(stock.dataSourcesUsed || []), "Groww company profile / filings"])],
+  };
+}
+
 async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
   // Keep the number of upstream requests bounded for Cloudflare Pages.
   // Quotes for other symbols remain explicitly marked as snapshot values.
