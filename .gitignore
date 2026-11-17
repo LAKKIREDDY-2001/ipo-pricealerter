@@ -10,3 +10,5 @@ server/data/*.tmp*
 server/data/.session_secret
 .session_secret
 
+wrangler.d1.toml
+.dev.vars*
