@@ -13,7 +13,8 @@ export function Sparkline({
   width = 84,
   height = 28,
 }: SparklineProps) {
-  if (!data || data.length < 2) {
+  const safeData = Array.isArray(data) ? data.filter((value) => typeof value === 'number' && Number.isFinite(value)) : [];
+  if (safeData.length < 2) {
     return (
       <span className="text-[11px] text-[#94A3B8] dark:text-slate-500 font-data">
         N/A
@@ -21,13 +22,13 @@ export function Sparkline({
     );
   }
 
-  const min = Math.min(...data);
-  const max = Math.max(...data);
+  const min = Math.min(...safeData);
+  const max = Math.max(...safeData);
   const range = max - min || 1;
 
   const points = data
     .map((val, idx) => {
-      const x = (idx / (data.length - 1)) * (width - 4) + 2;
+      const x = (idx / (safeData.length - 1)) * (width - 4) + 2;
       const y = height - 3 - ((val - min) / range) * (height - 6);
       return `${x.toFixed(1)},${y.toFixed(1)}`;
     })
