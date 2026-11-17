@@ -232,6 +232,9 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const reset = await db.prepare("SELECT id,user_id FROM password_reset_tokens WHERE token_hash=? AND expires_at>?")
       .bind(await digest(token), nowIso()).first<any>();
     if (!reset) return fail("This password reset link is invalid or expired. Request a new one.", 400);
+    const claimed = await db.prepare("DELETE FROM password_reset_tokens WHERE id=? AND user_id=? AND expires_at>?")
+      .bind(reset.id, reset.user_id, nowIso()).run();
+    if (Number(claimed.meta?.changes || 0) !== 1) return fail("This password reset link has already been used or expired. Request a new one.", 400);
     const timestamp = nowIso();
     await db.batch([
       db.prepare("UPDATE users SET password_hash=?,updated_at=? WHERE id=?").bind(await newPasswordHash(password), timestamp, reset.user_id),
