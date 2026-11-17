@@ -164,7 +164,7 @@ export function StockDetailPage() {
     );
   }
 
-  const hasQuote = stock.currentPrice !== null && stock.previousClose !== null;
+  const hasQuote = typeof stock.currentPrice === 'number' && Number.isFinite(stock.currentPrice) && typeof stock.previousClose === 'number' && Number.isFinite(stock.previousClose);
   const diff = hasQuote ? stock.currentPrice! - stock.previousClose! : null;
   const diffPct =
     hasQuote && stock.previousClose! > 0 ? (diff! / stock.previousClose!) * 100 : null;
@@ -311,7 +311,7 @@ export function StockDetailPage() {
           <div>
             <div className="text-[#64748B]">Day Range</div>
             <div className="font-data font-semibold text-sm mt-0.5">
-              {stock.dayLow !== null && stock.dayHigh !== null
+              {typeof stock.dayLow === 'number' && Number.isFinite(stock.dayLow) && typeof stock.dayHigh === 'number' && Number.isFinite(stock.dayHigh)
                 ? `₹${stock.dayLow.toFixed(2)} – ₹${stock.dayHigh.toFixed(2)}`
                 : 'Unavailable'}
             </div>
@@ -319,7 +319,7 @@ export function StockDetailPage() {
           <div>
             <div className="text-[#64748B]">52-Week Range</div>
             <div className="font-data font-semibold text-sm mt-0.5">
-              {stock.week52Low !== null && stock.week52High !== null
+              {typeof stock.week52Low === 'number' && Number.isFinite(stock.week52Low) && typeof stock.week52High === 'number' && Number.isFinite(stock.week52High)
                 ? `₹${stock.week52Low.toFixed(2)} – ₹${stock.week52High.toFixed(2)}`
                 : 'Unavailable'}
             </div>
@@ -356,7 +356,7 @@ export function StockDetailPage() {
                     <div className="text-base font-bold text-[#14263F] dark:text-white">
                       {formatINR(stock.nseQuote.ltp)}
                     </div>
-                    {stock.nseQuote.dayChange !== null && stock.nseQuote.dayChangePct !== null && (
+                    {typeof stock.nseQuote.dayChange === 'number' && Number.isFinite(stock.nseQuote.dayChange) && typeof stock.nseQuote.dayChangePct === 'number' && Number.isFinite(stock.nseQuote.dayChangePct) && (
                       <div className={stock.nseQuote.dayChange >= 0 ? 'text-[#16A34A]' : 'text-[#DC2626]'}>
                         {stock.nseQuote.dayChange >= 0 ? '+' : ''}
                         {stock.nseQuote.dayChange.toFixed(2)} ({formatPercent(stock.nseQuote.dayChangePct)})
@@ -407,7 +407,7 @@ export function StockDetailPage() {
                     <div className="text-base font-bold text-[#14263F] dark:text-white">
                       {formatINR(stock.bseQuote.ltp)}
                     </div>
-                    {stock.bseQuote.dayChange !== null && stock.bseQuote.dayChangePct !== null && (
+                    {typeof stock.bseQuote.dayChange === 'number' && Number.isFinite(stock.bseQuote.dayChange) && typeof stock.bseQuote.dayChangePct === 'number' && Number.isFinite(stock.bseQuote.dayChangePct) && (
                       <div className={stock.bseQuote.dayChange >= 0 ? 'text-[#16A34A]' : 'text-[#DC2626]'}>
                         {stock.bseQuote.dayChange >= 0 ? '+' : ''}
                         {stock.bseQuote.dayChange.toFixed(2)} ({formatPercent(stock.bseQuote.dayChangePct)})
