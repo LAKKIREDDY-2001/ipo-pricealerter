@@ -211,7 +211,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const user = await db.prepare("SELECT id,name,email FROM users WHERE email=?").bind(email).first<any>();
     if (!user) return json({ message: genericMessage });
     await db.prepare("DELETE FROM password_reset_tokens WHERE user_id=?").bind(user.id).run();
-    const token = toB64(crypto.getRandomValues(new Uint8Array(32))).replace(/\\+/g, "-").replace(/\\//g, "_").replace(/=+$/g, "");
+    const token = toB64(crypto.getRandomValues(new Uint8Array(32))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
     const timestamp = nowIso();
     await db.prepare("INSERT INTO password_reset_tokens(id,user_id,token_hash,expires_at,created_at) VALUES(?,?,?,?,?)")
       .bind(id("prt"), user.id, await digest(token), new Date(Date.now() + 30 * 60_000).toISOString(), timestamp).run();
