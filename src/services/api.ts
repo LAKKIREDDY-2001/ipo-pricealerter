@@ -258,13 +258,13 @@ export const api = {
       if (snap.indices && snap.indices.length > 0) {
         return {
           indices: snap.indices,
-          liveFeedReachable: true,
-          retrievedAt: snap.lastSyncTime || new Date().toISOString(),
+          liveFeedReachable: false,
+          retrievedAt: snap.lastSyncTime || 'Unknown',
         };
       }
       return {
         indices: FALLBACK_MARKET_DATA.indices,
-        liveFeedReachable: true,
+        liveFeedReachable: false,
         retrievedAt: new Date().toISOString(),
       };
     }
@@ -346,7 +346,7 @@ export const api = {
       const list = snap.ipos || FALLBACK_MARKET_DATA.ipos;
       const found = list.find((i) => i.slug === slug);
       if (found) return { ipo: found };
-      return { ipo: list[0] || FALLBACK_MARKET_DATA.ipos[0] };
+      throw new ApiError(`IPO "${slug}" was not found in the published market snapshot.`, 404);
     }
   },
 
@@ -495,8 +495,8 @@ export const api = {
         nseCount: rawList.filter((s) => s.exchange === 'NSE' || s.exchange === 'NSE/BSE').length,
         bseCount: rawList.filter((s) => s.exchange === 'BSE' || s.exchange === 'NSE/BSE').length,
         sectors,
-        liveFeedReachable: true,
-        liveSyncedAt: snap.lastSyncTime || new Date().toISOString(),
+        liveFeedReachable: false,
+        liveSyncedAt: snap.lastSyncTime || null,
       };
     }
   },
