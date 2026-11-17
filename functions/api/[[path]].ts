@@ -1,4 +1,4 @@
-import { handleD1Api, type D1Env } from "../lib/d1-api";
+import { handleD1Api, syncMarketSnapshotToD1, type D1Env } from "../lib/d1-api";
 
 type Snapshot = {
   stocks?: any[];
@@ -280,6 +280,15 @@ export async function onRequest(context: {
       },
     });
   }
+  if (pathname === "/api/admin/sync-snapshot" && method === "POST") {
+    try {
+      const snapshot = await loadSnapshot(request, env.ASSETS);
+      return await syncMarketSnapshotToD1(request, env, snapshot, normalizeStocks(snapshot));
+    } catch (error) {
+      return json({ ok: false, error: error instanceof Error ? error.message : "Snapshot sync failed" }, 500);
+    }
+  }
+
   const d1Response = await handleD1Api(request, url, env);
   if (d1Response) return d1Response;
 
