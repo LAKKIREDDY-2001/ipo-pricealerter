@@ -224,9 +224,12 @@ async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
       const searchData = await searchResponse.json() as any;
       const matches = searchData?.data?.content || [];
       const exact = matches.find((item: any) =>
-        item.entity_type === "Stocks" &&
-        String(item.nse_scrip_code || "").toUpperCase() === symbol.toUpperCase()
-      ) || matches.find((item: any) => item.entity_type === "Stocks");
+        item.entity_type === "Stocks" && (
+          String(item.nse_scrip_code || "").toUpperCase() === symbol.toUpperCase() ||
+          String(item.bse_scrip_code || "").toUpperCase() === symbol.toUpperCase() ||
+          String(item.bse_scrip_code || "").toUpperCase() === String(stock.bseCode || "").toUpperCase()
+        )
+      );
       searchId = String(exact?.search_id || "");
     } catch {
       return null;
