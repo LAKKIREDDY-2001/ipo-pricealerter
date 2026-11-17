@@ -631,6 +631,7 @@ export async function onRequest(context: {
         retrievedAt: now,
         source: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Yahoo Finance" : "Published snapshot",
         liveFeedReachable: [fx, gold, silver, crude, yield10y].some(Boolean),
+        liveQuotesCount: [fx, gold, silver, crude, yield10y].filter(Boolean).length,
         dataSource: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Yahoo Finance (delayed or latest available)" : "published-market-snapshot",
       };
       macroCache.data = data;
