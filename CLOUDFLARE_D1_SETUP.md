@@ -10,6 +10,7 @@ This repository remains a **Cloudflare Pages** application. The existing React/V
 - Password hashing with Web Crypto PBKDF2-SHA256; opaque bearer tokens are stored as SHA-256 hashes, not raw tokens.
 - Registration/login/logout/current-user, preference updates, password change, personal-data export, account deletion.
 - Watchlist CRUD, price-alert CRUD, notification listing/read state.
+- D1 latest quote and quote-history tables; quote history is recorded only when the third-party quote fetch succeeds.
 - Protected admin snapshot import endpoint: `POST /api/admin/sync-snapshot`.
 - IPO and stock records are read from D1 after snapshot import; fetched stock quote observations are persisted to D1.
 - Market quotes are best-effort third-party data and may be delayed. D1 does not make a third-party feed exchange-authoritative.
@@ -24,7 +25,7 @@ npx wrangler@latest login
 npx wrangler@latest d1 create pricealerter-db
 ```
 
-Copy the UUID returned by Cloudflare. Do not put secrets or the database UUID into public frontend variables.
+When Wrangler asks whether it should add the D1 binding to your Wrangler config, choose **Yes**. Copy the UUID returned by Cloudflare. Do not put secrets or the database UUID into public frontend variables.
 
 Copy the example Wrangler file and replace the placeholder:
 
@@ -78,7 +79,7 @@ curl -X POST 'https://pricealerter.in/api/admin/sync-snapshot' \
   -H 'Authorization: Bearer YOUR_ADMIN_TOKEN'
 ```
 
-Expected response includes `ok: true`, `ipoCount`, `stockCount` and `syncedAt`. The endpoint imports the currently published build-time snapshot. It does not fetch a new IPO universe from an exchange.
+Expected response includes `ok: true`, `ipoCount`, `stockCount` and `syncedAt`. The endpoint imports the currently published build-time snapshot, including available historical GMP points. It does not fetch a new IPO universe from an exchange. The importer is administrator-only.
 
 After the import, test:
 
