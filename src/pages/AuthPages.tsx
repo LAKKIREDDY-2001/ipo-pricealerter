@@ -315,8 +315,8 @@ export function RegisterPage() {
       setError('Please enter a valid email address.');
       return;
     }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+    if (password.length < 10 || password.length > 128 || !/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+      setError('Use 10–128 characters and include at least one letter and one number.');
       return;
     }
 
@@ -401,15 +401,17 @@ export function RegisterPage() {
           </label>
           <label className="block">
             <span className="font-medium text-[#152338] dark:text-slate-200">
-              Password (minimum 6 characters)
+              Password (10+ characters, letters and numbers)
             </span>
             <div className="relative mt-1">
               <input
                 type={showPassword ? 'text' : 'password'}
+                minLength={10}
+                maxLength={128}
                 autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 6 characters"
+                placeholder="At least 10 characters, include letters and numbers"
                 className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 pl-3 pr-10 py-2.5 text-sm text-[#152338] dark:text-slate-100"
               />
               <button
