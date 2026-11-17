@@ -453,6 +453,24 @@ export function HomePage() {
         </div>
       </section>
 
+      <nav aria-label="Jump to dashboard section" className="border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-[#0F172A]/90">
+        <div className="mx-auto flex max-w-[1440px] items-center gap-2 overflow-x-auto px-3.5 py-3 sm:px-6 no-scrollbar">
+          <span className="mr-1 shrink-0 text-[10px] font-bold uppercase tracking-wider text-slate-400">Explore</span>
+          {[
+            ['IPOs', 'ipo-activity-heading'],
+            ['GMP tracker', 'gmp-widget-heading'],
+            ['Live stocks', 'live-stocks-heading'],
+            ['Listed IPOs', 'listed-ipos-heading'],
+            ['Insights', 'market-intel-heading'],
+            ['Learn', 'education-heading'],
+          ].map(([label, target]) => (
+            <a key={target} href={`#${target}`} className="shrink-0 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400">
+              {label}
+            </a>
+          ))}
+        </div>
+      </nav>
+
       <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">
         {error && <ErrorRetryState message={error} onRetry={loadDashboard} />}
 
@@ -465,7 +483,7 @@ export function HomePage() {
             <div>
               <h2
                 id="ipo-activity-heading"
-                className="font-display text-xl font-bold text-[#14263F] dark:text-white"
+                className="scroll-mt-28 font-display text-xl font-bold text-[#14263F] dark:text-white"
               >
                 IPO Activity Dashboard
               </h2>
@@ -603,7 +621,7 @@ export function HomePage() {
             <div>
               <h2
                 id="gmp-widget-heading"
-                className="font-display text-xl font-bold text-[#14263F] dark:text-white"
+                className="scroll-mt-28 font-display text-xl font-bold text-[#14263F] dark:text-white"
               >
                 GMP Tracker &amp; Historical Trend
               </h2>
@@ -807,7 +825,7 @@ export function HomePage() {
             <div>
               <h2
                 id="live-stocks-heading"
-                className="font-display text-xl font-bold text-[#14263F] dark:text-white"
+                className="scroll-mt-28 font-display text-xl font-bold text-[#14263F] dark:text-white"
               >
                 Live Stock Market (NSE &amp; BSE)
               </h2>
@@ -942,7 +960,7 @@ export function HomePage() {
             <div>
               <h2
                 id="listed-ipos-heading"
-                className="font-display text-xl font-bold text-[#14263F] dark:text-white"
+                className="scroll-mt-28 font-display text-xl font-bold text-[#14263F] dark:text-white"
               >
                 Recently Listed IPOs &amp; Listing Gains
               </h2>
@@ -1127,7 +1145,7 @@ export function HomePage() {
             <div>
               <h2
                 id="market-intel-heading"
-                className="font-display text-xl font-bold text-[#14263F] dark:text-white"
+                className="scroll-mt-28 font-display text-xl font-bold text-[#14263F] dark:text-white"
               >
                 Market Intelligence &amp; Sector Breadth
               </h2>
@@ -1306,7 +1324,7 @@ export function HomePage() {
             <div>
               <h2
                 id="education-heading"
-                className="font-display text-xl font-bold text-[#14263F] dark:text-white"
+                className="scroll-mt-28 font-display text-xl font-bold text-[#14263F] dark:text-white"
               >
                 Investor Education &amp; Research Guides
               </h2>
