@@ -315,10 +315,10 @@ function normalizeStockSymbol(value?: string | null): string {
     .toUpperCase()
     .trim()
     // Accept common formats returned by exchanges and market-data providers.
-    .replace(/^(?:(?:NSE|BSE)(?:_EQ|_BE)?)[\\s:|_-]+/, '')
-    .replace(/\\.(?:NS|BO)$/, '')
+    .replace(/^(?:(?:NSE|BSE)(?:_EQ|_BE)?)[\s:|_-]+/, '')
+    .replace(/\.(?:NS|BO)$/, '')
     .replace(/-(?:EQ|BE|BZ)$/, '')
-    .replace(/\\s+/g, '');
+    .replace(/\s+/g, '');
 }
 
 export function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
