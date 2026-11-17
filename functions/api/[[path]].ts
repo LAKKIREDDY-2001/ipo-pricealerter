@@ -1,3 +1,5 @@
+import { handleD1Api, type D1Env } from "../lib/d1-api";
+
 type Snapshot = {
   stocks?: any[];
   allLiveStocks?: any[];
@@ -260,7 +262,7 @@ function filterIpos(snapshot: Snapshot, url: URL) {
 export async function onRequest(context: {
   request: Request;
   params: { path?: string | string[] };
-  env: { ASSETS: { fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> } };
+  env: D1Env & { ASSETS: { fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> } };
 }): Promise<Response> {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -278,6 +280,9 @@ export async function onRequest(context: {
       },
     });
   }
+  const d1Response = await handleD1Api(request, url, env);
+  if (d1Response) return d1Response;
+
   if (method !== "GET" && method !== "HEAD") {
     return unavailable("Write operations, accounts, watchlists and alerts");
   }
@@ -290,7 +295,7 @@ export async function onRequest(context: {
         platform: "PriceAlerter",
         runtime: "cloudflare-pages-functions",
         backendMode: "Pages Functions with snapshot IPO data and on-demand quotes",
-        persistentDatabaseConfigured: false,
+        persistentDatabaseConfigured: Boolean(env.DB),
         liveQuoteProvider: "Yahoo Finance (best effort, may be delayed)",
         ipoProvider: "build-time snapshot",
         counts: {
