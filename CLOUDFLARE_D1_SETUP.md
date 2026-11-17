@@ -34,7 +34,7 @@ cp wrangler.d1.example.toml wrangler.d1.toml
 
 Edit `wrangler.d1.toml` and replace `REPLACE_WITH_D1_DATABASE_UUID` with the database UUID from the create command.
 
-The temporary file `wrangler.d1.toml` is git-ignored. Keep the existing `wrangler.toml` Pages build config unchanged.
+The temporary file `wrangler.d1.toml` is git-ignored and is used for CLI migrations. Keep the existing Pages build settings in `wrangler.toml` unchanged; after you have the database UUID, uncomment the D1 block at the bottom of `wrangler.toml`, replace the placeholder UUID, and commit that config change. This keeps the Pages deployment's binding definition in source control.
 
 ## 2. Apply the schema to the remote database
 
@@ -44,7 +44,7 @@ npx wrangler@latest d1 migrations apply pricealerter-db --remote --config wrangl
 npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.toml
 ```
 
-The migration creates users, sessions, watchlists, price alerts, notifications, IPO records, stock instruments, stock quotes, GMP history, audit logs, contact messages and rate-limit tables. The migration is additive and does not drop existing website files or data.
+The migrations create users, sessions, watchlists, price alerts, notifications, IPO records, stock instruments, latest stock quotes, quote history, GMP history, audit logs, contact messages, sync-run history and rate-limit tables. The migration is additive and does not drop existing website files or data.
 
 ## 3. Bind D1 to the existing Pages project
 
@@ -56,7 +56,8 @@ In Cloudflare Dashboard:
 4. Set **Variable name** to exactly `DB`.
 5. Select the database `pricealerter-db`.
 6. Save the binding for **Production**. Add the same binding to **Preview** if you use preview deployments.
-7. Redeploy the Pages project so the binding is available to Functions.
+7. Commit the real D1 UUID in the `[[d1_databases]]` block in `wrangler.toml` (do not commit the temporary `wrangler.d1.toml`).
+8. Redeploy the Pages project so the binding is available to Functions.
 
 Also set a Pages environment variable named `ADMIN_EMAIL` to the email address you want to use for the PriceAlerter administrator account. Set it in Production (and Preview only if required). Register that email after the binding and variable are saved; the matching account is assigned the admin role. Do not publish the admin email as a frontend build variable.
 
