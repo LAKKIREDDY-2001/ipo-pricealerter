@@ -326,5 +326,7 @@ export async function syncMarketSnapshotToD1(request: Request, env: D1Env, snaps
   for (let i=0;i<statements.length;i+=50) await env.DB.batch(statements.slice(i,i+50));
   await env.DB.prepare("INSERT INTO audit_logs(id,actor_user_id,actor_email,entity_type,entity_id,action,details_json,created_at) VALUES(?,?,?,?,?,?,?,?)")
     .bind(id("audit"),user.id,user.email,"MARKET_DATA","snapshot","SYNC_SNAPSHOT",JSON.stringify({ipoCount,stockCount,generatedAt:snapshot.generatedAt||null}),timestamp).run();
+  await env.DB.prepare("INSERT INTO data_sync_runs(id,sync_type,source,status,records_processed,details_json,started_at,completed_at) VALUES(?,?,?,?,?,?,?,?)")
+    .bind(id("sync"),"SNAPSHOT_IMPORT","published-market-snapshot","SUCCESS",ipoCount+stockCount,JSON.stringify({ipoCount,stockCount,generatedAt:snapshot.generatedAt||null}),timestamp,nowIso()).run();
   return json({ok:true,ipoCount,stockCount,generatedAt:snapshot.generatedAt||null,syncedAt:timestamp});
 }
