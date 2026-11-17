@@ -132,7 +132,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const name = String(body.name || "").trim().slice(0, 80);
     const email = String(body.email || "").trim().toLowerCase();
     const password = String(body.password || "");
-    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 10 || password.length > 128 || !/[A-Za-z]/.test(password) || !/\\d/.test(password))
+    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 10 || password.length > 128 || !/[A-Za-z]/.test(password) || !/\d/.test(password))
       return fail("Enter a valid name and email. Password must be 10–128 characters.", 400);
     if (!(await rateLimit(db, `register:${email}`, 5, 3600000))) return fail("Too many registration attempts. Try again later.", 429);
     const existing = await db.prepare("SELECT id FROM users WHERE email=?").bind(email).first();
