@@ -12,7 +12,7 @@ export function MacroCommoditiesBar() {
   const loadData = async (force = false) => {
     if (force) setRefreshing(true);
     try {
-      const data = await api.getMacro();
+      const data = await api.getMacro(force);
       if (data) {
         setMacro(data);
       }
