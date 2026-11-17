@@ -341,8 +341,21 @@ export async function onRequest(context: {
       return json({ ok: Boolean(macro), data: macro, liveFeedReachable: false, dataSource: "published-market-snapshot" });
     }
     if (pathname === "/api/stocks") {
-      const page = filterAndPageStocks(normalizeStocks(snapshot), url);
+      let universe = normalizeStocks(snapshot);
+      if (env.DB) {
+        const stored = await env.DB.prepare("SELECT payload_json FROM stock_instruments ORDER BY symbol").all<any>();
+        if (stored.results?.length) universe = stored.results.map((row: any) => JSON.parse(row.payload_json));
+      }
+      const page = filterAndPageStocks(universe, url);
       const enriched = await enrichQuotes(page.stocks || []);
+      if (env.DB && enriched.successful) {
+        const writes = enriched.stocks.filter((stock: any) => stock.quoteSource).map((stock: any) =>
+          env.DB!.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
+          .bind(String(stock.symbol),stock.currentPrice??null,stock.previousClose??null,stock.dayChange??null,stock.dayChangePercent??null,stock.volume??null,stock.quoteCurrency||"INR",stock.quoteSource,stock.lastTradeTime||null,new Date().toISOString(),stock.quoteStatus||"UNOFFICIAL_DELAYED_OR_LATEST",JSON.stringify(stock))
+        );
+        for (let i=0;i<writes.length;i+=50) await env.DB.batch(writes.slice(i,i+50));
+      }
       return json({
         ...page,
         stocks: enriched.stocks,
@@ -354,7 +367,14 @@ export async function onRequest(context: {
     }
     if (pathname.startsWith("/api/stocks/")) {
       const symbol = decodeURIComponent(pathname.slice("/api/stocks/".length)).toLowerCase();
-      const stock = normalizeStocks(snapshot).find((s) =>
+      let universe = normalizeStocks(snapshot);
+      if (env.DB) {
+        const stored = await env.DB.prepare("SELECT payload_json FROM stock_instruments WHERE symbol=?").bind(symbol.toUpperCase()).first<any>();
+        if (stored?.payload_json) {
+          try { universe = [JSON.parse(stored.payload_json)]; } catch { /* fallback to snapshot */ }
+        }
+      }
+      const stock = universe.find((s) =>
         String(s.symbol || "").toLowerCase() === symbol ||
         String(s.bseCode || "").toLowerCase() === symbol
       );
@@ -368,7 +388,17 @@ export async function onRequest(context: {
         quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
       });
     }
-    if (pathname === "/api/ipos") return json(filterIpos(snapshot, url));
+    if (pathname === "/api/ipos") {
+      if (env.DB) {
+        const stored = await env.DB.prepare("SELECT payload_json FROM ipo_offerings ORDER BY company_name").all<any>();
+        if (stored.results?.length) {
+          const payloads = stored.results.map((row: any) => JSON.parse(row.payload_json));
+          const filtered = filterIpos({ ...snapshot, ipos: payloads }, url);
+          return json({ ...filtered, dataSource: "cloudflare-d1", persisted: true });
+        }
+      }
+      return json(filterIpos(snapshot, url));
+    }
     if (pathname.startsWith("/api/ipos/")) {
       const slug = decodeURIComponent(pathname.slice("/api/ipos/".length)).toLowerCase();
       const ipo = (snapshot.ipos || []).find((item) => String(item.slug || "").toLowerCase() === slug);
