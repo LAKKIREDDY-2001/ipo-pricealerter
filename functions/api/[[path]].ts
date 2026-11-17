@@ -349,11 +349,18 @@ export async function onRequest(context: {
       const page = filterAndPageStocks(universe, url);
       const enriched = await enrichQuotes(page.stocks || []);
       if (env.DB && enriched.successful) {
-        const writes = enriched.stocks.filter((stock: any) => stock.quoteSource).map((stock: any) =>
-          env.DB!.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
-          .bind(String(stock.symbol),stock.currentPrice??null,stock.previousClose??null,stock.dayChange??null,stock.dayChangePercent??null,stock.volume??null,stock.quoteCurrency||"INR",stock.quoteSource,stock.lastTradeTime||null,new Date().toISOString(),stock.quoteStatus||"UNOFFICIAL_DELAYED_OR_LATEST",JSON.stringify(stock))
-        );
+        const writes: any[] = [];
+        for (const stock of enriched.stocks.filter((item: any) => item.quoteSource)) {
+          const retrievedAt = new Date().toISOString();
+          const quoteTime = stock.lastTradeTime || retrievedAt;
+          const args = [String(stock.symbol),stock.currentPrice??null,stock.previousClose??null,stock.dayChange??null,stock.dayChangePercent??null,stock.volume??null,stock.quoteCurrency||"INR",stock.quoteSource,quoteTime,retrievedAt,stock.quoteStatus||"UNOFFICIAL_DELAYED_OR_LATEST"];
+          writes.push(env.DB.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
+            .bind(...args.slice(0,10),args[10],JSON.stringify(stock)));
+          writes.push(env.DB.prepare(`INSERT OR IGNORE INTO stock_quote_history(id,symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`)
+            .bind(crypto.randomUUID(),...args));
+        }
         for (let i=0;i<writes.length;i+=50) await env.DB.batch(writes.slice(i,i+50));
       }
       return json({
