@@ -36,15 +36,15 @@ const unavailable = (feature: string) =>
     503,
   );
 
-async function loadSnapshot(request: Request): Promise<Snapshot> {
+async function loadSnapshot(request: Request, assets: { fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> }): Promise<Snapshot> {
   if (snapshotCache && snapshotCache.expiresAt > Date.now()) {
     return snapshotCache.value;
   }
 
   const assetUrl = new URL("/data/live-market-data.json", request.url);
-  const response = await fetch(assetUrl.toString(), {
+  const response = await assets.fetch(new Request(assetUrl.toString(), {
     headers: { accept: "application/json" },
-  } as RequestInit);
+  }));
 
   if (!response.ok) {
     throw new Error(`Market snapshot request failed (${response.status})`);
@@ -260,8 +260,9 @@ function filterIpos(snapshot: Snapshot, url: URL) {
 export async function onRequest(context: {
   request: Request;
   params: { path?: string | string[] };
+  env: { ASSETS: { fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response> } };
 }): Promise<Response> {
-  const { request } = context;
+  const { request, env } = context;
   const url = new URL(request.url);
   const pathname = url.pathname.replace(/\/+$/, "") || "/api";
   const method = request.method.toUpperCase();
@@ -283,7 +284,7 @@ export async function onRequest(context: {
 
   if (pathname === "/api/health") {
     try {
-      const snapshot = await loadSnapshot(request);
+      const snapshot = await loadSnapshot(request, env.ASSETS);
       return json({
         status: "ok",
         platform: "PriceAlerter",
@@ -310,7 +311,7 @@ export async function onRequest(context: {
   if (pathname === "/api/stream/market") return new Response(null, { status: 204 });
 
   try {
-    const snapshot = await loadSnapshot(request);
+    const snapshot = await loadSnapshot(request, env.ASSETS);
 
     if (pathname === "/api/market/indices") {
       return json({
