@@ -770,6 +770,8 @@ const GROWW_INDUSTRY_SECTOR_MAP: Record<number, string> = {
 };
 
 const TICKER_ALIASES: Record<string, string> = {
+  JIOPLATFORM: 'JPL',
+  JIOPLATFORMS: 'JPL',
   ZOMATO: 'ETERNAL',
   TATAMOTORS: 'TMPV',
   MM: 'M&M',
