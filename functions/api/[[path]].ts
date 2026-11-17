@@ -199,7 +199,7 @@ const growwCompanyCache = new Map<string, { expiresAt: number; data: any }>();
 function parseGrowwNumber(value: unknown): number | null {
   if (typeof value === "number") return Number.isFinite(value) ? value : null;
   if (typeof value !== "string") return null;
-  const cleaned = value.replace(/,/g, "").match(/-?\\d+(?:\\.\\d+)?/);
+  const cleaned = value.replace(/,/g, "").match(/-?\d+(?:\.\d+)?/);
   if (!cleaned) return null;
   const parsed = Number(cleaned[0]);
   return Number.isFinite(parsed) ? parsed : null;
