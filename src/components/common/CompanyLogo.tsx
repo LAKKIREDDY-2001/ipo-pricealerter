@@ -310,8 +310,19 @@ const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
   [/\bmangal\s*compusolution\b/i, '/assets/movers/mangal.svg'],
 ];
 
+function normalizeStockSymbol(value?: string | null): string {
+  return (value || '')
+    .toUpperCase()
+    .trim()
+    // Accept common formats returned by exchanges and market-data providers.
+    .replace(/^(?:(?:NSE|BSE)(?:_EQ|_BE)?)[\\s:|_-]+/, '')
+    .replace(/\\.(?:NS|BO)$/, '')
+    .replace(/-(?:EQ|BE|BZ)$/, '')
+    .replace(/\\s+/g, '');
+}
+
 export function resolveStaticLogo(symbol?: string | null, companyName?: string | null): string | null {
-  const sym = (symbol || '').toUpperCase().trim();
+  const sym = normalizeStockSymbol(symbol);
   if (sym && KNOWN_STATIC_LOGOS[sym]) {
     return KNOWN_STATIC_LOGOS[sym];
   }
@@ -343,7 +354,7 @@ function buildCompanyLogoProxyUrl(opts: {
   searchId?: string | null;
   logoColor?: string | null;
 }): string {
-  const sym = (opts.symbol || '').toUpperCase().trim();
+  const sym = normalizeStockSymbol(opts.symbol);
   const params = new URLSearchParams();
   if (sym) {
     params.set('symbol', sym);
@@ -375,7 +386,7 @@ export function buildLogoCandidateList(opts: {
   logoColor?: string | null;
 }): string[] {
   const candidates: string[] = [];
-  const sym = (opts.symbol || '').toUpperCase().trim();
+  const sym = normalizeStockSymbol(opts.symbol);
   const cleanSym = sym.replace(/[^A-Z0-9]/g, '');
   const bse6 = (opts.bseCode || '').trim();
 
@@ -487,6 +498,7 @@ export function CompanyLogo({
       className={`${sizeClass} bg-white border border-[#E2E8F0] dark:border-slate-700/80 overflow-hidden shrink-0 flex items-center justify-center ${className}`}
     >
       <img
+        key={activeSrc}
         src={activeSrc}
         alt={`${companyName} logo`}
         loading="lazy"
