@@ -205,7 +205,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     if (!(env.RESEND_API_KEY || "").trim()) return json({ error: "Password reset email is not configured. The site owner must add RESEND_API_KEY and MAIL_FROM in Cloudflare Pages settings.", code: "PASSWORD_RESET_EMAIL_NOT_CONFIGURED" }, 503);
     const body = await readBody(request);
     const email = String(body.email || "").trim().toLowerCase();
-    if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return fail("Enter a valid email address.", 400);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Enter a valid email address.", 400);
     if (!(await rateLimit(db, "forgot:" + email, 3, 15 * 60_000))) return fail("Too many reset requests. Try again later.", 429);
     const genericMessage = "If an account exists for that email, a password reset link has been sent.";
     const user = await db.prepare("SELECT id,name,email FROM users WHERE email=?").bind(email).first<any>();
