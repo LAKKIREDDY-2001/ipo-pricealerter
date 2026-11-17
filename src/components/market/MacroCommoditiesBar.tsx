@@ -94,7 +94,7 @@ export function MacroCommoditiesBar() {
             {loading ? '—' : usdInr == null ? 'Unavailable' : `₹${formatValue(usdInr)}`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400 font-data">
-            Bid: {formatValue(macro?.usdInr?.bid)} · Ask: {formatValue(macro?.usdInr?.ask)}
+            FX spot reference · USD / INR
           </div>
         </div>
 
