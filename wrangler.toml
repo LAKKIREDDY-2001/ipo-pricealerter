@@ -1,3 +1,11 @@
 name = "pricealerter"
 compatibility_date = "2026-11-16"
 pages_build_output_dir = "dist"
+
+# Once D1 has been created, add the following block and replace the UUID.
+# Pages Functions read this binding as context.env.DB.
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "pricealerter-db"
+# database_id = "REPLACE_WITH_D1_DATABASE_UUID"
+# migrations_dir = "migrations"
