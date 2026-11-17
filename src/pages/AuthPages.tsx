@@ -154,7 +154,7 @@ export function LoginPage() {
           </h1>
           <p className="text-xs text-[#64748B] dark:text-slate-400">
             {forgotMode
-              ? 'Enter your registered email address to request verification.'
+              ? 'Enter your account email. If it exists, we’ll send a secure reset link.'
               : 'Access your saved IPOs, equity watchlist, and real-time alert rules.'}
           </p>
         </div>
@@ -440,6 +440,68 @@ export function RegisterPage() {
             Sign In
           </Link>
         </div>
+      </div>
+    </main>
+  );
+}
+export function ResetPasswordPage() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const token = searchParams.get('token') || '';
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(null);
+    setMessage(null);
+    if (!token) { setError('This reset link is missing its token. Request a new password reset email.'); return; }
+    if (password !== confirmPassword) { setError('The new password and confirmation do not match.'); return; }
+    if (password.length < 10 || password.length > 128 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+      setError('Use 10–128 characters and include at least one letter and one number.');
+      return;
+    }
+    setBusy(true);
+    try {
+      const result = await api.resetPassword(token, password);
+      setMessage(result.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to reset your password.');
+    } finally { setBusy(false); }
+  };
+
+  return (
+    <main className="min-h-[75vh] flex items-center justify-center px-4 py-12">
+      <SEOHead title="Reset Password – PriceAlerter" description="Choose a new password for your PriceAlerter account." noIndex />
+      <div className="w-full max-w-md rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-7 space-y-5">
+        <div className="flex flex-col items-center text-center space-y-2">
+          <PriceAlerterLogo size="md" />
+          <h1 className="font-display text-xl font-bold text-[#14263F] dark:text-white">Create a New Password</h1>
+          <p className="text-xs text-[#64748B] dark:text-slate-400">Choose a strong password for your account.</p>
+        </div>
+        {error && <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-xs text-red-700">{error}</div>}
+        {message ? (
+          <div className="space-y-4">
+            <div role="status" className="rounded-lg border border-emerald-200 bg-emerald-50 px-3.5 py-2.5 text-xs text-emerald-700">{message}</div>
+            <button type="button" onClick={() => navigate('/login', { replace: true })} className="w-full rounded-lg bg-[#14263F] py-2.5 text-xs font-semibold text-white">Continue to Sign In</button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            <label className="block">
+              <span className="font-medium text-[#152338] dark:text-slate-200">New Password</span>
+              <input type="password" required minLength={10} maxLength={128} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 10 characters" className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2.5 text-sm" />
+            </label>
+            <label className="block">
+              <span className="font-medium text-[#152338] dark:text-slate-200">Confirm New Password</span>
+              <input type="password" required minLength={10} maxLength={128} autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Re-enter your password" className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2.5 text-sm" />
+            </label>
+            <button type="submit" disabled={busy || !token} className="w-full rounded-lg bg-[#14263F] dark:bg-[#2563EB] py-2.5 text-xs font-semibold text-white disabled:opacity-50">{busy ? 'Updating Password...' : 'Reset Password'}</button>
+            <Link to="/login" className="block text-center text-xs text-[#2563EB] hover:underline">Back to Sign In</Link>
+          </form>
+        )}
       </div>
     </main>
   );
