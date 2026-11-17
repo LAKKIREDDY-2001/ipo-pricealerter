@@ -11,6 +11,7 @@ type Snapshot = {
   recentIpos?: any[];
   lastSyncTime?: string;
   lastSyncFormatted?: string;
+  generatedAt?: string;
 };
 
 let snapshotCache: { expiresAt: number; value: Snapshot } | null = null;
@@ -229,7 +230,7 @@ function filterAndPageStocks(all: any[], url: URL) {
     sectors: [...new Set(all.map((s) => s.sector).filter(Boolean))].sort(),
     liveFeedReachable: false,
     dataSource: "published-market-snapshot",
-    liveSyncedAt: snapshotTimestamp(all),
+    liveSyncedAt: snapshotTimestamp(all) || null,
   };
 }
 
@@ -296,7 +297,7 @@ export async function onRequest(context: {
           indices: snapshot.indices?.length || 0,
           blogs: snapshot.blogs?.length || 0,
         },
-        snapshotTimestamp: snapshot.lastSyncTime || null,
+        snapshotTimestamp: snapshot.lastSyncTime || snapshot.generatedAt || null,
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
@@ -316,7 +317,7 @@ export async function onRequest(context: {
         indices: snapshot.indices || [],
         liveFeedReachable: false,
         dataSource: "published-market-snapshot",
-        retrievedAt: snapshot.lastSyncTime || null,
+        retrievedAt: snapshot.lastSyncTime || snapshot.generatedAt || null,
       });
     }
     if (pathname === "/api/market/macro") {
