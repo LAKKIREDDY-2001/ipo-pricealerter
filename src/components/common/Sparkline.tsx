@@ -26,7 +26,7 @@ export function Sparkline({
   const max = Math.max(...safeData);
   const range = max - min || 1;
 
-  const points = data
+  const points = safeData
     .map((val, idx) => {
       const x = (idx / (safeData.length - 1)) * (width - 4) + 2;
       const y = height - 3 - ((val - min) / range) * (height - 6);
