@@ -1754,7 +1754,12 @@ function buildRegistryEquityStock(params: {
   } = params;
 
   const primaryBhav = nseBhav ?? bseBhav;
-  const hydrated = liveQuoteHydrationCache.get(symbol);
+  const cachedHydration = liveQuoteHydrationCache.get(symbol);
+  // Never let a disk-warmed or old quote override the latest exchange bhavcopy.
+  const hydrated =
+    cachedHydration && Date.now() - cachedHydration.fetchedAt < 120_000
+      ? cachedHydration
+      : undefined;
   const hydQ = hydrated?.quote;
 
   const ltp = round2(
@@ -2344,7 +2349,7 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
       if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 30_000;
       if (force) return !cached || now - cached.fetchedAt > 15_000;
       if (s.provenance.source.includes('Groww')) return false;
-      return !cached;
+      return !cached || now - cached.fetchedAt > 30_000;
     })
     .slice(0, 50);
 
