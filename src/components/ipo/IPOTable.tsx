@@ -174,7 +174,9 @@ export function IPOTable({ ipos, pageSize = 8 }: IPOTableProps) {
                 <div className="text-right">
                   <div className="text-[10px] text-[#64748B]">Subscription</div>
                   <div className="font-data font-semibold text-[#152338] dark:text-slate-100">
-                    {ipo.subscription.total !== null ? `${ipo.subscription.total.toFixed(2)}x` : '—'}
+                    {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)
+                      ? `${ipo.subscription.total.toFixed(2)}x`
+                      : '—'}
                   </div>
                 </div>
               </div>
@@ -334,7 +336,7 @@ export function IPOTable({ ipos, pageSize = 8 }: IPOTableProps) {
                     {formatDateIN(ipo.dates.listingDate)}
                   </td>
                   <td className="py-3 px-3 text-right font-data whitespace-nowrap font-semibold text-[#152338] dark:text-slate-100">
-                    {ipo.subscription.total !== null
+                    {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)
                       ? `${ipo.subscription.total.toFixed(2)}x`
                       : '—'}
                   </td>

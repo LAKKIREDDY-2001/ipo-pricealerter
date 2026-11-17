@@ -287,7 +287,9 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                         </div>
                         <span className="font-data text-xs font-semibold text-[#152338] dark:text-slate-200 shrink-0">
                           {stk.currency === 'USD'
-                            ? `$${stk.currentPrice?.toFixed(2)}`
+                            ? typeof stk.currentPrice === 'number' && Number.isFinite(stk.currentPrice)
+                              ? `$${stk.currentPrice.toFixed(2)}`
+                              : 'Unavailable'
                             : formatINR(stk.currentPrice)}
                         </span>
                       </button>

@@ -224,7 +224,7 @@ export function GlobalStocksPage() {
           </h1>
           <p className="text-sm text-[#64748B] dark:text-slate-400 mt-1">
             Real-time tracking of top global companies and ETFs across NASDAQ, NYSE, and AMEX with live
-            USD to INR valuation ($1 = ₹{usdInrRate.toFixed(2)}).
+            USD to INR valuation ($1 = ₹{typeof usdInrRate === 'number' && Number.isFinite(usdInrRate) ? usdInrRate.toFixed(2) : '93.50'}).
           </p>
         </div>
 
@@ -281,7 +281,7 @@ export function GlobalStocksPage() {
         <div className="rounded-lg border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] px-3.5 py-2.5">
           <div className="text-[#64748B]">USD / INR Reference Rate</div>
           <div className="font-data text-base font-bold text-[#059669] mt-0.5">
-            ₹{usdInrRate.toFixed(2)}
+            ₹{typeof usdInrRate === 'number' && Number.isFinite(usdInrRate) ? usdInrRate.toFixed(2) : '93.50'}
           </div>
         </div>
         <div className="rounded-lg border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] px-3.5 py-2.5">
@@ -300,7 +300,7 @@ export function GlobalStocksPage() {
 
       <DisclaimerBanner
         title="INDmoney US Stocks & Global Markets Data Provenance"
-        text={`Equities and ETF quotations are curated from the official INDmoney US Stocks explore directory (${sourceUrl}) and real-time NASDAQ / NYSE exchange pricing feeds. Indian Rupee (INR) valuations are computed at the live USD/INR reference rate of ₹${usdInrRate.toFixed(2)}.`}
+        text={`Equities and ETF quotations are curated from the official INDmoney US Stocks explore directory (${sourceUrl}) and real-time NASDAQ / NYSE exchange pricing feeds. Indian Rupee (INR) valuations are computed at the live USD/INR reference rate of ₹${typeof usdInrRate === 'number' && Number.isFinite(usdInrRate) ? usdInrRate.toFixed(2) : '93.50'}.`}
       />
 
       {/* Curated INDmoney Category Tabs */}
@@ -497,19 +497,19 @@ export function GlobalStocksPage() {
                       <td className="py-3 px-3">
                         {currencyMode === 'USD' ? (
                           <div className="font-data font-bold text-sm text-[#14263F] dark:text-white">
-                            ${s.priceUsd.toFixed(2)}
+                            ${typeof s.priceUsd === 'number' && Number.isFinite(s.priceUsd) ? s.priceUsd.toFixed(2) : '—'}
                           </div>
                         ) : currencyMode === 'INR' ? (
                           <div className="font-data font-bold text-sm text-[#14263F] dark:text-white">
-                            ₹{s.priceInInr.toLocaleString('en-IN')}
+                            ₹{typeof s.priceInInr === 'number' && Number.isFinite(s.priceInInr) ? s.priceInInr.toLocaleString('en-IN') : '—'}
                           </div>
                         ) : (
                           <div>
                             <div className="font-data font-bold text-sm text-[#14263F] dark:text-white">
-                              ${s.priceUsd.toFixed(2)}
+                              ${typeof s.priceUsd === 'number' && Number.isFinite(s.priceUsd) ? s.priceUsd.toFixed(2) : '—'}
                             </div>
                             <div className="font-data text-[11px] text-[#64748B] dark:text-slate-400">
-                              ₹{s.priceInInr.toLocaleString('en-IN')}
+                              ₹{typeof s.priceInInr === 'number' && Number.isFinite(s.priceInInr) ? s.priceInInr.toLocaleString('en-IN') : '—'}
                             </div>
                           </div>
                         )}
@@ -528,17 +528,19 @@ export function GlobalStocksPage() {
                           )}
                           <span>
                             {isUp ? '+' : ''}
-                            {s.changePercent.toFixed(2)}%
+                            {typeof s.changePercent === 'number' && Number.isFinite(s.changePercent) ? `${s.changePercent.toFixed(2)}%` : '—'}
                           </span>
                         </div>
                         <div className="font-data text-[11px] text-[#94A3B8]">
-                          {isUp ? '+' : ''}${s.changeUsd.toFixed(2)}
+                          {isUp ? '+' : ''}${typeof s.changeUsd === 'number' && Number.isFinite(s.changeUsd) ? s.changeUsd.toFixed(2) : '—'}
                         </div>
                       </td>
 
                       <td className="py-3 px-3">
                         <div className="font-data text-[11px] text-[#64748B] dark:text-slate-400">
-                          ${s.week52LowUsd.toFixed(1)} – ${s.week52HighUsd.toFixed(1)}
+                          {typeof s.week52LowUsd === 'number' && Number.isFinite(s.week52LowUsd) && typeof s.week52HighUsd === 'number' && Number.isFinite(s.week52HighUsd)
+                            ? `$${s.week52LowUsd.toFixed(1)} – $${s.week52HighUsd.toFixed(1)}`
+                            : '—'}
                         </div>
                       </td>
 
@@ -547,19 +549,19 @@ export function GlobalStocksPage() {
                           {s.marketCapFormatted}
                         </div>
                         <div className="font-data text-[11px] text-[#94A3B8]">
-                          ≈ ₹{Math.round((s.marketCapUsd * usdInrRate) / 10_000_000).toLocaleString('en-IN')} Cr
+                          ≈ ₹{Math.round((s.marketCapUsd * (typeof usdInrRate === 'number' && Number.isFinite(usdInrRate) ? usdInrRate : 93.5)) / 10_000_000).toLocaleString('en-IN')} Cr
                         </div>
                       </td>
 
                       <td className="py-3 px-3">
                         <span className="font-data text-[#152338] dark:text-slate-300">
-                          {s.peRatio ? s.peRatio.toFixed(1) : '—'}
+                          {typeof s.peRatio === 'number' && Number.isFinite(s.peRatio) ? s.peRatio.toFixed(1) : '—'}
                         </span>
                       </td>
 
                       <td className="py-3 px-3">
                         <span className="font-data text-[#152338] dark:text-slate-300">
-                          {s.dividendYieldPct ? `${s.dividendYieldPct.toFixed(2)}%` : '—'}
+                          {typeof s.dividendYieldPct === 'number' && Number.isFinite(s.dividendYieldPct) ? `${s.dividendYieldPct.toFixed(2)}%` : '—'}
                         </span>
                       </td>
 

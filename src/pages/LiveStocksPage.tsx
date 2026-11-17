@@ -198,7 +198,11 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
     const header = ['Symbol', 'Company', 'Exchange', 'BSE_Code', 'Sector', 'LTP_INR', 'PrevClose_INR', 'Change_Pct', 'Volume', 'MarketCap_Cr'];
     const rows = stocks.map((s) => {
       const pct =
-        s.currentPrice !== null && s.previousClose
+        typeof s.currentPrice === 'number' &&
+        Number.isFinite(s.currentPrice) &&
+        typeof s.previousClose === 'number' &&
+        Number.isFinite(s.previousClose) &&
+        s.previousClose > 0
           ? (((s.currentPrice - s.previousClose) / s.previousClose) * 100).toFixed(2)
           : '';
       return [

@@ -1,3 +1,14 @@
+export function safeToFixed(
+  value: number | null | undefined,
+  digits = 2,
+  fallback = 'Unavailable'
+): string {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value.toFixed(digits);
+  }
+  return fallback;
+}
+
 export function formatINR(value: number | null | undefined, decimals = 2): string {
   if (value === null || value === undefined || Number.isNaN(value)) {
     return 'Unavailable';

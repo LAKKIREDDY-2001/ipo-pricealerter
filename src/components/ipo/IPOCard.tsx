@@ -82,7 +82,7 @@ export function IPOCard({ ipo }: { ipo: IPOOffering }) {
           <div>
             <div className="text-[#64748B] dark:text-slate-400">Subscription</div>
             <div className="font-data font-semibold text-[#152338] dark:text-slate-100 mt-0.5">
-              {ipo.subscription.total !== null
+              {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)
                 ? `${ipo.subscription.total.toFixed(2)}x${ipo.subscription.isFinal ? ' (Final)' : ''}`
                 : ipo.status === 'Upcoming'
                   ? 'Not Open'

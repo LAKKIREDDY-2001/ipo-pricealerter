@@ -1185,7 +1185,7 @@ export function HomePage() {
                         }`}
                       >
                         {up ? '+' : ''}
-                        {idx.change?.toFixed(2)} ({formatPercent(idx.changePercent)})
+                        {typeof idx.change === 'number' && Number.isFinite(idx.change) ? idx.change.toFixed(2) : '—'} ({formatPercent(idx.changePercent)})
                       </div>
                       <div className="mt-2 text-[10px] text-[#94A3B8]">
                         {idx.provenance.source}

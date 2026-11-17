@@ -59,7 +59,7 @@ export function SectorHeatmap({ stocks }: { stocks: StockInstrument[] }) {
                 }`}
               >
                 {isPos ? '+' : ''}
-                {sec.avgPct.toFixed(2)}%
+                {typeof sec.avgPct === 'number' && Number.isFinite(sec.avgPct) ? sec.avgPct.toFixed(2) : '0.00'}%
               </span>
               <span className="text-[11px] text-[#64748B] dark:text-slate-400 font-data">
                 {sec.count} stocks

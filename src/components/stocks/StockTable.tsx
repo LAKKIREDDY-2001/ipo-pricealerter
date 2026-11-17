@@ -46,7 +46,15 @@ export function StockTable({
   const [page, setPage] = useState(1);
 
   const getChangePct = (s: StockInstrument) => {
-    if (s.currentPrice === null || s.previousClose === null || s.previousClose <= 0) return -999;
+    if (
+      typeof s.currentPrice !== 'number' ||
+      !Number.isFinite(s.currentPrice) ||
+      typeof s.previousClose !== 'number' ||
+      !Number.isFinite(s.previousClose) ||
+      s.previousClose <= 0
+    ) {
+      return -999;
+    }
     return ((s.currentPrice - s.previousClose) / s.previousClose) * 100;
   };
 
@@ -156,6 +164,7 @@ export function StockTable({
               ? (absChg! / s.previousClose!) * 100
               : null;
           const isPos = (absChg ?? 0) >= 0;
+          const hasValidChange = typeof absChg === 'number' && Number.isFinite(absChg) && typeof pctChg === 'number' && Number.isFinite(pctChg);
 
           return (
             <div key={s.id} className="p-3.5 space-y-2.5">
@@ -190,7 +199,7 @@ export function StockTable({
                   <div className="font-data text-sm font-bold text-[#152338] dark:text-white">
                     {formatINR(s.currentPrice)}
                   </div>
-                  {absChg !== null && pctChg !== null ? (
+                  {hasValidChange ? (
                     <div
                       className={`font-data text-xs font-semibold ${
                         isPos
@@ -199,8 +208,8 @@ export function StockTable({
                       }`}
                     >
                       {isPos ? '+' : ''}
-                      {absChg.toFixed(2)} ({isPos ? '+' : ''}
-                      {pctChg.toFixed(2)}%)
+                      {absChg!.toFixed(2)} ({isPos ? '+' : ''}
+                      {pctChg!.toFixed(2)}%)
                     </div>
                   ) : (
                     <div className="text-[11px] text-[#94A3B8]">Unavailable</div>
@@ -299,13 +308,14 @@ export function StockTable({
           </thead>
           <tbody className="divide-y divide-[#E2E8F0] dark:divide-slate-800 text-xs">
             {items.map((s) => {
-              const hasPrice = s.currentPrice !== null && s.previousClose !== null;
+              const hasPrice = typeof s.currentPrice === 'number' && Number.isFinite(s.currentPrice) && typeof s.previousClose === 'number' && Number.isFinite(s.previousClose);
               const absChg = hasPrice ? s.currentPrice! - s.previousClose! : null;
               const pctChg =
                 hasPrice && s.previousClose! > 0
                   ? (absChg! / s.previousClose!) * 100
                   : null;
               const isPos = (absChg ?? 0) >= 0;
+              const hasValidChange = typeof absChg === 'number' && Number.isFinite(absChg) && typeof pctChg === 'number' && Number.isFinite(pctChg);
 
               return (
                 <tr
@@ -350,7 +360,7 @@ export function StockTable({
                     {formatINR(s.currentPrice)}
                   </td>
                   <td className="py-3 px-3 text-right font-data whitespace-nowrap">
-                    {absChg !== null && pctChg !== null ? (
+                    {hasValidChange ? (
                       <span
                         className={`font-medium ${
                           isPos
@@ -359,8 +369,8 @@ export function StockTable({
                         }`}
                       >
                         {isPos ? '+' : ''}
-                        {absChg.toFixed(2)} ({isPos ? '+' : ''}
-                        {pctChg.toFixed(2)}%)
+                        {absChg!.toFixed(2)} ({isPos ? '+' : ''}
+                        {pctChg!.toFixed(2)}%)
                       </span>
                     ) : (
                       <span className="text-[#94A3B8]">Unavailable</span>

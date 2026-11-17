@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BellPlus, Building2, RefreshCw } from 'lucide-react';
 import {
@@ -299,7 +299,7 @@ export function StockDetailPage() {
               <span className="font-data text-3xl font-bold text-[#14263F] dark:text-white">
                 {formatINR(stock.currentPrice)}
               </span>
-              {diff !== null && diffPct !== null && (
+              {typeof diff === 'number' && Number.isFinite(diff) && typeof diffPct === 'number' && Number.isFinite(diffPct) && (
                 <span
                   className={`font-data text-sm font-semibold ${
                     isUp ? 'text-[#16A34A] dark:text-emerald-400' : 'text-[#DC2626] dark:text-red-400'

@@ -277,14 +277,14 @@ export function IPODetailsPage() {
           <div>
             <div className="text-[#64748B] dark:text-slate-400">Subscription</div>
             <div className="font-data text-sm font-bold text-[#152338] dark:text-white mt-0.5">
-              {ipo.subscription.total !== null
+              {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)
                 ? `${ipo.subscription.total.toFixed(2)}x`
                 : ipo.status === 'Upcoming'
                   ? 'Not Open'
                   : 'Unavailable'}
             </div>
             <div className="text-[11px] text-[#64748B] dark:text-slate-400">
-              {ipo.subscription.total !== null
+              {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)
                 ? ipo.subscription.isFinal
                   ? 'Final Bid Book'
                   : 'Live Bid Book'
@@ -524,7 +524,7 @@ export function IPODetailsPage() {
               >
                 <div className="text-xs text-[#64748B] dark:text-slate-400">{cat.label}</div>
                 <div className="mt-1 font-data text-lg font-bold text-[#152338] dark:text-white">
-                  {cat.val !== null ? `${cat.val.toFixed(2)}x` : 'Unavailable'}
+                  {typeof cat.val === 'number' && Number.isFinite(cat.val) ? `${cat.val.toFixed(2)}x` : 'Unavailable'}
                 </div>
                 <div className="text-[11px] text-[#94A3B8]">
                   {cat.val !== null
@@ -594,7 +594,7 @@ export function IPODetailsPage() {
             </div>
           ) : (
             <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-6 text-xs text-[#64748B]">
-              {ipo.subscription.total !== null
+              {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)
                 ? `Consolidated category-wise subscription totals are displayed above (${ipo.subscription.total.toFixed(2)}x overall). Day-by-day tranche history is not provided in the exchange summary.`
                 : ipo.status === 'Upcoming'
                   ? 'Subscription bid data is not yet available because bidding has not opened yet.'
