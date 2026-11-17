@@ -534,5 +534,8 @@ export interface GlobalMacroSnapshot {
     date: string;
   } | null;
   retrievedAt: string;
+  source?: string;
+  liveFeedReachable?: boolean;
+  dataSource?: string;
 }
 
