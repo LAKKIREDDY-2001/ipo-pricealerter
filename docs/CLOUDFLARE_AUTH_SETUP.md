@@ -1,61 +1,49 @@
 # PriceAlerter production account setup (Cloudflare Pages + D1)
 
-The Pages Functions contain the D1-backed account API for registration, sign-in, persistent sessions, profile preferences, password changes, password resets, watchlists, alerts and notifications. These features require the D1 schema migrations to be applied to the bound database. Do not enable a fake/localStorage-only account mode in production.
+The Pages Functions provide registration, sign-in, persistent sessions, profile preferences, password changes, password resets, watchlists, alerts and notifications. The D1 database has already been created and bound as `DB` in both Production and Preview. The remaining database step is applying the migrations.
 
-## 1. Create the D1 database
+## 1. Apply the D1 schema
 
-From the repository root, with Wrangler authenticated to the Cloudflare account that owns the Pages project:
-
-```bash
-npx wrangler login
-npx wrangler d1 create pricealerter-db
-```
-
-Copy the `database_id` returned by Wrangler.
-
-## 2. Bind D1 to Pages
-
-Add this block to the root `wrangler.toml`, replacing the placeholder with the actual ID:
-
-```toml
-[[d1_databases]]
-binding = "DB"
-database_name = "pricealerter-db"
-database_id = "REPLACE_WITH_REAL_DATABASE_ID"
-migrations_dir = "migrations"
-```
-
-The binding name must be exactly `DB`; the Pages Function reads `env.DB`.
-
-The database is already bound as `DB` in both Production and Preview. Do not add a second binding.
-
-## 3. Apply the schema to the remote database
+From the repository root, authenticate Wrangler to the Cloudflare account that owns the Pages project:
 
 ```bash
+npx wrangler@latest login
+npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.example.toml
 npx wrangler@latest d1 migrations apply pricealerter-db --remote --config wrangler.d1.example.toml
+npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangler.d1.example.toml
 ```
 
-Check that all three migrations in `migrations/` are applied. The schema includes users, password hashes, sessions, watchlists, alerts, notifications, password-reset tokens, rate limits and sync/audit tables.
+The CLI-only config already contains the existing database ID. Do not use `wrangler.d1.example.toml` as the Pages production deployment config, and do not create another database or another binding.
 
-## 4. Configure optional production variables
+All three migrations must show as applied. They create users, password hashes, sessions, watchlists, alerts, notifications, password-reset tokens, rate limits and market-data sync tables.
 
-In **Cloudflare Pages → Settings → Environment variables**, set:
+## 2. Configure password-reset email
 
-- `ADMIN_EMAIL`: optional; only the matching address receives the administrator role at registration. Keep this private.
-- `RESEND_API_KEY`: required for password-reset email delivery. Create an API key in Resend and add it as an encrypted Pages secret.
+In **Cloudflare Dashboard → Workers & Pages → ipo-pricealerter → Settings → Variables and Secrets**, add these to Production (and Preview if you test resets there):
+
+- `RESEND_API_KEY`: an encrypted secret from your Resend account.
 - `MAIL_FROM`: a sender address verified in Resend, for example `PriceAlerter <no-reply@pricealerter.in>`.
-- `SITE_URL`: set to `https://pricealerter.in` so reset links point to the production site.
+- `SITE_URL`: `https://pricealerter.in`.
+- `ADMIN_EMAIL`: optional; the matching email is assigned the administrator role when that account is registered. Keep it private.
 
-Never put credentials, database tokens or API secrets in `VITE_*` variables or frontend source.
+Never put API keys, database credentials or other secrets in `VITE_*` variables or frontend source.
 
-## 5. Deploy and verify
+## 3. Deploy and verify
 
-Trigger a new Pages deployment from the `main` branch. After deployment, verify:
+Trigger a new deployment of the `main` branch in Cloudflare Pages so the updated Pages Functions and frontend are live. Then verify:
 
-- `GET /api/health` reports `persistentDatabaseConfigured: true` and `database: "connected"`.
-- Register a test account with a password of at least 10 characters containing letters and numbers. Test the forgot-password flow after setting the Resend secrets.
-- Sign out, sign back in, refresh the page, and confirm the session remains valid.
+- `GET https://pricealerter.in/api/health` returns `status: "ok"`, `database: "connected"` and `persistentDatabaseConfigured: true`.
+- Register a test account with a password of at least 10 characters containing letters and numbers.
+- Sign out, sign in again, refresh the page and confirm the session remains valid.
+- Add a stock and an IPO to the watchlist; refresh and confirm both remain saved.
+- Create, pause and delete a price alert.
+- Test forgot-password after setting the Resend variables; use the emailed link to set a new password, then sign in with it.
 - Confirm one user's watchlist and alerts are not visible to another user.
 - Confirm logout invalidates the session.
 
-If `/api/health` reports that D1 is not configured, account creation must remain disabled and show the setup error. Do not treat a successful frontend build as proof that production authentication is ready.
+If `/api/health` returns `DATABASE_MIGRATIONS_REQUIRED`, apply all migrations. If it returns `PASSWORD_RESET_EMAIL_NOT_CONFIGURED`, add the Resend settings. A successful frontend build alone is not proof that production authentication is ready.
+
+## 4. Features that still need separate services
+
+Price-alert records are stored, but automatic price-alert evaluation and delivery still require a scheduled Worker/cron and a dependable quote feed. Email verification is also not enabled. Do not advertise these as active until those services are implemented and tested.
+
