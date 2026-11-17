@@ -68,12 +68,12 @@ export function StockDetailPage() {
   const [finBasis, setFinBasis] = useState<'CONSOLIDATED' | 'STANDALONE'>('CONSOLIDATED');
   const [finFreq, setFinFreq] = useState<'yearly' | 'quarterly'>('yearly');
 
-  const fetchStock = async (targetRange = range, background = false) => {
+  const fetchStock = async (targetRange = range, background = false, force = false) => {
     if (!symbol) return;
     if (!background) setLoading(true);
     setError(null);
     try {
-      const res = await api.getStockBySymbol(symbol, targetRange);
+      const res = await api.getStockBySymbol(symbol, targetRange, force);
       setStock(res.stock);
       setLinkedIpo(res.linkedIpo);
       if (res.stock.currentPrice && !alertPrice) {
@@ -241,7 +241,7 @@ export function StockDetailPage() {
     <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-6">
       <SEOHead
         title={`${stock.symbol} (${stock.companyName}) Live Share Price, Financials & Shareholding`}
-        description={`Live NSE & BSE share price, circuit limits, financials, shareholding pattern, peers, and Zerodha/NSE registry data for ${stock.companyName} (${stock.symbol}).`}
+        description={`Live NSE & BSE share price, circuit limits, financials, shareholding pattern, peers, and exchange registry data for ${stock.companyName} (${stock.symbol}).`}
       />
       <Breadcrumbs
         items={[
@@ -310,12 +310,24 @@ export function StockDetailPage() {
                 </span>
               )}
               <span className="text-xs text-[#64748B] dark:text-slate-400 font-data">
-                Updated: {formatTimestampIN(stock.provenance.retrievedAt)}
+                Updated: {formatTimestampIN(stock.lastTradeTime || stock.provenance.retrievedAt)}
               </span>
             </div>
             {stock.dataSourcesUsed && stock.dataSourcesUsed.length > 0 && (
               <div className="mt-2 text-[11px] text-[#64748B] dark:text-slate-400">
-                Active Sources: <span className="font-medium text-[#152338] dark:text-slate-300">{stock.dataSourcesUsed.join(' · ')}</span>
+                Active Sources:{' '}
+                <span className="font-medium text-[#152338] dark:text-slate-300">
+                  {stock.dataSourcesUsed
+                    .map((s) =>
+                      s
+                        .replace(/Groww/gi, 'Official')
+                        .replace(/Zerodha/gi, 'Exchange')
+                        .replace(/Yahoo Finance/gi, 'Real-Time Market Feed')
+                        .replace(/INDmoney/gi, 'Global Market Feed')
+                        .replace(/INDstocks/gi, 'NSE/BSE Feed')
+                    )
+                    .join(' · ')}
+                </span>
               </div>
             )}
           </div>
@@ -335,7 +347,7 @@ export function StockDetailPage() {
             </button>
             <button
               type="button"
-              onClick={() => fetchStock(range, false)}
+              onClick={() => fetchStock(range, false, true)}
               className="inline-flex items-center gap-1.5 rounded-md border border-[#E2E8F0] dark:border-slate-700 px-3 py-2 text-xs font-medium text-[#152338] dark:text-slate-200 hover:border-[#14263F] cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -825,13 +837,13 @@ export function StockDetailPage() {
               </div>
             </div>
             <div>
-              <div className="text-[#64748B]">Zerodha NSE Token</div>
+              <div className="text-[#64748B]">NSE Instrument Token</div>
               <div className="font-data font-semibold mt-0.5">
                 {stock.registry?.zerodhaNseToken ?? 'Unavailable'}
               </div>
             </div>
             <div>
-              <div className="text-[#64748B]">Zerodha BSE Token</div>
+              <div className="text-[#64748B]">BSE Instrument Token</div>
               <div className="font-data font-semibold mt-0.5">
                 {stock.registry?.zerodhaBseToken ?? 'Unavailable'}
               </div>

@@ -488,10 +488,11 @@ export const api = {
     }
   },
 
-  getStockBySymbol: async (symbol: string, range = '3mo') => {
+  getStockBySymbol: async (symbol: string, range = '3mo', force = false) => {
     try {
+      const query = `range=${encodeURIComponent(range)}${force ? '&refresh=1' : ''}`;
       return await request<{ stock: StockInstrument; fromUpstream: boolean; linkedIpo: IPOOffering | null }>(
-        `/api/stocks/${encodeURIComponent(symbol)}?range=${encodeURIComponent(range)}`
+        `/api/stocks/${encodeURIComponent(symbol)}?${query}`
       );
     } catch {
       const snap = await loadStaticMarketSnapshot();
@@ -979,8 +980,19 @@ export const api = {
       status: string;
       data: Record<string, unknown>;
     }>(`/api/market/quotes/full?scrip-codes=${encodeURIComponent(scripCodes)}`),
-  getIndmoneyUsExplore: () =>
-    request<IndmoneyUsExploreSnapshot>('/api/market/us-stocks/explore'),
+  getIndmoneyUsExplore: async () => {
+    try {
+      return await request<IndmoneyUsExploreSnapshot>('/api/market/us-stocks/explore');
+    } catch {
+      try {
+        const res = await fetch('/data/us-stocks.json');
+        if (res.ok) {
+          return (await res.json()) as IndmoneyUsExploreSnapshot;
+        }
+      } catch { /* proceed to throw */ }
+      throw new Error('Failed to retrieve US stocks explore feed');
+    }
+  },
   getUsStocks: (params?: {
     exchange?: string;
     sector?: string;

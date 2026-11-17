@@ -39,7 +39,6 @@ export function MacroCommoditiesBar() {
   const us10y = macro?.us10yYield?.rate;
   const formatValue = (value: unknown, digits = 2) =>
     typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
-  const sourceLabel = 'Alpha Vantage / Live Feed';
 
   return (
     <div className="rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#0F172A] p-4 sm:p-5 shadow-xs transition-all">

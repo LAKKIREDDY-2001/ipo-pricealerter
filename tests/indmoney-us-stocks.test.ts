@@ -35,7 +35,7 @@ test('INDmoney US Stocks & Global Markets Provider', async (t) => {
 
   await t.test('generates INDmoney explore snapshot with curated collections and tiers', () => {
     const snapshot = getIndmoneyUsExploreSnapshot();
-    assert.equal(snapshot.sourceUrl, 'https://www.indmoney.com/investments/us-stocks/explore-all');
+    assert.equal(snapshot.sourceUrl, 'https://pricealerter.in/us-stocks');
     assert.ok(snapshot.totalUniverse >= 40);
     assert.ok(snapshot.categories.length >= 8);
 

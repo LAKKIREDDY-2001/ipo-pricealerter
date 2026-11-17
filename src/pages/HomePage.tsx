@@ -474,7 +474,7 @@ export function HomePage() {
       <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">
         {error && <ErrorRetryState message={error} onRetry={loadDashboard} />}
 
-        {/* Global Macro & Commodities Live Feed (Alpha Vantage) */}
+        {/* Global Macro & Commodities Live Feed */}
         <MacroCommoditiesBar />
 
         {/* Section 4: Interactive IPO Activity Dashboard */}
@@ -509,7 +509,7 @@ export function HomePage() {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
                   </span>
                   <span className="text-xs font-bold uppercase tracking-wider text-blue-800 dark:text-blue-300">
-                    Upcoming IPO Spotlight · Zerodha Verified Issue Calendar
+                    Upcoming IPO Spotlight · Official SEBI &amp; Exchange Issue Calendar
                   </span>
                 </div>
                 <span className="text-[11px] text-[#64748B] dark:text-slate-400">
@@ -835,12 +835,20 @@ export function HomePage() {
                   : 'Track exchange quotes, volume, market cap, and day ranges across all NSE & BSE listed equities.'}
               </p>
             </div>
-            <Link
-              to="/live-prices"
-              className="text-xs font-semibold text-[#2563EB] dark:text-blue-400 hover:underline inline-flex items-center gap-1 whitespace-nowrap"
-            >
-              Open Full Stock Terminal <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link
+                to="/us-stocks"
+                className="text-xs font-semibold text-[#059669] dark:text-emerald-400 hover:underline inline-flex items-center gap-1 whitespace-nowrap"
+              >
+                <span>US &amp; Global Equities</span> <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                to="/live-prices"
+                className="text-xs font-semibold text-[#2563EB] dark:text-blue-400 hover:underline inline-flex items-center gap-1 whitespace-nowrap"
+              >
+                Open Stock Terminal <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">

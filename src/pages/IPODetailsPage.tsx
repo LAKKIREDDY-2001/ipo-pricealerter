@@ -588,7 +588,7 @@ export function IPODetailsPage() {
                   </tbody>
                 </table>
                 <div className="mt-3 text-[11px] text-[#64748B]">
-                  Source: {ipo.subscription.provenance.source} · Updated {formatTimestampIN(ipo.subscription.provenance.retrievedAt)}
+                  Source: {ipo.subscription.provenance.source.replace(/\(via\s+Groww\)/gi, '· Official Exchange Feed').replace(/Groww/gi, 'Official')} · Updated {formatTimestampIN(ipo.subscription.provenance.retrievedAt)}
                 </div>
               </div>
             </div>

@@ -153,7 +153,7 @@ export function MainNavbar() {
                   <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] shadow-lg p-1.5 grid gap-0.5">
                     {[
                       { label: 'All NSE & BSE Stocks', to: '/live-prices' },
-                      { label: 'US & Global Stocks (INDmoney)', to: '/us-stocks' },
+                      { label: 'US & Global Stocks', to: '/us-stocks' },
                       { label: 'NSE Stocks', to: '/nse-stocks' },
                       { label: 'BSE Stocks', to: '/bse-stocks' },
                       { label: 'Stock Screener', to: '/stock-screener' },
@@ -177,6 +177,9 @@ export function MainNavbar() {
 
             <NavLink to="/stock-screener" className={navLinkClass}>
               Screener
+            </NavLink>
+            <NavLink to="/us-stocks" className={navLinkClass}>
+              US Stocks
             </NavLink>
             <NavLink to="/calendar" className={navLinkClass}>
               Calendar
@@ -397,12 +400,12 @@ export function MainNavbar() {
 
               <div className="space-y-1.5">
                 <div className="text-[11px] font-semibold uppercase tracking-wider text-[#64748B]">
-                  NSE &amp; BSE Equities
+                  Equities &amp; Global Markets
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: 'Live Stocks', to: '/live-prices' },
-                    { label: 'US Stocks (INDmoney)', to: '/us-stocks' },
+                    { label: 'US & Global Stocks', to: '/us-stocks' },
                     { label: 'NSE Stocks', to: '/nse-stocks' },
                     { label: 'BSE Stocks', to: '/bse-stocks' },
                     { label: 'Stock Screener', to: '/stock-screener' },

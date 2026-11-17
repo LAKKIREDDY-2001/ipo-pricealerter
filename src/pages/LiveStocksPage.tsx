@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Download, RefreshCw, Search } from 'lucide-react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { ArrowRight, Download, RefreshCw, Search } from 'lucide-react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import type { StockInstrument } from '../types/financial';
@@ -336,8 +336,8 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
       </div>
 
       <DisclaimerBanner
-        title="Live NSE, BSE & INDstocks Market Data Provenance"
-        text="Quotes reflect the latest traded price (LTP), day change, OHLC, circuits, and volume synced from the connected NSE & BSE exchange registry and INDstocks Explore All universe (https://www.indstocks.com/investments/stocks/explore-all) with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST) or on weekends, prices reflect the latest settled session."
+        title="Live NSE &amp; BSE Market Data Provenance"
+        text="Quotes reflect the latest traded price (LTP), day change, OHLC, circuits, and volume synced directly from connected NSE & BSE exchange feeds with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST) or on weekends, prices reflect the latest settled session."
       />
 
       {/* Tabs */}
@@ -370,6 +370,13 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
             {t.label}
           </button>
         ))}
+        <Link
+          to="/us-stocks"
+          className="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-semibold border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors whitespace-nowrap shrink-0 ml-auto"
+        >
+          <span>US &amp; Global Stocks</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
 
       {section !== 'sectors' && section !== 'watchlist' && (

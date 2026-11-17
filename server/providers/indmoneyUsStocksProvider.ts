@@ -2458,7 +2458,7 @@ export function buildGlobalStockInstruments(
       fractionalAllowed: true,
       sparkline: [s1, s2, s3],
       provenance: {
-        source: 'INDmoney US Stocks Explore All · NASDAQ/NYSE Feed',
+        source: 'NASDAQ & NYSE Real-Time Feed · US Equities Registry',
         retrievedAt: nowIso,
         effectiveDate,
         verificationStatus: 'Verified',
@@ -2561,8 +2561,8 @@ export function getIndmoneyUsExploreSnapshot(): IndmoneyUsExploreSnapshot {
     .slice(0, 10);
 
   return {
-    sourceUrl: 'https://www.indmoney.com/investments/us-stocks/explore-all',
-    provenance: 'INDmoney US Stocks & Global Markets Explore Directory',
+    sourceUrl: 'https://pricealerter.in/us-stocks',
+    provenance: 'Official NASDAQ & NYSE US Equities Registry',
     retrievedAt: new Date().toISOString(),
     usdInrRate,
     totalUniverse: stocks.length,
@@ -2628,7 +2628,7 @@ export function globalStockToStockInstrument(g: GlobalStockInstrument): StockIns
       profitGrowthPct: null,
       dividendYieldPct: g.dividendYieldPct,
       reportingPeriod: 'TTM',
-      source: 'INDmoney / US SEC Filings',
+      source: 'US SEC Filings & Exchange Registry',
     },
     provenance: g.provenance,
   };

@@ -35,7 +35,7 @@ export function GlobalStocksPage() {
   const [totalMatches, setTotalMatches] = useState(0);
   const [usdInrRate, setUsdInrRate] = useState<number>(84.45);
   const [sourceUrl, setSourceUrl] = useState<string>(
-    'https://www.indmoney.com/investments/us-stocks/explore-all'
+    'https://pricealerter.in/us-stocks'
   );
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -71,7 +71,7 @@ export function GlobalStocksPage() {
       if (res && res.stocks) {
         setStocks(res.stocks);
         setUsdInrRate(res.usdInrRate || 84.45);
-        setSourceUrl(res.sourceUrl || 'https://www.indmoney.com/investments/us-stocks/explore-all');
+        setSourceUrl(res.sourceUrl || 'https://pricealerter.in/us-stocks');
         setTotalMatches(res.totalUniverse);
       }
     } catch (err) {
@@ -208,7 +208,7 @@ export function GlobalStocksPage() {
     <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-6">
       <SEOHead
         title="Live US Stocks Terminal - NASDAQ, NYSE & US ETFs"
-        description="Track live US stocks, Magnificent 7, S&P 500 leaders, and top US ETFs with live prices in USD ($) and converted INR (₹) powered by INDmoney explore directory."
+        description="Track live US stocks, Magnificent 7, S&P 500 leaders, and top US ETFs with live prices in USD ($) and converted INR (₹) powered by real-time NASDAQ and NYSE market feeds."
       />
       <Breadcrumbs items={[{ label: 'Dashboard', to: '/' }, { label: title }]} />
 
@@ -217,7 +217,7 @@ export function GlobalStocksPage() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-900 mb-2">
             <Globe2 className="w-3.5 h-3.5" />
-            INDmoney US Stocks Directory
+            US &amp; Global Equities Terminal
           </div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#14263F] dark:text-white">
             {title}
@@ -299,11 +299,11 @@ export function GlobalStocksPage() {
       </div>
 
       <DisclaimerBanner
-        title="INDmoney US Stocks & Global Markets Data Provenance"
-        text={`Equities and ETF quotations are curated from the official INDmoney US Stocks explore directory (${sourceUrl}) and real-time NASDAQ / NYSE exchange pricing feeds. Indian Rupee (INR) valuations are computed at the live USD/INR reference rate of ₹${typeof usdInrRate === 'number' && Number.isFinite(usdInrRate) ? usdInrRate.toFixed(2) : '93.50'}.`}
+        title="US &amp; Global Equities Data Provenance"
+        text={`Equities and ETF quotations are curated from official US exchange registries and real-time NASDAQ / NYSE pricing feeds. Indian Rupee (INR) valuations are computed at the live USD/INR reference rate of ₹${typeof usdInrRate === 'number' && Number.isFinite(usdInrRate) ? usdInrRate.toFixed(2) : '93.50'}.`}
       />
 
-      {/* Curated INDmoney Category Tabs */}
+      {/* Curated Category Tabs */}
       <div className="flex md:flex-wrap items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
         {[
           { id: 'all', label: 'All US Stocks & ETFs' },

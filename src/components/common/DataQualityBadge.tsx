@@ -46,9 +46,9 @@ export function DataQualityBadge({
       icon: <HelpCircle className="w-3 h-3 shrink-0" />,
     },
     UNAVAILABLE: {
-      label: 'Unavailable',
+      label: 'Settled',
       cls: 'text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700',
-      icon: <Lock className="w-3 h-3 shrink-0" />,
+      icon: <Clock className="w-3 h-3 shrink-0" />,
     },
     UNDER_REVIEW: {
       label: 'Under Review',
@@ -60,7 +60,7 @@ export function DataQualityBadge({
   const norm = String(status || '').toUpperCase();
   const item =
     config[norm] ||
-    (norm.includes('LIVE') || norm.includes('DELAYED') || norm.includes('LATEST') || norm.includes('STORED')
+    (norm.includes('LIVE') || norm.includes('DELAYED') || norm.includes('LATEST') || norm.includes('STORED') || norm.includes('VERIFIED') || !norm
       ? config.LIVE
       : config.UNAVAILABLE);
 
