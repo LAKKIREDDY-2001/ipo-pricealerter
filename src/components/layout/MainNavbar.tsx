@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   Bell,
   Bookmark,
@@ -31,7 +31,6 @@ export function MainNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<'ipo' | 'stocks' | 'tools' | 'user' | null>(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     setOpenDropdown(null);
