@@ -191,80 +191,8 @@ export function StockDetailPage() {
     },
   });
 
-  const handleQuickAlert = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAlertMsg(null);
-    setAlertErr(null);
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    if (!stock) return;
-    try {
-      await api.createAlert({
-        symbol: stock.symbol,
-        conditionType: alertType,
-        targetValue: Number(alertPrice),
-      });
-      await refreshUserData();
-      setAlertMsg(
-        `Alert saved: Notify when ${stock.symbol} moves ${
-          alertType === 'PRICE_ABOVE' ? 'above' : 'below'
-        } ₹${alertPrice}.`
-      );
-    } catch (err) {
-      setAlertErr(err instanceof Error ? err.message : 'Failed to create alert.');
-    }
-  };
-
-  if (loading && !stock) {
-    return (
-      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
-        <LoadingSkeleton rows={8} />
-      </main>
-    );
-  }
-
-  if (error || !stock) {
-    return (
-      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 space-y-4">
-        <Breadcrumbs items={[{ label: 'Dashboard', to: '/' }, { label: 'Live Stocks', to: '/live-prices' }]} />
-        <ErrorRetryState
-          message={error || 'Security unavailable.'}
-          onRetry={() => fetchStock(range, false)}
-        />
-      </main>
-    );
-  }
-
-  const hasQuote = typeof stock.currentPrice === 'number' && Number.isFinite(stock.currentPrice) && typeof stock.previousClose === 'number' && Number.isFinite(stock.previousClose);
-  const diff = hasQuote ? stock.currentPrice! - stock.previousClose! : null;
-  const diffPct =
-    hasQuote && stock.previousClose! > 0 ? (diff! / stock.previousClose!) * 100 : null;
-  const isUp = (diff ?? 0) >= 0;
-
-  const activeFin =
-    stock.financialStatements?.find((f) => f.basis === finBasis) ||
-    stock.financialStatements?.[0];
-
-  const finChartData = activeFin
-    ? (finFreq === 'yearly' ? activeFin.revenueYearly : activeFin.revenueQuarterly).map((rev) => {
-        const profList = finFreq === 'yearly' ? activeFin.profitYearly : activeFin.profitQuarterly;
-        const prof = profList.find((p) => p.period === rev.period);
-        const nw =
-          finFreq === 'yearly'
-            ? activeFin.netWorthYearly.find((n) => n.period === rev.period)
-            : undefined;
-        return {
-          period: rev.period,
-          Revenue: rev.valueCr,
-          Profit: prof?.valueCr ?? null,
-          NetWorth: nw?.valueCr ?? null,
-        };
-      })
-    : [];
-
   const effectiveChartSeries = useMemo(() => {
+    if (!stock) return [];
     if (stock.historicalSeries && stock.historicalSeries.length > 0) {
       if (range === '1d' && typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
         const series = [...stock.historicalSeries];
@@ -363,7 +291,90 @@ export function StockDetailPage() {
       return points;
     }
     return [];
-  }, [stock.historicalSeries, stock.sparkline, stock.currentPrice, stock.previousClose, stock.dayLow, stock.dayHigh, stock.volume, stock.lastTradeTime, range]);
+  }, [
+    stock?.historicalSeries,
+    stock?.sparkline,
+    stock?.currentPrice,
+    stock?.previousClose,
+    stock?.dayLow,
+    stock?.dayHigh,
+    stock?.volume,
+    stock?.lastTradeTime,
+    range,
+  ]);
+
+  const handleQuickAlert = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAlertMsg(null);
+    setAlertErr(null);
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!stock) return;
+    try {
+      await api.createAlert({
+        symbol: stock.symbol,
+        conditionType: alertType,
+        targetValue: Number(alertPrice),
+      });
+      await refreshUserData();
+      setAlertMsg(
+        `Alert saved: Notify when ${stock.symbol} moves ${
+          alertType === 'PRICE_ABOVE' ? 'above' : 'below'
+        } ₹${alertPrice}.`
+      );
+    } catch (err) {
+      setAlertErr(err instanceof Error ? err.message : 'Failed to create alert.');
+    }
+  };
+
+  if (loading && !stock) {
+    return (
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
+        <LoadingSkeleton rows={8} />
+      </main>
+    );
+  }
+
+  if (error || !stock) {
+    return (
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 space-y-4">
+        <Breadcrumbs items={[{ label: 'Dashboard', to: '/' }, { label: 'Live Stocks', to: '/live-prices' }]} />
+        <ErrorRetryState
+          message={error || 'Security unavailable.'}
+          onRetry={() => fetchStock(range, false)}
+        />
+      </main>
+    );
+  }
+
+  const hasQuote = typeof stock.currentPrice === 'number' && Number.isFinite(stock.currentPrice) && typeof stock.previousClose === 'number' && Number.isFinite(stock.previousClose);
+  const diff = hasQuote ? stock.currentPrice! - stock.previousClose! : null;
+  const diffPct =
+    hasQuote && stock.previousClose! > 0 ? (diff! / stock.previousClose!) * 100 : null;
+  const isUp = (diff ?? 0) >= 0;
+
+  const activeFin =
+    stock.financialStatements?.find((f) => f.basis === finBasis) ||
+    stock.financialStatements?.[0];
+
+  const finChartData = activeFin
+    ? (finFreq === 'yearly' ? activeFin.revenueYearly : activeFin.revenueQuarterly).map((rev) => {
+        const profList = finFreq === 'yearly' ? activeFin.profitYearly : activeFin.profitQuarterly;
+        const prof = profList.find((p) => p.period === rev.period);
+        const nw =
+          finFreq === 'yearly'
+            ? activeFin.netWorthYearly.find((n) => n.period === rev.period)
+            : undefined;
+        return {
+          period: rev.period,
+          Revenue: rev.valueCr,
+          Profit: prof?.valueCr ?? null,
+          NetWorth: nw?.valueCr ?? null,
+        };
+      })
+    : [];
 
   const displayPoint = hoveredPoint || (effectiveChartSeries.length > 0 ? {
     date: stock.lastTradeTime || effectiveChartSeries[effectiveChartSeries.length - 1].date,
