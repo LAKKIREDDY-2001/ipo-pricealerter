@@ -81,7 +81,8 @@ export function MainNavbar() {
             >
               <button
                 type="button"
-                onClick={() => navigate('/ipo')}
+                onClick={() => setOpenDropdown((current) => current === 'ipo' ? null : 'ipo')}
+                aria-haspopup="true"
                 aria-expanded={openDropdown === 'ipo'}
                 className={`inline-flex items-center gap-1 text-sm font-medium whitespace-nowrap shrink-0 py-1 border-b-2 cursor-pointer ${
                   location.pathname.startsWith('/ipo')
@@ -131,7 +132,8 @@ export function MainNavbar() {
             >
               <button
                 type="button"
-                onClick={() => navigate('/live-prices')}
+                onClick={() => setOpenDropdown((current) => current === 'stocks' ? null : 'stocks')}
+                aria-haspopup="true"
                 aria-expanded={openDropdown === 'stocks'}
                 className={`inline-flex items-center gap-1 text-sm font-medium whitespace-nowrap shrink-0 py-1 border-b-2 cursor-pointer ${
                   location.pathname.startsWith('/live-prices') ||
