@@ -1,6 +1,6 @@
 # PriceAlerter production account setup (Cloudflare Pages + D1)
 
-The Pages Functions already contain the D1-backed account API. Sign-in, registration, sessions, watchlists, alerts and notifications are intentionally unavailable until a persistent D1 database is attached. Do not enable a fake/localStorage-only account mode in production.
+The Pages Functions contain the D1-backed account API for registration, sign-in, persistent sessions, profile preferences, password changes, password resets, watchlists, alerts and notifications. These features require the D1 schema migrations to be applied to the bound database. Do not enable a fake/localStorage-only account mode in production.
 
 ## 1. Create the D1 database
 
@@ -27,22 +27,24 @@ migrations_dir = "migrations"
 
 The binding name must be exactly `DB`; the Pages Function reads `env.DB`.
 
-Alternatively, add a D1 database binding named `DB` in the Cloudflare Pages project's **Settings → Functions → D1 database bindings** and bind it to the same database. Keep the binding consistent between preview and production environments.
+The database is already bound as `DB` in both Production and Preview. Do not add a second binding.
 
 ## 3. Apply the schema to the remote database
 
 ```bash
-npx wrangler d1 migrations apply pricealerter-db --remote
+npx wrangler@latest d1 migrations apply pricealerter-db --remote --config wrangler.d1.example.toml
 ```
 
-Check that both migrations in `migrations/` are applied. The schema includes users, password hashes, sessions, watchlists, alerts, notifications, rate limits and sync/audit tables.
+Check that all three migrations in `migrations/` are applied. The schema includes users, password hashes, sessions, watchlists, alerts, notifications, password-reset tokens, rate limits and sync/audit tables.
 
 ## 4. Configure optional production variables
 
 In **Cloudflare Pages → Settings → Environment variables**, set:
 
 - `ADMIN_EMAIL`: optional; only the matching address receives the administrator role at registration. Keep this private.
-- Configure a transactional email provider before advertising password-reset emails. The current D1 password-reset endpoint deliberately returns an explicit not-configured response until a secure delivery flow is implemented.
+- `RESEND_API_KEY`: required for password-reset email delivery. Create an API key in Resend and add it as an encrypted Pages secret.
+- `MAIL_FROM`: a sender address verified in Resend, for example `PriceAlerter <no-reply@pricealerter.in>`.
+- `SITE_URL`: set to `https://pricealerter.in` so reset links point to the production site.
 
 Never put credentials, database tokens or API secrets in `VITE_*` variables or frontend source.
 
@@ -51,7 +53,7 @@ Never put credentials, database tokens or API secrets in `VITE_*` variables or f
 Trigger a new Pages deployment from the `main` branch. After deployment, verify:
 
 - `GET /api/health` reports `persistentDatabaseConfigured: true` and `database: "connected"`.
-- Register a test account with a password of at least 10 characters containing letters and numbers.
+- Register a test account with a password of at least 10 characters containing letters and numbers. Test the forgot-password flow after setting the Resend secrets.
 - Sign out, sign back in, refresh the page, and confirm the session remains valid.
 - Confirm one user's watchlist and alerts are not visible to another user.
 - Confirm logout invalidates the session.
