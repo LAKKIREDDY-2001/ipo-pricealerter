@@ -25,15 +25,16 @@ async function digest(value: string): Promise<string> {
 async function newPasswordHash(password: string): Promise<string> {
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const key = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 210000, hash: "SHA-256" }, key, 256);
-  return `pbkdf2_sha256$210000$${toB64(salt)}$${toB64(new Uint8Array(bits))}`;
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" }, key, 256);
+  return `pbkdf2_sha256$100000$${toB64(salt)}$${toB64(new Uint8Array(bits))}`;
 }
 async function verifyPassword(password: string, stored: string): Promise<boolean> {
   try {
     const [scheme, rounds, saltText, hashText] = stored.split("$");
     if (scheme !== "pbkdf2_sha256") return false;
+    const iterations = Math.min(Number(rounds) || 100000, 100000);
     const key = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveBits"]);
-    const bits = new Uint8Array(await crypto.subtle.deriveBits({ name: "PBKDF2", salt: fromB64(saltText), iterations: Number(rounds), hash: "SHA-256" }, key, 256));
+    const bits = new Uint8Array(await crypto.subtle.deriveBits({ name: "PBKDF2", salt: fromB64(saltText), iterations, hash: "SHA-256" }, key, 256));
     const expected = fromB64(hashText);
     if (bits.length !== expected.length) return false;
     let diff = 0;

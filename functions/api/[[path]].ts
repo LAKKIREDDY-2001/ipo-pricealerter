@@ -539,8 +539,16 @@ export async function onRequest(context: {
     }
   }
 
-  const d1Response = await handleD1Api(request, url, env);
-  if (d1Response) return d1Response;
+  try {
+    const d1Response = await handleD1Api(request, url, env);
+    if (d1Response) return d1Response;
+  } catch (error) {
+    return json({
+      ok: false,
+      error: error instanceof Error ? error.message : "Database API execution error",
+      code: "D1_API_EXECUTION_ERROR",
+    }, 500);
+  }
 
   if (method !== "GET" && method !== "HEAD") {
     return unavailable("Write operations, accounts, watchlists and alerts");
