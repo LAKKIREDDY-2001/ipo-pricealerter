@@ -3,10 +3,10 @@ compatibility_date = "2026-11-16"
 pages_build_output_dir = "./dist"
 
 # Temporary CLI config for D1 migrations.
-# Copy this file to wrangler.d1.toml, then replace the placeholder database_id.
+# This CLI-only config targets the PriceAlerter D1 database. Do not use it as the Pages deployment config.
 # Do NOT use this file as the Cloudflare Pages production deployment config.
 [[d1_databases]]
 binding = "DB"
 database_name = "pricealerter-db"
-database_id = "REPLACE_WITH_D1_DATABASE_UUID"
+database_id = "7f9ae459-221b-4076-be7f-0e755d7db363"
 migrations_dir = "migrations"
