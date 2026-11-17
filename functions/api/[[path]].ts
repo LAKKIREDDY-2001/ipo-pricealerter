@@ -23,7 +23,7 @@ const json = (data: unknown, status = 200) =>
     status,
     headers: {
       "content-type": "application/json; charset=utf-8",
-      "cache-control": "public, max-age=15, s-maxage=30",
+      "cache-control": "no-store",
       "x-content-type-options": "nosniff",
     },
   });
@@ -116,24 +116,36 @@ async function fetchYahooQuote(stock: any): Promise<any | null> {
 }
 
 async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
+  // Cloudflare Pages Free has a finite subrequest budget. A page of 50
+  // securities can otherwise fan out to 100 Yahoo requests and fail entirely.
+  // Enrich a bounded subset; leave the rest clearly marked as snapshot data.
+  const MAX_QUOTE_LOOKUPS = 12;
+  const CONCURRENCY = 4;
+  const result = [...stocks];
   let successful = 0;
-  const result = await Promise.all(stocks.map(async (stock) => {
-    const quote = await fetchYahooQuote(stock);
-    if (!quote) return stock;
-    successful += 1;
-    return {
-      ...stock,
-      ...quote,
-      provenance: {
-        ...(stock.provenance || {}),
-        source: quote.quoteSource,
-        retrievedAt: new Date().toISOString(),
-        verificationStatus: "Third-party quote; verify with NSE/BSE",
-        qualityStatus: "UNOFFICIAL_DELAYED_OR_LATEST",
-        currency: quote.quoteCurrency,
-      },
-    };
-  }));
+  let next = 0;
+  async function worker() {
+    while (next < Math.min(stocks.length, MAX_QUOTE_LOOKUPS)) {
+      const index = next++;
+      const stock = stocks[index];
+      const quote = await fetchYahooQuote(stock);
+      if (!quote) continue;
+      successful++;
+      result[index] = {
+        ...stock,
+        ...quote,
+        provenance: {
+          ...(stock.provenance || {}),
+          source: quote.quoteSource,
+          retrievedAt: new Date().toISOString(),
+          verificationStatus: "Third-party quote; verify with NSE/BSE",
+          qualityStatus: "UNOFFICIAL_DELAYED_OR_LATEST",
+          currency: quote.quoteCurrency,
+        },
+      };
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, stocks.length, MAX_QUOTE_LOOKUPS) }, () => worker()));
   return { stocks: result, successful };
 }
 
@@ -398,7 +410,7 @@ export async function onRequest(context: {
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
         quoteSource: enriched.successful > 0 ? "Yahoo Finance" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
-        quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
+        quoteDisclaimer: "Only a limited number of symbols are checked on demand. Other prices may be stale snapshots. Third-party quotes may be delayed or unavailable; verify with NSE/BSE.",
       });
     }
     if (pathname.startsWith("/api/stocks/")) {
