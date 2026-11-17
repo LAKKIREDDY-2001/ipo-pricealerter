@@ -814,11 +814,14 @@ export const api = {
       method: 'PATCH',
       body: JSON.stringify(payload),
     }),
-  changePassword: (currentPassword: string, newPassword: string) =>
-    request<{ message: string }>('/api/auth/change-password', {
+  changePassword: async (currentPassword: string, newPassword: string) => {
+    const result = await request<{ message: string }>('/api/auth/change-password', {
       method: 'POST',
       body: JSON.stringify({ currentPassword, newPassword }),
-    }),
+    });
+    setAuthToken(null);
+    return result;
+  },
   exportPersonalData: () => request<Record<string, unknown>>('/api/auth/export'),
   deleteAccount: async (password: string) => {
     try {
