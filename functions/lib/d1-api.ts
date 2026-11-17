@@ -121,6 +121,26 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     return null;
   }
   const db = env.DB;
+  const requiredTables = [
+    "users", "sessions", "watchlist_items", "price_alerts", "notifications",
+    "ipo_offerings", "stock_instruments", "stock_quotes", "ipo_gmp_history",
+    "audit_logs", "contact_messages", "rate_limits", "stock_quote_history",
+    "data_sync_runs",
+  ];
+  const tableRows = await db.prepare(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name IN (" +
+    requiredTables.map(() => "?").join(",") + ")"
+  ).bind(...requiredTables).all<{ name: string }>();
+  const existingTables = new Set((tableRows.results || []).map((row) => row.name));
+  const missingTables = requiredTables.filter((name) => !existingTables.has(name));
+  if (missingTables.length) {
+    return json({
+      ok: false,
+      code: "DATABASE_MIGRATIONS_REQUIRED",
+      error: "The D1 database is connected, but its schema is not installed. Apply all migrations in the migrations folder, then redeploy.",
+      missingTables,
+    }, 503);
+  }
 
   if (path === "/api/health" && method === "GET") {
     const counts = await db.prepare("SELECT (SELECT COUNT(*) FROM users) AS users,(SELECT COUNT(*) FROM watchlist_items) AS watchlistItems,(SELECT COUNT(*) FROM price_alerts) AS alerts,(SELECT COUNT(*) FROM ipo_offerings) AS ipos,(SELECT COUNT(*) FROM stock_instruments) AS stocks").first<any>();
