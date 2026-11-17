@@ -4,7 +4,8 @@
  */
 
 import React, { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Home, Building2, ChartNoAxesCombined, BadgePercent, Grid2X2 } from 'lucide-react';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { CookieConsentProvider } from './context/CookieConsentContext';
@@ -109,6 +110,28 @@ function FloatingBackToTop() {
   );
 }
 
+function MobileQuickNav() {
+  const items = [
+    { label: 'Home', to: '/', icon: Home, end: true },
+    { label: 'IPOs', to: '/ipo', icon: Building2 },
+    { label: 'GMP', to: '/gmp', icon: BadgePercent },
+    { label: 'Stocks', to: '/live-prices', icon: ChartNoAxesCombined },
+    { label: 'More', to: '/calculators', icon: Grid2X2 },
+  ];
+  return (
+    <nav aria-label="Quick navigation" className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/90 dark:border-slate-700 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-lg pb-safe shadow-[0_-8px_24px_rgba(15,23,42,0.08)]">
+      <div className="mx-auto grid max-w-xl grid-cols-5 px-2 pt-2 pb-1">
+        {items.map(({ label, to, icon: Icon, end }) => (
+          <NavLink key={to} to={to} end={end} aria-label={label}
+            className={({ isActive }) => `flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl px-1 text-[10px] font-semibold transition-colors ${isActive ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}>
+            {({ isActive }) => <><Icon className={`h-5 w-5 ${isActive ? 'stroke-[2.5]' : ''}`} /><span>{label}</span></>}
+          </NavLink>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
 function PageLoader() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 px-4 py-16">
@@ -172,7 +195,7 @@ export default function App() {
           <AuthProvider>
             <BrowserRouter>
               <ScrollToTop />
-              <div className="min-h-screen flex flex-col bg-[#F6F8FB] dark:bg-[#0B1120] text-[#152338] dark:text-slate-100">
+              <div className="min-h-screen flex flex-col bg-[#F6F8FB] dark:bg-[#0B1120] text-[#152338] dark:text-slate-100 pb-16 lg:pb-0">
                 <MainNavbar />
                 <div className="flex-1">
                 <Suspense fallback={<PageLoader />}>
@@ -238,6 +261,7 @@ export default function App() {
                 </Suspense>
                 </div>
                 <Footer />
+                <MobileQuickNav />
                 <FloatingBackToTop />
                 <CookieConsentBanner />
               </div>
