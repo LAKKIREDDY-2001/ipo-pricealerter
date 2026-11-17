@@ -2,6 +2,8 @@
 
 This repository remains a **Cloudflare Pages** application. The existing React/Vite site continues to build to `dist/`; Pages Functions in `functions/` handle `/api/*`. D1 stores account and user data plus imported IPO/stock snapshots and quote observations.
 
+**Production setup status:** The D1 database `pricealerter-db` (ID `7f9ae459-221b-4076-be7f-0e755d7db363`) already exists and is bound as `DB` in Production and Preview. Do not create another database or binding. The CLI-only file `wrangler.d1.example.toml` already targets this database. To install the schema, authenticate Wrangler and run `npx wrangler@latest d1 migrations apply pricealerter-db --remote --config wrangler.d1.example.toml`.
+
 ## What is implemented in this repository
 
 - Initial D1 schema in `migrations/0001_initial_d1_schema.sql`.
@@ -16,7 +18,7 @@ This repository remains a **Cloudflare Pages** application. The existing React/V
 - Market quotes are best-effort third-party data and may be delayed. D1 does not make a third-party feed exchange-authoritative.
 - Password reset is implemented with one-time D1 tokens and Resend delivery; it requires `RESEND_API_KEY`, `MAIL_FROM` and `SITE_URL` Pages variables. Scheduled alert evaluation, SSE streaming, admin editing tools and automatic alert delivery require separate services.
 
-## 1. Create the D1 database
+## 1. Existing database and migration config
 
 From the repository root, authenticate Wrangler:
 
@@ -39,18 +41,9 @@ npx wrangler@latest d1 migrations list pricealerter-db --remote --config wrangle
 
 The three migrations create users, sessions, watchlists, price alerts, notifications, password-reset tokens, IPO records, stock instruments, latest stock quotes, quote history, GMP history, audit logs, contact messages, sync-run history and rate-limit tables. The migration is additive and does not drop existing website files or data.
 
-## 3. Bind D1 to the existing Pages project
+## 3. Verify the existing Pages binding
 
-In Cloudflare Dashboard:
-
-1. Open **Workers & Pages**.
-2. Select the existing Pages project serving `pricealerter.in`.
-3. Open **Settings → Bindings → Add → D1 database**.
-4. Set **Variable name** to exactly `DB`.
-5. Select the database `pricealerter-db`.
-6. Save the binding for **Production**. Add the same binding to **Preview** if you use preview deployments.
-7. Commit the real D1 UUID in the `[[d1_databases]]` block in `wrangler.toml` (do not commit the temporary `wrangler.d1.toml`).
-8. Redeploy the Pages project so the binding is available to Functions.
+In Cloudflare Dashboard, open **Workers & Pages → ipo-pricealerter → Settings → Bindings** and verify the `DB` binding points to `pricealerter-db` in both Production and Preview. The binding has already been configured; do not add a duplicate. Redeploy after migrations and code changes.
 
 Also set a Pages environment variable named `ADMIN_EMAIL` to the email address you want to use for the PriceAlerter administrator account. Set it in Production (and Preview only if required). Register that email after the binding and variable are saved; the matching account is assigned the admin role. Do not publish the admin email as a frontend build variable.
 
