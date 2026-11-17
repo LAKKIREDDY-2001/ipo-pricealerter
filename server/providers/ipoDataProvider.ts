@@ -568,6 +568,8 @@ function resolveLinkedStock(params: {
 interface CuratedUpcomingData {
   priceBandLow?: number;
   priceBandHigh?: number;
+  issuePrice?: number;
+  actualListingPrice?: number;
   lotSize?: number;
   issueSizeCr?: number;
   freshIssueCr?: number;
@@ -587,6 +589,26 @@ interface CuratedUpcomingData {
 }
 
 const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
+  // Verified historical IPO record for Jio Platforms. Listing price is kept
+  // separate from the live market quote, which is always hydrated from NSE/BSE.
+  'reliance-jio-ipo': {
+    priceBandLow: 1065,
+    priceBandHigh: 1119,
+    issuePrice: 1119,
+    actualListingPrice: 1358,
+    lotSize: 12,
+    issueSizeCr: 30213,
+    openDate: '2026-10-21',
+    closeDate: '2026-10-23',
+    allotmentDate: '2026-10-26',
+    listingDate: '2026-10-28',
+    category: 'Mainboard',
+    sector: 'Telecom & Digital Services',
+    industry: 'Telecommunications & Digital Platforms',
+    symbol: 'JPL',
+    website: 'https://www.jio.com',
+    overview: 'Jio Platforms Limited provides digital connectivity, technology platforms and enterprise services. Its subsidiary Reliance Jio Infocomm operates mobile and broadband services across India.',
+  },
   'ntpc-green-energy-ipo': {
     priceBandLow: 102,
     priceBandHigh: 108,
@@ -1383,6 +1405,7 @@ function buildIpoFromSources(params: {
     null;
 
   const actualListingPrice =
+    curatedUpcoming?.actualListingPrice ??
     detail?.listing?.listingPrice ??
     summary?.listingPrice ??
     igInfo?.listingPrice ??
@@ -1617,6 +1640,7 @@ function buildIpoFromSources(params: {
   }
 
   const issuePrice =
+    curatedUpcoming?.issuePrice ??
     detail?.issuePrice ?? summary?.issuePrice ?? priceBandHigh ?? existing?.listing.issuePrice ?? null;
 
   const resolvedActualListingPrice =
