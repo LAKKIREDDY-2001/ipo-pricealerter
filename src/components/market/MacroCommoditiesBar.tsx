@@ -40,7 +40,7 @@ export function MacroCommoditiesBar() {
   const formatValue = (value: unknown, digits = 2) =>
     typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
   const sourceLabel = macro?.liveFeedReachable
-    ? 'Yahoo Finance · delayed / latest'
+    ? `${macro?.liveQuotesCount ?? 0}/5 Yahoo quotes · delayed / latest`
     : 'Snapshot / last available';
 
   return (
@@ -61,7 +61,7 @@ export function MacroCommoditiesBar() {
               </span>
             </div>
             <p className="text-[11px] text-[#64748B] dark:text-slate-400 mt-0.5">
-              Latest available forex, bullion, Brent energy and sovereign-yield indicators. Third-party prices may be delayed.
+              Latest available forex, bullion, Brent energy and sovereign-yield indicators. Missing quotes may use the last published snapshot; third-party prices may be delayed.
             </p>
           </div>
         </div>
