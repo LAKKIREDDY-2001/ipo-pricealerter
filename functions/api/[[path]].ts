@@ -348,6 +348,34 @@ export async function onRequest(context: {
       }
       const page = filterAndPageStocks(universe, url);
       const enriched = await enrichQuotes(page.stocks || []);
+      let responseStocks = enriched.stocks;
+      let storedQuoteCount = 0;
+      if (env.DB && responseStocks.length) {
+        const symbols = responseStocks.map((stock: any) => String(stock.symbol || "").toUpperCase()).filter(Boolean);
+        if (symbols.length) {
+          const placeholders = symbols.map(() => "?").join(",");
+          const saved = await env.DB.prepare(`SELECT * FROM stock_quotes WHERE symbol IN (${placeholders})`).bind(...symbols).all<any>();
+          const bySymbol = new Map((saved.results || []).map((row: any) => [String(row.symbol).toUpperCase(), row]));
+          responseStocks = responseStocks.map((stock: any) => {
+            if (stock.quoteSource) return stock;
+            const row: any = bySymbol.get(String(stock.symbol || "").toUpperCase());
+            if (!row) return stock;
+            storedQuoteCount++;
+            return {
+              ...stock,
+              currentPrice: row.price,
+              previousClose: row.previous_close,
+              dayChange: row.day_change,
+              dayChangePercent: row.day_change_percent,
+              volume: row.volume,
+              lastTradeTime: row.quote_time,
+              quoteSource: row.provider,
+              quoteStatus: "stored-not-live",
+              quoteRetrievedAt: row.retrieved_at,
+            };
+          });
+        }
+      }
       if (env.DB && enriched.successful) {
         const writes: any[] = [];
         for (const stock of enriched.stocks.filter((item: any) => item.quoteSource)) {
@@ -365,10 +393,11 @@ export async function onRequest(context: {
       }
       return json({
         ...page,
-        stocks: enriched.stocks,
+        stocks: responseStocks,
         liveFeedReachable: enriched.successful > 0,
         quotesUpdated: enriched.successful,
-        quoteSource: enriched.successful > 0 ? "Yahoo Finance" : "published-market-snapshot",
+        storedQuotesUsed: storedQuoteCount,
+        quoteSource: enriched.successful > 0 ? "Yahoo Finance" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
         quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
       });
     }
