@@ -44,13 +44,6 @@ export function ProfilePage() {
   const [deleteBusy, setDeleteBusy] = useState(false);
   const [exportBusy, setExportBusy] = useState(false);
 
-  useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setPrefs(user.preferences);
-    }
-  }, [user]);
-
   if (loading) {
     return (
       <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
@@ -356,11 +349,11 @@ export function ProfilePage() {
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label className="block">
-              <span className="text-[#64748B]">New Password (8+ chars, letters &amp; numbers)</span>
+              <span className="text-[#64748B]">New Password (10+ chars, letters &amp; numbers)</span>
               <input
                 type="password"
                 required
-                minLength={8}
+                minLength={10}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm"
