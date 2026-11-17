@@ -65,88 +65,133 @@ type YahooChart = {
   chart?: {
     result?: Array<{
       meta?: Record<string, any>;
+      timestamp?: number[];
+      indicators?: { quote?: Array<{ open?: Array<number | null>; high?: Array<number | null>; low?: Array<number | null>; close?: Array<number | null>; volume?: Array<number | null> }> };
     }>;
   };
 };
 const quoteCache = new Map<string, { expiresAt: number; quote: any }>();
+const historyCache = new Map<string, { expiresAt: number; history: any[] }>();
+const macroCache: { expiresAt: number; data: any } = { expiresAt: 0, data: null };
+
+async function fetchYahooTickerQuote(ticker: string): Promise<any | null> {
+  const cached = quoteCache.get(ticker);
+  if (cached && cached.expiresAt > Date.now()) return cached.quote;
+  try {
+    const endpoint = new URL(\`https://query1.finance.yahoo.com/v8/finance/chart/\${encodeURIComponent(ticker)}\`);
+    endpoint.searchParams.set("range", "1d");
+    endpoint.searchParams.set("interval", "5m");
+    const response = await fetch(endpoint.toString(), {
+      headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+      signal: AbortSignal.timeout(4500),
+    });
+    if (!response.ok) return null;
+    const payload = (await response.json()) as YahooChart;
+    const result = payload.chart?.result?.[0];
+    const meta = result?.meta;
+    const price = Number(meta?.regularMarketPrice);
+    if (!meta || !Number.isFinite(price) || price <= 0) return null;
+    const previous = Number(meta.chartPreviousClose ?? meta.previousClose ?? 0);
+    const closes = (result?.indicators?.quote?.[0]?.close || []).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+    const quote = {
+      currentPrice: price,
+      previousClose: previous > 0 ? previous : null,
+      dayChange: previous > 0 ? Number((price - previous).toFixed(2)) : null,
+      dayChangePercent: previous > 0 ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
+      open: typeof meta.regularMarketOpen === "number" ? meta.regularMarketOpen : null,
+      dayHigh: typeof meta.regularMarketDayHigh === "number" ? meta.regularMarketDayHigh : null,
+      dayLow: typeof meta.regularMarketDayLow === "number" ? meta.regularMarketDayLow : null,
+      week52High: typeof meta.fiftyTwoWeekHigh === "number" ? meta.fiftyTwoWeekHigh : null,
+      week52Low: typeof meta.fiftyTwoWeekLow === "number" ? meta.fiftyTwoWeekLow : null,
+      volume: typeof meta.regularMarketVolume === "number" ? meta.regularMarketVolume : null,
+      sparkline: closes.slice(-24),
+      lastTradeTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
+      quoteSource: "Yahoo Finance",
+      quoteStatus: "third-party-delayed-or-latest-available",
+      quoteCurrency: meta.currency || "INR",
+      quoteSymbol: ticker,
+    };
+    quoteCache.set(ticker, { quote, expiresAt: Date.now() + 30_000 });
+    return quote;
+  } catch {
+    return null;
+  }
+}
 
 async function fetchYahooQuote(stock: any): Promise<any | null> {
   const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
   if (!symbol) return null;
-  const candidates = symbol.includes(".") ? [symbol] : [`${symbol}.NS`, `${symbol}.BO`];
+  const candidates = symbol.includes(".") || symbol.startsWith("^") || symbol.includes("=") || symbol.endsWith("=F")
+    ? [symbol]
+    : [\`\${symbol}.NS\`, \`\${symbol}.BO\`];
   for (const ticker of candidates) {
-    const cached = quoteCache.get(ticker);
-    if (cached && cached.expiresAt > Date.now()) return cached.quote;
-    try {
-      const endpoint = new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}`);
-      endpoint.searchParams.set("range", "1d");
-      endpoint.searchParams.set("interval", "1m");
-      const response = await fetch(endpoint.toString(), {
-        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
-        signal: AbortSignal.timeout(4500),
-      });
-      if (!response.ok) continue;
-      const payload = (await response.json()) as YahooChart;
-      const meta = payload.chart?.result?.[0]?.meta;
-      const price = Number(meta?.regularMarketPrice);
-      if (!meta || !Number.isFinite(price) || price <= 0) continue;
-      const previous = Number(meta.chartPreviousClose ?? meta.previousClose ?? 0);
-      const quote = {
-        currentPrice: price,
-        previousClose: previous > 0 ? previous : null,
-        dayChange: previous > 0 ? Number((price - previous).toFixed(2)) : null,
-        dayChangePercent: previous > 0 ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
-        open: meta.regularMarketOpen ?? null,
-        dayHigh: meta.regularMarketDayHigh ?? null,
-        dayLow: meta.regularMarketDayLow ?? null,
-        volume: meta.regularMarketVolume ?? null,
-        lastTradeTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
-        quoteSource: "Yahoo Finance",
-        quoteStatus: "third-party-delayed-or-latest-available",
-        quoteCurrency: meta.currency || "INR",
-        quoteSymbol: ticker,
-      };
-      quoteCache.set(ticker, { quote, expiresAt: Date.now() + 30_000 });
-      return quote;
-    } catch {
-      // Try the alternate exchange ticker; never invent a quote.
-    }
+    const quote = await fetchYahooTickerQuote(ticker);
+    if (quote) return quote;
   }
   return null;
 }
 
-async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
-  // Cloudflare Pages Free has a finite subrequest budget. A page of 50
-  // securities can otherwise fan out to 100 Yahoo requests and fail entirely.
-  // Enrich a bounded subset; leave the rest clearly marked as snapshot data.
-  const MAX_QUOTE_LOOKUPS = 12;
-  const CONCURRENCY = 4;
-  const result = [...stocks];
-  let successful = 0;
-  let next = 0;
-  async function worker() {
-    while (next < Math.min(stocks.length, MAX_QUOTE_LOOKUPS)) {
-      const index = next++;
-      const stock = stocks[index];
-      const quote = await fetchYahooQuote(stock);
-      if (!quote) continue;
-      successful++;
-      result[index] = {
-        ...stock,
-        ...quote,
-        provenance: {
-          ...(stock.provenance || {}),
-          source: quote.quoteSource,
-          retrievedAt: new Date().toISOString(),
-          verificationStatus: "Third-party quote; verify with NSE/BSE",
-          qualityStatus: "UNOFFICIAL_DELAYED_OR_LATEST",
-          currency: quote.quoteCurrency,
-        },
-      };
-    }
+async function fetchYahooHistory(stock: any, requestedRange: string): Promise<any[]> {
+  const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
+  if (!symbol) return [];
+  const ticker = symbol.includes(".") || symbol.startsWith("^") ? symbol : \`\${symbol}.NS\`;
+  const range = ["1d", "5d", "1mo", "3mo", "6mo", "1y", "5y"].includes(requestedRange) ? requestedRange : "3mo";
+  const cacheKey = \`\${ticker}:\${range}\`;
+  const cached = historyCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) return cached.history;
+  const interval = range === "1d" ? "5m" : range === "5d" ? "15m" : range === "5y" ? "1wk" : "1d";
+  try {
+    const endpoint = new URL(\`https://query1.finance.yahoo.com/v8/finance/chart/\${encodeURIComponent(ticker)}\`);
+    endpoint.searchParams.set("range", range);
+    endpoint.searchParams.set("interval", interval);
+    const response = await fetch(endpoint.toString(), {
+      headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!response.ok) return [];
+    const result = ((await response.json()) as YahooChart).chart?.result?.[0];
+    const timestamps = result?.timestamp || [];
+    const quote = result?.indicators?.quote?.[0];
+    if (!quote) return [];
+    const history = timestamps.map((timestamp, index) => ({
+      date: new Date(timestamp * 1000).toISOString(),
+      open: quote.open?.[index] ?? null,
+      high: quote.high?.[index] ?? null,
+      low: quote.low?.[index] ?? null,
+      close: quote.close?.[index] ?? null,
+      volume: quote.volume?.[index] ?? null,
+    })).filter((point) => typeof point.close === "number" && Number.isFinite(point.close));
+    historyCache.set(cacheKey, { history, expiresAt: Date.now() + 60_000 });
+    return history;
+  } catch {
+    return [];
   }
-  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, stocks.length, MAX_QUOTE_LOOKUPS) }, () => worker()));
-  return { stocks: result, successful };
+}
+
+function normalizeStockDetail(stock: any) {
+  return {
+    ...stock,
+    bseCode: stock.bseCode || "",
+    sparkline: Array.isArray(stock.sparkline) ? stock.sparkline.filter((v: unknown) => typeof v === "number" && Number.isFinite(v)) : [],
+    historicalSeries: Array.isArray(stock.historicalSeries) ? stock.historicalSeries : [],
+    announcements: Array.isArray(stock.announcements) ? stock.announcements : [],
+    fundamentals: {
+      pe: null, pb: null, roePct: null, rocePct: null, debtToEquity: null,
+      revenueGrowthPct: null, profitGrowthPct: null, dividendYieldPct: null,
+      reportingPeriod: "Latest available", source: "Company filings / exchange data",
+      ...(stock.fundamentals || {}),
+    },
+    provenance: {
+      source: stock.provenance?.source || stock.dataSource || "Published snapshot",
+      retrievedAt: stock.provenance?.retrievedAt || stock.lastTradeTime || null,
+      effectiveDate: stock.provenance?.effectiveDate || null,
+      verificationStatus: stock.provenance?.verificationStatus || "Unverified",
+      qualityStatus: stock.provenance?.qualityStatus || "UNAVAILABLE",
+      currency: stock.provenance?.currency || "INR",
+      unit: stock.provenance?.unit || "INR",
+      dataCategory: stock.provenance?.dataCategory || "Equities",
+    },
+  };
 }
 
 function normalizeStocks(snapshot: Snapshot): any[] {
