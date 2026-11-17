@@ -149,7 +149,7 @@ export function StockTable({
       {/* Mobile Cards (< md) */}
       <div className="md:hidden divide-y divide-[#E2E8F0] dark:divide-slate-800">
         {items.map((s) => {
-          const hasPrice = s.currentPrice !== null && s.previousClose !== null;
+          const hasPrice = typeof s.currentPrice === 'number' && Number.isFinite(s.currentPrice) && typeof s.previousClose === 'number' && Number.isFinite(s.previousClose);
           const absChg = hasPrice ? s.currentPrice! - s.previousClose! : null;
           const pctChg =
             hasPrice && s.previousClose! > 0
@@ -375,7 +375,7 @@ export function StockTable({
                         {formatINR(s.open)}
                       </td>
                       <td className="py-3 px-3 text-right font-data whitespace-nowrap text-[#64748B] dark:text-slate-300">
-                        {s.dayLow !== null && s.dayHigh !== null
+                        {typeof s.dayLow === 'number' && Number.isFinite(s.dayLow) && typeof s.dayHigh === 'number' && Number.isFinite(s.dayHigh)
                           ? `₹${s.dayLow.toFixed(1)} – ₹${s.dayHigh.toFixed(1)}`
                           : 'Unavailable'}
                       </td>
