@@ -274,7 +274,7 @@ export async function onRequest(context: {
       status: 204,
       headers: {
         "access-control-allow-origin": url.origin,
-        "access-control-allow-methods": "GET, HEAD, OPTIONS",
+        "access-control-allow-methods": "GET, HEAD, POST, PATCH, PUT, DELETE, OPTIONS",
         "access-control-allow-headers": "Content-Type, Authorization",
         "access-control-max-age": "86400",
       },
