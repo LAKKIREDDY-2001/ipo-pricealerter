@@ -372,6 +372,130 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const updated=await db.prepare("SELECT * FROM notifications WHERE id=?").bind(notificationId).first<any>();
     return json({notification:rowToNotification(updated)});
   }
+  if (path === "/api/admin/subscribers" && method === "GET") {
+    if (user.role !== "admin") return fail("Administrator access required.", 403);
+    const rows = await db.prepare("SELECT id, name, email, role, preferences_json, created_at FROM users ORDER BY created_at DESC").all<any>();
+    const subscribers = (rows.results || []).map((row) => ({
+      id: row.id,
+      name: row.name,
+      email: row.email,
+      role: row.role,
+      createdAt: row.created_at,
+      preferences: (() => {
+        try { return JSON.parse(row.preferences_json || "{}"); } catch { return {}; }
+      })(),
+    }));
+    return json({
+      total: subscribers.length,
+      subscribers,
+    });
+  }
+
+  if (path === "/api/admin/broadcast" && method === "POST") {
+    if (user.role !== "admin") return fail("Administrator access required.", 403);
+    const body = await readBody(request);
+    const subject = String(body.subject || "").trim();
+    const title = String(body.title || subject).trim();
+    const message = String(body.message || "").trim();
+    const category = String(body.category || "ALL").toUpperCase();
+    const ctaLabel = String(body.ctaLabel || "View on PriceAlerter").trim();
+    const ctaUrl = String(body.ctaUrl || "https://pricealerter.in").trim();
+
+    if (!subject || !message) {
+      return fail("Subject and message are required.", 400);
+    }
+
+    const rows = await db.prepare("SELECT id, name, email, preferences_json FROM users").all<any>();
+    const recipients: Array<{ id: string; name: string; email: string }> = [];
+
+    for (const row of rows.results || []) {
+      let prefs: any = {};
+      try { prefs = JSON.parse(row.preferences_json || "{}"); } catch {}
+      let eligible = false;
+      if (category === "ALL") eligible = true;
+      else if (category === "PRICE_ALERT" && prefs.emailAlerts) eligible = true;
+      else if (category === "IPO_REMINDER" && prefs.ipoReminders) eligible = true;
+      else if (category === "GMP_CHANGE" && prefs.gmpAlerts) eligible = true;
+      else if (category === "MARKET_UPDATE") eligible = true;
+
+      if (eligible && row.email) {
+        recipients.push({ id: row.id, name: row.name, email: row.email });
+      }
+    }
+
+    const timestamp = nowIso();
+    const notifCategory = ["IPO_REMINDER", "GMP_CHANGE", "PRICE_ALERT", "MARKET_UPDATE"].includes(category)
+      ? category
+      : "MARKET_UPDATE";
+
+    const notifStatements: D1Statement[] = [];
+    for (const r of recipients) {
+      notifStatements.push(
+        db.prepare(
+          "INSERT INTO notifications (id, user_id, category, title, message, link, is_read, created_at) VALUES (?,?,?,?,?,?,0,?)"
+        ).bind(id("notif"), r.id, notifCategory, title, message.slice(0, 500), ctaUrl, timestamp)
+      );
+    }
+    for (let i = 0; i < notifStatements.length; i += 50) {
+      await db.batch(notifStatements.slice(i, i + 50));
+    }
+
+    let emailsSent = 0;
+    const apiKey = (env.RESEND_API_KEY || "").trim();
+    const from = (env.MAIL_FROM || "PriceAlerter <no-reply@pricealerter.in>").trim();
+
+    if (apiKey && recipients.length > 0) {
+      const emailBatch = recipients.map((r) => {
+        const safeName = r.name.replace(/[<>&"]/g, "");
+        const formattedBody = message
+          .split("\n\n")
+          .map((p) => `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#152338;">${p.replace(/[<>&"]/g, "").replace(/\n/g, "<br/>")}</p>`)
+          .join("");
+
+        const html = `
+          <div style="font-family:system-ui,-apple-system,sans-serif;max-width:580px;margin:0 auto;padding:24px;color:#152338;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;">
+            <div style="font-size:12px;font-weight:700;color:#059669;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">PriceAlerter &bull; ${notifCategory.replace(/_/g, " ")}</div>
+            <h2 style="margin:0 0 16px;color:#14263F;font-size:20px;">${title.replace(/[<>&"]/g, "")}</h2>
+            <p style="font-size:14px;line-height:1.6;margin:0 0 16px;">Hello <strong>${safeName}</strong>,</p>
+            <div style="background:#f8fafc;padding:16px;border-radius:8px;border-left:4px solid #059669;border-top:1px solid #e2e8f0;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;margin-bottom:20px;">
+              ${formattedBody}
+            </div>
+            <p style="margin:24px 0;text-align:center;">
+              <a href="${ctaUrl}" style="display:inline-block;background:#14263F;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px;">${ctaLabel.replace(/[<>&"]/g, "")} &rarr;</a>
+            </p>
+            <hr style="border:0;border-top:1px solid #e2e8f0;margin:24px 0;" />
+            <p style="font-size:12px;color:#64748b;line-height:1.5;margin:0;">
+              You received this alert based on your PriceAlerter notification preferences.<br/>
+              Update preferences anytime at <a href="https://pricealerter.in/profile" style="color:#2563eb;">pricealerter.in/profile</a>.
+            </p>
+          </div>
+        `;
+        const text = `Hello ${r.name},\n\n${title}\n\n${message}\n\nLink: ${ctaUrl}\n\nManage preferences: https://pricealerter.in/profile`;
+        return { from, to: [r.email], subject, html, text };
+      });
+
+      for (let i = 0; i < emailBatch.length; i += 100) {
+        try {
+          const res = await fetch("https://api.resend.com/emails/batch", {
+            method: "POST",
+            headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
+            body: JSON.stringify(emailBatch.slice(i, i + 100)),
+            signal: AbortSignal.timeout(15000),
+          });
+          if (res.ok) emailsSent += emailBatch.slice(i, i + 100).length;
+        } catch { /* ignore */ }
+      }
+    }
+
+    return json({
+      ok: true,
+      recipientsCount: recipients.length,
+      notificationsCreated: recipients.length,
+      emailsSent,
+      mailerConfigured: Boolean(apiKey),
+    });
+  }
+
   return null;
 }
 
