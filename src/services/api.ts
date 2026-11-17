@@ -270,9 +270,9 @@ export const api = {
     }
   },
 
-  getMacro: async (): Promise<GlobalMacroSnapshot> => {
+  getMacro: async (refresh = false): Promise<GlobalMacroSnapshot> => {
     try {
-      const res = await request<{ ok: boolean; data: GlobalMacroSnapshot }>('/api/market/macro');
+      const res = await request<{ ok: boolean; data: GlobalMacroSnapshot }>(`/api/market/macro${refresh ? '?refresh=1' : ''}`);
       if (res && res.data) return res.data;
     } catch {
       // Use the last published snapshot if the upstream feed is unavailable.
