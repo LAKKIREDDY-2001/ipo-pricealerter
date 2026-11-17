@@ -380,11 +380,16 @@ export async function onRequest(context: {
       );
       if (!stock) return json({ error: `Stock "${symbol}" not found` }, 404);
       const enriched = await fetchYahooQuote(stock);
+      let output = enriched ? { ...stock, ...enriched } : stock;
+      if (!enriched && env.DB) {
+        const saved = await env.DB.prepare("SELECT * FROM stock_quotes WHERE symbol=?").bind(String(stock.symbol).toUpperCase()).first<any>();
+        if (saved) output = { ...stock, currentPrice: saved.price, previousClose: saved.previous_close, dayChange: saved.day_change, dayChangePercent: saved.day_change_percent, volume: saved.volume, lastTradeTime: saved.quote_time, quoteSource: saved.provider, quoteStatus: "stored-not-live", quoteRetrievedAt: saved.retrieved_at };
+      }
       return json({
-        stock: enriched ? { ...stock, ...enriched } : stock,
+        stock: output,
         fromUpstream: Boolean(enriched),
         linkedIpo: null,
-        dataSource: enriched ? "Yahoo Finance" : "published-market-snapshot",
+        dataSource: enriched ? "Yahoo Finance" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
         quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
       });
     }
@@ -401,8 +406,15 @@ export async function onRequest(context: {
     }
     if (pathname.startsWith("/api/ipos/")) {
       const slug = decodeURIComponent(pathname.slice("/api/ipos/".length)).toLowerCase();
-      const ipo = (snapshot.ipos || []).find((item) => String(item.slug || "").toLowerCase() === slug);
-      return ipo ? json({ ipo, dataSource: "published-market-snapshot" }) : json({ error: `IPO "${slug}" not found` }, 404);
+      let ipo = (snapshot.ipos || []).find((item) => String(item.slug || "").toLowerCase() === slug);
+      let source = "published-market-snapshot";
+      if (env.DB) {
+        const stored = await env.DB.prepare("SELECT payload_json FROM ipo_offerings WHERE slug=?").bind(slug).first<any>();
+        if (stored?.payload_json) {
+          try { ipo = JSON.parse(stored.payload_json); source = "cloudflare-d1"; } catch { /* keep snapshot version */ }
+        }
+      }
+      return ipo ? json({ ipo, dataSource: source }) : json({ error: `IPO "${slug}" not found` }, 404);
     }
     if (pathname === "/api/insights") return json({ insights: snapshot.insights || [], dataSource: "published-market-snapshot" });
     if (pathname.startsWith("/api/insights/")) {
