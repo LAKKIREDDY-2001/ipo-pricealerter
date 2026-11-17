@@ -113,6 +113,8 @@ export function ProfilePage() {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmNewPassword('');
+      await refreshUserData();
+      navigate('/login', { replace: true });
     } catch (err) {
       setPwError(err instanceof Error ? err.message : 'Unable to update password.');
     } finally {
