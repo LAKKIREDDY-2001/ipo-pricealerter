@@ -57,4 +57,4 @@ jobs:
         run: npx --yes wrangler@4.164.0 d1 migrations list pricealerter-db --remote --config wrangler.d1.example.toml
 
       - name: Deploy production Pages site
-        run: npx --yes wrangler@4.164.0 pages deploy dist --project-name=ipo-pricealerter --branch=main --config=wrangler.json
+        run: npx --yes wrangler@4.164.0 pages deploy dist --project-name=ipo-pricealerter --branch=main 
