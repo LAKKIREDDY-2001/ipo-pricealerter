@@ -43,7 +43,6 @@ async function loadSnapshot(request: Request): Promise<Snapshot> {
   const assetUrl = new URL("/data/live-market-data.json", request.url);
   const response = await fetch(assetUrl.toString(), {
     headers: { accept: "application/json" },
-    cf: { cacheTtl: 30, cacheEverything: true },
   } as RequestInit);
 
   if (!response.ok) {
