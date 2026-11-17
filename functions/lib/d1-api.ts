@@ -180,7 +180,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     if (next.length < 10 || next.length > 128) return fail("New password must be 10–128 characters.", 400);
     await db.prepare("UPDATE users SET password_hash=?,updated_at=? WHERE id=?").bind(await newPasswordHash(next), nowIso(), user.id).run();
     await db.prepare("DELETE FROM sessions WHERE user_id=?").bind(user.id).run();
-    return fail("Password changed. Please sign in again.", 200);
+    return json({ message: "Password changed. Please sign in again." });
   }
   if (path === "/api/auth/export" && method === "GET") {
     const [watchlist, alerts, notifications] = await Promise.all([
@@ -282,4 +282,42 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     return json({notification:rowToNotification(updated)});
   }
   return null;
+}
+
+
+export async function syncMarketSnapshotToD1(request: Request, env: D1Env, snapshot: any, stocks: any[]): Promise<Response> {
+  if (!env.DB) return fail("Cloudflare D1 is not connected. Add a D1 binding named DB and redeploy.", 503);
+  const user = await authenticate(request, env.DB);
+  if (!user) return fail("Authentication required.", 401);
+  if (user.role !== "admin") return fail("Administrator access required.", 403);
+  const timestamp = nowIso();
+  let ipoCount = 0;
+  let stockCount = 0;
+  const statements: D1Statement[] = [];
+  for (const ipo of Array.isArray(snapshot.ipos) ? snapshot.ipos : []) {
+    if (!ipo?.id || !ipo?.slug || !ipo?.companyName) continue;
+    statements.push(env.DB.prepare(`INSERT INTO ipo_offerings(id,slug,company_name,status,category,payload_json,source,source_updated_at,updated_at)
+      VALUES(?,?,?,?,?,?,'published-market-snapshot',?,?)
+      ON CONFLICT(slug) DO UPDATE SET id=excluded.id,company_name=excluded.company_name,status=excluded.status,category=excluded.category,payload_json=excluded.payload_json,source=excluded.source,source_updated_at=excluded.source_updated_at,updated_at=excluded.updated_at`)
+      .bind(String(ipo.id),String(ipo.slug),String(ipo.companyName),String(ipo.status||"Unknown"),String(ipo.category||"Mainboard"),JSON.stringify(ipo),ipo.provenance?.retrievedAt||snapshot.lastSyncTime||null,timestamp));
+    ipoCount++;
+    const gmp = ipo.gmp?.latestGmp;
+    const observedAt = ipo.gmp?.lastUpdated || ipo.provenance?.retrievedAt;
+    if (gmp != null && Number.isFinite(Number(gmp)) && observedAt) {
+      statements.push(env.DB.prepare("INSERT OR IGNORE INTO ipo_gmp_history(id,ipo_slug,gmp,source,observed_at,source_url) VALUES(?,?,?,?,?,?)")
+        .bind(id("gmp"),String(ipo.slug),Number(gmp),String(ipo.gmp?.source||"snapshot"),String(observedAt),ipo.provenance?.sourceUrl||null));
+    }
+  }
+  for (const stock of stocks) {
+    const symbol = String(stock?.symbol||"").trim().toUpperCase();
+    if (!symbol || !stock?.companyName) continue;
+    statements.push(env.DB.prepare(`INSERT INTO stock_instruments(symbol,company_name,exchange,payload_json,updated_at) VALUES(?,?,?,?,?)
+      ON CONFLICT(symbol) DO UPDATE SET company_name=excluded.company_name,exchange=excluded.exchange,payload_json=excluded.payload_json,updated_at=excluded.updated_at`)
+      .bind(symbol,String(stock.companyName),String(stock.exchange||""),JSON.stringify(stock),timestamp));
+    stockCount++;
+  }
+  for (let i=0;i<statements.length;i+=50) await env.DB.batch(statements.slice(i,i+50));
+  await env.DB.prepare("INSERT INTO audit_logs(id,actor_user_id,actor_email,entity_type,entity_id,action,details_json,created_at) VALUES(?,?,?,?,?,?,?,?)")
+    .bind(id("audit"),user.id,user.email,"MARKET_DATA","snapshot","SYNC_SNAPSHOT",JSON.stringify({ipoCount,stockCount,generatedAt:snapshot.generatedAt||null}),timestamp).run();
+  return json({ok:true,ipoCount,stockCount,generatedAt:snapshot.generatedAt||null,syncedAt:timestamp});
 }
