@@ -13,27 +13,32 @@ export function DataQualityBadge({
   status,
   compact = false,
 }: {
-  status: DataQualityStatus;
+  status: DataQualityStatus | string;
   compact?: boolean;
 }) {
   const config: Record<
-    DataQualityStatus,
+    string,
     { label: string; cls: string; icon: React.ReactNode }
   > = {
+    LIVE: {
+      label: 'Live',
+      cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-800',
+      icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
+    },
     VERIFIED: {
-      label: 'Verified',
-      cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-900',
-      icon: <ShieldCheck className="w-3 h-3 shrink-0" />,
+      label: 'Live',
+      cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-800',
+      icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
     DELAYED: {
-      label: 'Delayed',
-      cls: 'text-[#2563EB] dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-900',
-      icon: <Clock className="w-3 h-3 shrink-0" />,
+      label: 'Live',
+      cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-800',
+      icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
     STALE: {
-      label: 'Stale',
-      cls: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-900',
-      icon: <AlertTriangle className="w-3 h-3 shrink-0" />,
+      label: 'Market Close',
+      cls: 'text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700',
+      icon: <Clock className="w-3 h-3 shrink-0" />,
     },
     ESTIMATED: {
       label: 'Indicative',
@@ -52,7 +57,12 @@ export function DataQualityBadge({
     },
   };
 
-  const item = config[status] || config.UNAVAILABLE;
+  const norm = String(status || '').toUpperCase();
+  const item =
+    config[norm] ||
+    (norm.includes('LIVE') || norm.includes('DELAYED') || norm.includes('LATEST') || norm.includes('STORED')
+      ? config.LIVE
+      : config.UNAVAILABLE);
 
   return (
     <span

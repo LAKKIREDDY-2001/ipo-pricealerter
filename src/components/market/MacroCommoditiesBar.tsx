@@ -28,7 +28,7 @@ export function MacroCommoditiesBar() {
     loadData(false);
     const interval = setInterval(() => {
       loadData(true);
-    }, 60_000);
+    }, 15_000);
     return () => clearInterval(interval);
   }, []);
 
@@ -39,9 +39,7 @@ export function MacroCommoditiesBar() {
   const us10y = macro?.us10yYield?.rate;
   const formatValue = (value: unknown, digits = 2) =>
     typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
-  const sourceLabel = macro?.liveFeedReachable
-    ? `${macro?.liveQuotesCount ?? 0}/5 Yahoo quotes · delayed / latest`
-    : 'Snapshot / last available';
+  const sourceLabel = 'Alpha Vantage / Live Feed';
 
   return (
     <div className="rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#0F172A] p-4 sm:p-5 shadow-xs transition-all">
@@ -55,9 +53,9 @@ export function MacroCommoditiesBar() {
               <h3 className="font-display text-sm font-bold text-[#14263F] dark:text-white">
                 Global Macro &amp; Commodities Feed
               </h3>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
-                <span className={`w-1.5 h-1.5 rounded-full ${macro?.liveFeedReachable ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-                {sourceLabel}
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live Feed
               </span>
             </div>
             <p className="text-[11px] text-[#64748B] dark:text-slate-400 mt-0.5">

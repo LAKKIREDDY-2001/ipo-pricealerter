@@ -807,7 +807,68 @@ export async function onRequest(context: {
         lastError: "Background automation is unavailable on the static Pages deployment.",
       });
     }
-    if (pathname === "/api/company-logo") return json({ error: "Logo proxy is not configured on this deployment." }, 404);
+    if (pathname === "/api/company-logo") {
+      const sym = (url.searchParams.get("symbol") || "").trim().toUpperCase();
+      const bse = (url.searchParams.get("bseCode") || "").trim();
+      const name = (url.searchParams.get("name") || sym).trim();
+      const explicitUrl = url.searchParams.get("url")?.trim();
+
+      const candidates: string[] = [];
+      if (explicitUrl && /^https?:\/\//i.test(explicitUrl)) candidates.push(explicitUrl);
+      if (sym && !/^\d+$/.test(sym)) {
+        candidates.push(
+          `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(sym)}.webp`,
+          `https://images.dhan.co/symbol/${encodeURIComponent(sym)}.png`,
+          `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(sym)}.png`,
+          `https://cdn.alphavantage.co/logos/${encodeURIComponent(sym)}.png`
+        );
+      }
+      if (/^\d{6}$/.test(bse)) {
+        candidates.push(
+          `https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse}.webp`,
+          `https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse}.png`
+        );
+      }
+
+      for (const candidate of candidates) {
+        try {
+          const res = await fetch(candidate, {
+            headers: { "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+            signal: AbortSignal.timeout(2500),
+          });
+          if (res.ok && res.status === 200) {
+            const ct = res.headers.get("content-type") || (candidate.endsWith(".webp") ? "image/webp" : "image/png");
+            return new Response(res.body, {
+              status: 200,
+              headers: {
+                "content-type": ct,
+                "cache-control": "public, max-age=604800, immutable",
+                "x-logo-source": candidate,
+              },
+            });
+          }
+        } catch { /* try next candidate */ }
+      }
+
+      const initials = (name || sym).split(/\s+/).slice(0, 2).map((w: string) => w[0]?.toUpperCase() || "").join("") || sym.slice(0, 2) || "PA";
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+        <defs>
+          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#14263F"/>
+            <stop offset="100%" stop-color="#2563EB"/>
+          </linearGradient>
+        </defs>
+        <rect width="80" height="80" rx="18" fill="url(#g)"/>
+        <text x="50%" y="54%" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.5">${initials}</text>
+      </svg>`;
+      return new Response(svg, {
+        status: 200,
+        headers: {
+          "content-type": "image/svg+xml",
+          "cache-control": "public, max-age=86400",
+        },
+      });
+    }
 
     return json({ error: "API route not implemented", path: pathname }, 404);
   } catch (error) {

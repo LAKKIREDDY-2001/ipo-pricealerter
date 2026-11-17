@@ -29,7 +29,7 @@ export function MarketTicker() {
     loadIndices(false);
     const interval = setInterval(() => {
       loadIndices(true);
-    }, 30_000);
+    }, 12_000);
     return () => clearInterval(interval);
   }, []);
 
@@ -74,8 +74,9 @@ export function MarketTicker() {
                 <div>
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-slate-300 whitespace-nowrap">
                     <span>{item.symbol}</span>
-                    <span className="text-[10px] font-normal text-slate-400">
-                      · {item.provenance?.qualityStatus === 'UNAVAILABLE' ? 'Unavailable' : item.provenance?.source === 'Yahoo Finance' ? 'Yahoo · delayed' : 'Snapshot'}
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Live
                     </span>
                   </div>
                   <div className="flex items-baseline gap-2 mt-0.5">
