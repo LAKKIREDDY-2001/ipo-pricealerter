@@ -8,8 +8,10 @@ interface ThemeContextValue {
   setTheme: (mode: ThemeMode) => void;
 }
 
+const THEME_STORAGE_KEY = 'pa_theme_v2';
+
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'light',
+  theme: 'dark',
   toggleTheme: () => {},
   setTheme: () => {},
 });
@@ -17,12 +19,13 @@ const ThemeContext = createContext<ThemeContextValue>({
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<ThemeMode>(() => {
     try {
-      const saved = localStorage.getItem('pa_theme');
-      if (saved === 'dark' || saved === 'light') return saved;
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
     } catch {
       // ignore
     }
-    return 'light';
+    // Default to Dark Mode first for all users
+    return 'dark';
   });
 
   useEffect(() => {
@@ -33,13 +36,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       root.classList.remove('dark');
     }
     try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
       localStorage.setItem('pa_theme', theme);
     } catch {
       // ignore
     }
   }, [theme]);
 
-  const toggleTheme = () => setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const toggleTheme = () => setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
   const setTheme = (mode: ThemeMode) => setThemeState(mode);
 
   return (

@@ -279,10 +279,11 @@ export function MainNavbar() {
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               className="min-h-[38px] min-w-[38px] inline-flex items-center justify-center rounded-lg border border-[#E2E8F0] dark:border-slate-700 p-2 text-[#64748B] dark:text-slate-300 hover:text-[#152338] dark:hover:text-white transition-colors cursor-pointer"
             >
-              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600 dark:text-slate-300" />}
             </button>
 
             {user ? (
@@ -472,6 +473,33 @@ export function MainNavbar() {
                     </Link>
                   ))}
                 </div>
+              </div>
+
+              {/* Mobile Menu Appearance Toggle */}
+              <div className="pt-3 border-t border-[#E2E8F0] dark:border-slate-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-semibold text-[#152338] dark:text-white">Appearance</div>
+                  <div className="text-[11px] text-[#64748B] dark:text-slate-400">
+                    Active: <span className="font-medium text-[#059669] dark:text-emerald-400">{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-1.5 text-xs font-semibold text-[#152338] dark:text-slate-200 cursor-pointer hover:border-[#2563EB]"
+                >
+                  {theme === 'dark' ? (
+                    <>
+                      <Sun className="w-3.5 h-3.5 text-amber-400" />
+                      Switch to Light Mode
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-3.5 h-3.5 text-blue-500" />
+                      Switch to Dark Mode
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           </div>

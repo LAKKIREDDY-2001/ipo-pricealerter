@@ -166,10 +166,10 @@ const COOKIE_INVENTORY = [
     retention: 'Persistent until cleared',
   },
   {
-    name: 'pa_theme',
+    name: 'pa_theme_v2',
     provider: 'PriceAlerter (Local Storage)',
     category: 'Workspace Preference',
-    purpose: 'Remembers your Light or Dark interface preference.',
+    purpose: 'Remembers your interface preference (defaults to Dark Mode; allows switching to Light Mode).',
     retention: 'Persistent until cleared',
   },
   {
