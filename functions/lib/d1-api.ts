@@ -107,9 +107,19 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   const isAccountRoute = path.startsWith("/api/auth/") || path === "/api/watchlist" || path.startsWith("/api/watchlist/") ||
     path === "/api/alerts" || path.startsWith("/api/alerts/") || path === "/api/notifications" || path.startsWith("/api/notifications/");
   if (!isAccountRoute && path !== "/api/health") return null;
-  // Keep the existing Pages API operational until the owner attaches D1.
-  // The legacy route handler below will serve health/auth fallbacks in that case.
-  if (!env.DB) return null;
+  // Never pretend account routes work without durable storage. Returning an
+  // explicit setup error is safer than accepting credentials into ephemeral state.
+  if (!env.DB) {
+    if (path.startsWith("/api/auth/") || path.startsWith("/api/watchlist") ||
+        path.startsWith("/api/alerts") || path.startsWith("/api/notifications")) {
+      return json({
+        ok: false,
+        code: "AUTH_BACKEND_NOT_CONFIGURED",
+        error: "Sign-in and account features are not enabled yet. The site owner must connect the Cloudflare D1 database binding named DB and apply the database migrations.",
+      }, 503);
+    }
+    return null;
+  }
   const db = env.DB;
 
   if (path === "/api/health" && method === "GET") {
