@@ -101830,7 +101830,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "sector": "Agrochemicals",
       "industry": "Agrochemicals & Crop Protection",
       "category": "Mainboard",
-      "status": "Upcoming",
+      "status": "Open",
       "exchanges": [
         "NSE",
         "BSE"
@@ -101856,18 +101856,27 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
         "listingDate": "2026-11-26"
       },
       "subscription": {
-        "qib": null,
-        "nii": null,
-        "retail": null,
+        "qib": 0.08,
+        "nii": 0.44,
+        "retail": 0.88,
         "employee": null,
         "shareholder": null,
-        "total": 0,
+        "total": 0.48,
         "isFinal": false,
-        "dailyBreakdown": [],
+        "dailyBreakdown": [
+          {
+            "day": "Day 1",
+            "date": "2026-11-18",
+            "qib": 0.08,
+            "nii": 0.44,
+            "retail": 0.88,
+            "total": 0.48
+          }
+        ],
         "provenance": {
-          "source": "NSE / BSE Consolidated Bid Data (via Groww)",
-          "retrievedAt": "2026-11-16T15:13:10.115Z",
-          "effectiveDate": "2026-11-20",
+          "source": "NSE / BSE Consolidated Bid Data",
+          "retrievedAt": "2026-11-18T10:30:00.000Z",
+          "effectiveDate": "2026-11-18",
           "verificationStatus": "Provisional",
           "qualityStatus": "VERIFIED",
           "currency": "PTS",
@@ -101876,11 +101885,11 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
         }
       },
       "gmp": {
-        "latestGmp": 13,
-        "previousGmp": 15,
-        "lastUpdated": "2026-11-16T13:32:00.000Z",
+        "latestGmp": 18,
+        "previousGmp": 13,
+        "lastUpdated": "2026-11-18T10:30:00.000Z",
         "availability": "Available",
-        "source": "InvestorGain Grey Market Tracker (Indicative)",
+        "source": "Market Sentiment & Grey Tracker (Indicative)",
         "history": [
           {
             "date": "2026-11-13",
@@ -101900,7 +101909,12 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
           {
             "date": "2026-11-16",
             "gmp": 13,
-            "note": "Downward"
+            "note": "Pre-issue"
+          },
+          {
+            "date": "2026-11-18",
+            "gmp": 18,
+            "note": "Subscription Open Day 1"
           }
         ]
       },

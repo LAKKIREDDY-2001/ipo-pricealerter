@@ -499,21 +499,21 @@ export function HomePage() {
             </Link>
           </div>
 
-          {/* Upcoming IPO Spotlight (Crystal Crop, Mahanadi Coalfields, Watrana Rentals) */}
+          {/* Current & Upcoming IPO Spotlight (Crystal Crop, Mahanadi Coalfields, Watrana Rentals) */}
           {upcomingSpotlights.length > 0 && (
             <div className="rounded-xl border border-blue-200/80 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-slate-50/70 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-slate-900/40 p-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                   </span>
                   <span className="text-xs font-bold uppercase tracking-wider text-blue-800 dark:text-blue-300">
-                    Upcoming IPO Spotlight · Official SEBI &amp; Exchange Issue Calendar
+                    Current &amp; Scheduled IPO Spotlight · Official SEBI &amp; Exchange Issue Calendar
                   </span>
                 </div>
                 <span className="text-[11px] text-[#64748B] dark:text-slate-400">
-                  Subscription opening 18th – 19th Nov 2026
+                  Open for Bidding &amp; Scheduled Issues (Nov 2026)
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -540,8 +540,12 @@ export function HomePage() {
                         </div>
                       </div>
                     </div>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shrink-0">
-                      {item.category}
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border shrink-0 ${
+                      item.status === 'Open'
+                        ? 'bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
+                        : 'bg-blue-50 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+                    }`}>
+                      {item.status === 'Open' ? 'CURRENT / OPEN' : item.category}
                     </span>
                   </Link>
                 ))}

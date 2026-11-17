@@ -856,26 +856,26 @@ export const SEED_IPOS: IPOOffering[] = [
     "shortName": "Crystal Crop Protection",
     "logoMonogram": "CC",
     "logoColor": "#15803D",
-    "logoUrl": "/assets/movers/crystal-crop.png",
+    "logoUrl": "/assets/movers/crystal-crop-protection.png",
     "sector": "Agrochemicals & Crop Protection",
     "industry": "Agrochemicals & Hybrid Seeds",
     "category": "Mainboard",
-    "status": "Upcoming",
+    "status": "Open",
     "exchanges": [
       "NSE",
       "BSE"
     ],
-    "website": "https://groww.in/ipo/crystal-crop-protection-ipo",
-    "registrar": "Link Intime India Pvt Ltd",
-    "registrarUrl": "https://linkintime.co.in/initial_offer/public-issues.html",
-    "issueSizeCr": 455.49,
+    "website": "https://zerodha.com/ipo/450777/crystal-crop-protection-limited",
+    "registrar": "MUFG Intime India Pvt Ltd",
+    "registrarUrl": "https://in.mpms.mufg.com/Initial_Offer/public-issues.html",
+    "issueSizeCr": 455.71,
     "freshIssueCr": 318.84,
     "ofsCr": 136.65,
-    "priceBandLow": 245,
-    "priceBandHigh": 259,
+    "priceBandLow": 259,
+    "priceBandHigh": 272,
     "lotSize": 55,
     "minBidQuantity": 55,
-    "minInvestment": 14245,
+    "minInvestment": 14960,
     "faceValue": 10,
     "dates": {
       "openDate": "2026-11-18",
@@ -886,46 +886,70 @@ export const SEED_IPOS: IPOOffering[] = [
       "listingDate": "2026-11-26"
     },
     "subscription": {
-      "qib": null,
-      "nii": null,
-      "retail": null,
+      "qib": 0.08,
+      "nii": 0.44,
+      "retail": 0.88,
       "employee": null,
       "shareholder": null,
-      "total": null,
+      "total": 0.48,
       "isFinal": false,
-      "dailyBreakdown": [],
+      "dailyBreakdown": [
+        {
+          "day": "Day 1",
+          "date": "2026-11-18",
+          "qib": 0.08,
+          "nii": 0.44,
+          "retail": 0.88,
+          "total": 0.48
+        }
+      ],
       "provenance": {
-        "source": "Link Intime India Pvt Ltd",
-        "retrievedAt": "2026-11-14T23:30:00+05:30",
-        "effectiveDate": "2026-11-14",
-        "verificationStatus": "Verified",
+        "source": "NSE / BSE Consolidated Bid Data",
+        "retrievedAt": "2026-11-18T10:30:00+05:30",
+        "effectiveDate": "2026-11-18",
+        "verificationStatus": "Provisional",
         "qualityStatus": "VERIFIED",
-        "currency": "INR",
-        "unit": "INR",
-        "dataCategory": "Subscription Breakdown"
+        "currency": "PTS",
+        "unit": "Times Subscribed (x)",
+        "dataCategory": "Mainboard IPO Subscription"
       }
     },
     "gmp": {
-      "latestGmp": 27,
-      "previousGmp": 40,
-      "lastUpdated": "2026-11-14T15:30:00+05:30",
+      "latestGmp": 18,
+      "previousGmp": 13,
+      "lastUpdated": "2026-11-18T10:30:00+05:30",
       "availability": "Available",
-      "source": "Grey Market Intelligence (Indicative)",
+      "source": "Market Sentiment & Grey Tracker (Indicative)",
       "history": [
         {
           "date": "2026-11-13",
           "gmp": 40,
-          "note": "Initial sentiment"
+          "note": "Initial"
         },
         {
           "date": "2026-11-14",
           "gmp": 27,
           "note": "Stable"
+        },
+        {
+          "date": "2026-11-15",
+          "gmp": 15,
+          "note": "Downward"
+        },
+        {
+          "date": "2026-11-16",
+          "gmp": 13,
+          "note": "Pre-issue"
+        },
+        {
+          "date": "2026-11-18",
+          "gmp": 18,
+          "note": "Subscription Open Day 1"
         }
       ]
     },
     "listing": {
-      "issuePrice": 259,
+      "issuePrice": 272,
       "actualListingPrice": null,
       "listingExchange": "NSE",
       "stockSymbol": "CRYSTAL",
