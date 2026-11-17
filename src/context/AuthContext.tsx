@@ -125,11 +125,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    await api.logout();
-    setUser(null);
-    setWatchlist([]);
-    setAlerts([]);
-    setNotifications([]);
+    try {
+      await api.logout();
+    } finally {
+      setUser(null);
+      setWatchlist([]);
+      setAlerts([]);
+      setNotifications([]);
+    }
   };
 
   const isInWatchlist = useCallback(
