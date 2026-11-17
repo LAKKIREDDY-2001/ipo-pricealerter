@@ -93,7 +93,7 @@ async function fetchYahooQuote(stock: any): Promise<any | null> {
         previousClose: previous > 0 ? previous : null,
         dayChange: previous > 0 ? Number((price - previous).toFixed(2)) : null,
         dayChangePercent: previous > 0 ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
-        open: meta.regularMarketDayLow ?? null,
+        open: meta.regularMarketOpen ?? null,
         dayHigh: meta.regularMarketDayHigh ?? null,
         dayLow: meta.regularMarketDayLow ?? null,
         volume: meta.regularMarketVolume ?? null,
