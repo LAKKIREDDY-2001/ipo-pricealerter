@@ -301,11 +301,18 @@ export async function syncMarketSnapshotToD1(request: Request, env: D1Env, snaps
       ON CONFLICT(slug) DO UPDATE SET id=excluded.id,company_name=excluded.company_name,status=excluded.status,category=excluded.category,payload_json=excluded.payload_json,source=excluded.source,source_updated_at=excluded.source_updated_at,updated_at=excluded.updated_at`)
       .bind(String(ipo.id),String(ipo.slug),String(ipo.companyName),String(ipo.status||"Unknown"),String(ipo.category||"Mainboard"),JSON.stringify(ipo),ipo.provenance?.retrievedAt||snapshot.lastSyncTime||null,timestamp));
     ipoCount++;
-    const gmp = ipo.gmp?.latestGmp;
-    const observedAt = ipo.gmp?.lastUpdated || ipo.provenance?.retrievedAt;
-    if (gmp != null && Number.isFinite(Number(gmp)) && observedAt) {
+    const gmpPoints = Array.isArray(ipo.gmp?.history) ? ipo.gmp.history : [];
+    for (const point of gmpPoints) {
+      if (point?.date == null || point?.gmp == null || !Number.isFinite(Number(point.gmp))) continue;
+      const observedAt = String(point.date).length === 10 ? `${point.date}T12:00:00.000Z` : String(point.date);
       statements.push(env.DB.prepare("INSERT OR IGNORE INTO ipo_gmp_history(id,ipo_slug,gmp,source,observed_at,source_url) VALUES(?,?,?,?,?,?)")
-        .bind(id("gmp"),String(ipo.slug),Number(gmp),String(ipo.gmp?.source||"snapshot"),String(observedAt),ipo.provenance?.sourceUrl||null));
+        .bind(id("gmp"),String(ipo.slug),Number(point.gmp),String(ipo.gmp?.source||"snapshot"),observedAt,ipo.provenance?.sourceUrl||null));
+    }
+    const latestGmp = ipo.gmp?.latestGmp;
+    const latestObservedAt = ipo.gmp?.lastUpdated || ipo.provenance?.retrievedAt;
+    if (latestGmp != null && Number.isFinite(Number(latestGmp)) && latestObservedAt) {
+      statements.push(env.DB.prepare("INSERT OR IGNORE INTO ipo_gmp_history(id,ipo_slug,gmp,source,observed_at,source_url) VALUES(?,?,?,?,?,?)")
+        .bind(id("gmp"),String(ipo.slug),Number(latestGmp),String(ipo.gmp?.source||"snapshot"),String(latestObservedAt),ipo.provenance?.sourceUrl||null));
     }
   }
   for (const stock of stocks) {
