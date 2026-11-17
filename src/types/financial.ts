@@ -536,6 +536,7 @@ export interface GlobalMacroSnapshot {
   retrievedAt: string;
   source?: string;
   liveFeedReachable?: boolean;
+  liveQuotesCount?: number;
   dataSource?: string;
 }
 
