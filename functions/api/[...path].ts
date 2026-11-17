@@ -57,6 +57,83 @@ async function loadSnapshot(request: Request): Promise<Snapshot> {
   return data;
 }
 
+
+type YahooChart = {
+  chart?: {
+    result?: Array<{
+      meta?: Record<string, any>;
+    }>;
+  };
+};
+const quoteCache = new Map<string, { expiresAt: number; quote: any }>();
+
+async function fetchYahooQuote(stock: any): Promise<any | null> {
+  const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
+  if (!symbol) return null;
+  const candidates = symbol.includes(".") ? [symbol] : [`${symbol}.NS`, `${symbol}.BO`];
+  for (const ticker of candidates) {
+    const cached = quoteCache.get(ticker);
+    if (cached && cached.expiresAt > Date.now()) return cached.quote;
+    try {
+      const endpoint = new URL(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}`);
+      endpoint.searchParams.set("range", "1d");
+      endpoint.searchParams.set("interval", "1m");
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(4500),
+      });
+      if (!response.ok) continue;
+      const payload = (await response.json()) as YahooChart;
+      const meta = payload.chart?.result?.[0]?.meta;
+      const price = Number(meta?.regularMarketPrice);
+      if (!meta || !Number.isFinite(price) || price <= 0) continue;
+      const previous = Number(meta.chartPreviousClose ?? meta.previousClose ?? 0);
+      const quote = {
+        currentPrice: price,
+        previousClose: previous > 0 ? previous : null,
+        dayChange: previous > 0 ? Number((price - previous).toFixed(2)) : null,
+        dayChangePercent: previous > 0 ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
+        open: meta.regularMarketDayLow ?? null,
+        dayHigh: meta.regularMarketDayHigh ?? null,
+        dayLow: meta.regularMarketDayLow ?? null,
+        volume: meta.regularMarketVolume ?? null,
+        lastTradeTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
+        quoteSource: "Yahoo Finance",
+        quoteStatus: "third-party-delayed-or-latest-available",
+        quoteCurrency: meta.currency || "INR",
+        quoteSymbol: ticker,
+      };
+      quoteCache.set(ticker, { quote, expiresAt: Date.now() + 30_000 });
+      return quote;
+    } catch {
+      // Try the alternate exchange ticker; never invent a quote.
+    }
+  }
+  return null;
+}
+
+async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
+  let successful = 0;
+  const result = await Promise.all(stocks.map(async (stock) => {
+    const quote = await fetchYahooQuote(stock);
+    if (!quote) return stock;
+    successful += 1;
+    return {
+      ...stock,
+      ...quote,
+      provenance: {
+        ...(stock.provenance || {}),
+        source: quote.quoteSource,
+        retrievedAt: new Date().toISOString(),
+        verificationStatus: "Third-party quote; verify with NSE/BSE",
+        qualityStatus: "UNOFFICIAL_DELAYED_OR_LATEST",
+        currency: quote.quoteCurrency,
+      },
+    };
+  }));
+  return { stocks: result, successful };
+}
+
 function normalizeStocks(snapshot: Snapshot): any[] {
   const base = Array.isArray(snapshot.stocks) ? [...snapshot.stocks] : [];
   const seen = new Set(base.map((s) => String(s.symbol || "").toUpperCase()));
@@ -247,7 +324,16 @@ export async function onRequest(context: {
       return json({ ok: Boolean(macro), data: macro, liveFeedReachable: false, dataSource: "published-market-snapshot" });
     }
     if (pathname === "/api/stocks") {
-      return json(filterAndPageStocks(normalizeStocks(snapshot), url));
+      const page = filterAndPageStocks(normalizeStocks(snapshot), url);
+      const enriched = await enrichQuotes(page.stocks || []);
+      return json({
+        ...page,
+        stocks: enriched.stocks,
+        liveFeedReachable: enriched.successful > 0,
+        quotesUpdated: enriched.successful,
+        quoteSource: enriched.successful > 0 ? "Yahoo Finance" : "published-market-snapshot",
+        quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
+      });
     }
     if (pathname.startsWith("/api/stocks/")) {
       const symbol = decodeURIComponent(pathname.slice("/api/stocks/".length)).toLowerCase();
@@ -255,7 +341,15 @@ export async function onRequest(context: {
         String(s.symbol || "").toLowerCase() === symbol ||
         String(s.bseCode || "").toLowerCase() === symbol
       );
-      return stock ? json({ stock, fromUpstream: false, linkedIpo: null, dataSource: "published-market-snapshot" }) : json({ error: `Stock "${symbol}" not found` }, 404);
+      if (!stock) return json({ error: `Stock "${symbol}" not found` }, 404);
+      const enriched = await fetchYahooQuote(stock);
+      return json({
+        stock: enriched ? { ...stock, ...enriched } : stock,
+        fromUpstream: Boolean(enriched),
+        linkedIpo: null,
+        dataSource: enriched ? "Yahoo Finance" : "published-market-snapshot",
+        quoteDisclaimer: "Third-party quotes may be delayed or unavailable. Verify prices with NSE/BSE.",
+      });
     }
     if (pathname === "/api/ipos") return json(filterIpos(snapshot, url));
     if (pathname.startsWith("/api/ipos/")) {
