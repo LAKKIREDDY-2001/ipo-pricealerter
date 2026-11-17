@@ -60,7 +60,7 @@ export function MarketTicker() {
         <div className="flex-1 flex items-center gap-2 overflow-x-auto no-scrollbar py-2">
           {indices.map((item) => {
             const isUp = (item.change ?? 0) >= 0;
-            const unavailable = item.value === null;
+            const unavailable = typeof item.value !== 'number' || !Number.isFinite(item.value);
             return (
               <div
                 key={item.id}
@@ -75,7 +75,7 @@ export function MarketTicker() {
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-slate-300 whitespace-nowrap">
                     <span>{item.symbol}</span>
                     <span className="text-[10px] font-normal text-slate-400">
-                      · {item.provenance.qualityStatus === 'UNAVAILABLE' ? 'Unavailable' : 'Delayed'}
+                      · {item.provenance?.qualityStatus === 'UNAVAILABLE' ? 'Unavailable' : item.provenance?.source === 'Yahoo Finance' ? 'Yahoo · delayed' : 'Snapshot'}
                     </span>
                   </div>
                   <div className="flex items-baseline gap-2 mt-0.5">
@@ -88,7 +88,7 @@ export function MarketTicker() {
                             ? `$${formatNumberIN(item.value)}`
                             : formatNumberIN(item.value)}
                     </span>
-                    {!unavailable && item.change !== null && item.changePercent !== null && (
+                    {!unavailable && typeof item.change === 'number' && Number.isFinite(item.change) && typeof item.changePercent === 'number' && Number.isFinite(item.changePercent) && (
                       <span
                         className={`font-data text-[11px] font-medium ${
                           isUp ? 'text-emerald-400' : 'text-red-400'
