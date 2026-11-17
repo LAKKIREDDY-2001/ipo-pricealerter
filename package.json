@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "tsx server.ts",
-    "build": "vite build",
+    "build": "tsx scripts/generate-market-snapshot.ts && vite build",
     "preview": "vite preview",
     "test": "tsx --test tests/**/*.test.ts",
     "clean": "rm -rf dist server.js",
