@@ -101830,7 +101830,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "sector": "Agrochemicals",
       "industry": "Agrochemicals & Crop Protection",
       "category": "Mainboard",
-      "status": "Open",
+      "status": "Listed",
       "exchanges": [
         "NSE",
         "BSE"

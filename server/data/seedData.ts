@@ -860,7 +860,7 @@ export const SEED_IPOS: IPOOffering[] = [
     "sector": "Agrochemicals & Crop Protection",
     "industry": "Agrochemicals & Hybrid Seeds",
     "category": "Mainboard",
-    "status": "Open",
+    "status": "Listed",
     "exchanges": [
       "NSE",
       "BSE"
