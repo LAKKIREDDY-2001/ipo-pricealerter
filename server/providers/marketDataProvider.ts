@@ -1649,8 +1649,8 @@ function mapGrowwRecordToStock(
     volume,
     marketCapCr,
     lastTradeTime: lastTradeIso,
-    nseQuote: curated?.nseQuote ?? (nseCode ? dtoQuote : null),
-    bseQuote: curated?.bseQuote ?? (!nseCode && bseCode ? dtoQuote : null),
+    nseQuote: nseCode ? dtoQuote : null,
+    bseQuote: !nseCode && bseCode ? dtoQuote : null,
     fundamentals: curated?.fundamentals || {
       pe: null,
       pb: null,
@@ -1834,8 +1834,8 @@ function buildRegistryEquityStock(params: {
     volume,
     marketCapCr: null,
     lastTradeTime: hydQ?.lastTradeTime || (primaryBhav?.tradDt ? `${primaryBhav.tradDt}T10:00:00.000Z` : retrievedAtIso),
-    nseQuote: curated?.nseQuote ?? null,
-    bseQuote: curated?.bseQuote ?? null,
+    nseQuote: null,
+    bseQuote: null,
     fundamentals: curated?.fundamentals || {
       pe: null,
       pb: null,
