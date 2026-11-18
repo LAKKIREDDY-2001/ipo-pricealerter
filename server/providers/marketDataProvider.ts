@@ -1771,7 +1771,7 @@ function buildRegistryEquityStock(params: {
     hydQ?.volume ??
     ((nseBhav?.volume ?? 0) + (bseBhav?.volume ?? 0) > 0
       ? (nseBhav?.volume ?? 0) + (bseBhav?.volume ?? 0)
-      : curated?.volume ?? null);
+      : null);
 
   const series = (nseBhav?.series || nseArch?.series || bseBhav?.series || '').toUpperCase();
   const isEtf = isin.startsWith('INF') || /\bETF\b/i.test(companyName);
@@ -1791,7 +1791,6 @@ function buildRegistryEquityStock(params: {
   const effectiveDate =
     hydQ?.lastTradeTime?.slice(0, 10) ||
     primaryBhav?.tradDt ||
-    curated?.lastTradeTime?.slice(0, 10) ||
     retrievedAtIso.slice(0, 10);
 
   const hasLiveHydration = Boolean(hydQ && Date.now() - (hydrated?.fetchedAt ?? 0) < 120_000);
