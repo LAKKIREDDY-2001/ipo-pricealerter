@@ -847,7 +847,7 @@ export async function onRequest(context: {
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
         quoteSource: enriched.successful > 0 ? "Yahoo Finance (unofficial; may be delayed)" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
-        quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
+        quoteDisclaimer: "Yahoo Finance quotes are unofficial and may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), values generally reflect the latest available session.",
       });
     }
     if (pathname.startsWith("/api/stocks/")) {
@@ -920,7 +920,7 @@ export async function onRequest(context: {
           try {
             await env.DB.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
               VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
-              .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || "INR", "NSE/BSE Live Feed", tradeTime, nowIso, "LIVE", JSON.stringify(output)).run();
+               .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || "INR", "Yahoo Finance (unofficial; may be delayed)", tradeTime, nowIso, "UNOFFICIAL_DELAYED", JSON.stringify(output)).run();
           } catch { /* ignore db write error */ }
         }
       } else if (!enriched && env.DB) {
@@ -934,7 +934,7 @@ export async function onRequest(context: {
             dayChangePercent: saved.day_change_percent,
             volume: saved.volume,
             lastTradeTime: saved.quote_time,
-            quoteSource: "NSE/BSE Live Feed",
+            quoteSource: "Yahoo Finance (unofficial; may be delayed)",
             quoteStatus: "stored-not-live",
             quoteRetrievedAt: saved.retrieved_at,
           });
@@ -957,7 +957,7 @@ export async function onRequest(context: {
         fromUpstream: Boolean(enriched || history.length || companyInfo),
         linkedIpo: null,
         dataSource: enriched ? "Yahoo Finance (unofficial; may be delayed)" : companyInfo ? "Official Corporate Filings" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
-        quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
+        quoteDisclaimer: "Yahoo Finance quotes are unofficial and may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), values generally reflect the latest available session.",
       });
     }
     if (pathname === "/api/ipos") {
