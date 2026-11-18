@@ -1357,4 +1357,50 @@ export const api = {
         tradingsymbol
       )}&symboltoken=${encodeURIComponent(symboltoken)}`
     ),
+
+  // Angel One SmartAPI CDSL eDIS Authorisation API Suite
+  verifyAngelEdis: (isin: string, quantity: number | string = 1) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      alreadyRegistered?: boolean;
+      data?: {
+        ReqId?: string;
+        ReturnURL?: string | null;
+        DPId?: string | null;
+        BOID?: string | null;
+        TransDtls?: string | null;
+        version?: string;
+      } | null;
+    }>('/api/portfolio/angel/edis/verify', {
+      method: 'POST',
+      body: JSON.stringify({ isin, quantity }),
+    }),
+
+  generateAngelEdisTpin: (params: { dpId: string; reqId: string; boid: string; pan: string }) =>
+    request<{
+      status: boolean;
+      SUCCESS?: string;
+      message: string;
+      errorcode?: string | null;
+      data?: any;
+    }>('/api/portfolio/angel/edis/generate-tpin', {
+      method: 'POST',
+      body: JSON.stringify(params),
+    }),
+
+  checkAngelEdisStatus: (reqId: string) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      authorized: boolean;
+      reqId: string;
+      details?: any;
+    }>('/api/portfolio/angel/edis/status', {
+      method: 'POST',
+      body: JSON.stringify({ reqId }),
+    }),
 };

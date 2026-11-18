@@ -16,6 +16,7 @@ import {
   SCRIP_MASTER_URL,
   ANGEL_SMARTAPI_ROOT_URL,
   CDSL_EDIS_FORM_ACTION,
+  generateAngelEdisHtmlForm,
   type AngelCandlePoint,
   type AngelLiveQuoteItem,
   type AngelGainerLoserItem,
@@ -408,6 +409,36 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(sampleEdisVerify.data?.version, '1.1');
     assert.equal(sampleEdisVerify.alreadyRegistered, false);
 
+    // Validate AG1000 already registered response
+    const alreadyRegisteredRes: AngelEdisVerifyResponse = {
+      status: true,
+      alreadyRegistered: true,
+      message: 'You have already been registered with CDSL for today.',
+      data: {
+        ReqId: '0390624715013748',
+        ReturnURL: null,
+        DPId: null,
+        BOID: null,
+        TransDtls: null,
+        version: '1.1',
+      },
+    };
+    assert.equal(alreadyRegisteredRes.alreadyRegistered, true);
+    assert.equal(alreadyRegisteredRes.data?.ReqId, '0390624715013748');
+
+    // Validate CDSL HTML auto-submission form generator
+    const htmlForm = generateAngelEdisHtmlForm({
+      dpId: '33200',
+      reqId: '8180722758077144',
+      transDtls: 'fZ6jlmt9GosSO0kFdI9S9FCD+IYFvjUN94Bph46YMC1...',
+      version: '1.1',
+    });
+    assert.ok(htmlForm.includes('action="https://edis.cdslindia.com/eDIS/VerifyDIS/"'));
+    assert.ok(htmlForm.includes('name="DPId" value="33200"'));
+    assert.ok(htmlForm.includes('name="ReqId" value="8180722758077144"'));
+    assert.ok(htmlForm.includes('name="Version" value="1.1"'));
+    assert.ok(htmlForm.includes('submitbtn'));
+
     const sampleTranStatus: AngelEdisTranStatusResponse = {
       status: true,
       message: 'SUCCESS',
@@ -420,6 +451,19 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     };
     assert.equal(sampleTranStatus.authorized, true);
     assert.equal(sampleTranStatus.reqId, '7650687246435520');
+
+    // Status 0: not authorised to sell
+    const pendingTranStatus: AngelEdisTranStatusResponse = {
+      status: true,
+      message: 'SUCCESS',
+      authorized: false,
+      reqId: '7650687246435520',
+      details: {
+        ReqId: '1278983622820067',
+        RecordResDtls: [{ TxnReqId: '7659729424908225', Status: '0' }],
+      },
+    };
+    assert.equal(pendingTranStatus.authorized, false);
   });
 
   await t.test('validates Angel One User API endpoints and URL configurations', () => {

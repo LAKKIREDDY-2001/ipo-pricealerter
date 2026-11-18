@@ -6,6 +6,9 @@
       "env": {
         "ALPHA_VANTAGE_API_KEY": "K2UZXJYH6HDX8QGF"
       }
+    },
+    "cloudflare": {
+      "url": "https://mcp.cloudflare.com/mcp"
     }
   }
 }

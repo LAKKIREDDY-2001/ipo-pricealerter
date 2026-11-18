@@ -239,10 +239,10 @@ export interface AngelEdisVerifyResponse {
   alreadyRegistered?: boolean;
   data?: {
     ReqId?: string;
-    ReturnURL?: string;
-    DPId?: string;
-    BOID?: string;
-    TransDtls?: string;
+    ReturnURL?: string | null;
+    DPId?: string | null;
+    BOID?: string | null;
+    TransDtls?: string | null;
     version?: string;
   } | null;
 }
@@ -2371,6 +2371,19 @@ export async function generateAngelEdisTPIN(
 }
 
 /**
+ * Generate official CDSL eDIS form HTML payload for browser auto-submission
+ */
+export function generateAngelEdisHtmlForm(params: {
+  dpId: string;
+  reqId: string;
+  transDtls: string;
+  version?: string;
+}): string {
+  const version = params.version || '1.1';
+  return `<!DOCTYPE html> <html> <script>window.onload= function() {submit()};function submit(){ document.getElementById("submitbtn").click(); } </script> <body onload="submit()"> <form name="frmDIS" method="post" action="${CDSL_EDIS_FORM_ACTION}" style=" text-align: center; margin-top: 35px; "> <input type="hidden" name="DPId" value="${params.dpId}"> <input type="hidden" name="ReqId" value="${params.reqId}"> <input type="hidden" name="Version" value="${version}"> <input type="hidden" name="TransDtls" value="${params.transDtls}"> <input style="display: none;" id="submitbtn" type="submit" value="Submit"> <noscript><input type="submit" value="Click here to proceed if not redirected automatically"></noscript> </form> </body> </html>`;
+}
+
+/**
  * Check eDIS transaction status to verify if security is authorized for sale
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/edis/v1/getTranStatus
  */
@@ -2409,7 +2422,8 @@ export async function checkAngelEdisTranStatus(
     };
 
     const records = json.data?.TransResDtls?.RecordResDtls || [];
-    const isAuthorized = records.some((r) => r.Status === '1');
+    const resStatus = String(json.data?.TransResDtls?.ResStatus || '');
+    const isAuthorized = records.some((r) => String(r.Status) === '1') || resStatus === '1';
 
     return {
       status: Boolean(json.status),

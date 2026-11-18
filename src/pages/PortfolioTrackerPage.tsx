@@ -21,6 +21,10 @@ import {
   ArrowUpDown,
   AlertCircle,
   ExternalLink,
+  Key,
+  Lock,
+  Unlock,
+  ShieldAlert,
 } from 'lucide-react';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs } from '../components/common/StateViews';
@@ -39,7 +43,27 @@ export interface PortfolioHolding {
   dayChangePercent: number;
   sector: string;
   mcapCategory: 'Large Cap' | 'Mid Cap' | 'Small Cap' | 'Mutual Fund';
+  isin?: string;
 }
+
+const KNOWN_ISIN_MAP: Record<string, string> = {
+  RELIANCE: 'INE002A01018',
+  HDFCBANK: 'INE040A01034',
+  TCS: 'INE467B01029',
+  INFY: 'INE009A01021',
+  SBIN: 'INE062A01020',
+  TATASTEEL: 'INE081A01020',
+  PARAGMILK: 'INE883N01014',
+  TRENT: 'INE849A01020',
+  TATAMOTORS: 'INE155A01022',
+  ITC: 'INE154A01025',
+  BHARTIARTL: 'INE397D01024',
+  LT: 'INE018A01030',
+  ICICIBANK: 'INE090A01021',
+  KOTAKBANK: 'INE237A01028',
+  WIPRO: 'INE075A01022',
+  BAJFINANCE: 'INE296A01024',
+};
 
 const DEFAULT_SAMPLE_HOLDINGS: PortfolioHolding[] = [
   {
@@ -249,6 +273,147 @@ export function PortfolioTrackerPage() {
   const [inspectModalOpen, setInspectModalOpen] = useState(false);
   const [inspectOrderData, setInspectOrderData] = useState<any | null>(null);
   const [inspectLoading, setInspectLoading] = useState(false);
+
+  // CDSL eDIS Authorisation Modal State
+  const [edisModalOpen, setEdisModalOpen] = useState(false);
+  const [edisHolding, setEdisHolding] = useState<PortfolioHolding | null>(null);
+  const [edisIsin, setEdisIsin] = useState('INE062A01020');
+  const [edisQuantity, setEdisQuantity] = useState('1');
+  const [edisLoading, setEdisLoading] = useState(false);
+  const [edisVerifyData, setEdisVerifyData] = useState<{
+    ReqId?: string;
+    DPId?: string | null;
+    BOID?: string | null;
+    TransDtls?: string | null;
+    version?: string;
+    ReturnURL?: string | null;
+  } | null>(null);
+  const [edisAlreadyRegistered, setEdisAlreadyRegistered] = useState(false);
+  const [edisAuthStatus, setEdisAuthStatus] = useState<'IDLE' | 'AUTHORIZED' | 'PENDING' | 'FAILED'>('IDLE');
+  const [edisMessage, setEdisMessage] = useState<string | null>(null);
+
+  // TPIN Helper Drawer State
+  const [tpinDrawerOpen, setTpinDrawerOpen] = useState(false);
+  const [tpinPan, setTpinPan] = useState('');
+  const [tpinGenerating, setTpinGenerating] = useState(false);
+  const [tpinMessage, setTpinMessage] = useState<string | null>(null);
+  const [edisStatusChecking, setEdisStatusChecking] = useState(false);
+
+  const handleOpenEdisModal = (holding?: PortfolioHolding) => {
+    if (holding) {
+      setEdisHolding(holding);
+      const isin = holding.isin || KNOWN_ISIN_MAP[holding.symbol] || 'INE062A01020';
+      setEdisIsin(isin);
+      setEdisQuantity(String(holding.quantity || 1));
+    } else {
+      setEdisHolding(null);
+      setEdisIsin('INE062A01020');
+      setEdisQuantity('1');
+    }
+    setEdisVerifyData(null);
+    setEdisAlreadyRegistered(false);
+    setEdisAuthStatus('IDLE');
+    setEdisMessage(null);
+    setTpinMessage(null);
+    setTpinDrawerOpen(false);
+    setEdisModalOpen(true);
+  };
+
+  const handleInitiateEdis = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setEdisLoading(true);
+    setEdisMessage(null);
+    setEdisVerifyData(null);
+    try {
+      const res = await api.verifyAngelEdis(edisIsin, edisQuantity);
+      if (res.alreadyRegistered || res.errorcode === 'AG1000' || String(res.message).toLowerCase().includes('already')) {
+        setEdisAlreadyRegistered(true);
+        setEdisAuthStatus('AUTHORIZED');
+        setEdisMessage('You have already been registered with CDSL for today! Authorisation is valid for 24 hours across all Demat sell orders.');
+      } else if (res.status && res.data) {
+        setEdisVerifyData(res.data);
+        setEdisAuthStatus('PENDING');
+        setEdisMessage('CDSL eDIS transaction parameters generated successfully. Click below to open CDSL India and enter your 6-digit TPIN.');
+      } else {
+        setEdisAuthStatus('FAILED');
+        setEdisMessage(res.message || 'eDIS verification failed. Please verify the ISIN and try again.');
+      }
+    } catch (err: any) {
+      setEdisAuthStatus('FAILED');
+      setEdisMessage(err?.message || 'Network error initiating eDIS verification.');
+    } finally {
+      setEdisLoading(false);
+    }
+  };
+
+  const handleSubmitCdslForm = () => {
+    if (!edisVerifyData || !edisVerifyData.TransDtls) return;
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://edis.cdslindia.com/eDIS/VerifyDIS/';
+    form.target = '_blank';
+
+    const addField = (name: string, value: string) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      form.appendChild(input);
+    };
+
+    addField('DPId', edisVerifyData.DPId || '33200');
+    addField('ReqId', edisVerifyData.ReqId || '');
+    addField('Version', edisVerifyData.version || '1.1');
+    addField('TransDtls', edisVerifyData.TransDtls || '');
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  };
+
+  const handleCheckEdisStatus = async () => {
+    const reqId = edisVerifyData?.ReqId;
+    if (!reqId) return;
+    setEdisStatusChecking(true);
+    try {
+      const res = await api.checkAngelEdisStatus(reqId);
+      if (res.authorized) {
+        setEdisAuthStatus('AUTHORIZED');
+        setEdisMessage('CDSL Authorization Confirmed! Status: 1 (Authorised to Sell holdings).');
+      } else {
+        setEdisAuthStatus('PENDING');
+        setEdisMessage('CDSL Status: 0 (Pending authorization). If you just entered your TPIN on CDSL, please wait 10 seconds and re-check.');
+      }
+    } catch (err: any) {
+      setEdisMessage(err?.message || 'Could not verify transaction status from Angel One.');
+    } finally {
+      setEdisStatusChecking(false);
+    }
+  };
+
+  const handleGenerateTpin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!tpinPan) return;
+    setTpinGenerating(true);
+    setTpinMessage(null);
+    try {
+      const res = await api.generateAngelEdisTpin({
+        dpId: edisVerifyData?.DPId || '33200',
+        reqId: edisVerifyData?.ReqId || `${Date.now()}`.slice(0, 16),
+        boid: edisVerifyData?.BOID || '1203320015222472',
+        pan: tpinPan.trim().toUpperCase(),
+      });
+      if (res.status) {
+        setTpinMessage('TPIN generated successfully! CDSL has dispatched your 6-digit TPIN via SMS & email.');
+      } else {
+        setTpinMessage(res.message || 'TPIN generation failed. Please check your PAN number.');
+      }
+    } catch (err: any) {
+      setTpinMessage(err?.message || 'Network error generating TPIN.');
+    } finally {
+      setTpinGenerating(false);
+    }
+  };
 
   // Auto-set symbol token when selecting common scrips
   const handleSelectScripPreset = (sym: string, tok: string, ex: 'NSE' | 'BSE' = 'NSE', price: string = '194.50') => {
@@ -682,6 +847,15 @@ export function PortfolioTrackerPage() {
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             type="button"
+            onClick={() => handleOpenEdisModal()}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-blue-200 dark:border-blue-800/60 bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:brightness-105 transition-all cursor-pointer"
+            title="Authorise CDSL eDIS for Selling Demat holdings without POA"
+          >
+            <ShieldCheck className="w-4 h-4 text-blue-200" />
+            <span>CDSL eDIS Authorise</span>
+          </button>
+          <button
+            type="button"
             onClick={() => setAngelModalOpen(true)}
             className="inline-flex items-center gap-1.5 rounded-xl border border-orange-200 dark:border-orange-800/60 bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 text-xs font-bold text-white shadow-sm hover:brightness-105 transition-all cursor-pointer"
           >
@@ -1059,7 +1233,18 @@ export function PortfolioTrackerPage() {
                           {isProfit ? '+' : ''}{pnlPct.toFixed(2)}%
                         </div>
                       </td>
-                      <td className="py-3.5 pl-3 text-center">
+                      <td className="py-3.5 pl-3 text-center space-x-1 whitespace-nowrap">
+                        {h.assetType === 'Equity' && (
+                          <button
+                            type="button"
+                            onClick={() => handleOpenEdisModal(h)}
+                            className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors cursor-pointer"
+                            title="Authorise CDSL eDIS to sell shares without POA"
+                          >
+                            <Key className="w-3 h-3" />
+                            <span>eDIS</span>
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => handleDeleteHolding(h.id)}
@@ -1653,6 +1838,25 @@ export function PortfolioTrackerPage() {
                     SELL ORDER
                   </button>
                 </div>
+                {orderSide === 'SELL' && (
+                  <div className="mt-2 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 p-2.5 flex items-center justify-between text-xs text-blue-900 dark:text-blue-200">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                      <span className="text-[11px]">Selling non-POA Demat holdings requires CDSL eDIS TPIN authorisation once daily.</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const cleanSym = orderSymbol.replace(/-EQ$/, '');
+                        const found = holdings.find((h) => h.symbol === cleanSym);
+                        handleOpenEdisModal(found);
+                      }}
+                      className="shrink-0 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] cursor-pointer"
+                    >
+                      Authorise eDIS
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Symbol, Token & Exchange */}
@@ -1980,6 +2184,252 @@ export function PortfolioTrackerPage() {
                 Order details could not be retrieved.
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* CDSL eDIS Authorisation Modal */}
+      {edisModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="w-full max-w-lg rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="/assets/movers/angel-one.png"
+                  alt="Angel One"
+                  className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
+                />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-base text-[#14263F] dark:text-white">
+                      CDSL eDIS Sell Authorisation
+                    </h3>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 dark:bg-blue-950/60 px-2 py-0.5 text-[10px] font-bold text-blue-700 dark:text-blue-400">
+                      CDSL v1.1
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#64748B] dark:text-slate-400">
+                    SEBI-compliant online Demat sell pre-authorisation via SmartAPI
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEdisModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* SEBI Compliance & Regulations Box */}
+            <div className="rounded-xl border border-blue-200 dark:border-blue-900/40 bg-blue-50/60 dark:bg-blue-950/20 p-3 space-y-1 text-xs text-blue-950 dark:text-blue-200">
+              <div className="font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span>Daily CDSL eDIS TPIN Authorisation</span>
+              </div>
+              <p className="text-[11px] text-blue-900/80 dark:text-blue-300/80 leading-relaxed">
+                Investors who have not submitted physical Power of Attorney (POA) must authorise CDSL once every trading day using their 6-digit TPIN &amp; OTP. Authorisation is valid for 24 hours across all sell orders.
+              </p>
+            </div>
+
+            {/* Holding Preview */}
+            {edisHolding && (
+              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 text-xs">
+                <div className="flex items-center gap-2.5">
+                  <CompanyLogo companyName={edisHolding.name} symbol={edisHolding.symbol} size="sm" />
+                  <div>
+                    <div className="font-bold text-slate-800 dark:text-white">{edisHolding.name}</div>
+                    <div className="text-[10px] font-mono text-slate-500">{edisHolding.symbol} · Qty: {edisHolding.quantity}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] text-slate-400">LTP</div>
+                  <div className="font-bold text-slate-800 dark:text-slate-200 font-mono">₹{edisHolding.currentPrice.toFixed(2)}</div>
+                </div>
+              </div>
+            )}
+
+            {/* Already Authorised State */}
+            {edisAlreadyRegistered && (
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-950/40 p-4 space-y-2 text-xs text-emerald-900 dark:text-emerald-200">
+                <div className="flex items-center gap-2 font-bold text-sm text-emerald-700 dark:text-emerald-400">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                  <span>Authorised with CDSL for Today</span>
+                </div>
+                <p className="text-[11px] text-emerald-800/90 dark:text-emerald-300/90 leading-relaxed">
+                  Your Demat holdings are already authorized for sale with CDSL for today (Error Code: <code className="font-mono">AG1000</code>). You can place sell orders directly without re-entering TPIN until the end of today's market session.
+                </p>
+              </div>
+            )}
+
+            {/* Action Feedback Messages */}
+            {edisMessage && !edisAlreadyRegistered && (
+              <div
+                className={`rounded-xl border p-3 text-xs flex items-start gap-2 ${
+                  edisAuthStatus === 'AUTHORIZED'
+                    ? 'border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300'
+                    : edisAuthStatus === 'FAILED'
+                    ? 'border-red-200 bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-300'
+                    : 'border-blue-200 bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300'
+                }`}
+              >
+                {edisAuthStatus === 'AUTHORIZED' ? (
+                  <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+                ) : edisAuthStatus === 'FAILED' ? (
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                ) : (
+                  <Info className="w-4 h-4 shrink-0 mt-0.5" />
+                )}
+                <span>{edisMessage}</span>
+              </div>
+            )}
+
+            {/* Form & Verification Section */}
+            {!edisAlreadyRegistered && (
+              <form onSubmit={handleInitiateEdis} className="space-y-3.5 text-xs">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[#64748B] dark:text-slate-400 mb-1 font-semibold">
+                      ISIN (International Securities ID)
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={edisIsin}
+                      onChange={(e) => setEdisIsin(e.target.value.toUpperCase())}
+                      placeholder="e.g. INE528G01035"
+                      className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 font-mono font-bold text-slate-800 dark:text-white outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[#64748B] dark:text-slate-400 mb-1 font-semibold">
+                      Authorise Quantity
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      required
+                      value={edisQuantity}
+                      onChange={(e) => setEdisQuantity(e.target.value)}
+                      className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 font-mono font-bold text-slate-800 dark:text-white outline-none focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+
+                {!edisVerifyData && (
+                  <button
+                    type="submit"
+                    disabled={edisLoading}
+                    className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-105 py-2.5 px-4 text-xs font-bold text-white shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    {edisLoading ? (
+                      <>
+                        <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Initiating with Angel One &amp; CDSL...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Key className="w-4 h-4" />
+                        <span>Initiate CDSL eDIS Verification</span>
+                      </>
+                    )}
+                  </button>
+                )}
+              </form>
+            )}
+
+            {/* Generated Transaction Parameters & Redirection */}
+            {edisVerifyData && (
+              <div className="space-y-3 pt-1 border-t border-slate-100 dark:border-slate-800 text-xs">
+                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-3 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-sans">CDSL Req ID:</span>
+                    <strong className="text-slate-800 dark:text-slate-200">{edisVerifyData.ReqId}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-sans">DP ID / BO ID:</span>
+                    <span className="text-slate-800 dark:text-slate-200">{edisVerifyData.DPId || '33200'} / {edisVerifyData.BOID || '1203320015222472'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 font-sans">eDIS Protocol:</span>
+                    <span className="text-slate-800 dark:text-slate-200">Version {edisVerifyData.version || '1.1'}</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleSubmitCdslForm}
+                    className="w-full sm:flex-1 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-105 py-2.5 px-4 text-xs font-bold text-white shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Proceed to CDSL Gateway (Enter TPIN)</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCheckEdisStatus}
+                    disabled={edisStatusChecking}
+                    className="w-full sm:w-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${edisStatusChecking ? 'animate-spin' : ''}`} />
+                    <span>Check Status</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Need a TPIN Helper Drawer */}
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+              <button
+                type="button"
+                onClick={() => setTpinDrawerOpen((prev) => !prev)}
+                className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 font-semibold cursor-pointer"
+              >
+                <Key className="w-3.5 h-3.5" />
+                <span>Don't know or forgot your 6-digit CDSL TPIN? Generate TPIN</span>
+              </button>
+
+              {tpinDrawerOpen && (
+                <form onSubmit={handleGenerateTpin} className="mt-3 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/30 space-y-2.5">
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                    Enter PAN Number to dispatch TPIN via SMS &amp; Email
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. ABCDE1234F"
+                      value={tpinPan}
+                      onChange={(e) => setTpinPan(e.target.value.toUpperCase())}
+                      className="flex-1 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-1.5 font-mono text-xs uppercase text-slate-800 dark:text-white outline-none"
+                    />
+                    <button
+                      type="submit"
+                      disabled={tpinGenerating}
+                      className="rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1.5 text-xs transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      {tpinGenerating ? 'Requesting...' : 'Send TPIN'}
+                    </button>
+                  </div>
+                  {tpinMessage && (
+                    <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">
+                      {tpinMessage}
+                    </div>
+                  )}
+                </form>
+              )}
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => setEdisModalOpen(false)}
+                className="rounded-xl px-4 py-2 text-xs font-semibold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
