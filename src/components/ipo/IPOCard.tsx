@@ -91,14 +91,18 @@ export function IPOCard({ ipo }: { ipo: IPOOffering }) {
           </div>
           <div>
             <div className="text-[#64748B] dark:text-slate-400">Offer Dates</div>
-            <div className="font-data text-[#152338] dark:text-slate-200 mt-0.5">
-              {formatDateIN(ipo.dates.openDate)} – {formatDateIN(ipo.dates.closeDate)}
+            <div className="font-data text-[#152338] dark:text-slate-200 mt-0.5 text-xs truncate">
+              {ipo.dates.openDate && ipo.dates.closeDate
+                ? `${formatDateIN(ipo.dates.openDate)} – ${formatDateIN(ipo.dates.closeDate)}`
+                : ipo.dates.openDate
+                  ? formatDateIN(ipo.dates.openDate)
+                  : 'Dates To Be Announced'}
             </div>
           </div>
           <div>
             <div className="text-[#64748B] dark:text-slate-400">Listing Date</div>
-            <div className="font-data text-[#152338] dark:text-slate-200 mt-0.5">
-              {formatDateIN(ipo.dates.listingDate)}
+            <div className="font-data text-[#152338] dark:text-slate-200 mt-0.5 text-xs">
+              {ipo.dates.listingDate ? formatDateIN(ipo.dates.listingDate) : 'Awaited'}
             </div>
           </div>
         </div>

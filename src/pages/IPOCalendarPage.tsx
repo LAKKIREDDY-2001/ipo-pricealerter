@@ -112,6 +112,15 @@ export function IPOCalendarPage() {
     });
   }, [events]);
 
+  const unconfirmedUpcoming = useMemo(() => {
+    return ipos.filter(
+      (ipo) =>
+        ipo.status === 'Upcoming' &&
+        (!ipo.dates.openDate || !ipo.dates.listingDate) &&
+        (catFilter === 'All' || ipo.category === catFilter)
+    );
+  }, [ipos, catFilter]);
+
   const eventColor = (type: CalendarEvent['eventType']) => {
     switch (type) {
       case 'Opening':
@@ -413,6 +422,75 @@ export function IPOCalendarPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </section>
+      )}
+
+      {/* Upcoming IPOs with Dates To Be Announced */}
+      {unconfirmedUpcoming.length > 0 && (
+        <section className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E2E8F0] dark:border-slate-800 pb-3">
+            <div>
+              <h2 className="font-display font-bold text-base text-[#152338] dark:text-white flex items-center gap-2">
+                Upcoming IPO Pipeline (Dates To Be Announced)
+              </h2>
+              <p className="text-xs text-[#64748B] dark:text-slate-400 mt-0.5">
+                Companies that have filed draft papers (DRHP) or announced IPO plans. Issue dates are unconfirmed and will appear on the calendar once officially notified by SEBI and the exchanges.
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[#64748B] dark:text-slate-300 w-fit">
+              {unconfirmedUpcoming.length} Issues Awaited
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {unconfirmedUpcoming.map((ipo) => (
+              <Link
+                key={ipo.id}
+                to={`/ipo/${ipo.slug}`}
+                className="group rounded-lg border border-[#E2E8F0] dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900/50 p-3.5 hover:border-[#2563EB] dark:hover:border-blue-500 transition-all flex flex-col justify-between gap-3"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <CompanyLogo
+                      companyName={ipo.companyName}
+                      symbol={ipo.listing?.stockSymbol}
+                      logoUrl={ipo.logoUrl}
+                      logoColor={ipo.logoColor}
+                      size="sm"
+                    />
+                    <div className="min-w-0">
+                      <div className="font-semibold text-xs text-[#152338] dark:text-white truncate group-hover:text-[#2563EB] dark:group-hover:text-blue-400">
+                        {ipo.companyName}
+                      </div>
+                      <div className="text-[11px] text-[#64748B] dark:text-slate-400 truncate">
+                        {ipo.sector} · {ipo.category}
+                      </div>
+                    </div>
+                  </div>
+                  <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60">
+                    Dates Awaited
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E2E8F0]/60 dark:border-slate-800/60 text-[11px] font-data">
+                  <div>
+                    <span className="text-[#64748B] dark:text-slate-400">Issue Size: </span>
+                    <span className="font-medium text-[#152338] dark:text-slate-200">
+                      {ipo.issueSizeCr ? `₹${ipo.issueSizeCr} Cr` : 'TBA'}
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[#64748B] dark:text-slate-400">Price Band: </span>
+                    <span className="font-medium text-[#152338] dark:text-slate-200">
+                      {ipo.priceBandLow && ipo.priceBandHigh
+                        ? `₹${ipo.priceBandLow}–₹${ipo.priceBandHigh}`
+                        : 'TBA'}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       )}

@@ -184,7 +184,11 @@ export function IPOTable({ ipos, pageSize = 8 }: IPOTableProps) {
               <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#E2E8F0]/70 dark:border-slate-800 text-xs">
                 <div className="min-w-0">
                   <div className="font-data text-[11px] text-[#64748B] dark:text-slate-400">
-                    Offer: {formatDateIN(ipo.dates.openDate)} – {formatDateIN(ipo.dates.closeDate)} · Lot {lotText}
+                    Offer: {ipo.dates.openDate && ipo.dates.closeDate
+                      ? `${formatDateIN(ipo.dates.openDate)} – ${formatDateIN(ipo.dates.closeDate)}`
+                      : ipo.dates.openDate
+                        ? formatDateIN(ipo.dates.openDate)
+                        : 'Dates To Be Announced'} · Lot {lotText}
                   </div>
                   <div className="font-data text-xs mt-0.5">
                     <span className="text-[#64748B]">GMP: </span>
@@ -330,10 +334,22 @@ export function IPOTable({ ipos, pageSize = 8 }: IPOTableProps) {
                     {formatCrores(ipo.issueSizeCr)}
                   </td>
                   <td className="py-3 px-3 whitespace-nowrap font-data text-[#64748B] dark:text-slate-300">
-                    {formatDateIN(ipo.dates.openDate)} – {formatDateIN(ipo.dates.closeDate)}
+                    {ipo.dates.openDate && ipo.dates.closeDate ? (
+                      `${formatDateIN(ipo.dates.openDate)} – ${formatDateIN(ipo.dates.closeDate)}`
+                    ) : ipo.dates.openDate ? (
+                      formatDateIN(ipo.dates.openDate)
+                    ) : (
+                      <span className="inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60">
+                        Dates To Be Announced
+                      </span>
+                    )}
                   </td>
                   <td className="py-3 px-3 whitespace-nowrap font-data text-[#64748B] dark:text-slate-300">
-                    {formatDateIN(ipo.dates.listingDate)}
+                    {ipo.dates.listingDate ? (
+                      formatDateIN(ipo.dates.listingDate)
+                    ) : (
+                      <span className="text-[#94A3B8] text-xs">Awaited</span>
+                    )}
                   </td>
                   <td className="py-3 px-3 text-right font-data whitespace-nowrap font-semibold text-[#152338] dark:text-slate-100">
                     {typeof ipo.subscription?.total === 'number' && Number.isFinite(ipo.subscription.total)

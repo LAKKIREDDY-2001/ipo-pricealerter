@@ -259,19 +259,19 @@ export function IPODetailsPage() {
           <div>
             <div className="text-[#64748B] dark:text-slate-400">Offer Window</div>
             <div className="font-data text-sm font-semibold text-[#152338] dark:text-white mt-0.5">
-              {formatDateIN(ipo.dates.openDate)}
+              {ipo.dates.openDate ? formatDateIN(ipo.dates.openDate) : 'Dates To Be Announced'}
             </div>
             <div className="text-[11px] text-[#64748B] dark:text-slate-400 font-data">
-              Closes {formatDateIN(ipo.dates.closeDate)}
+              {ipo.dates.closeDate ? `Closes ${formatDateIN(ipo.dates.closeDate)}` : 'Awaited / Unconfirmed'}
             </div>
           </div>
           <div>
             <div className="text-[#64748B] dark:text-slate-400">Allotment &amp; Listing</div>
             <div className="font-data text-sm font-semibold text-[#152338] dark:text-white mt-0.5">
-              {formatDateIN(ipo.dates.listingDate)}
+              {ipo.dates.listingDate ? formatDateIN(ipo.dates.listingDate) : 'Dates Awaited'}
             </div>
             <div className="text-[11px] text-[#64748B] dark:text-slate-400 font-data">
-              Allot: {formatDateIN(ipo.dates.allotmentDate)}
+              {ipo.dates.allotmentDate ? `Allot: ${formatDateIN(ipo.dates.allotmentDate)}` : 'SEBI / Exchange schedule awaited'}
             </div>
           </div>
           <div>

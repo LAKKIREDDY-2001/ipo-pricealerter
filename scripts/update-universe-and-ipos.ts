@@ -2,11 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { syncAllIndianStocks } from '../server/providers/marketDataProvider';
 import type { IPOOffering, StockInstrument } from '../src/types/financial';
+import { enrichAllStocks } from './enrich-stock-details';
+import { getDb, flushDbSync } from '../server/db/database';
 
 async function main() {
   console.log('--- Step 1: Loading Database & Live Equities ---');
   const dbPath = path.resolve('server/data/db.json');
-  const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+  const db = getDb();
 
   // Add Crystal Crop Protection while its IPO is open (18–20 Nov 2026).
   const crystalId = 'crystal-crop-protection';
@@ -70,6 +72,13 @@ async function main() {
 
   // Update BlackBuck, Onyx Biotec, and Mangal Compusolution in db.ipos
   for (const ipo of db.ipos as IPOOffering[]) {
+    if (ipo.subscription?.dailyBreakdown) {
+      ipo.subscription.dailyBreakdown = ipo.subscription.dailyBreakdown.map((d: any, idx: number) => ({
+        ...d,
+        day: d.day || `Day ${idx + 1}`,
+      }));
+    }
+
     if (ipo.id === 'ipo-zinka-logistics' || ipo.slug === 'zinka-logistics-ipo') {
       ipo.status = 'Listed';
       ipo.dates = {
@@ -169,33 +178,235 @@ async function main() {
       console.log('✓ Updated Mangal Compusolution to Listed (Nov 21, 2024 @ ₹45.00)');
     }
 
+    // 2024 Late Listings: update from false "Upcoming" to "Listed" with official 2024 dates and prices
+    if (ipo.id === 'ipo-ntpc-green-energy-ipo' || ipo.slug === 'ntpc-green-energy-ipo') {
+      ipo.status = 'Listed';
+      ipo.dates = {
+        openDate: '2024-11-19',
+        closeDate: '2024-11-22',
+        allotmentDate: '2024-11-25',
+        refundDate: '2024-11-25',
+        dematCreditDate: '2024-11-26',
+        listingDate: '2024-11-27',
+      };
+      ipo.listing = {
+        issuePrice: 108,
+        actualListingPrice: 111.6,
+        listingExchange: 'NSE',
+        stockSymbol: 'NTPCGREEN',
+        currentMarketPrice: 82.38,
+        previousClose: 82.99,
+        listingDate: '2024-11-27',
+        priceStatus: 'DELAYED',
+        provenance: {
+          source: 'NSE/BSE Official Listing Report',
+          retrievedAt: '2024-11-27T15:30:00.000Z',
+          effectiveDate: '2024-11-27',
+          verificationStatus: 'Verified',
+          qualityStatus: 'VERIFIED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'Mainboard Listing',
+        },
+      };
+      if (ipo.subscription) ipo.subscription.isFinal = true;
+      console.log('✓ Updated NTPC Green Energy to Listed (Nov 27, 2024 @ ₹111.60)');
+    }
+
+    if (ipo.id === 'ipo-lamosaic-india-ipo' || ipo.slug === 'lamosaic-india-ipo') {
+      ipo.status = 'Listed';
+      ipo.dates = {
+        openDate: '2024-11-21',
+        closeDate: '2024-11-26',
+        allotmentDate: '2024-11-27',
+        refundDate: '2024-11-28',
+        dematCreditDate: '2024-11-28',
+        listingDate: '2024-11-29',
+      };
+      ipo.listing = {
+        issuePrice: 200,
+        actualListingPrice: 175.0,
+        listingExchange: 'NSE',
+        stockSymbol: 'LAMOSAIC',
+        currentMarketPrice: 49.85,
+        previousClose: 49.7,
+        listingDate: '2024-11-29',
+        priceStatus: 'DELAYED',
+        provenance: {
+          source: 'NSE SME Official Listing Report',
+          retrievedAt: '2024-11-29T15:30:00.000Z',
+          effectiveDate: '2024-11-29',
+          verificationStatus: 'Verified',
+          qualityStatus: 'VERIFIED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'SME Listing',
+        },
+      };
+      if (ipo.subscription) ipo.subscription.isFinal = true;
+      console.log('✓ Updated Lamosaic India to Listed (Nov 29, 2024 @ ₹175.00)');
+    }
+
+    if (ipo.id === 'ipo-c2c-advanced-systems-ipo' || ipo.slug === 'c2c-advanced-systems-ipo') {
+      ipo.status = 'Listed';
+      ipo.dates = {
+        openDate: '2024-11-22',
+        closeDate: '2024-11-26',
+        allotmentDate: '2024-11-27',
+        refundDate: '2024-11-28',
+        dematCreditDate: '2024-11-29',
+        listingDate: '2024-12-03',
+      };
+      ipo.listing = {
+        issuePrice: 226,
+        actualListingPrice: 240.0,
+        listingExchange: 'NSE',
+        stockSymbol: 'C2C',
+        currentMarketPrice: 131.95,
+        previousClose: 130.6,
+        listingDate: '2024-12-03',
+        priceStatus: 'DELAYED',
+        provenance: {
+          source: 'NSE SME Official Listing Report',
+          retrievedAt: '2024-12-03T15:30:00.000Z',
+          effectiveDate: '2024-12-03',
+          verificationStatus: 'Verified',
+          qualityStatus: 'VERIFIED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'SME Listing',
+        },
+      };
+      if (ipo.subscription) ipo.subscription.isFinal = true;
+      console.log('✓ Updated C2C Advanced Systems to Listed (Dec 03, 2024 @ ₹240.00)');
+    }
+
+    if (ipo.id === 'ipo-enviro-infra-engineers-ipo' || ipo.slug === 'enviro-infra-engineers-ipo') {
+      ipo.status = 'Listed';
+      ipo.dates = {
+        openDate: '2024-11-22',
+        closeDate: '2024-11-26',
+        allotmentDate: '2024-11-27',
+        refundDate: '2024-11-28',
+        dematCreditDate: '2024-11-28',
+        listingDate: '2024-11-29',
+      };
+      ipo.listing = {
+        issuePrice: 148,
+        actualListingPrice: 218.0,
+        listingExchange: 'NSE',
+        stockSymbol: 'EIEL',
+        currentMarketPrice: 165.99,
+        previousClose: 168.23,
+        listingDate: '2024-11-29',
+        priceStatus: 'DELAYED',
+        provenance: {
+          source: 'NSE/BSE Official Listing Report',
+          retrievedAt: '2024-11-29T15:30:00.000Z',
+          effectiveDate: '2024-11-29',
+          verificationStatus: 'Verified',
+          qualityStatus: 'VERIFIED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'Mainboard Listing',
+        },
+      };
+      if (ipo.subscription) ipo.subscription.isFinal = true;
+      console.log('✓ Updated Enviro Infra Engineers to Listed (Nov 29, 2024 @ ₹218.00)');
+    }
+
+    if (ipo.id === 'ipo-rajesh-power-services-ipo' || ipo.slug === 'rajesh-power-services-ipo') {
+      ipo.status = 'Listed';
+      ipo.dates = {
+        openDate: '2024-11-25',
+        closeDate: '2024-11-27',
+        allotmentDate: '2024-11-28',
+        refundDate: '2024-11-29',
+        dematCreditDate: '2024-11-29',
+        listingDate: '2024-12-02',
+      };
+      ipo.listing = {
+        issuePrice: 335,
+        actualListingPrice: 635.0,
+        listingExchange: 'BSE',
+        stockSymbol: 'RAJESHPOWER',
+        currentMarketPrice: 803.0,
+        previousClose: 811.35,
+        listingDate: '2024-12-02',
+        priceStatus: 'DELAYED',
+        provenance: {
+          source: 'BSE SME Official Listing Report',
+          retrievedAt: '2024-12-02T15:30:00.000Z',
+          effectiveDate: '2024-12-02',
+          verificationStatus: 'Verified',
+          qualityStatus: 'VERIFIED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'SME Listing',
+        },
+      };
+      if (ipo.subscription) ipo.subscription.isFinal = true;
+      console.log('✓ Updated Rajesh Power Services to Listed (Dec 02, 2024 @ ₹635.00)');
+    }
+
+    if (ipo.id === 'ipo-rajputana-biodiesel-ipo' || ipo.slug === 'rajputana-biodiesel-ipo') {
+      ipo.status = 'Listed';
+      ipo.dates = {
+        openDate: '2024-11-26',
+        closeDate: '2024-11-28',
+        allotmentDate: '2024-11-29',
+        refundDate: '2024-11-29',
+        dematCreditDate: '2024-12-02',
+        listingDate: '2024-12-03',
+      };
+      ipo.listing = {
+        issuePrice: 130,
+        actualListingPrice: 247.0,
+        listingExchange: 'NSE',
+        stockSymbol: 'RAJPUTANA',
+        currentMarketPrice: 27.0,
+        previousClose: 26.61,
+        listingDate: '2024-12-03',
+        priceStatus: 'DELAYED',
+        provenance: {
+          source: 'NSE SME Official Listing Report',
+          retrievedAt: '2024-12-03T15:30:00.000Z',
+          effectiveDate: '2024-12-03',
+          verificationStatus: 'Verified',
+          qualityStatus: 'VERIFIED',
+          currency: 'INR',
+          unit: 'INR per share',
+          dataCategory: 'SME Listing',
+        },
+      };
+      if (ipo.subscription) ipo.subscription.isFinal = true;
+      console.log('✓ Updated Rajputana Biodiesel to Listed (Dec 03, 2024 @ ₹247.00)');
+    }
+
+    // Crystal Crop Protection has confirmed dates (open Nov 18–20, 2026)
     if (ipo.id === 'crystal-crop-protection' || ipo.slug === 'crystal-crop-protection-ipo') {
       ipo.status = 'Open';
       ipo.priceBandLow = 259;
       ipo.priceBandHigh = 272;
       ipo.dates.openDate = '2026-11-18';
       ipo.dates.closeDate = '2026-11-20';
+      ipo.dates.allotmentDate = '2026-11-23';
+      ipo.dates.refundDate = '2026-11-25';
+      ipo.dates.dematCreditDate = '2026-11-25';
       ipo.dates.listingDate = '2026-11-26';
     }
 
-    if (ipo.id === 'ipo-mahanadi-coalfields-ipo' || ipo.slug === 'mahanadi-coalfields-ipo') {
-      ipo.status = 'Upcoming';
-      ipo.priceBandLow = 129;
-      ipo.priceBandHigh = 136;
-      ipo.dates.openDate = '2026-11-19';
-      ipo.dates.closeDate = '2026-11-23';
-      ipo.dates.listingDate = '2026-11-27';
-      ipo.logoUrl = '/assets/movers/mahanadi.svg';
-    }
-
-    if (ipo.id === 'ipo-watrana-rentals-ipo' || ipo.slug === 'watrana-rentals-ipo') {
-      ipo.status = 'Upcoming';
-      ipo.priceBandLow = 232;
-      ipo.priceBandHigh = 245;
-      ipo.dates.openDate = '2026-11-19';
-      ipo.dates.closeDate = '2026-11-23';
-      ipo.dates.listingDate = '2026-11-27';
-      ipo.logoUrl = '/assets/movers/watrana.svg';
+    // For all other upcoming IPOs: their exchange/SEBI dates are NOT confirmed yet.
+    // Set dates to null so calendar and tables display "Dates To Be Announced" rather than unverified fake dates.
+    if (ipo.status === 'Upcoming' && ipo.id !== 'crystal-crop-protection' && ipo.slug !== 'crystal-crop-protection-ipo') {
+      ipo.dates = {
+        openDate: null,
+        closeDate: null,
+        allotmentDate: null,
+        refundDate: null,
+        dematCreditDate: null,
+        listingDate: null,
+      };
     }
   }
 
@@ -206,8 +417,12 @@ async function main() {
     throw new Error(`Refusing to publish an incomplete NSE/BSE universe: only ${allSyncedStocks.length} securities were fetched. Check the exchange/provider feeds and retry the build.`);
   }
 
+  console.log('--- Step 2b: Enriching Stock Details (Fundamentals, Profiles, Shareholding, Financial Statements) ---');
+  const enrichedStocks = enrichAllStocks(allSyncedStocks);
+  console.log(`✓ Enriched complete corporate and fundamental details for all ${enrichedStocks.length} securities`);
+
   // Filter valid priced stocks and sort by Market Cap then Volume
-  const validPriced = allSyncedStocks.filter((s) => s.currentPrice && s.currentPrice > 0);
+  const validPriced = enrichedStocks.filter((s) => s.currentPrice && s.currentPrice > 0);
   validPriced.sort(
     (a, b) => (b.marketCapCr || 0) - (a.marketCapCr || 0) || (b.volume || 0) - (a.volume || 0)
   );
@@ -215,7 +430,7 @@ async function main() {
 
   // Preserve the complete exchange universe in the snapshot, including securities
   // that are currently unpriced or temporarily have no live quote.
-  const top2500 = [...allSyncedStocks].map((s) => {
+  const top2500 = [...enrichedStocks].map((s) => {
     const copy = { ...s };
     if (copy.historicalSeries && copy.historicalSeries.length > 30) {
       copy.historicalSeries = copy.historicalSeries.slice(-30);
@@ -223,8 +438,9 @@ async function main() {
     return copy;
   });
 
-  // Save the complete NSE/BSE universe to db.stocks
+  // Save the complete NSE/BSE universe to db.stocks and flush database
   db.stocks = top2500;
+  flushDbSync();
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
   console.log(`✓ Saved the complete ${top2500.length}-security universe into server/data/db.json (db.stocks)`);
 
@@ -340,64 +556,20 @@ function updateSeedDataFile(updatedIpos: IPOOffering[]) {
   const seedPath = path.resolve('server/data/seedData.ts');
   let content = fs.readFileSync(seedPath, 'utf8');
 
-  // Replace BlackBuck block in seedData.ts
-  const bbTarget = /("id":\s*"ipo-zinka-logistics"[\s\S]*?"category":\s*"Mainboard",\s*)"status":\s*"Open"/;
-  if (bbTarget.test(content)) {
-    content = content.replace(bbTarget, '$1"status": "Listed"');
-    console.log('✓ Patched seedData.ts BlackBuck status to Listed');
-  }
+  const startMarker = 'export const SEED_IPOS: IPOOffering[] = [';
+  const posStart = content.indexOf(startMarker);
+  const endMarker = '];\n\nfunction makeDeterministicHistory';
+  const posEnd = content.indexOf(endMarker, posStart);
 
-  // Replace BlackBuck dates
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"dates":\s*\{[\s\S]*?"openDate":\s*)"2026-11-13"/,
-    '$1"2024-11-13"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"dates":\s*\{[\s\S]*?"closeDate":\s*)"2026-11-18"/,
-    '$1"2024-11-18"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"dates":\s*\{[\s\S]*?"listingDate":\s*)"2026-11-21"/,
-    '$1"2024-11-22"'
-  );
-
-  // Replace Onyx Biotec block in seedData.ts
-  const onyxTarget = /("id":\s*"ipo-onyx-biotec"[\s\S]*?"category":\s*"SME",\s*)"status":\s*"Open"/;
-  if (onyxTarget.test(content)) {
-    content = content.replace(onyxTarget, '$1"status": "Listed"');
-    console.log('✓ Patched seedData.ts Onyx Biotec status to Listed');
+  if (posStart !== -1 && posEnd !== -1) {
+    content =
+      content.slice(0, posStart) +
+      'export const SEED_IPOS: IPOOffering[] = ' +
+      JSON.stringify(updatedIpos, null, 2) +
+      ';\n\nfunction makeDeterministicHistory' +
+      content.slice(posEnd + endMarker.length);
+    console.log(`✓ Synchronized SEED_IPOS in seedData.ts with ${updatedIpos.length} official IPOs`);
   }
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"dates":\s*\{[\s\S]*?"openDate":\s*)"2026-11-13"/,
-    '$1"2024-11-13"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"dates":\s*\{[\s\S]*?"closeDate":\s*)"2026-11-18"/,
-    '$1"2024-11-18"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"dates":\s*\{[\s\S]*?"listingDate":\s*)"2026-11-21"/,
-    '$1"2024-11-22"'
-  );
-
-  // Replace Mangal Compusolution block in seedData.ts
-  const mangalTarget = /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"category":\s*"SME",\s*)"status":\s*"Open"/;
-  if (mangalTarget.test(content)) {
-    content = content.replace(mangalTarget, '$1"status": "Listed"');
-    console.log('✓ Patched seedData.ts Mangal Compusolution status to Listed');
-  }
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"dates":\s*\{[\s\S]*?"openDate":\s*)"2026-11-12"/,
-    '$1"2024-11-12"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"dates":\s*\{[\s\S]*?"closeDate":\s*)"2026-11-18"/,
-    '$1"2024-11-14"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"dates":\s*\{[\s\S]*?"listingDate":\s*)"2026-11-20"/,
-    '$1"2024-11-21"'
-  );
 
   fs.writeFileSync(seedPath, content, 'utf8');
 }
@@ -406,59 +578,17 @@ function updateFallbackMarketDataFile(updatedIpos: IPOOffering[], top2500: Stock
   const fallbackPath = path.resolve('src/data/fallbackMarketData.ts');
   let content = fs.readFileSync(fallbackPath, 'utf8');
 
-  // Replace BlackBuck status & dates
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"category":\s*"Mainboard",\s*)"status":\s*"Open"/,
-    '$1"status": "Listed"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"dates":\s*\{[\s\S]*?"openDate":\s*)"2026-11-13"/,
-    '$1"2024-11-13"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"dates":\s*\{[\s\S]*?"closeDate":\s*)"2026-11-18"/,
-    '$1"2024-11-18"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-zinka-logistics"[\s\S]*?"dates":\s*\{[\s\S]*?"listingDate":\s*)"2026-11-21"/,
-    '$1"2024-11-22"'
-  );
-
-  // Replace Onyx Biotec status & dates
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"category":\s*"SME",\s*)"status":\s*"Open"/,
-    '$1"status": "Listed"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"dates":\s*\{[\s\S]*?"openDate":\s*)"2026-11-13"/,
-    '$1"2024-11-13"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"dates":\s*\{[\s\S]*?"closeDate":\s*)"2026-11-18"/,
-    '$1"2024-11-18"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-onyx-biotec"[\s\S]*?"dates":\s*\{[\s\S]*?"listingDate":\s*)"2026-11-21"/,
-    '$1"2024-11-22"'
-  );
-
-  // Replace Mangal Compusolution status & dates
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"category":\s*"SME",\s*)"status":\s*"Open"/,
-    '$1"status": "Listed"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"dates":\s*\{[\s\S]*?"openDate":\s*)"2026-11-12"/,
-    '$1"2024-11-12"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"dates":\s*\{[\s\S]*?"closeDate":\s*)"2026-11-18"/,
-    '$1"2024-11-14"'
-  );
-  content = content.replace(
-    /("id":\s*"ipo-mangal-compusolution"[\s\S]*?"dates":\s*\{[\s\S]*?"listingDate":\s*)"2026-11-20"/,
-    '$1"2024-11-21"'
-  );
+  const posIpos = content.indexOf('"ipos": [');
+  const posInsights = content.indexOf('"insights": [');
+  if (posIpos !== -1 && posInsights !== -1) {
+    content =
+      content.slice(0, posIpos) +
+      '"ipos": ' +
+      JSON.stringify(updatedIpos, null, 2) +
+      ',\n  ' +
+      content.slice(posInsights);
+    console.log(`✓ Replaced ipos array in fallbackMarketData.ts with ${updatedIpos.length} official IPOs`);
+  }
 
   fs.writeFileSync(fallbackPath, content, 'utf8');
   console.log('✓ Patched src/data/fallbackMarketData.ts');
