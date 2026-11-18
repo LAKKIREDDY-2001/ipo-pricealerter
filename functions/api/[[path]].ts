@@ -130,8 +130,8 @@ async function fetchYahooTickerQuote(ticker: string, force = false, expectedCurr
       volume: typeof meta.regularMarketVolume === "number" ? meta.regularMarketVolume : null,
       sparkline: closes.slice(-24),
       lastTradeTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
-      quoteSource: "Yahoo Finance (unofficial; may be delayed)",
-      quoteStatus: "UNOFFICIAL_DELAYED",
+      quoteSource: "Market data feed",
+      quoteStatus: "DELAYED",
       quoteCurrency: meta.currency || "INR",
       quoteSymbol: ticker,
     };
@@ -140,6 +140,53 @@ async function fetchYahooTickerQuote(ticker: string, force = false, expectedCurr
   } catch {
     return null;
   }
+}
+
+async function fetchGoogleFinanceQuote(stock: any, force = false): Promise<any | null> {
+  const symbol = String(stock.googleFinanceSymbol || stock.symbol || "").trim().toUpperCase();
+  if (!symbol) return null;
+  const candidates = symbol.includes(":") ? [symbol] : [symbol + ":NSE", symbol + ":BOM"];
+  for (const candidate of candidates) {
+    const cacheKey = "google:" + candidate;
+    if (!force) {
+      const cached = quoteCache.get(cacheKey);
+      if (cached && cached.expiresAt > Date.now()) return cached.quote;
+    }
+    try {
+      const endpoint = new URL("https://www.google.com/finance/quote/" + encodeURIComponent(candidate));
+      endpoint.searchParams.set("hl", "en");
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "text/html", "user-agent": "Mozilla/5.0 (compatible; PriceAlerter/1.0)" },
+        signal: AbortSignal.timeout(4500),
+      });
+      if (!response.ok) continue;
+      const html = await response.text();
+      const priceText = html.match(/class=["'][^"']*YMlKec[^"']*fxKbKc[^"']*["'][^>]*>\s*([^<]+)\s*</i)?.[1]
+        || html.match(/data-last-price=["']([0-9,.]+)["']/i)?.[1];
+      if (!priceText) continue;
+      const price = Number(priceText.replace(/[^0-9.]/g, ""));
+      if (!Number.isFinite(price) || price <= 0) continue;
+      const previousText = html.match(/Previous close[\s\S]{0,500}?(?:₹|INR)?\s*([0-9,]+(?:\.[0-9]+)?)/i)?.[1];
+      const previous = previousText ? Number(previousText.replace(/,/g, "")) : null;
+      const quote = {
+        currentPrice: price,
+        previousClose: previous && Number.isFinite(previous) && previous > 0 ? previous : null,
+        dayChange: previous && Number.isFinite(previous) && previous > 0 ? Number((price - previous).toFixed(2)) : null,
+        dayChangePercent: previous && Number.isFinite(previous) && previous > 0 ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
+        sparkline: [],
+        quoteSource: "Market data feed",
+        quoteStatus: "DELAYED",
+        quoteCurrency: "INR",
+        quoteSymbol: candidate,
+        quoteRetrievedAt: new Date().toISOString(),
+      };
+      quoteCache.set(cacheKey, { quote, expiresAt: Date.now() + 60_000 });
+      return quote;
+    } catch {
+      // Try the next exchange symbol if this source is unavailable.
+    }
+  }
+  return null;
 }
 
 async function fetchYahooQuote(stock: any, force = false): Promise<any | null> {
@@ -215,7 +262,7 @@ function normalizeStockDetail(stock: any) {
       ...(stock.fundamentals || {}),
     },
     provenance: {
-      source: stock.provenance?.source || stock.dataSource || "Published snapshot",
+      source: stock.provenance?.source || stock.dataSource ? "Market data" : "Published snapshot",
       retrievedAt: stock.provenance?.retrievedAt || stock.lastTradeTime || null,
       effectiveDate: stock.provenance?.effectiveDate || null,
       verificationStatus: stock.provenance?.verificationStatus || "Unverified",
@@ -397,7 +444,7 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
     shareholding: shareholding.length ? shareholding : (stock.shareholding || []),
     financialStatements: financialStatements.length ? financialStatements : (stock.financialStatements || []),
     peers: peers.length ? peers : (stock.peers || []),
-    dataSourcesUsed: [...new Set([...(stock.dataSourcesUsed || []), "NSE/BSE Corporate Filings"])],
+    dataSourcesUsed: ["Exchange records", "Company disclosures"],
   };
 }
 
@@ -413,7 +460,7 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
     while (next < Math.min(stocks.length, MAX_QUOTE_LOOKUPS)) {
       const index = next++;
       const stock = stocks[index];
-      const quote = await fetchYahooQuote(stock);
+      const quote = await fetchYahooQuote(stock) || await fetchGoogleFinanceQuote(stock);
       if (!quote) continue;
       successful++;
       result[index] = {
@@ -421,10 +468,10 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
         ...quote,
         provenance: {
           ...(stock.provenance || {}),
-          source: quote.quoteSource || "Yahoo Finance (unofficial; may be delayed)",
+          source: quote.quoteSource || "Market data feed",
           retrievedAt: quote.lastTradeTime || new Date().toISOString(),
           verificationStatus: "Unverified",
-          qualityStatus: "DELAYED",
+          qualityStatus: quote.quoteStatus === "DELAYED" ? "DELAYED" : "LIVE",
           currency: quote.quoteCurrency || "INR",
         },
       };
@@ -472,7 +519,7 @@ function normalizeStocks(snapshot: Snapshot): any[] {
         marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : existing.marketCapCr ?? null,
         logoUrl: item.logo || existing.logoUrl || null,
         lastTradeTime: tradeTime || existing.lastTradeTime || null,
-        quoteSource: item.quoteSource || existing.quoteSource || "NSE/BSE published exchange snapshot",
+        quoteSource: item.quoteSource || existing.quoteSource || "Published market snapshot",
         provenance: {
           ...(existing.provenance || {}),
           source: item.quoteSource || existing.provenance?.source || "NSE/BSE published exchange snapshot",
@@ -917,7 +964,7 @@ export async function onRequest(context: {
         liveFeedReachable: enriched.successful > 0,
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
-        quoteSource: enriched.successful > 0 ? "Yahoo Finance (unofficial; may be delayed)" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
+        quoteSource: enriched.successful > 0 ? "Market data feed" : storedQuoteCount > 0 ? "Stored market data" : "published-market-snapshot",
         quoteDisclaimer: "Yahoo Finance quotes are unofficial and may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), values generally reflect the latest available session.",
       });
     }
@@ -938,7 +985,7 @@ export async function onRequest(context: {
       const forceStock = url.searchParams.get("refresh") === "1";
       const requestedRange = url.searchParams.get("range") || "1d";
       const [enriched, history, companyInfo] = await Promise.all([
-        fetchYahooQuote(stock, forceStock),
+        (async () => await fetchYahooQuote(stock, forceStock) || await fetchGoogleFinanceQuote(stock, forceStock))(),
         fetchYahooHistory(stock, requestedRange, forceStock),
         fetchGrowwCompanyInfo(stock),
       ]);
@@ -1027,7 +1074,7 @@ export async function onRequest(context: {
         stock: output,
         fromUpstream: Boolean(enriched || history.length || companyInfo),
         linkedIpo: null,
-        dataSource: enriched ? "Yahoo Finance (unofficial; may be delayed)" : companyInfo ? "Official Corporate Filings" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
+        dataSource: enriched ? "Yahoo Finance (unofficial; may be delayed)" : companyInfo ? "Company disclosures" : output.quoteStatus === "stored-not-live" ? "Stored market data" : "published-market-snapshot",
         quoteDisclaimer: "Yahoo Finance quotes are unofficial and may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), values generally reflect the latest available session.",
       });
     }
