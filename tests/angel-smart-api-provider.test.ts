@@ -50,20 +50,28 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(ANGEL_INTERVAL_MAX_DAYS['ONE_DAY'], 2000);
   });
 
-  await t.test('detects Angel SmartAPI configuration reliably', () => {
+  await t.test('detects Angel SmartAPI configuration reliably with ANGELONE_API_KEY', () => {
+    const originalOne = process.env.ANGELONE_API_KEY;
     const originalKey = process.env.ANGEL_API_KEY;
     const originalToken = process.env.ANGEL_AUTH_TOKEN;
     try {
+      delete process.env.ANGELONE_API_KEY;
       delete process.env.ANGEL_API_KEY;
       delete process.env.SMARTAPI_API_KEY;
       delete process.env.ANGEL_AUTH_TOKEN;
       delete process.env.SMARTAPI_AUTH_TOKEN;
       assert.equal(isAngelSmartApiConfigured(), false);
 
-      process.env.ANGEL_API_KEY = 'test_angel_key';
-      process.env.ANGEL_AUTH_TOKEN = 'test_jwt_token';
+      // Cloudflare Pages secret format
+      process.env.ANGELONE_API_KEY = 'test_cloudflare_encrypted_key';
       assert.equal(isAngelSmartApiConfigured(), true);
+
+      // Custom Cloudflare env object
+      assert.equal(isAngelSmartApiConfigured({ ANGELONE_API_KEY: 'cf_key_123' }), true);
+      assert.equal(isAngelSmartApiConfigured({}), false);
     } finally {
+      if (originalOne) process.env.ANGELONE_API_KEY = originalOne;
+      else delete process.env.ANGELONE_API_KEY;
       if (originalKey) process.env.ANGEL_API_KEY = originalKey;
       else delete process.env.ANGEL_API_KEY;
       if (originalToken) process.env.ANGEL_AUTH_TOKEN = originalToken;

@@ -9,7 +9,22 @@ interface D1Database {
   prepare(query: string): D1Statement;
   batch<T = unknown>(statements: D1Statement[]): Promise<D1Result<T>[]>;
 }
-export interface D1Env { DB?: D1Database; ADMIN_EMAIL?: string; RESEND_API_KEY?: string; MAIL_FROM?: string; SITE_URL?: string; }
+export interface D1Env {
+  DB?: D1Database;
+  ADMIN_EMAIL?: string;
+  RESEND_API_KEY?: string;
+  MAIL_FROM?: string;
+  SITE_URL?: string;
+  ANGELONE_API_KEY?: string;
+  ANGEL_API_KEY?: string;
+  ANGELONE_AUTH_TOKEN?: string;
+  ANGEL_AUTH_TOKEN?: string;
+  ANGELONE_CLIENT_CODE?: string;
+  ANGEL_CLIENT_CODE?: string;
+  ANGELONE_PIN?: string;
+  ANGELONE_PASSWORD?: string;
+  ANGELONE_TOTP_KEY?: string;
+}
 const encoder = new TextEncoder();
 const nowIso = () => new Date().toISOString();
 const id = (prefix: string) => `${prefix}_${crypto.randomUUID().replace(/-/g, "")}`;

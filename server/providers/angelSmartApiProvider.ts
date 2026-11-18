@@ -139,6 +139,7 @@ export interface AngelApiCredentials {
   macAddress?: string;
 }
 
+const LOGIN_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/loginByPassword';
 const HISTORICAL_API_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getCandleData';
 const HISTORICAL_OI_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData';
 const LIVE_MARKET_DATA_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/';
@@ -262,32 +263,108 @@ export function mapTimeframeToAngelRequest(
 }
 
 /**
- * Check if Angel One API credentials are configured in environment
+ * Check if Angel One API credentials are configured in environment or custom env object (e.g. Cloudflare Pages)
  */
-export function isAngelSmartApiConfigured(): boolean {
-  return Boolean(
-    (process.env.ANGEL_API_KEY?.trim() || process.env.SMARTAPI_API_KEY?.trim()) &&
-    (process.env.ANGEL_AUTH_TOKEN?.trim() || process.env.SMARTAPI_AUTH_TOKEN?.trim())
-  );
+export function isAngelSmartApiConfigured(customEnv?: Record<string, string | undefined>): boolean {
+  const env = customEnv || process.env;
+  const apiKey =
+    env.ANGELONE_API_KEY?.trim() ||
+    env.ANGEL_API_KEY?.trim() ||
+    env.SMARTAPI_API_KEY?.trim();
+
+  return Boolean(apiKey);
 }
 
 /**
- * Get credentials from environment
+ * Get credentials from environment or Cloudflare Pages env
  */
-export function getAngelCredentials(): AngelApiCredentials | null {
-  const apiKey = process.env.ANGEL_API_KEY?.trim() || process.env.SMARTAPI_API_KEY?.trim();
-  const authToken = process.env.ANGEL_AUTH_TOKEN?.trim() || process.env.SMARTAPI_AUTH_TOKEN?.trim();
+export function getAngelCredentials(customEnv?: Record<string, string | undefined>): AngelApiCredentials | null {
+  const env = customEnv || process.env;
+  const apiKey =
+    env.ANGELONE_API_KEY?.trim() ||
+    env.ANGEL_API_KEY?.trim() ||
+    env.SMARTAPI_API_KEY?.trim();
+
+  const authToken =
+    env.ANGELONE_AUTH_TOKEN?.trim() ||
+    env.ANGEL_AUTH_TOKEN?.trim() ||
+    env.SMARTAPI_AUTH_TOKEN?.trim();
 
   if (!apiKey) return null;
 
   return {
     apiKey,
     authToken,
-    clientCode: process.env.ANGEL_CLIENT_CODE?.trim() || process.env.SMARTAPI_CLIENT_CODE?.trim(),
-    clientLocalIp: process.env.ANGEL_CLIENT_LOCAL_IP || '127.0.0.1',
-    clientPublicIp: process.env.ANGEL_CLIENT_PUBLIC_IP || '127.0.0.1',
-    macAddress: process.env.ANGEL_MAC_ADDRESS || '00:00:00:00:00:00',
+    clientCode:
+      env.ANGELONE_CLIENT_CODE?.trim() ||
+      env.ANGEL_CLIENT_CODE?.trim() ||
+      env.SMARTAPI_CLIENT_CODE?.trim(),
+    clientLocalIp: env.ANGEL_CLIENT_LOCAL_IP || '127.0.0.1',
+    clientPublicIp: env.ANGEL_CLIENT_PUBLIC_IP || '127.0.0.1',
+    macAddress: env.ANGEL_MAC_ADDRESS || '00:00:00:00:00:00',
   };
+}
+
+/**
+ * Perform login to Angel One SmartAPI using TOTP to obtain a live JWT token
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/loginByPassword
+ */
+export async function loginAngelByTotp(
+  clientCode: string,
+  pin: string,
+  totpCode: string,
+  apiKey: string
+): Promise<{ jwtToken: string; feedToken?: string; refreshToken?: string } | null> {
+  try {
+    const response = await fetch(LOGIN_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'X-UserType': 'USER',
+        'X-SourceID': 'WEB',
+        'X-ClientLocalIP': '127.0.0.1',
+        'X-ClientPublicIP': '127.0.0.1',
+        'X-MACAddress': '00:00:00:00:00:00',
+        'X-PrivateKey': apiKey,
+      },
+      body: JSON.stringify({
+        clientcode: clientCode,
+        password: pin,
+        totp: totpCode,
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) {
+      console.warn(`[AngelSmartAPI] Login failed with HTTP ${response.status}`);
+      return null;
+    }
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: {
+        jwtToken?: string;
+        refreshToken?: string;
+        feedToken?: string;
+      };
+    };
+
+    if (json.status && json.data?.jwtToken) {
+      // Strip possible leading 'Bearer ' if returned
+      const cleanJwt = json.data.jwtToken.replace(/^Bearer\s+/i, '');
+      return {
+        jwtToken: cleanJwt,
+        feedToken: json.data.feedToken,
+        refreshToken: json.data.refreshToken,
+      };
+    }
+    return null;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] login error:`, error);
+    return null;
+  }
 }
 
 function getAngelAuthHeaders(creds: AngelApiCredentials) {
