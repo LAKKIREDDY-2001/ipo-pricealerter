@@ -233,6 +233,28 @@ export interface AngelConvertPositionRequest {
   type: 'DAY' | 'NET';
 }
 
+export interface AngelEdisVerifyResponse {
+  status: boolean;
+  message: string;
+  alreadyRegistered?: boolean;
+  data?: {
+    ReqId?: string;
+    ReturnURL?: string;
+    DPId?: string;
+    BOID?: string;
+    TransDtls?: string;
+    version?: string;
+  } | null;
+}
+
+export interface AngelEdisTranStatusResponse {
+  status: boolean;
+  message: string;
+  authorized: boolean;
+  reqId?: string;
+  details?: any;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -257,6 +279,10 @@ const ALL_HOLDINGS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/po
 const BASIC_HOLDINGS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/portfolio/v1/getHolding`;
 const POSITIONS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getPosition`;
 const CONVERT_POSITION_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/convertPosition`;
+const EDIS_VERIFY_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/edis/v1/verifyDis`;
+const EDIS_GENERATE_TPIN_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/edis/v1/generateTPIN`;
+const EDIS_TRAN_STATUS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/edis/v1/getTranStatus`;
+export const CDSL_EDIS_FORM_ACTION = 'https://edis.cdslindia.com/eDIS/VerifyDIS/';
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
 const SEARCH_SCRIP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/searchScrip`;
 const LTP_DATA_URL = `${ANGEL_SMARTAPI_ROOT_URL}/order-service/rest/secure/angelbroking/order/v1/getLtpData`;
@@ -1566,5 +1592,175 @@ export async function fetchAngelCautionaryScrips(
   } catch (error) {
     console.warn(`[AngelSmartAPI] fetchAngelCautionaryScrips error:`, error);
     return [];
+  }
+}
+
+/**
+ * Initiate CDSL eDIS verification to authorize equity holdings for selling
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/edis/v1/verifyDis
+ */
+export async function initiateAngelEdisVerification(
+  isin: string,
+  quantity: number | string = 1,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelEdisVerifyResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(EDIS_VERIFY_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        isin: isin.trim().toUpperCase(),
+        quantity: String(quantity),
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      data?: any;
+    };
+
+    if (json.errorcode === 'AG1000' || String(json.message).toLowerCase().includes('already')) {
+      return {
+        status: true,
+        alreadyRegistered: true,
+        message: 'You have already been registered with CDSL for today.',
+        data: json.data || null,
+      };
+    }
+
+    return {
+      status: Boolean(json.status),
+      message: json.message || (json.status ? 'eDIS verification initiated' : 'eDIS verification failed'),
+      alreadyRegistered: false,
+      data: json.data || null,
+    };
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error during eDIS verification',
+    };
+  }
+}
+
+/**
+ * Generate TPIN for CDSL eDIS authorization
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/edis/v1/generateTPIN
+ */
+export async function generateAngelEdisTPIN(
+  dpId: string,
+  reqId: string,
+  boid: string,
+  pan: string,
+  credsOverride?: AngelApiCredentials
+): Promise<{ status: boolean; message: string }> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(EDIS_GENERATE_TPIN_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        dpId: dpId.trim(),
+        ReqId: reqId.trim(),
+        boid: boid.trim(),
+        pan: pan.trim().toUpperCase(),
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      errorcode?: string;
+    };
+
+    return {
+      status: Boolean(json.status),
+      message: json.message || (json.status ? 'TPIN generated successfully' : 'TPIN generation failed'),
+    };
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error during TPIN generation',
+    };
+  }
+}
+
+/**
+ * Check eDIS transaction status to verify if security is authorized for sale
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/edis/v1/getTranStatus
+ */
+export async function checkAngelEdisTranStatus(
+  reqId: string,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelEdisTranStatusResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured', authorized: false };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI', authorized: false };
+  }
+
+  try {
+    const response = await fetch(EDIS_TRAN_STATUS_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ ReqId: reqId.trim() }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: {
+        TransResDtls?: {
+          ReqId?: string;
+          ResStatus?: string;
+          RecordResDtls?: Array<{ TxnReqId?: string; Status?: string; Errorcode?: string }>;
+        };
+      };
+    };
+
+    const records = json.data?.TransResDtls?.RecordResDtls || [];
+    const isAuthorized = records.some((r) => r.Status === '1');
+
+    return {
+      status: Boolean(json.status),
+      message: json.message || 'SUCCESS',
+      authorized: isAuthorized,
+      reqId,
+      details: json.data?.TransResDtls || null,
+    };
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error checking eDIS status',
+      authorized: false,
+      reqId,
+    };
   }
 }

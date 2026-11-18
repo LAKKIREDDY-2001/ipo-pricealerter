@@ -5,6 +5,9 @@ import {
   convertAngelHoldingsToPortfolio,
   fetchAngelPositions,
   convertAngelPosition,
+  initiateAngelEdisVerification,
+  generateAngelEdisTPIN,
+  checkAngelEdisTranStatus,
   fetchAngelCautionaryScrips,
   searchAngelScrip,
   fetchAngelIntradayScrips,
@@ -871,6 +874,60 @@ export async function onRequest(context: {
       return json(res, res.success ? 200 : 400);
     } catch (err: any) {
       return json({ success: false, message: err?.message || "Position conversion request failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/portfolio/angel/edis/verify" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const body = (await request.json()) as any;
+      const isin = String(body.isin || "").trim();
+      const quantity = body.quantity || 1;
+      if (!isin) return json({ ok: false, error: "Missing ISIN parameter" }, 400);
+      const res = await initiateAngelEdisVerification(isin, quantity, creds);
+      return json({ ok: res.status, ...res });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "eDIS verification failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/portfolio/angel/edis/generate-tpin" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const body = (await request.json()) as any;
+      const { dpId, reqId, boid, pan } = body || {};
+      if (!dpId || !reqId || !boid || !pan) {
+        return json({ ok: false, error: "Missing required parameters: dpId, reqId, boid, pan" }, 400);
+      }
+      const res = await generateAngelEdisTPIN(dpId, reqId, boid, pan, creds);
+      return json(res, res.status ? 200 : 400);
+    } catch (err: any) {
+      return json({ status: false, message: err?.message || "TPIN generation failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/portfolio/angel/edis/status" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured", authorized: false }, 400);
+    }
+    try {
+      const body = (await request.json()) as any;
+      const reqId = String(body.reqId || body.ReqId || "").trim();
+      if (!reqId) return json({ ok: false, error: "Missing reqId parameter", authorized: false }, 400);
+      const res = await checkAngelEdisTranStatus(reqId, creds);
+      return json({ ok: res.status, ...res });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Status check failed", authorized: false }, 500);
     }
   }
 

@@ -15,6 +15,7 @@ import {
   ANGEL_INTERVAL_MAX_DAYS,
   SCRIP_MASTER_URL,
   ANGEL_SMARTAPI_ROOT_URL,
+  CDSL_EDIS_FORM_ACTION,
   type AngelCandlePoint,
   type AngelLiveQuoteItem,
   type AngelGainerLoserItem,
@@ -24,6 +25,8 @@ import {
   type AngelCautionaryScrip,
   type AngelConvertPositionRequest,
   type AngelPositionItem,
+  type AngelEdisVerifyResponse,
+  type AngelEdisTranStatusResponse,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -338,5 +341,39 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     };
     assert.equal(conversionReq.newproducttype, 'INTRADAY');
     assert.equal(conversionReq.quantity, 1);
+  });
+
+  await t.test('validates CDSL eDIS verification and transaction status contracts', () => {
+    assert.equal(CDSL_EDIS_FORM_ACTION, 'https://edis.cdslindia.com/eDIS/VerifyDIS/');
+
+    const sampleEdisVerify: AngelEdisVerifyResponse = {
+      status: true,
+      message: 'SUCCESS',
+      alreadyRegistered: false,
+      data: {
+        ReqId: '8180722758077144',
+        ReturnURL: 'https://trade.angelbroking.com/cdslpoa/response',
+        DPId: '33200',
+        BOID: '1203320015222472',
+        TransDtls: 'fZ6jlmt9GosSO0kFdI9S9FCD+IYFvjUN94Bph46YMC1...',
+        version: '1.1',
+      },
+    };
+    assert.equal(sampleEdisVerify.data?.DPId, '33200');
+    assert.equal(sampleEdisVerify.data?.version, '1.1');
+    assert.equal(sampleEdisVerify.alreadyRegistered, false);
+
+    const sampleTranStatus: AngelEdisTranStatusResponse = {
+      status: true,
+      message: 'SUCCESS',
+      authorized: true,
+      reqId: '7650687246435520',
+      details: {
+        ReqId: '1278983622820067',
+        RecordResDtls: [{ TxnReqId: '7659729424908225', Status: '1' }],
+      },
+    };
+    assert.equal(sampleTranStatus.authorized, true);
+    assert.equal(sampleTranStatus.reqId, '7650687246435520');
   });
 });
