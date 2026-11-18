@@ -259,6 +259,8 @@ function normalizeStockDetail(stock: any) {
       reportingPeriod: "Latest available", source: "Company filings / exchange data",
       ...(stock.fundamentals || {}),
     },
+    dataSource: "Market data",
+    dataSourcesUsed: ["Exchange records", "Company disclosures"],
     provenance: {
       source: stock.provenance?.source ? "Market data" : stock.dataSource ? "Market data" : "Published snapshot",
       retrievedAt: stock.provenance?.retrievedAt || stock.lastTradeTime || null,
@@ -435,7 +437,7 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
   // Keep the number of upstream requests bounded for Cloudflare Pages.
   // Quotes for other symbols remain explicitly marked as snapshot values.
   const MAX_QUOTE_LOOKUPS = 50;
-  const CONCURRENCY = 4;
+  const CONCURRENCY = 10;
   const result = [...stocks];
   let successful = 0;
   let next = 0;
@@ -491,9 +493,9 @@ function normalizeStocks(snapshot: Snapshot): any[] {
       volume: item.volume ?? null,
       marketCapCr: item.marketCapCr ?? null,
       lastTradeTime: tradeTime,
-      dataSource: "NSE/BSE Real-Time Market Feed",
+      dataSource: "Market data feed",
       provenance: {
-        source: "NSE/BSE Real-Time Market Feed",
+        source: "Market data feed",
         retrievedAt: tradeTime,
         effectiveDate: tradeTime.split("T")[0],
         verificationStatus: "Verified",
