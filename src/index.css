@@ -72,3 +72,11 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Mac-specific margin protection so Sign In button and headers are never clipped */
+.mac-os .mac-pr-1cm {
+  padding-right: 1cm !important;
+}
+.mac-os .mac-mr-1cm {
+  margin-right: 1cm !important;
+}

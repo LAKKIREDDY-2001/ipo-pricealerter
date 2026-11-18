@@ -13,6 +13,9 @@
           } else {
             document.documentElement.classList.add('dark');
           }
+          if (/Mac|Macintosh|Mac OS X|MacIntel/i.test(navigator.userAgent || '') || /Mac/i.test(navigator.platform || '')) {
+            document.documentElement.classList.add('mac-os');
+          }
         } catch (e) {
           document.documentElement.classList.add('dark');
         }

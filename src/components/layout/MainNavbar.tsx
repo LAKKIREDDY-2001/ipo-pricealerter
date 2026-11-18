@@ -30,7 +30,25 @@ export function MainNavbar() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<'ipo' | 'stocks' | 'tools' | 'user' | null>(null);
+  const [isMac, setIsMac] = useState(() => {
+    if (typeof navigator === 'undefined') return false;
+    const ua = navigator.userAgent || '';
+    const platform = (navigator as unknown as { userAgentData?: { platform?: string } }).userAgentData?.platform || navigator.platform || '';
+    return /Mac|Macintosh|Mac OS X|MacIntel/i.test(ua) || /Mac/i.test(platform);
+  });
   const location = useLocation();
+
+  useEffect(() => {
+    if (typeof navigator !== 'undefined') {
+      const ua = navigator.userAgent || '';
+      const platform = (navigator as unknown as { userAgentData?: { platform?: string } }).userAgentData?.platform || navigator.platform || '';
+      const detected = /Mac|Macintosh|Mac OS X|MacIntel/i.test(ua) || /Mac/i.test(platform);
+      setIsMac(detected);
+      if (detected) {
+        document.documentElement.classList.add('mac-os');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setOpenDropdown(null);
@@ -60,14 +78,14 @@ export function MainNavbar() {
     <>
       <MarketTicker />
       <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md border-b border-[#E2E8F0] dark:border-slate-800">
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 h-15 flex items-center justify-between gap-2 sm:gap-4 lg:gap-5">
+        <div className={`max-w-[1440px] mx-auto px-3 sm:px-6 ${isMac ? 'pr-[1cm] sm:pr-[1.2cm]' : ''} mac-pr-1cm h-15 flex items-center justify-between gap-2 sm:gap-3 lg:gap-4 2xl:gap-5`}>
           {/* Brand Zone */}
           <Link to="/" className="shrink-0">
             <PriceAlerterLogo size="md" />
           </Link>
 
           {/* Desktop & Tablet-Landscape Navigation (lg: 1024px+) */}
-          <nav className="hidden lg:flex items-center gap-3.5 xl:gap-5" aria-label="Primary Navigation">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3 2xl:gap-4" aria-label="Primary Navigation">
             <NavLink to="/" end className={navLinkClass}>
               Dashboard
             </NavLink>
@@ -185,22 +203,22 @@ export function MainNavbar() {
               Calendar
             </NavLink>
 
-            {/* Full links on xl+, grouped under Tools dropdown on lg */}
-            <NavLink to="/listed" className={({ isActive }) => `hidden xl:inline-block ${navLinkClass({ isActive })}`}>
+            {/* Full links on 2xl+, grouped under Tools dropdown on lg & xl (MacBook screens: 1024px-1535px) */}
+            <NavLink to="/listed" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Listed IPOs
             </NavLink>
-            <NavLink to="/calculators" className={({ isActive }) => `hidden xl:inline-block ${navLinkClass({ isActive })}`}>
+            <NavLink to="/calculators" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Calculators
             </NavLink>
-            <NavLink to="/market-insights" className={({ isActive }) => `hidden xl:inline-block ${navLinkClass({ isActive })}`}>
+            <NavLink to="/market-insights" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Insights
             </NavLink>
-            <NavLink to="/blog" className={({ isActive }) => `hidden xl:inline-block ${navLinkClass({ isActive })}`}>
+            <NavLink to="/blog" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Learn
             </NavLink>
 
             <div
-              className="relative xl:hidden"
+              className="relative 2xl:hidden"
               onMouseEnter={() => setOpenDropdown('tools')}
               onMouseLeave={() => setOpenDropdown(null)}
             >
@@ -244,7 +262,8 @@ export function MainNavbar() {
               aria-label="Open global search"
             >
               <Search className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
-              <span className="hidden md:inline">Search IPOs, NSE/BSE...</span>
+              <span className="hidden xl:inline 2xl:hidden">Search...</span>
+              <span className="hidden 2xl:inline">Search IPOs, NSE/BSE...</span>
               <kbd className="hidden xl:inline-block rounded border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-slate-900 px-1.5 py-0.5 text-[10px] font-data text-[#94A3B8]">
                 ⌘K
               </kbd>
@@ -287,7 +306,12 @@ export function MainNavbar() {
             </button>
 
             {user ? (
-              <div className="relative">
+              <div
+                className={`relative shrink-0 transition-all mac-mr-1cm ${
+                  isMac ? 'mr-[1cm]' : ''
+                }`}
+                style={isMac ? { marginRight: '1cm' } : undefined}
+              >
                 <button
                   type="button"
                   onClick={() => setOpenDropdown(openDropdown === 'user' ? null : 'user')}
@@ -343,16 +367,21 @@ export function MainNavbar() {
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div
+                className={`flex items-center gap-1.5 shrink-0 transition-all mac-mr-1cm ${
+                  isMac ? 'mr-[1cm]' : ''
+                }`}
+                style={isMac ? { marginRight: '1cm' } : undefined}
+              >
                 <Link
                   to="/login"
-                  className="min-h-[38px] inline-flex items-center rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-[#152338] dark:text-slate-100 hover:border-[#14263F] dark:hover:border-slate-500 transition-colors whitespace-nowrap shrink-0"
+                  className="min-h-[38px] inline-flex items-center rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 sm:px-3.5 py-1.5 text-xs font-semibold text-[#152338] dark:text-slate-100 hover:border-[#14263F] dark:hover:border-slate-500 transition-colors whitespace-nowrap shrink-0 shadow-sm"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="hidden sm:inline-flex min-h-[38px] items-center rounded-lg bg-[#059669] px-3 sm:px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors whitespace-nowrap shrink-0"
+                  className="hidden sm:inline-flex min-h-[38px] items-center rounded-lg bg-[#059669] px-3 sm:px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors whitespace-nowrap shrink-0 shadow-sm"
                 >
                   Sign Up
                 </Link>
