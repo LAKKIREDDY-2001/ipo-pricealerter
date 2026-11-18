@@ -1931,7 +1931,9 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
       let allRaw: GrowwAllStocksRecord[] = [];
       if (firstPage?.records?.length) {
         const totalRecords = firstPage.totalRecords ?? firstPage.records.length;
-        const maxPages = Math.min(8, Math.max(1, Math.ceil(totalRecords / 1000)));
+        // Fetch every page reported by Groww. The previous 8-page cap silently
+        // omitted the tail of the NSE/BSE catalogue (especially smaller and SME listings).
+        const maxPages = Math.max(1, Math.ceil(totalRecords / 1000));
         const remainingIndices = Array.from({ length: maxPages - 1 }, (_, i) => i + 1);
         const remainingPages = await Promise.all(
           remainingIndices.map((p) => fetchAllStocksPage(p))
@@ -2267,8 +2269,11 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
       liveUniverseCache = unified;
       liveUniverseLastSynced = Date.now();
       liveUniverseReachable = allRaw.length > 0 || nseBhavByIsin.size > 0 || bseBhavByIsin.size > 0;
-      if (unified.length >= 2000) {
-        db.stocks = unified.slice(0, 2500);
+      if (unified.length > 0) {
+        // Keep the complete merged universe in the persistent DB. The API applies
+        // pagination at query time; truncating storage here made later pages vanish
+        // whenever the live provider was temporarily unavailable.
+        db.stocks = unified;
       }
       saveDb();
       evaluatePriceAlerts();
