@@ -122,18 +122,8 @@ export function HomePage() {
       setIndices(nextIndices);
       setIpos(nextIpos);
       setHeatmapStocks(nextStocks);
-      if (
-        !debouncedStockSearch &&
-        stockTab === 'All' &&
-        stockSector === 'All' &&
-        stockMoverFilter === 'All' &&
-        stockPage === 1 &&
-        stockSortBy === 'marketCapCr' &&
-        stockSortDir === 'desc'
-      ) {
-        setStocks(nextStocks.slice(0, 20));
-        setStockTotal(stkRes?.total || nextStocks.length);
-      }
+      // The dedicated stock-filter effect owns the visible table state.
+      // Do not overwrite a user's selected/search-filtered stocks during background refresh.
       setTopGainers(nextGainers.slice(0, 5));
       setTopLosers(nextLosers.slice(0, 5));
       setAllSectors(nextSectors);
@@ -187,9 +177,6 @@ export function HomePage() {
   useLiveMarketStream({
     onIndices: () => {
       void api.getIndices(false).then((r) => setIndices(r.indices)).catch(() => {});
-    },
-    onStocks: () => {
-      void loadDashboard(true);
     },
     onIpos: () => {
       void api.getIpos().then((r) => setIpos(r.ipos)).catch(() => {});
