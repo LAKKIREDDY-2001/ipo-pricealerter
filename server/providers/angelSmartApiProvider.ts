@@ -179,6 +179,36 @@ export interface AngelPositionItem {
   totalsellvalue: string;
 }
 
+export interface AngelScripItem {
+  exchange: AngelExchange;
+  tradingsymbol: string;
+  symboltoken: string;
+}
+
+export interface AngelLtpQuote {
+  exchange: AngelExchange;
+  tradingsymbol: string;
+  symboltoken: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  ltp: number;
+}
+
+export interface AngelIntradayScrip {
+  exchange: 'NSE' | 'BSE';
+  SymbolName: string;
+  Multiplier: string;
+}
+
+export interface AngelCautionaryScrip {
+  token: string;
+  symbol: string;
+  message: string;
+  category: 'ASM' | 'GSM' | 'TRADE_FOR_TRADE' | 'CAUTIONARY';
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -200,6 +230,11 @@ const OI_BUILDUP_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/
 const ALL_HOLDINGS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getAllHolding';
 const POSITIONS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getPosition';
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
+const SEARCH_SCRIP_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/searchScrip';
+const LTP_DATA_URL = 'https://apiconnect.angelone.in/order-service/rest/secure/angelbroking/order/v1/getLtpData';
+const NSE_INTRADAY_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/nseIntraday';
+const BSE_INTRADAY_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/bseIntraday';
+const CAUTIONARY_SCRIPS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/securities/v1/cautionaryScrips';
 
 // Interval max days lookup per Angel One documentation
 export const ANGEL_INTERVAL_MAX_DAYS: Record<AngelInterval, number> = {
@@ -1114,4 +1149,289 @@ export function convertAngelHoldingsToPortfolio(holdings: AngelHoldingItem[]) {
       pnlPercent: Number(h.pnlpercentage) || 0,
     };
   });
+}
+
+/**
+ * Classify exchange surveillance and cautionary messages into actionable risk tiers
+ */
+export function classifyCautionaryMessage(
+  message: string
+): 'ASM' | 'GSM' | 'TRADE_FOR_TRADE' | 'CAUTIONARY' {
+  const upper = String(message || '').toUpperCase();
+  if (upper.includes('ASM')) return 'ASM';
+  if (upper.includes('GSM')) return 'GSM';
+  if (upper.includes('TRADE FOR TRADE') || upper.includes('GROSS SETTLEMENT') || upper.includes('T2T')) {
+    return 'TRADE_FOR_TRADE';
+  }
+  return 'CAUTIONARY';
+}
+
+const dynamicTokenCache = new Map<string, string>();
+
+/**
+ * Search scrip tokens dynamically using Angel One SmartAPI Search Scrip
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/searchScrip
+ */
+export async function searchAngelScrip(
+  exchange: AngelExchange = 'NSE',
+  searchscrip: string,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelScripItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return [];
+  }
+
+  const query = searchscrip.trim().toUpperCase();
+  if (!query) return [];
+
+  try {
+    const response = await fetch(SEARCH_SCRIP_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        exchange,
+        searchscrip: query,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: any[];
+    };
+
+    if (json.status && Array.isArray(json.data)) {
+      return json.data.map((item) => ({
+        exchange: item.exchange || exchange,
+        tradingsymbol: String(item.tradingsymbol || item['tradingsymb{ol'] || ''),
+        symboltoken: String(item.symboltoken || ''),
+      })).filter((item) => item.tradingsymbol && item.symboltoken);
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] searchAngelScrip error for ${query}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Resolve Angel One symbol token with fallback cascade:
+ * 1. Known dictionary lookup
+ * 2. Memory cache lookup
+ * 3. Dynamic searchScrip lookup from Angel One SmartAPI
+ */
+export async function resolveAngelSymbolToken(
+  symbol: string,
+  exchange: AngelExchange = 'NSE',
+  credsOverride?: AngelApiCredentials
+): Promise<string | null> {
+  const cleanSymbol = symbol.replace(/^(NSE_|BSE_)/i, '').replace(/(\.NS|\.BO)$/i, '').replace(/-(EQ|BE|BZ)$/i, '').trim().toUpperCase();
+  if (!cleanSymbol) return null;
+
+  // 1. Known lookup
+  if (KNOWN_ANGEL_TOKENS[cleanSymbol]) {
+    return KNOWN_ANGEL_TOKENS[cleanSymbol].token;
+  }
+
+  // 2. Dynamic cache lookup
+  const cacheKey = `${exchange}:${cleanSymbol}`;
+  if (dynamicTokenCache.has(cacheKey)) {
+    return dynamicTokenCache.get(cacheKey) || null;
+  }
+
+  // 3. Search Scrip query
+  const results = await searchAngelScrip(exchange, cleanSymbol, credsOverride);
+  if (!results.length) return null;
+
+  // Prioritize -EQ equity scrip, otherwise exact match or first result
+  const exactEq = results.find((r) => r.tradingsymbol === `${cleanSymbol}-EQ`);
+  const exact = results.find((r) => r.tradingsymbol === cleanSymbol);
+  const match = exactEq || exact || results[0];
+
+  if (match?.symboltoken) {
+    dynamicTokenCache.set(cacheKey, match.symboltoken);
+    return match.symboltoken;
+  }
+
+  return null;
+}
+
+/**
+ * Fetch Last Traded Price (LTP) quote for a single instrument
+ * Endpoint: POST https://apiconnect.angelone.in/order-service/rest/secure/angelbroking/order/v1/getLtpData
+ */
+export async function fetchAngelLtpQuote(
+  exchange: AngelExchange,
+  tradingsymbol: string,
+  symboltoken: string,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelLtpQuote | null> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return null;
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(LTP_DATA_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        exchange,
+        tradingsymbol,
+        symboltoken,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) return null;
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: any;
+    };
+
+    if (json.status && json.data) {
+      const d = Array.isArray(json.data) ? json.data[0] : json.data;
+      if (!d) return null;
+
+      return {
+        exchange: d.exchange || exchange,
+        tradingsymbol: d.tradingsymbol || tradingsymbol,
+        symboltoken: String(d.symboltoken || symboltoken),
+        open: Number(d.open) || 0,
+        high: Number(d.high) || 0,
+        low: Number(d.low) || 0,
+        close: Number(d.close) || 0,
+        ltp: Number(d.ltp) || 0,
+      };
+    }
+    return null;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelLtpQuote error for ${tradingsymbol}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch Scrips Allowed for Intraday trading with margin multipliers
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/nseIntraday (or bseIntraday)
+ */
+export async function fetchAngelIntradayScrips(
+  exchange: 'NSE' | 'BSE' = 'NSE',
+  credsOverride?: AngelApiCredentials
+): Promise<AngelIntradayScrip[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return [];
+  }
+
+  const targetUrl = exchange === 'BSE' ? BSE_INTRADAY_URL : NSE_INTRADAY_URL;
+
+  try {
+    const response = await fetch(targetUrl, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: any[];
+    };
+
+    if (json.status && Array.isArray(json.data)) {
+      return json.data.map((item) => ({
+        exchange,
+        SymbolName: String(item.SymbolName || item.symbolName || ''),
+        Multiplier: String(item.Multiplier || item.multiplier || '1.0'),
+      })).filter((item) => item.SymbolName);
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelIntradayScrips error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Fetch Scrips under cautionary messages (ASM / GSM / Gross settlement / Surveillance)
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/securities/v1/cautionaryScrips
+ */
+export async function fetchAngelCautionaryScrips(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelCautionaryScrip[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return [];
+  }
+
+  try {
+    let response = await fetch(CAUTIONARY_SCRIPS_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ scripconsent: 'yes' }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok && response.status === 405) {
+      // Fallback to GET method if POST is rejected by server
+      response = await fetch(CAUTIONARY_SCRIPS_URL, {
+        method: 'GET',
+        headers,
+        signal: AbortSignal.timeout(6000),
+      });
+    }
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: any[];
+    };
+
+    if (json.status && Array.isArray(json.data)) {
+      return json.data.map((item) => {
+        const msg = String(item.message || '');
+        return {
+          token: String(item.token || ''),
+          symbol: String(item.symbol || '').trim().toUpperCase(),
+          message: msg,
+          category: classifyCautionaryMessage(msg),
+        };
+      }).filter((item) => item.symbol && item.message);
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelCautionaryScrips error:`, error);
+    return [];
+  }
 }

@@ -3,7 +3,11 @@ import {
   getAngelCredentials,
   fetchAngelHoldings,
   convertAngelHoldingsToPortfolio,
+  fetchAngelCautionaryScrips,
+  searchAngelScrip,
+  fetchAngelIntradayScrips,
   type AngelApiCredentials,
+  type AngelExchange,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -831,6 +835,52 @@ export async function onRequest(context: {
         holdings: [],
       }, 500);
     }
+  }
+
+  if (pathname === "/api/market/angel/cautionary") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured.", data: [] }, 400);
+    }
+    const cautionary = await fetchAngelCautionaryScrips(creds);
+    return json({
+      ok: true,
+      count: cautionary.length,
+      data: cautionary,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/search") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    const q = (url.searchParams.get("q") || "").trim();
+    const exchange = (url.searchParams.get("exchange") || "NSE").toUpperCase() as AngelExchange;
+    if (!q) {
+      return json({ ok: false, error: "Missing search query parameter 'q'", data: [] }, 400);
+    }
+    const results = await searchAngelScrip(exchange, q, creds || undefined);
+    return json({
+      ok: true,
+      exchange,
+      query: q,
+      results,
+    });
+  }
+
+  if (pathname === "/api/market/angel/intraday") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    const exchange = (url.searchParams.get("exchange") || "NSE").toUpperCase() === "BSE" ? "BSE" : "NSE";
+    const scrips = await fetchAngelIntradayScrips(exchange, creds || undefined);
+    return json({
+      ok: true,
+      exchange,
+      count: scrips.length,
+      data: scrips,
+      retrievedAt: new Date().toISOString(),
+    });
   }
 
   if (method !== "GET" && method !== "HEAD") {

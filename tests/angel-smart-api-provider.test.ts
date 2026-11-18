@@ -8,14 +8,19 @@ import {
   convertAngelQuoteToStandard,
   convertAngelHoldingsToPortfolio,
   classifyPcrSentiment,
+  classifyCautionaryMessage,
+  resolveAngelSymbolToken,
   generateTOTP,
   KNOWN_ANGEL_TOKENS,
   ANGEL_INTERVAL_MAX_DAYS,
+  SCRIP_MASTER_URL,
   type AngelCandlePoint,
   type AngelLiveQuoteItem,
   type AngelGainerLoserItem,
   type AngelOIBuildupItem,
   type AngelHoldingItem,
+  type AngelLtpQuote,
+  type AngelCautionaryScrip,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -232,5 +237,61 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(portfolioHoldings[0].pnl, 37);
     assert.equal(portfolioHoldings[0].pnlPercent, 16.34);
     assert.equal(portfolioHoldings[0].assetType, 'Equity');
+  });
+
+  await t.test('classifies exchange cautionary and surveillance messages accurately', () => {
+    assert.equal(
+      classifyCautionaryMessage('Stage 1 Long Term ASM scrip. PE is greater than 50'),
+      'ASM'
+    );
+    assert.equal(
+      classifyCautionaryMessage('GSM Stage 2 security with 100% margin required'),
+      'GSM'
+    );
+    assert.equal(
+      classifyCautionaryMessage('Security is under Gross settlement (Trade for Trade)'),
+      'TRADE_FOR_TRADE'
+    );
+    assert.equal(
+      classifyCautionaryMessage('T2T settlement active for next 10 trading sessions'),
+      'TRADE_FOR_TRADE'
+    );
+    assert.equal(
+      classifyCautionaryMessage('Average daily number of unique Clients/PAN traded is less than 100'),
+      'CAUTIONARY'
+    );
+  });
+
+  await t.test('resolves known and cached Angel symbol tokens instantly', async () => {
+    assert.equal(await resolveAngelSymbolToken('SBIN'), '3045');
+    assert.equal(await resolveAngelSymbolToken('RELIANCE'), '2885');
+    assert.equal(await resolveAngelSymbolToken('TCS.NS'), '11536');
+    assert.equal(await resolveAngelSymbolToken('NSE_INFY'), '1594');
+  });
+
+  await t.test('validates shapes of Angel LTP quote and Cautionary scrips', () => {
+    const ltpQuote: AngelLtpQuote = {
+      exchange: 'NSE',
+      tradingsymbol: 'SBIN-EQ',
+      symboltoken: '3045',
+      open: 567.4,
+      high: 569.35,
+      low: 566.1,
+      close: 567.4,
+      ltp: 568.2,
+    };
+    assert.equal(ltpQuote.tradingsymbol, 'SBIN-EQ');
+    assert.equal(ltpQuote.ltp, 568.2);
+
+    const cautionaryItem: AngelCautionaryScrip = {
+      token: '532083',
+      symbol: 'SHKALYN',
+      message: 'Security is under Gross settlement (Trade for Trade)',
+      category: classifyCautionaryMessage('Security is under Gross settlement (Trade for Trade)'),
+    };
+    assert.equal(cautionaryItem.symbol, 'SHKALYN');
+    assert.equal(cautionaryItem.category, 'TRADE_FOR_TRADE');
+
+    assert.ok(SCRIP_MASTER_URL.includes('OpenAPIScripMaster.json'));
   });
 });
