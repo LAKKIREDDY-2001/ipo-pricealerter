@@ -8,6 +8,66 @@ async function main() {
   const dbPath = path.resolve('server/data/db.json');
   const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 
+  // Add Crystal Crop Protection while its IPO is open (18–20 Nov 2026).
+  const crystalId = 'crystal-crop-protection';
+  if (!(db.ipos as IPOOffering[]).some((ipo) => ipo.id === crystalId || ipo.slug === 'crystal-crop-protection-ipo')) {
+    const provenance = {
+      source: 'Moneycontrol IPO details; cross-checked with Economic Times and Upstox',
+      retrievedAt: '2026-11-18T00:00:00.000Z',
+      effectiveDate: '2026-11-18',
+      verificationStatus: 'Verified' as const,
+      qualityStatus: 'VERIFIED' as const,
+      currency: 'INR' as const,
+      unit: 'INR per share / INR crore as applicable',
+      dataCategory: 'IPO offer terms',
+    };
+    (db.ipos as IPOOffering[]).push({
+      id: crystalId,
+      slug: 'crystal-crop-protection-ipo',
+      companyName: 'Crystal Crop Protection Limited',
+      shortName: 'Crystal Crop',
+      logoMonogram: 'CCP',
+      logoColor: '#287A52',
+      sector: 'Agriculture',
+      industry: 'Agrochemicals, crop protection and seeds',
+      category: 'Mainboard',
+      status: 'Open',
+      exchanges: ['NSE', 'BSE'],
+      website: 'https://www.crystalcropprotection.com/',
+      registrar: 'MUFG Intime India Pvt. Ltd.',
+      registrarUrl: 'https://in.mpms.mufg.com/',
+      issueSizeCr: 455.72,
+      freshIssueCr: 354.77,
+      ofsCr: 100.71,
+      priceBandLow: 259,
+      priceBandHigh: 272,
+      lotSize: 55,
+      minBidQuantity: 55,
+      minInvestment: 14960,
+      faceValue: 10,
+      dates: { openDate: '2026-11-18', closeDate: '2026-11-20', allotmentDate: '2026-11-23', refundDate: '2026-11-25', dematCreditDate: '2026-11-25', listingDate: '2026-11-26' },
+      subscription: { qib: null, nii: null, retail: null, employee: null, shareholder: null, total: null, isFinal: false, dailyBreakdown: [], provenance: { ...provenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'IPO subscription' } },
+      gmp: { latestGmp: null, previousGmp: null, lastUpdated: null, availability: 'Unavailable', source: 'Not officially published; GMP is unofficial', history: [] },
+      listing: { issuePrice: null, actualListingPrice: null, listingExchange: null, stockSymbol: null, currentMarketPrice: null, previousClose: null, listingDate: null, priceStatus: 'UNAVAILABLE', provenance: { ...provenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'Post-listing quote' } },
+      financials: { reportingBasis: 'Consolidated', years: [] },
+      valuation: { peRatio: null, pbRatio: null, marketCapCr: null, eps: null, industryAvgPe: null, reportingPeriod: 'FY2026', calculationBasis: 'Not populated; verify against RHP', peers: [] },
+      profile: {
+        overview: 'Indian crop-solutions company operating in crop protection products and seeds.',
+        productsAndServices: 'Herbicides, fungicides, insecticides, natural crop solutions and seeds.',
+        businessModel: 'Develops, manufactures and distributes crop-protection products and seeds.',
+        industryOverview: 'Agricultural inputs and crop-science products.',
+        competitivePosition: 'Established crop-solutions portfolio and distribution network.',
+        promoters: ['Aggarwal family'],
+        growthOpportunities: [],
+        strengths: ['Diversified crop-protection and seeds portfolio'],
+        risks: ['Agricultural demand and weather dependence', 'Regulatory and working-capital risks'],
+      },
+      documents: { drhpUrl: null, rhpUrl: null, prospectusUrl: null, anchorUrl: null, allotmentUrl: null, exchangeNoticeUrl: null },
+      provenance,
+    });
+    console.log('✓ Added Crystal Crop Protection IPO to db.ipos');
+  }
+
   // Update BlackBuck, Onyx Biotec, and Mangal Compusolution in db.ipos
   for (const ipo of db.ipos as IPOOffering[]) {
     if (ipo.id === 'ipo-zinka-logistics' || ipo.slug === 'zinka-logistics-ipo') {
@@ -110,7 +170,7 @@ async function main() {
     }
 
     if (ipo.id === 'crystal-crop-protection' || ipo.slug === 'crystal-crop-protection-ipo') {
-      ipo.status = 'Upcoming';
+      ipo.status = 'Open';
       ipo.priceBandLow = 259;
       ipo.priceBandHigh = 272;
       ipo.dates.openDate = '2026-11-18';
