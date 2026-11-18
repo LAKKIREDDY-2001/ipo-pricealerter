@@ -764,7 +764,29 @@ export async function onRequest(context: {
       let universe = normalizeStocks(snapshot);
       if (env.DB) {
         const stored = await env.DB.prepare("SELECT payload_json FROM stock_instruments ORDER BY symbol").all<any>();
-        if (stored.results?.length) universe = stored.results.map((row: any) => JSON.parse(row.payload_json));
+        if (stored.results?.length) {
+          // D1 can lag behind a freshly published exchange snapshot. Never let a
+          // partially populated D1 table replace (and shrink) the full universe.
+          const bySymbol = new Map<string, any>();
+          for (const stock of universe) {
+            const key = String(stock.symbol || stock.bseCode || "").trim().toUpperCase();
+            if (key) bySymbol.set(key, stock);
+          }
+          for (const row of stored.results) {
+            try {
+              const saved = JSON.parse(row.payload_json);
+              const key = String(saved.symbol || saved.bseCode || "").trim().toUpperCase();
+              if (!key) continue;
+              const current = bySymbol.get(key);
+              // The published snapshot is the latest build-time exchange catalogue;
+              // retain it for matches and use D1 only to fill missing securities.
+              if (!current) bySymbol.set(key, saved);
+            } catch {
+              // Ignore malformed legacy rows without losing the snapshot catalogue.
+            }
+          }
+          universe = [...bySymbol.values()];
+        }
       }
       const page = filterAndPageStocks(universe, url);
       const enriched = await enrichQuotes(page.stocks || []);
