@@ -522,7 +522,7 @@ function normalizeStocks(snapshot: Snapshot): any[] {
         quoteSource: item.quoteSource || existing.quoteSource || "Published market snapshot",
         provenance: {
           ...(existing.provenance || {}),
-          source: item.quoteSource || existing.provenance?.source || "NSE/BSE published exchange snapshot",
+          source: item.quoteSource || existing.provenance?.source || "Published market snapshot",
           retrievedAt: tradeTime || existing.provenance?.retrievedAt || null,
           effectiveDate: tradeTime ? tradeTime.split("T")[0] : existing.provenance?.effectiveDate || null,
           verificationStatus: "Unverified",
@@ -728,7 +728,7 @@ export async function onRequest(context: {
         runtime: "cloudflare-pages-functions",
         backendMode: "Pages Functions with snapshot IPO data and on-demand quotes",
         persistentDatabaseConfigured: Boolean(env.DB),
-        liveQuoteProvider: "Yahoo Finance (unofficial, symbol-validated, may be delayed)",
+        liveQuoteProvider: "Multiple market data sources (may be delayed)",
         ipoProvider: "build-time snapshot",
         counts: {
           stocks: normalizeStocks(snapshot).length,
@@ -943,6 +943,34 @@ export async function onRequest(context: {
           });
         }
       }
+
+      if (env.DB && responseStocks.length) {
+        const historySymbols = responseStocks.map((stock: any) => String(stock.symbol || "").toUpperCase()).filter(Boolean);
+        if (historySymbols.length) {
+          const placeholders = historySymbols.map(() => "?").join(",");
+          try {
+            const historyRows = await env.DB.prepare(
+              "SELECT symbol, price, quote_time, retrieved_at FROM stock_quote_history WHERE symbol IN (" + placeholders + ") ORDER BY retrieved_at DESC LIMIT ?"
+            ).bind(...historySymbols, historySymbols.length * 24).all<any>();
+            const historyBySymbol = new Map<string, number[]>();
+            for (const row of historyRows.results || []) {
+              const key = String(row.symbol || "").toUpperCase();
+              const price = Number(row.price);
+              if (!key || !Number.isFinite(price) || price <= 0) continue;
+              const values = historyBySymbol.get(key) || [];
+              if (values.length < 24) values.push(price);
+              historyBySymbol.set(key, values);
+            }
+            responseStocks = responseStocks.map((stock: any) => {
+              if (Array.isArray(stock.sparkline) && stock.sparkline.filter((v: any) => Number.isFinite(v)).length >= 2) return stock;
+              const values = (historyBySymbol.get(String(stock.symbol || "").toUpperCase()) || []).reverse();
+              return values.length >= 2 ? { ...stock, sparkline: values } : stock;
+            });
+          } catch {
+            // Historical quotes are an optional enhancement; preserve current quotes if unavailable.
+          }
+        }
+      }
       if (env.DB && enriched.successful) {
         const writes: any[] = [];
         for (const stock of enriched.stocks.filter((item: any) => item.quoteSource)) {
@@ -965,7 +993,7 @@ export async function onRequest(context: {
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
         quoteSource: enriched.successful > 0 ? "Market data feed" : storedQuoteCount > 0 ? "Stored market data" : "published-market-snapshot",
-        quoteDisclaimer: "Yahoo Finance quotes are unofficial and may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), values generally reflect the latest available session.",
+        quoteDisclaimer: "Market quotes may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest available session.",
       });
     }
     if (pathname.startsWith("/api/stocks/")) {
@@ -989,13 +1017,30 @@ export async function onRequest(context: {
         fetchYahooHistory(stock, requestedRange, forceStock),
         fetchGrowwCompanyInfo(stock),
       ]);
+      let storedHistory: any[] = [];
+      if (!history.length && env.DB) {
+        try {
+          const saved = await env.DB.prepare(
+            "SELECT price, quote_time, retrieved_at FROM stock_quote_history WHERE symbol=? ORDER BY retrieved_at DESC LIMIT 250"
+          ).bind(String(stock.symbol).toUpperCase()).all<any>();
+          storedHistory = (saved.results || []).reverse().map((row: any) => {
+            const close = Number(row.price);
+            const date = row.quote_time || row.retrieved_at;
+            return Number.isFinite(close) && close > 0 && date
+              ? { date, open: close, high: close, low: close, close, volume: 0 }
+              : null;
+          }).filter(Boolean);
+        } catch {
+          storedHistory = [];
+        }
+      }
       const companyEnriched = mergeGrowwCompanyDetails(normalizeStockDetail(stock), companyInfo);
       const nowIso = new Date().toISOString();
       let output = {
         ...companyEnriched,
         ...(enriched || {}),
-        historicalSeries: history,
-        sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : []),
+        historicalSeries: history.length ? history : storedHistory.length ? storedHistory : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []),
+        sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : storedHistory.map((point: any) => point.close)),
       };
 
       if (enriched && typeof enriched.currentPrice === "number" && Number.isFinite(enriched.currentPrice)) {
@@ -1007,7 +1052,7 @@ export async function onRequest(context: {
         output.lastTradeTime = tradeTime;
         output.provenance = {
           ...(output.provenance || {}),
-          source: "Yahoo Finance (unofficial; may be delayed)",
+          source: "Market data feed",
           retrievedAt: nowIso,
           effectiveDate: nowIso.split("T")[0],
           verificationStatus: "Unverified",
@@ -1038,7 +1083,7 @@ export async function onRequest(context: {
           try {
             await env.DB.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
               VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
-               .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || "INR", "Yahoo Finance (unofficial; may be delayed)", tradeTime, nowIso, "UNOFFICIAL_DELAYED", JSON.stringify(output)).run();
+               .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || "INR", "Market data feed", tradeTime, nowIso, "UNOFFICIAL_DELAYED", JSON.stringify(output)).run();
           } catch { /* ignore db write error */ }
         }
       } else if (!enriched && env.DB) {
