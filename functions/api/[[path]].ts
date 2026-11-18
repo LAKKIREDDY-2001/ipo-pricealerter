@@ -1065,7 +1065,7 @@ export async function onRequest(context: {
             ReqId: simulatedReqId,
             ReturnURL: "https://trade.angelbroking.com/cdslpoa/response",
             DPId: "33200",
-            BOID: "1203320015222472",
+            BOID: "",
             TransDtls: "fZ6jlmt9GosSO0kFdI9S9FCD+IYFvjUN94Bph46YMC1BzexE1hDuCwjSUzXVoEgV3mTP5aXnwxJDikFm1xymcjfhEgtWm7ykrpxaDXSuQF25Fg5olDgXy/Suu916VNg9XID0GHy1CT5E9WBP0gocixvOFrCPFmRMmY+7Nqbb3cNfqPZ8uHfX0un5tFnQXV3AXK0g2exwRf3EINSTHSv66/inPArtDko70vuc1pb5e0tRXa14FN2hzklop2UyrcIiDmkmzcHvjdGGomCM4PU90S28xHze5/dAlTv7ywIzrQOA4N2LW7n7M9atFExQTC2tczdwhKkVzScYmpVdRvtY+Lqo8o/OSVQ8Gd3Guz7ZRpqV5073lZ/BnPN8FtJW6shfOwgbYgqmhV2jik0uw57eQ7f+SI0pYYC8noOwKncJ3/umtVY2NVgLjdZq2yxZh7wTQKC2WYaYl/MnZLpgF9yYlBAtZ6trgLG6kcmtlbibtkimi2TecMGN3KrAETsWY07fZCc9Ks/RetFzD1qNIGWZ/4WnpWyW5XTxSxlQILCz7Qwk5f+dKcXVe5CS/7DMB7aa9KQ4t1ru1xo7jM4GmUdwcGVwUqb2pfNSEUX+I10INA0TwXkWdUAAQYO0++q6mYpN59G3IW9vV/dW0/bHh4xcsPg9ysDBZ8bLlk4C3hL6RiVrxcF2AgxjJgLSxL2YerAKkgivk22KULtEDpOpE7IcwxjuWjRxOPGfnSGbc4Ii1avte50WZFh6EKIP6E16sZgKaOh/r5CSnysEtDetvhn8siIWDQbhInAoExMpsuewIthg4QVWvx0EzQL6LqNO74Hc9/JicH+cGFtn6nHjwHgquzbCZx6W6XlzHJVV04Pd0m4kXC27RrnoraFj3KpXcfmdSr0GK3HtUKYV2QgSM8COvEEuL++oxjD4PKi40JmTv2I=",
             version: "1.1",
           },
