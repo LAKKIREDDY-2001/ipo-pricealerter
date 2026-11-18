@@ -436,43 +436,97 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
 
 function normalizeStocks(snapshot: Snapshot): any[] {
   const base = Array.isArray(snapshot.stocks) ? [...snapshot.stocks] : [];
-  const seen = new Set(base.map((s) => String(s.symbol || "").toUpperCase()));
+  const bySymbol = new Map<string, number>();
+  base.forEach((stock, index) => {
+    const symbol = String(stock.symbol || "").trim().toUpperCase();
+    if (symbol) bySymbol.set(symbol, index);
+  });
+
+  // The published snapshot intentionally contains the full security universe,
+  // while allLiveStocks contains the priced subset. Merge that priced subset
+  // into matching rows too; previously it was only used to append missing rows,
+  // leaving many existing catalogue entries with blank prices.
   for (const item of snapshot.allLiveStocks || []) {
-    const symbol = String(item.symbol || "").toUpperCase();
-    if (!symbol || seen.has(symbol)) continue;
-    seen.add(symbol);
-    const price = Number(item.rawPrice ?? item.price ?? 0);
+    const symbol = String(item.symbol || "").trim().toUpperCase();
+    if (!symbol) continue;
+    const rawPrice = Number(item.rawPrice ?? item.price ?? 0);
+    const price = Number.isFinite(rawPrice) && rawPrice > 0 ? rawPrice : null;
     const change = item.rawChange == null ? null : Number(item.rawChange);
+    const tradeTime = item.quoteTimestamp || item.lastTradeTime || snapshot.lastSyncTime || null;
+    const existingIndex = bySymbol.get(symbol);
+
+    if (existingIndex !== undefined) {
+      const existing = base[existingIndex];
+      base[existingIndex] = {
+        ...existing,
+        currentPrice: price ?? existing.currentPrice ?? null,
+        previousClose: Number(item.previousClose) > 0 ? Number(item.previousClose) : existing.previousClose ?? null,
+        dayChange: Number.isFinite(change) ? change : existing.dayChange ?? null,
+        dayChangePercent: Number.isFinite(Number(item.pct)) ? Number(item.pct) : existing.dayChangePercent ?? null,
+        open: Number(item.open) > 0 ? Number(item.open) : existing.open ?? null,
+        dayHigh: Number(item.high) > 0 ? Number(item.high) : existing.dayHigh ?? null,
+        dayLow: Number(item.low) > 0 ? Number(item.low) : existing.dayLow ?? null,
+        week52High: Number(item.week52High) > 0 ? Number(item.week52High) : existing.week52High ?? null,
+        week52Low: Number(item.week52Low) > 0 ? Number(item.week52Low) : existing.week52Low ?? null,
+        volume: Number(item.volRaw ?? item.volume) >= 0 ? Number(item.volRaw ?? item.volume) : existing.volume ?? null,
+        marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : existing.marketCapCr ?? null,
+        logoUrl: item.logo || existing.logoUrl || null,
+        lastTradeTime: tradeTime || existing.lastTradeTime || null,
+        quoteSource: item.quoteSource || existing.quoteSource || "NSE/BSE published exchange snapshot",
+        provenance: {
+          ...(existing.provenance || {}),
+          source: item.quoteSource || existing.provenance?.source || "NSE/BSE published exchange snapshot",
+          retrievedAt: tradeTime || existing.provenance?.retrievedAt || null,
+          effectiveDate: tradeTime ? tradeTime.split("T")[0] : existing.provenance?.effectiveDate || null,
+          verificationStatus: "Unverified",
+          qualityStatus: price !== null ? "DELAYED" : existing.provenance?.qualityStatus || "UNAVAILABLE",
+          currency: "INR",
+          unit: "INR per share",
+          dataCategory: existing.provenance?.dataCategory || "Equities",
+        },
+      };
+      continue;
+    }
+
+    if (price === null) continue;
     const nowIso = new Date().toISOString();
-    const tradeTime = item.lastTradeTime || snapshot.lastSyncTime || nowIso;
-    base.push({
+    const effectiveTradeTime = tradeTime || nowIso;
+    const stock = {
       id: `snapshot-${symbol}`,
       symbol,
       bseCode: item.bseCode || null,
       searchId: item.searchId || null,
       companyName: item.name || symbol,
+      logoUrl: item.logo || null,
       exchange: item.bseCode ? "NSE/BSE" : "NSE",
       sector: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
       industry: item.category === "RECENT_IPO" ? "Recent Listings" : "Equities",
       currentPrice: price,
-      previousClose: change == null ? null : Number((price - change).toFixed(2)),
+      previousClose: Number(item.previousClose) > 0 ? Number(item.previousClose) : change == null ? null : Number((price - change).toFixed(2)),
       dayChange: change,
-      dayChangePercent: item.rawChangePercent ?? null,
-      volume: item.volume ?? null,
-      marketCapCr: item.marketCapCr ?? null,
-      lastTradeTime: tradeTime,
+      dayChangePercent: Number.isFinite(Number(item.pct)) ? Number(item.pct) : null,
+      open: Number(item.open) > 0 ? Number(item.open) : null,
+      dayHigh: Number(item.high) > 0 ? Number(item.high) : null,
+      dayLow: Number(item.low) > 0 ? Number(item.low) : null,
+      week52High: Number(item.week52High) > 0 ? Number(item.week52High) : null,
+      week52Low: Number(item.week52Low) > 0 ? Number(item.week52Low) : null,
+      volume: Number(item.volRaw ?? item.volume) >= 0 ? Number(item.volRaw ?? item.volume) : null,
+      marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : null,
+      lastTradeTime: effectiveTradeTime,
       dataSource: "NSE/BSE exchange snapshot (delayed)",
       provenance: {
-        source: "NSE/BSE exchange snapshot (delayed)",
-        retrievedAt: tradeTime,
-        effectiveDate: tradeTime.split("T")[0],
-        verificationStatus: "Verified",
+        source: item.quoteSource || "NSE/BSE exchange snapshot (delayed)",
+        retrievedAt: effectiveTradeTime,
+        effectiveDate: effectiveTradeTime.split("T")[0],
+        verificationStatus: "Unverified",
         qualityStatus: "DELAYED",
         currency: "INR",
         unit: "INR per share",
         dataCategory: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
       },
-    });
+    };
+    bySymbol.set(symbol, base.length);
+    base.push(stock);
   }
   return base;
 }
