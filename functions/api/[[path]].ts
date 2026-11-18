@@ -953,7 +953,7 @@ export async function onRequest(context: {
     if (!overrideCreds || !overrideCreds.apiKey || !overrideCreds.totpKey) {
       return json({
         ok: false,
-        error: "Angel One credentials (API key or TOTP key) not configured.",
+        error: "Market Data API credentials (API key or TOTP key) not configured.",
         configured: Boolean(overrideCreds?.apiKey),
         holdings: [],
       }, 400);
@@ -964,14 +964,14 @@ export async function onRequest(context: {
       if (!holdingsData) {
         return json({
           ok: false,
-          error: "Failed to authenticate or fetch holdings from Angel One SmartAPI.",
+          error: "Failed to authenticate or fetch holdings from Market Data API SmartAPI.",
           holdings: [],
         }, 502);
       }
       const holdings = convertAngelHoldingsToPortfolio(holdingsData.holdings || []);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Live Demat)",
+        source: "Market Data API SmartAPI (Live Demat)",
         totalHoldingsValue: holdingsData.totalholding?.totalholdingvalue ?? 0,
         totalInvValue: holdingsData.totalholding?.totalinvvalue ?? 0,
         totalProfitLoss: holdingsData.totalholding?.totalprofitandloss ?? 0,
@@ -982,7 +982,7 @@ export async function onRequest(context: {
     } catch (err: any) {
       return json({
         ok: false,
-        error: err?.message || "Error communicating with Angel One SmartAPI",
+        error: err?.message || "Error communicating with Market Data API SmartAPI",
         holdings: [],
       }, 500);
     }
@@ -992,13 +992,13 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", positions: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", positions: [] }, 400);
     }
     try {
       const positions = await fetchAngelPositions(creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Positions)",
+        source: "Market Data API SmartAPI (Positions)",
         count: positions.length,
         positions,
         retrievedAt: new Date().toISOString(),
@@ -1012,7 +1012,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1130,7 +1130,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured.", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured.", data: [] }, 400);
     }
     const cautionary = await fetchAngelCautionaryScrips(creds);
     return json({
@@ -1188,7 +1188,7 @@ export async function onRequest(context: {
     const state = body.state ? String(body.state) : undefined;
 
     if (!apiKey) {
-      return json({ ok: false, error: "Missing API Key for Angel One login." }, 400);
+      return json({ ok: false, error: "Missing API Key for Market Data API login." }, 400);
     }
     if (!clientCode || !pin) {
       return json({ ok: false, error: "Missing clientCode or pin/password." }, 400);
@@ -1248,7 +1248,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const profile = await fetchAngelUserProfile(creds);
@@ -1257,7 +1257,7 @@ export async function onRequest(context: {
       }
       return json({
         ok: true,
-        source: "Angel One SmartAPI (User Profile)",
+        source: "Market Data API SmartAPI (User Profile)",
         profile,
         retrievedAt: new Date().toISOString(),
       });
@@ -1270,7 +1270,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const funds = await fetchAngelRMSFunds(creds);
@@ -1279,7 +1279,7 @@ export async function onRequest(context: {
       }
       return json({
         ok: true,
-        source: "Angel One SmartAPI (RMS Funds & Margins)",
+        source: "Market Data API SmartAPI (RMS Funds & Margins)",
         funds,
         retrievedAt: new Date().toISOString(),
       });
@@ -1305,12 +1305,12 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI GTT (Good-Till-Triggered) Endpoints ---
+  // --- Market Data API SmartAPI GTT (Good-Till-Triggered) Endpoints ---
   if (pathname === "/api/gtt/angel/create" && method === "POST") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1331,7 +1331,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1352,7 +1352,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1370,7 +1370,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     let ruleId = url.searchParams.get("id") || "";
     if (!ruleId && method === "POST") {
@@ -1394,7 +1394,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", data: [] }, 400);
     }
     let listReq: any = undefined;
     if (method === "POST") {
@@ -1406,7 +1406,7 @@ export async function onRequest(context: {
       const rules = await fetchAngelGttRuleList(listReq, creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (GTT Rules)",
+        source: "Market Data API SmartAPI (GTT Rules)",
         count: rules.length,
         data: rules,
         retrievedAt: new Date().toISOString(),
@@ -1416,12 +1416,12 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Orders Suite Endpoints ---
+  // --- Market Data API SmartAPI Orders Suite Endpoints ---
   if (pathname === "/api/orders/angel/place" && method === "POST") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const orderReq = (await request.json()) as AngelPlaceOrderRequest;
@@ -1442,7 +1442,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const modReq = (await request.json()) as AngelModifyOrderRequest;
@@ -1463,7 +1463,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const cancelReq = (await request.json()) as AngelCancelOrderRequest;
@@ -1484,13 +1484,13 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", data: [] }, 400);
     }
     try {
       const orders = await fetchAngelOrderBook(creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Order Book)",
+        source: "Market Data API SmartAPI (Order Book)",
         count: orders.length,
         data: orders,
         retrievedAt: new Date().toISOString(),
@@ -1504,13 +1504,13 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", data: [] }, 400);
     }
     try {
       const trades = await fetchAngelTradeBook(creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Trade Book)",
+        source: "Market Data API SmartAPI (Trade Book)",
         count: trades.length,
         data: trades,
         retrievedAt: new Date().toISOString(),
@@ -1524,7 +1524,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     const urlParts = pathname.split("/api/orders/angel/details/");
     const uniqueOrderId = urlParts[1] || url.searchParams.get("uniqueorderid") || url.searchParams.get("id");
@@ -1535,7 +1535,7 @@ export async function onRequest(context: {
       const order = await fetchAngelIndividualOrderStatus(uniqueOrderId, creds);
       return json({
         ok: Boolean(order),
-        source: "Angel One SmartAPI (Order Status)",
+        source: "Market Data API SmartAPI (Order Status)",
         data: order,
         retrievedAt: new Date().toISOString(),
       });
@@ -1568,7 +1568,7 @@ export async function onRequest(context: {
       const quote = await fetchAngelLtpQuote(exchange, tradingsymbol, symboltoken, creds || undefined);
       return json({
         ok: Boolean(quote),
-        source: "Angel One SmartAPI (Order LTP)",
+        source: "Market Data API SmartAPI (Order LTP)",
         data: quote,
         retrievedAt: new Date().toISOString(),
       });
@@ -1577,7 +1577,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Postback / Webhook Suite ---
+  // --- Market Data API SmartAPI Postback / Webhook Suite ---
   if (pathname === "/api/orders/angel/postback") {
     if (method === "POST") {
       try {
@@ -1606,7 +1606,7 @@ export async function onRequest(context: {
       const records = getRecentAngelPostbacks({ clientcode, orderid, statusCategory, limit });
       return json({
         ok: true,
-        source: "Angel One SmartAPI Postback / Webhook Stream",
+        source: "Market Data API SmartAPI Postback / Webhook Stream",
         webhookUrl: ANGEL_POSTBACK_DEFAULT_URL,
         count: records.length,
         data: records,
@@ -1634,7 +1634,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Margin Calculator Suite ---
+  // --- Market Data API SmartAPI Margin Calculator Suite ---
   if (
     (pathname === "/api/margin/angel/batch" || pathname === "/api/margin/angel/calculate") &&
     (method === "POST" || method === "GET")
@@ -1680,7 +1680,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Option Greeks Suite ---
+  // --- Market Data API SmartAPI Option Greeks Suite ---
   if (
     (pathname === "/api/market/angel/option-greeks" || pathname === "/api/options/angel/greeks") &&
     (method === "POST" || method === "GET")
@@ -1736,7 +1736,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI WebSocket Streaming 2.0 Suite ---
+  // --- Market Data API SmartAPI WebSocket Streaming 2.0 Suite ---
   if (pathname === "/api/streaming/angel/config" && (method === "GET" || method === "POST")) {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
@@ -1849,7 +1849,7 @@ export async function onRequest(context: {
     });
   }
 
-  // --- Angel One SmartAPI WebSocket Order Status API Suite ---
+  // --- Market Data API SmartAPI WebSocket Order Status API Suite ---
   if (pathname === "/api/streaming/angel/order-status/config" && (method === "GET" || method === "POST")) {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
@@ -1951,7 +1951,7 @@ export async function onRequest(context: {
     return json({ ok: true, message: "Cleared WebSocket order status history", retrievedAt: new Date().toISOString() });
   }
 
-  // --- Angel One SmartAPI Instruments API Suite ---
+  // --- Market Data API SmartAPI Instruments API Suite ---
   if (pathname === "/api/market/angel/instruments/scrip-master" && method === "GET") {
     const segment = url.searchParams.get("segment") || "all";
     const query = url.searchParams.get("query") || undefined;
@@ -2053,7 +2053,7 @@ export async function onRequest(context: {
     });
   }
 
-  // Angel One SmartAPI Rate Limit Suite Endpoints
+  // Market Data API SmartAPI Rate Limit Suite Endpoints
   if (pathname === "/api/market/angel/rate-limits/catalog" && method === "GET") {
     return json({
       ok: true,
@@ -2139,7 +2139,7 @@ export async function onRequest(context: {
     });
   }
 
-  // --- Angel One SmartAPI Closing Auction Session (CAS) Suite ---
+  // --- Market Data API SmartAPI Closing Auction Session (CAS) Suite ---
   if (pathname === "/api/market/angel/cas/status" && (method === "GET" || method === "POST")) {
     const timeParam = url.searchParams.get("time") || undefined;
     const casStatus = getAngelCasStatus(timeParam);
