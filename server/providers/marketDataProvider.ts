@@ -770,6 +770,8 @@ const GROWW_INDUSTRY_SECTOR_MAP: Record<number, string> = {
 };
 
 const TICKER_ALIASES: Record<string, string> = {
+  JIOPLATFORM: 'JPL',
+  JIOPLATFORMS: 'JPL',
   ZOMATO: 'ETERNAL',
   TATAMOTORS: 'TMPV',
   MM: 'M&M',
@@ -1543,8 +1545,8 @@ function mapGrowwRecordToStock(
   if (!symbol) return null;
 
   const dto = rec.livePriceDto;
-  const ltp = round2(dto?.ltp ?? rec.closePrice ?? curated?.currentPrice ?? null);
-  let prevClose = round2(dto?.close ?? rec.closePrice ?? curated?.previousClose ?? ltp);
+  const ltp = round2(dto?.ltp ?? rec.closePrice ?? null);
+  let prevClose = round2(dto?.close ?? rec.closePrice ?? null);
   // When post-close dto.close has already rolled to ltp and dayChange=0, rec.closePrice holds the prior session close
   if (
     ltp !== null &&
@@ -1556,36 +1558,30 @@ function mapGrowwRecordToStock(
   ) {
     prevClose = round2(rec.closePrice);
   }
-  const open = round2(dto?.open ?? curated?.open ?? prevClose);
-  const dayHigh = round2(dto?.high ?? curated?.dayHigh ?? ltp);
-  const dayLow = round2(dto?.low ?? curated?.dayLow ?? ltp);
-  const week52High = round2(rec.yearlyHighPrice ?? curated?.week52High ?? null);
-  const week52Low = round2(rec.yearlyLowPrice ?? curated?.week52Low ?? null);
+  const open = round2(dto?.open ?? null);
+  const dayHigh = round2(dto?.high ?? null);
+  const dayLow = round2(dto?.low ?? null);
+  const week52High = round2(rec.yearlyHighPrice ?? null);
+  const week52Low = round2(rec.yearlyLowPrice ?? null);
   const volume =
     typeof dto?.volume === 'number'
       ? Math.round(dto.volume)
-      : curated?.volume ?? null;
+      : null;
 
   // Groww all_stocks marketCap is denominated in paise (1 Cr = 1e9 paise)
   const marketCapCr =
     typeof rec.marketCap === 'number' && rec.marketCap > 0
       ? Number((rec.marketCap / 1e9).toFixed(2))
-      : curated?.marketCapCr ?? null;
+      : null;
 
   const lastTradeIso =
     toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis) ??
-    curated?.lastTradeTime ??
     retrievedAtIso;
 
   const exchange: StockInstrument['exchange'] =
     nseCode && bseCode ? 'NSE/BSE' : nseCode ? 'NSE' : 'BSE';
 
-  const sparkline =
-    curated && curated.sparkline.length > 0
-      ? [...curated.sparkline.slice(0, -1), ltp ?? curated.sparkline[curated.sparkline.length - 1]]
-      : prevClose !== null && ltp !== null
-        ? [prevClose, Number(((prevClose + ltp) / 2).toFixed(2)), ltp]
-        : [];
+  const sparkline: number[] = [];
 
   const mappedSector =
     (typeof rec.industryCode === 'number' && GROWW_INDUSTRY_SECTOR_MAP[rec.industryCode]) ||
@@ -1653,8 +1649,8 @@ function mapGrowwRecordToStock(
     volume,
     marketCapCr,
     lastTradeTime: lastTradeIso,
-    nseQuote: curated?.nseQuote ?? (nseCode ? dtoQuote : null),
-    bseQuote: curated?.bseQuote ?? (!nseCode && bseCode ? dtoQuote : null),
+    nseQuote: nseCode ? dtoQuote : null,
+    bseQuote: !nseCode && bseCode ? dtoQuote : null,
     fundamentals: curated?.fundamentals || {
       pe: null,
       pb: null,
@@ -1754,23 +1750,28 @@ function buildRegistryEquityStock(params: {
   } = params;
 
   const primaryBhav = nseBhav ?? bseBhav;
-  const hydrated = liveQuoteHydrationCache.get(symbol);
+  const cachedHydration = liveQuoteHydrationCache.get(symbol);
+  // Never let a disk-warmed or old quote override the latest exchange bhavcopy.
+  const hydrated =
+    cachedHydration && Date.now() - cachedHydration.fetchedAt < 120_000
+      ? cachedHydration
+      : undefined;
   const hydQ = hydrated?.quote;
 
   const ltp = round2(
-    hydQ?.ltp ?? primaryBhav?.last ?? primaryBhav?.close ?? curated?.currentPrice ?? null
+    hydQ?.ltp ?? primaryBhav?.last ?? primaryBhav?.close ?? null
   );
   const prevClose = round2(
-    hydQ?.previousClose ?? primaryBhav?.prevClose ?? curated?.previousClose ?? ltp
+    hydQ?.previousClose ?? primaryBhav?.prevClose ?? null
   );
-  const open = round2(hydQ?.open ?? primaryBhav?.open ?? curated?.open ?? prevClose);
-  const dayHigh = round2(hydQ?.high ?? primaryBhav?.high ?? curated?.dayHigh ?? ltp);
-  const dayLow = round2(hydQ?.low ?? primaryBhav?.low ?? curated?.dayLow ?? ltp);
+  const open = round2(hydQ?.open ?? primaryBhav?.open ?? null);
+  const dayHigh = round2(hydQ?.high ?? primaryBhav?.high ?? null);
+  const dayLow = round2(hydQ?.low ?? primaryBhav?.low ?? null);
   const volume =
     hydQ?.volume ??
     ((nseBhav?.volume ?? 0) + (bseBhav?.volume ?? 0) > 0
       ? (nseBhav?.volume ?? 0) + (bseBhav?.volume ?? 0)
-      : curated?.volume ?? null);
+      : null);
 
   const series = (nseBhav?.series || nseArch?.series || bseBhav?.series || '').toUpperCase();
   const isEtf = isin.startsWith('INF') || /\bETF\b/i.test(companyName);
@@ -1790,7 +1791,6 @@ function buildRegistryEquityStock(params: {
   const effectiveDate =
     hydQ?.lastTradeTime?.slice(0, 10) ||
     primaryBhav?.tradDt ||
-    curated?.lastTradeTime?.slice(0, 10) ||
     retrievedAtIso.slice(0, 10);
 
   const hasLiveHydration = Boolean(hydQ && Date.now() - (hydrated?.fetchedAt ?? 0) < 120_000);
@@ -1800,12 +1800,7 @@ function buildRegistryEquityStock(params: {
       ? 'DELAYED'
       : 'UNAVAILABLE';
 
-  const sparkline =
-    curated && curated.sparkline.length > 0
-      ? curated.sparkline
-      : prevClose !== null && ltp !== null
-        ? [prevClose, Number(((prevClose + ltp) / 2).toFixed(2)), ltp]
-        : [];
+  const sparkline: number[] = [];
 
   const isNseYahoo = exchange.includes('NSE') && !/^\d+$/.test(symbol);
   const resolvedStatic = resolveStaticMoverLogo(symbol, companyName);
@@ -1834,13 +1829,13 @@ function buildRegistryEquityStock(params: {
     open,
     dayHigh,
     dayLow,
-    week52High: curated?.week52High ?? null,
-    week52Low: curated?.week52Low ?? null,
+    week52High: null,
+    week52Low: null,
     volume,
-    marketCapCr: curated?.marketCapCr ?? null,
+    marketCapCr: null,
     lastTradeTime: hydQ?.lastTradeTime || (primaryBhav?.tradDt ? `${primaryBhav.tradDt}T10:00:00.000Z` : retrievedAtIso),
-    nseQuote: curated?.nseQuote ?? null,
-    bseQuote: curated?.bseQuote ?? null,
+    nseQuote: null,
+    bseQuote: null,
     fundamentals: curated?.fundamentals || {
       pe: null,
       pb: null,
@@ -1871,7 +1866,7 @@ function buildRegistryEquityStock(params: {
     dataSourcesUsed: [
       ...(nseBhav || nseArch ? ['NSE India Official'] : []),
       ...(bseBhav || bseCode !== 'N/A' ? ['BSE India Official'] : []),
-      ...(kiteNse || kiteBse ? ['Zerodha Kite Registry'] : []),
+      ...(kiteNse || kiteBse ? ['Exchange Instrument Registry'] : []),
     ],
     sparkline,
     historicalSeries: curated?.historicalSeries || [],
@@ -1924,7 +1919,9 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
       let allRaw: GrowwAllStocksRecord[] = [];
       if (firstPage?.records?.length) {
         const totalRecords = firstPage.totalRecords ?? firstPage.records.length;
-        const maxPages = Math.min(8, Math.max(1, Math.ceil(totalRecords / 1000)));
+        // Fetch every page reported by Groww. The previous 8-page cap silently
+        // omitted the tail of the NSE/BSE catalogue (especially smaller and SME listings).
+        const maxPages = Math.max(1, Math.ceil(totalRecords / 1000));
         const remainingIndices = Array.from({ length: maxPages - 1 }, (_, i) => i + 1);
         const remainingPages = await Promise.all(
           remainingIndices.map((p) => fetchAllStocksPage(p))
@@ -2254,14 +2251,17 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
         srcRow.lastCheckedAt = retrievedAtIso;
         srcRow.lastSuccessAt = retrievedAtIso;
         srcRow.recordsCount = unified.length;
-        srcRow.notes = `Live NSE & BSE full-market feed synced (${unified.length} equities across Groww, Official NSE/BSE Bhavcopies & Zerodha Kite).`;
+        srcRow.notes = `Live NSE & BSE full-market feed synced (${unified.length} equities using exchange records and instrument registries).`;
       }
 
       liveUniverseCache = unified;
       liveUniverseLastSynced = Date.now();
       liveUniverseReachable = allRaw.length > 0 || nseBhavByIsin.size > 0 || bseBhavByIsin.size > 0;
-      if (unified.length >= 2000) {
-        db.stocks = unified.slice(0, 2500);
+      if (unified.length > 0) {
+        // Keep the complete merged universe in the persistent DB. The API applies
+        // pagination at query time; truncating storage here made later pages vanish
+        // whenever the live provider was temporarily unavailable.
+        db.stocks = unified;
       }
       saveDb();
       evaluatePriceAlerts();
@@ -2344,7 +2344,7 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
       if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 30_000;
       if (force) return !cached || now - cached.fetchedAt > 15_000;
       if (s.provenance.source.includes('Groww')) return false;
-      return !cached;
+      return !cached || now - cached.fetchedAt > 30_000;
     })
     .slice(0, 50);
 
@@ -3170,7 +3170,7 @@ export async function refreshStockBySymbol(
   if (nseQuote || nseArch || nseAnnouncements.length > 0) dataSourcesUsed.push('NSE India');
   if (bseQuote || finalBseCode) dataSourcesUsed.push('BSE India');
   if (companyInfo || primaryLive) dataSourcesUsed.push('Groww Exchange & Filings');
-  if (kiteNse || kiteBse) dataSourcesUsed.push('Zerodha Kite Registry');
+  if (kiteNse || kiteBse) dataSourcesUsed.push('Exchange Instrument Registry');
   if (finalYahoo && (!indstocksCandles || indstocksCandles.length === 0)) dataSourcesUsed.push('Yahoo Finance Historical');
 
   const nowIso = new Date().toISOString();

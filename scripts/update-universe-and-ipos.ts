@@ -8,6 +8,66 @@ async function main() {
   const dbPath = path.resolve('server/data/db.json');
   const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 
+  // Add Crystal Crop Protection while its IPO is open (18–20 Nov 2026).
+  const crystalId = 'crystal-crop-protection';
+  if (!(db.ipos as IPOOffering[]).some((ipo) => ipo.id === crystalId || ipo.slug === 'crystal-crop-protection-ipo')) {
+    const provenance = {
+      source: 'Moneycontrol IPO details; cross-checked with Economic Times and Upstox',
+      retrievedAt: '2026-11-18T00:00:00.000Z',
+      effectiveDate: '2026-11-18',
+      verificationStatus: 'Verified' as const,
+      qualityStatus: 'VERIFIED' as const,
+      currency: 'INR' as const,
+      unit: 'INR per share / INR crore as applicable',
+      dataCategory: 'IPO offer terms',
+    };
+    (db.ipos as IPOOffering[]).push({
+      id: crystalId,
+      slug: 'crystal-crop-protection-ipo',
+      companyName: 'Crystal Crop Protection Limited',
+      shortName: 'Crystal Crop',
+      logoMonogram: 'CCP',
+      logoColor: '#287A52',
+      sector: 'Agriculture',
+      industry: 'Agrochemicals, crop protection and seeds',
+      category: 'Mainboard',
+      status: 'Open',
+      exchanges: ['NSE', 'BSE'],
+      website: 'https://www.crystalcropprotection.com/',
+      registrar: 'MUFG Intime India Pvt. Ltd.',
+      registrarUrl: 'https://in.mpms.mufg.com/',
+      issueSizeCr: 455.72,
+      freshIssueCr: 354.77,
+      ofsCr: 100.71,
+      priceBandLow: 259,
+      priceBandHigh: 272,
+      lotSize: 55,
+      minBidQuantity: 55,
+      minInvestment: 14960,
+      faceValue: 10,
+      dates: { openDate: '2026-11-18', closeDate: '2026-11-20', allotmentDate: '2026-11-23', refundDate: '2026-11-25', dematCreditDate: '2026-11-25', listingDate: '2026-11-26' },
+      subscription: { qib: null, nii: null, retail: null, employee: null, shareholder: null, total: null, isFinal: false, dailyBreakdown: [], provenance: { ...provenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'IPO subscription' } },
+      gmp: { latestGmp: null, previousGmp: null, lastUpdated: null, availability: 'Unavailable', source: 'Not officially published; GMP is unofficial', history: [] },
+      listing: { issuePrice: null, actualListingPrice: null, listingExchange: null, stockSymbol: null, currentMarketPrice: null, previousClose: null, listingDate: null, priceStatus: 'UNAVAILABLE', provenance: { ...provenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'Post-listing quote' } },
+      financials: { reportingBasis: 'Consolidated', years: [] },
+      valuation: { peRatio: null, pbRatio: null, marketCapCr: null, eps: null, industryAvgPe: null, reportingPeriod: 'FY2026', calculationBasis: 'Not populated; verify against RHP', peers: [] },
+      profile: {
+        overview: 'Indian crop-solutions company operating in crop protection products and seeds.',
+        productsAndServices: 'Herbicides, fungicides, insecticides, natural crop solutions and seeds.',
+        businessModel: 'Develops, manufactures and distributes crop-protection products and seeds.',
+        industryOverview: 'Agricultural inputs and crop-science products.',
+        competitivePosition: 'Established crop-solutions portfolio and distribution network.',
+        promoters: ['Aggarwal family'],
+        growthOpportunities: [],
+        strengths: ['Diversified crop-protection and seeds portfolio'],
+        risks: ['Agricultural demand and weather dependence', 'Regulatory and working-capital risks'],
+      },
+      documents: { drhpUrl: null, rhpUrl: null, prospectusUrl: null, anchorUrl: null, allotmentUrl: null, exchangeNoticeUrl: null },
+      provenance,
+    });
+    console.log('✓ Added Crystal Crop Protection IPO to db.ipos');
+  }
+
   // Update BlackBuck, Onyx Biotec, and Mangal Compusolution in db.ipos
   for (const ipo of db.ipos as IPOOffering[]) {
     if (ipo.id === 'ipo-zinka-logistics' || ipo.slug === 'zinka-logistics-ipo') {
@@ -110,7 +170,7 @@ async function main() {
     }
 
     if (ipo.id === 'crystal-crop-protection' || ipo.slug === 'crystal-crop-protection-ipo') {
-      ipo.status = 'Upcoming';
+      ipo.status = 'Open';
       ipo.priceBandLow = 259;
       ipo.priceBandHigh = 272;
       ipo.dates.openDate = '2026-11-18';
@@ -142,6 +202,9 @@ async function main() {
   console.log('--- Step 2: Fetching All Indian Equities from Official Exchange Bhavcopies & Groww ---');
   const allSyncedStocks = await syncAllIndianStocks(false);
   console.log(`Fetched ${allSyncedStocks.length} total Indian securities.`);
+  if (allSyncedStocks.length < 1000) {
+    throw new Error(`Refusing to publish an incomplete NSE/BSE universe: only ${allSyncedStocks.length} securities were fetched. Check the exchange/provider feeds and retry the build.`);
+  }
 
   // Filter valid priced stocks and sort by Market Cap then Volume
   const validPriced = allSyncedStocks.filter((s) => s.currentPrice && s.currentPrice > 0);
@@ -150,8 +213,9 @@ async function main() {
   );
   console.log(`Priced liquid equities: ${validPriced.length}`);
 
-  // Top 2,500 stocks with complete quote & profile data
-  const top2500 = validPriced.slice(0, 2500).map((s) => {
+  // Preserve the complete exchange universe in the snapshot, including securities
+  // that are currently unpriced or temporarily have no live quote.
+  const top2500 = [...allSyncedStocks].map((s) => {
     const copy = { ...s };
     if (copy.historicalSeries && copy.historicalSeries.length > 30) {
       copy.historicalSeries = copy.historicalSeries.slice(-30);
@@ -159,42 +223,49 @@ async function main() {
     return copy;
   });
 
-  // Save top 2,500 to db.stocks
+  // Save the complete NSE/BSE universe to db.stocks
   db.stocks = top2500;
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
-  console.log(`✓ Saved ${top2500.length} equities into server/data/db.json (db.stocks)`);
+  console.log(`✓ Saved the complete ${top2500.length}-security universe into server/data/db.json (db.stocks)`);
 
   // Build allLiveStocks array across ALL priced equities (6,000+)
   const allLive = validPriced.map((s) => {
     const rawPrice = s.currentPrice || 0;
-    const prev = s.previousClose || rawPrice;
-    const changeVal = Number((rawPrice - prev).toFixed(2));
-    const pct = prev > 0 ? Number(((changeVal / prev) * 100).toFixed(2)) : 0;
+    const prev = typeof s.previousClose === 'number' && s.previousClose > 0 ? s.previousClose : null;
+    const changeVal = prev !== null ? Number((rawPrice - prev).toFixed(2)) : null;
+    const pct = prev !== null ? Number(((changeVal! / prev) * 100).toFixed(2)) : null;
     return {
       name: s.companyName,
       symbol: s.symbol,
       bseCode: s.bseCode !== 'N/A' ? s.bseCode : null,
       isin: s.isin,
       logo: s.logoUrl,
+      searchId: s.searchId || null,
       initials: s.symbol.slice(0, 2).toUpperCase(),
       price: '₹' + rawPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       rawPrice,
-      change: (changeVal >= 0 ? '₹+' : '₹') + changeVal + ' (' + (pct >= 0 ? '+' : '') + pct + '%)',
+      previousClose: prev,
+      rawChange: changeVal,
+      change: changeVal === null || pct === null ? 'Unavailable' : (changeVal >= 0 ? '₹+' : '₹') + changeVal + ' (' + (pct >= 0 ? '+' : '') + pct + '%)',
       pct,
-      isGain: changeVal >= 0,
-      volume: s.volume ? s.volume.toLocaleString('en-IN') : 'Standard',
+      isGain: changeVal === null ? null : changeVal >= 0,
+      volume: s.volume ? s.volume.toLocaleString('en-IN') : 'Unavailable',
       volRaw: s.volume || 0,
-      high: s.dayHigh ?? rawPrice,
-      low: s.dayLow ?? rawPrice,
-      open: s.open ?? prev,
+      high: s.dayHigh ?? null,
+      low: s.dayLow ?? null,
+      open: s.open ?? null,
+      week52High: s.week52High ?? null,
+      week52Low: s.week52Low ?? null,
       marketCapCr: s.marketCapCr ?? null,
       category: s.exchange.includes('NSE') ? 'NSE' : 'BSE',
       status: 'LISTED',
-      priceStatus: 'TRADING',
-      priceSource: s.exchange.includes('NSE') ? 'NSE Live Bhavcopy' : 'BSE Live Bhavcopy',
-      quoteSource: 'NSE & BSE · Official Exchange Bhavcopy · Zerodha Kite Registry',
-      quoteVerified: true,
-      quoteTimestamp: s.lastTradeTime || new Date().toISOString(),
+      priceStatus: s.lastTradeTime
+        ? (new Date(s.lastTradeTime).toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }) === new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }) ? 'DELAYED' : 'STALE')
+        : 'STALE',
+      priceSource: s.exchange.includes('NSE') ? 'NSE exchange data' : 'BSE exchange data',
+      quoteSource: 'Market data feed',
+      quoteVerified: Boolean(s.lastTradeTime),
+      quoteTimestamp: s.lastTradeTime || null,
     };
   });
 
@@ -212,7 +283,7 @@ async function main() {
   snap.ipos = db.ipos;
 
   fs.writeFileSync(snapPath, JSON.stringify(snap, null, 2), 'utf8');
-  console.log(`✓ Updated public/data/live-market-data.json: ${snap.stocks.length} stocks, ${snap.allLiveStocks.length} allLiveStocks, ${snap.ipos.length} ipos`);
+  console.log(`✓ Updated public/data/live-market-data.json: ${snap.stocks.length} universe securities, ${snap.allLiveStocks.length} priced live stocks, ${snap.ipos.length} ipos`);
 
   // Sync to dist/data if it exists
   const distSnapPath = path.resolve('dist/data/live-market-data.json');

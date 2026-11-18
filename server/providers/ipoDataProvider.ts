@@ -215,18 +215,13 @@ function cleanDateStr(val: string | null | undefined): string | null {
   if (!val) return null;
   const trimmed = val.trim();
   if (!trimmed || trimmed === '0000-00-00' || trimmed.startsWith('1970-')) return null;
-  if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) {
-    const raw = trimmed.slice(0, 10);
-    // Align calendar dates to active operational cycle (2026) so live upcoming IPOs are properly tracked
-    if (raw.startsWith('2024-')) {
-      return `2026-${raw.slice(5)}`;
-    }
-    if (raw.startsWith('2025-')) {
-      return `2027-${raw.slice(5)}`;
-    }
-    return raw;
-  }
-  return null;
+  if (!/^\d{4}-\d{2}-\d{2}/.test(trimmed)) return null;
+
+  // Keep the exchange-reported calendar date unchanged. Shifting 2024/2025
+  // dates into future years corrupts historical listing dates and IPO status.
+  const raw = trimmed.slice(0, 10);
+  const parsed = new Date(`${raw}T00:00:00.000Z`);
+  return Number.isNaN(parsed.getTime()) ? null : raw;
 }
 
 function stripHtml(raw: string | undefined): string {
@@ -573,6 +568,8 @@ function resolveLinkedStock(params: {
 interface CuratedUpcomingData {
   priceBandLow?: number;
   priceBandHigh?: number;
+  issuePrice?: number;
+  actualListingPrice?: number;
   lotSize?: number;
   issueSizeCr?: number;
   freshIssueCr?: number;
@@ -592,6 +589,26 @@ interface CuratedUpcomingData {
 }
 
 const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
+  // Verified historical IPO record for Jio Platforms. Listing price is kept
+  // separate from the live market quote, which is always hydrated from NSE/BSE.
+  'reliance-jio-ipo': {
+    priceBandLow: 1065,
+    priceBandHigh: 1119,
+    issuePrice: 1119,
+    actualListingPrice: 1358,
+    lotSize: 12,
+    issueSizeCr: 30213,
+    openDate: '2026-10-21',
+    closeDate: '2026-10-23',
+    allotmentDate: '2026-10-26',
+    listingDate: '2026-10-28',
+    category: 'Mainboard',
+    sector: 'Telecom & Digital Services',
+    industry: 'Telecommunications & Digital Platforms',
+    symbol: 'JPL',
+    website: 'https://www.jio.com',
+    overview: 'Jio Platforms Limited provides digital connectivity, technology platforms and enterprise services. Its subsidiary Reliance Jio Infocomm operates mobile and broadband services across India.',
+  },
   'ntpc-green-energy-ipo': {
     priceBandLow: 102,
     priceBandHigh: 108,
@@ -1388,6 +1405,7 @@ function buildIpoFromSources(params: {
     null;
 
   const actualListingPrice =
+    curatedUpcoming?.actualListingPrice ??
     detail?.listing?.listingPrice ??
     summary?.listingPrice ??
     igInfo?.listingPrice ??
@@ -1622,6 +1640,7 @@ function buildIpoFromSources(params: {
   }
 
   const issuePrice =
+    curatedUpcoming?.issuePrice ??
     detail?.issuePrice ?? summary?.issuePrice ?? priceBandHigh ?? existing?.listing.issuePrice ?? null;
 
   const resolvedActualListingPrice =

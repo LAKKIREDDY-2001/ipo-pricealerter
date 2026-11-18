@@ -72,6 +72,7 @@ function getFallbackColor(name: string, colorHint?: string | null): string {
 }
 
 const KNOWN_STATIC_LOGOS: Record<string, string> = {
+  NSE: 'https://nsearchives.nseindia.in/web/sites/default/files/2019-07/NSE%404x-100.jpg',
   ABB: '/assets/movers/abb.webp',
   ADANIENSOL: '/assets/movers/adaniensol.webp',
   ADANIENT: '/assets/movers/adani-enterprises.png',
@@ -250,6 +251,7 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
 };
 
 const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
+  [/\\bnational\\s+stock\\s+exchange\\s+of\\s+india\\b/i, 'https://nsearchives.nseindia.in/web/sites/default/files/2019-07/NSE%404x-100.jpg'],
   [/\blarsen\s*&?\s*toubro\b/i, '/assets/movers/lt.png'],
   [/\bmahindra\s*&?\s*mahindra\b/i, '/assets/movers/mm.png'],
   [/\bindian\s*oil\b/i, '/assets/movers/ioc.png'],
@@ -409,7 +411,16 @@ export function buildLogoCandidateList(opts: {
     }
   }
 
-  // 3. Groww WebP CDN (covers 2,000+ Indian equities directly in browser)
+  // 3. Groww WebP CDN (covers a broad range of Indian equities directly in browser)
+  // Try the exchange symbol and provider search ID: some small-cap listings use
+  // a provider asset key that differs from their trading symbol.
+  const cleanSearchId = String(opts.searchId || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (cleanSearchId && cleanSearchId !== cleanSym && !/^\d+$/.test(cleanSearchId)) {
+    const searchLogo = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSearchId}.webp`;
+    if (!candidates.includes(searchLogo)) candidates.push(searchLogo);
+    const searchPng = `https://assets-netstorage.groww.in/stock-assets/logos/${cleanSearchId}.png`;
+    if (!candidates.includes(searchPng)) candidates.push(searchPng);
+  }
   if (cleanSym && !/^\d+$/.test(cleanSym)) {
     const growwWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSym}.webp`;
     if (!candidates.includes(growwWebp)) candidates.push(growwWebp);
@@ -423,13 +434,26 @@ export function buildLogoCandidateList(opts: {
     if (!candidates.includes(growwPng)) candidates.push(growwPng);
   }
 
-  // 6. BSE GSTK CDN if 6-digit BSE code
+  // 6. BSE GSTK CDN if 6-digit BSE code (WebP and PNG variants)
   if (bse6 && /^\d{6}$/.test(bse6)) {
+    const bseWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`;
+    if (!candidates.includes(bseWebp)) candidates.push(bseWebp);
     const bseUrl = `https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`;
     if (!candidates.includes(bseUrl)) candidates.push(bseUrl);
   }
 
-  // 7. Alpha Vantage CDN
+  // 7. Broad Indian listed-company logo directory, including BSE-only listings.
+  // Use exchange-qualified symbols so a BSE-only security is not mistaken for an NSE ticker.
+  if (cleanSym && !/^\d+$/.test(cleanSym)) {
+    const listedLogo = `https://api.dharun.dev/v1/logos/NSE:${encodeURIComponent(cleanSym)}`;
+    if (!candidates.includes(listedLogo)) candidates.push(listedLogo);
+  }
+  if (bse6 && /^\d{6}$/.test(bse6)) {
+    const bseListedLogo = `https://api.dharun.dev/v1/logos/BSE:${bse6}`;
+    if (!candidates.includes(bseListedLogo)) candidates.push(bseListedLogo);
+  }
+
+  // 8. Alpha Vantage CDN
   if (cleanSym && !/^\d+$/.test(cleanSym)) {
     const avPng = `https://cdn.alphavantage.co/logos/${cleanSym}.png`;
     if (!candidates.includes(avPng)) candidates.push(avPng);

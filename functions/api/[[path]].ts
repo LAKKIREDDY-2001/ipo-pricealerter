@@ -93,7 +93,37 @@ async function loadUsStocksSnapshot(request: Request, assets: { fetch: (input: R
   return null;
 }
 
-async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any | null> {
+function quoteFreshnessStatus(lastTradeTime: unknown): "DELAYED" | "STALE" {
+  if (!lastTradeTime) return "STALE";
+  const timestamp = typeof lastTradeTime === "number"
+    ? new Date(lastTradeTime > 1e12 ? lastTradeTime : lastTradeTime * 1000)
+    : new Date(String(lastTradeTime));
+  if (Number.isNaN(timestamp.getTime())) return "STALE";
+  const tradeDate = timestamp.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+  return tradeDate === today ? "DELAYED" : "STALE";
+}
+
+function stockYahooCandidates(stock: any): string[] {
+  const candidates: string[] = [];
+  const symbol = String(stock.symbol || "").trim().toUpperCase().replace(/-(EQ|BE|BZ)$/i, "");
+  const yahoo = String(stock.yahooSymbol || "").trim().toUpperCase();
+  const bseCode = String(stock.bseCode || "").trim();
+  const exchange = String(stock.exchange || "").toUpperCase();
+  const hasNse = exchange.includes("NSE");
+  const hasBse = exchange.includes("BSE") || /^\d{6}$/.test(bseCode);
+  const add = (value: string) => { if (value && !candidates.includes(value)) candidates.push(value); };
+  if (hasNse && symbol && !/^\d+$/.test(symbol)) add(symbol.endsWith(".NS") ? symbol : symbol + ".NS");
+  if (hasBse && /^\d{6}$/.test(bseCode)) add(bseCode + ".BO");
+  if (yahoo) add(yahoo);
+  if (symbol && !/^\d+$/.test(symbol)) {
+    add(symbol.endsWith(".NS") || symbol.endsWith(".BO") ? symbol : symbol + ".NS");
+    add(symbol.endsWith(".BO") ? symbol : symbol + ".BO");
+  }
+  return candidates;
+}
+
+async function fetchYahooTickerQuote(ticker: string, force = false, expectedCurrency: string | null = "INR"): Promise<any | null> {
   if (!force) {
     const cached = quoteCache.get(ticker);
     if (cached && cached.expiresAt > Date.now()) return cached.quote;
@@ -104,7 +134,7 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
     endpoint.searchParams.set("interval", "5m");
     const response = await fetch(endpoint.toString(), {
       headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
-      signal: AbortSignal.timeout(4500),
+      signal: AbortSignal.timeout(3000),
     });
     if (!response.ok) return null;
     const payload = (await response.json()) as YahooChart;
@@ -112,8 +142,12 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
     const meta = result?.meta;
     const price = Number(meta?.regularMarketPrice);
     if (!meta || !Number.isFinite(price) || price <= 0) return null;
+    // Prevent a ticker collision from assigning another company's quote to this stock.
+    if (String(meta.symbol || "").toUpperCase() !== ticker.toUpperCase()) return null;
+    if (expectedCurrency && meta.currency && String(meta.currency).toUpperCase() !== expectedCurrency) return null;
     const previous = Number(meta.chartPreviousClose ?? meta.previousClose ?? 0);
     const closes = (result?.indicators?.quote?.[0]?.close || []).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+    const lastTradeTime = meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : null;
     const quote = {
       currentPrice: price,
       previousClose: previous > 0 ? previous : null,
@@ -126,9 +160,9 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
       week52Low: typeof meta.fiftyTwoWeekLow === "number" ? meta.fiftyTwoWeekLow : null,
       volume: typeof meta.regularMarketVolume === "number" ? meta.regularMarketVolume : null,
       sparkline: closes.slice(-24),
-      lastTradeTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
+      lastTradeTime,
       quoteSource: "Market data feed",
-      quoteStatus: "DELAYED",
+      quoteStatus: quoteFreshnessStatus(lastTradeTime),
       quoteCurrency: meta.currency || "INR",
       quoteSymbol: ticker,
     };
@@ -141,8 +175,16 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
 
 async function fetchGoogleFinanceQuote(stock: any, force = false): Promise<any | null> {
   const symbol = String(stock.googleFinanceSymbol || stock.symbol || "").trim().toUpperCase();
-  if (!symbol) return null;
-  const candidates = symbol.includes(":") ? [symbol] : [symbol + ":NSE", symbol + ":BOM"];
+  const bseCode = String(stock.bseCode || "").trim();
+  const isBseOnly = String(stock.exchange || "").toUpperCase() === "BSE";
+  const candidates = symbol.includes(":")
+    ? [symbol]
+    : [
+        ...(isBseOnly && /^\d{6}$/.test(bseCode) ? ["BOM:" + bseCode] : []),
+        ...(symbol ? [symbol + ":NSE"] : []),
+        ...(/^\d{6}$/.test(bseCode) ? ["BOM:" + bseCode] : []),
+        ...(symbol ? [symbol + ":BOM"] : []),
+      ].filter((value, index, all) => all.indexOf(value) === index);
   for (const candidate of candidates) {
     const cacheKey = "google:" + candidate;
     if (!force) {
@@ -180,33 +222,26 @@ async function fetchGoogleFinanceQuote(stock: any, force = false): Promise<any |
       quoteCache.set(cacheKey, { quote, expiresAt: Date.now() + 60_000 });
       return quote;
     } catch {
-      // Continue to the next exchange candidate when this source is unavailable.
+      // Try the next exchange symbol if this source is unavailable.
     }
   }
   return null;
 }
 
 async function fetchYahooQuote(stock: any, force = false): Promise<any | null> {
-  const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
-  if (!symbol) return null;
-  const candidates = symbol.includes(".") || symbol.startsWith("^") || symbol.includes("=") || symbol.endsWith("=F")
-    ? [symbol]
-    : [`${symbol}.NS`, `${symbol}.BO`];
-  for (const ticker of candidates) {
-    const quote = await fetchYahooTickerQuote(ticker, force);
-    if (quote) return quote;
-  }
-  return null;
+  const candidates = stockYahooCandidates(stock);
+  if (!candidates.length) return null;
+  // Query NSE and BSE symbols concurrently so a missing NSE listing does not
+  // make the user wait for two serial upstream timeouts.
+  const quotes = await Promise.all(candidates.map((ticker) => fetchYahooTickerQuote(ticker, force, "INR")));
+  return quotes.find(Boolean) || null;
 }
 
 async function fetchYahooHistory(stock: any, requestedRange: string, force = false): Promise<any[]> {
-  const symbol = String(stock.yahooSymbol || stock.symbol || "").trim();
-  if (!symbol) return [];
+  const candidates = stockYahooCandidates(stock);
+  if (!candidates.length) return [];
   const range = ["1d", "5d", "1mo", "3mo", "6mo", "1y", "5y", "max"].includes(requestedRange) ? requestedRange : "1d";
   const interval = range === "1d" ? "5m" : range === "5d" ? "15m" : range === "5y" || range === "max" ? "1wk" : "1d";
-  const candidates = symbol.includes(".") || symbol.startsWith("^")
-    ? [symbol]
-    : [`${symbol}.NS`, `${symbol}.BO`];
 
   for (const ticker of candidates) {
     const cacheKey = `${ticker}:${range}`;
@@ -259,10 +294,8 @@ function normalizeStockDetail(stock: any) {
       reportingPeriod: "Latest available", source: "Company filings / exchange data",
       ...(stock.fundamentals || {}),
     },
-    dataSource: "Market data",
-    dataSourcesUsed: ["Exchange records", "Company disclosures"],
     provenance: {
-      source: stock.provenance?.source ? "Market data" : stock.dataSource ? "Market data" : "Published snapshot",
+      source: stock.provenance?.source || stock.dataSource ? "Market data" : "Published snapshot",
       retrievedAt: stock.provenance?.retrievedAt || stock.lastTradeTime || null,
       effectiveDate: stock.provenance?.effectiveDate || null,
       verificationStatus: stock.provenance?.verificationStatus || "Unverified",
@@ -283,6 +316,21 @@ function parseGrowwNumber(value: unknown): number | null {
   if (!cleaned) return null;
   const parsed = Number(cleaned[0]);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+function growwCompanyMatchesStock(stock: any, data: any): boolean {
+  const header = data?.header || {};
+  const stockIsin = String(stock.isin || "").trim().toUpperCase();
+  const companyIsin = String(header.isin || "").trim().toUpperCase();
+  if (stockIsin && stockIsin !== "AVAILABLE ON EXCHANGE" && companyIsin) {
+    return stockIsin === companyIsin;
+  }
+  const stockSymbol = String(stock.symbol || "").trim().toUpperCase();
+  const companyNse = String(header.nseScriptCode || "").trim().toUpperCase();
+  if (stockSymbol && companyNse) return stockSymbol === companyNse;
+  const stockBse = String(stock.bseCode || "").trim().toUpperCase();
+  const companyBse = String(header.bseScriptCode || "").trim().toUpperCase();
+  return Boolean(stockBse && companyBse && stockBse === companyBse);
 }
 
 async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
@@ -317,7 +365,7 @@ async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
   }
   if (!searchId) return null;
   const cached = growwCompanyCache.get(searchId);
-  if (cached && cached.expiresAt > Date.now()) return cached.data;
+  if (cached && cached.expiresAt > Date.now() && growwCompanyMatchesStock(stock, cached.data)) return cached.data;
   try {
     const endpoint = `https://groww.in/v1/api/stocks_data/v1/company/search_id/${encodeURIComponent(searchId)}?page=0&size=10`;
     const response = await fetch(endpoint, {
@@ -326,7 +374,7 @@ async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
     });
     if (!response.ok) return null;
     const data = await response.json() as any;
-    if (!data || typeof data !== "object") return null;
+    if (!data || typeof data !== "object" || !growwCompanyMatchesStock(stock, data)) return null;
     growwCompanyCache.set(searchId, { data, expiresAt: Date.now() + 6 * 60 * 60 * 1000 });
     return data;
   } catch {
@@ -435,9 +483,9 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
 
 async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
   // Keep the number of upstream requests bounded for Cloudflare Pages.
-  // Quotes for other symbols remain explicitly marked as snapshot values.
+  // Refresh every stock on the visible 50-row page; later pages are refreshed when opened.
   const MAX_QUOTE_LOOKUPS = 50;
-  const CONCURRENCY = 10;
+  const CONCURRENCY = 12;
   const result = [...stocks];
   let successful = 0;
   let next = 0;
@@ -455,7 +503,7 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
           ...(stock.provenance || {}),
           source: quote.quoteSource || "Market data feed",
           retrievedAt: quote.lastTradeTime || new Date().toISOString(),
-          verificationStatus: "Verified",
+          verificationStatus: "Unverified",
           qualityStatus: quote.quoteStatus === "DELAYED" ? "DELAYED" : "LIVE",
           currency: quote.quoteCurrency || "INR",
         },
@@ -468,43 +516,97 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
 
 function normalizeStocks(snapshot: Snapshot): any[] {
   const base = Array.isArray(snapshot.stocks) ? [...snapshot.stocks] : [];
-  const seen = new Set(base.map((s) => String(s.symbol || "").toUpperCase()));
+  const bySymbol = new Map<string, number>();
+  base.forEach((stock, index) => {
+    const symbol = String(stock.symbol || "").trim().toUpperCase();
+    if (symbol) bySymbol.set(symbol, index);
+  });
+
+  // The published snapshot intentionally contains the full security universe,
+  // while allLiveStocks contains the priced subset. Merge that priced subset
+  // into matching rows too; previously it was only used to append missing rows,
+  // leaving many existing catalogue entries with blank prices.
   for (const item of snapshot.allLiveStocks || []) {
-    const symbol = String(item.symbol || "").toUpperCase();
-    if (!symbol || seen.has(symbol)) continue;
-    seen.add(symbol);
-    const price = Number(item.rawPrice ?? item.price ?? 0);
+    const symbol = String(item.symbol || "").trim().toUpperCase();
+    if (!symbol) continue;
+    const rawPrice = Number(item.rawPrice ?? item.price ?? 0);
+    const price = Number.isFinite(rawPrice) && rawPrice > 0 ? rawPrice : null;
     const change = item.rawChange == null ? null : Number(item.rawChange);
-    const nowIso = new Date().toISOString();
-    const tradeTime = item.lastTradeTime || snapshot.lastSyncTime || nowIso;
-    base.push({
+    const tradeTime = item.quoteTimestamp || item.lastTradeTime || null;
+    const existingIndex = bySymbol.get(symbol);
+
+    if (existingIndex !== undefined) {
+      const existing = base[existingIndex];
+      const effectiveTradeTime = tradeTime || existing.lastTradeTime || null;
+      base[existingIndex] = {
+        ...existing,
+        currentPrice: price ?? existing.currentPrice ?? null,
+        previousClose: Number(item.previousClose) > 0 ? Number(item.previousClose) : existing.previousClose ?? null,
+        dayChange: Number.isFinite(change) ? change : existing.dayChange ?? null,
+        dayChangePercent: item.pct !== null && item.pct !== undefined && Number.isFinite(Number(item.pct)) ? Number(item.pct) : existing.dayChangePercent ?? null,
+        open: Number(item.open) > 0 ? Number(item.open) : existing.open ?? null,
+        dayHigh: Number(item.high) > 0 ? Number(item.high) : existing.dayHigh ?? null,
+        dayLow: Number(item.low) > 0 ? Number(item.low) : existing.dayLow ?? null,
+        week52High: Number(item.week52High) > 0 ? Number(item.week52High) : existing.week52High ?? null,
+        week52Low: Number(item.week52Low) > 0 ? Number(item.week52Low) : existing.week52Low ?? null,
+        volume: Number(item.volRaw ?? item.volume) >= 0 ? Number(item.volRaw ?? item.volume) : existing.volume ?? null,
+        marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : existing.marketCapCr ?? null,
+        logoUrl: item.logo || existing.logoUrl || null,
+        lastTradeTime: effectiveTradeTime,
+        quoteSource: item.quoteSource || existing.quoteSource || "Published market snapshot",
+        provenance: {
+          ...(existing.provenance || {}),
+          source: item.quoteSource || existing.provenance?.source || "Published market snapshot",
+          retrievedAt: effectiveTradeTime || existing.provenance?.retrievedAt || null,
+          effectiveDate: effectiveTradeTime ? effectiveTradeTime.split("T")[0] : existing.provenance?.effectiveDate || null,
+          verificationStatus: "Unverified",
+          qualityStatus: price !== null ? quoteFreshnessStatus(effectiveTradeTime) : existing.provenance?.qualityStatus || "UNAVAILABLE",
+          currency: "INR",
+          unit: "INR per share",
+          dataCategory: existing.provenance?.dataCategory || "Equities",
+        },
+      };
+      continue;
+    }
+
+    if (price === null) continue;
+    const effectiveTradeTime = tradeTime || null;
+    const stock = {
       id: `snapshot-${symbol}`,
       symbol,
       bseCode: item.bseCode || null,
       searchId: item.searchId || null,
       companyName: item.name || symbol,
+      logoUrl: item.logo || null,
       exchange: item.bseCode ? "NSE/BSE" : "NSE",
       sector: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
       industry: item.category === "RECENT_IPO" ? "Recent Listings" : "Equities",
       currentPrice: price,
-      previousClose: change == null ? null : Number((price - change).toFixed(2)),
+      previousClose: Number(item.previousClose) > 0 ? Number(item.previousClose) : change == null ? null : Number((price - change).toFixed(2)),
       dayChange: change,
-      dayChangePercent: item.rawChangePercent ?? null,
-      volume: item.volume ?? null,
-      marketCapCr: item.marketCapCr ?? null,
-      lastTradeTime: tradeTime,
-      dataSource: "Market data feed",
+      dayChangePercent: item.pct !== null && item.pct !== undefined && Number.isFinite(Number(item.pct)) ? Number(item.pct) : null,
+      open: Number(item.open) > 0 ? Number(item.open) : null,
+      dayHigh: Number(item.high) > 0 ? Number(item.high) : null,
+      dayLow: Number(item.low) > 0 ? Number(item.low) : null,
+      week52High: Number(item.week52High) > 0 ? Number(item.week52High) : null,
+      week52Low: Number(item.week52Low) > 0 ? Number(item.week52Low) : null,
+      volume: Number(item.volRaw ?? item.volume) >= 0 ? Number(item.volRaw ?? item.volume) : null,
+      marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : null,
+      lastTradeTime: effectiveTradeTime,
+      dataSource: "Published market snapshot",
       provenance: {
-        source: "Market data feed",
-        retrievedAt: tradeTime,
-        effectiveDate: tradeTime.split("T")[0],
-        verificationStatus: "Verified",
-        qualityStatus: "LIVE",
+        source: item.quoteSource || "Published market snapshot",
+        retrievedAt: effectiveTradeTime,
+        effectiveDate: effectiveTradeTime ? effectiveTradeTime.split("T")[0] : null,
+        verificationStatus: "Unverified",
+        qualityStatus: effectiveTradeTime ? quoteFreshnessStatus(effectiveTradeTime) : "STALE",
         currency: "INR",
         unit: "INR per share",
         dataCategory: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
       },
-    });
+    };
+    bySymbol.set(symbol, base.length);
+    base.push(stock);
   }
   return base;
 }
@@ -539,14 +641,17 @@ function filterAndPageStocks(all: any[], url: URL) {
     );
   }
   const changePct = (s: any) => {
-    const explicit = Number(s.dayChangePercent ?? s.changePercent);
+    const rawExplicit = s.dayChangePercent ?? s.changePercent;
+    const explicit = rawExplicit === null || rawExplicit === undefined || rawExplicit === ""
+      ? Number.NaN
+      : Number(rawExplicit);
     if (Number.isFinite(explicit)) return explicit;
     const current = Number(s.currentPrice);
     const previous = Number(s.previousClose);
-    return current > 0 && previous > 0 ? ((current - previous) / previous) * 100 : 0;
+    return current > 0 && previous > 0 ? ((current - previous) / previous) * 100 : Number.NaN;
   };
-  if (tab === "gainers") rows = rows.filter((s) => changePct(s) > 0).sort((a, b) => changePct(b) - changePct(a));
-  if (tab === "losers") rows = rows.filter((s) => changePct(s) < 0).sort((a, b) => changePct(a) - changePct(b));
+  if (tab === "gainers") rows = rows.filter((s) => Number.isFinite(changePct(s)) && changePct(s) > 0).sort((a, b) => changePct(b) - changePct(a));
+  if (tab === "losers") rows = rows.filter((s) => Number.isFinite(changePct(s)) && changePct(s) < 0).sort((a, b) => changePct(a) - changePct(b));
   if (tab === "active") rows.sort((a, b) => Number(b.volume || 0) - Number(a.volume || 0));
 
   const sortBy = url.searchParams.get("sortBy");
@@ -660,6 +765,10 @@ export async function onRequest(context: {
         ipoProvider: "build-time snapshot",
         counts: {
           stocks: normalizeStocks(snapshot).length,
+          snapshotStocks: snapshot.stocks?.length || 0,
+          pricedStocks: snapshot.allLiveStocks?.length || 0,
+          nseEquities: normalizeExchangeCounts(normalizeStocks(snapshot)).nseCount,
+          bseEquities: normalizeExchangeCounts(normalizeStocks(snapshot)).bseCount,
           ipos: snapshot.ipos?.length || 0,
           indices: snapshot.indices?.length || 0,
           blogs: snapshot.blogs?.length || 0,
@@ -683,13 +792,32 @@ export async function onRequest(context: {
       const forceIndices = url.searchParams.has("refresh");
       const baseIndices = Array.isArray(snapshot.indices) ? snapshot.indices : [];
       const refreshed = await Promise.all(baseIndices.map(async (item: any, index: number) => {
-        if (index >= 8) return item;
+        if (index >= 24) return item;
         const label = `${item.symbol || ""} ${item.name || ""}`.toUpperCase();
-        const ticker = item.yahooSymbol || (label.includes("SENSEX") ? "^BSESN" : label.includes("BANK NIFTY") ? "^NSEBANK" : label.includes("NIFTY 50") || label.includes("NIFTY50") ? "^NSEI" : label.includes("INDIA VIX") ? "^INDIAVIX" : "");
+        const ticker = label.includes("SENSEX") ? "^BSESN"
+          : label.includes("BANK NIFTY") || label.includes("NIFTY BANK") ? "^NSEBANK"
+          : label.includes("NIFTY 50") || label.includes("NIFTY50") ? "^NSEI"
+          : label.includes("INDIA VIX") ? "^INDIAVIX"
+          : label.includes("USD/INR") || label.includes("USDINR") || label.includes("USD INR") ? "INR=X"
+          : label.includes("GOLD") ? "GC=F"
+          : label.includes("SILVER") ? "SI=F"
+          : label.includes("CRUDE") ? "BZ=F"
+          : item.yahooSymbol || "";
         if (!ticker) return item;
-        const quote = await fetchYahooTickerQuote(ticker, forceIndices);
-        if (!quote) return item;
-        const defaultCurrency = item.provenance?.currency || (ticker.includes("=") ? "INR" : ticker.endsWith("=F") ? "USD" : "PTS");
+        const quote = await fetchYahooTickerQuote(ticker, forceIndices, ["GC=F", "SI=F", "BZ=F"].includes(ticker) ? null : "INR");
+        if (!quote) {
+          const lastKnownTime = item.provenance?.effectiveDate || item.provenance?.retrievedAt || null;
+          return {
+            ...item,
+            provenance: {
+              ...(item.provenance || {}),
+              source: "Published market snapshot",
+              qualityStatus: quoteFreshnessStatus(lastKnownTime),
+              verificationStatus: "Unverified",
+            },
+          };
+        }
+        const defaultCurrency = ticker.endsWith("=F") ? "USD" : ticker === "INR=X" ? "INR" : "PTS";
         return {
           ...item,
           value: quote.currentPrice,
@@ -698,10 +826,10 @@ export async function onRequest(context: {
           changePercent: quote.dayChangePercent,
           provenance: {
             ...(item.provenance || {}),
-            source: "Official Real-Time Index & Forex Feed",
+            source: "Market data feed",
             retrievedAt: quote.lastTradeTime || new Date().toISOString(),
-            qualityStatus: "LIVE",
-            verificationStatus: "Verified",
+            qualityStatus: quote.quoteStatus === "STALE" ? "STALE" : "DELAYED",
+            verificationStatus: "Unverified",
             currency: defaultCurrency,
           },
         };
@@ -711,7 +839,7 @@ export async function onRequest(context: {
         indices: refreshed,
         liveFeedReachable: liveCount > 0,
         quotesUpdated: liveCount,
-        dataSource: liveCount ? "Official Real-Time Index & Forex Feed" : "published-market-snapshot",
+        dataSource: liveCount ? "Market data feed" : "Published market snapshot",
         retrievedAt: new Date().toISOString(),
       });
     }
@@ -722,11 +850,11 @@ export async function onRequest(context: {
       }
       const base = snapshot.benchmarks?.macro || snapshot.benchmarks || {};
       const [fx, gold, silver, crude, yield10y] = await Promise.all([
-        fetchYahooTickerQuote("USDINR=X", forceMacro),
-        fetchYahooTickerQuote("GC=F", forceMacro),
-        fetchYahooTickerQuote("SI=F", forceMacro),
-        fetchYahooTickerQuote("BZ=F", forceMacro),
-        fetchYahooTickerQuote("^TNX", forceMacro),
+        fetchYahooTickerQuote("INR=X", forceMacro),
+        fetchYahooTickerQuote("GC=F", forceMacro, null),
+        fetchYahooTickerQuote("SI=F", forceMacro, null),
+        fetchYahooTickerQuote("BZ=F", forceMacro, null),
+        fetchYahooTickerQuote("^TNX", forceMacro, null),
       ]);
       const now = new Date().toISOString();
       const data = {
@@ -736,10 +864,10 @@ export async function onRequest(context: {
         brentCrude: crude ? { price: crude.currentPrice, unit: "USD/barrel", date: crude.lastTradeTime } : base.brentCrude || null,
         us10yYield: yield10y ? { rate: yield10y.currentPrice, unit: "%", date: yield10y.lastTradeTime } : base.us10yYield || null,
         retrievedAt: now,
-        source: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Global Interbank & Commodities Feed" : "Published snapshot",
+        source: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Market data feed" : "Published snapshot",
         liveFeedReachable: [fx, gold, silver, crude, yield10y].some(Boolean),
         liveQuotesCount: [fx, gold, silver, crude, yield10y].filter(Boolean).length,
-        dataSource: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Global Interbank & Commodities Live Feed" : "published-market-snapshot",
+        dataSource: [fx, gold, silver, crude, yield10y].some(Boolean) ? "Market data feed" : "Published market snapshot",
       };
       macroCache.data = data;
       macroCache.expiresAt = Date.now() + 45_000;
@@ -813,7 +941,29 @@ export async function onRequest(context: {
       let universe = normalizeStocks(snapshot);
       if (env.DB) {
         const stored = await env.DB.prepare("SELECT payload_json FROM stock_instruments ORDER BY symbol").all<any>();
-        if (stored.results?.length) universe = stored.results.map((row: any) => JSON.parse(row.payload_json));
+        if (stored.results?.length) {
+          // D1 can lag behind a freshly published exchange snapshot. Never let a
+          // partially populated D1 table replace (and shrink) the full universe.
+          const bySymbol = new Map<string, any>();
+          for (const stock of universe) {
+            const key = String(stock.symbol || stock.bseCode || "").trim().toUpperCase();
+            if (key) bySymbol.set(key, stock);
+          }
+          for (const row of stored.results) {
+            try {
+              const saved = JSON.parse(row.payload_json);
+              const key = String(saved.symbol || saved.bseCode || "").trim().toUpperCase();
+              if (!key) continue;
+              const current = bySymbol.get(key);
+              // The published snapshot is the latest build-time exchange catalogue;
+              // retain it for matches and use D1 only to fill missing securities.
+              if (!current) bySymbol.set(key, saved);
+            } catch {
+              // Ignore malformed legacy rows without losing the snapshot catalogue.
+            }
+          }
+          universe = [...bySymbol.values()];
+        }
       }
       const page = filterAndPageStocks(universe, url);
       const enriched = await enrichQuotes(page.stocks || []);
@@ -850,23 +1000,27 @@ export async function onRequest(context: {
         const historySymbols = responseStocks.map((stock: any) => String(stock.symbol || "").toUpperCase()).filter(Boolean);
         if (historySymbols.length) {
           const placeholders = historySymbols.map(() => "?").join(",");
-          const historyRows = await env.DB.prepare(
-            "SELECT symbol, price, quote_time, retrieved_at FROM stock_quote_history WHERE symbol IN (" + placeholders + ") ORDER BY retrieved_at DESC LIMIT ?"
-          ).bind(...historySymbols, historySymbols.length * 24).all<any>();
-          const historyBySymbol = new Map<string, number[]>();
-          for (const row of historyRows.results || []) {
-            const key = String(row.symbol || "").toUpperCase();
-            const price = Number(row.price);
-            if (!key || !Number.isFinite(price) || price <= 0) continue;
-            const values = historyBySymbol.get(key) || [];
-            if (values.length < 24) values.push(price);
-            historyBySymbol.set(key, values);
+          try {
+            const historyRows = await env.DB.prepare(
+              "SELECT symbol, price, quote_time, retrieved_at FROM stock_quote_history WHERE symbol IN (" + placeholders + ") ORDER BY retrieved_at DESC LIMIT ?"
+            ).bind(...historySymbols, historySymbols.length * 24).all<any>();
+            const historyBySymbol = new Map<string, number[]>();
+            for (const row of historyRows.results || []) {
+              const key = String(row.symbol || "").toUpperCase();
+              const price = Number(row.price);
+              if (!key || !Number.isFinite(price) || price <= 0) continue;
+              const values = historyBySymbol.get(key) || [];
+              if (values.length < 24) values.push(price);
+              historyBySymbol.set(key, values);
+            }
+            responseStocks = responseStocks.map((stock: any) => {
+              if (Array.isArray(stock.sparkline) && stock.sparkline.filter((v: any) => Number.isFinite(v)).length >= 2) return stock;
+              const values = (historyBySymbol.get(String(stock.symbol || "").toUpperCase()) || []).reverse();
+              return values.length >= 2 ? { ...stock, sparkline: values } : stock;
+            });
+          } catch {
+            // Historical quotes are an optional enhancement; preserve current quotes if unavailable.
           }
-          responseStocks = responseStocks.map((stock: any) => {
-            if (Array.isArray(stock.sparkline) && stock.sparkline.filter((v: any) => Number.isFinite(v)).length >= 2) return stock;
-            const values = (historyBySymbol.get(String(stock.symbol || "").toUpperCase()) || []).reverse();
-            return values.length >= 2 ? { ...stock, sparkline: values } : stock;
-          });
         }
       }
       if (env.DB && enriched.successful) {
@@ -890,8 +1044,8 @@ export async function onRequest(context: {
         liveFeedReachable: enriched.successful > 0,
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
-        quoteSource: enriched.successful > 0 ? "Market data feed" : storedQuoteCount > 0 ? "Stored market data" : "Published market snapshot",
-        quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
+        quoteSource: enriched.successful > 0 ? "Market data feed" : storedQuoteCount > 0 ? "Stored market data" : "published-market-snapshot",
+        quoteDisclaimer: "Market quotes may be delayed. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest available session.",
       });
     }
     if (pathname.startsWith("/api/stocks/")) {
@@ -942,19 +1096,25 @@ export async function onRequest(context: {
       };
 
       if (enriched && typeof enriched.currentPrice === "number" && Number.isFinite(enriched.currentPrice)) {
-        const tradeTime = enriched.lastTradeTime || nowIso;
+        const tradeTime = enriched.lastTradeTime || null;
         output.currentPrice = enriched.currentPrice;
+        output.previousClose = enriched.previousClose ?? output.previousClose;
+        output.open = enriched.open ?? output.open;
+        output.dayHigh = enriched.dayHigh ?? output.dayHigh;
+        output.dayLow = enriched.dayLow ?? output.dayLow;
+        output.week52High = enriched.week52High ?? output.week52High;
+        output.week52Low = enriched.week52Low ?? output.week52Low;
         output.dayChange = enriched.dayChange ?? output.dayChange;
         output.dayChangePercent = enriched.dayChangePercent ?? output.dayChangePercent;
         output.volume = enriched.volume ?? output.volume;
-        output.lastTradeTime = tradeTime;
+        output.lastTradeTime = tradeTime || output.lastTradeTime || null;
         output.provenance = {
           ...(output.provenance || {}),
           source: "Market data feed",
           retrievedAt: nowIso,
           effectiveDate: nowIso.split("T")[0],
-          verificationStatus: "Verified",
-          qualityStatus: "LIVE",
+          verificationStatus: "Unverified",
+          qualityStatus: enriched.quoteStatus === "STALE" ? "STALE" : "DELAYED",
           currency: enriched.quoteCurrency || "INR",
         };
         if (output.nseQuote) {
@@ -964,7 +1124,7 @@ export async function onRequest(context: {
             dayChange: enriched.dayChange ?? output.nseQuote.dayChange,
             dayChangePct: enriched.dayChangePercent ?? output.nseQuote.dayChangePct,
             volume: enriched.volume ?? output.nseQuote.volume,
-            lastTradeTime: tradeTime,
+            lastTradeTime: tradeTime || output.nseQuote.lastTradeTime,
           };
         }
         if (output.bseQuote) {
@@ -974,14 +1134,14 @@ export async function onRequest(context: {
             dayChange: enriched.dayChange ?? output.bseQuote.dayChange,
             dayChangePct: enriched.dayChangePercent ?? output.bseQuote.dayChangePct,
             volume: enriched.volume ?? output.bseQuote.volume,
-            lastTradeTime: tradeTime,
+            lastTradeTime: tradeTime || output.bseQuote.lastTradeTime,
           };
         }
         if (env.DB) {
           try {
             await env.DB.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
               VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
-              .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || "INR", "NSE/BSE Live Feed", tradeTime, nowIso, "LIVE", JSON.stringify(output)).run();
+               .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || "INR", "Market data feed", tradeTime, nowIso, "UNOFFICIAL_DELAYED", JSON.stringify(output)).run();
           } catch { /* ignore db write error */ }
         }
       } else if (!enriched && env.DB) {
@@ -995,8 +1155,8 @@ export async function onRequest(context: {
             dayChangePercent: saved.day_change_percent,
             volume: saved.volume,
             lastTradeTime: saved.quote_time,
-            quoteSource: "NSE/BSE Live Feed",
-            quoteStatus: "LIVE",
+            quoteSource: "Yahoo Finance (unofficial; may be delayed)",
+            quoteStatus: quoteFreshnessStatus(saved.quote_time),
             quoteRetrievedAt: saved.retrieved_at,
           });
           if (output.nseQuote) {
@@ -1017,8 +1177,8 @@ export async function onRequest(context: {
         stock: output,
         fromUpstream: Boolean(enriched || history.length || companyInfo),
         linkedIpo: null,
-        dataSource: enriched ? "Market data feed" : companyInfo ? "Company disclosures" : output.quoteStatus === "stored-not-live" ? "Stored market data" : "Published market snapshot",
-        quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
+        dataSource: enriched ? "Market data feed" : companyInfo ? "Company disclosures" : output.quoteStatus === "STALE" ? "Stale stored quote" : "Published market snapshot",
+        quoteDisclaimer: "Market quotes may be delayed. Prices are labelled stale when the last trade belongs to an earlier IST trading date.",
       });
     }
     if (pathname === "/api/ipos") {

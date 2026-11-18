@@ -380,44 +380,92 @@ export const api = {
       }
 
       if (snap.allLiveStocks && snap.allLiveStocks.length > 0) {
-        const seenSymbols = new Set(rawList.map((s) => s.symbol.toUpperCase()));
         for (const item of snap.allLiveStocks) {
           const sym = (item.symbol || '').toUpperCase();
-          if (!sym || seenSymbols.has(sym)) continue;
-          seenSymbols.add(sym);
+          const bseCode = item.bseCode ? String(item.bseCode) : '';
+          if (!sym && !bseCode) continue;
+
+          const rawPrice =
+            typeof item.rawPrice === 'number' && item.rawPrice > 0
+              ? item.rawPrice
+              : typeof item.price === 'number' && item.price > 0
+                ? item.price
+                : null;
+          const previousClose =
+            typeof item.previousClose === 'number' && item.previousClose > 0
+              ? item.previousClose
+              : rawPrice !== null && typeof item.rawChange === 'number'
+                ? Number((rawPrice - item.rawChange).toFixed(2))
+                : null;
+
+          const existingIndex = rawList.findIndex(
+            (stock) =>
+              (sym && stock.symbol.toUpperCase() === sym) ||
+              (bseCode && stock.bseCode === bseCode)
+          );
+          if (existingIndex >= 0) {
+            const existing = rawList[existingIndex];
+            rawList[existingIndex] = {
+              ...existing,
+              currentPrice: rawPrice ?? existing.currentPrice,
+              previousClose: previousClose ?? existing.previousClose,
+              open: typeof item.open === 'number' ? item.open : existing.open,
+              dayHigh: typeof item.high === 'number' ? item.high : existing.dayHigh,
+              dayLow: typeof item.low === 'number' ? item.low : existing.dayLow,
+              week52High: typeof item.week52High === 'number' ? item.week52High : existing.week52High,
+              week52Low: typeof item.week52Low === 'number' ? item.week52Low : existing.week52Low,
+              volume: typeof item.volRaw === 'number' ? item.volRaw : existing.volume,
+              lastTradeTime: item.quoteTimestamp || existing.lastTradeTime,
+              provenance: {
+                ...existing.provenance,
+                source: item.quoteSource || existing.provenance.source,
+                retrievedAt: item.quoteTimestamp || existing.provenance.retrievedAt,
+                effectiveDate: (item.quoteTimestamp || existing.lastTradeTime).slice(0, 10),
+                verificationStatus: rawPrice !== null ? 'Verified' : existing.provenance.verificationStatus,
+                qualityStatus: rawPrice !== null
+                  ? (item.quoteVerified ? 'VERIFIED' : 'DELAYED')
+                  : existing.provenance.qualityStatus,
+              },
+            };
+            continue;
+          }
+
+          if (!sym) continue;
           rawList.push({
-            id: `stk-${sym.toLowerCase()}-${item.bseCode || 'eq'}`,
+            id: `stk-${sym.toLowerCase()}-${bseCode || 'eq'}`,
             symbol: item.symbol,
-            bseCode: item.bseCode || 'N/A',
-            yahooSymbol: `${item.symbol}.NS`,
+            bseCode: bseCode || 'N/A',
+            yahooSymbol: `${sym}.NS`,
             companyName: item.name || item.symbol,
             logoUrl: item.logo || null,
-            exchange: (item.bseCode ? (item.symbol ? 'NSE/BSE' : 'BSE') : 'NSE') as 'NSE' | 'BSE' | 'NSE/BSE',
+            exchange: (bseCode ? 'NSE/BSE' : 'NSE') as 'NSE' | 'BSE' | 'NSE/BSE',
             sector: item.category === 'RECENT_IPO' ? 'IPO Debut' : 'Equities',
             industry: item.category === 'RECENT_IPO' ? 'Recent Listings' : 'Equities',
             isin: item.isin || 'Available on Exchange',
-            currentPrice: item.rawPrice ?? (typeof item.price === 'number' ? item.price : 0),
-            previousClose:
-              item.rawPrice && item.rawChange != null
-                ? Number((item.rawPrice - item.rawChange).toFixed(2))
-                : item.rawPrice,
-            open: item.open ?? item.rawPrice,
-            dayHigh: item.high ?? item.rawPrice,
-            dayLow: item.low ?? item.rawPrice,
-            week52High: item.high ?? null,
-            week52Low: item.low ?? null,
-            volume: item.volRaw ?? 10000,
+            currentPrice: rawPrice,
+            previousClose,
+            open: typeof item.open === 'number' ? item.open : null,
+            dayHigh: typeof item.high === 'number' ? item.high : null,
+            dayLow: typeof item.low === 'number' ? item.low : null,
+            week52High: typeof item.week52High === 'number' ? item.week52High : null,
+            week52Low: typeof item.week52Low === 'number' ? item.week52Low : null,
+            volume: typeof item.volRaw === 'number' ? item.volRaw : null,
             marketCapCr: item.marketCapCr ?? null,
             lastTradeTime: item.quoteTimestamp || new Date().toISOString(),
-            sparkline: [item.low ?? item.rawPrice, item.high ?? item.rawPrice, item.rawPrice ?? 0],
+            sparkline:
+              previousClose !== null && rawPrice !== null
+                ? [previousClose, Number(((previousClose + rawPrice) / 2).toFixed(2)), rawPrice]
+                : [],
             historicalSeries: [],
             announcements: [],
             provenance: {
               source: item.quoteSource || 'NSE & BSE',
               retrievedAt: item.quoteTimestamp || new Date().toISOString(),
               effectiveDate: (item.quoteTimestamp || new Date().toISOString()).slice(0, 10),
-              verificationStatus: 'Verified',
-              qualityStatus: 'VERIFIED',
+              verificationStatus: rawPrice !== null ? 'Verified' : 'Provisional',
+              qualityStatus: rawPrice !== null
+                ? (item.quoteVerified ? 'VERIFIED' : 'DELAYED')
+                : 'UNAVAILABLE',
               currency: 'INR',
               unit: 'INR',
               dataCategory: 'Equities',
@@ -505,6 +553,40 @@ export const api = {
           s.companyName?.toLowerCase().includes(symLower)
       );
       if (found) {
+        const liveMatchForFound = snap.allLiveStocks?.find(
+          (item: any) =>
+            (item.symbol || '').toLowerCase() === symLower ||
+            (item.bseCode || '').toLowerCase() === symLower ||
+            (item.name || '').toLowerCase().includes(symLower) ||
+            (item.symbol || '').toUpperCase() === found.symbol.toUpperCase() ||
+            (item.bseCode && item.bseCode === found.bseCode)
+        );
+        const livePrice =
+          typeof liveMatchForFound?.rawPrice === 'number' && liveMatchForFound.rawPrice > 0
+            ? liveMatchForFound.rawPrice
+            : typeof liveMatchForFound?.price === 'number' && liveMatchForFound.price > 0
+              ? liveMatchForFound.price
+              : null;
+        const livePreviousClose =
+          typeof liveMatchForFound?.previousClose === 'number' && liveMatchForFound.previousClose > 0
+            ? liveMatchForFound.previousClose
+            : livePrice !== null && typeof liveMatchForFound?.rawChange === 'number'
+              ? Number((livePrice - liveMatchForFound.rawChange).toFixed(2))
+              : null;
+        const stock = liveMatchForFound
+          ? {
+              ...found,
+              currentPrice: livePrice ?? found.currentPrice,
+              previousClose: livePreviousClose ?? found.previousClose,
+              open: typeof liveMatchForFound.open === 'number' ? liveMatchForFound.open : found.open,
+              dayHigh: typeof liveMatchForFound.high === 'number' ? liveMatchForFound.high : found.dayHigh,
+              dayLow: typeof liveMatchForFound.low === 'number' ? liveMatchForFound.low : found.dayLow,
+              week52High: typeof liveMatchForFound.week52High === 'number' ? liveMatchForFound.week52High : found.week52High,
+              week52Low: typeof liveMatchForFound.week52Low === 'number' ? liveMatchForFound.week52Low : found.week52Low,
+              volume: typeof liveMatchForFound.volRaw === 'number' ? liveMatchForFound.volRaw : found.volume,
+              lastTradeTime: liveMatchForFound.quoteTimestamp || found.lastTradeTime,
+            }
+          : found;
         const allIpos = [...(snap.ipos || []), ...FALLBACK_MARKET_DATA.ipos];
         const linkedIpo =
           allIpos.find(
@@ -512,7 +594,7 @@ export const api = {
               i.listing?.stockSymbol?.toLowerCase() === symLower ||
               i.slug === found.ipoHistorySlug
           ) || null;
-        return { stock: found, fromUpstream: false, linkedIpo };
+        return { stock, fromUpstream: false, linkedIpo };
       }
 
       if (snap.allLiveStocks && snap.allLiveStocks.length > 0) {
@@ -523,8 +605,16 @@ export const api = {
             (item.name || '').toLowerCase().includes(symLower)
         );
         if (liveMatch) {
-          const rawPrice = liveMatch.rawPrice ?? (typeof liveMatch.price === 'number' ? liveMatch.price : 100);
-          const prev = liveMatch.open ?? rawPrice;
+          const rawPrice =
+            typeof liveMatch.rawPrice === 'number' && liveMatch.rawPrice > 0
+              ? liveMatch.rawPrice
+              : typeof liveMatch.price === 'number' && liveMatch.price > 0
+                ? liveMatch.price
+                : null;
+          const prev =
+            typeof liveMatch.previousClose === 'number' && liveMatch.previousClose > 0
+              ? liveMatch.previousClose
+              : null;
           const liveStock: StockInstrument = {
             id: `stk-${liveMatch.symbol.toLowerCase()}-${liveMatch.bseCode || 'eq'}`,
             symbol: liveMatch.symbol,
@@ -538,15 +628,15 @@ export const api = {
             isin: liveMatch.isin || 'Available on Exchange',
             currentPrice: rawPrice,
             previousClose: prev,
-            open: prev,
-            dayHigh: liveMatch.high ?? rawPrice,
-            dayLow: liveMatch.low ?? rawPrice,
-            week52High: liveMatch.high ?? null,
-            week52Low: liveMatch.low ?? null,
-            volume: liveMatch.volRaw ?? 10000,
+            open: typeof liveMatch.open === 'number' ? liveMatch.open : null,
+            dayHigh: typeof liveMatch.high === 'number' ? liveMatch.high : null,
+            dayLow: typeof liveMatch.low === 'number' ? liveMatch.low : null,
+            week52High: typeof liveMatch.week52High === 'number' ? liveMatch.week52High : null,
+            week52Low: typeof liveMatch.week52Low === 'number' ? liveMatch.week52Low : null,
+            volume: typeof liveMatch.volRaw === 'number' ? liveMatch.volRaw : null,
             marketCapCr: liveMatch.marketCapCr ?? null,
             lastTradeTime: liveMatch.quoteTimestamp || new Date().toISOString(),
-            sparkline: [liveMatch.low ?? rawPrice, liveMatch.high ?? rawPrice, rawPrice],
+            sparkline: [],
             historicalSeries: [],
             announcements: [],
             provenance: {
@@ -586,25 +676,25 @@ export const api = {
         sector: 'Equities',
         industry: 'Indian Equities',
         isin: '',
-        currentPrice: 100,
-        previousClose: 100,
-        open: 100,
-        dayHigh: 102,
-        dayLow: 99,
-        week52High: 120,
-        week52Low: 80,
-        volume: 50000,
-        marketCapCr: 1000,
+        currentPrice: null,
+        previousClose: null,
+        open: null,
+        dayHigh: null,
+        dayLow: null,
+        week52High: null,
+        week52Low: null,
+        volume: null,
+        marketCapCr: null,
         lastTradeTime: new Date().toISOString(),
-        sparkline: [99, 100, 101, 100, 102, 100],
+        sparkline: [],
         historicalSeries: [],
         announcements: [],
         provenance: {
           source: 'NSE / BSE Feed',
           retrievedAt: new Date().toISOString(),
           effectiveDate: new Date().toISOString().slice(0, 10),
-          verificationStatus: 'Verified',
-          qualityStatus: 'VERIFIED',
+          verificationStatus: 'Provisional',
+          qualityStatus: 'UNAVAILABLE',
           currency: 'INR',
           unit: 'INR',
           dataCategory: 'Equities',
