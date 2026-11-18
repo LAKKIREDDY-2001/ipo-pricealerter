@@ -432,8 +432,10 @@ export function buildLogoCandidateList(opts: {
     if (!candidates.includes(growwPng)) candidates.push(growwPng);
   }
 
-  // 6. BSE GSTK CDN if 6-digit BSE code
+  // 6. BSE GSTK CDN if 6-digit BSE code (WebP and PNG variants)
   if (bse6 && /^\d{6}$/.test(bse6)) {
+    const bseWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`;
+    if (!candidates.includes(bseWebp)) candidates.push(bseWebp);
     const bseUrl = `https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`;
     if (!candidates.includes(bseUrl)) candidates.push(bseUrl);
   }
