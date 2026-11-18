@@ -115,6 +115,25 @@ import {
   calculateAngelBatchMargin,
   clearCachedAngelSession,
   getCachedAngelSession,
+  ANGEL_ORDER_UPDATE_WS_URL,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS,
+  ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS,
+  ANGEL_ORDER_STATUS_CODES,
+  ANGEL_ORDER_UPDATE_WS_ERROR_CODES,
+  buildAngelOrderUpdateWsHeaders,
+  buildAngelOrderUpdateWsInitialResponse,
+  validateAngelWsConnectionLimit,
+  classifyAngelWsOrderStatus,
+  parseAngelOrderUpdateMessage,
+  recordAngelOrderUpdate,
+  getRecentAngelOrderUpdates,
+  clearAngelOrderUpdates,
+  createSimulatedAngelOrderUpdate,
+  type AngelWsOrderStatusMessage,
+  type AngelWsOrderStatusRecord,
+  type AngelWsOrderData,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -1467,5 +1486,224 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(sim.binary.byteLength, 379);
     assert.equal(sim.tick.token, '3045');
     assert.equal(sim.tick.lastTradedPrice, 820.5);
+  });
+
+  await t.test('validates Angel One WebSocket Order Status URL, 10s heartbeat protocol, and connection limits', () => {
+    assert.equal(ANGEL_ORDER_UPDATE_WS_URL, 'wss://tns.angelone.in/smart-order-update');
+    assert.equal(ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ, 'ping');
+    assert.equal(ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP, 'pong');
+    assert.equal(ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS, 10000, 'Heartbeat must be 10 seconds per official doc');
+    assert.equal(ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS, 3, 'Client code is limited to 3 concurrent connections');
+  });
+
+  await t.test('constructs WebSocket Order Status authorization headers with Bearer token', () => {
+    const rawToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.sample';
+    const headers = buildAngelOrderUpdateWsHeaders(rawToken);
+    assert.equal(headers.Authorization, `Bearer ${rawToken}`);
+
+    // If already prefixed with Bearer
+    const prefixedHeaders = buildAngelOrderUpdateWsHeaders(`Bearer ${rawToken}`);
+    assert.equal(prefixedHeaders.Authorization, `Bearer ${rawToken}`);
+  });
+
+  await t.test('enforces max 3 connections per client code returning 429 error code upon breach', () => {
+    const check0 = validateAngelWsConnectionLimit(0);
+    assert.equal(check0.allowed, true);
+    assert.equal(check0.statusCode, 200);
+
+    const check2 = validateAngelWsConnectionLimit(2);
+    assert.equal(check2.allowed, true);
+    assert.equal(check2.statusCode, 200);
+
+    // 3 connections active - opening 4th is blocked
+    const check3 = validateAngelWsConnectionLimit(3);
+    assert.equal(check3.allowed, false);
+    assert.equal(check3.statusCode, 429);
+    assert.ok(check3.errorMessage?.includes('3 connections'));
+
+    const check4 = validateAngelWsConnectionLimit(4);
+    assert.equal(check4.allowed, false);
+    assert.equal(check4.statusCode, 429);
+  });
+
+  await t.test('constructs AB00 initial connection response conforming to official schema', () => {
+    const initial = buildAngelOrderUpdateWsInitialResponse('CLIENT_TEST_99');
+    assert.equal(initial['user-id'], 'CLIENT_TEST_99');
+    assert.equal(initial['status-code'], '200');
+    assert.equal(initial['order-status'], 'AB00');
+    assert.equal(initial['error-message'], '');
+    assert.ok(initial.orderData);
+    assert.equal(initial.orderData.price, 0);
+    assert.equal(initial.orderData.quantity, '0');
+    assert.equal(initial.orderData.tradingsymbol, '');
+    assert.equal(initial.orderData.orderid, '');
+  });
+
+  await t.test('classifies all official order status codes AB00 through AB11', () => {
+    const expected = [
+      { code: 'AB00', label: 'Connected', category: 'CONNECTION' },
+      { code: 'AB01', label: 'Open', category: 'OPEN' },
+      { code: 'AB02', label: 'Cancelled', category: 'CANCELLED' },
+      { code: 'AB03', label: 'Rejected', category: 'REJECTED' },
+      { code: 'AB04', label: 'Modified', category: 'MODIFIED' },
+      { code: 'AB05', label: 'Complete', category: 'COMPLETE' },
+      { code: 'AB06', label: 'AMO Received', category: 'AMO' },
+      { code: 'AB07', label: 'AMO Cancelled', category: 'CANCELLED' },
+      { code: 'AB08', label: 'AMO Modify Received', category: 'AMO' },
+      { code: 'AB09', label: 'Open Pending', category: 'PENDING' },
+      { code: 'AB10', label: 'Trigger Pending', category: 'PENDING' },
+      { code: 'AB11', label: 'Modify Pending', category: 'PENDING' },
+    ];
+
+    for (const item of expected) {
+      const info = classifyAngelWsOrderStatus(item.code);
+      assert.equal(info.code, item.code);
+      assert.equal(info.label, item.label);
+      assert.equal(info.category, item.category);
+      assert.ok(info.description.length > 0);
+    }
+
+    // Fallback for unknown
+    const unknown = classifyAngelWsOrderStatus('AB99');
+    assert.equal(unknown.code, 'AB99');
+    assert.equal(unknown.label, 'AB99');
+  });
+
+  await t.test('maps WebSocket Order Status error codes 401, 403, and 429', () => {
+    assert.ok(ANGEL_ORDER_UPDATE_WS_ERROR_CODES[401].description.includes('invalid'));
+    assert.ok(ANGEL_ORDER_UPDATE_WS_ERROR_CODES[403].description.includes('expired'));
+    assert.ok(ANGEL_ORDER_UPDATE_WS_ERROR_CODES[429].description.includes('maximum 3 connections'));
+  });
+
+  await t.test('parses and validates official sample order status update message', () => {
+    const rawSample = JSON.stringify({
+      'user-id': 'Your_client_code',
+      'status-code': '200',
+      'order-status': 'AB00',
+      'error-message': '',
+      orderData: {
+        variety: 'NORMAL',
+        ordertype: 'LIMIT',
+        ordertag: '10007712',
+        producttype: 'DELIVERY',
+        price: 551,
+        triggerprice: 0,
+        quantity: '1',
+        disclosedquantity: '0',
+        duration: 'DAY',
+        squareoff: 0,
+        stoploss: 0,
+        trailingstoploss: 0,
+        tradingsymbol: 'SBIN-EQ',
+        transactiontype: 'BUY',
+        exchange: 'NSE',
+        symboltoken: '3045',
+        instrumenttype: '',
+        strikeprice: -1,
+        optiontype: '',
+        expirydate: '',
+        lotsize: '1',
+        cancelsize: '0',
+        averageprice: 0,
+        filledshares: '0',
+        unfilledshares: '1',
+        orderid: '1111111',
+        text: 'Adapter is Logged Off',
+        status: 'rejected',
+        orderstatus: 'rejected',
+        updatetime: '25-Oct-2023 23:53:21',
+        exchtime: '',
+        exchorderupdatetime: '',
+        fillid: '',
+        filltime: '',
+        parentorderid: '',
+      },
+    });
+
+    const parsed = parseAngelOrderUpdateMessage(rawSample);
+    assert.equal(parsed['user-id'], 'Your_client_code');
+    assert.equal(parsed['status-code'], '200');
+    assert.equal(parsed['order-status'], 'AB00');
+    assert.equal(parsed.orderData.tradingsymbol, 'SBIN-EQ');
+    assert.equal(parsed.orderData.price, 551);
+    assert.equal(parsed.orderData.quantity, '1');
+    assert.equal(parsed.orderData.orderid, '1111111');
+    assert.equal(parsed.orderData.text, 'Adapter is Logged Off');
+  });
+
+  await t.test('simulates order lifecycle events, records updates, and filters in-memory feed', () => {
+    clearAngelOrderUpdates();
+    assert.equal(getRecentAngelOrderUpdates().length, 0);
+
+    // 1. Initial Connection AB00
+    const connMsg = createSimulatedAngelOrderUpdate({ userId: 'USR101', orderStatus: 'AB00' });
+    assert.equal(connMsg['order-status'], 'AB00');
+    recordAngelOrderUpdate(connMsg);
+
+    // 2. Open Order AB01
+    const openMsg = createSimulatedAngelOrderUpdate({
+      userId: 'USR101',
+      orderStatus: 'AB01',
+      orderId: 'ORD_2001',
+      tradingsymbol: 'RELIANCE-EQ',
+      quantity: 50,
+      price: 2950.0,
+      transactiontype: 'BUY',
+    });
+    assert.equal(openMsg['order-status'], 'AB01');
+    assert.equal(openMsg.orderData.quantity, '50');
+    assert.equal(openMsg.orderData.filledshares, '0');
+    recordAngelOrderUpdate(openMsg);
+
+    // 3. Modified Order AB04
+    const modMsg = createSimulatedAngelOrderUpdate({
+      userId: 'USR101',
+      orderStatus: 'AB04',
+      orderId: 'ORD_2001',
+      tradingsymbol: 'RELIANCE-EQ',
+      quantity: 50,
+      price: 2945.0,
+    });
+    assert.equal(modMsg['order-status'], 'AB04');
+    assert.equal(modMsg.orderData.price, 2945.0);
+    recordAngelOrderUpdate(modMsg);
+
+    // 4. Complete Execution AB05
+    const execMsg = createSimulatedAngelOrderUpdate({
+      userId: 'USR101',
+      orderStatus: 'AB05',
+      orderId: 'ORD_2001',
+      tradingsymbol: 'RELIANCE-EQ',
+      quantity: 50,
+      price: 2945.0,
+    });
+    assert.equal(execMsg['order-status'], 'AB05');
+    assert.equal(execMsg.orderData.filledshares, '50');
+    assert.equal(execMsg.orderData.unfilledshares, '0');
+    assert.ok(execMsg.orderData.fillid.length > 0);
+    const rec = recordAngelOrderUpdate(execMsg);
+    assert.equal(rec.fillPercent, 100);
+    assert.equal(rec.orderStatusInfo.category, 'COMPLETE');
+
+    // Query all
+    const all = getRecentAngelOrderUpdates();
+    assert.equal(all.length, 4);
+
+    // Filter by orderId
+    const ordList = getRecentAngelOrderUpdates({ orderId: 'ORD_2001' });
+    assert.equal(ordList.length, 3);
+
+    // Filter by orderStatus AB05
+    const completeList = getRecentAngelOrderUpdates({ orderStatus: 'AB05' });
+    assert.equal(completeList.length, 1);
+    assert.equal(completeList[0].orderData.orderid, 'ORD_2001');
+
+    // Filter by symbol
+    const relList = getRecentAngelOrderUpdates({ symbol: 'RELIANCE' });
+    assert.equal(relList.length, 3);
+
+    // Clear
+    clearAngelOrderUpdates();
+    assert.equal(getRecentAngelOrderUpdates().length, 0);
   });
 });

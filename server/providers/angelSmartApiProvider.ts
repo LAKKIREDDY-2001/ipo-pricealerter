@@ -4342,3 +4342,596 @@ export function createSimulatedAngelWsTick(options: {
 
   return { tick, binary, base64 };
 }
+
+/**
+ * ============================================================================
+ * Angel One SmartAPI WebSocket Order Status API Suite
+ * Reference: https://smartapi.angelone.in/docs/WebSocketOrderStatus#
+ *
+ * Real-time streaming WebSocket server connection providing live order status
+ * updates, execution fills, modifications, cancellations, and AMO status.
+ *
+ * URL: wss://tns.angelone.in/smart-order-update
+ * Headers: Authorization: Bearer AUTHORIZATION_TOKEN
+ * Limit: 3 connections per client code (breach code 429).
+ * Heartbeat: Client periodically sends ping every 10 seconds, server replies pong.
+ * ============================================================================
+ */
+
+export const ANGEL_ORDER_UPDATE_WS_URL = 'wss://tns.angelone.in/smart-order-update';
+export const ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ = 'ping';
+export const ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP = 'pong';
+export const ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS = 10000; // 10 seconds
+export const ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS = 3;
+
+export type AngelWsOrderStatusCategory =
+  | 'CONNECTION'
+  | 'OPEN'
+  | 'CANCELLED'
+  | 'REJECTED'
+  | 'MODIFIED'
+  | 'COMPLETE'
+  | 'AMO'
+  | 'PENDING';
+
+export interface AngelWsOrderStatusCodeInfo {
+  code: string;
+  label: string;
+  description: string;
+  category: AngelWsOrderStatusCategory;
+  badgeColor: string;
+}
+
+export const ANGEL_ORDER_STATUS_CODES: Record<string, AngelWsOrderStatusCodeInfo> = {
+  AB00: {
+    code: 'AB00',
+    label: 'Connected',
+    description: 'After-successful connection',
+    category: 'CONNECTION',
+    badgeColor: 'blue',
+  },
+  AB01: {
+    code: 'AB01',
+    label: 'Open',
+    description: 'Order open in exchange book',
+    category: 'OPEN',
+    badgeColor: 'emerald',
+  },
+  AB02: {
+    code: 'AB02',
+    label: 'Cancelled',
+    description: 'Order cancelled',
+    category: 'CANCELLED',
+    badgeColor: 'rose',
+  },
+  AB03: {
+    code: 'AB03',
+    label: 'Rejected',
+    description: 'Order rejected by RMS or exchange',
+    category: 'REJECTED',
+    badgeColor: 'red',
+  },
+  AB04: {
+    code: 'AB04',
+    label: 'Modified',
+    description: 'Order modified successfully',
+    category: 'MODIFIED',
+    badgeColor: 'amber',
+  },
+  AB05: {
+    code: 'AB05',
+    label: 'Complete',
+    description: 'Order fully executed / traded',
+    category: 'COMPLETE',
+    badgeColor: 'green',
+  },
+  AB06: {
+    code: 'AB06',
+    label: 'AMO Received',
+    description: 'After market order req received',
+    category: 'AMO',
+    badgeColor: 'indigo',
+  },
+  AB07: {
+    code: 'AB07',
+    label: 'AMO Cancelled',
+    description: 'Cancelled after market order',
+    category: 'CANCELLED',
+    badgeColor: 'rose',
+  },
+  AB08: {
+    code: 'AB08',
+    label: 'AMO Modify Received',
+    description: 'Modify after market order req received',
+    category: 'AMO',
+    badgeColor: 'indigo',
+  },
+  AB09: {
+    code: 'AB09',
+    label: 'Open Pending',
+    description: 'Open pending at exchange',
+    category: 'PENDING',
+    badgeColor: 'sky',
+  },
+  AB10: {
+    code: 'AB10',
+    label: 'Trigger Pending',
+    description: 'Trigger pending (Stop-loss)',
+    category: 'PENDING',
+    badgeColor: 'purple',
+  },
+  AB11: {
+    code: 'AB11',
+    label: 'Modify Pending',
+    description: 'Modify pending at exchange',
+    category: 'PENDING',
+    badgeColor: 'orange',
+  },
+};
+
+export const ANGEL_ORDER_UPDATE_WS_ERROR_CODES: Record<
+  number,
+  { code: number; message: string; description: string; resolution: string }
+> = {
+  401: {
+    code: 401,
+    message: 'Unauthorized',
+    description: 'If the AUTHORIZATION_TOKEN is invalid, you will receive a 401 Response Code.',
+    resolution: 'Re-authenticate with TOTP login to obtain a valid JWT token.',
+  },
+  403: {
+    code: 403,
+    message: 'Forbidden / Expired Token',
+    description: 'If the AUTHORIZATION_TOKEN is expired, you will receive a 403 Response Code.',
+    resolution: 'Renew token using refresh token or re-authenticate with client PIN and TOTP.',
+  },
+  429: {
+    code: 429,
+    message: 'Too Many Requests / Connection Limit Exceeded',
+    description: 'If you breach the connection limit (maximum 3 connections per user), you will receive a 429 Response Code.',
+    resolution: 'Close unused connections; each client code is limited to 3 connections.',
+  },
+};
+
+export interface AngelWsOrderData {
+  variety: string;
+  ordertype: string;
+  ordertag: string;
+  producttype: string;
+  price: number;
+  triggerprice: number;
+  quantity: string;
+  disclosedquantity: string;
+  duration: string;
+  squareoff: number;
+  stoploss: number;
+  trailingstoploss: number;
+  tradingsymbol: string;
+  transactiontype: string;
+  exchange: string;
+  symboltoken: string;
+  instrumenttype: string;
+  strikeprice: number;
+  optiontype: string;
+  expirydate: string;
+  lotsize: string;
+  cancelsize: string;
+  averageprice: number;
+  filledshares: string;
+  unfilledshares: string;
+  orderid: string;
+  text: string;
+  status: string;
+  orderstatus: string;
+  updatetime: string;
+  exchtime: string;
+  exchorderupdatetime: string;
+  fillid: string;
+  filltime: string;
+  parentorderid: string;
+}
+
+export interface AngelWsOrderStatusMessage {
+  'user-id': string;
+  'status-code': string;
+  'order-status': string;
+  'error-message': string;
+  orderData: AngelWsOrderData;
+}
+
+export interface AngelWsOrderStatusRecord {
+  userId: string;
+  statusCode: string;
+  orderStatusCode: string;
+  orderStatusInfo: AngelWsOrderStatusCodeInfo;
+  errorMessage: string;
+  orderData: AngelWsOrderData;
+  receivedAt: string;
+  numericPrice: number;
+  numericAvgPrice: number;
+  numericQuantity: number;
+  numericFilledShares: number;
+  numericUnfilledShares: number;
+  fillPercent: number;
+}
+
+/**
+ * Builds HTTP headers required to establish the WebSocket connection.
+ * Header: Authorization: Bearer AUTHORIZATION_TOKEN
+ */
+export function buildAngelOrderUpdateWsHeaders(authToken?: string): Record<string, string> {
+  const token = (authToken || '').trim();
+  return {
+    Authorization: token.startsWith('Bearer ') ? token : `Bearer ${token}`,
+  };
+}
+
+/**
+ * Validates whether opening a new WebSocket connection would exceed the 3 connections limit.
+ */
+export function validateAngelWsConnectionLimit(currentActiveConnections: number): {
+  allowed: boolean;
+  statusCode: number;
+  errorMessage?: string;
+} {
+  if (currentActiveConnections >= ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS) {
+    return {
+      allowed: false,
+      statusCode: 429,
+      errorMessage: ANGEL_ORDER_UPDATE_WS_ERROR_CODES[429].description,
+    };
+  }
+  return {
+    allowed: true,
+    statusCode: 200,
+  };
+}
+
+/**
+ * Builds standard AB00 Initial Response received upon successful connection.
+ */
+export function buildAngelOrderUpdateWsInitialResponse(
+  userId: string = 'Your_client_code'
+): AngelWsOrderStatusMessage {
+  return {
+    'user-id': userId,
+    'status-code': '200',
+    'order-status': 'AB00',
+    'error-message': '',
+    orderData: {
+      variety: '',
+      ordertype: '',
+      ordertag: '',
+      producttype: '',
+      price: 0,
+      triggerprice: 0,
+      quantity: '0',
+      disclosedquantity: '0',
+      duration: '',
+      squareoff: 0,
+      stoploss: 0,
+      trailingstoploss: 0,
+      tradingsymbol: '',
+      transactiontype: '',
+      exchange: '',
+      symboltoken: '',
+      instrumenttype: '',
+      strikeprice: 0,
+      optiontype: '',
+      expirydate: '',
+      lotsize: '0',
+      cancelsize: '0',
+      averageprice: 0,
+      filledshares: '',
+      unfilledshares: '',
+      orderid: '',
+      text: '',
+      status: '',
+      orderstatus: '',
+      updatetime: '',
+      exchtime: '',
+      exchorderupdatetime: '',
+      fillid: '',
+      filltime: '',
+      parentorderid: '',
+    },
+  };
+}
+
+/**
+ * Classifies an order status code into human-readable details and UI properties.
+ */
+export function classifyAngelWsOrderStatus(statusCode: string): AngelWsOrderStatusCodeInfo {
+  const code = (statusCode || '').trim().toUpperCase();
+  if (ANGEL_ORDER_STATUS_CODES[code]) {
+    return ANGEL_ORDER_STATUS_CODES[code];
+  }
+  return {
+    code: code || 'UNKNOWN',
+    label: code || 'Unknown',
+    description: 'Unknown order status code',
+    category: 'OPEN',
+    badgeColor: 'slate',
+  };
+}
+
+/**
+ * Parses and validates an incoming raw JSON message from the WebSocket connection.
+ */
+export function parseAngelOrderUpdateMessage(raw: string | object): AngelWsOrderStatusMessage {
+  let parsed: any;
+  if (typeof raw === 'string') {
+    parsed = JSON.parse(raw);
+  } else {
+    parsed = raw;
+  }
+
+  if (!parsed || typeof parsed !== 'object') {
+    throw new Error('Invalid WebSocket order status message: payload must be a JSON object');
+  }
+
+  const userId = String(parsed['user-id'] || parsed.userId || 'CLIENT_USER');
+  const statusCode = String(parsed['status-code'] || parsed.statusCode || '200');
+  const orderStatus = String(parsed['order-status'] || parsed.orderStatus || 'AB00').toUpperCase();
+  const errorMessage = String(parsed['error-message'] || parsed.errorMessage || '');
+
+  const rawData = parsed.orderData || parsed.data || {};
+
+  const orderData: AngelWsOrderData = {
+    variety: String(rawData.variety ?? ''),
+    ordertype: String(rawData.ordertype ?? ''),
+    ordertag: String(rawData.ordertag ?? ''),
+    producttype: String(rawData.producttype ?? ''),
+    price: Number(rawData.price ?? 0),
+    triggerprice: Number(rawData.triggerprice ?? 0),
+    quantity: String(rawData.quantity ?? '0'),
+    disclosedquantity: String(rawData.disclosedquantity ?? '0'),
+    duration: String(rawData.duration ?? ''),
+    squareoff: Number(rawData.squareoff ?? 0),
+    stoploss: Number(rawData.stoploss ?? 0),
+    trailingstoploss: Number(rawData.trailingstoploss ?? 0),
+    tradingsymbol: String(rawData.tradingsymbol ?? ''),
+    transactiontype: String(rawData.transactiontype ?? ''),
+    exchange: String(rawData.exchange ?? ''),
+    symboltoken: String(rawData.symboltoken ?? ''),
+    instrumenttype: String(rawData.instrumenttype ?? ''),
+    strikeprice: Number(rawData.strikeprice ?? 0),
+    optiontype: String(rawData.optiontype ?? ''),
+    expirydate: String(rawData.expirydate ?? ''),
+    lotsize: String(rawData.lotsize ?? '0'),
+    cancelsize: String(rawData.cancelsize ?? '0'),
+    averageprice: Number(rawData.averageprice ?? 0),
+    filledshares: String(rawData.filledshares ?? ''),
+    unfilledshares: String(rawData.unfilledshares ?? ''),
+    orderid: String(rawData.orderid ?? ''),
+    text: String(rawData.text ?? ''),
+    status: String(rawData.status ?? ''),
+    orderstatus: String(rawData.orderstatus ?? ''),
+    updatetime: String(rawData.updatetime ?? ''),
+    exchtime: String(rawData.exchtime ?? ''),
+    exchorderupdatetime: String(rawData.exchorderupdatetime ?? ''),
+    fillid: String(rawData.fillid ?? ''),
+    filltime: String(rawData.filltime ?? ''),
+    parentorderid: String(rawData.parentorderid ?? ''),
+  };
+
+  return {
+    'user-id': userId,
+    'status-code': statusCode,
+    'order-status': orderStatus,
+    'error-message': errorMessage,
+    orderData,
+  };
+}
+
+const MAX_ANGEL_ORDER_UPDATES = 200;
+let angelWsOrderStatusStore: AngelWsOrderStatusRecord[] = [];
+
+/**
+ * Ingests and stores an Angel One SmartAPI WebSocket Order Status update.
+ */
+export function recordAngelOrderUpdate(message: AngelWsOrderStatusMessage): AngelWsOrderStatusRecord {
+  const info = classifyAngelWsOrderStatus(message['order-status']);
+  const od = message.orderData;
+
+  const numericPrice = Number(od.price) || 0;
+  const numericAvgPrice = Number(od.averageprice) || 0;
+  const numericQuantity = Number(od.quantity) || 0;
+  const numericFilledShares = Number(od.filledshares) || 0;
+  const numericUnfilledShares = Number(od.unfilledshares) || Math.max(0, numericQuantity - numericFilledShares);
+
+  const fillPercent =
+    numericQuantity > 0
+      ? Math.min(100, Math.round((numericFilledShares / numericQuantity) * 100))
+      : info.category === 'COMPLETE'
+      ? 100
+      : 0;
+
+  const record: AngelWsOrderStatusRecord = {
+    userId: message['user-id'],
+    statusCode: message['status-code'],
+    orderStatusCode: message['order-status'],
+    orderStatusInfo: info,
+    errorMessage: message['error-message'],
+    orderData: od,
+    receivedAt: new Date().toISOString(),
+    numericPrice,
+    numericAvgPrice: numericAvgPrice > 0 ? numericAvgPrice : numericPrice,
+    numericQuantity,
+    numericFilledShares,
+    numericUnfilledShares,
+    fillPercent,
+  };
+
+  angelWsOrderStatusStore.unshift(record);
+  if (angelWsOrderStatusStore.length > MAX_ANGEL_ORDER_UPDATES) {
+    angelWsOrderStatusStore = angelWsOrderStatusStore.slice(0, MAX_ANGEL_ORDER_UPDATES);
+  }
+
+  return record;
+}
+
+/**
+ * Retrieves recent WebSocket Order Status records with optional filtering.
+ */
+export function getRecentAngelOrderUpdates(filter?: {
+  userId?: string;
+  orderId?: string;
+  orderStatus?: string;
+  symbol?: string;
+  limit?: number;
+}): AngelWsOrderStatusRecord[] {
+  let list = [...angelWsOrderStatusStore];
+  if (filter?.userId) {
+    const u = filter.userId.toLowerCase().trim();
+    list = list.filter((r) => r.userId.toLowerCase().includes(u));
+  }
+  if (filter?.orderId) {
+    const oid = filter.orderId.toLowerCase().trim();
+    list = list.filter((r) => r.orderData.orderid.toLowerCase().includes(oid));
+  }
+  if (filter?.orderStatus) {
+    const st = filter.orderStatus.toUpperCase().trim();
+    list = list.filter((r) => r.orderStatusCode === st);
+  }
+  if (filter?.symbol) {
+    const sym = filter.symbol.toUpperCase().trim();
+    list = list.filter((r) => r.orderData.tradingsymbol.toUpperCase().includes(sym));
+  }
+  if (filter?.limit && filter.limit > 0) {
+    list = list.slice(0, filter.limit);
+  }
+  return list;
+}
+
+/**
+ * Clears recorded in-memory WebSocket order updates.
+ */
+export function clearAngelOrderUpdates(): void {
+  angelWsOrderStatusStore = [];
+}
+
+/**
+ * Creates simulated order update messages conforming to the official WebSocket schema.
+ */
+export function createSimulatedAngelOrderUpdate(options: {
+  userId?: string;
+  orderStatus?: string; // 'AB00', 'AB01', 'AB02', 'AB03', 'AB04', 'AB05', 'AB06', 'AB10', etc.
+  orderId?: string;
+  tradingsymbol?: string;
+  symboltoken?: string;
+  transactiontype?: 'BUY' | 'SELL';
+  exchange?: string;
+  quantity?: number;
+  price?: number;
+  ordertype?: string;
+  producttype?: string;
+  triggerprice?: number;
+  text?: string;
+  errorMessage?: string;
+}): AngelWsOrderStatusMessage {
+  const userId = options.userId || 'A102938';
+  const orderStatus = options.orderStatus || 'AB01';
+  const orderId = options.orderId || String(Math.floor(1000000 + Math.random() * 9000000));
+  const tradingsymbol = options.tradingsymbol || 'SBIN-EQ';
+  const symboltoken = options.symboltoken || '3045';
+  const transactiontype = options.transactiontype || 'BUY';
+  const exchange = options.exchange || 'NSE';
+  const quantity = options.quantity ?? 10;
+  const price = options.price ?? 820.5;
+  const ordertype = options.ordertype || 'LIMIT';
+  const producttype = options.producttype || 'DELIVERY';
+  const triggerprice = options.triggerprice ?? 0;
+
+  if (orderStatus === 'AB00') {
+    return buildAngelOrderUpdateWsInitialResponse(userId);
+  }
+
+  const nowStr = new Date().toLocaleString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).replace(/,/g, '');
+
+  let statusText = 'open';
+  let filledshares = '0';
+  let unfilledshares = String(quantity);
+  let averageprice = 0;
+  let text = options.text || 'Order placed successfully';
+  let fillid = '';
+  let filltime = '';
+
+  if (orderStatus === 'AB05') {
+    statusText = 'complete';
+    filledshares = String(quantity);
+    unfilledshares = '0';
+    averageprice = price;
+    text = options.text || 'Traded';
+    fillid = String(Math.floor(50000000 + Math.random() * 40000000));
+    filltime = nowStr;
+  } else if (orderStatus === 'AB02') {
+    statusText = 'cancelled';
+    text = options.text || 'Cancelled by User';
+  } else if (orderStatus === 'AB03') {
+    statusText = 'rejected';
+    text = options.text || 'Margin shortfall / Adapter is Logged Off';
+  } else if (orderStatus === 'AB04') {
+    statusText = 'modified';
+    text = options.text || 'Order modified';
+  } else if (orderStatus === 'AB10') {
+    statusText = 'trigger pending';
+    text = options.text || 'Stop-loss trigger pending';
+  } else if (orderStatus === 'AB06') {
+    statusText = 'after market order req received';
+    text = options.text || 'AMO received';
+  }
+
+  const message: AngelWsOrderStatusMessage = {
+    'user-id': userId,
+    'status-code': '200',
+    'order-status': orderStatus,
+    'error-message': options.errorMessage || '',
+    orderData: {
+      variety: 'NORMAL',
+      ordertype,
+      ordertag: '10007712',
+      producttype,
+      price,
+      triggerprice,
+      quantity: String(quantity),
+      disclosedquantity: '0',
+      duration: 'DAY',
+      squareoff: 0,
+      stoploss: 0,
+      trailingstoploss: 0,
+      tradingsymbol,
+      transactiontype,
+      exchange,
+      symboltoken,
+      instrumenttype: '',
+      strikeprice: -1,
+      optiontype: '',
+      expirydate: '',
+      lotsize: '1',
+      cancelsize: '0',
+      averageprice,
+      filledshares,
+      unfilledshares,
+      orderid: orderId,
+      text,
+      status: statusText,
+      orderstatus: statusText,
+      updatetime: nowStr,
+      exchtime: nowStr,
+      exchorderupdatetime: nowStr,
+      fillid,
+      filltime,
+      parentorderid: '',
+    },
+  };
+
+  return message;
+}

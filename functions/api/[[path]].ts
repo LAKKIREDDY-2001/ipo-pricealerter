@@ -68,6 +68,25 @@ import {
   type AngelWsRequest,
   type AngelWsDepthItem,
   type AngelWsErrorResponse,
+  ANGEL_ORDER_UPDATE_WS_URL,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS,
+  ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS,
+  ANGEL_ORDER_STATUS_CODES,
+  ANGEL_ORDER_UPDATE_WS_ERROR_CODES,
+  buildAngelOrderUpdateWsHeaders,
+  buildAngelOrderUpdateWsInitialResponse,
+  validateAngelWsConnectionLimit,
+  classifyAngelWsOrderStatus,
+  parseAngelOrderUpdateMessage,
+  recordAngelOrderUpdate,
+  getRecentAngelOrderUpdates,
+  clearAngelOrderUpdates,
+  createSimulatedAngelOrderUpdate,
+  type AngelWsOrderStatusMessage,
+  type AngelWsOrderStatusRecord,
+  type AngelWsOrderData,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -1756,6 +1775,108 @@ export async function onRequest(context: {
       packetSize: sim.binary.byteLength,
       retrievedAt: new Date().toISOString(),
     });
+  }
+
+  // --- Angel One SmartAPI WebSocket Order Status API Suite ---
+  if (pathname === "/api/streaming/angel/order-status/config" && (method === "GET" || method === "POST")) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    const userId = creds?.clientCode || "Your_client_code";
+    const sampleHeaders = buildAngelOrderUpdateWsHeaders(creds?.authToken || "<AUTHORIZATION_TOKEN>");
+
+    return json({
+      ok: true,
+      wsUrl: ANGEL_ORDER_UPDATE_WS_URL,
+      headers: {
+        key: "Authorization",
+        sample: sampleHeaders.Authorization,
+        instruction: "Include 'Authorization: Bearer AUTHORIZATION_TOKEN' in WebSocket connection request headers",
+      },
+      heartbeat: {
+        requestText: ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ,
+        responseText: ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP,
+        intervalMs: ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS,
+        description: "Periodically send 'ping' and expect 'pong' every 10 seconds to verify liveliness.",
+      },
+      limits: {
+        maxConcurrentConnectionsPerClient: ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS,
+        breachErrorCode: 429,
+        description: "Each client code is limited to 3 connections. Exceeding returns 429 Response Code.",
+      },
+      statusCodes: ANGEL_ORDER_STATUS_CODES,
+      errorCodes: ANGEL_ORDER_UPDATE_WS_ERROR_CODES,
+      initialResponse: buildAngelOrderUpdateWsInitialResponse(userId),
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/streaming/angel/order-status/events" && method === "GET") {
+    const userId = url.searchParams.get("userId") || undefined;
+    const orderId = url.searchParams.get("orderId") || undefined;
+    const orderStatus = url.searchParams.get("orderStatus") || undefined;
+    const symbol = url.searchParams.get("symbol") || undefined;
+    const limit = Number(url.searchParams.get("limit")) || 50;
+
+    const events = getRecentAngelOrderUpdates({ userId, orderId, orderStatus, symbol, limit });
+    return json({
+      ok: true,
+      count: events.length,
+      events,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/streaming/angel/order-status/parse" && method === "POST") {
+    try {
+      const body = await request.json();
+      const message = parseAngelOrderUpdateMessage(body as any);
+      const record = recordAngelOrderUpdate(message);
+      return json({
+        ok: true,
+        message,
+        record,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Invalid order status message payload" }, 400);
+    }
+  }
+
+  if (pathname === "/api/streaming/angel/order-status/simulate" && (method === "POST" || method === "GET")) {
+    let options: any = {};
+    if (method === "POST") {
+      try {
+        options = (await request.json()) || {};
+      } catch {
+        options = {};
+      }
+    } else {
+      options = {
+        userId: url.searchParams.get("userId") || undefined,
+        orderStatus: url.searchParams.get("orderStatus") || undefined,
+        orderId: url.searchParams.get("orderId") || undefined,
+        tradingsymbol: url.searchParams.get("symbol") || undefined,
+        transactiontype: url.searchParams.get("side") as any,
+        exchange: url.searchParams.get("exchange") || undefined,
+        quantity: url.searchParams.has("qty") ? Number(url.searchParams.get("qty")) : undefined,
+        price: url.searchParams.has("price") ? Number(url.searchParams.get("price")) : undefined,
+      };
+    }
+
+    const message = createSimulatedAngelOrderUpdate(options);
+    const record = recordAngelOrderUpdate(message);
+
+    return json({
+      ok: true,
+      message,
+      record,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/streaming/angel/order-status/clear" && method === "POST") {
+    clearAngelOrderUpdates();
+    return json({ ok: true, message: "Cleared WebSocket order status history", retrievedAt: new Date().toISOString() });
   }
 
   if (method !== "GET" && method !== "HEAD") {

@@ -1594,4 +1594,116 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(options),
     }),
+
+  // Angel One SmartAPI WebSocket Order Status API Suite
+  getAngelOrderStatusWsConfig: () =>
+    request<{
+      ok: boolean;
+      wsUrl: string;
+      headers: {
+        key: string;
+        sample: string;
+        instruction: string;
+      };
+      heartbeat: {
+        requestText: string;
+        responseText: string;
+        intervalMs: number;
+        description: string;
+      };
+      limits: {
+        maxConcurrentConnectionsPerClient: number;
+        breachErrorCode: number;
+        description: string;
+      };
+      statusCodes: Record<
+        string,
+        {
+          code: string;
+          label: string;
+          description: string;
+          category: string;
+          badgeColor: string;
+        }
+      >;
+      errorCodes: Record<
+        number,
+        {
+          code: number;
+          message: string;
+          description: string;
+          resolution: string;
+        }
+      >;
+      initialResponse: any;
+      retrievedAt: string;
+    }>('/api/streaming/angel/order-status/config'),
+
+  getAngelOrderStatusEvents: (filter?: {
+    userId?: string;
+    orderId?: string;
+    orderStatus?: string;
+    symbol?: string;
+    limit?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filter?.userId) params.set('userId', filter.userId);
+    if (filter?.orderId) params.set('orderId', filter.orderId);
+    if (filter?.orderStatus) params.set('orderStatus', filter.orderStatus);
+    if (filter?.symbol) params.set('symbol', filter.symbol);
+    if (filter?.limit) params.set('limit', String(filter.limit));
+    const query = params.toString();
+    return request<{
+      ok: boolean;
+      count: number;
+      events: any[];
+      retrievedAt: string;
+    }>(`/api/streaming/angel/order-status/events${query ? `?${query}` : ''}`);
+  },
+
+  parseAngelOrderStatusMessage: (payload: any) =>
+    request<{
+      ok: boolean;
+      message: any;
+      record: any;
+      retrievedAt: string;
+    }>('/api/streaming/angel/order-status/parse', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  simulateAngelOrderStatus: (options: {
+    userId?: string;
+    orderStatus?: string;
+    orderId?: string;
+    tradingsymbol?: string;
+    symboltoken?: string;
+    transactiontype?: 'BUY' | 'SELL';
+    exchange?: string;
+    quantity?: number;
+    price?: number;
+    ordertype?: string;
+    producttype?: string;
+    triggerprice?: number;
+    text?: string;
+    errorMessage?: string;
+  }) =>
+    request<{
+      ok: boolean;
+      message: any;
+      record: any;
+      retrievedAt: string;
+    }>('/api/streaming/angel/order-status/simulate', {
+      method: 'POST',
+      body: JSON.stringify(options),
+    }),
+
+  clearAngelOrderStatusEvents: () =>
+    request<{
+      ok: boolean;
+      message: string;
+      retrievedAt: string;
+    }>('/api/streaming/angel/order-status/clear', {
+      method: 'POST',
+    }),
 };

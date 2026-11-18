@@ -134,6 +134,25 @@ import {
   type AngelWsRequest,
   type AngelWsDepthItem,
   type AngelWsErrorResponse,
+  ANGEL_ORDER_UPDATE_WS_URL,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP,
+  ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS,
+  ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS,
+  ANGEL_ORDER_STATUS_CODES,
+  ANGEL_ORDER_UPDATE_WS_ERROR_CODES,
+  buildAngelOrderUpdateWsHeaders,
+  buildAngelOrderUpdateWsInitialResponse,
+  validateAngelWsConnectionLimit,
+  classifyAngelWsOrderStatus,
+  parseAngelOrderUpdateMessage,
+  recordAngelOrderUpdate,
+  getRecentAngelOrderUpdates,
+  clearAngelOrderUpdates,
+  createSimulatedAngelOrderUpdate,
+  type AngelWsOrderStatusMessage,
+  type AngelWsOrderStatusRecord,
+  type AngelWsOrderData,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2378,6 +2397,102 @@ async function startServer() {
       packetSize: sim.binary.byteLength,
       retrievedAt: new Date().toISOString(),
     });
+  });
+
+  // --- Angel One SmartAPI WebSocket Order Status API Suite ---
+  app.all('/api/streaming/angel/order-status/config', (_req, res) => {
+    const creds = getAngelCredentials();
+    const userId = creds?.clientCode || 'Your_client_code';
+    const sampleHeaders = buildAngelOrderUpdateWsHeaders(creds?.authToken || '<AUTHORIZATION_TOKEN>');
+
+    res.json({
+      ok: true,
+      wsUrl: ANGEL_ORDER_UPDATE_WS_URL,
+      headers: {
+        key: 'Authorization',
+        sample: sampleHeaders.Authorization,
+        instruction: "Include 'Authorization: Bearer AUTHORIZATION_TOKEN' in WebSocket connection request headers",
+      },
+      heartbeat: {
+        requestText: ANGEL_ORDER_UPDATE_WS_HEARTBEAT_REQ,
+        responseText: ANGEL_ORDER_UPDATE_WS_HEARTBEAT_RESP,
+        intervalMs: ANGEL_ORDER_UPDATE_WS_HEARTBEAT_INTERVAL_MS,
+        description: "Periodically send 'ping' and expect 'pong' every 10 seconds to verify liveliness.",
+      },
+      limits: {
+        maxConcurrentConnectionsPerClient: ANGEL_ORDER_UPDATE_WS_MAX_CONNECTIONS,
+        breachErrorCode: 429,
+        description: 'Each client code is limited to 3 connections. Exceeding returns 429 Response Code.',
+      },
+      statusCodes: ANGEL_ORDER_STATUS_CODES,
+      errorCodes: ANGEL_ORDER_UPDATE_WS_ERROR_CODES,
+      initialResponse: buildAngelOrderUpdateWsInitialResponse(userId),
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.get('/api/streaming/angel/order-status/events', (req, res) => {
+    const userId = (req.query.userId as string) || undefined;
+    const orderId = (req.query.orderId as string) || undefined;
+    const orderStatus = (req.query.orderStatus as string) || undefined;
+    const symbol = (req.query.symbol as string) || undefined;
+    const limit = Number(req.query.limit) || 50;
+
+    const events = getRecentAngelOrderUpdates({ userId, orderId, orderStatus, symbol, limit });
+    res.json({
+      ok: true,
+      count: events.length,
+      events,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/streaming/angel/order-status/parse', (req, res) => {
+    try {
+      const message = parseAngelOrderUpdateMessage(req.body);
+      const record = recordAngelOrderUpdate(message);
+      res.json({
+        ok: true,
+        message,
+        record,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(400).json({ ok: false, error: err?.message || 'Invalid order status message payload' });
+    }
+  });
+
+  app.all('/api/streaming/angel/order-status/simulate', (req, res) => {
+    let options: any = {};
+    if (req.method === 'POST' && req.body) {
+      options = req.body;
+    } else {
+      options = {
+        userId: (req.query.userId as string) || undefined,
+        orderStatus: (req.query.orderStatus as string) || undefined,
+        orderId: (req.query.orderId as string) || undefined,
+        tradingsymbol: (req.query.symbol as string) || undefined,
+        transactiontype: req.query.side as any,
+        exchange: (req.query.exchange as string) || undefined,
+        quantity: req.query.qty ? Number(req.query.qty) : undefined,
+        price: req.query.price ? Number(req.query.price) : undefined,
+      };
+    }
+
+    const message = createSimulatedAngelOrderUpdate(options);
+    const record = recordAngelOrderUpdate(message);
+
+    res.json({
+      ok: true,
+      message,
+      record,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/streaming/angel/order-status/clear', (_req, res) => {
+    clearAngelOrderUpdates();
+    res.json({ ok: true, message: 'Cleared WebSocket order status history', retrievedAt: new Date().toISOString() });
   });
 
   // --- Authentication ---

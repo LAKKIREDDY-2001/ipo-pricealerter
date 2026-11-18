@@ -17,6 +17,13 @@ import {
   WifiOff,
   Terminal,
   ArrowDownUp,
+  CheckCircle2,
+  AlertCircle,
+  XCircle,
+  Clock,
+  Send,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
@@ -290,6 +297,155 @@ export function CalculatorsPage() {
     return () => clearInterval(interval);
   }, [wsStreaming, wsMode, wsSelectedToken, wsExchangeType, activeTool]);
 
+  // 8. Angel One SmartAPI WebSocket Order Status (Streaming)
+  const [orderWsConnected, setOrderWsConnected] = useState(true);
+  const [orderWsActiveConnections, setOrderWsActiveConnections] = useState(1);
+  const [orderWsHeartbeatTimer, setOrderWsHeartbeatTimer] = useState(10);
+  const [orderWsHeartbeatLatency, setOrderWsHeartbeatLatency] = useState(15);
+  const [orderWsAutoStream, setOrderWsAutoStream] = useState(true);
+  const [orderWsBreachError, setOrderWsBreachError] = useState<string | null>(null);
+  const [orderWsEvents, setOrderWsEvents] = useState<any[]>([]);
+  const [orderWsSelectedEvent, setOrderWsSelectedEvent] = useState<any>(null);
+  const [orderWsActiveTab, setOrderWsActiveTab] = useState<'feed' | 'simulator' | 'inspector' | 'docs'>('feed');
+  const [orderWsCopied, setOrderWsCopied] = useState(false);
+
+  // Custom Simulator Form State
+  const [simSymbol, setSimSymbol] = useState('SBIN-EQ');
+  const [simQty, setSimQty] = useState('10');
+  const [simPrice, setSimPrice] = useState('820.5');
+  const [simSide, setSimSide] = useState<'BUY' | 'SELL'>('BUY');
+  const [simStatus, setSimStatus] = useState('AB01');
+  const [simProduct, setSimProduct] = useState('DELIVERY');
+  const [simOrderType, setSimOrderType] = useState('LIMIT');
+  const [simOrderId, setSimOrderId] = useState('ORD_781290');
+
+  // Load initial order status updates
+  const loadOrderWsEvents = async () => {
+    try {
+      const res = await api.getAngelOrderStatusEvents({ limit: 30 });
+      if (res && res.events && res.events.length > 0) {
+        setOrderWsEvents(res.events);
+        if (!orderWsSelectedEvent) setOrderWsSelectedEvent(res.events[0]);
+      } else {
+        // Seed initial handshake AB00 & open order AB01
+        const seed1 = await api.simulateAngelOrderStatus({ orderStatus: 'AB00', userId: 'CLIENT_A8892' });
+        const seed2 = await api.simulateAngelOrderStatus({
+          orderStatus: 'AB01',
+          userId: 'CLIENT_A8892',
+          tradingsymbol: 'SBIN-EQ',
+          quantity: 25,
+          price: 820.5,
+          orderId: 'ORD_10098',
+        });
+        const combined = [seed2.record, seed1.record].filter(Boolean);
+        setOrderWsEvents(combined);
+        setOrderWsSelectedEvent(seed2.record || seed1.record);
+      }
+    } catch (err) {
+      console.warn('Failed to load order status events:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTool === 'order-websocket' || activeTool === 'all') {
+      loadOrderWsEvents();
+    }
+  }, [activeTool]);
+
+  // 10-Second Ping/Pong Heartbeat Tracker
+  useEffect(() => {
+    if (!orderWsConnected || (activeTool !== 'order-websocket' && activeTool !== 'all')) return;
+    const timer = setInterval(() => {
+      setOrderWsHeartbeatTimer((prev) => {
+        if (prev <= 1) {
+          setOrderWsHeartbeatLatency(Math.floor(12 + Math.random() * 12));
+          return 10;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [orderWsConnected, activeTool]);
+
+  // Periodic Auto-stream lifecycle updater
+  useEffect(() => {
+    if (!orderWsConnected || !orderWsAutoStream || (activeTool !== 'order-websocket' && activeTool !== 'all')) return;
+    const interval = setInterval(async () => {
+      try {
+        const statuses = ['AB01', 'AB04', 'AB05', 'AB10', 'AB02'];
+        const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+        const scrips = [
+          { symbol: 'SBIN-EQ', token: '3045', price: 820.5 },
+          { symbol: 'RELIANCE-EQ', token: '2885', price: 2950.0 },
+          { symbol: 'TCS-EQ', token: '11536', price: 4150.0 },
+          { symbol: 'INFY-EQ', token: '1594', price: 1845.0 },
+          { symbol: 'NIFTY24NOV24000CE', token: '67300', price: 165.5 },
+        ];
+        const scrip = scrips[Math.floor(Math.random() * scrips.length)];
+        const side = Math.random() > 0.4 ? 'BUY' : 'SELL';
+        const qty = [5, 10, 25, 50, 100][Math.floor(Math.random() * 5)];
+
+        const res = await api.simulateAngelOrderStatus({
+          orderStatus: randomStatus,
+          tradingsymbol: scrip.symbol,
+          symboltoken: scrip.token,
+          price: scrip.price,
+          quantity: qty,
+          transactiontype: side,
+        });
+
+        if (res && res.record) {
+          setOrderWsEvents((prev) => [res.record, ...prev.slice(0, 49)]);
+          setOrderWsSelectedEvent(res.record);
+        }
+      } catch (err) {
+        // Ignore background timer errors
+      }
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [orderWsConnected, orderWsAutoStream, activeTool]);
+
+  // Dispatch simulated order event
+  const dispatchSimulatedOrder = async (overrideStatus?: string) => {
+    try {
+      const statusToUse = overrideStatus || simStatus;
+      const res = await api.simulateAngelOrderStatus({
+        orderStatus: statusToUse,
+        tradingsymbol: simSymbol,
+        quantity: Number(simQty) || 1,
+        price: Number(simPrice) || 0,
+        transactiontype: simSide,
+        producttype: simProduct,
+        ordertype: simOrderType,
+        orderId: simOrderId,
+      });
+      if (res && res.record) {
+        setOrderWsEvents((prev) => [res.record, ...prev.slice(0, 49)]);
+        setOrderWsSelectedEvent(res.record);
+        setSimOrderId(`ORD_${Math.floor(100000 + Math.random() * 900000)}`);
+      }
+    } catch (err) {
+      console.warn('Dispatch order status error:', err);
+    }
+  };
+
+  // Test breach limit of 3 concurrent connections (HTTP 429)
+  const handleSimulateConnectionIncrement = () => {
+    if (orderWsActiveConnections >= 3) {
+      setOrderWsBreachError(
+        'HTTP 429 Too Many Requests: Client connection limit breached! Each client code is strictly limited to 3 concurrent connections. Close unused connections.'
+      );
+    } else {
+      setOrderWsActiveConnections((c) => c + 1);
+      setOrderWsBreachError(null);
+    }
+  };
+
+  const handleResetConnections = () => {
+    setOrderWsActiveConnections(1);
+    setOrderWsBreachError(null);
+  };
+
   useEffect(() => {
     Promise.allSettled([api.getIpos(), api.getStocks({ limit: 80 })]).then(([iRes, sRes]) => {
       if (iRes.status === 'fulfilled') setIpos(iRes.value.ipos);
@@ -369,6 +525,7 @@ export function CalculatorsPage() {
           { label: '⚡ SmartAPI Margin', to: '/calculators/margin', id: 'margin' },
           { label: '📊 Option Greeks (SmartAPI)', to: '/calculators/option-greeks', id: 'option-greeks' },
           { label: '📡 SmartStream 2.0 (WebSocket)', to: '/calculators/smart-stream', id: 'smart-stream' },
+          { label: '⚡ Order Status (WebSocket)', to: '/calculators/order-websocket', id: 'order-websocket' },
           { label: 'IPO Investment', to: '/calculators/ipo', id: 'ipo' },
           { label: 'GMP Calculator', to: '/calculators/gmp', id: 'gmp' },
           { label: 'Listing Gain', to: '/calculators/listing-gain', id: 'listing-gain' },
@@ -2136,6 +2293,600 @@ export function CalculatorsPage() {
                       Heartbeat: Text <code className="font-mono">ping</code> every 30s → expects text <code className="font-mono">pong</code>.<br />
                       Limits: 1000 tokens per session, up to 3 concurrent connections per client code.
                     </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {show('order-websocket') && (
+          <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-amber-500 animate-pulse" />
+                  Angel One SmartAPI WebSocket Order Status (Streaming)
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Real-time streaming order updates connecting to <code className="font-mono text-emerald-600 dark:text-emerald-400">wss://tns.angelone.in/smart-order-update</code> with Bearer auth, 10s ping/pong heartbeat, and status codes AB00–AB11.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border ${
+                  orderWsConnected
+                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
+                    : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300 border-rose-200 dark:border-rose-800'
+                }`}>
+                  <span className={`w-2 h-2 rounded-full ${orderWsConnected ? 'bg-emerald-500 animate-ping' : 'bg-rose-500'}`}></span>
+                  {orderWsConnected ? 'Stream: Connected' : 'Stream: Disconnected'}
+                </span>
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                  Heartbeat: ping/pong in {orderWsHeartbeatTimer}s ({orderWsHeartbeatLatency}ms)
+                </span>
+                <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${
+                  orderWsActiveConnections >= 3
+                    ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 border-amber-200 dark:border-amber-800'
+                    : 'bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300 border border-purple-200 dark:border-purple-800'
+                }`}>
+                  Connections: {orderWsActiveConnections} / 3 Max
+                </span>
+              </div>
+            </div>
+
+            {/* Breach Alert Box (HTTP 429) */}
+            {orderWsBreachError && (
+              <div className="p-3.5 rounded-lg border border-rose-300 bg-rose-50 dark:bg-rose-950/40 dark:border-rose-800 flex items-start justify-between gap-3 text-xs text-rose-800 dark:text-rose-200">
+                <div className="flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold">Connection Quota Breached (Error 429): </span>
+                    {orderWsBreachError}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleResetConnections}
+                  className="px-2.5 py-1 rounded bg-rose-600 hover:bg-rose-700 text-white font-semibold shrink-0 cursor-pointer text-[11px]"
+                >
+                  Reset to 1 Connection
+                </button>
+              </div>
+            )}
+
+            {/* Connection Top Bar & Controls */}
+            <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500 dark:text-slate-400 font-medium">Server Endpoint:</span>
+                  <code className="font-mono bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold">
+                    wss://tns.angelone.in/smart-order-update
+                  </code>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                  <span>Auth:</span>
+                  <span className="font-mono bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-[11px] text-slate-700 dark:text-slate-300">
+                    Authorization: Bearer &lt;JWT&gt;
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setOrderWsConnected(!orderWsConnected)}
+                  className={`px-3 py-1.5 rounded-lg font-semibold border flex items-center gap-1.5 cursor-pointer transition-colors ${
+                    orderWsConnected
+                      ? 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800'
+                      : 'bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700'
+                  }`}
+                >
+                  {orderWsConnected ? <WifiOff className="w-3.5 h-3.5" /> : <Wifi className="w-3.5 h-3.5" />}
+                  {orderWsConnected ? 'Pause Stream' : 'Connect Stream'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setOrderWsAutoStream(!orderWsAutoStream)}
+                  className={`px-3 py-1.5 rounded-lg font-semibold border flex items-center gap-1.5 cursor-pointer transition-colors ${
+                    orderWsAutoStream
+                      ? 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800'
+                      : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700'
+                  }`}
+                >
+                  <Activity className="w-3.5 h-3.5" />
+                  {orderWsAutoStream ? 'Auto Live: ON' : 'Auto Live: OFF'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSimulateConnectionIncrement}
+                  className="px-2.5 py-1.5 rounded-lg font-semibold border bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer"
+                  title="Simulate opening an additional concurrent connection (limit is 3)"
+                >
+                  +1 Connection ({orderWsActiveConnections}/3)
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    api.clearAngelOrderStatusEvents();
+                    setOrderWsEvents([]);
+                    setOrderWsSelectedEvent(null);
+                  }}
+                  className="px-2.5 py-1.5 rounded-lg font-semibold border bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer"
+                  title="Clear in-memory order events"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2 text-xs">
+              {[
+                { id: 'feed' as const, label: `Live Order Feed (${orderWsEvents.length})`, icon: Activity },
+                { id: 'simulator' as const, label: 'Event Simulator & Lifecycle Triggers', icon: Send },
+                { id: 'inspector' as const, label: 'Raw WebSocket JSON Inspector', icon: Terminal },
+                { id: 'docs' as const, label: 'Official Protocol & Status Codes (AB00–AB11)', icon: HelpCircle },
+              ].map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setOrderWsActiveTab(tab.id)}
+                    className={`px-3 py-1.5 rounded-lg font-semibold border flex items-center gap-1.5 cursor-pointer transition-all ${
+                      orderWsActiveTab === tab.id
+                        ? 'bg-amber-500 text-white border-amber-500 dark:bg-amber-600'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Subtab 1: Live Order Feed */}
+            {orderWsActiveTab === 'feed' && (
+              <div className="space-y-4">
+                {orderWsEvents.length === 0 ? (
+                  <div className="text-center py-12 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl space-y-3">
+                    <Activity className="w-8 h-8 mx-auto text-slate-400" />
+                    <p className="text-xs text-slate-500">No WebSocket order events recorded yet.</p>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB01')}
+                      className="px-3 py-1.5 rounded-lg bg-amber-500 text-white font-semibold text-xs cursor-pointer hover:bg-amber-600"
+                    >
+                      Trigger Simulated Order
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2.5 max-h-[500px] overflow-y-auto pr-1">
+                    {orderWsEvents.map((evt, idx) => {
+                      const od = evt.orderData || {};
+                      const isBuy = (od.transactiontype || 'BUY').toUpperCase() === 'BUY';
+                      const statusCode = evt.orderStatusCode || evt['order-status'] || 'AB01';
+                      const statusInfo = evt.orderStatusInfo || {};
+                      const isSelected = orderWsSelectedEvent?.orderData?.orderid === od.orderid && orderWsSelectedEvent?.orderStatusCode === statusCode;
+
+                      // Badge color mapping
+                      let badgeBg = 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800';
+                      if (statusCode === 'AB01') badgeBg = 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800';
+                      if (statusCode === 'AB02' || statusCode === 'AB07') badgeBg = 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800';
+                      if (statusCode === 'AB03') badgeBg = 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/50 dark:text-red-300 dark:border-red-800';
+                      if (statusCode === 'AB04' || statusCode === 'AB08') badgeBg = 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800';
+                      if (statusCode === 'AB05') badgeBg = 'bg-green-50 text-green-700 border-green-200 dark:bg-green-950/50 dark:text-green-300 dark:border-green-800';
+                      if (statusCode === 'AB06') badgeBg = 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800';
+                      if (statusCode === 'AB10') badgeBg = 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/50 dark:text-purple-300 dark:border-purple-800';
+
+                      return (
+                        <div
+                          key={`${od.orderid || idx}-${statusCode}-${idx}`}
+                          onClick={() => {
+                            setOrderWsSelectedEvent(evt);
+                            setOrderWsActiveTab('inspector');
+                          }}
+                          className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                            isSelected
+                              ? 'border-amber-500 bg-amber-50/20 dark:bg-amber-950/20 shadow-sm'
+                              : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/50'
+                          }`}
+                        >
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className={`px-2 py-0.5 rounded font-mono font-bold text-xs border ${badgeBg}`}>
+                                {statusCode} • {statusInfo.label || statusCode}
+                              </span>
+                              <span className="font-bold text-sm text-slate-900 dark:text-white">
+                                {od.tradingsymbol || 'CONNECTION'}
+                              </span>
+                              {od.exchange && (
+                                <span className="text-[10px] uppercase font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                                  {od.exchange}
+                                </span>
+                              )}
+                              {od.transactiontype && (
+                                <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded ${
+                                  isBuy ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'
+                                }`}>
+                                  {od.transactiontype}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="text-right text-[11px] text-slate-400 font-mono">
+                              {od.updatetime || (evt.receivedAt ? new Date(evt.receivedAt).toLocaleTimeString() : 'Just now')}
+                            </div>
+                          </div>
+
+                          {statusCode !== 'AB00' && (
+                            <div className="mt-2.5 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                              <div>
+                                <span className="text-slate-400 block text-[10px]">Order ID</span>
+                                <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">{od.orderid || '—'}</span>
+                              </div>
+                              <div>
+                                <span className="text-slate-400 block text-[10px]">Price / Avg</span>
+                                <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">
+                                  ₹{od.price} {od.averageprice > 0 ? `(Avg: ₹${od.averageprice})` : ''}
+                                </span>
+                              </div>
+                              <div>
+                                <span className="text-slate-400 block text-[10px]">Filled / Total Qty</span>
+                                <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">
+                                  {od.filledshares || 0} / {od.quantity || 0} shares ({evt.fillPercent ?? 0}%)
+                                </span>
+                              </div>
+                              <div>
+                                <span className="text-slate-400 block text-[10px]">Status Msg / Fill ID</span>
+                                <span className="font-semibold text-slate-700 dark:text-slate-300 truncate block">
+                                  {od.text || (od.fillid ? `Fill: #${od.fillid}` : 'Order update')}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
+                          {statusCode !== 'AB00' && Number(od.quantity) > 0 && (
+                            <div className="mt-2 w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                              <div
+                                className={`h-full transition-all duration-500 ${
+                                  evt.fillPercent === 100
+                                    ? 'bg-emerald-500'
+                                    : evt.fillPercent > 0
+                                    ? 'bg-amber-500'
+                                    : 'bg-slate-300 dark:bg-slate-600'
+                                }`}
+                                style={{ width: `${evt.fillPercent || (statusCode === 'AB05' ? 100 : 0)}%` }}
+                              ></div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Subtab 2: Interactive Event Simulator */}
+            {orderWsActiveTab === 'simulator' && (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                    1-Click Order Lifecycle Trigger Presets
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB01')}
+                      className="p-3 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-emerald-800 dark:text-emerald-300">🟢 New Order Placed</div>
+                      <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">AB01 • Open in Exchange Book</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB04')}
+                      className="p-3 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-amber-800 dark:text-amber-300">✏️ Order Modified</div>
+                      <div className="text-[11px] text-amber-600 dark:text-amber-400 mt-0.5">AB04 • Price/Qty Updated</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB05')}
+                      className="p-3 rounded-lg border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950/30 hover:bg-green-100 dark:hover:bg-green-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-green-800 dark:text-green-300">⚡ Market Traded / Filled</div>
+                      <div className="text-[11px] text-green-600 dark:text-green-400 mt-0.5">AB05 • 100% Executed with Fill ID</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB02')}
+                      className="p-3 rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-rose-800 dark:text-rose-300">❌ Order Cancelled</div>
+                      <div className="text-[11px] text-rose-600 dark:text-rose-400 mt-0.5">AB02 • Cancelled by User</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB03')}
+                      className="p-3 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-red-800 dark:text-red-300">🚫 RMS Rejection</div>
+                      <div className="text-[11px] text-red-600 dark:text-red-400 mt-0.5">AB03 • Margin Shortfall</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB10')}
+                      className="p-3 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950/30 hover:bg-purple-100 dark:hover:bg-purple-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-purple-800 dark:text-purple-300">⏳ Stop-Loss Pending</div>
+                      <div className="text-[11px] text-purple-600 dark:text-purple-400 mt-0.5">AB10 • Trigger Pending</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB06')}
+                      className="p-3 rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-indigo-800 dark:text-indigo-300">🌙 After Market Order</div>
+                      <div className="text-[11px] text-indigo-600 dark:text-indigo-400 mt-0.5">AB06 • AMO Request Received</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => dispatchSimulatedOrder('AB00')}
+                      className="p-3 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <div className="text-xs font-bold text-blue-800 dark:text-blue-300">🔌 Initial Handshake</div>
+                      <div className="text-[11px] text-blue-600 dark:text-blue-400 mt-0.5">AB00 • Connected Response</div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Custom Event Creator Form */}
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-4">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                    Custom Order Status Dispatcher
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 text-xs">
+                    <div>
+                      <label className="text-slate-500 block mb-1">Trading Symbol</label>
+                      <input
+                        type="text"
+                        value={simSymbol}
+                        onChange={(e) => setSimSymbol(e.target.value)}
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-mono text-slate-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-slate-500 block mb-1">Transaction Side</label>
+                      <select
+                        value={simSide}
+                        onChange={(e) => setSimSide(e.target.value as any)}
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                      >
+                        <option value="BUY">BUY</option>
+                        <option value="SELL">SELL</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-slate-500 block mb-1">Quantity</label>
+                      <input
+                        type="number"
+                        value={simQty}
+                        onChange={(e) => setSimQty(e.target.value)}
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-mono text-slate-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-slate-500 block mb-1">Price (₹)</label>
+                      <input
+                        type="number"
+                        value={simPrice}
+                        onChange={(e) => setSimPrice(e.target.value)}
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-mono text-slate-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-slate-500 block mb-1">Status Code</label>
+                      <select
+                        value={simStatus}
+                        onChange={(e) => setSimStatus(e.target.value)}
+                        className="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-mono"
+                      >
+                        <option value="AB01">AB01 (Open)</option>
+                        <option value="AB04">AB04 (Modified)</option>
+                        <option value="AB05">AB05 (Complete)</option>
+                        <option value="AB02">AB02 (Cancelled)</option>
+                        <option value="AB03">AB03 (Rejected)</option>
+                        <option value="AB06">AB06 (AMO Received)</option>
+                        <option value="AB07">AB07 (AMO Cancelled)</option>
+                        <option value="AB08">AB08 (AMO Modify)</option>
+                        <option value="AB09">AB09 (Open Pending)</option>
+                        <option value="AB10">AB10 (Trigger Pending)</option>
+                        <option value="AB11">AB11 (Modify Pending)</option>
+                        <option value="AB00">AB00 (Connected)</option>
+                      </select>
+                    </div>
+                    <div className="flex items-end">
+                      <button
+                        type="button"
+                        onClick={() => dispatchSimulatedOrder()}
+                        className="w-full px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold cursor-pointer transition-colors"
+                      >
+                        Dispatch Event
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Subtab 3: Raw WebSocket JSON Inspector */}
+            {orderWsActiveTab === 'inspector' && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                    Inspecting Payload for Order:{' '}
+                    <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
+                      {orderWsSelectedEvent?.orderData?.orderid || orderWsSelectedEvent?.orderid || 'N/A'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!orderWsSelectedEvent) return;
+                      navigator.clipboard.writeText(JSON.stringify(orderWsSelectedEvent, null, 2));
+                      setOrderWsCopied(true);
+                      setTimeout(() => setOrderWsCopied(false), 2000);
+                    }}
+                    className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300"
+                  >
+                    {orderWsCopied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    {orderWsCopied ? 'Copied JSON!' : 'Copy Raw Payload'}
+                  </button>
+                </div>
+
+                <pre className="p-4 rounded-xl bg-slate-900 text-emerald-400 text-xs font-mono overflow-x-auto max-h-[420px] leading-relaxed border border-slate-800">
+                  {orderWsSelectedEvent
+                    ? JSON.stringify(
+                        {
+                          'user-id': orderWsSelectedEvent.userId || orderWsSelectedEvent['user-id'] || 'A102938',
+                          'status-code': orderWsSelectedEvent.statusCode || orderWsSelectedEvent['status-code'] || '200',
+                          'order-status': orderWsSelectedEvent.orderStatusCode || orderWsSelectedEvent['order-status'] || 'AB01',
+                          'error-message': orderWsSelectedEvent.errorMessage || orderWsSelectedEvent['error-message'] || '',
+                          orderData: orderWsSelectedEvent.orderData || {},
+                        },
+                        null,
+                        2
+                      )
+                    : '// Select an order update from the feed to inspect raw JSON'}
+                </pre>
+              </div>
+            )}
+
+            {/* Subtab 4: Official Protocol Specification & Status Codes */}
+            {orderWsActiveTab === 'docs' && (
+              <div className="space-y-6 text-xs text-slate-600 dark:text-slate-300">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-1">
+                    <div className="font-bold text-slate-900 dark:text-white">Server URL &amp; Handshake</div>
+                    <p className="text-[11px] text-slate-500 font-mono">wss://tns.angelone.in/smart-order-update</p>
+                    <p className="text-[11px] text-slate-500">Requires Bearer JWT token in Authorization header.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-1">
+                    <div className="font-bold text-slate-900 dark:text-white">Heartbeat Protocol</div>
+                    <p className="text-[11px] text-slate-500 font-mono">Client: "ping" → Server: "pong"</p>
+                    <p className="text-[11px] text-slate-500">Required every 10 seconds to maintain connection liveliness.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-1">
+                    <div className="font-bold text-slate-900 dark:text-white">Connection Limit &amp; 429</div>
+                    <p className="text-[11px] text-slate-500 font-mono">Max 3 connections / Client Code</p>
+                    <p className="text-[11px] text-slate-500">Exceeding returns HTTP 429 Response Code.</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm mb-2">
+                    Official Order Status Codes (<code className="font-mono text-emerald-600">order-status</code>)
+                  </h3>
+                  <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-100 dark:bg-slate-800/80 text-[11px] text-slate-500 uppercase font-semibold">
+                          <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Code</th>
+                          <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Category</th>
+                          <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-[11px]">
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-blue-600">AB00</td>
+                          <td className="p-2.5 font-semibold">Connection</td>
+                          <td className="p-2.5">After-successful connection (initial handshake response)</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-emerald-600">AB01</td>
+                          <td className="p-2.5 font-semibold">Open</td>
+                          <td className="p-2.5">Order is open and actively placed in the exchange book</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-rose-600">AB02</td>
+                          <td className="p-2.5 font-semibold">Cancelled</td>
+                          <td className="p-2.5">Order cancelled by the user or exchange</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-red-600">AB03</td>
+                          <td className="p-2.5 font-semibold">Rejected</td>
+                          <td className="p-2.5">Order rejected by RMS (risk management) or exchange rules</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-amber-600">AB04</td>
+                          <td className="p-2.5 font-semibold">Modified</td>
+                          <td className="p-2.5">Order price or quantity modified successfully</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-green-600">AB05</td>
+                          <td className="p-2.5 font-semibold">Complete</td>
+                          <td className="p-2.5">Order fully executed and traded (with fill ID and fill time)</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-indigo-600">AB06</td>
+                          <td className="p-2.5 font-semibold">AMO Received</td>
+                          <td className="p-2.5">After market order request received</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-rose-600">AB07</td>
+                          <td className="p-2.5 font-semibold">AMO Cancelled</td>
+                          <td className="p-2.5">Cancelled after market order</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-indigo-600">AB08</td>
+                          <td className="p-2.5 font-semibold">AMO Modify</td>
+                          <td className="p-2.5">Modify after market order request received</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-sky-600">AB09</td>
+                          <td className="p-2.5 font-semibold">Open Pending</td>
+                          <td className="p-2.5">Order open request pending at exchange</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-purple-600">AB10</td>
+                          <td className="p-2.5 font-semibold">Trigger Pending</td>
+                          <td className="p-2.5">Stop-loss or trigger condition pending execution</td>
+                        </tr>
+                        <tr>
+                          <td className="p-2.5 font-mono font-bold text-orange-600">AB11</td>
+                          <td className="p-2.5 font-semibold">Modify Pending</td>
+                          <td className="p-2.5">Order modification request pending at exchange</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm mb-2">WebSocket Error Codes</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 space-y-1">
+                      <div className="font-mono font-bold text-rose-600">Code 401</div>
+                      <div className="font-semibold text-slate-800 dark:text-slate-200">Invalid Token</div>
+                      <p className="text-[11px] text-slate-500">Received if AUTHORIZATION_TOKEN is invalid.</p>
+                    </div>
+                    <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 space-y-1">
+                      <div className="font-mono font-bold text-rose-600">Code 403</div>
+                      <div className="font-semibold text-slate-800 dark:text-slate-200">Expired Token</div>
+                      <p className="text-[11px] text-slate-500">Received if AUTHORIZATION_TOKEN is expired.</p>
+                    </div>
+                    <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 space-y-1">
+                      <div className="font-mono font-bold text-amber-600">Code 429</div>
+                      <div className="font-semibold text-slate-800 dark:text-slate-200">Connection Limit</div>
+                      <p className="text-[11px] text-slate-500">Received if &gt;3 concurrent connections are opened.</p>
+                    </div>
                   </div>
                 </div>
               </div>
