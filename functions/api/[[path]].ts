@@ -112,6 +112,9 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
     const meta = result?.meta;
     const price = Number(meta?.regularMarketPrice);
     if (!meta || !Number.isFinite(price) || price <= 0) return null;
+    // Prevent a ticker collision from assigning another company's quote to this stock.
+    if (String(meta.symbol || "").toUpperCase() !== ticker.toUpperCase()) return null;
+    if (meta.currency && String(meta.currency).toUpperCase() !== "INR") return null;
     const previous = Number(meta.chartPreviousClose ?? meta.previousClose ?? 0);
     const closes = (result?.indicators?.quote?.[0]?.close || []).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
     const quote = {
@@ -127,8 +130,8 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
       volume: typeof meta.regularMarketVolume === "number" ? meta.regularMarketVolume : null,
       sparkline: closes.slice(-24),
       lastTradeTime: meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString() : new Date().toISOString(),
-      quoteSource: "NSE/BSE Real-Time Market Feed",
-      quoteStatus: "LIVE",
+      quoteSource: "Yahoo Finance (unofficial; may be delayed)",
+      quoteStatus: "UNOFFICIAL_DELAYED",
       quoteCurrency: meta.currency || "INR",
       quoteSymbol: ticker,
     };
@@ -404,10 +407,10 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
         ...quote,
         provenance: {
           ...(stock.provenance || {}),
-          source: quote.quoteSource || "NSE/BSE Real-Time Market Feed",
+          source: quote.quoteSource || "Yahoo Finance (unofficial; may be delayed)",
           retrievedAt: quote.lastTradeTime || new Date().toISOString(),
-          verificationStatus: "Verified",
-          qualityStatus: "LIVE",
+          verificationStatus: "Unverified",
+          qualityStatus: "DELAYED",
           currency: quote.quoteCurrency || "INR",
         },
       };
@@ -607,10 +610,14 @@ export async function onRequest(context: {
         runtime: "cloudflare-pages-functions",
         backendMode: "Pages Functions with snapshot IPO data and on-demand quotes",
         persistentDatabaseConfigured: Boolean(env.DB),
-        liveQuoteProvider: "Yahoo Finance (best effort, may be delayed)",
+        liveQuoteProvider: "Yahoo Finance (unofficial, symbol-validated, may be delayed)",
         ipoProvider: "build-time snapshot",
         counts: {
           stocks: normalizeStocks(snapshot).length,
+          snapshotStocks: snapshot.stocks?.length || 0,
+          pricedStocks: snapshot.allLiveStocks?.length || 0,
+          nseEquities: normalizeExchangeCounts(normalizeStocks(snapshot)).nseCount,
+          bseEquities: normalizeExchangeCounts(normalizeStocks(snapshot)).bseCount,
           ipos: snapshot.ipos?.length || 0,
           indices: snapshot.indices?.length || 0,
           blogs: snapshot.blogs?.length || 0,
@@ -839,7 +846,7 @@ export async function onRequest(context: {
         liveFeedReachable: enriched.successful > 0,
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
-        quoteSource: enriched.successful > 0 ? "NSE/BSE Real-Time Market Feed" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
+        quoteSource: enriched.successful > 0 ? "Yahoo Finance (unofficial; may be delayed)" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
         quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
       });
     }
@@ -882,11 +889,11 @@ export async function onRequest(context: {
         output.lastTradeTime = tradeTime;
         output.provenance = {
           ...(output.provenance || {}),
-          source: "NSE/BSE Real-Time Market Feed",
+          source: "Yahoo Finance (unofficial; may be delayed)",
           retrievedAt: nowIso,
           effectiveDate: nowIso.split("T")[0],
-          verificationStatus: "Verified",
-          qualityStatus: "LIVE",
+          verificationStatus: "Unverified",
+          qualityStatus: "DELAYED",
           currency: enriched.quoteCurrency || "INR",
         };
         if (output.nseQuote) {
@@ -949,7 +956,7 @@ export async function onRequest(context: {
         stock: output,
         fromUpstream: Boolean(enriched || history.length || companyInfo),
         linkedIpo: null,
-        dataSource: enriched ? "NSE/BSE Real-Time Market Feed" : companyInfo ? "Official Corporate Filings" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
+        dataSource: enriched ? "Yahoo Finance (unofficial; may be delayed)" : companyInfo ? "Official Corporate Filings" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
         quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
       });
     }
