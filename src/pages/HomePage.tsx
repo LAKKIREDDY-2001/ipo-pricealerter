@@ -4,8 +4,11 @@ import {
   ArrowRight,
   BookOpen,
   Calendar,
+  Calculator,
   ExternalLink,
   Search,
+  ShieldCheck,
+  Sparkles,
   TrendingDown,
   TrendingUp,
 } from 'lucide-react';
@@ -453,18 +456,92 @@ export function HomePage() {
           <span className="mr-1 shrink-0 text-[10px] font-bold uppercase tracking-wider text-slate-400">Explore</span>
           {[
             ['IPOs', 'ipo-activity-heading'],
-            ['GMP tracker', 'gmp-widget-heading'],
-            ['Live stocks', 'live-stocks-heading'],
+            ['GMP Tracker', 'gmp-widget-heading'],
+            ['Live Stocks', 'live-stocks-heading'],
+            ['Mutual Funds', '/mutual-funds'],
+            ['Portfolio X-Ray', '/portfolio'],
             ['Listed IPOs', 'listed-ipos-heading'],
-            ['Insights', 'market-intel-heading'],
-            ['Learn', 'education-heading'],
-          ].map(([label, target]) => (
-            <a key={target} href={`#${target}`} className="shrink-0 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400">
-              {label}
-            </a>
-          ))}
+            ['SIP Calculator', '/calculators'],
+            ['Market Insights', 'market-intel-heading'],
+            ['Learn Hub', 'education-heading'],
+          ].map(([label, target]) =>
+            target.startsWith('/') ? (
+              <Link
+                key={target}
+                to={target}
+                className="shrink-0 rounded-full border border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/80 dark:bg-emerald-950/40 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 dark:text-emerald-300 transition-colors hover:border-emerald-500"
+              >
+                {label}
+              </Link>
+            ) : (
+              <a
+                key={target}
+                href={`#${target}`}
+                className="shrink-0 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 px-3.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400"
+              >
+                {label}
+              </a>
+            )
+          )}
         </div>
       </nav>
+
+      {/* Quick Tools & Modern FinTech Strip */}
+      <section className="max-w-[1440px] mx-auto px-3.5 sm:px-6 pt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <Link
+            to="/mutual-funds"
+            className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 shadow-sm hover:border-[#00D09C] transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-[#00D09C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-[#14263F] dark:text-white group-hover:text-[#00D09C] transition-colors">Mutual Funds Hub</div>
+              <div className="text-[11px] text-[#64748B] dark:text-slate-400">Direct funds &amp; SIP returns</div>
+            </div>
+          </Link>
+
+          <Link
+            to="/portfolio"
+            className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 shadow-sm hover:border-[#2563EB] transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-[#14263F] dark:text-white group-hover:text-[#2563EB] transition-colors">Portfolio Tracker</div>
+              <div className="text-[11px] text-[#64748B] dark:text-slate-400">Multi-broker CAS X-Ray</div>
+            </div>
+          </Link>
+
+          <Link
+            to="/calculators"
+            className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 shadow-sm hover:border-amber-500 transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Calculator className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-[#14263F] dark:text-white group-hover:text-amber-500 transition-colors">SIP &amp; Lumpsum Calc</div>
+              <div className="text-[11px] text-[#64748B] dark:text-slate-400">Wealth growth projection</div>
+            </div>
+          </Link>
+
+          <Link
+            to="/stock-screener"
+            className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 shadow-sm hover:border-purple-500 transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <TrendingUp className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-[#14263F] dark:text-white group-hover:text-purple-500 transition-colors">Stock Screener</div>
+              <div className="text-[11px] text-[#64748B] dark:text-slate-400">7,000+ NSE &amp; BSE filter</div>
+            </div>
+          </Link>
+        </div>
+      </section>
 
       <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-10 sm:space-y-12">
         {error && <ErrorRetryState message={error} onRetry={loadDashboard} />}

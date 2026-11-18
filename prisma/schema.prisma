@@ -1,0 +1,475 @@
+// This is your Prisma schema file for PriceAlerter FinTech Architecture
+// Supported for PostgreSQL / Neon / Supabase
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -------------------------------------------------------------
+// 1. IDENTITY & USER ACCOUNTS
+// -------------------------------------------------------------
+
+enum Role {
+  USER
+  PRO_USER
+  ADMIN
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String         @unique
+  emailVerified DateTime?
+  phone         String?        @unique
+  phoneVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  watchlists    Watchlist[]
+  alerts        PriceAlert[]
+  portfolios    Portfolio[]
+  notifications Notification[]
+  savedPans     UserSavedPan[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model UserSavedPan {
+  id           String   @id @default(cuid())
+  userId       String
+  panEncrypted String
+  panMasked    String
+  holderName   String?
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// -------------------------------------------------------------
+// 2. EQUITIES & NSE/BSE UNIVERSE
+// -------------------------------------------------------------
+
+enum Exchange {
+  NSE
+  BSE
+  BOTH
+}
+
+model Stock {
+  id              String             @id @default(cuid())
+  symbol          String             @unique
+  bseCode         String?            @unique
+  isin            String?            @unique
+  companyName     String
+  industry        String?
+  sector          String
+  exchange        Exchange           @default(BOTH)
+  currentPrice    Decimal?           @db.Decimal(12, 2)
+  previousClose   Decimal?           @db.Decimal(12, 2)
+  dayHigh         Decimal?           @db.Decimal(12, 2)
+  dayLow          Decimal?           @db.Decimal(12, 2)
+  week52High      Decimal?           @db.Decimal(12, 2)
+  week52Low       Decimal?           @db.Decimal(12, 2)
+  volume          BigInt?
+  marketCapCr     Decimal?           @db.Decimal(14, 2)
+  peRatio         Decimal?           @db.Decimal(8, 2)
+  pbRatio         Decimal?           @db.Decimal(8, 2)
+  dividendYield   Decimal?           @db.Decimal(5, 2)
+  lastTradeTime   DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  historicalQuotes HistoricalPrice[]
+  fundamentals     StockFundamentals?
+  shareholding     ShareholdingPattern?
+  alerts           PriceAlert[]
+  watchlists       WatchlistItem[]
+  portfolioHoldings PortfolioHolding[]
+  mutualFundHoldings MutualFundHolding[]
+
+  @@index([sector])
+  @@index([currentPrice])
+}
+
+model HistoricalPrice {
+  id        String   @id @default(cuid())
+  stockId   String
+  date      DateTime @db.Date
+  open      Decimal  @db.Decimal(12, 2)
+  high      Decimal  @db.Decimal(12, 2)
+  low       Decimal  @db.Decimal(12, 2)
+  close     Decimal  @db.Decimal(12, 2)
+  volume    BigInt
+  createdAt DateTime @default(now())
+
+  stock Stock @relation(fields: [stockId], references: [id], onDelete: Cascade)
+
+  @@unique([stockId, date])
+  @@index([date])
+}
+
+model StockFundamentals {
+  id             String   @id @default(cuid())
+  stockId        String   @unique
+  revenueCr      Decimal? @db.Decimal(12, 2)
+  netProfitCr    Decimal? @db.Decimal(12, 2)
+  ebitdaCr       Decimal? @db.Decimal(12, 2)
+  eps            Decimal? @db.Decimal(10, 2)
+  roePercent     Decimal? @db.Decimal(6, 2)
+  rocePercent    Decimal? @db.Decimal(6, 2)
+  debtToEquity   Decimal? @db.Decimal(6, 2)
+  bookValuePerShare Decimal? @db.Decimal(10, 2)
+  updatedAt      DateTime @updatedAt
+
+  stock Stock @relation(fields: [stockId], references: [id], onDelete: Cascade)
+}
+
+model ShareholdingPattern {
+  id          String   @id @default(cuid())
+  stockId     String   @unique
+  promoter    Decimal  @db.Decimal(5, 2)
+  fii         Decimal  @db.Decimal(5, 2)
+  dii         Decimal  @db.Decimal(5, 2)
+  public      Decimal  @db.Decimal(5, 2)
+  others      Decimal? @db.Decimal(5, 2)
+  pledgedPercent Decimal? @db.Decimal(5, 2)
+  asOfQuarter String
+  updatedAt   DateTime @updatedAt
+
+  stock Stock @relation(fields: [stockId], references: [id], onDelete: Cascade)
+}
+
+// -------------------------------------------------------------
+// 3. PRIMARY MARKET (IPO) & GMP HUB
+// -------------------------------------------------------------
+
+enum IPOCategory {
+  MAINBOARD
+  SME
+}
+
+enum IPOStatus {
+  UPCOMING
+  OPEN
+  CLOSED
+  ALLOTTED
+  LISTED
+}
+
+model Ipo {
+  id              String            @id @default(cuid())
+  slug            String            @unique
+  companyName     String
+  symbol          String?
+  category        IPOCategory       @default(MAINBOARD)
+  status          IPOStatus         @default(UPCOMING)
+  sector          String
+  issueSizeCr     Decimal?          @db.Decimal(12, 2)
+  freshIssueCr    Decimal?          @db.Decimal(12, 2)
+  ofsCr           Decimal?          @db.Decimal(12, 2)
+  priceBandLow    Decimal?          @db.Decimal(10, 2)
+  priceBandHigh   Decimal?          @db.Decimal(10, 2)
+  lotSize         Int?
+  minInvestment   Decimal?          @db.Decimal(10, 2)
+  openDate        DateTime?
+  closeDate       DateTime?
+  allotmentDate   DateTime?
+  refundDate      DateTime?
+  listingDate     DateTime?
+  listingPrice    Decimal?          @db.Decimal(10, 2)
+  listingGainPercent Decimal?       @db.Decimal(6, 2)
+  registrar       String?
+  registrarUrl    String?
+  rhpUrl          String?
+  drhpUrl         String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  gmpRecords      GmpRecord[]
+  subscriptions   IpoSubscription[]
+  watchlists      WatchlistItem[]
+  alerts          PriceAlert[]
+
+  @@index([status])
+  @@index([category])
+}
+
+model GmpRecord {
+  id              String   @id @default(cuid())
+  ipoId           String
+  recordedAt      DateTime @default(now())
+  gmpValue        Decimal  @db.Decimal(10, 2)
+  estimatedListingPrice Decimal? @db.Decimal(10, 2)
+  gainPercent     Decimal? @db.Decimal(6, 2)
+  sourceReliability String?
+
+  ipo Ipo @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+
+  @@index([ipoId, recordedAt])
+}
+
+model IpoSubscription {
+  id         String   @id @default(cuid())
+  ipoId      String
+  updatedAt  DateTime @default(now())
+  qibTimes   Decimal  @db.Decimal(8, 2)
+  niiTimes   Decimal  @db.Decimal(8, 2)
+  retailTimes Decimal @db.Decimal(8, 2)
+  totalTimes Decimal  @db.Decimal(8, 2)
+  applicationsCount Int?
+
+  ipo Ipo @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+}
+
+// -------------------------------------------------------------
+// 4. INDIAN MUTUAL FUNDS & SIP INTELLIGENCE
+// -------------------------------------------------------------
+
+enum MFCategory {
+  EQUITY
+  DEBT
+  HYBRID
+  INDEX
+  ELSS
+}
+
+model MutualFund {
+  id            String             @id @default(cuid())
+  slug          String             @unique
+  name          String
+  amc           String
+  category      MFCategory
+  subCategory   String
+  nav           Decimal            @db.Decimal(10, 4)
+  navDate       DateTime           @db.Date
+  aumCr         Decimal?           @db.Decimal(14, 2)
+  expenseRatio  Decimal?           @db.Decimal(5, 2)
+  exitLoad      String?
+  minSip        Decimal?           @db.Decimal(10, 2)
+  minLumpsum    Decimal?           @db.Decimal(10, 2)
+  rating        Int?               @default(4)
+  riskLevel     String?
+  fundManager   String?
+  launchDate    DateTime?
+  return1Y      Decimal?           @db.Decimal(6, 2)
+  return3Y      Decimal?           @db.Decimal(6, 2)
+  return5Y      Decimal?           @db.Decimal(6, 2)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  navHistory    MutualFundNav[]
+  holdings      MutualFundHolding[]
+  portfolioHoldings PortfolioHolding[]
+
+  @@index([amc])
+  @@index([category])
+}
+
+model MutualFundNav {
+  id           String     @id @default(cuid())
+  mutualFundId String
+  date         DateTime   @db.Date
+  nav          Decimal    @db.Decimal(10, 4)
+
+  mutualFund   MutualFund @relation(fields: [mutualFundId], references: [id], onDelete: Cascade)
+
+  @@unique([mutualFundId, date])
+  @@index([date])
+}
+
+model MutualFundHolding {
+  id           String     @id @default(cuid())
+  mutualFundId String
+  stockId      String
+  weightPercent Decimal   @db.Decimal(5, 2)
+
+  mutualFund   MutualFund @relation(fields: [mutualFundId], references: [id], onDelete: Cascade)
+  stock        Stock      @relation(fields: [stockId], references: [id], onDelete: Cascade)
+
+  @@unique([mutualFundId, stockId])
+}
+
+// -------------------------------------------------------------
+// 5. EXTERNAL PORTFOLIO TRACKER (NO DEMAT LICENSE REQUIRED)
+// -------------------------------------------------------------
+
+model Portfolio {
+  id          String             @id @default(cuid())
+  userId      String
+  name        String             @default("My Primary Portfolio")
+  isDefault   Boolean            @default(true)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  holdings    PortfolioHolding[]
+  transactions Transaction[]
+}
+
+enum HoldingAssetType {
+  EQUITY
+  MUTUAL_FUND
+  GOLD
+  DEBT
+}
+
+model PortfolioHolding {
+  id           String           @id @default(cuid())
+  portfolioId  String
+  assetType    HoldingAssetType @default(EQUITY)
+  stockId      String?
+  mutualFundId String?
+  customName   String?
+  quantity     Decimal          @db.Decimal(14, 4)
+  avgBuyPrice  Decimal          @db.Decimal(12, 2)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  portfolio    Portfolio        @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  stock        Stock?           @relation(fields: [stockId], references: [id], onDelete: SetNull)
+  mutualFund   MutualFund?      @relation(fields: [mutualFundId], references: [id], onDelete: SetNull)
+
+  @@index([portfolioId])
+}
+
+enum TransactionType {
+  BUY
+  SELL
+  DIVIDEND
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  portfolioId String
+  type        TransactionType @default(BUY)
+  symbol      String
+  quantity    Decimal         @db.Decimal(14, 4)
+  price       Decimal         @db.Decimal(12, 2)
+  fees        Decimal?        @default(0) @db.Decimal(10, 2)
+  transactedAt DateTime       @default(now())
+
+  portfolio   Portfolio       @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+}
+
+// -------------------------------------------------------------
+// 6. WATCHLISTS & SMART ALERTS ENGINE
+// -------------------------------------------------------------
+
+model Watchlist {
+  id        String          @id @default(cuid())
+  userId    String
+  name      String          @default("My Watchlist")
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WatchlistItem[]
+}
+
+model WatchlistItem {
+  id          String    @id @default(cuid())
+  watchlistId String
+  stockId     String?
+  ipoId       String?
+  addedAt     DateTime  @default(now())
+
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+  stock       Stock?    @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  ipo         Ipo?      @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+
+  @@unique([watchlistId, stockId])
+  @@unique([watchlistId, ipoId])
+}
+
+enum AlertCondition {
+  PRICE_ABOVE
+  PRICE_BELOW
+  GMP_CHANGE
+  IPO_OPENING
+  IPO_ALLOTMENT_OUT
+  EARNINGS_DATE
+}
+
+enum AlertChannel {
+  IN_APP
+  EMAIL
+  WEB_PUSH
+  WHATSAPP
+}
+
+model PriceAlert {
+  id             String         @id @default(cuid())
+  userId         String
+  stockId        String?
+  ipoId          String?
+  conditionType  AlertCondition
+  targetValue    Decimal?       @db.Decimal(12, 2)
+  channel        AlertChannel   @default(EMAIL)
+  triggered      Boolean        @default(false)
+  triggeredAt    DateTime?
+  active         Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stock Stock? @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  ipo   Ipo?   @relation(fields: [ipoId], references: [id], onDelete: Cascade)
+
+  @@index([userId, active])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+}

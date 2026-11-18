@@ -204,6 +204,12 @@ export function MainNavbar() {
             </NavLink>
 
             {/* Full links on 2xl+, grouped under Tools dropdown on lg & xl (MacBook screens: 1024px-1535px) */}
+            <NavLink to="/mutual-funds" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
+              Mutual Funds
+            </NavLink>
+            <NavLink to="/portfolio" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
+              Portfolio
+            </NavLink>
             <NavLink to="/listed" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Listed IPOs
             </NavLink>
@@ -227,13 +233,15 @@ export function MainNavbar() {
                 onClick={() => setOpenDropdown(openDropdown === 'tools' ? null : 'tools')}
                 className="inline-flex items-center gap-1 text-sm font-medium whitespace-nowrap shrink-0 py-1 border-b-2 border-transparent text-[#64748B] dark:text-slate-300 hover:text-[#152338] dark:hover:text-white cursor-pointer"
               >
-                <span>Tools</span>
+                <span>Tools &amp; Funds</span>
                 <ChevronDown className="w-3.5 h-3.5" />
               </button>
               {openDropdown === 'tools' && (
-                <div className="absolute left-0 top-full pt-2 w-48 z-50">
+                <div className="absolute left-0 top-full pt-2 w-52 z-50">
                   <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] shadow-lg p-1.5 grid gap-0.5">
                     {[
+                      { label: 'Mutual Funds & SIP', to: '/mutual-funds' },
+                      { label: 'Portfolio Tracker', to: '/portfolio' },
                       { label: 'Listed IPO Performance', to: '/listed' },
                       { label: 'Calculators', to: '/calculators' },
                       { label: 'Market Insights', to: '/market-insights' },
@@ -459,6 +467,8 @@ export function MainNavbar() {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {[
+                    { label: 'Mutual Funds & SIP', to: '/mutual-funds' },
+                    { label: 'Portfolio Tracker', to: '/portfolio' },
                     { label: 'Calculators', to: '/calculators' },
                     { label: 'Market Insights', to: '/market-insights' },
                     { label: 'Learn / Guides', to: '/blog' },

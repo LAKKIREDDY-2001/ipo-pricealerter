@@ -79,6 +79,12 @@ const AdminPage = lazy(() =>
 const GovernancePage = lazy(() =>
   import('./pages/GovernancePages').then((m) => ({ default: m.GovernancePage }))
 );
+const MutualFundsPage = lazy(() =>
+  import('./pages/MutualFundsPage').then((m) => ({ default: m.MutualFundsPage }))
+);
+const PortfolioTrackerPage = lazy(() =>
+  import('./pages/PortfolioTrackerPage').then((m) => ({ default: m.PortfolioTrackerPage }))
+);
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -263,6 +269,11 @@ export default function App() {
                     <Route path="/stock-screener" element={<StockScreenerPage />} />
                     <Route path="/screener" element={<StockScreenerPage />} />
                     <Route path="/stock/:symbol" element={<StockDetailPage />} />
+
+                    {/* Mutual Funds & Portfolio Intelligence */}
+                    <Route path="/mutual-funds" element={<MutualFundsPage />} />
+                    <Route path="/mutual-funds/:slug" element={<MutualFundsPage />} />
+                    <Route path="/portfolio" element={<PortfolioTrackerPage />} />
 
                     {/* Calendar, Insights, Learn/Blog, Calculators */}
                     <Route path="/calendar" element={<IPOCalendarPage />} />

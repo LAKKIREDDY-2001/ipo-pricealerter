@@ -192,59 +192,175 @@ interface LiveMarketDataSnapshot {
   blogs?: BlogArticle[];
   lastSyncTime?: string;
   lastSyncFormatted?: string;
+  totalTrackedUniverse?: number;
 }
 
 let cachedSnapshot: LiveMarketDataSnapshot | null = null;
-let snapshotPromise: Promise<LiveMarketDataSnapshot> | null = null;
+let summaryPromise: Promise<LiveMarketDataSnapshot> | null = null;
+let fullUniversePromise: Promise<LiveMarketDataSnapshot> | null = null;
+let hasFullUniverseLoaded = false;
 
-async function loadStaticMarketSnapshot(): Promise<LiveMarketDataSnapshot> {
-  if (cachedSnapshot) return cachedSnapshot;
-  if (snapshotPromise) return snapshotPromise;
-  snapshotPromise = (async () => {
+const FAST_CACHE_KEY = 'pa_market_summary_v3';
+const FAST_CACHE_TTL = 180_000; // 3 minutes cache for instantaneous 0ms page reloads
+
+function readLocalSummaryCache(): LiveMarketDataSnapshot | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = sessionStorage.getItem(FAST_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.ts === 'number' && Date.now() - parsed.ts < FAST_CACHE_TTL && parsed.data) {
+      return parsed.data as LiveMarketDataSnapshot;
+    }
+  } catch {
+    // Ignore storage parse issues
+  }
+  return null;
+}
+
+function writeLocalSummaryCache(data: LiveMarketDataSnapshot): void {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.setItem(
+      FAST_CACHE_KEY,
+      JSON.stringify({ ts: Date.now(), data })
+    );
+  } catch {
+    // Ignore quota issues
+  }
+}
+
+async function loadStaticMarketSnapshot(requireFullUniverse = false): Promise<LiveMarketDataSnapshot> {
+  // If we already have the full universe loaded in memory, return immediately
+  if (cachedSnapshot && (hasFullUniverseLoaded || !requireFullUniverse)) {
+    return cachedSnapshot;
+  }
+
+  // Check fast local cache on initial reload for instant 0ms render
+  if (!cachedSnapshot && !requireFullUniverse) {
+    const fromStorage = readLocalSummaryCache();
+    if (fromStorage && (fromStorage.indices?.length || fromStorage.ipos?.length)) {
+      cachedSnapshot = fromStorage;
+      // Silently revalidate / hydrate full universe in the background
+      triggerBackgroundHydration();
+      return cachedSnapshot;
+    }
+  }
+
+  // If full universe is required, fetch full live-market-data
+  if (requireFullUniverse) {
+    return loadFullMarketUniverse();
+  }
+
+  // Otherwise, load lightweight summary snapshot first (under 40KB gzipped, ~25ms)
+  if (summaryPromise) return summaryPromise;
+  summaryPromise = (async (): Promise<LiveMarketDataSnapshot> => {
     try {
-      const staticUrl =
+      const summaryUrl =
         typeof window !== 'undefined'
-          ? `${window.location.origin}/data/live-market-data.json`
-          : '/data/live-market-data.json';
-      const res = await fetch(staticUrl, { cache: 'no-cache' });
+          ? `${window.location.origin}/data/market-summary.json`
+          : '/data/market-summary.json';
+      const res = await fetch(summaryUrl);
       if (res.ok) {
         const text = await res.text();
         if (text && !text.trim().startsWith('<')) {
           const json = JSON.parse(text) as LiveMarketDataSnapshot;
           if (json && (json.stocks?.length || json.ipos?.length || json.indices?.length)) {
-            cachedSnapshot = {
+            const snap: LiveMarketDataSnapshot = {
               indices: json.indices || FALLBACK_MARKET_DATA.indices,
               stocks: json.stocks || FALLBACK_MARKET_DATA.stocks,
               ipos: json.ipos || FALLBACK_MARKET_DATA.ipos,
               insights: json.insights || FALLBACK_MARKET_DATA.insights,
               blogs: json.blogs || FALLBACK_MARKET_DATA.blogs,
               benchmarks: json.benchmarks,
-              allLiveStocks: json.allLiveStocks,
-              trackedIpos: json.trackedIpos,
-              recentIpos: json.recentIpos,
-              liveGmps: json.liveGmps,
+              totalTrackedUniverse: json.totalTrackedUniverse || 7110,
               lastSyncTime: json.lastSyncTime || FALLBACK_MARKET_DATA.lastSyncTime,
               lastSyncFormatted: json.lastSyncFormatted || FALLBACK_MARKET_DATA.lastSyncFormatted,
             };
-            return cachedSnapshot;
+            cachedSnapshot = snap;
+            writeLocalSummaryCache(snap);
+            // Silently kick off full universe background hydration
+            triggerBackgroundHydration();
+            return snap;
+          }
+        }
+      }
+    } catch {
+      // Fall through to full universe
+    }
+
+    return loadFullMarketUniverse();
+  })();
+
+  return summaryPromise;
+}
+
+async function loadFullMarketUniverse(): Promise<LiveMarketDataSnapshot> {
+  if (fullUniversePromise) return fullUniversePromise;
+  fullUniversePromise = (async (): Promise<LiveMarketDataSnapshot> => {
+    try {
+      const fullUrl =
+        typeof window !== 'undefined'
+          ? `${window.location.origin}/data/live-market-data.json`
+          : '/data/live-market-data.json';
+      const res = await fetch(fullUrl);
+      if (res.ok) {
+        const text = await res.text();
+        if (text && !text.trim().startsWith('<')) {
+          const json = JSON.parse(text) as LiveMarketDataSnapshot;
+          if (json && (json.stocks?.length || json.ipos?.length || json.indices?.length)) {
+            const snap: LiveMarketDataSnapshot = {
+              indices: json.indices || cachedSnapshot?.indices || FALLBACK_MARKET_DATA.indices,
+              stocks: json.stocks || cachedSnapshot?.stocks || FALLBACK_MARKET_DATA.stocks,
+              ipos: json.ipos || cachedSnapshot?.ipos || FALLBACK_MARKET_DATA.ipos,
+              insights: json.insights || cachedSnapshot?.insights || FALLBACK_MARKET_DATA.insights,
+              blogs: json.blogs || cachedSnapshot?.blogs || FALLBACK_MARKET_DATA.blogs,
+              benchmarks: json.benchmarks || cachedSnapshot?.benchmarks,
+              allLiveStocks: json.allLiveStocks || cachedSnapshot?.allLiveStocks,
+              trackedIpos: json.trackedIpos || cachedSnapshot?.trackedIpos,
+              recentIpos: json.recentIpos || cachedSnapshot?.recentIpos,
+              liveGmps: json.liveGmps || cachedSnapshot?.liveGmps,
+              totalTrackedUniverse: json.totalTrackedUniverse || cachedSnapshot?.totalTrackedUniverse || 7110,
+              lastSyncTime: json.lastSyncTime || cachedSnapshot?.lastSyncTime || FALLBACK_MARKET_DATA.lastSyncTime,
+              lastSyncFormatted: json.lastSyncFormatted || cachedSnapshot?.lastSyncFormatted || FALLBACK_MARKET_DATA.lastSyncFormatted,
+            };
+            cachedSnapshot = snap;
+            hasFullUniverseLoaded = true;
+            return snap;
           }
         }
       }
     } catch {
       // ignore
     }
-    cachedSnapshot = {
-      indices: FALLBACK_MARKET_DATA.indices,
-      stocks: FALLBACK_MARKET_DATA.stocks,
-      ipos: FALLBACK_MARKET_DATA.ipos,
-      insights: FALLBACK_MARKET_DATA.insights,
-      blogs: FALLBACK_MARKET_DATA.blogs,
-      lastSyncTime: FALLBACK_MARKET_DATA.lastSyncTime,
-      lastSyncFormatted: FALLBACK_MARKET_DATA.lastSyncFormatted,
-    };
+
+    if (!cachedSnapshot) {
+      cachedSnapshot = {
+        indices: FALLBACK_MARKET_DATA.indices,
+        stocks: FALLBACK_MARKET_DATA.stocks,
+        ipos: FALLBACK_MARKET_DATA.ipos,
+        insights: FALLBACK_MARKET_DATA.insights,
+        blogs: FALLBACK_MARKET_DATA.blogs,
+        lastSyncTime: FALLBACK_MARKET_DATA.lastSyncTime,
+        lastSyncFormatted: FALLBACK_MARKET_DATA.lastSyncFormatted,
+        totalTrackedUniverse: 7110,
+      };
+    }
+    hasFullUniverseLoaded = true;
     return cachedSnapshot;
   })();
-  return snapshotPromise;
+
+  return fullUniversePromise;
+}
+
+function triggerBackgroundHydration(): void {
+  if (hasFullUniverseLoaded) return;
+  if (typeof window !== 'undefined') {
+    const schedule = (window as unknown as { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback || setTimeout;
+    schedule(() => {
+      void loadFullMarketUniverse();
+    });
+  }
 }
 
 export const api = {
@@ -373,7 +489,14 @@ export const api = {
         liveSyncedAt: string | null;
       }>(`/api/stocks${qs ? `?${qs}` : ''}`);
     } catch {
-      const snap = await loadStaticMarketSnapshot();
+      const needFullUniverse = Boolean(
+        params?.q ||
+        (params?.limit && params.limit > 100) ||
+        (params?.page && params.page > 1) ||
+        params?.sector ||
+        params?.exchange
+      );
+      const snap = await loadStaticMarketSnapshot(needFullUniverse);
       let rawList: StockInstrument[] = [...(snap.stocks || [])];
       if (rawList.length === 0) {
         rawList = [...FALLBACK_MARKET_DATA.stocks];
@@ -543,15 +666,25 @@ export const api = {
         `/api/stocks/${encodeURIComponent(symbol)}?${query}`
       );
     } catch {
-      const snap = await loadStaticMarketSnapshot();
+      let snap = await loadStaticMarketSnapshot();
       const symLower = symbol.toLowerCase().trim();
-      const allStocks = [...(snap.stocks || []), ...FALLBACK_MARKET_DATA.stocks];
-      const found = allStocks.find(
+      let allStocks = [...(snap.stocks || []), ...FALLBACK_MARKET_DATA.stocks];
+      let found = allStocks.find(
         (s) =>
           s.symbol.toLowerCase() === symLower ||
           s.bseCode?.toLowerCase() === symLower ||
           s.companyName?.toLowerCase().includes(symLower)
       );
+      if (!found && !hasFullUniverseLoaded) {
+        snap = await loadStaticMarketSnapshot(true);
+        allStocks = [...(snap.stocks || []), ...FALLBACK_MARKET_DATA.stocks];
+        found = allStocks.find(
+          (s) =>
+            s.symbol.toLowerCase() === symLower ||
+            s.bseCode?.toLowerCase() === symLower ||
+            s.companyName?.toLowerCase().includes(symLower)
+        );
+      }
       if (found) {
         const liveMatchForFound = snap.allLiveStocks?.find(
           (item: any) =>
@@ -726,9 +859,13 @@ export const api = {
         sectors: string[];
       }>(`/api/search?q=${encodeURIComponent(q)}`);
     } catch {
-      const snap = await loadStaticMarketSnapshot();
+      let snap = await loadStaticMarketSnapshot();
       const query = q.toLowerCase().trim();
-      const allStocks = snap.stocks?.length ? snap.stocks : FALLBACK_MARKET_DATA.stocks;
+      let allStocks = snap.stocks?.length ? snap.stocks : FALLBACK_MARKET_DATA.stocks;
+      if (allStocks.length < 500 && !hasFullUniverseLoaded) {
+        snap = await loadStaticMarketSnapshot(true);
+        allStocks = snap.stocks?.length ? snap.stocks : FALLBACK_MARKET_DATA.stocks;
+      }
       const allIpos = snap.ipos?.length ? snap.ipos : FALLBACK_MARKET_DATA.ipos;
       const allBlogs = snap.blogs?.length ? snap.blogs : FALLBACK_MARKET_DATA.blogs;
       const allInsights = snap.insights?.length ? snap.insights : FALLBACK_MARKET_DATA.insights;

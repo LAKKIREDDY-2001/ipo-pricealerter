@@ -269,7 +269,7 @@ async function main() {
     };
   });
 
-  console.log('--- Step 3: Updating public/data/live-market-data.json ---');
+  console.log('--- Step 3: Updating public/data/live-market-data.json & market-summary.json ---');
   const snapPath = path.resolve('public/data/live-market-data.json');
   let snap: any = {};
   if (fs.existsSync(snapPath)) {
@@ -282,14 +282,51 @@ async function main() {
   snap.stocks = top2500;
   snap.ipos = db.ipos;
 
-  fs.writeFileSync(snapPath, JSON.stringify(snap, null, 2), 'utf8');
+  // Save full minified universe (preserves all 7,110 securities without bloated whitespace)
+  fs.writeFileSync(snapPath, JSON.stringify(snap), 'utf8');
   console.log(`✓ Updated public/data/live-market-data.json: ${snap.stocks.length} universe securities, ${snap.allLiveStocks.length} priced live stocks, ${snap.ipos.length} ipos`);
+
+  // Create lightweight initial market summary for instant (<50ms) page loads
+  const summaryStocks = (snap.stocks || []).slice(0, 60).map((s: any) => ({
+    id: s.id,
+    symbol: s.symbol,
+    companyName: s.companyName,
+    currentPrice: s.currentPrice,
+    previousClose: s.previousClose,
+    dayHigh: s.dayHigh,
+    dayLow: s.dayLow,
+    volume: s.volume,
+    marketCapCr: s.marketCapCr,
+    sector: s.sector,
+    exchange: s.exchange,
+    bseCode: s.bseCode,
+    logoUrl: s.logoUrl,
+    sparkline: s.sparkline,
+    lastTradeTime: s.lastTradeTime,
+    provenance: s.provenance,
+  }));
+
+  const summarySnap = {
+    lastSyncTime: snap.lastSyncTime,
+    lastSyncFormatted: snap.lastSyncFormatted,
+    totalTrackedUniverse: snap.totalTrackedUniverse,
+    indices: snap.indices || [],
+    ipos: snap.ipos || [],
+    stocks: summaryStocks,
+    insights: snap.insights || [],
+    blogs: snap.blogs || [],
+    benchmarks: snap.benchmarks || null,
+  };
+  const summaryPath = path.resolve('public/data/market-summary.json');
+  fs.writeFileSync(summaryPath, JSON.stringify(summarySnap), 'utf8');
+  console.log(`✓ Generated public/data/market-summary.json for ultra-fast initial page loads`);
 
   // Sync to dist/data if it exists
   const distSnapPath = path.resolve('dist/data/live-market-data.json');
   if (fs.existsSync(path.dirname(distSnapPath))) {
-    fs.writeFileSync(distSnapPath, JSON.stringify(snap, null, 2), 'utf8');
-    console.log('✓ Synced to dist/data/live-market-data.json');
+    fs.writeFileSync(distSnapPath, JSON.stringify(snap), 'utf8');
+    fs.writeFileSync(path.resolve('dist/data/market-summary.json'), JSON.stringify(summarySnap), 'utf8');
+    console.log('✓ Synced to dist/data/live-market-data.json & market-summary.json');
   }
 
   console.log('--- Step 4: Updating server/data/seedData.ts & src/data/fallbackMarketData.ts ---');

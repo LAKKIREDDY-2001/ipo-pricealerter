@@ -323,6 +323,83 @@ export function IPOExplorerPage({ presetCategory, presetStatus }: IPOExplorerPag
           )}
         </>
       )}
+
+      {/* Bulk IPO Allotment Status Checker Section */}
+      <section className="rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-6 sm:p-8 shadow-sm space-y-6 mt-8">
+        <div className="max-w-2xl space-y-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 dark:border-emerald-800/60 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 text-xs font-semibold text-[#00D09C] dark:text-emerald-400">
+            <span>Direct Registrar Verification</span>
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold text-[#14263F] dark:text-white">
+            Official IPO Allotment Status Hub
+          </h2>
+          <p className="text-xs sm:text-sm text-[#64748B] dark:text-slate-400 leading-relaxed">
+            Allotment status is finalized by designated SEBI-registered registrars. Click your offering's registrar below to verify allotment shares using your PAN number or Application number.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            {
+              name: 'Link Intime India',
+              sub: 'Largest Mainboard Registrar (Tata Tech, Swiggy, Hyundai)',
+              url: 'https://linkintime.co.in/initial_offer/public-issues.html',
+              badge: 'Primary Registrar',
+            },
+            {
+              name: 'KFin Technologies',
+              sub: 'Major Mainboard & SME Registrar (LIC, Honasa, Awfis)',
+              url: 'https://kosmic.kfintech.com/ipostatus/',
+              badge: 'KFin Direct',
+            },
+            {
+              name: 'Bigshare Services',
+              sub: 'Specialist SME & Emerging Enterprise Registrar',
+              url: 'https://www.bigshareonline.com/ipo_Allotment.html',
+              badge: 'SME Portal',
+            },
+            {
+              name: 'Skyline Financial',
+              sub: 'Regional & SME Offerings Allotment Desk',
+              url: 'https://www.skylinerta.com/ipo.php',
+              badge: 'Skyline Desk',
+            },
+            {
+              name: 'Maashitla Securities',
+              sub: 'SME Platform Allotment Verification Portal',
+              url: 'https://maashitla.com/allotment-status',
+              badge: 'Maashitla Desk',
+            },
+            {
+              name: 'BSE India Allotment Portal',
+              sub: 'Direct Exchange Application & Bid Status Search',
+              url: 'https://www.bseindia.com/investors/appli_check.aspx',
+              badge: 'Exchange Direct',
+            },
+          ].map((reg) => (
+            <a
+              key={reg.name}
+              href={reg.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 p-4 hover:border-[#00D09C] hover:bg-white dark:hover:bg-[#152338] transition-all space-y-2 block"
+            >
+              <div className="flex items-center justify-between">
+                <span className="rounded-md bg-white dark:bg-slate-700 px-2 py-0.5 text-[10px] font-semibold text-[#00D09C] dark:text-emerald-400 border border-slate-200 dark:border-slate-600">
+                  {reg.badge}
+                </span>
+                <span className="text-slate-400 group-hover:text-[#00D09C] transition-colors">↗</span>
+              </div>
+              <div className="font-bold text-sm text-[#14263F] dark:text-white group-hover:text-[#00D09C] transition-colors">
+                {reg.name}
+              </div>
+              <div className="text-[11px] text-[#64748B] dark:text-slate-400 line-clamp-2">
+                {reg.sub}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
