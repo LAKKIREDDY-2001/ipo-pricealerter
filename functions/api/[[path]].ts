@@ -805,7 +805,18 @@ export async function onRequest(context: {
           : item.yahooSymbol || "";
         if (!ticker) return item;
         const quote = await fetchYahooTickerQuote(ticker, forceIndices, ["GC=F", "SI=F", "BZ=F"].includes(ticker) ? null : "INR");
-        if (!quote) return item;
+        if (!quote) {
+          const lastKnownTime = item.provenance?.effectiveDate || item.provenance?.retrievedAt || null;
+          return {
+            ...item,
+            provenance: {
+              ...(item.provenance || {}),
+              source: "Published market snapshot",
+              qualityStatus: quoteFreshnessStatus(lastKnownTime),
+              verificationStatus: "Unverified",
+            },
+          };
+        }
         const defaultCurrency = item.provenance?.currency || (ticker.includes("=") ? "INR" : ticker.endsWith("=F") ? "USD" : "PTS");
         return {
           ...item,
