@@ -1,4 +1,5 @@
 name: Deploy PriceAlerter to Cloudflare Pages
+# Production deployment retry after Cloudflare credentials were configured.
 
 on:
   push:
