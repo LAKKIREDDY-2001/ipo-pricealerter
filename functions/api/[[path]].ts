@@ -447,13 +447,13 @@ function normalizeStocks(snapshot: Snapshot): any[] {
       volume: item.volume ?? null,
       marketCapCr: item.marketCapCr ?? null,
       lastTradeTime: tradeTime,
-      dataSource: "NSE/BSE Real-Time Market Feed",
+      dataSource: "NSE/BSE exchange snapshot (delayed)",
       provenance: {
-        source: "NSE/BSE Real-Time Market Feed",
+        source: "NSE/BSE exchange snapshot (delayed)",
         retrievedAt: tradeTime,
         effectiveDate: tradeTime.split("T")[0],
         verificationStatus: "Verified",
-        qualityStatus: "LIVE",
+        qualityStatus: "DELAYED",
         currency: "INR",
         unit: "INR per share",
         dataCategory: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
@@ -935,7 +935,7 @@ export async function onRequest(context: {
             volume: saved.volume,
             lastTradeTime: saved.quote_time,
             quoteSource: "NSE/BSE Live Feed",
-            quoteStatus: "LIVE",
+            quoteStatus: "stored-not-live",
             quoteRetrievedAt: saved.retrieved_at,
           });
           if (output.nseQuote) {
