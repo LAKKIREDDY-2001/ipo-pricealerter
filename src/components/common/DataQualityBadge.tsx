@@ -36,7 +36,7 @@ export function DataQualityBadge({
       icon: <Clock className="w-3 h-3 shrink-0" />,
     },
     STALE: {
-      label: 'Market Close',
+      label: 'Stale',
       cls: 'text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700',
       icon: <Clock className="w-3 h-3 shrink-0" />,
     },
@@ -60,9 +60,13 @@ export function DataQualityBadge({
   const norm = String(status || '').toUpperCase();
   const item =
     config[norm] ||
-    (norm.includes('DELAYED') ? config.DELAYED : norm.includes('LIVE') || norm.includes('LATEST') || norm.includes('STORED') || norm.includes('VERIFIED') || !norm
-      ? config.LIVE
-      : config.UNAVAILABLE);
+    (norm.includes('STALE') || norm.includes('STORED') || norm.includes('NOT-LIVE')
+      ? config.STALE
+      : norm.includes('DELAYED')
+        ? config.DELAYED
+        : norm === 'LIVE' || norm === 'VERIFIED' || norm.includes('LATEST')
+          ? config.LIVE
+          : config.UNAVAILABLE);
 
   return (
     <span
