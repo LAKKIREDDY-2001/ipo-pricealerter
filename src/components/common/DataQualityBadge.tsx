@@ -60,7 +60,7 @@ export function DataQualityBadge({
   const norm = String(status || '').toUpperCase();
   const item =
     config[norm] ||
-    (norm.includes('LIVE') || norm.includes('DELAYED') || norm.includes('LATEST') || norm.includes('STORED') || norm.includes('VERIFIED') || !norm
+    (norm.includes('DELAYED') ? config.DELAYED : norm.includes('LIVE') || norm.includes('LATEST') || norm.includes('STORED') || norm.includes('VERIFIED') || !norm
       ? config.LIVE
       : config.UNAVAILABLE);
 
