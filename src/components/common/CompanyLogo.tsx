@@ -398,84 +398,25 @@ export function buildLogoCandidateList(opts: {
     candidates.push(staticLogo);
   }
 
-  // 2. Explicit logoUrl if specified
+  // Prefer known company logo sources, then fall back quickly instead of trying many slow hosts.
   if (opts.logoUrl && opts.logoUrl.trim()) {
     const trimmed = opts.logoUrl.trim();
-    if (trimmed.startsWith('/assets/')) {
-      if (!candidates.includes(trimmed)) candidates.push(trimmed);
-    } else if (trimmed.startsWith('http')) {
-      if (!candidates.includes(trimmed)) candidates.push(trimmed);
-    } else if (trimmed.startsWith('/api/')) {
-      const resolved = resolveApiUrl(trimmed);
-      if (!candidates.includes(resolved)) candidates.push(resolved);
-    }
+    if (/^https?:\/\//i.test(trimmed)) candidates.push(trimmed);
+    else if (trimmed.startsWith('/')) candidates.push(resolveApiUrl(trimmed));
   }
 
-  // 3. Groww WebP CDN (covers a broad range of Indian equities directly in browser)
-  // Try the exchange symbol and provider search ID: some small-cap listings use
-  // a provider asset key that differs from their trading symbol.
   const cleanSearchId = String(opts.searchId || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-  if (cleanSearchId && cleanSearchId !== cleanSym && !/^\d+$/.test(cleanSearchId)) {
-    const searchLogo = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSearchId}.webp`;
-    if (!candidates.includes(searchLogo)) candidates.push(searchLogo);
-    const searchPng = `https://assets-netstorage.groww.in/stock-assets/logos/${cleanSearchId}.png`;
-    if (!candidates.includes(searchPng)) candidates.push(searchPng);
-  }
-  if (cleanSym && !/^\d+$/.test(cleanSym)) {
-    const growwWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSym}.webp`;
-    if (!candidates.includes(growwWebp)) candidates.push(growwWebp);
+  if (cleanSearchId) candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSearchId}.webp`);
 
-    // 4. Upstox CDN
-    const upstoxPng = `https://assets.upstox.com/market-quote/symbols/logos/${cleanSym}.png`;
-    if (!candidates.includes(upstoxPng)) candidates.push(upstoxPng);
-
-    // 5. Dhan PNG CDN
-    const dhanPng = `https://images.dhan.co/symbol/${cleanSym}.png`;
-    if (!candidates.includes(dhanPng)) candidates.push(dhanPng);
-
-    // 6. Groww PNG CDN
-    const growwPng = `https://assets-netstorage.groww.in/stock-assets/logos/${cleanSym}.png`;
-    if (!candidates.includes(growwPng)) candidates.push(growwPng);
-
-    // 7. TradingView CDN (Vector SVGs)
-    const tvSvgBig = `https://s3-symbol-logo.tradingview.com/${cleanSym.toLowerCase()}--big.svg`;
-    if (!candidates.includes(tvSvgBig)) candidates.push(tvSvgBig);
-    const tvSvg = `https://s3-symbol-logo.tradingview.com/${cleanSym.toLowerCase()}.svg`;
-    if (!candidates.includes(tvSvg)) candidates.push(tvSvg);
-
-    // 8. Global/US Ticker CDNs (Parqet & Nvstly)
-    const parqetPng = `https://assets.parqet.com/logos/symbol/${cleanSym}?format=png`;
-    if (!candidates.includes(parqetPng)) candidates.push(parqetPng);
-    const nvstlyPng = `https://cdn.jsdelivr.net/gh/nvstly/icons@main/ticker_icons/${cleanSym}.png`;
-    if (!candidates.includes(nvstlyPng)) candidates.push(nvstlyPng);
+  if (cleanSym) {
+    candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSym}.webp`);
+    candidates.push(`https://assets.upstox.com/market-quote/symbols/logos/${cleanSym}.png`);
   }
 
-  // 6. BSE GSTK CDN if 6-digit BSE code (WebP and PNG variants)
-  if (bse6 && /^\d{6}$/.test(bse6)) {
-    const bseWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`;
-    if (!candidates.includes(bseWebp)) candidates.push(bseWebp);
-    const bseUrl = `https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`;
-    if (!candidates.includes(bseUrl)) candidates.push(bseUrl);
+  if (/^\d{6}$/.test(bse6)) {
+    candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`);
   }
 
-  // 7. Broad Indian listed-company logo directory, including BSE-only listings.
-  // Use exchange-qualified symbols so a BSE-only security is not mistaken for an NSE ticker.
-  if (cleanSym && !/^\d+$/.test(cleanSym)) {
-    const listedLogo = `https://api.dharun.dev/v1/logos/NSE:${encodeURIComponent(cleanSym)}`;
-    if (!candidates.includes(listedLogo)) candidates.push(listedLogo);
-  }
-  if (bse6 && /^\d{6}$/.test(bse6)) {
-    const bseListedLogo = `https://api.dharun.dev/v1/logos/BSE:${bse6}`;
-    if (!candidates.includes(bseListedLogo)) candidates.push(bseListedLogo);
-  }
-
-  // 8. Alpha Vantage CDN
-  if (cleanSym && !/^\d+$/.test(cleanSym)) {
-    const avPng = `https://cdn.alphavantage.co/logos/${cleanSym}.png`;
-    if (!candidates.includes(avPng)) candidates.push(avPng);
-  }
-
-  // 8. Backend proxy endpoint
   const proxyUrl = buildCompanyLogoProxyUrl(opts);
   if (!candidates.includes(proxyUrl)) candidates.push(proxyUrl);
 
