@@ -193,6 +193,8 @@ type YahooChart = {
   };
 };
 const quoteCache = new Map<string, { expiresAt: number; quote: any }>();
+const mutualFundCache = new Map<string, { expiresAt: number; data: any }>();
+
 const historyCache = new Map<string, { expiresAt: number; history: any[] }>();
 const macroCache: { expiresAt: number; data: any } = { expiresAt: 0, data: null };
 let usStocksCache: { expiresAt: number; data: any } | null = null;
@@ -877,6 +879,56 @@ export async function onRequest(context: {
       error: error instanceof Error ? error.message : "Database API execution error",
       code: "D1_API_EXECUTION_ERROR",
     }, 500);
+  }
+
+  if (pathname === "/api/mutual-funds/schemes" && request.method === "GET") {
+    const query = (url.searchParams.get("q") || "").trim().slice(0, 100);
+    const offset = Math.max(0, Math.min(100000, Number(url.searchParams.get("offset") || 0)));
+    const limit = Math.max(1, Math.min(100, Number(url.searchParams.get("limit") || 100)));
+    const cacheKey = query ? `search:${query.toLowerCase()}` : `list:${offset}:${limit}`;
+    const cached = mutualFundCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) return json(cached.data);
+    try {
+      const endpoint = new URL(query ? "https://api.mfapi.in/mf/search" : "https://api.mfapi.in/mf");
+      if (query) endpoint.searchParams.set("q", query);
+      else {
+        endpoint.searchParams.set("limit", String(limit));
+        endpoint.searchParams.set("offset", String(offset));
+      }
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) return json({ ok: false, error: "Mutual fund directory is temporarily unavailable." }, 502);
+      const payload = await response.json();
+      const schemes = Array.isArray(payload) ? payload : [];
+      const result = { ok: true, schemes, count: schemes.length, offset, limit, searched: Boolean(query), source: "MFapi.in scheme registry", retrievedAt: new Date().toISOString() };
+      mutualFundCache.set(cacheKey, { data: result, expiresAt: Date.now() + (query ? 15 * 60_000 : 6 * 60 * 60_000) });
+      return json(result);
+    } catch {
+      return json({ ok: false, error: "Unable to retrieve mutual fund schemes right now." }, 502);
+    }
+  }
+
+  const mutualFundDetailMatch = pathname.match(/^\/api\/mutual-funds\/schemes\/(\d+)$/);
+  if (mutualFundDetailMatch && request.method === "GET") {
+    const schemeCode = mutualFundDetailMatch[1];
+    const cacheKey = `detail:${schemeCode}`;
+    const cached = mutualFundCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) return json(cached.data);
+    try {
+      const response = await fetch(`https://api.mfapi.in/mf/${schemeCode}/latest`, {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) return json({ ok: false, error: "Latest NAV is not available for this scheme." }, 502);
+      const payload = await response.json();
+      const result = { ok: true, ...payload, source: "MFapi.in latest NAV", retrievedAt: new Date().toISOString() };
+      mutualFundCache.set(cacheKey, { data: result, expiresAt: 6 * 60 * 60_000 });
+      return json(result);
+    } catch {
+      return json({ ok: false, error: "Unable to retrieve the latest NAV right now." }, 502);
+    }
   }
 
   if (pathname === "/api/market/angel/status") {
