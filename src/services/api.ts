@@ -1514,4 +1514,84 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ name, expirydate, spotPrice }),
     }),
+
+  // Angel One SmartAPI WebSocket Streaming 2.0 Suite
+  getAngelWsConfig: () =>
+    request<{
+      ok: boolean;
+      wsUrl: string;
+      browserWsUrl: string;
+      heartbeat: {
+        requestText: string;
+        responseText: string;
+        intervalMs: number;
+      };
+      limits: {
+        maxSubscriptionsPerSession: number;
+        maxConcurrentConnections: number;
+        packetSizes: {
+          LTP: number;
+          QUOTE: number;
+          SNAPQUOTE: number;
+        };
+      };
+      modes: Record<string, number>;
+      exchangeTypes: Record<number, string>;
+      retrievedAt: string;
+    }>('/api/streaming/angel/config'),
+
+  buildAngelWsSubscriptionPayload: (options: {
+    action?: number;
+    mode?: number;
+    tokensByExchange: Array<{ exchange: string | number; tokens: string[] }>;
+    correlationID?: string;
+  }) =>
+    request<{
+      ok: boolean;
+      success: boolean;
+      request?: {
+        correlationID?: string;
+        action: number;
+        params: {
+          mode: number;
+          tokenList: Array<{ exchangeType: number; tokens: string[] }>;
+        };
+      };
+      error?: {
+        correlationID?: string;
+        errorCode: string;
+        errorMessage: string;
+      };
+      retrievedAt: string;
+    }>('/api/streaming/angel/subscribe-payload', {
+      method: 'POST',
+      body: JSON.stringify(options),
+    }),
+
+  parseAngelWsPacket: (packetBase64: string) =>
+    request<{
+      ok: boolean;
+      tick: any;
+      retrievedAt: string;
+    }>('/api/streaming/angel/parse-packet', {
+      method: 'POST',
+      body: JSON.stringify({ packetBase64 }),
+    }),
+
+  getSimulatedAngelWsTick: (options: {
+    token?: string;
+    mode?: number;
+    exchangeType?: number;
+    ltp?: number;
+  }) =>
+    request<{
+      ok: boolean;
+      tick: any;
+      base64: string;
+      packetSize: number;
+      retrievedAt: string;
+    }>('/api/streaming/angel/simulate-tick', {
+      method: 'POST',
+      body: JSON.stringify(options),
+    }),
 };

@@ -709,6 +709,72 @@ export interface AngelOptionGreekResponse {
   data?: AngelOptionGreekItem[];
 }
 
+export type AngelWsAction = 1 | 0; // 1 = Subscribe, 0 = Unsubscribe
+export type AngelWsMode = 1 | 2 | 3; // 1 = LTP, 2 = Quote, 3 = Snap Quote
+export type AngelWsExchangeType = 1 | 2 | 3 | 4 | 5; // 1=nse_cm, 2=nse_fo, 3=bse_cm, 4=bse_fo, 5=mcx_fo
+
+export interface AngelWsTokenGroup {
+  exchangeType: AngelWsExchangeType | number;
+  tokens: string[];
+}
+
+export interface AngelWsSubscriptionParams {
+  mode: AngelWsMode | number;
+  tokenList: AngelWsTokenGroup[];
+}
+
+export interface AngelWsRequest {
+  correlationID?: string;
+  action: AngelWsAction | number;
+  params: AngelWsSubscriptionParams;
+}
+
+export interface AngelWsDepthItem {
+  buySellFlag: 1 | 0; // 1 = buy, 0 = sell
+  quantity: number;
+  price: number; // in Rupees
+  numberOfOrders: number;
+}
+
+export interface AngelWsTick {
+  subscriptionMode: AngelWsMode | number;
+  exchangeType: AngelWsExchangeType | number;
+  exchangeName: 'nse_cm' | 'nse_fo' | 'bse_cm' | 'bse_fo' | 'mcx_fo' | string;
+  token: string;
+  sequenceNumber: number;
+  exchangeTimestamp: number;
+  exchangeTimeISO: string;
+  lastTradedPrice: number;
+
+  // Quote (mode >= 2)
+  lastTradedQuantity?: number;
+  averageTradedPrice?: number;
+  volumeTradedForTheDay?: number;
+  totalBuyQuantity?: number;
+  totalSellQuantity?: number;
+  openPrice?: number;
+  highPrice?: number;
+  lowPrice?: number;
+  closePrice?: number;
+
+  // Snap Quote (mode === 3)
+  lastTradedTimestamp?: number;
+  openInterest?: number;
+  openInterestChangePct?: number;
+  bestFiveBuys?: AngelWsDepthItem[];
+  bestFiveSells?: AngelWsDepthItem[];
+  upperCircuitLimit?: number;
+  lowerCircuitLimit?: number;
+  fiftyTwoWeekHighPrice?: number;
+  fiftyTwoWeekLowPrice?: number;
+}
+
+export interface AngelWsErrorResponse {
+  correlationID?: string;
+  errorCode: string;
+  errorMessage: string;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -745,6 +811,29 @@ export const ANGEL_POSTBACK_PATH = '/api/orders/angel/postback';
 export const ANGEL_POSTBACK_DEFAULT_URL = 'https://pricealerter.com/api/orders/angel/postback';
 export const ANGEL_MARGIN_BATCH_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/margin/v1/batch`;
 export const ANGEL_OPTION_GREEK_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/optionGreek`;
+
+export const ANGEL_WS_URL = 'wss://smartapisocket.angelone.in/smart-stream';
+export const ANGEL_WS_HEARTBEAT_REQ = 'ping';
+export const ANGEL_WS_HEARTBEAT_RESP = 'pong';
+export const ANGEL_WS_HEARTBEAT_INTERVAL_MS = 30000;
+export const ANGEL_WS_MAX_SUBSCRIPTIONS = 1000;
+export const ANGEL_WS_MAX_CONCURRENT_CONNECTIONS = 3;
+export const ANGEL_WS_PACKET_SIZE_LTP = 51;
+export const ANGEL_WS_PACKET_SIZE_QUOTE = 123;
+export const ANGEL_WS_PACKET_SIZE_SNAPQUOTE = 379;
+
+export const ANGEL_WS_EXCHANGE_NAMES: Record<number, string> = {
+  1: 'nse_cm',
+  2: 'nse_fo',
+  3: 'bse_cm',
+  4: 'bse_fo',
+  5: 'mcx_fo',
+};
+
+export const ANGEL_WS_ERROR_CODES: Record<string, string> = {
+  E1001: 'Invalid Request Payload.',
+  E1002: 'Invalid Request. Subscription Limit Exceeded.',
+};
 
 const LOGIN_URL = ANGEL_LOGIN_URL;
 const HISTORICAL_API_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getCandleData`;
@@ -3809,4 +3898,447 @@ export async function fetchAngelOptionGreeks(
 
   // Fallback to mathematically rigorous Black-Scholes simulator
   return simulateAngelOptionGreeks(normalizedName, formattedExpiry, spotPrice);
+}
+
+/**
+ * ============================================================================
+ * ANGEL ONE SMARTAPI WEBSOCKET STREAMING 2.0 SUITE
+ * Enterprise real-time binary streaming engine for LTP, Quote, & SnapQuote.
+ * Reference: https://smartapi.angelone.in/docs/WebSocket2#
+ * ============================================================================
+ */
+
+/**
+ * Builds the authenticated WebSocket URL for Browser-based or URL-based clients.
+ * Format: wss://smartapisocket.angelone.in/smart-stream?clientCode=<>&feedToken=<>&apiKey=<>
+ */
+export function buildAngelWsUrl(options?: {
+  clientCode?: string;
+  feedToken?: string;
+  apiKey?: string;
+}): string {
+  const creds = options || getAngelCredentials();
+  const clientCode = (creds?.clientCode || '').trim();
+  const feedToken = ((creds as any)?.authToken || (creds as any)?.feedToken || (creds as any)?.feedtoken || '').trim();
+  const apiKey = (creds?.apiKey || '').trim();
+
+  if (clientCode || feedToken || apiKey) {
+    const params = new URLSearchParams();
+    if (clientCode) params.set('clientCode', clientCode);
+    if (feedToken) params.set('feedToken', feedToken);
+    if (apiKey) params.set('apiKey', apiKey);
+    return `${ANGEL_WS_URL}?${params.toString()}`;
+  }
+
+  return ANGEL_WS_URL;
+}
+
+/**
+ * Maps exchange strings to Angel One SmartAPI WebSocket exchange types:
+ * 1 (nse_cm), 2 (nse_fo), 3 (bse_cm), 4 (bse_fo), 5 (mcx_fo)
+ */
+export function mapExchangeToAngelWsType(exchange: string, isDerivatives = false): number {
+  const ex = (exchange || 'NSE').toUpperCase().trim();
+  if (ex === 'MCX') return 5;
+  if (ex === 'BFO') return 4;
+  if (ex === 'BSE') return isDerivatives ? 4 : 3;
+  if (ex === 'NFO' || isDerivatives) return 2;
+  return 1; // nse_cm
+}
+
+/**
+ * Constructs and validates a WebSocket 2.0 subscription / unsubscription JSON request.
+ * Enforces the 1000 tokens limit per session and mode constraints.
+ */
+export function buildAngelWsSubscriptionRequest(options: {
+  action?: AngelWsAction | number; // 1 = subscribe, 0 = unsubscribe
+  mode?: AngelWsMode | number; // 1 = LTP, 2 = Quote, 3 = Snap Quote
+  tokensByExchange: Array<{
+    exchange: string | number;
+    tokens: string[];
+  }>;
+  correlationID?: string;
+}): {
+  success: boolean;
+  request?: AngelWsRequest;
+  error?: AngelWsErrorResponse;
+} {
+  const action = options.action ?? 1;
+  const mode = options.mode ?? 1;
+  const correlationID = options.correlationID || Math.random().toString(36).substring(2, 12);
+
+  const tokenList: AngelWsTokenGroup[] = [];
+  let totalTokensCount = 0;
+
+  for (const group of options.tokensByExchange || []) {
+    let exType = 1;
+    if (typeof group.exchange === 'number') {
+      exType = group.exchange;
+    } else {
+      exType = mapExchangeToAngelWsType(String(group.exchange));
+    }
+
+    const uniqueTokens = Array.from(new Set(group.tokens.map((t) => String(t).trim()).filter(Boolean)));
+    totalTokensCount += uniqueTokens.length;
+
+    tokenList.push({
+      exchangeType: exType,
+      tokens: uniqueTokens,
+    });
+  }
+
+  // Validate 1000 subscription limit per SmartAPI WebSocket 2.0 doc
+  if (totalTokensCount > ANGEL_WS_MAX_SUBSCRIPTIONS) {
+    return {
+      success: false,
+      error: {
+        correlationID,
+        errorCode: 'E1002',
+        errorMessage: ANGEL_WS_ERROR_CODES.E1002,
+      },
+    };
+  }
+
+  if (tokenList.length === 0 || totalTokensCount === 0) {
+    return {
+      success: false,
+      error: {
+        correlationID,
+        errorCode: 'E1001',
+        errorMessage: ANGEL_WS_ERROR_CODES.E1001,
+      },
+    };
+  }
+
+  return {
+    success: true,
+    request: {
+      correlationID,
+      action,
+      params: {
+        mode,
+        tokenList,
+      },
+    },
+  };
+}
+
+/**
+ * Parses raw Little-Endian binary packet received from SmartAPI WebSocket 2.0 stream.
+ * Automatically handles:
+ * - Mode 1: LTP (51 bytes)
+ * - Mode 2: Quote (123 bytes)
+ * - Mode 3: Snap Quote (379 bytes with 10 best-five depth packets)
+ */
+export function parseAngelWsBinaryPacket(buffer: ArrayBuffer | Uint8Array | Buffer): AngelWsTick {
+  let view: DataView;
+
+  if (buffer instanceof ArrayBuffer) {
+    view = new DataView(buffer);
+  } else if (ArrayBuffer.isView(buffer)) {
+    view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+  } else {
+    throw new Error('Invalid binary buffer provided to parseAngelWsBinaryPacket');
+  }
+
+  const byteLength = view.byteLength;
+  if (byteLength < ANGEL_WS_PACKET_SIZE_LTP) {
+    throw new Error(
+      `Binary packet too small (${byteLength} bytes). Minimum LTP packet size is ${ANGEL_WS_PACKET_SIZE_LTP} bytes.`
+    );
+  }
+
+  // 1. Subscription Mode (int8 at 0)
+  const subscriptionMode = view.getInt8(0);
+  // 2. Exchange Type (int8 at 1)
+  const exchangeType = view.getInt8(1);
+
+  // 3. Token (25 bytes at index 2..26, null-terminated)
+  let token = '';
+  for (let i = 2; i < 27; i++) {
+    const code = view.getUint8(i);
+    if (code === 0) break;
+    token += String.fromCharCode(code);
+  }
+
+  // 4. Sequence Number (int64 little-endian at 27)
+  const sequenceNumber = Number(view.getBigInt64(27, true));
+  // 5. Exchange Timestamp (int64 little-endian at 35)
+  const exchangeTimestamp = Number(view.getBigInt64(35, true));
+  const exchangeTimeISO = exchangeTimestamp > 0
+    ? new Date(exchangeTimestamp).toISOString()
+    : new Date().toISOString();
+
+  // 6. Last Traded Price (int64 little-endian at 43)
+  const isCurrency = exchangeType === 5;
+  const priceDivisor = isCurrency ? 10000000.0 : 100.0;
+  const ltpPaise = Number(view.getBigInt64(43, true));
+  const lastTradedPrice = Math.round((ltpPaise / priceDivisor) * 100) / 100;
+
+  const tick: AngelWsTick = {
+    subscriptionMode,
+    exchangeType,
+    exchangeName: ANGEL_WS_EXCHANGE_NAMES[exchangeType] || `exchange_${exchangeType}`,
+    token,
+    sequenceNumber,
+    exchangeTimestamp,
+    exchangeTimeISO,
+    lastTradedPrice,
+  };
+
+  // Mode 2: Quote Mode (size >= 123 bytes)
+  if (byteLength >= ANGEL_WS_PACKET_SIZE_QUOTE) {
+    tick.lastTradedQuantity = Number(view.getBigInt64(51, true));
+    tick.averageTradedPrice = Math.round((Number(view.getBigInt64(59, true)) / priceDivisor) * 100) / 100;
+    tick.volumeTradedForTheDay = Number(view.getBigInt64(67, true));
+    tick.totalBuyQuantity = view.getFloat64(75, true);
+    tick.totalSellQuantity = view.getFloat64(83, true);
+    tick.openPrice = Math.round((Number(view.getBigInt64(91, true)) / priceDivisor) * 100) / 100;
+    tick.highPrice = Math.round((Number(view.getBigInt64(99, true)) / priceDivisor) * 100) / 100;
+    tick.lowPrice = Math.round((Number(view.getBigInt64(107, true)) / priceDivisor) * 100) / 100;
+    tick.closePrice = Math.round((Number(view.getBigInt64(115, true)) / priceDivisor) * 100) / 100;
+  }
+
+  // Mode 3: Snap Quote Mode (size >= 379 bytes)
+  if (byteLength >= ANGEL_WS_PACKET_SIZE_SNAPQUOTE) {
+    tick.lastTradedTimestamp = Number(view.getBigInt64(123, true));
+    tick.openInterest = Number(view.getBigInt64(131, true));
+    tick.openInterestChangePct = view.getFloat64(139, true);
+
+    const bestFiveBuys: AngelWsDepthItem[] = [];
+    const bestFiveSells: AngelWsDepthItem[] = [];
+
+    // 10 packets of 20 bytes each from byte 147 to 346
+    for (let p = 0; p < 10; p++) {
+      const offset = 147 + p * 20;
+      const buySellFlag = view.getInt16(offset, true) as 1 | 0;
+      const quantity = Number(view.getBigInt64(offset + 2, true));
+      const price = Math.round((Number(view.getBigInt64(offset + 10, true)) / priceDivisor) * 100) / 100;
+      const numberOfOrders = view.getInt16(offset + 18, true);
+
+      const depthItem: AngelWsDepthItem = {
+        buySellFlag,
+        quantity,
+        price,
+        numberOfOrders,
+      };
+
+      if (p < 5) {
+        bestFiveBuys.push(depthItem);
+      } else {
+        bestFiveSells.push(depthItem);
+      }
+    }
+
+    tick.bestFiveBuys = bestFiveBuys;
+    tick.bestFiveSells = bestFiveSells;
+
+    tick.upperCircuitLimit = Math.round((Number(view.getBigInt64(347, true)) / priceDivisor) * 100) / 100;
+    tick.lowerCircuitLimit = Math.round((Number(view.getBigInt64(355, true)) / priceDivisor) * 100) / 100;
+    tick.fiftyTwoWeekHighPrice = Math.round((Number(view.getBigInt64(363, true)) / priceDivisor) * 100) / 100;
+    tick.fiftyTwoWeekLowPrice = Math.round((Number(view.getBigInt64(371, true)) / priceDivisor) * 100) / 100;
+  }
+
+  return tick;
+}
+
+/**
+ * Serializes tick data into raw Little-Endian binary format adhering to SmartAPI specification.
+ */
+export function serializeAngelWsBinaryPacket(options: {
+  subscriptionMode: number; // 1 | 2 | 3
+  exchangeType: number;
+  token: string;
+  sequenceNumber?: number;
+  exchangeTimestamp?: number;
+  lastTradedPrice: number;
+  lastTradedQuantity?: number;
+  averageTradedPrice?: number;
+  volumeTradedForTheDay?: number;
+  totalBuyQuantity?: number;
+  totalSellQuantity?: number;
+  openPrice?: number;
+  highPrice?: number;
+  lowPrice?: number;
+  closePrice?: number;
+  lastTradedTimestamp?: number;
+  openInterest?: number;
+  openInterestChangePct?: number;
+  bestFiveBuys?: AngelWsDepthItem[];
+  bestFiveSells?: AngelWsDepthItem[];
+  upperCircuitLimit?: number;
+  lowerCircuitLimit?: number;
+  fiftyTwoWeekHighPrice?: number;
+  fiftyTwoWeekLowPrice?: number;
+}): Uint8Array {
+  const mode = options.subscriptionMode || 1;
+  let totalBytes = ANGEL_WS_PACKET_SIZE_LTP; // 51
+  if (mode === 2) totalBytes = ANGEL_WS_PACKET_SIZE_QUOTE; // 123
+  if (mode === 3) totalBytes = ANGEL_WS_PACKET_SIZE_SNAPQUOTE; // 379
+
+  const buffer = new ArrayBuffer(totalBytes);
+  const view = new DataView(buffer);
+
+  const isCurrency = options.exchangeType === 5;
+  const priceMultiplier = isCurrency ? 10000000 : 100;
+
+  // 1. Subscription mode (int8 at 0)
+  view.setInt8(0, mode);
+  // 2. Exchange type (int8 at 1)
+  view.setInt8(1, options.exchangeType || 1);
+
+  // 3. Token (25 bytes at index 2..26)
+  const tokenStr = (options.token || '').trim();
+  for (let i = 0; i < 25; i++) {
+    if (i < tokenStr.length) {
+      view.setUint8(2 + i, tokenStr.charCodeAt(i));
+    } else {
+      view.setUint8(2 + i, 0);
+    }
+  }
+
+  // 4. Sequence number (int64 at 27)
+  view.setBigInt64(27, BigInt(options.sequenceNumber || 1001), true);
+  // 5. Exchange timestamp (int64 at 35)
+  const nowMs = options.exchangeTimestamp || Date.now();
+  view.setBigInt64(35, BigInt(nowMs), true);
+  // 6. LTP (int64 at 43)
+  const ltpPaise = Math.round(options.lastTradedPrice * priceMultiplier);
+  view.setBigInt64(43, BigInt(ltpPaise), true);
+
+  if (mode >= 2) {
+    // 7. Last traded quantity
+    view.setBigInt64(51, BigInt(options.lastTradedQuantity || 10), true);
+    // 8. Average traded price
+    const atp = Math.round((options.averageTradedPrice || options.lastTradedPrice) * priceMultiplier);
+    view.setBigInt64(59, BigInt(atp), true);
+    // 9. Volume traded
+    view.setBigInt64(67, BigInt(options.volumeTradedForTheDay || 100000), true);
+    // 10. Total buy qty
+    view.setFloat64(75, options.totalBuyQuantity || 50000, true);
+    // 11. Total sell qty
+    view.setFloat64(83, options.totalSellQuantity || 48000, true);
+    // 12. Open price
+    const op = Math.round((options.openPrice || options.lastTradedPrice * 0.99) * priceMultiplier);
+    view.setBigInt64(91, BigInt(op), true);
+    // 13. High price
+    const hp = Math.round((options.highPrice || options.lastTradedPrice * 1.015) * priceMultiplier);
+    view.setBigInt64(99, BigInt(hp), true);
+    // 14. Low price
+    const lp = Math.round((options.lowPrice || options.lastTradedPrice * 0.985) * priceMultiplier);
+    view.setBigInt64(107, BigInt(lp), true);
+    // 15. Close price
+    const cp = Math.round((options.closePrice || options.lastTradedPrice * 0.995) * priceMultiplier);
+    view.setBigInt64(115, BigInt(cp), true);
+  }
+
+  if (mode === 3) {
+    // 16. Last traded timestamp
+    view.setBigInt64(123, BigInt(options.lastTradedTimestamp || nowMs), true);
+    // 17. Open Interest
+    view.setBigInt64(131, BigInt(options.openInterest || 250000), true);
+    // 18. Open Interest change pct
+    view.setFloat64(139, options.openInterestChangePct || 2.5, true);
+
+    // 19. Best 5 Buys and Sells (10 packets)
+    const buys = options.bestFiveBuys || [];
+    const sells = options.bestFiveSells || [];
+
+    for (let p = 0; p < 10; p++) {
+      const offset = 147 + p * 20;
+      if (p < 5) {
+        const buy = buys[p] || {
+          buySellFlag: 1,
+          quantity: 100 * (5 - p),
+          price: options.lastTradedPrice - (p + 1) * 0.05,
+          numberOfOrders: 5 - p,
+        };
+        view.setInt16(offset, 1, true);
+        view.setBigInt64(offset + 2, BigInt(buy.quantity), true);
+        view.setBigInt64(offset + 10, BigInt(Math.round(buy.price * priceMultiplier)), true);
+        view.setInt16(offset + 18, buy.numberOfOrders, true);
+      } else {
+        const sIdx = p - 5;
+        const sell = sells[sIdx] || {
+          buySellFlag: 0,
+          quantity: 120 * (sIdx + 1),
+          price: options.lastTradedPrice + (sIdx + 1) * 0.05,
+          numberOfOrders: sIdx + 1,
+        };
+        view.setInt16(offset, 0, true);
+        view.setBigInt64(offset + 2, BigInt(sell.quantity), true);
+        view.setBigInt64(offset + 10, BigInt(Math.round(sell.price * priceMultiplier)), true);
+        view.setInt16(offset + 18, sell.numberOfOrders, true);
+      }
+    }
+
+    // 20. Upper circuit limit (+10%)
+    const uc = Math.round((options.upperCircuitLimit || options.lastTradedPrice * 1.1) * priceMultiplier);
+    view.setBigInt64(347, BigInt(uc), true);
+    // 21. Lower circuit limit (-10%)
+    const lc = Math.round((options.lowerCircuitLimit || options.lastTradedPrice * 0.9) * priceMultiplier);
+    view.setBigInt64(355, BigInt(lc), true);
+    // 22. 52w high
+    const h52 = Math.round((options.fiftyTwoWeekHighPrice || options.lastTradedPrice * 1.35) * priceMultiplier);
+    view.setBigInt64(363, BigInt(h52), true);
+    // 23. 52w low
+    const l52 = Math.round((options.fiftyTwoWeekLowPrice || options.lastTradedPrice * 0.75) * priceMultiplier);
+    view.setBigInt64(371, BigInt(l52), true);
+  }
+
+  return new Uint8Array(buffer);
+}
+
+/**
+ * Creates simulated live streaming tick and its raw binary packet for real-time testing.
+ */
+export function createSimulatedAngelWsTick(options: {
+  token: string;
+  mode?: number;
+  exchangeType?: number;
+  ltp?: number;
+  symbolName?: string;
+}): { tick: AngelWsTick; binary: Uint8Array; base64: string } {
+  const token = String(options.token || '3045');
+  const mode = options.mode ?? 3;
+  const exchangeType = options.exchangeType ?? 1;
+  const spotPrice = options.ltp ?? (token === '3045' ? 820.5 : 1500.0);
+
+  const binary = serializeAngelWsBinaryPacket({
+    subscriptionMode: mode,
+    exchangeType,
+    token,
+    lastTradedPrice: spotPrice,
+    sequenceNumber: 100000 + Math.floor(Math.random() * 50000),
+    exchangeTimestamp: Date.now(),
+    lastTradedQuantity: 25,
+    averageTradedPrice: spotPrice * 0.998,
+    volumeTradedForTheDay: 2450000,
+    totalBuyQuantity: 450000,
+    totalSellQuantity: 420000,
+    openPrice: spotPrice * 0.992,
+    highPrice: spotPrice * 1.014,
+    lowPrice: spotPrice * 0.988,
+    closePrice: spotPrice * 0.995,
+    openInterest: 850000,
+    openInterestChangePct: 1.85,
+    upperCircuitLimit: spotPrice * 1.1,
+    lowerCircuitLimit: spotPrice * 0.9,
+    fiftyTwoWeekHighPrice: spotPrice * 1.35,
+    fiftyTwoWeekLowPrice: spotPrice * 0.72,
+  });
+
+  const tick = parseAngelWsBinaryPacket(binary);
+  let base64 = '';
+  if (typeof Buffer !== 'undefined') {
+    base64 = Buffer.from(binary).toString('base64');
+  } else {
+    let binaryStr = '';
+    for (let i = 0; i < binary.length; i++) {
+      binaryStr += String.fromCharCode(binary[i]);
+    }
+    base64 = btoa(binaryStr);
+  }
+
+  return { tick, binary, base64 };
 }

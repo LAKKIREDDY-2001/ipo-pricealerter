@@ -114,6 +114,26 @@ import {
   type AngelMarginBatchResponse,
   type AngelOptionGreekItem,
   type AngelOptionGreekResponse,
+  ANGEL_WS_URL,
+  ANGEL_WS_HEARTBEAT_REQ,
+  ANGEL_WS_HEARTBEAT_RESP,
+  ANGEL_WS_HEARTBEAT_INTERVAL_MS,
+  ANGEL_WS_MAX_SUBSCRIPTIONS,
+  ANGEL_WS_PACKET_SIZE_LTP,
+  ANGEL_WS_PACKET_SIZE_QUOTE,
+  ANGEL_WS_PACKET_SIZE_SNAPQUOTE,
+  ANGEL_WS_EXCHANGE_NAMES,
+  ANGEL_WS_ERROR_CODES,
+  buildAngelWsUrl,
+  mapExchangeToAngelWsType,
+  buildAngelWsSubscriptionRequest,
+  parseAngelWsBinaryPacket,
+  serializeAngelWsBinaryPacket,
+  createSimulatedAngelWsTick,
+  type AngelWsTick,
+  type AngelWsRequest,
+  type AngelWsDepthItem,
+  type AngelWsErrorResponse,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2265,6 +2285,99 @@ async function startServer() {
         errorcode: 'OPTION_GREEKS_ERROR',
       });
     }
+  });
+
+  // --- Angel One SmartAPI WebSocket Streaming 2.0 Suite ---
+  app.all('/api/streaming/angel/config', (req, res) => {
+    const creds = getAngelCredentials();
+    const browserWsUrl = buildAngelWsUrl(creds || undefined);
+
+    res.json({
+      ok: true,
+      wsUrl: ANGEL_WS_URL,
+      browserWsUrl,
+      heartbeat: {
+        requestText: ANGEL_WS_HEARTBEAT_REQ,
+        responseText: ANGEL_WS_HEARTBEAT_RESP,
+        intervalMs: ANGEL_WS_HEARTBEAT_INTERVAL_MS,
+      },
+      limits: {
+        maxSubscriptionsPerSession: ANGEL_WS_MAX_SUBSCRIPTIONS,
+        maxConcurrentConnections: 3,
+        packetSizes: {
+          LTP: ANGEL_WS_PACKET_SIZE_LTP,
+          QUOTE: ANGEL_WS_PACKET_SIZE_QUOTE,
+          SNAPQUOTE: ANGEL_WS_PACKET_SIZE_SNAPQUOTE,
+        },
+      },
+      modes: {
+        LTP: 1,
+        QUOTE: 2,
+        SNAP_QUOTE: 3,
+      },
+      exchangeTypes: ANGEL_WS_EXCHANGE_NAMES,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/streaming/angel/subscribe-payload', (req, res) => {
+    try {
+      const body = req.body || {};
+      const result = buildAngelWsSubscriptionRequest({
+        action: body.action ?? 1,
+        mode: body.mode ?? 1,
+        tokensByExchange: body.tokensByExchange || [
+          { exchange: 'NSE', tokens: body.tokens || ['3045'] },
+        ],
+        correlationID: body.correlationID,
+      });
+
+      res.status(result.success ? 200 : 400).json({
+        ok: result.success,
+        ...result,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(400).json({ ok: false, error: err?.message || 'Invalid subscription request' });
+    }
+  });
+
+  app.post('/api/streaming/angel/parse-packet', (req, res) => {
+    try {
+      const body = req.body || {};
+      const base64Str = body.base64 || body.packetBase64;
+      if (!base64Str) {
+        return res.status(400).json({ ok: false, error: 'Missing binary base64 string in packetBase64' });
+      }
+      const buffer = Buffer.from(base64Str, 'base64');
+      const tick = parseAngelWsBinaryPacket(buffer);
+      res.json({ ok: true, tick, retrievedAt: new Date().toISOString() });
+    } catch (err: any) {
+      res.status(400).json({ ok: false, error: err?.message || 'Failed to parse binary packet' });
+    }
+  });
+
+  app.all(['/api/streaming/angel/simulate-tick', '/api/streaming/angel/tick'], (req, res) => {
+    let token = (req.query.token as string) || '3045';
+    let mode = Number(req.query.mode) || 3;
+    let exchangeType = Number(req.query.exchangeType) || 1;
+    let ltp: number | undefined = req.query.ltp ? Number(req.query.ltp) : undefined;
+
+    if (req.method === 'POST' && req.body) {
+      if (req.body.token) token = String(req.body.token);
+      if (req.body.mode) mode = Number(req.body.mode);
+      if (req.body.exchangeType) exchangeType = Number(req.body.exchangeType);
+      if (typeof req.body.ltp === 'number') ltp = req.body.ltp;
+    }
+
+    const sim = createSimulatedAngelWsTick({ token, mode, exchangeType, ltp });
+    res.json({
+      ok: true,
+      tick: sim.tick,
+      base64: sim.base64,
+      packetSize: sim.binary.byteLength,
+      retrievedAt: new Date().toISOString(),
+    });
   });
 
   // --- Authentication ---

@@ -48,6 +48,26 @@ import {
   type AngelMarginBatchResponse,
   type AngelOptionGreekItem,
   type AngelOptionGreekResponse,
+  ANGEL_WS_URL,
+  ANGEL_WS_HEARTBEAT_REQ,
+  ANGEL_WS_HEARTBEAT_RESP,
+  ANGEL_WS_HEARTBEAT_INTERVAL_MS,
+  ANGEL_WS_MAX_SUBSCRIPTIONS,
+  ANGEL_WS_PACKET_SIZE_LTP,
+  ANGEL_WS_PACKET_SIZE_QUOTE,
+  ANGEL_WS_PACKET_SIZE_SNAPQUOTE,
+  ANGEL_WS_EXCHANGE_NAMES,
+  ANGEL_WS_ERROR_CODES,
+  buildAngelWsUrl,
+  mapExchangeToAngelWsType,
+  buildAngelWsSubscriptionRequest,
+  parseAngelWsBinaryPacket,
+  serializeAngelWsBinaryPacket,
+  createSimulatedAngelWsTick,
+  type AngelWsTick,
+  type AngelWsRequest,
+  type AngelWsDepthItem,
+  type AngelWsErrorResponse,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -1623,6 +1643,119 @@ export async function onRequest(context: {
         500
       );
     }
+  }
+
+  // --- Angel One SmartAPI WebSocket Streaming 2.0 Suite ---
+  if (pathname === "/api/streaming/angel/config" && (method === "GET" || method === "POST")) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    const browserWsUrl = buildAngelWsUrl(creds || undefined);
+
+    return json({
+      ok: true,
+      wsUrl: ANGEL_WS_URL,
+      browserWsUrl,
+      heartbeat: {
+        requestText: ANGEL_WS_HEARTBEAT_REQ,
+        responseText: ANGEL_WS_HEARTBEAT_RESP,
+        intervalMs: ANGEL_WS_HEARTBEAT_INTERVAL_MS,
+      },
+      limits: {
+        maxSubscriptionsPerSession: ANGEL_WS_MAX_SUBSCRIPTIONS,
+        maxConcurrentConnections: 3,
+        packetSizes: {
+          LTP: ANGEL_WS_PACKET_SIZE_LTP,
+          QUOTE: ANGEL_WS_PACKET_SIZE_QUOTE,
+          SNAPQUOTE: ANGEL_WS_PACKET_SIZE_SNAPQUOTE,
+        },
+      },
+      modes: {
+        LTP: 1,
+        QUOTE: 2,
+        SNAP_QUOTE: 3,
+      },
+      exchangeTypes: ANGEL_WS_EXCHANGE_NAMES,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/streaming/angel/subscribe-payload" && method === "POST") {
+    try {
+      const body = (await request.json()) as any;
+      const res = buildAngelWsSubscriptionRequest({
+        action: body?.action ?? 1,
+        mode: body?.mode ?? 1,
+        tokensByExchange: body?.tokensByExchange || [
+          { exchange: "NSE", tokens: body?.tokens || ["3045"] },
+        ],
+        correlationID: body?.correlationID,
+      });
+
+      return json(
+        {
+          ok: res.success,
+          ...res,
+          retrievedAt: new Date().toISOString(),
+        },
+        res.success ? 200 : 400
+      );
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Invalid subscription request" }, 400);
+    }
+  }
+
+  if (pathname === "/api/streaming/angel/parse-packet" && method === "POST") {
+    try {
+      const body = (await request.json()) as any;
+      const base64Str = body?.base64 || body?.packetBase64;
+      if (!base64Str) {
+        return json({ ok: false, error: "Missing binary base64 string in packetBase64" }, 400);
+      }
+      const binaryStr = atob(base64Str);
+      const bytes = new Uint8Array(binaryStr.length);
+      for (let i = 0; i < binaryStr.length; i++) {
+        bytes[i] = binaryStr.charCodeAt(i);
+      }
+      const tick = parseAngelWsBinaryPacket(bytes);
+      return json({ ok: true, tick, retrievedAt: new Date().toISOString() });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to parse binary packet" }, 400);
+    }
+  }
+
+  if (
+    (pathname === "/api/streaming/angel/simulate-tick" || pathname === "/api/streaming/angel/tick") &&
+    (method === "GET" || method === "POST")
+  ) {
+    let token = url.searchParams.get("token") || "3045";
+    let mode = Number(url.searchParams.get("mode")) || 3;
+    let exchangeType = Number(url.searchParams.get("exchangeType")) || 1;
+    let ltp: number | undefined = url.searchParams.has("ltp")
+      ? Number(url.searchParams.get("ltp"))
+      : undefined;
+
+    if (method === "POST") {
+      try {
+        const body = (await request.json()) as any;
+        if (body) {
+          if (body.token) token = String(body.token);
+          if (body.mode) mode = Number(body.mode);
+          if (body.exchangeType) exchangeType = Number(body.exchangeType);
+          if (typeof body.ltp === "number") ltp = body.ltp;
+        }
+      } catch (err) {
+        // Fallback to query params
+      }
+    }
+
+    const sim = createSimulatedAngelWsTick({ token, mode, exchangeType, ltp });
+    return json({
+      ok: true,
+      tick: sim.tick,
+      base64: sim.base64,
+      packetSize: sim.binary.byteLength,
+      retrievedAt: new Date().toISOString(),
+    });
   }
 
   if (method !== "GET" && method !== "HEAD") {

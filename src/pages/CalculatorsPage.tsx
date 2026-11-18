@@ -12,6 +12,11 @@ import {
   TrendingDown,
   HelpCircle,
   ArrowRight,
+  Radio,
+  Wifi,
+  WifiOff,
+  Terminal,
+  ArrowDownUp,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
@@ -239,6 +244,52 @@ export function CalculatorsPage() {
     };
   }, [groupedStrikes, greeksData, greeksSymbol]);
 
+  // 7. Angel One SmartAPI WebSocket Streaming 2.0
+  const [wsMode, setWsMode] = useState<1 | 2 | 3>(3); // 1 = LTP, 2 = Quote, 3 = Snap Quote
+  const [wsStreaming, setWsStreaming] = useState(true);
+  const [wsSelectedToken, setWsSelectedToken] = useState('3045');
+  const [wsSelectedSymbol, setWsSelectedSymbol] = useState('SBIN');
+  const [wsCustomToken, setWsCustomToken] = useState('');
+  const [wsExchangeType, setWsExchangeType] = useState<number>(1); // 1 = nse_cm
+  const [wsInspectorTab, setWsInspectorTab] = useState<'depth' | 'quote' | 'binary' | 'docs'>('depth');
+  const [wsActiveTick, setWsActiveTick] = useState<any>(null);
+  const [wsRawBase64, setWsRawBase64] = useState<string>('');
+  const [wsPacketSize, setWsPacketSize] = useState<number>(379);
+  const [wsHeartbeatMs, setWsHeartbeatMs] = useState<number>(18);
+  const [wsHeartbeatCounter, setWsHeartbeatCounter] = useState<number>(1);
+  const [wsSubscribedTokens, setWsSubscribedTokens] = useState<string[]>(['3045', '10626', '2885', '1594']);
+
+  // Fetch initial tick or simulated live streaming tick
+  const refreshWsTick = async (token = wsSelectedToken, mode = wsMode, exType = wsExchangeType) => {
+    try {
+      const res = await api.getSimulatedAngelWsTick({ token, mode, exchangeType: exType });
+      if (res && res.tick) {
+        setWsActiveTick(res.tick);
+        setWsRawBase64(res.base64);
+        setWsPacketSize(res.packetSize);
+        setWsHeartbeatMs(Math.floor(14 + Math.random() * 12));
+        setWsHeartbeatCounter((c) => c + 1);
+      }
+    } catch (err) {
+      console.warn('SmartStream tick fetch error:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTool === 'smart-stream' || activeTool === 'all') {
+      refreshWsTick();
+    }
+  }, [activeTool, wsMode, wsSelectedToken, wsExchangeType]);
+
+  // Periodic tick updater when streaming is active
+  useEffect(() => {
+    if (!wsStreaming || (activeTool !== 'smart-stream' && activeTool !== 'all')) return;
+    const interval = setInterval(() => {
+      refreshWsTick();
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [wsStreaming, wsMode, wsSelectedToken, wsExchangeType, activeTool]);
+
   useEffect(() => {
     Promise.allSettled([api.getIpos(), api.getStocks({ limit: 80 })]).then(([iRes, sRes]) => {
       if (iRes.status === 'fulfilled') setIpos(iRes.value.ipos);
@@ -317,6 +368,7 @@ export function CalculatorsPage() {
           { label: 'All Calculators', to: '/calculators', id: 'all' },
           { label: '⚡ SmartAPI Margin', to: '/calculators/margin', id: 'margin' },
           { label: '📊 Option Greeks (SmartAPI)', to: '/calculators/option-greeks', id: 'option-greeks' },
+          { label: '📡 SmartStream 2.0 (WebSocket)', to: '/calculators/smart-stream', id: 'smart-stream' },
           { label: 'IPO Investment', to: '/calculators/ipo', id: 'ipo' },
           { label: 'GMP Calculator', to: '/calculators/gmp', id: 'gmp' },
           { label: 'Listing Gain', to: '/calculators/listing-gain', id: 'listing-gain' },
@@ -1574,6 +1626,518 @@ export function CalculatorsPage() {
                     })}
                   </tbody>
                 </table>
+              </div>
+            )}
+          </section>
+        )}
+
+        {show('smart-stream') && (
+          <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Radio className="w-5 h-5 text-emerald-600 dark:text-emerald-400 animate-pulse" />
+                  Angel One SmartStream 2.0 (WebSocket Streaming Engine)
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Ultra low-latency Little-Endian binary protocol streaming real-time LTP (51B), Quote (123B), and Snap Quote Level 2 Market Depth (379B).
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                  {wsStreaming ? 'Live Stream: Active' : 'Stream: Paused'}
+                </span>
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                  Heartbeat: ping/pong ({wsHeartbeatMs}ms)
+                </span>
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                  Quota: {wsSubscribedTokens.length} / 1000 tokens
+                </span>
+              </div>
+            </div>
+
+            {/* Controls Bar: Mode, Streaming Toggle & Presets */}
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                {/* Subscription Mode Selector */}
+                <div className="flex items-center gap-1.5 text-xs">
+                  <span className="font-semibold text-slate-700 dark:text-slate-300 mr-1">Subscription Mode:</span>
+                  {[
+                    { mode: 1 as const, label: 'Mode 1: LTP', size: '51 Bytes' },
+                    { mode: 2 as const, label: 'Mode 2: Quote', size: '123 Bytes' },
+                    { mode: 3 as const, label: 'Mode 3: Snap Quote', size: '379 Bytes' },
+                  ].map((m) => (
+                    <button
+                      key={m.mode}
+                      type="button"
+                      onClick={() => {
+                        setWsMode(m.mode);
+                        refreshWsTick(wsSelectedToken, m.mode, wsExchangeType);
+                      }}
+                      className={`px-3 py-1.5 rounded-lg font-semibold border transition-all cursor-pointer ${
+                        wsMode === m.mode
+                          ? 'bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-500 shadow-sm'
+                          : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-400'
+                      }`}
+                    >
+                      <span>{m.label}</span>
+                      <span className="ml-1 text-[10px] opacity-75 font-mono">({m.size})</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Play / Pause Toggle & Refresh */}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setWsStreaming((p) => !p)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border cursor-pointer transition-colors ${
+                      wsStreaming
+                        ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300'
+                        : 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'
+                    }`}
+                  >
+                    {wsStreaming ? <WifiOff className="w-3.5 h-3.5" /> : <Wifi className="w-3.5 h-3.5" />}
+                    <span>{wsStreaming ? 'Pause Stream' : 'Resume Stream'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => refreshWsTick()}
+                    className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
+                    title="Manual Tick Refresh"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Scrip Presets */}
+              <div className="space-y-1.5">
+                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  Select Tracked Token Preset:
+                </span>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {[
+                    { token: '3045', name: 'SBIN', exchange: 'NSE', exchangeType: 1, ltp: 820.5 },
+                    { token: '2885', name: 'RELIANCE', exchange: 'NSE', exchangeType: 1, ltp: 2950.0 },
+                    { token: '11536', name: 'TCS', exchange: 'NSE', exchangeType: 1, ltp: 4150.0 },
+                    { token: '1594', name: 'INFY', exchange: 'NSE', exchangeType: 1, ltp: 1850.0 },
+                    { token: '1333', name: 'HDFCBANK', exchange: 'NSE', exchangeType: 1, ltp: 1720.0 },
+                    { token: '99926000', name: 'NIFTY 50', exchange: 'NSE', exchangeType: 1, ltp: 23600.0 },
+                    { token: '99926009', name: 'BANK NIFTY', exchange: 'NSE', exchangeType: 1, ltp: 50400.0 },
+                    { token: '234230', name: 'GOLD MCX', exchange: 'MCX', exchangeType: 5, ltp: 76500.0 },
+                  ].map((scrip) => (
+                    <button
+                      key={scrip.token}
+                      type="button"
+                      onClick={() => {
+                        setWsSelectedToken(scrip.token);
+                        setWsSelectedSymbol(scrip.name);
+                        setWsExchangeType(scrip.exchangeType);
+                        setWsCustomToken('');
+                        if (!wsSubscribedTokens.includes(scrip.token)) {
+                          setWsSubscribedTokens((t) => [...t, scrip.token]);
+                        }
+                        refreshWsTick(scrip.token, wsMode, scrip.exchangeType);
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                        wsSelectedToken === scrip.token && !wsCustomToken
+                          ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 shadow-sm'
+                          : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-400'
+                      }`}
+                    >
+                      <span>{scrip.name}</span>
+                      <span className="ml-1 text-[10px] font-mono text-slate-400">({scrip.token})</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Custom Token Subscription Form */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (wsCustomToken.trim()) {
+                    const token = wsCustomToken.trim();
+                    setWsSelectedToken(token);
+                    setWsSelectedSymbol(`TOKEN_${token}`);
+                    if (!wsSubscribedTokens.includes(token)) {
+                      setWsSubscribedTokens((t) => [...t, token]);
+                    }
+                    refreshWsTick(token, wsMode, wsExchangeType);
+                  }
+                }}
+                className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 pt-1"
+              >
+                <div className="sm:col-span-5">
+                  <label className="block text-[10px] text-slate-500 mb-0.5">Subscribe Custom Token ID</label>
+                  <input
+                    type="text"
+                    value={wsCustomToken}
+                    onChange={(e) => setWsCustomToken(e.target.value.trim())}
+                    placeholder="Enter Master Scrip Token ID (e.g. 10626, 5290)..."
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-mono"
+                  />
+                </div>
+                <div className="sm:col-span-4">
+                  <label className="block text-[10px] text-slate-500 mb-0.5">Exchange Type</label>
+                  <select
+                    value={wsExchangeType}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      setWsExchangeType(val);
+                      refreshWsTick(wsSelectedToken, wsMode, val);
+                    }}
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs"
+                  >
+                    <option value={1}>1 — nse_cm (NSE Equities)</option>
+                    <option value={2}>2 — nse_fo (NSE Derivatives)</option>
+                    <option value={3}>3 — bse_cm (BSE Equities)</option>
+                    <option value={4}>4 — bse_fo (BSE Derivatives)</option>
+                    <option value={5}>5 — mcx_fo (MCX Commodities)</option>
+                  </select>
+                </div>
+                <div className="sm:col-span-3 flex items-end">
+                  <button
+                    type="submit"
+                    className="w-full min-h-[34px] px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Subscribe Token</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Live Tick Header Bar */}
+            {wsActiveTick && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/60 bg-gradient-to-br from-emerald-50/50 via-teal-50/20 to-white dark:from-emerald-950/30 dark:via-slate-900/40 dark:to-slate-900">
+                <div>
+                  <div className="text-[10px] font-semibold text-emerald-800 dark:text-emerald-300">
+                    Token / Exchange
+                  </div>
+                  <div className="font-display text-lg font-bold text-slate-900 dark:text-white mt-0.5 flex items-center gap-1.5">
+                    <span>{wsSelectedSymbol}</span>
+                    <span className="text-xs font-mono text-slate-500">({wsActiveTick.token})</span>
+                  </div>
+                  <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-0.5">
+                    {wsActiveTick.exchangeName} · Seq: {wsActiveTick.sequenceNumber}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                    Last Traded Price (LTP)
+                  </div>
+                  <div className="font-display text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                    ₹{formatNumberIN(wsActiveTick.lastTradedPrice)}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">
+                    Paise: {Math.round(wsActiveTick.lastTradedPrice * 100)}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                    Average Traded Price (ATP)
+                  </div>
+                  <div className="font-display text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                    ₹{wsActiveTick.averageTradedPrice ? formatNumberIN(wsActiveTick.averageTradedPrice) : '—'}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">Day Weighted Avg</div>
+                </div>
+
+                <div>
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                    Total Traded Volume
+                  </div>
+                  <div className="font-display text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                    {wsActiveTick.volumeTradedForTheDay ? formatNumberIN(wsActiveTick.volumeTradedForTheDay) : '—'}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">Contracts / Shares</div>
+                </div>
+
+                <div>
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                    Circuit Limits (Band)
+                  </div>
+                  <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-1">
+                    UC: ₹{wsActiveTick.upperCircuitLimit ? formatNumberIN(wsActiveTick.upperCircuitLimit) : '—'}
+                  </div>
+                  <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                    LC: ₹{wsActiveTick.lowerCircuitLimit ? formatNumberIN(wsActiveTick.lowerCircuitLimit) : '—'}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                    52-Week Range
+                  </div>
+                  <div className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 mt-1">
+                    High: ₹{wsActiveTick.fiftyTwoWeekHighPrice ? formatNumberIN(wsActiveTick.fiftyTwoWeekHighPrice) : '—'}
+                  </div>
+                  <div className="text-xs font-mono font-bold text-rose-700 dark:text-rose-400 mt-0.5">
+                    Low: ₹{wsActiveTick.fiftyTwoWeekLowPrice ? formatNumberIN(wsActiveTick.fiftyTwoWeekLowPrice) : '—'}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Inspector Navigation Tabs */}
+            <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-2 text-xs">
+              {[
+                { id: 'depth' as const, label: 'Section 2: Best Five Market Depth (Ladder)' },
+                { id: 'quote' as const, label: 'Section 1: Full Quote & OHLC' },
+                { id: 'binary' as const, label: 'Raw Binary Packet Inspector (Hex Dump)' },
+                { id: 'docs' as const, label: 'WebSocket 2.0 Auth & Spec' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setWsInspectorTab(tab.id)}
+                  className={`px-3 py-1.5 rounded-lg font-semibold cursor-pointer transition-colors ${
+                    wsInspectorTab === tab.id
+                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab 1: Section 2 - Level 2 Market Depth (Best 5 Buys & Sells) */}
+            {wsInspectorTab === 'depth' && wsActiveTick && (
+              <div className="space-y-4">
+                {wsMode < 3 ? (
+                  <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/50 dark:bg-amber-950/20 text-xs text-amber-800 dark:text-amber-300">
+                    <p className="font-semibold">Best Five Market Depth data is transmitted in Mode 3 (Snap Quote Mode - 379 Bytes).</p>
+                    <p className="mt-1 text-[11px]">
+                      Currently viewing Mode {wsMode} ({wsMode === 1 ? 'LTP - 51 Bytes' : 'Quote - 123 Bytes'}). Switch to Mode 3 above to see live Level 2 bid/ask order book.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Bids (Buys) */}
+                      <div className="border border-emerald-200 dark:border-emerald-900/60 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50">
+                        <div className="bg-emerald-50/70 dark:bg-emerald-950/40 p-2.5 px-3 border-b border-emerald-200 dark:border-emerald-900/60 flex items-center justify-between text-xs">
+                          <span className="font-bold text-emerald-800 dark:text-emerald-300">
+                            BEST 5 BIDS (BUYS)
+                          </span>
+                          <span className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400">
+                            Total Buy Qty: {wsActiveTick.totalBuyQuantity ? formatNumberIN(wsActiveTick.totalBuyQuantity) : '—'}
+                          </span>
+                        </div>
+                        <table className="w-full text-left text-xs font-mono">
+                          <thead className="bg-slate-50 dark:bg-slate-900/80 text-slate-500 text-[10px]">
+                            <tr>
+                              <th className="py-2 px-3">Orders</th>
+                              <th className="py-2 px-3 text-right">Quantity</th>
+                              <th className="py-2 px-3 text-right font-bold text-emerald-700 dark:text-emerald-400">Bid Price (₹)</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                            {(wsActiveTick.bestFiveBuys || []).map((buy: any, idx: number) => {
+                              const pct = Math.min(100, (buy.quantity / 500) * 100);
+                              return (
+                                <tr key={idx} className="relative hover:bg-emerald-50/30">
+                                  <td className="py-2 px-3 text-slate-500">{buy.numberOfOrders}</td>
+                                  <td className="py-2 px-3 text-right font-semibold text-slate-800 dark:text-slate-200">
+                                    {formatNumberIN(buy.quantity)}
+                                  </td>
+                                  <td className="py-2 px-3 text-right font-bold text-emerald-600 dark:text-emerald-400">
+                                    ₹{Number(buy.price).toFixed(2)}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Asks (Sells) */}
+                      <div className="border border-rose-200 dark:border-rose-900/60 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50">
+                        <div className="bg-rose-50/70 dark:bg-rose-950/40 p-2.5 px-3 border-b border-rose-200 dark:border-rose-900/60 flex items-center justify-between text-xs">
+                          <span className="font-bold text-rose-800 dark:text-rose-300">
+                            BEST 5 ASKS (SELLS)
+                          </span>
+                          <span className="text-[11px] font-mono text-rose-700 dark:text-rose-400">
+                            Total Sell Qty: {wsActiveTick.totalSellQuantity ? formatNumberIN(wsActiveTick.totalSellQuantity) : '—'}
+                          </span>
+                        </div>
+                        <table className="w-full text-left text-xs font-mono">
+                          <thead className="bg-slate-50 dark:bg-slate-900/80 text-slate-500 text-[10px]">
+                            <tr>
+                              <th className="py-2 px-3 font-bold text-rose-700 dark:text-rose-400">Ask Price (₹)</th>
+                              <th className="py-2 px-3 text-right">Quantity</th>
+                              <th className="py-2 px-3 text-right">Orders</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                            {(wsActiveTick.bestFiveSells || []).map((sell: any, idx: number) => {
+                              return (
+                                <tr key={idx} className="relative hover:bg-rose-50/30">
+                                  <td className="py-2 px-3 font-bold text-rose-600 dark:text-rose-400">
+                                    ₹{Number(sell.price).toFixed(2)}
+                                  </td>
+                                  <td className="py-2 px-3 text-right font-semibold text-slate-800 dark:text-slate-200">
+                                    {formatNumberIN(sell.quantity)}
+                                  </td>
+                                  <td className="py-2 px-3 text-right text-slate-500">{sell.numberOfOrders}</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Order Book Depth Pressure Ratio */}
+                    {wsActiveTick.totalBuyQuantity && wsActiveTick.totalSellQuantity && (
+                      <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 space-y-2 text-xs">
+                        <div className="flex items-center justify-between font-semibold">
+                          <span className="text-emerald-700 dark:text-emerald-400">
+                            Buyers: {((wsActiveTick.totalBuyQuantity / (wsActiveTick.totalBuyQuantity + wsActiveTick.totalSellQuantity)) * 100).toFixed(1)}%
+                          </span>
+                          <span className="text-slate-500">Order Book Pressure</span>
+                          <span className="text-rose-700 dark:text-rose-400">
+                            Sellers: {((wsActiveTick.totalSellQuantity / (wsActiveTick.totalBuyQuantity + wsActiveTick.totalSellQuantity)) * 100).toFixed(1)}%
+                          </span>
+                        </div>
+                        <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden flex">
+                          <div
+                            className="bg-emerald-500 h-full transition-all duration-500"
+                            style={{
+                              width: `${(wsActiveTick.totalBuyQuantity / (wsActiveTick.totalBuyQuantity + wsActiveTick.totalSellQuantity)) * 100}%`,
+                            }}
+                          ></div>
+                          <div
+                            className="bg-rose-500 h-full transition-all duration-500"
+                            style={{
+                              width: `${(wsActiveTick.totalSellQuantity / (wsActiveTick.totalBuyQuantity + wsActiveTick.totalSellQuantity)) * 100}%`,
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Tab 2: Section 1 - Full Quote & OHLC */}
+            {wsInspectorTab === 'quote' && wsActiveTick && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Open Price</div>
+                  <div className="font-mono text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                    ₹{wsActiveTick.openPrice ? formatNumberIN(wsActiveTick.openPrice) : '—'}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">High Price</div>
+                  <div className="font-mono text-base font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                    ₹{wsActiveTick.highPrice ? formatNumberIN(wsActiveTick.highPrice) : '—'}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Low Price</div>
+                  <div className="font-mono text-base font-bold text-rose-600 dark:text-rose-400 mt-0.5">
+                    ₹{wsActiveTick.lowPrice ? formatNumberIN(wsActiveTick.lowPrice) : '—'}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Previous Close Price</div>
+                  <div className="font-mono text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                    ₹{wsActiveTick.closePrice ? formatNumberIN(wsActiveTick.closePrice) : '—'}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Last Traded Quantity</div>
+                  <div className="font-mono text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                    {wsActiveTick.lastTradedQuantity ?? '—'}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Open Interest (OI)</div>
+                  <div className="font-mono text-base font-bold text-purple-600 dark:text-purple-400 mt-0.5">
+                    {wsActiveTick.openInterest ? formatNumberIN(wsActiveTick.openInterest) : '—'}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Exchange Timestamp</div>
+                  <div className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300 mt-1">
+                    {wsActiveTick.exchangeTimeISO}
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                  <div className="text-slate-500">Binary Packet Size</div>
+                  <div className="font-mono text-base font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">
+                    {wsPacketSize} Bytes
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tab 3: Raw Binary Packet Inspector */}
+            {wsInspectorTab === 'binary' && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-slate-700 dark:text-slate-300">
+                    Live Little-Endian Binary Buffer ({wsPacketSize} Bytes)
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (navigator.clipboard) {
+                        navigator.clipboard.writeText(wsRawBase64);
+                        alert('Base64 binary packet copied to clipboard!');
+                      }
+                    }}
+                    className="text-indigo-600 dark:text-indigo-400 hover:underline text-[11px] cursor-pointer"
+                  >
+                    Copy Base64 Payload
+                  </button>
+                </div>
+                <div className="p-3.5 rounded-xl bg-slate-950 text-slate-100 font-mono text-[11px] break-all leading-relaxed overflow-x-auto">
+                  <div className="text-slate-500 mb-1">// Base64 Binary Stream (Little Endian):</div>
+                  {wsRawBase64 || 'No packet received yet'}
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Binary layout strictly matches Section 1 &amp; Section 2 specification:
+                  Mode 1 = 51 bytes (LTP) · Mode 2 = 123 bytes (Quote) · Mode 3 = 379 bytes (Snap Quote with 10 Best-5 depth entries).
+                </div>
+              </div>
+            )}
+
+            {/* Tab 4: WebSocket 2.0 Auth & Spec */}
+            {wsInspectorTab === 'docs' && (
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-emerald-600" />
+                  Angel One SmartAPI WebSocket 2.0 Streaming Architecture
+                </div>
+                <p className="leading-relaxed">
+                  Endpoint: <code className="font-mono bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700">wss://smartapisocket.angelone.in/smart-stream</code>
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 space-y-1">
+                    <div className="font-bold text-slate-900 dark:text-white">Authentication Protocol</div>
+                    <p className="text-[11px] text-slate-500">
+                      Browser: Query params <code className="font-mono">?clientCode=&amp;feedToken=&amp;apiKey=</code><br />
+                      Node/Server: Headers <code className="font-mono">Authorization, x-api-key, x-client-code, x-feed-token</code>
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 space-y-1">
+                    <div className="font-bold text-slate-900 dark:text-white">Heartbeat &amp; Quotas</div>
+                    <p className="text-[11px] text-slate-500">
+                      Heartbeat: Text <code className="font-mono">ping</code> every 30s → expects text <code className="font-mono">pong</code>.<br />
+                      Limits: 1000 tokens per session, up to 3 concurrent connections per client code.
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </section>

@@ -80,6 +80,26 @@ import {
   ANGEL_POSTBACK_DEFAULT_URL,
   ANGEL_MARGIN_BATCH_URL,
   ANGEL_OPTION_GREEK_URL,
+  ANGEL_WS_URL,
+  ANGEL_WS_HEARTBEAT_REQ,
+  ANGEL_WS_HEARTBEAT_RESP,
+  ANGEL_WS_HEARTBEAT_INTERVAL_MS,
+  ANGEL_WS_MAX_SUBSCRIPTIONS,
+  ANGEL_WS_PACKET_SIZE_LTP,
+  ANGEL_WS_PACKET_SIZE_QUOTE,
+  ANGEL_WS_PACKET_SIZE_SNAPQUOTE,
+  ANGEL_WS_EXCHANGE_NAMES,
+  ANGEL_WS_ERROR_CODES,
+  buildAngelWsUrl,
+  mapExchangeToAngelWsType,
+  buildAngelWsSubscriptionRequest,
+  parseAngelWsBinaryPacket,
+  serializeAngelWsBinaryPacket,
+  createSimulatedAngelWsTick,
+  type AngelWsTick,
+  type AngelWsRequest,
+  type AngelWsDepthItem,
+  type AngelWsErrorResponse,
   type AngelOptionGreekItem,
   type AngelOptionGreekRequest,
   type AngelOptionGreekResponse,
@@ -1248,5 +1268,204 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(res.message, 'SUCCESS');
     assert.ok(res.data && res.data.length > 0);
     assert.equal(res.data[0].name, 'INFY');
+  });
+
+  await t.test('validates Angel One SmartAPI WebSocket 2.0 URLs, heartbeat protocol, and error codes', () => {
+    assert.equal(ANGEL_WS_URL, 'wss://smartapisocket.angelone.in/smart-stream');
+    assert.equal(ANGEL_WS_HEARTBEAT_REQ, 'ping');
+    assert.equal(ANGEL_WS_HEARTBEAT_RESP, 'pong');
+    assert.equal(ANGEL_WS_HEARTBEAT_INTERVAL_MS, 30000);
+    assert.equal(ANGEL_WS_MAX_SUBSCRIPTIONS, 1000);
+    assert.equal(ANGEL_WS_PACKET_SIZE_LTP, 51);
+    assert.equal(ANGEL_WS_PACKET_SIZE_QUOTE, 123);
+    assert.equal(ANGEL_WS_PACKET_SIZE_SNAPQUOTE, 379);
+
+    assert.equal(ANGEL_WS_ERROR_CODES.E1001, 'Invalid Request Payload.');
+    assert.equal(ANGEL_WS_ERROR_CODES.E1002, 'Invalid Request. Subscription Limit Exceeded.');
+  });
+
+  await t.test('constructs authenticated WebSocket URL for browser-based clients', () => {
+    const urlWithParams = buildAngelWsUrl({
+      clientCode: 'DEMO101',
+      feedToken: 'FT_XYZ_999',
+      apiKey: 'MY_SMART_KEY',
+    });
+    assert.ok(urlWithParams.startsWith('wss://smartapisocket.angelone.in/smart-stream?'));
+    assert.ok(urlWithParams.includes('clientCode=DEMO101'));
+    assert.ok(urlWithParams.includes('feedToken=FT_XYZ_999'));
+    assert.ok(urlWithParams.includes('apiKey=MY_SMART_KEY'));
+  });
+
+  await t.test('maps exchange names to SmartAPI WebSocket exchange types', () => {
+    assert.equal(mapExchangeToAngelWsType('NSE'), 1);
+    assert.equal(mapExchangeToAngelWsType('NFO'), 2);
+    assert.equal(mapExchangeToAngelWsType('BSE'), 3);
+    assert.equal(mapExchangeToAngelWsType('BFO'), 4);
+    assert.equal(mapExchangeToAngelWsType('MCX'), 5);
+    assert.equal(mapExchangeToAngelWsType('NSE', true), 2); // derivatives flag
+    assert.equal(mapExchangeToAngelWsType('BSE', true), 4); // derivatives flag
+  });
+
+  await t.test('constructs valid WebSocket 2.0 subscription JSON request adhering to official schema', () => {
+    const res = buildAngelWsSubscriptionRequest({
+      action: 1,
+      mode: 1,
+      correlationID: 'abcde12345',
+      tokensByExchange: [
+        { exchange: 'NSE', tokens: ['10626', '5290'] },
+        { exchange: 'MCX', tokens: ['234230', '234235', '234219'] },
+      ],
+    });
+
+    assert.equal(res.success, true);
+    assert.ok(res.request);
+    assert.equal(res.request.correlationID, 'abcde12345');
+    assert.equal(res.request.action, 1);
+    assert.equal(res.request.params.mode, 1);
+    assert.equal(res.request.params.tokenList.length, 2);
+    assert.equal(res.request.params.tokenList[0].exchangeType, 1);
+    assert.deepEqual(res.request.params.tokenList[0].tokens, ['10626', '5290']);
+    assert.equal(res.request.params.tokenList[1].exchangeType, 5);
+    assert.deepEqual(res.request.params.tokenList[1].tokens, ['234230', '234235', '234219']);
+  });
+
+  await t.test('enforces 1000 tokens subscription limit returning E1002 error', () => {
+    const hugeTokenList = Array.from({ length: 1005 }, (_, i) => `TOK_${i}`);
+    const res = buildAngelWsSubscriptionRequest({
+      action: 1,
+      mode: 1,
+      tokensByExchange: [{ exchange: 'NSE', tokens: hugeTokenList }],
+    });
+
+    assert.equal(res.success, false);
+    assert.ok(res.error);
+    assert.equal(res.error.errorCode, 'E1002');
+    assert.equal(res.error.errorMessage, 'Invalid Request. Subscription Limit Exceeded.');
+  });
+
+  await t.test('serializes and parses Mode 1 LTP binary packet (51 bytes)', () => {
+    const binary = serializeAngelWsBinaryPacket({
+      subscriptionMode: 1,
+      exchangeType: 1, // nse_cm
+      token: '3045',
+      sequenceNumber: 2001,
+      exchangeTimestamp: 1716300000000,
+      lastTradedPrice: 820.5,
+    });
+
+    assert.equal(binary.byteLength, 51, 'LTP mode packet size must be exactly 51 bytes');
+
+    const tick = parseAngelWsBinaryPacket(binary);
+    assert.equal(tick.subscriptionMode, 1);
+    assert.equal(tick.exchangeType, 1);
+    assert.equal(tick.exchangeName, 'nse_cm');
+    assert.equal(tick.token, '3045');
+    assert.equal(tick.sequenceNumber, 2001);
+    assert.equal(tick.exchangeTimestamp, 1716300000000);
+    assert.equal(tick.lastTradedPrice, 820.5);
+    assert.equal(tick.lastTradedQuantity, undefined);
+  });
+
+  await t.test('serializes and parses Mode 2 Quote binary packet (123 bytes)', () => {
+    const binary = serializeAngelWsBinaryPacket({
+      subscriptionMode: 2,
+      exchangeType: 1,
+      token: '2885',
+      sequenceNumber: 45000,
+      exchangeTimestamp: 1716300050000,
+      lastTradedPrice: 2950.0,
+      lastTradedQuantity: 50,
+      averageTradedPrice: 2942.5,
+      volumeTradedForTheDay: 1500000,
+      totalBuyQuantity: 320000,
+      totalSellQuantity: 310000,
+      openPrice: 2930.0,
+      highPrice: 2975.0,
+      lowPrice: 2925.0,
+      closePrice: 2940.0,
+    });
+
+    assert.equal(binary.byteLength, 123, 'Quote mode packet size must be exactly 123 bytes');
+
+    const tick = parseAngelWsBinaryPacket(binary);
+    assert.equal(tick.subscriptionMode, 2);
+    assert.equal(tick.token, '2885');
+    assert.equal(tick.lastTradedPrice, 2950.0);
+    assert.equal(tick.lastTradedQuantity, 50);
+    assert.equal(tick.averageTradedPrice, 2942.5);
+    assert.equal(tick.volumeTradedForTheDay, 1500000);
+    assert.equal(tick.totalBuyQuantity, 320000);
+    assert.equal(tick.totalSellQuantity, 310000);
+    assert.equal(tick.openPrice, 2930.0);
+    assert.equal(tick.highPrice, 2975.0);
+    assert.equal(tick.lowPrice, 2925.0);
+    assert.equal(tick.closePrice, 2940.0);
+    assert.equal(tick.bestFiveBuys, undefined);
+  });
+
+  await t.test('serializes and parses Mode 3 Snap Quote binary packet (379 bytes) with Level 2 depth', () => {
+    const binary = serializeAngelWsBinaryPacket({
+      subscriptionMode: 3,
+      exchangeType: 1,
+      token: '11536',
+      sequenceNumber: 88000,
+      exchangeTimestamp: 1716300100000,
+      lastTradedPrice: 4150.0,
+      lastTradedQuantity: 15,
+      averageTradedPrice: 4145.2,
+      volumeTradedForTheDay: 850000,
+      totalBuyQuantity: 180000,
+      totalSellQuantity: 175000,
+      openPrice: 4130.0,
+      highPrice: 4175.0,
+      lowPrice: 4120.0,
+      closePrice: 4140.0,
+      lastTradedTimestamp: 1716300100000,
+      openInterest: 620000,
+      openInterestChangePct: 1.45,
+      upperCircuitLimit: 4565.0,
+      lowerCircuitLimit: 3735.0,
+      fiftyTwoWeekHighPrice: 4500.0,
+      fiftyTwoWeekLowPrice: 3300.0,
+    });
+
+    assert.equal(binary.byteLength, 379, 'Snap Quote mode packet size must be exactly 379 bytes');
+
+    const tick = parseAngelWsBinaryPacket(binary);
+    assert.equal(tick.subscriptionMode, 3);
+    assert.equal(tick.token, '11536');
+    assert.equal(tick.lastTradedPrice, 4150.0);
+    assert.equal(tick.upperCircuitLimit, 4565.0);
+    assert.equal(tick.lowerCircuitLimit, 3735.0);
+    assert.equal(tick.fiftyTwoWeekHighPrice, 4500.0);
+    assert.equal(tick.fiftyTwoWeekLowPrice, 3300.0);
+
+    // Section-2: Best Five Buys and Sells
+    assert.ok(tick.bestFiveBuys);
+    assert.ok(tick.bestFiveSells);
+    assert.equal(tick.bestFiveBuys.length, 5);
+    assert.equal(tick.bestFiveSells.length, 5);
+
+    // Validate first bid
+    const topBid = tick.bestFiveBuys[0];
+    assert.equal(topBid.buySellFlag, 1);
+    assert.ok(topBid.quantity > 0);
+    assert.ok(topBid.price < 4150.0);
+
+    // Validate first ask
+    const topAsk = tick.bestFiveSells[0];
+    assert.equal(topAsk.buySellFlag, 0);
+    assert.ok(topAsk.quantity > 0);
+    assert.ok(topAsk.price > 4150.0);
+  });
+
+  await t.test('creates simulated live ticks and base64 streams for test fixtures', () => {
+    const sim = createSimulatedAngelWsTick({ token: '3045', mode: 3, ltp: 820.5 });
+    assert.ok(sim.tick);
+    assert.ok(sim.binary);
+    assert.ok(sim.base64);
+    assert.equal(sim.binary.byteLength, 379);
+    assert.equal(sim.tick.token, '3045');
+    assert.equal(sim.tick.lastTradedPrice, 820.5);
   });
 });
