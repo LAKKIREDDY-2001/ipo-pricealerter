@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Download, RefreshCw, Search } from 'lucide-react';
 import { api } from '../services/api';
@@ -31,6 +31,7 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
   const initialSector = searchParams.get('sector') || 'All';
 
   const [stocks, setStocks] = useState<StockInstrument[]>([]);
+  const loadRequestId = useRef(0);
   const [sectors, setSectors] = useState<string[]>([]);
   const [totalMatches, setTotalMatches] = useState(0);
   const [totalUniverse, setTotalUniverse] = useState(0);
@@ -83,6 +84,7 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
 
   const loadStocks = useCallback(
     async (forceRefresh = false) => {
+      const requestId = ++loadRequestId.current;
       if (forceRefresh) setRefreshing(true);
       else if (stocks.length === 0) setLoading(true);
       setError(null);
@@ -109,6 +111,7 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
           const settled = await Promise.allSettled(
             wlSymbols.map((sym) => api.getStockBySymbol(sym, '1mo'))
           );
+          if (requestId !== loadRequestId.current) return;
           const wlStocks = settled
             .filter(
               (r): r is PromiseFulfilledResult<{
@@ -148,6 +151,7 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
           refresh: forceRefresh,
         });
 
+        if (requestId !== loadRequestId.current) return;
         setStocks(res.stocks);
         setTotalMatches(res.total);
         setTotalUniverse(res.totalUniverse);
@@ -156,10 +160,14 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
         setSectors(res.sectors);
         setLiveSyncedAt(res.liveSyncedAt || new Date().toISOString());
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unable to load NSE/BSE live equity feed.');
+        if (requestId === loadRequestId.current) {
+          setError(err instanceof Error ? err.message : 'Unable to load NSE/BSE live equity feed.');
+        }
       } finally {
-        setLoading(false);
-        setRefreshing(false);
+        if (requestId === loadRequestId.current) {
+          setLoading(false);
+          setRefreshing(false);
+        }
       }
     },
     [section, user, watchlist, presetExchange, sector, debouncedSearch, mcapTier, sortBy, sortDir, page]
