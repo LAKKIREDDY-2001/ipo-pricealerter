@@ -66,6 +66,26 @@ import {
   getLiveUsdInrRate,
   globalStockToStockInstrument,
 } from './server/providers/indmoneyUsStocksProvider.ts';
+import {
+  getAngelCredentials,
+  fetchAngelHoldings,
+  convertAngelHoldingsToPortfolio,
+  fetchAngelPositions,
+  convertAngelPosition,
+  initiateAngelEdisVerification,
+  generateAngelEdisTPIN,
+  checkAngelEdisTranStatus,
+  fetchAngelCautionaryScrips,
+  searchAngelScrip,
+  fetchAngelIntradayScrips,
+  loginAngelByPassword,
+  loginAngelWithAutoTotp,
+  generateAngelTokens,
+  fetchAngelUserProfile,
+  fetchAngelRMSFunds,
+  logoutAngelSession,
+  type AngelExchange,
+} from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
 dotenv.config();
@@ -1451,6 +1471,342 @@ async function startServer() {
     }
     const related = db.blogs.filter((b) => article.relatedSlugs.includes(b.slug));
     res.json({ article, related });
+  });
+
+  // --- Angel One SmartAPI Suite & User API Endpoints ---
+  app.get('/api/market/angel/status', (_req, res) => {
+    const creds = getAngelCredentials();
+    res.json({
+      ok: true,
+      configured: Boolean(creds?.apiKey),
+      clientCodeConfigured: Boolean(creds?.clientCode),
+      pinConfigured: Boolean(creds?.pin),
+      totpConfigured: Boolean(creds?.totpKey),
+      apiKeyPresent: Boolean(creds?.apiKey),
+      clientCode: creds?.clientCode ? creds.clientCode.replace(/(?<=.{2}).(?=.{2})/g, '*') : null,
+      status: creds?.apiKey && creds?.totpKey ? 'ready' : creds?.apiKey ? 'missing_totp' : 'unconfigured',
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  app.all('/api/portfolio/angel/holdings', async (req, res) => {
+    let overrideCreds = getAngelCredentials();
+    if (req.method === 'POST' && req.body && typeof req.body === 'object') {
+      if (!overrideCreds && req.body.apiKey) {
+        overrideCreds = {
+          apiKey: req.body.apiKey,
+          clientCode: req.body.clientCode,
+          pin: req.body.pin,
+          totpKey: req.body.totpKey,
+        };
+      } else if (overrideCreds) {
+        if (req.body.clientCode) overrideCreds.clientCode = req.body.clientCode;
+        if (req.body.pin) overrideCreds.pin = req.body.pin;
+        if (req.body.totpKey) overrideCreds.totpKey = req.body.totpKey;
+      }
+    }
+
+    if (!overrideCreds || !overrideCreds.apiKey || !overrideCreds.totpKey) {
+      res.status(400).json({
+        ok: false,
+        error: 'Angel One credentials (API key or TOTP key) not configured.',
+        configured: Boolean(overrideCreds?.apiKey),
+        holdings: [],
+      });
+      return;
+    }
+
+    try {
+      const holdingsData = await fetchAngelHoldings(overrideCreds);
+      if (!holdingsData) {
+        res.status(502).json({
+          ok: false,
+          error: 'Failed to authenticate or fetch holdings from Angel One SmartAPI.',
+          holdings: [],
+        });
+        return;
+      }
+      const holdings = convertAngelHoldingsToPortfolio(holdingsData.holdings || []);
+      res.json({
+        ok: true,
+        source: 'Angel One SmartAPI (Live Demat)',
+        totalHoldingsValue: holdingsData.totalholding?.totalholdingvalue ?? 0,
+        totalInvValue: holdingsData.totalholding?.totalinvvalue ?? 0,
+        totalProfitLoss: holdingsData.totalholding?.totalprofitandloss ?? 0,
+        totalPnlPercentage: holdingsData.totalholding?.totalpnlpercentage ?? 0,
+        holdings,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({
+        ok: false,
+        error: err?.message || 'Error communicating with Angel One SmartAPI',
+        holdings: [],
+      });
+    }
+  });
+
+  app.get('/api/portfolio/angel/positions', async (_req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured', positions: [] });
+      return;
+    }
+    try {
+      const positions = await fetchAngelPositions(creds);
+      res.json({
+        ok: true,
+        source: 'Angel One SmartAPI (Positions)',
+        count: positions.length,
+        positions,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Error fetching positions', positions: [] });
+    }
+  });
+
+  app.post('/api/portfolio/angel/convert-position', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const result = await convertAngelPosition(req.body, creds);
+      res.status(result.success ? 200 : 400).json(result);
+    } catch (err: any) {
+      res.status(500).json({ success: false, message: err?.message || 'Position conversion failed' });
+    }
+  });
+
+  app.post('/api/portfolio/angel/edis/verify', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const isin = String(req.body?.isin || '').trim();
+      const quantity = req.body?.quantity || 1;
+      if (!isin) {
+        res.status(400).json({ ok: false, error: 'Missing ISIN parameter' });
+        return;
+      }
+      const result = await initiateAngelEdisVerification(isin, quantity, creds);
+      res.json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'eDIS verification failed' });
+    }
+  });
+
+  app.post('/api/portfolio/angel/edis/generate-tpin', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const { dpId, reqId, boid, pan } = req.body || {};
+      if (!dpId || !reqId || !boid || !pan) {
+        res.status(400).json({ ok: false, error: 'Missing required parameters: dpId, reqId, boid, pan' });
+        return;
+      }
+      const result = await generateAngelEdisTPIN(dpId, reqId, boid, pan, creds);
+      res.status(result.status ? 200 : 400).json(result);
+    } catch (err: any) {
+      res.status(500).json({ status: false, message: err?.message || 'TPIN generation failed' });
+    }
+  });
+
+  app.post('/api/portfolio/angel/edis/status', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured', authorized: false });
+      return;
+    }
+    try {
+      const reqId = String(req.body?.reqId || req.body?.ReqId || '').trim();
+      if (!reqId) {
+        res.status(400).json({ ok: false, error: 'Missing reqId parameter', authorized: false });
+        return;
+      }
+      const result = await checkAngelEdisTranStatus(reqId, creds);
+      res.json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Status check failed', authorized: false });
+    }
+  });
+
+  app.get('/api/market/angel/cautionary', async (_req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured', data: [] });
+      return;
+    }
+    const cautionary = await fetchAngelCautionaryScrips(creds);
+    res.json({
+      ok: true,
+      count: cautionary.length,
+      data: cautionary,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.get('/api/market/angel/search', async (req, res) => {
+    const creds = getAngelCredentials();
+    const q = (typeof req.query.q === 'string' ? req.query.q : '').trim();
+    const exchange = ((typeof req.query.exchange === 'string' ? req.query.exchange : 'NSE').toUpperCase()) as AngelExchange;
+    if (!q) {
+      res.status(400).json({ ok: false, error: "Missing search query parameter 'q'", data: [] });
+      return;
+    }
+    const results = await searchAngelScrip(exchange, q, creds || undefined);
+    res.json({
+      ok: true,
+      exchange,
+      query: q,
+      results,
+    });
+  });
+
+  app.get('/api/market/angel/intraday', async (req, res) => {
+    const creds = getAngelCredentials();
+    const exchange = (typeof req.query.exchange === 'string' ? req.query.exchange.toUpperCase() : 'NSE') === 'BSE' ? 'BSE' : 'NSE';
+    const scrips = await fetchAngelIntradayScrips(exchange, creds || undefined);
+    res.json({
+      ok: true,
+      exchange,
+      count: scrips.length,
+      data: scrips,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  // --- Angel One User APIs: Login, Token Renewal, Profile, RMS Funds, and Logout ---
+  app.post('/api/user/angel/login', async (req, res) => {
+    const envCreds = getAngelCredentials();
+    const body = req.body || {};
+    const clientCode = String(body.clientCode || body.clientcode || envCreds?.clientCode || '').trim();
+    const pin = String(body.pin || body.password || envCreds?.pin || '').trim();
+    const totp = String(body.totp || body.totpCode || '').trim();
+    const totpKey = String(body.totpKey || envCreds?.totpKey || '').trim();
+    const apiKey = String(body.apiKey || envCreds?.apiKey || '').trim();
+    const state = body.state ? String(body.state) : undefined;
+
+    if (!apiKey) {
+      res.status(400).json({ ok: false, error: 'Missing API Key for Angel One login.' });
+      return;
+    }
+    if (!clientCode || !pin) {
+      res.status(400).json({ ok: false, error: 'Missing clientCode or pin/password.' });
+      return;
+    }
+
+    try {
+      if (totp) {
+        const result = await loginAngelByPassword(clientCode, pin, totp, apiKey, state);
+        res.status(result.status ? 200 : 401).json({ ok: result.status, ...result });
+      } else if (totpKey) {
+        const result = await loginAngelWithAutoTotp(clientCode, pin, totpKey, apiKey, state);
+        if (result?.jwtToken) {
+          res.json({
+            ok: true,
+            status: true,
+            message: 'SUCCESS',
+            data: result,
+          });
+        } else {
+          res.status(401).json({ ok: false, status: false, message: 'Authentication failed with computed TOTP.' });
+        }
+      } else {
+        res.status(400).json({ ok: false, error: 'Either active TOTP code or TOTP Secret Key must be provided.' });
+      }
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Login request failed' });
+    }
+  });
+
+  app.post('/api/user/angel/generate-tokens', async (req, res) => {
+    const envCreds = getAngelCredentials();
+    const body = req.body || {};
+    const refreshToken = String(body.refreshToken || '').trim();
+    const apiKey = String(body.apiKey || envCreds?.apiKey || '').trim();
+    const authToken = body.authToken ? String(body.authToken).trim() : envCreds?.authToken;
+
+    if (!refreshToken) {
+      res.status(400).json({ ok: false, error: 'Missing refreshToken parameter.' });
+      return;
+    }
+    if (!apiKey) {
+      res.status(400).json({ ok: false, error: 'Missing apiKey.' });
+      return;
+    }
+
+    try {
+      const result = await generateAngelTokens(refreshToken, apiKey, authToken);
+      res.status(result.status ? 200 : 400).json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Token generation failed' });
+    }
+  });
+
+  app.get('/api/user/angel/profile', async (_req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const profile = await fetchAngelUserProfile(creds);
+      if (!profile) {
+        res.status(502).json({ ok: false, error: 'Failed to retrieve user profile from SmartAPI' });
+        return;
+      }
+      res.json({
+        ok: true,
+        source: 'Angel One SmartAPI (User Profile)',
+        profile,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Error fetching user profile' });
+    }
+  });
+
+  app.get(['/api/user/angel/funds', '/api/user/angel/rms'], async (_req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const funds = await fetchAngelRMSFunds(creds);
+      if (!funds) {
+        res.status(502).json({ ok: false, error: 'Failed to retrieve RMS funds from SmartAPI' });
+        return;
+      }
+      res.json({
+        ok: true,
+        source: 'Angel One SmartAPI (RMS Funds & Margins)',
+        funds,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Error fetching RMS funds' });
+    }
+  });
+
+  app.post('/api/user/angel/logout', async (req, res) => {
+    const creds = getAngelCredentials();
+    const body = req.body || {};
+    const clientCode = String(body.clientCode || body.clientcode || creds?.clientCode || '').trim();
+    try {
+      const result = await logoutAngelSession(clientCode, creds || undefined);
+      res.json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Logout failed' });
+    }
   });
 
   // --- Authentication ---

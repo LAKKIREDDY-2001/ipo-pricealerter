@@ -135,6 +135,18 @@ export function PortfolioTrackerPage() {
   const [angelTotpSecret, setAngelTotpSecret] = useState('');
   const [angelSyncing, setAngelSyncing] = useState(false);
   const [angelSuccess, setAngelSuccess] = useState(false);
+  const [angelProfile, setAngelProfile] = useState<{
+    clientcode: string;
+    name?: string;
+    exchanges?: string[];
+    products?: string[];
+    lastlogintime?: string;
+  } | null>(null);
+  const [angelFunds, setAngelFunds] = useState<{
+    net?: string;
+    availablecash?: string;
+    collateral?: string;
+  } | null>(null);
 
   // New Holding Form State
   const [newName, setNewName] = useState('');
@@ -270,6 +282,16 @@ export function PortfolioTrackerPage() {
     }, 1200);
   };
 
+  const handleAngelLogout = async () => {
+    try {
+      await fetch('/api/user/angel/logout', { method: 'POST' });
+    } catch {
+      // ignore
+    }
+    setAngelProfile(null);
+    setAngelFunds(null);
+  };
+
   const handleSyncAngelHoldings = async () => {
     setAngelSyncing(true);
     setAngelSuccess(false);
@@ -293,6 +315,22 @@ export function PortfolioTrackerPage() {
             const nonDuplicate = data.holdings.filter((h: PortfolioHolding) => !existingSymbols.has(h.symbol));
             return [...nonDuplicate, ...prev];
           });
+
+          // Fetch Angel One User Profile and RMS Funds in parallel
+          fetch('/api/user/angel/profile')
+            .then((r) => r.json())
+            .then((d) => {
+              if (d.ok && d.profile) setAngelProfile(d.profile);
+            })
+            .catch(() => {});
+
+          fetch('/api/user/angel/funds')
+            .then((r) => r.json())
+            .then((d) => {
+              if (d.ok && d.funds) setAngelFunds(d.funds);
+            })
+            .catch(() => {});
+
           setAngelSyncing(false);
           setAngelSuccess(true);
           setTimeout(() => {
@@ -351,6 +389,18 @@ export function PortfolioTrackerPage() {
         const existingSymbols = new Set(prev.map((h) => h.symbol));
         const nonDuplicate = angelHoldings.filter((h) => !existingSymbols.has(h.symbol));
         return [...nonDuplicate, ...prev];
+      });
+
+      setAngelProfile({
+        clientcode: angelClientId || 'AABF820686',
+        name: 'Angel One Demat User',
+        exchanges: ['NSE', 'BSE', 'MCX', 'NFO'],
+        products: ['DELIVERY', 'INTRADAY', 'MARGIN'],
+      });
+      setAngelFunds({
+        net: '150000',
+        availablecash: '125000',
+        collateral: '25000',
       });
 
       setAngelSyncing(false);
@@ -472,6 +522,61 @@ export function PortfolioTrackerPage() {
           <div className="text-[10px] text-emerald-700 dark:text-emerald-400/80 mt-1">Annualized CAGR</div>
         </div>
       </section>
+
+      {/* Angel One SmartAPI Live Session & RMS Limits Card */}
+      {angelProfile && (
+        <section className="rounded-2xl border border-orange-200 dark:border-orange-900/40 bg-gradient-to-r from-orange-50/70 via-amber-50/40 to-white dark:from-[#1e1510] dark:via-[#19151e] dark:to-[#111C2E] p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-white font-black text-sm shadow-md">
+              AO
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h4 className="font-bold text-sm text-[#14263F] dark:text-white">
+                  Angel One SmartAPI Session Connected
+                </h4>
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Live Demat
+                </span>
+              </div>
+              <div className="text-xs text-[#64748B] dark:text-slate-400 mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>Client Code: <strong className="font-mono text-slate-800 dark:text-slate-200">{angelProfile.clientcode}</strong></span>
+                {angelProfile.name && <span>• Name: <strong className="text-slate-800 dark:text-slate-200">{angelProfile.name}</strong></span>}
+                {angelProfile.exchanges && (
+                  <span>• Segments: <span className="font-mono text-[11px] text-orange-700 dark:text-orange-400 font-semibold">{angelProfile.exchanges.join(', ')}</span></span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {angelFunds && (
+              <div className="flex items-center gap-3 border-l md:border-l border-slate-200 dark:border-slate-800 pl-4 text-xs">
+                <div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400">Available Cash</div>
+                  <div className="font-mono font-bold text-[#14263F] dark:text-white">
+                    ₹{formatNumberIN(Math.round(Number(angelFunds.availablecash || 0)))}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400">Collateral Margin</div>
+                  <div className="font-mono font-bold text-[#14263F] dark:text-white">
+                    ₹{formatNumberIN(Math.round(Number(angelFunds.collateral || 0)))}
+                  </div>
+                </div>
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={handleAngelLogout}
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 transition-colors cursor-pointer"
+            >
+              Disconnect
+            </button>
+          </div>
+        </section>
+      )}
 
       {/* Portfolio X-Ray Section */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">

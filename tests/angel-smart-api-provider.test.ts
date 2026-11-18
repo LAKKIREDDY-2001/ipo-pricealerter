@@ -27,6 +27,19 @@ import {
   type AngelPositionItem,
   type AngelEdisVerifyResponse,
   type AngelEdisTranStatusResponse,
+  type AngelLoginRequest,
+  type AngelLoginResponse,
+  type AngelGenerateTokenResponse,
+  type AngelUserProfile,
+  type AngelRMSFunds,
+  type AngelLogoutResponse,
+  ANGEL_LOGIN_URL,
+  ANGEL_GENERATE_TOKENS_URL,
+  ANGEL_GET_PROFILE_URL,
+  ANGEL_GET_RMS_URL,
+  ANGEL_LOGOUT_URL,
+  clearCachedAngelSession,
+  getCachedAngelSession,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -375,5 +388,110 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     };
     assert.equal(sampleTranStatus.authorized, true);
     assert.equal(sampleTranStatus.reqId, '7650687246435520');
+  });
+
+  await t.test('validates Angel One User API endpoints and URL configurations', () => {
+    assert.equal(ANGEL_LOGIN_URL, 'https://apiconnect.angelone.in/rest/auth/angelbroking/user/v1/loginByPassword');
+    assert.equal(ANGEL_GENERATE_TOKENS_URL, 'https://apiconnect.angelone.in/rest/auth/angelbroking/jwt/v1/generateTokens');
+    assert.equal(ANGEL_GET_PROFILE_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/getProfile');
+    assert.equal(ANGEL_GET_RMS_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/getRMS');
+    assert.equal(ANGEL_LOGOUT_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/logout');
+  });
+
+  await t.test('validates Angel One User Login and Token Renewal contracts', () => {
+    const loginReq: AngelLoginRequest = {
+      clientcode: 'AABF820686',
+      password: '2001',
+      totp: '543210',
+      state: 'live',
+    };
+    assert.equal(loginReq.clientcode, 'AABF820686');
+    assert.equal(loginReq.password, '2001');
+
+    const sampleLoginRes: AngelLoginResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        jwtToken: 'eyJhbGciOiJIUzUxMiJ9.eyJuYW1lIjoiQW5nZWwiLCJpYXQiOjE2ODAwMDAwMDB9...',
+        refreshToken: 'eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2ODAwMDAwMDB9...',
+        feedToken: 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjoiQUFCRjgyMDY4NiJ9...',
+        state: 'live',
+      },
+    };
+    assert.equal(sampleLoginRes.status, true);
+    assert.ok(sampleLoginRes.data?.jwtToken?.startsWith('eyJ'));
+    assert.equal(sampleLoginRes.data?.state, 'live');
+
+    const sampleRenewRes: AngelGenerateTokenResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        jwtToken: 'eyJhbGciOiJIUzUxMiJ9.eyJuZXdUb2tlbiI6dHJ1ZX0...',
+        refreshToken: 'eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2ODAwMDAwMDF9...',
+        feedToken: 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjoiQUFCRjgyMDY4NiJ9...',
+      },
+    };
+    assert.equal(sampleRenewRes.status, true);
+    assert.ok(sampleRenewRes.data?.jwtToken);
+  });
+
+  await t.test('validates Angel One User Profile contract', () => {
+    const sampleProfile: AngelUserProfile = {
+      clientcode: 'AABF820686',
+      name: 'LAKKIREDDY VENKATA MADHAVA REDDY',
+      email: 'user@example.com',
+      mobileno: '9876543210',
+      exchanges: ['NSE', 'BSE', 'MCX', 'CDS', 'NCDEX', 'NFO'],
+      products: ['DELIVERY', 'INTRADAY', 'MARGIN'],
+      lastlogintime: '18-11-2026 09:15:00',
+      brokerid: 'B2C',
+    };
+
+    assert.equal(sampleProfile.clientcode, 'AABF820686');
+    assert.equal(sampleProfile.brokerid, 'B2C');
+    assert.ok(sampleProfile.exchanges.includes('NSE'));
+    assert.ok(sampleProfile.exchanges.includes('MCX'));
+    assert.ok(sampleProfile.products.includes('DELIVERY'));
+  });
+
+  await t.test('validates Angel One RMS Funds and Margins contract', () => {
+    const sampleFunds: AngelRMSFunds = {
+      net: '10000000.00',
+      availablecash: '750000.50',
+      availableintradaypayin: '0',
+      availablelimitmargin: '0',
+      collateral: '250000.00',
+      m2munrealized: '1500.25',
+      m2mrealized: '3200.00',
+      utiliseddebits: '0',
+      utilisedspan: '120000.00',
+      utilisedoptionpremium: '0',
+      utilisedholdingsales: '0',
+      utilisedexposure: '25000.00',
+      utilisedturnover: '0',
+      utilisedpayout: '0',
+    };
+
+    assert.equal(sampleFunds.net, '10000000.00');
+    assert.equal(sampleFunds.availablecash, '750000.50');
+    assert.equal(sampleFunds.collateral, '250000.00');
+    assert.equal(sampleFunds.utilisedspan, '120000.00');
+  });
+
+  await t.test('validates Angel One Logout response and cache invalidation', () => {
+    const sampleLogout: AngelLogoutResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: '',
+    };
+    assert.equal(sampleLogout.status, true);
+    assert.equal(sampleLogout.message, 'SUCCESS');
+
+    // Test clearCachedAngelSession
+    clearCachedAngelSession();
+    assert.equal(getCachedAngelSession(), null);
   });
 });

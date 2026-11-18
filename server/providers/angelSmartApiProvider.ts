@@ -255,6 +255,75 @@ export interface AngelEdisTranStatusResponse {
   details?: any;
 }
 
+export interface AngelLoginRequest {
+  clientcode: string;
+  password: string;
+  totp: string;
+  state?: string;
+}
+
+export interface AngelLoginResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: {
+    jwtToken?: string;
+    refreshToken?: string;
+    feedToken?: string;
+    state?: string;
+  } | null;
+}
+
+export interface AngelGenerateTokenRequest {
+  refreshToken: string;
+}
+
+export interface AngelGenerateTokenResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: {
+    jwtToken?: string;
+    refreshToken?: string;
+    feedToken?: string;
+  } | null;
+}
+
+export interface AngelUserProfile {
+  clientcode: string;
+  name: string;
+  email: string;
+  mobileno: string;
+  exchanges: string[];
+  products: string[];
+  lastlogintime: string;
+  brokerid: string;
+}
+
+export interface AngelRMSFunds {
+  net: string;
+  availablecash: string;
+  availableintradaypayin: string;
+  availablelimitmargin: string;
+  collateral: string;
+  m2munrealized: string;
+  m2mrealized: string;
+  utiliseddebits: string;
+  utilisedspan: string;
+  utilisedoptionpremium: string;
+  utilisedholdingsales: string;
+  utilisedexposure: string;
+  utilisedturnover: string;
+  utilisedpayout: string;
+}
+
+export interface AngelLogoutResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: string;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -268,7 +337,13 @@ export interface AngelApiCredentials {
 
 export const ANGEL_SMARTAPI_ROOT_URL = 'https://apiconnect.angelone.in';
 
-const LOGIN_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/loginByPassword`;
+export const ANGEL_LOGIN_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/auth/angelbroking/user/v1/loginByPassword`;
+export const ANGEL_GENERATE_TOKENS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/auth/angelbroking/jwt/v1/generateTokens`;
+export const ANGEL_GET_PROFILE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/getProfile`;
+export const ANGEL_GET_RMS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/getRMS`;
+export const ANGEL_LOGOUT_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/logout`;
+
+const LOGIN_URL = ANGEL_LOGIN_URL;
 const HISTORICAL_API_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getCandleData`;
 const HISTORICAL_OI_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getOIData`;
 const LIVE_MARKET_DATA_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/market/v1/quote/`;
@@ -523,66 +598,134 @@ export async function generateTOTP(
   return String(binary % 1000000).padStart(6, '0');
 }
 
+export interface CachedAngelSession {
+  jwtToken: string;
+  refreshToken?: string;
+  feedToken?: string;
+  state?: string;
+  expiresAt: number;
+}
+
+let cachedAngelSession: CachedAngelSession | null = null;
+let cachedAngelJwt: { token: string; expiresAt: number } | null = null;
+
+/**
+ * Get current in-memory cached Angel session (if active and not expired)
+ */
+export function getCachedAngelSession(): CachedAngelSession | null {
+  if (cachedAngelSession && cachedAngelSession.expiresAt > Date.now()) {
+    return cachedAngelSession;
+  }
+  return null;
+}
+
+/**
+ * Clear cached in-memory Angel One session tokens
+ */
+export function clearCachedAngelSession(): void {
+  cachedAngelJwt = null;
+  cachedAngelSession = null;
+}
+
+/**
+ * Authenticate with Angel Login Credentials
+ * Endpoint: POST https://apiconnect.angelone.in/rest/auth/angelbroking/user/v1/loginByPassword
+ */
+export async function loginAngelByPassword(
+  clientCode: string,
+  pin: string,
+  totpCode: string,
+  apiKey: string,
+  state?: string
+): Promise<AngelLoginResponse> {
+  const reqHeaders: Record<string, string> = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'X-UserType': 'USER',
+    'X-SourceID': 'WEB',
+    'X-ClientLocalIP': '127.0.0.1',
+    'X-ClientPublicIP': '127.0.0.1',
+    'X-MACAddress': '00:00:00:00:00:00',
+    'X-PrivateKey': apiKey,
+  };
+
+  const payload: Record<string, string> = {
+    clientcode: clientCode.trim(),
+    password: pin.trim(),
+    totp: totpCode.trim(),
+  };
+  if (state) payload.state = state;
+
+  try {
+    let response = await fetch(ANGEL_LOGIN_URL, {
+      method: 'POST',
+      headers: reqHeaders,
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok && (response.status === 404 || response.status === 400)) {
+      // Fallback to legacy endpoint if auth path returns 404
+      const fallbackUrl = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/loginByPassword`;
+      const fallbackResp = await fetch(fallbackUrl, {
+        method: 'POST',
+        headers: reqHeaders,
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(6000),
+      }).catch(() => null);
+      if (fallbackResp && fallbackResp.ok) {
+        response = fallbackResp;
+      }
+    }
+
+    const json = (await response.json()) as AngelLoginResponse;
+    if (json.status && json.data?.jwtToken) {
+      const cleanJwt = json.data.jwtToken.replace(/^Bearer\s+/i, '');
+      json.data.jwtToken = cleanJwt;
+      cachedAngelSession = {
+        jwtToken: cleanJwt,
+        refreshToken: json.data.refreshToken,
+        feedToken: json.data.feedToken,
+        state: json.data.state,
+        expiresAt: Date.now() + 10 * 60 * 60 * 1000,
+      };
+      cachedAngelJwt = {
+        token: cleanJwt,
+        expiresAt: Date.now() + 10 * 60 * 60 * 1000,
+      };
+    }
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Login failed with Angel One',
+      errorcode: 'NETWORK_ERROR',
+      data: null,
+    };
+  }
+}
+
 /**
  * Perform login to Angel One SmartAPI using TOTP to obtain a live JWT token
- * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/loginByPassword
+ * Endpoint: POST https://apiconnect.angelone.in/rest/auth/angelbroking/user/v1/loginByPassword
  */
 export async function loginAngelByTotp(
   clientCode: string,
   pin: string,
   totpCode: string,
-  apiKey: string
-): Promise<{ jwtToken: string; feedToken?: string; refreshToken?: string } | null> {
-  try {
-    const response = await fetch(LOGIN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'X-UserType': 'USER',
-        'X-SourceID': 'WEB',
-        'X-ClientLocalIP': '127.0.0.1',
-        'X-ClientPublicIP': '127.0.0.1',
-        'X-MACAddress': '00:00:00:00:00:00',
-        'X-PrivateKey': apiKey,
-      },
-      body: JSON.stringify({
-        clientcode: clientCode,
-        password: pin,
-        totp: totpCode,
-      }),
-      signal: AbortSignal.timeout(6000),
-    });
-
-    if (!response.ok) {
-      console.warn(`[AngelSmartAPI] Login failed with HTTP ${response.status}`);
-      return null;
-    }
-
-    const json = (await response.json()) as {
-      status: boolean;
-      message: string;
-      data?: {
-        jwtToken?: string;
-        refreshToken?: string;
-        feedToken?: string;
-      };
+  apiKey: string,
+  state?: string
+): Promise<{ jwtToken: string; feedToken?: string; refreshToken?: string; state?: string } | null> {
+  const res = await loginAngelByPassword(clientCode, pin, totpCode, apiKey, state);
+  if (res.status && res.data?.jwtToken) {
+    return {
+      jwtToken: res.data.jwtToken,
+      feedToken: res.data.feedToken,
+      refreshToken: res.data.refreshToken,
+      state: res.data.state,
     };
-
-    if (json.status && json.data?.jwtToken) {
-      // Strip possible leading 'Bearer ' if returned
-      const cleanJwt = json.data.jwtToken.replace(/^Bearer\s+/i, '');
-      return {
-        jwtToken: cleanJwt,
-        feedToken: json.data.feedToken,
-        refreshToken: json.data.refreshToken,
-      };
-    }
-    return null;
-  } catch (error) {
-    console.warn(`[AngelSmartAPI] login error:`, error);
-    return null;
   }
+  return null;
 }
 
 /**
@@ -592,19 +735,254 @@ export async function loginAngelWithAutoTotp(
   clientCode: string,
   pin: string,
   totpSecret: string,
-  apiKey: string
-): Promise<{ jwtToken: string; feedToken?: string; refreshToken?: string } | null> {
+  apiKey: string,
+  state?: string
+): Promise<{ jwtToken: string; feedToken?: string; refreshToken?: string; state?: string } | null> {
   const totpCode = await generateTOTP(totpSecret);
-  return loginAngelByTotp(clientCode, pin, totpCode, apiKey);
+  return loginAngelByTotp(clientCode, pin, totpCode, apiKey, state);
 }
 
-let cachedAngelJwt: { token: string; expiresAt: number } | null = null;
+/**
+ * Renew JWT token using refresh token on expiration
+ * Endpoint: POST https://apiconnect.angelone.in/rest/auth/angelbroking/jwt/v1/generateTokens
+ */
+export async function generateAngelTokens(
+  refreshToken: string,
+  apiKey: string,
+  authToken?: string
+): Promise<AngelGenerateTokenResponse> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'X-UserType': 'USER',
+    'X-SourceID': 'WEB',
+    'X-ClientLocalIP': '127.0.0.1',
+    'X-ClientPublicIP': '127.0.0.1',
+    'X-MACAddress': '00:00:00:00:00:00',
+    'X-PrivateKey': apiKey,
+  };
+  if (authToken) {
+    headers.Authorization = `Bearer ${authToken.replace(/^Bearer\s+/i, '')}`;
+  }
+
+  try {
+    const response = await fetch(ANGEL_GENERATE_TOKENS_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ refreshToken }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelGenerateTokenResponse;
+    if (json.status && json.data?.jwtToken) {
+      const cleanJwt = json.data.jwtToken.replace(/^Bearer\s+/i, '');
+      json.data.jwtToken = cleanJwt;
+      cachedAngelSession = {
+        jwtToken: cleanJwt,
+        refreshToken: json.data.refreshToken || refreshToken,
+        feedToken: json.data.feedToken,
+        expiresAt: Date.now() + 10 * 60 * 60 * 1000,
+      };
+      cachedAngelJwt = {
+        token: cleanJwt,
+        expiresAt: Date.now() + 10 * 60 * 60 * 1000,
+      };
+    }
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Generate token failed',
+      errorcode: 'NETWORK_ERROR',
+      data: null,
+    };
+  }
+}
+
+/**
+ * Retrieve user profile from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/getProfile
+ */
+export async function fetchAngelUserProfile(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelUserProfile | null> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds?.apiKey) return null;
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) return null;
+
+  try {
+    const response = await fetch(ANGEL_GET_PROFILE_URL, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return null;
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: any;
+    };
+
+    if (json.status && json.data) {
+      const d = json.data;
+      let exchanges: string[] = [];
+      let products: string[] = [];
+
+      try {
+        exchanges = typeof d.exchanges === 'string' ? JSON.parse(d.exchanges) : Array.isArray(d.exchanges) ? d.exchanges : [];
+      } catch {
+        exchanges = ['NSE', 'BSE'];
+      }
+
+      try {
+        products = typeof d.products === 'string' ? JSON.parse(d.products) : Array.isArray(d.products) ? d.products : [];
+      } catch {
+        products = ['DELIVERY', 'INTRADAY', 'MARGIN'];
+      }
+
+      return {
+        clientcode: String(d.clientcode || creds.clientCode || ''),
+        name: String(d.name || ''),
+        email: String(d.email || ''),
+        mobileno: String(d.mobileno || ''),
+        exchanges,
+        products,
+        lastlogintime: String(d.lastlogintime || ''),
+        brokerid: String(d.brokerid || 'B2C'),
+      };
+    }
+    return null;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelUserProfile error:`, error);
+    return null;
+  }
+}
+
+/**
+ * Retrieve RMS funds, cash, and margin information from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/getRMS
+ */
+export async function fetchAngelRMSFunds(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelRMSFunds | null> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds?.apiKey) return null;
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) return null;
+
+  try {
+    const response = await fetch(ANGEL_GET_RMS_URL, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return null;
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: any;
+    };
+
+    if (json.status && json.data) {
+      const d = json.data;
+      return {
+        net: String(d.net ?? '0'),
+        availablecash: String(d.availablecash ?? '0'),
+        availableintradaypayin: String(d.availableintradaypayin ?? '0'),
+        availablelimitmargin: String(d.availablelimitmargin ?? '0'),
+        collateral: String(d.collateral ?? '0'),
+        m2munrealized: String(d.m2munrealized ?? '0'),
+        m2mrealized: String(d.m2mrealized ?? '0'),
+        utiliseddebits: String(d.utiliseddebits ?? '0'),
+        utilisedspan: String(d.utilisedspan ?? '0'),
+        utilisedoptionpremium: String(d.utilisedoptionpremium ?? '0'),
+        utilisedholdingsales: String(d.utilisedholdingsales ?? '0'),
+        utilisedexposure: String(d.utilisedexposure ?? '0'),
+        utilisedturnover: String(d.utilisedturnover ?? '0'),
+        utilisedpayout: String(d.utilisedpayout ?? '0'),
+      };
+    }
+    return null;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelRMSFunds error:`, error);
+    return null;
+  }
+}
+
+/**
+ * Invalidate session and destroy access token on Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/logout
+ */
+export async function logoutAngelSession(
+  clientCode?: string,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelLogoutResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  const code = clientCode || creds?.clientCode || '';
+
+  // Clear in-memory session cache immediately
+  clearCachedAngelSession();
+
+  if (!creds?.apiKey) {
+    return { status: true, message: 'Session cleared locally', data: '' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: true, message: 'Session cleared locally', data: '' };
+  }
+
+  try {
+    const response = await fetch(ANGEL_LOGOUT_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ clientcode: code }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    const json = (await response.json()) as AngelLogoutResponse;
+    return {
+      status: Boolean(json.status),
+      message: json.message || 'SUCCESS',
+      errorcode: json.errorcode || '',
+      data: json.data || '',
+    };
+  } catch (error) {
+    return {
+      status: true,
+      message: 'Logged out locally',
+      data: '',
+    };
+  }
+}
 
 export async function resolveAngelAuthToken(creds: AngelApiCredentials): Promise<string | null> {
   if (creds.authToken) return creds.authToken;
 
+  if (cachedAngelSession && cachedAngelSession.expiresAt > Date.now()) {
+    return cachedAngelSession.jwtToken;
+  }
   if (cachedAngelJwt && cachedAngelJwt.expiresAt > Date.now()) {
     return cachedAngelJwt.token;
+  }
+
+  // If we have a cached refresh token and API key, attempt renewal first
+  if (cachedAngelSession?.refreshToken && creds.apiKey) {
+    const renewed = await generateAngelTokens(
+      cachedAngelSession.refreshToken,
+      creds.apiKey,
+      cachedAngelSession.jwtToken
+    );
+    if (renewed.status && renewed.data?.jwtToken) {
+      return renewed.data.jwtToken;
+    }
   }
 
   if (creds.clientCode && creds.pin && creds.totpKey && creds.apiKey) {

@@ -11,6 +11,12 @@ import {
   fetchAngelCautionaryScrips,
   searchAngelScrip,
   fetchAngelIntradayScrips,
+  loginAngelByPassword,
+  loginAngelWithAutoTotp,
+  generateAngelTokens,
+  fetchAngelUserProfile,
+  fetchAngelRMSFunds,
+  logoutAngelSession,
   type AngelApiCredentials,
   type AngelExchange,
 } from "../../server/providers/angelSmartApiProvider";
@@ -975,6 +981,139 @@ export async function onRequest(context: {
       data: scrips,
       retrievedAt: new Date().toISOString(),
     });
+  }
+
+  if (pathname === "/api/user/angel/login" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const envCreds = getAngelCredentials(customEnv);
+    let body: any = {};
+    try {
+      body = (await request.json()) as any;
+    } catch {}
+
+    const clientCode = String(body.clientCode || body.clientcode || envCreds?.clientCode || "").trim();
+    const pin = String(body.pin || body.password || envCreds?.pin || "").trim();
+    const totp = String(body.totp || body.totpCode || "").trim();
+    const totpKey = String(body.totpKey || envCreds?.totpKey || "").trim();
+    const apiKey = String(body.apiKey || envCreds?.apiKey || "").trim();
+    const state = body.state ? String(body.state) : undefined;
+
+    if (!apiKey) {
+      return json({ ok: false, error: "Missing API Key for Angel One login." }, 400);
+    }
+    if (!clientCode || !pin) {
+      return json({ ok: false, error: "Missing clientCode or pin/password." }, 400);
+    }
+
+    try {
+      if (totp) {
+        const res = await loginAngelByPassword(clientCode, pin, totp, apiKey, state);
+        return json({ ok: res.status, ...res }, res.status ? 200 : 401);
+      } else if (totpKey) {
+        const res = await loginAngelWithAutoTotp(clientCode, pin, totpKey, apiKey, state);
+        if (res?.jwtToken) {
+          return json({
+            ok: true,
+            status: true,
+            message: "SUCCESS",
+            data: res,
+          });
+        }
+        return json({ ok: false, status: false, message: "Authentication failed with computed TOTP." }, 401);
+      } else {
+        return json({ ok: false, error: "Either active TOTP code or TOTP Secret Key must be provided." }, 400);
+      }
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Login request failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/user/angel/generate-tokens" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const envCreds = getAngelCredentials(customEnv);
+    let body: any = {};
+    try {
+      body = (await request.json()) as any;
+    } catch {}
+
+    const refreshToken = String(body.refreshToken || "").trim();
+    const apiKey = String(body.apiKey || envCreds?.apiKey || "").trim();
+    const authToken = body.authToken ? String(body.authToken).trim() : envCreds?.authToken;
+
+    if (!refreshToken) {
+      return json({ ok: false, error: "Missing refreshToken parameter." }, 400);
+    }
+    if (!apiKey) {
+      return json({ ok: false, error: "Missing apiKey." }, 400);
+    }
+
+    try {
+      const res = await generateAngelTokens(refreshToken, apiKey, authToken);
+      return json({ ok: res.status, ...res }, res.status ? 200 : 400);
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Token generation failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/user/angel/profile") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const profile = await fetchAngelUserProfile(creds);
+      if (!profile) {
+        return json({ ok: false, error: "Failed to retrieve user profile from SmartAPI" }, 502);
+      }
+      return json({
+        ok: true,
+        source: "Angel One SmartAPI (User Profile)",
+        profile,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Error fetching user profile" }, 500);
+    }
+  }
+
+  if (pathname === "/api/user/angel/funds" || pathname === "/api/user/angel/rms") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const funds = await fetchAngelRMSFunds(creds);
+      if (!funds) {
+        return json({ ok: false, error: "Failed to retrieve RMS funds from SmartAPI" }, 502);
+      }
+      return json({
+        ok: true,
+        source: "Angel One SmartAPI (RMS Funds & Margins)",
+        funds,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Error fetching RMS funds" }, 500);
+    }
+  }
+
+  if (pathname === "/api/user/angel/logout" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    let body: any = {};
+    try {
+      body = (await request.json()) as any;
+    } catch {}
+
+    const clientCode = String(body.clientCode || body.clientcode || creds?.clientCode || "").trim();
+    try {
+      const res = await logoutAngelSession(clientCode, creds || undefined);
+      return json({ ok: res.status, ...res });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Logout failed" }, 500);
+    }
   }
 
   if (method !== "GET" && method !== "HEAD") {
