@@ -72,8 +72,7 @@ const KNOWN_ISIN_MAP: Record<string, string> = {
 };
 
 const DEFAULT_SAMPLE_HOLDINGS: PortfolioHolding[] = [];
-/* Removed hard-coded sample holdings from production UI.
-const LEGACY_SAMPLE_HOLDINGS: PortfolioHolding[] = [
+/*
   {
     id: 'h-reliance',
     name: 'Reliance Industries Ltd',
@@ -146,7 +145,6 @@ const LEGACY_SAMPLE_HOLDINGS: PortfolioHolding[] = [
     sector: 'Small Cap Equity',
     mcapCategory: 'Small Cap',
   },
-];
 */
 
 const STORAGE_KEY = 'pa_external_portfolio_v2';
@@ -964,8 +962,8 @@ export function PortfolioTrackerPage() {
         <section className="rounded-2xl border border-orange-200 dark:border-orange-900/40 bg-gradient-to-r from-orange-50/70 via-amber-50/40 to-white dark:from-[#1e1510] dark:via-[#19151e] dark:to-[#111C2E] p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/movers/angel-one.png"
-              alt="Broker"
+              src="/logo-512x512.png"
+              alt="PriceAlerter"
               className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
             />
             <div>
@@ -2011,8 +2009,8 @@ export function PortfolioTrackerPage() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <img
-                  src="/assets/movers/angel-one.png"
-                  alt="Broker"
+                  src="/logo-512x512.png"
+                  alt="PriceAlerter"
                   className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
