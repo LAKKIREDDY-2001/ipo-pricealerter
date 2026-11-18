@@ -291,7 +291,11 @@ export function AlertsPage() {
               : 'text-[#64748B] dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 bg-slate-100 dark:bg-slate-800/60'
           }`}
         >
-          <Zap className="w-3.5 h-3.5" />
+          <img
+            src="/assets/movers/angel-one.png"
+            alt="Angel One"
+            className="w-4 h-4 rounded object-contain bg-white p-0.5"
+          />
           <span>Angel One SmartAPI GTT Orders {gttRules.length > 0 && `(${gttRules.length})`}</span>
         </button>
       </div>
@@ -538,7 +542,11 @@ export function AlertsPage() {
           <div className="rounded-xl border border-orange-200 dark:border-orange-900/40 bg-gradient-to-r from-orange-50/80 via-amber-50/50 to-white dark:from-[#1f1712] dark:to-[#111C2E] p-4 text-xs space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 font-bold text-orange-950 dark:text-orange-200">
-                <ShieldCheck className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                <img
+                  src="/assets/movers/angel-one.png"
+                  alt="Angel One"
+                  className="w-5 h-5 rounded-md object-contain bg-white dark:bg-slate-900 p-0.5 border border-orange-200 shadow-sm"
+                />
                 <span>Angel One SmartAPI Good-Till-Triggered (GTT) Orders</span>
               </div>
               <a
@@ -744,6 +752,11 @@ export function AlertsPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
+                        <CompanyLogo
+                          companyName={rule.tradingsymbol || 'SBIN'}
+                          symbol={rule.tradingsymbol ? rule.tradingsymbol.replace(/-EQ$/, '') : 'SBIN'}
+                          size="sm"
+                        />
                         <span className="font-bold text-sm text-slate-900 dark:text-white">
                           {rule.tradingsymbol || 'SBIN-EQ'}
                         </span>

@@ -41,6 +41,17 @@ import {
   type AngelGttRuleDetailsResponse,
   type AngelGttRuleListRequest,
   type AngelGttRuleListResponse,
+  type AngelPlaceOrderRequest,
+  type AngelPlaceOrderResponse,
+  type AngelModifyOrderRequest,
+  type AngelModifyOrderResponse,
+  type AngelCancelOrderRequest,
+  type AngelCancelOrderResponse,
+  type AngelOrderItem,
+  type AngelOrderBookResponse,
+  type AngelTradeItem,
+  type AngelTradeBookResponse,
+  type AngelIndividualOrderResponse,
   ANGEL_LOGIN_URL,
   ANGEL_GENERATE_TOKENS_URL,
   ANGEL_GET_PROFILE_URL,
@@ -52,6 +63,13 @@ import {
   ANGEL_GTT_RULE_DETAILS_URL,
   ANGEL_GTT_RULE_LIST_URL,
   ANGEL_GTT_ERROR_CODES,
+  ANGEL_ORDER_PLACE_URL,
+  ANGEL_ORDER_MODIFY_URL,
+  ANGEL_ORDER_CANCEL_URL,
+  ANGEL_ORDER_BOOK_URL,
+  ANGEL_TRADE_BOOK_URL,
+  ANGEL_ORDER_LTP_URL,
+  ANGEL_ORDER_DETAILS_URL,
   clearCachedAngelSession,
   getCachedAngelSession,
 } from '../server/providers/angelSmartApiProvider.ts';
@@ -603,5 +621,204 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(listReq.page, 1);
     assert.equal(listReq.count, 10);
     assert.ok(listReq.status?.includes('ACTIVE'));
+  });
+
+  await t.test('validates Angel One Orders API endpoints and order URLs', () => {
+    assert.equal(ANGEL_ORDER_PLACE_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/placeOrder');
+    assert.equal(ANGEL_ORDER_MODIFY_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/modifyOrder');
+    assert.equal(ANGEL_ORDER_CANCEL_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/cancelOrder');
+    assert.equal(ANGEL_ORDER_BOOK_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getOrderBook');
+    assert.equal(ANGEL_TRADE_BOOK_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getTradeBook');
+    assert.equal(ANGEL_ORDER_LTP_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getLtpData');
+    assert.equal(ANGEL_ORDER_DETAILS_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/details');
+  });
+
+  await t.test('validates Angel One Place, Modify, and Cancel Order contracts', () => {
+    const placeReq: AngelPlaceOrderRequest = {
+      variety: 'NORMAL',
+      tradingsymbol: 'SBIN-EQ',
+      symboltoken: '3045',
+      transactiontype: 'BUY',
+      exchange: 'NSE',
+      ordertype: 'MARKET',
+      producttype: 'INTRADAY',
+      duration: 'DAY',
+      price: '194.50',
+      squareoff: '0',
+      stoploss: '0',
+      quantity: '1',
+      scripconsent: 'yes',
+    };
+    assert.equal(placeReq.tradingsymbol, 'SBIN-EQ');
+    assert.equal(placeReq.symboltoken, '3045');
+    assert.equal(placeReq.transactiontype, 'BUY');
+    assert.equal(placeReq.ordertype, 'MARKET');
+    assert.equal(placeReq.producttype, 'INTRADAY');
+    assert.equal(placeReq.scripconsent, 'yes');
+
+    const placeRes: AngelPlaceOrderResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        script: 'SBIN-EQ',
+        orderid: '200910000000111',
+        uniqueorderid: '34reqfachdfih',
+      },
+    };
+    assert.equal(placeRes.status, true);
+    assert.equal(placeRes.data?.orderid, '200910000000111');
+    assert.equal(placeRes.data?.uniqueorderid, '34reqfachdfih');
+
+    const modifyReq: AngelModifyOrderRequest = {
+      variety: 'NORMAL',
+      orderid: '201020000000080',
+      ordertype: 'LIMIT',
+      producttype: 'INTRADAY',
+      duration: 'DAY',
+      price: '194.00',
+      quantity: '1',
+      tradingsymbol: 'SBIN-EQ',
+      symboltoken: '3045',
+      exchange: 'NSE',
+    };
+    assert.equal(modifyReq.orderid, '201020000000080');
+    assert.equal(modifyReq.price, '194.00');
+
+    const modifyRes: AngelModifyOrderResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        orderid: '201020000000080',
+        uniqueorderid: '34reqfachdfih',
+      },
+    };
+    assert.equal(modifyRes.status, true);
+
+    const cancelReq: AngelCancelOrderRequest = {
+      variety: 'NORMAL',
+      orderid: '201020000000080',
+    };
+    assert.equal(cancelReq.orderid, '201020000000080');
+    assert.equal(cancelReq.variety, 'NORMAL');
+
+    const cancelRes: AngelCancelOrderResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        orderid: '201020000000080',
+        uniqueorderid: '34reqfachdfih',
+      },
+    };
+    assert.equal(cancelRes.status, true);
+  });
+
+  await t.test('validates Angel One Order Book, Trade Book, and Individual Order Status contracts', () => {
+    const orderItem: AngelOrderItem = {
+      variety: 'NORMAL',
+      ordertype: 'LIMIT',
+      producttype: 'INTRADAY',
+      duration: 'DAY',
+      price: '194.00',
+      triggerprice: '0',
+      quantity: '1',
+      disclosedquantity: '0',
+      squareoff: '0',
+      stoploss: '0',
+      trailingstoploss: '0',
+      tradingsymbol: 'SBIN-EQ',
+      transactiontype: 'BUY',
+      exchange: 'NSE',
+      symboltoken: '3045',
+      lotsize: '1',
+      cancelsize: '1',
+      averageprice: '0',
+      filledshares: '0',
+      unfilledshares: '1',
+      orderid: '201020000000080',
+      text: '',
+      status: 'cancelled',
+      orderstatus: 'cancelled',
+      updatetime: '20-Oct-2020 13:10:59',
+      uniqueorderid: '34reqfachdfih',
+      exchangeorderid: '1100000000048358',
+    };
+    assert.equal(orderItem.orderid, '201020000000080');
+    assert.equal(orderItem.orderstatus, 'cancelled');
+    assert.equal(orderItem.uniqueorderid, '34reqfachdfih');
+
+    const orderBookRes: AngelOrderBookResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: [orderItem],
+    };
+    assert.equal(orderBookRes.status, true);
+    assert.ok(Array.isArray(orderBookRes.data));
+    assert.equal(orderBookRes.data.length, 1);
+
+    const tradeItem: AngelTradeItem = {
+      exchange: 'NSE',
+      producttype: 'DELIVERY',
+      tradingsymbol: 'ITC-EQ',
+      instrumenttype: '',
+      symbolgroup: 'EQ',
+      marketlot: '1',
+      precision: '2',
+      multiplier: '-1',
+      tradevalue: '175.00',
+      transactiontype: 'BUY',
+      fillprice: '175.00',
+      fillsize: '1',
+      orderid: '201020000000095',
+      fillid: '50005750',
+      filltime: '13:27:53',
+    };
+    assert.equal(tradeItem.tradingsymbol, 'ITC-EQ');
+    assert.equal(tradeItem.tradevalue, '175.00');
+    assert.equal(tradeItem.orderid, '201020000000095');
+
+    const tradeBookRes: AngelTradeBookResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: [tradeItem],
+    };
+    assert.equal(tradeBookRes.status, true);
+    assert.ok(Array.isArray(tradeBookRes.data));
+    assert.equal(tradeBookRes.data.length, 1);
+
+    const indOrderRes: AngelIndividualOrderResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        variety: 'NORMAL',
+        ordertype: 'LIMIT',
+        producttype: 'DELIVERY',
+        duration: 'DAY',
+        price: 2298.25,
+        triggerprice: 0,
+        quantity: '1',
+        disclosedquantity: '0',
+        squareoff: 0,
+        stoploss: 0,
+        trailingstoploss: 0,
+        tradingsymbol: 'RELIANCE-EQ',
+        transactiontype: 'BUY',
+        exchange: 'NSE',
+        symboltoken: '2885',
+        orderid: '231010000000970',
+        text: 'Your order has been rejected due to Insufficient Funds.',
+        status: 'rejected',
+        orderstatus: 'rejected',
+        uniqueorderid: '05ebf91b-bea4-4a1d-b0f2-4259606570e3',
+      },
+    };
+    assert.equal(indOrderRes.status, true);
+    assert.equal(indOrderRes.data?.uniqueorderid, '05ebf91b-bea4-4a1d-b0f2-4259606570e3');
+    assert.equal(indOrderRes.data?.orderstatus, 'rejected');
   });
 });

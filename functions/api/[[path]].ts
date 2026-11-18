@@ -22,6 +22,16 @@ import {
   cancelAngelGttRule,
   fetchAngelGttRuleDetails,
   fetchAngelGttRuleList,
+  placeAngelOrder,
+  modifyAngelOrder,
+  cancelAngelOrder,
+  fetchAngelOrderBook,
+  fetchAngelTradeBook,
+  fetchAngelIndividualOrderStatus,
+  fetchAngelLtpQuote,
+  type AngelPlaceOrderRequest,
+  type AngelModifyOrderRequest,
+  type AngelCancelOrderRequest,
   type AngelApiCredentials,
   type AngelExchange,
 } from "../../server/providers/angelSmartApiProvider";
@@ -1229,6 +1239,167 @@ export async function onRequest(context: {
       });
     } catch (err: any) {
       return json({ ok: false, error: err?.message || "Failed to fetch GTT rule list", data: [] }, 500);
+    }
+  }
+
+  // --- Angel One SmartAPI Orders Suite Endpoints ---
+  if (pathname === "/api/orders/angel/place" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const orderReq = (await request.json()) as AngelPlaceOrderRequest;
+      const res = await placeAngelOrder(orderReq, creds);
+      return json({
+        ok: Boolean(res.status),
+        status: res.status,
+        message: res.message,
+        errorcode: res.errorcode,
+        data: res.data,
+      }, res.status ? 200 : 400);
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Order placement failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/orders/angel/modify" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const modReq = (await request.json()) as AngelModifyOrderRequest;
+      const res = await modifyAngelOrder(modReq, creds);
+      return json({
+        ok: Boolean(res.status),
+        status: res.status,
+        message: res.message,
+        errorcode: res.errorcode,
+        data: res.data,
+      }, res.status ? 200 : 400);
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Order modification failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/orders/angel/cancel" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const cancelReq = (await request.json()) as AngelCancelOrderRequest;
+      const res = await cancelAngelOrder(cancelReq, creds);
+      return json({
+        ok: Boolean(res.status),
+        status: res.status,
+        message: res.message,
+        errorcode: res.errorcode,
+        data: res.data,
+      }, res.status ? 200 : 400);
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Order cancellation failed" }, 500);
+    }
+  }
+
+  if (pathname === "/api/orders/angel/orderbook") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+    }
+    try {
+      const orders = await fetchAngelOrderBook(creds);
+      return json({
+        ok: true,
+        source: "Angel One SmartAPI (Order Book)",
+        count: orders.length,
+        data: orders,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to fetch order book", data: [] }, 500);
+    }
+  }
+
+  if (pathname === "/api/orders/angel/tradebook") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+    }
+    try {
+      const trades = await fetchAngelTradeBook(creds);
+      return json({
+        ok: true,
+        source: "Angel One SmartAPI (Trade Book)",
+        count: trades.length,
+        data: trades,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to fetch trade book", data: [] }, 500);
+    }
+  }
+
+  if (pathname.startsWith("/api/orders/angel/details")) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    const urlParts = pathname.split("/api/orders/angel/details/");
+    const uniqueOrderId = urlParts[1] || url.searchParams.get("uniqueorderid") || url.searchParams.get("id");
+    if (!uniqueOrderId) {
+      return json({ ok: false, error: "Missing uniqueorderid" }, 400);
+    }
+    try {
+      const order = await fetchAngelIndividualOrderStatus(uniqueOrderId, creds);
+      return json({
+        ok: Boolean(order),
+        source: "Angel One SmartAPI (Order Status)",
+        data: order,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to fetch order status" }, 500);
+    }
+  }
+
+  if (pathname === "/api/orders/angel/ltp" && (method === "POST" || method === "GET")) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    let exchange = (url.searchParams.get("exchange") || "NSE") as AngelExchange;
+    let tradingsymbol = url.searchParams.get("tradingsymbol") || "";
+    let symboltoken = url.searchParams.get("symboltoken") || "";
+
+    if (method === "POST") {
+      try {
+        const body = (await request.json()) as any;
+        if (body.exchange) exchange = body.exchange;
+        if (body.tradingsymbol) tradingsymbol = body.tradingsymbol;
+        if (body.symboltoken) symboltoken = body.symboltoken;
+      } catch {}
+    }
+
+    if (!tradingsymbol || !symboltoken) {
+      return json({ ok: false, error: "Missing tradingsymbol or symboltoken" }, 400);
+    }
+
+    try {
+      const quote = await fetchAngelLtpQuote(exchange, tradingsymbol, symboltoken, creds || undefined);
+      return json({
+        ok: Boolean(quote),
+        source: "Angel One SmartAPI (Order LTP)",
+        data: quote,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to fetch LTP" }, 500);
     }
   }
 

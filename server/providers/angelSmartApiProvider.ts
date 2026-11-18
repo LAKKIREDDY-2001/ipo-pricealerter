@@ -433,6 +433,164 @@ export const ANGEL_GTT_ERROR_CODES: Record<string, string> = {
   AB9018: 'Invalid Count Value',
 };
 
+export type AngelOrderVariety = 'NORMAL' | 'STOPLOSS' | 'ROBO' | 'AMO';
+export type AngelOrderTransactionType = 'BUY' | 'SELL';
+export type AngelOrderType = 'MARKET' | 'LIMIT' | 'STOPLOSS_LIMIT' | 'STOPLOSS_MARKET';
+export type AngelOrderProductType = 'DELIVERY' | 'CARRYFORWARD' | 'MARGIN' | 'INTRADAY' | 'BO';
+export type AngelOrderDuration = 'DAY' | 'IOC';
+export type AngelOrderExchange = 'NSE' | 'BSE' | 'NFO' | 'MCX' | 'BFO';
+
+export interface AngelPlaceOrderRequest {
+  variety: AngelOrderVariety;
+  tradingsymbol: string;
+  symboltoken: string;
+  transactiontype: AngelOrderTransactionType;
+  exchange: AngelOrderExchange;
+  ordertype: AngelOrderType;
+  producttype: AngelOrderProductType;
+  duration: AngelOrderDuration;
+  price: string | number;
+  quantity: string | number;
+  squareoff?: string | number;
+  stoploss?: string | number;
+  trailingStopLoss?: string | number;
+  disclosedquantity?: string | number;
+  triggerprice?: string | number;
+  ordertag?: string;
+  scripconsent?: 'yes' | 'no';
+}
+
+export interface AngelPlaceOrderResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: {
+    script?: string;
+    orderid?: string;
+    uniqueorderid?: string;
+  } | null;
+}
+
+export interface AngelModifyOrderRequest {
+  variety: AngelOrderVariety;
+  orderid: string;
+  ordertype: AngelOrderType;
+  producttype: AngelOrderProductType;
+  duration: AngelOrderDuration;
+  price: string | number;
+  quantity: string | number;
+  tradingsymbol?: string;
+  symboltoken?: string;
+  exchange?: AngelOrderExchange;
+}
+
+export interface AngelModifyOrderResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: {
+    orderid?: string;
+    uniqueorderid?: string;
+  } | null;
+}
+
+export interface AngelCancelOrderRequest {
+  variety: AngelOrderVariety;
+  orderid: string;
+}
+
+export interface AngelCancelOrderResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: {
+    orderid?: string;
+    uniqueorderid?: string;
+  } | null;
+}
+
+export interface AngelOrderItem {
+  variety: AngelOrderVariety;
+  ordertype: AngelOrderType;
+  producttype: AngelOrderProductType;
+  duration: AngelOrderDuration;
+  price: string | number;
+  triggerprice: string | number;
+  quantity: string | number;
+  disclosedquantity: string | number;
+  squareoff?: string | number;
+  stoploss?: string | number;
+  trailingstoploss?: string | number;
+  tradingsymbol: string;
+  transactiontype: AngelOrderTransactionType;
+  exchange: AngelOrderExchange;
+  symboltoken?: string | null;
+  instrumenttype?: string;
+  strikeprice?: string | number;
+  optiontype?: string;
+  expirydate?: string;
+  lotsize?: string | number;
+  cancelsize?: string | number;
+  averageprice?: string | number;
+  filledshares?: string | number;
+  unfilledshares?: string | number;
+  orderid: string | number;
+  text?: string;
+  status: string;
+  orderstatus: string;
+  updatetime?: string;
+  exchtime?: string;
+  exchorderupdatetime?: string;
+  fillid?: string;
+  filltime?: string;
+  parentorderid?: string;
+  uniqueorderid?: string;
+  exchangeorderid?: string;
+  ordertag?: string;
+}
+
+export interface AngelOrderBookResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: AngelOrderItem[] | AngelOrderItem | null;
+}
+
+export interface AngelTradeItem {
+  exchange: AngelOrderExchange;
+  producttype: AngelOrderProductType;
+  tradingsymbol: string;
+  instrumenttype?: string;
+  symbolgroup?: string;
+  strikeprice?: string | number;
+  optiontype?: string;
+  expirydate?: string;
+  marketlot?: string | number;
+  precision?: string | number;
+  multiplier?: string | number;
+  tradevalue?: string | number;
+  transactiontype: AngelOrderTransactionType;
+  fillprice: string | number;
+  fillsize: string | number;
+  orderid: string | number;
+  fillid: string;
+  filltime: string;
+}
+
+export interface AngelTradeBookResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: AngelTradeItem[] | AngelTradeItem | null;
+}
+
+export interface AngelIndividualOrderResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: AngelOrderItem | null;
+};
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -457,6 +615,14 @@ export const ANGEL_GTT_MODIFY_RULE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure
 export const ANGEL_GTT_CANCEL_RULE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/cancelRule`;
 export const ANGEL_GTT_RULE_DETAILS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/ruleDetails`;
 export const ANGEL_GTT_RULE_LIST_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/ruleList`;
+
+export const ANGEL_ORDER_PLACE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/placeOrder`;
+export const ANGEL_ORDER_MODIFY_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/modifyOrder`;
+export const ANGEL_ORDER_CANCEL_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/cancelOrder`;
+export const ANGEL_ORDER_BOOK_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getOrderBook`;
+export const ANGEL_TRADE_BOOK_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getTradeBook`;
+export const ANGEL_ORDER_LTP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getLtpData`;
+export const ANGEL_ORDER_DETAILS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/details`;
 
 const LOGIN_URL = ANGEL_LOGIN_URL;
 const HISTORICAL_API_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getCandleData`;
@@ -1937,46 +2103,50 @@ export async function fetchAngelLtpQuote(
     return null;
   }
 
-  try {
-    const response = await fetch(LTP_DATA_URL, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        exchange,
-        tradingsymbol,
-        symboltoken,
-      }),
-      signal: AbortSignal.timeout(5000),
-    });
+  // Try primary Angel One Order LTP URL first, fallback to order-service URL if needed
+  const urlsToTry = [ANGEL_ORDER_LTP_URL, LTP_DATA_URL];
 
-    if (!response.ok) return null;
+  for (const url of urlsToTry) {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          exchange,
+          tradingsymbol,
+          symboltoken,
+        }),
+        signal: AbortSignal.timeout(5000),
+      });
 
-    const json = (await response.json()) as {
-      status: boolean;
-      message: string;
-      data?: any;
-    };
+      if (!response.ok) continue;
 
-    if (json.status && json.data) {
-      const d = Array.isArray(json.data) ? json.data[0] : json.data;
-      if (!d) return null;
-
-      return {
-        exchange: d.exchange || exchange,
-        tradingsymbol: d.tradingsymbol || tradingsymbol,
-        symboltoken: String(d.symboltoken || symboltoken),
-        open: Number(d.open) || 0,
-        high: Number(d.high) || 0,
-        low: Number(d.low) || 0,
-        close: Number(d.close) || 0,
-        ltp: Number(d.ltp) || 0,
+      const json = (await response.json()) as {
+        status: boolean;
+        message: string;
+        data?: any;
       };
+
+      if (json.status && json.data) {
+        const d = Array.isArray(json.data) ? json.data[0] : json.data;
+        if (!d) continue;
+
+        return {
+          exchange: d.exchange || exchange,
+          tradingsymbol: d.tradingsymbol || tradingsymbol,
+          symboltoken: String(d.symboltoken || symboltoken),
+          open: Number(d.open) || 0,
+          high: Number(d.high) || 0,
+          low: Number(d.low) || 0,
+          close: Number(d.close) || 0,
+          ltp: Number(d.ltp) || 0,
+        };
+      }
+    } catch {
+      // try next url
     }
-    return null;
-  } catch (error) {
-    console.warn(`[AngelSmartAPI] fetchAngelLtpQuote error for ${tradingsymbol}:`, error);
-    return null;
   }
+  return null;
 }
 
 /**
@@ -2485,5 +2655,290 @@ export async function fetchAngelGttRuleList(
   } catch (error) {
     console.warn(`[AngelSmartAPI] fetchAngelGttRuleList error:`, error);
     return [];
+  }
+}
+
+/**
+ * Place Order on Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/placeOrder
+ * For users utilizing static IP-based API key, Angel One validates source IP against the registered static IP.
+ * To execute cash orders for scrips under surveillance, keep "scripconsent" as "yes".
+ */
+export async function placeAngelOrder(
+  request: AngelPlaceOrderRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelPlaceOrderResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const payload: Record<string, any> = {
+      variety: request.variety || 'NORMAL',
+      tradingsymbol: String(request.tradingsymbol).trim(),
+      symboltoken: String(request.symboltoken).trim(),
+      transactiontype: request.transactiontype,
+      exchange: request.exchange || 'NSE',
+      ordertype: request.ordertype || 'MARKET',
+      producttype: request.producttype || 'DELIVERY',
+      duration: request.duration || 'DAY',
+      price: String(request.price ?? '0'),
+      quantity: String(request.quantity ?? '1'),
+      squareoff: String(request.squareoff ?? '0'),
+      stoploss: String(request.stoploss ?? '0'),
+    };
+
+    if (request.triggerprice !== undefined) {
+      payload.triggerprice = String(request.triggerprice);
+    }
+    if (request.disclosedquantity !== undefined) {
+      payload.disclosedquantity = String(request.disclosedquantity);
+    }
+    if (request.trailingStopLoss !== undefined) {
+      payload.trailingStopLoss = String(request.trailingStopLoss);
+    }
+    if (request.ordertag) {
+      payload.ordertag = String(request.ordertag).slice(0, 20);
+    }
+    if (request.scripconsent) {
+      payload.scripconsent = request.scripconsent;
+    }
+
+    const response = await fetch(ANGEL_ORDER_PLACE_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelPlaceOrderResponse;
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error placing order on Angel One SmartAPI',
+    };
+  }
+}
+
+/**
+ * Modify Order on Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/modifyOrder
+ */
+export async function modifyAngelOrder(
+  request: AngelModifyOrderRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelModifyOrderResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const payload: Record<string, any> = {
+      variety: request.variety || 'NORMAL',
+      orderid: String(request.orderid).trim(),
+      ordertype: request.ordertype,
+      producttype: request.producttype,
+      duration: request.duration || 'DAY',
+      price: String(request.price),
+      quantity: String(request.quantity),
+    };
+
+    if (request.tradingsymbol) {
+      payload.tradingsymbol = String(request.tradingsymbol).trim();
+    }
+    if (request.symboltoken) {
+      payload.symboltoken = String(request.symboltoken).trim();
+    }
+    if (request.exchange) {
+      payload.exchange = request.exchange;
+    }
+
+    const response = await fetch(ANGEL_ORDER_MODIFY_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelModifyOrderResponse;
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error modifying order on Angel One SmartAPI',
+    };
+  }
+}
+
+/**
+ * Cancel Order on Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/cancelOrder
+ */
+export async function cancelAngelOrder(
+  request: AngelCancelOrderRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelCancelOrderResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(ANGEL_ORDER_CANCEL_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        variety: request.variety || 'NORMAL',
+        orderid: String(request.orderid).trim(),
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelCancelOrderResponse;
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error cancelling order on Angel One SmartAPI',
+    };
+  }
+}
+
+/**
+ * Get Order Book from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getOrderBook
+ */
+export async function fetchAngelOrderBook(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelOrderItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(ANGEL_ORDER_BOOK_URL, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as AngelOrderBookResponse;
+    if (json.status && json.data) {
+      if (Array.isArray(json.data)) {
+        return json.data;
+      } else if (typeof json.data === 'object' && 'orderid' in json.data) {
+        return [json.data as AngelOrderItem];
+      }
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelOrderBook error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Get Trade Book from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getTradeBook
+ */
+export async function fetchAngelTradeBook(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelTradeItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(ANGEL_TRADE_BOOK_URL, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as AngelTradeBookResponse;
+    if (json.status && json.data) {
+      if (Array.isArray(json.data)) {
+        return json.data;
+      } else if (typeof json.data === 'object' && 'orderid' in json.data) {
+        return [json.data as AngelTradeItem];
+      }
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelTradeBook error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Get Individual Order Status from Angel One SmartAPI using uniqueorderid
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/details/{UniqueOrderID}
+ */
+export async function fetchAngelIndividualOrderStatus(
+  uniqueOrderId: string,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelOrderItem | null> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return null;
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return null;
+  }
+
+  try {
+    const url = `${ANGEL_ORDER_DETAILS_URL}/${encodeURIComponent(uniqueOrderId.trim())}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return null;
+
+    const json = (await response.json()) as AngelIndividualOrderResponse;
+    if (json.status && json.data) {
+      return json.data;
+    }
+    return null;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelIndividualOrderStatus error:`, error);
+    return null;
   }
 }

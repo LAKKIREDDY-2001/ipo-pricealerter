@@ -1279,4 +1279,82 @@ export const api = {
       '/api/gtt/angel/cancel',
       { method: 'POST', body: JSON.stringify(payload) }
     ),
+
+  // Angel One SmartAPI Orders Suite API
+  placeAngelOrder: (payload: {
+    variety?: 'NORMAL' | 'STOPLOSS' | 'ROBO' | 'AMO';
+    tradingsymbol: string;
+    symboltoken: string;
+    transactiontype: 'BUY' | 'SELL';
+    exchange: 'NSE' | 'BSE' | 'NFO' | 'MCX' | 'BFO';
+    ordertype: 'MARKET' | 'LIMIT' | 'STOPLOSS_LIMIT' | 'STOPLOSS_MARKET';
+    producttype: 'DELIVERY' | 'CARRYFORWARD' | 'MARGIN' | 'INTRADAY' | 'BO';
+    duration?: 'DAY' | 'IOC';
+    price?: string | number;
+    quantity: string | number;
+    triggerprice?: string | number;
+    squareoff?: string | number;
+    stoploss?: string | number;
+    trailingStopLoss?: string | number;
+    disclosedquantity?: string | number;
+    ordertag?: string;
+    scripconsent?: 'yes' | 'no';
+  }) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      data?: { script?: string; orderid?: string; uniqueorderid?: string };
+    }>('/api/orders/angel/place', { method: 'POST', body: JSON.stringify(payload) }),
+
+  modifyAngelOrder: (payload: {
+    variety?: 'NORMAL' | 'STOPLOSS' | 'ROBO' | 'AMO';
+    orderid: string;
+    ordertype: 'MARKET' | 'LIMIT' | 'STOPLOSS_LIMIT' | 'STOPLOSS_MARKET';
+    producttype: 'DELIVERY' | 'CARRYFORWARD' | 'MARGIN' | 'INTRADAY' | 'BO';
+    duration?: 'DAY' | 'IOC';
+    price: string | number;
+    quantity: string | number;
+    tradingsymbol?: string;
+    symboltoken?: string;
+    exchange?: 'NSE' | 'BSE' | 'NFO' | 'MCX' | 'BFO';
+  }) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      data?: { orderid?: string; uniqueorderid?: string };
+    }>('/api/orders/angel/modify', { method: 'POST', body: JSON.stringify(payload) }),
+
+  cancelAngelOrder: (payload: {
+    variety?: 'NORMAL' | 'STOPLOSS' | 'ROBO' | 'AMO';
+    orderid: string;
+  }) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      data?: { orderid?: string; uniqueorderid?: string };
+    }>('/api/orders/angel/cancel', { method: 'POST', body: JSON.stringify(payload) }),
+
+  getAngelOrderBook: () =>
+    request<{ ok: boolean; count: number; data: any[]; retrievedAt: string }>('/api/orders/angel/orderbook'),
+
+  getAngelTradeBook: () =>
+    request<{ ok: boolean; count: number; data: any[]; retrievedAt: string }>('/api/orders/angel/tradebook'),
+
+  getAngelOrderDetail: (uniqueOrderId: string) =>
+    request<{ ok: boolean; data: any; retrievedAt: string }>(
+      `/api/orders/angel/details/${encodeURIComponent(uniqueOrderId)}`
+    ),
+
+  getAngelOrderLtp: (exchange: string, tradingsymbol: string, symboltoken: string) =>
+    request<{ ok: boolean; data: any; retrievedAt: string }>(
+      `/api/orders/angel/ltp?exchange=${encodeURIComponent(exchange)}&tradingsymbol=${encodeURIComponent(
+        tradingsymbol
+      )}&symboltoken=${encodeURIComponent(symboltoken)}`
+    ),
 };
