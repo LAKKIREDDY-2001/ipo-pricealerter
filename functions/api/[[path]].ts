@@ -881,6 +881,26 @@ export async function onRequest(context: {
     }, 500);
   }
 
+  // Broker account, order, compliance and websocket-auth endpoints are deliberately
+  // disabled on the public site. In particular, never return feed tokens or broker
+  // account identifiers to browser code. Public market-data instrument/quote routes
+  // remain available below.
+  const disabledBrokerPaths = [
+    pathname.startsWith("/api/portfolio/angel"),
+    pathname.startsWith("/api/user/angel"),
+    pathname.startsWith("/api/orders/angel"),
+    pathname.startsWith("/api/gtt/angel"),
+    pathname.startsWith("/api/margin/angel"),
+    pathname.startsWith("/api/streaming/angel"),
+    pathname.startsWith("/api/market/angel/cas"),
+    pathname.startsWith("/api/market/angel/rate-limits"),
+    pathname === "/api/market/angel/option-greeks",
+    pathname === "/api/options/angel/greeks",
+  ];
+  if (disabledBrokerPaths.some(Boolean)) {
+    return json({ ok: false, error: "Broker account, order and compliance features are not enabled on this site." }, 410);
+  }
+
   if (pathname === "/api/mutual-funds/schemes" && request.method === "GET") {
     const query = (url.searchParams.get("q") || "").trim().slice(0, 100);
     const offset = Math.max(0, Math.min(100000, Number(url.searchParams.get("offset") || 0)));
