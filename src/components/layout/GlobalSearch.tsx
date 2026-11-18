@@ -254,7 +254,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                         type="button"
                         onClick={() =>
                           goTo(
-                            stk.isUsStock ? `/us-stocks` : `/stock/${stk.symbol}`,
+                            `/stock/${stk.symbol}`,
                             stk.companyName
                           )
                         }

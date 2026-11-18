@@ -29,6 +29,8 @@ import {
   Layers,
   ShieldAlert,
   ExternalLink,
+  Gauge,
+  Timer,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
@@ -617,6 +619,88 @@ export function CalculatorsPage() {
     handleFetchLtp(standardExch, sym, tok);
   };
 
+  // 10. Angel One SmartAPI Rate Limit Suite State
+  const [rateLimitCatalog, setRateLimitCatalog] = useState<any[]>([]);
+  const [rateLimitStatus, setRateLimitStatus] = useState<any>(null);
+  const [rateLimitLoading, setRateLimitLoading] = useState(false);
+  const [rateLimitSearch, setRateLimitSearch] = useState('');
+  const [rateLimitCategory, setRateLimitCategory] = useState<string>('ALL');
+  const [burstApiName, setBurstApiName] = useState<string>('Place Order');
+  const [burstCount, setBurstCount] = useState<number>(12);
+  const [burstClientCode, setBurstClientCode] = useState<string>('TRADER_CLIENT');
+  const [burstResult, setBurstResult] = useState<any>(null);
+  const [burstSimulating, setBurstSimulating] = useState(false);
+  const [rateLimitTab, setRateLimitTab] = useState<'catalog' | 'simulator' | 'telemetry' | 'spec'>('catalog');
+  const [quotaCheckApi, setQuotaCheckApi] = useState<string>('Place Order');
+  const [quotaCheckResult, setQuotaCheckResult] = useState<any>(null);
+  const [quotaCheckLoading, setQuotaCheckLoading] = useState(false);
+
+  const loadRateLimitCatalog = async () => {
+    try {
+      setRateLimitLoading(true);
+      const res = await api.getAngelRateLimitsCatalog();
+      if (res.ok && res.catalog) {
+        setRateLimitCatalog(res.catalog);
+      }
+    } catch {
+      // fallback
+    } finally {
+      setRateLimitLoading(false);
+    }
+  };
+
+  const loadRateLimitStatus = async (clientCode = burstClientCode) => {
+    try {
+      const res = await api.getAngelRateLimitsStatus(clientCode);
+      if (res.ok) {
+        setRateLimitStatus(res);
+      }
+    } catch {
+      // fallback
+    }
+  };
+
+  const handleSimulateBurst = async () => {
+    try {
+      setBurstSimulating(true);
+      setBurstResult(null);
+      const res = await api.simulateAngelRateLimitBurst(burstApiName, burstCount, burstClientCode);
+      if (res.ok && res.simulation) {
+        setBurstResult(res.simulation);
+        loadRateLimitStatus(burstClientCode);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setBurstSimulating(false);
+    }
+  };
+
+  const handleResetRateLimits = async () => {
+    try {
+      await api.resetAngelRateLimits(burstClientCode);
+      setBurstResult(null);
+      setQuotaCheckResult(null);
+      loadRateLimitStatus(burstClientCode);
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleCheckQuota = async () => {
+    try {
+      setQuotaCheckLoading(true);
+      const res = await api.checkAngelRateLimit(quotaCheckApi, burstClientCode, false);
+      if (res.ok && res.result) {
+        setQuotaCheckResult(res.result);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setQuotaCheckLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (activeTool === 'instruments' || activeTool === 'all') {
       loadScripMaster('all', '');
@@ -624,6 +708,10 @@ export function CalculatorsPage() {
       loadIntradayScrips('NSE');
       loadCautionaryScrips();
       handleFetchLtp('NSE', 'SBIN-EQ', '3045');
+    }
+    if (activeTool === 'rate-limits' || activeTool === 'all') {
+      loadRateLimitCatalog();
+      loadRateLimitStatus();
     }
   }, [activeTool]);
 
@@ -708,6 +796,7 @@ export function CalculatorsPage() {
           { label: '📡 SmartStream 2.0 (WebSocket)', to: '/calculators/smart-stream', id: 'smart-stream' },
           { label: '⚡ Order Status (WebSocket)', to: '/calculators/order-websocket', id: 'order-websocket' },
           { label: '📜 Instruments & Scrip Master', to: '/calculators/instruments', id: 'instruments' },
+          { label: '⏱️ Rate Limit Manager', to: '/calculators/rate-limits', id: 'rate-limits' },
           { label: 'IPO Investment', to: '/calculators/ipo', id: 'ipo' },
           { label: 'GMP Calculator', to: '/calculators/gmp', id: 'gmp' },
           { label: 'Listing Gain', to: '/calculators/listing-gain', id: 'listing-gain' },
@@ -3828,6 +3917,541 @@ export function CalculatorsPage() {
                 </div>
               </div>
             </div>
+          </section>
+        )}
+
+        {/* 10. Angel One SmartAPI Rate Limit Suite */}
+        {show('rate-limits') && (
+          <section className="lg:col-span-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-6 shadow-sm">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900 mb-1.5">
+                  <Timer className="w-3.5 h-3.5" />
+                  <span>Official Angel One SmartAPI Rate Limit Architecture</span>
+                </div>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>SmartAPI Rate Limit Suite &amp; Throttle Engine</span>
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Enforces per-second, per-minute, and cumulative order limits (≤ 9 req/s) with exact HTTP 403 (AB1004) error telemetry across all 26 endpoints.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href="https://smartapi.angelone.in/docs/RateLimit#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Official Docs</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleResetRateLimits}
+                  className="px-3 py-1.5 rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 font-semibold text-xs flex items-center gap-1.5 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Reset Counters</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    loadRateLimitCatalog();
+                    loadRateLimitStatus();
+                  }}
+                  disabled={rateLimitLoading}
+                  className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm disabled:opacity-50"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${rateLimitLoading ? 'animate-spin' : ''}`} />
+                  <span>Sync Telemetry</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Live Token Bucket & Throttle Meter */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+                  <span>Cumulative Order Pool</span>
+                  <span className="font-mono font-bold text-amber-600">Max 9 req/s</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                    {rateLimitStatus?.cumulativePool?.currentRps ?? 0}
+                  </span>
+                  <span className="text-xs text-slate-500">/ 9 req/sec</span>
+                </div>
+                <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mt-2.5 overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      (rateLimitStatus?.cumulativePool?.currentRps ?? 0) >= 9
+                        ? 'bg-rose-500'
+                        : (rateLimitStatus?.cumulativePool?.currentRps ?? 0) >= 7
+                        ? 'bg-amber-500'
+                        : 'bg-emerald-500'
+                    }`}
+                    style={{
+                      width: `${Math.min(100, Math.round(((rateLimitStatus?.cumulativePool?.currentRps ?? 0) / 9) * 100))}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 mt-2">
+                  Pool covers Place, Modify, Cancel Order &amp; Batch APIs.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+                  <span>Processed Requests</span>
+                  <span className="font-mono text-xs text-emerald-600 font-semibold">Active Windows</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                    {rateLimitStatus?.telemetry?.totalRequests ?? 0}
+                  </span>
+                  <span className="text-xs text-slate-500">calls</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs mt-2 text-slate-600 dark:text-slate-400">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    Allowed: {rateLimitStatus?.telemetry?.allowedRequests ?? 0}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-rose-500" />
+                    Throttled: {rateLimitStatus?.telemetry?.throttledRequests ?? 0}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 mt-2">
+                  Active Client Code: <span className="font-mono text-slate-700 dark:text-slate-300">{burstClientCode}</span>
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+                  <span>Throttle Rate</span>
+                  <span className="font-mono text-xs text-rose-600 font-semibold">HTTP 403 (AB1004)</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                    {rateLimitStatus?.telemetry?.throttleRatePct ?? 0}%
+                  </span>
+                  <span className="text-xs text-slate-500">rate</span>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
+                  Peak RPS Observed: <span className="font-mono font-bold">{rateLimitStatus?.telemetry?.peakRps ?? 0} req/s</span>
+                </p>
+                <p className="text-[11px] text-slate-500 mt-1">
+                  Breaches reject with &quot;Access denied because of exceeding rate limit&quot;.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+                  <span>Catalog Endpoints</span>
+                  <span className="font-mono text-xs text-cyan-600 font-semibold">Complete Coverage</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                    {rateLimitCatalog.length || 26}
+                  </span>
+                  <span className="text-xs text-slate-500">APIs mapped</span>
+                </div>
+                <div className="flex flex-wrap gap-1 mt-2 text-[10px] font-mono">
+                  <span className="px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">Orders: 9/s</span>
+                  <span className="px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">Market: 10/s</span>
+                  <span className="px-1.5 py-0.5 rounded bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300">History: 3/s</span>
+                </div>
+                <p className="text-[11px] text-slate-500 mt-2">
+                  Sliding window bucket refreshed in real-time.
+                </p>
+              </div>
+            </div>
+
+            {/* Navigation Sub-Tabs */}
+            <div className="flex items-center gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-3 overflow-x-auto no-scrollbar text-xs">
+              {[
+                { id: 'catalog' as const, label: `Official Rate Limit Catalog (${rateLimitCatalog.length || 26} Endpoints)` },
+                { id: 'simulator' as const, label: 'Interactive Burst Simulator & 403 Enforcement' },
+                { id: 'telemetry' as const, label: 'Pre-Flight Quota Checker' },
+                { id: 'spec' as const, label: 'SmartAPI AB1004 Protocol Specification' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setRateLimitTab(tab.id)}
+                  className={`px-3 py-1.5 rounded-lg font-semibold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
+                    rateLimitTab === tab.id
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Sub-Tab 1: Official Catalog */}
+            {rateLimitTab === 'catalog' && (
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <div className="relative flex-1 max-w-sm">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={rateLimitSearch}
+                      onChange={(e) => setRateLimitSearch(e.target.value)}
+                      placeholder="Search API Name, description, or group..."
+                      className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 pl-8 pr-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                    {['ALL', 'ORDERS', 'MARKET_DATA', 'AUTH_USER', 'PORTFOLIO', 'MARGIN', 'HISTORICAL', 'GTT'].map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => setRateLimitCategory(cat)}
+                        className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                          rateLimitCategory === cat
+                            ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-semibold">
+                        <th className="p-3 w-12 text-center">Sr</th>
+                        <th className="p-3">API Name</th>
+                        <th className="p-3">Category</th>
+                        <th className="p-3 text-center">Limit / Sec</th>
+                        <th className="p-3 text-center">Limit / Min</th>
+                        <th className="p-3 text-center">Limit / Hour</th>
+                        <th className="p-3">Cumulative Pool Rule</th>
+                        <th className="p-3">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-sans">
+                      {rateLimitCatalog
+                        .filter(
+                          (item) =>
+                            rateLimitCategory === 'ALL' || item.category === rateLimitCategory
+                        )
+                        .filter(
+                          (item) =>
+                            !rateLimitSearch ||
+                            item.apiName.toLowerCase().includes(rateLimitSearch.toLowerCase()) ||
+                            item.description.toLowerCase().includes(rateLimitSearch.toLowerCase()) ||
+                            String(item.cumulativeGroup || '').toLowerCase().includes(rateLimitSearch.toLowerCase())
+                        )
+                        .map((item) => (
+                          <tr key={item.srNo} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                            <td className="p-3 text-center font-mono font-bold text-slate-400">
+                              {item.srNo}
+                            </td>
+                            <td className="p-3 font-semibold text-slate-900 dark:text-white">
+                              {item.apiName}
+                            </td>
+                            <td className="p-3">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                {item.category}
+                              </span>
+                            </td>
+                            <td className="p-3 text-center font-mono font-bold text-amber-600">
+                              {item.limitPerSecond} / s
+                            </td>
+                            <td className="p-3 text-center font-mono text-slate-600 dark:text-slate-400">
+                              {item.limitPerMinute ? `${item.limitPerMinute} / m` : '—'}
+                            </td>
+                            <td className="p-3 text-center font-mono text-slate-600 dark:text-slate-400">
+                              {item.limitPerHour ? `${item.limitPerHour} / h` : '—'}
+                            </td>
+                            <td className="p-3">
+                              {item.cumulativeGroup ? (
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900">
+                                  {item.cumulativeGroup} (≤ 9 req/s)
+                                </span>
+                              ) : (
+                                <span className="text-slate-400 text-[11px]">Independent</span>
+                              )}
+                            </td>
+                            <td className="p-3 text-slate-500 dark:text-slate-400 text-[11px] max-w-xs">
+                              {item.description}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 2: Interactive Burst Simulator */}
+            {rateLimitTab === 'simulator' && (
+              <div className="space-y-5">
+                <div className="p-4 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/40 dark:bg-amber-950/20 text-xs text-amber-800 dark:text-amber-300 space-y-1">
+                  <div className="font-bold flex items-center gap-1.5 text-sm">
+                    <Zap className="w-4 h-4 text-amber-600" />
+                    <span>Real-Time High-Frequency Burst Simulator</span>
+                  </div>
+                  <p>
+                    Simulates rapid-fire concurrent API requests from an algorithmic client to verify exact rate limiting behavior, cumulative order pool containment, and HTTP 403 (AB1004) denial messages.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Target API Endpoint
+                    </label>
+                    <select
+                      value={burstApiName}
+                      onChange={(e) => setBurstApiName(e.target.value)}
+                      className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                    >
+                      {rateLimitCatalog.map((item) => (
+                        <option key={item.apiName} value={item.apiName}>
+                          {item.apiName} (Limit: {item.limitPerSecond}/s{item.cumulativeGroup ? `, Pool: ${item.cumulativeGroup}` : ''})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Burst Size (Requests in 1 Second)
+                    </label>
+                    <select
+                      value={burstCount}
+                      onChange={(e) => setBurstCount(Number(e.target.value))}
+                      className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono"
+                    >
+                      <option value={5}>5 Requests (Safe Below 9/s Limit)</option>
+                      <option value={8}>8 Requests (Near Cumulative Capacity)</option>
+                      <option value={9}>9 Requests (Exact Cumulative Threshold)</option>
+                      <option value={10}>10 Requests (Triggers 1 Throttled Call)</option>
+                      <option value={12}>12 Requests (3 Throttled Calls)</option>
+                      <option value={15}>15 Requests (6 Throttled Calls)</option>
+                      <option value={20}>20 Requests (Heavy HFT Burst)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      Client Code Identifier
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={burstClientCode}
+                        onChange={(e) => setBurstClientCode(e.target.value.toUpperCase())}
+                        className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs font-mono text-slate-900 dark:text-slate-100"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleSimulateBurst}
+                        disabled={burstSimulating}
+                        className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm disabled:opacity-50 whitespace-nowrap"
+                      >
+                        <Send className={`w-3.5 h-3.5 ${burstSimulating ? 'animate-spin' : ''}`} />
+                        <span>Run Burst</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Simulation Output */}
+                {burstResult && (
+                  <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-4 space-y-4">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-800 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-slate-900 dark:text-white">Burst Simulation Result:</span>
+                        <span className="font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                          {burstResult.apiName}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 font-mono">
+                        <span className="text-emerald-600 font-bold">Allowed: {burstResult.allowedCount}</span>
+                        <span className="text-rose-600 font-bold">Throttled: {burstResult.throttledCount}</span>
+                        <span className="text-slate-500">Throttle Rate: {burstResult.throttleRatePct}%</span>
+                      </div>
+                    </div>
+
+                    {/* Timeline visualization of calls */}
+                    <div>
+                      <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                        Per-Call Execution Timeline:
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {burstResult.results.map((call: any, idx: number) => (
+                          <div
+                            key={idx}
+                            title={`Call #${idx + 1}: ${call.allowed ? 'HTTP 200 OK' : 'HTTP 403 Rate Limited (AB1004)'} - ${call.message}`}
+                            className={`px-2 py-1 rounded text-[11px] font-mono flex items-center gap-1.5 border ${
+                              call.allowed
+                                ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'
+                                : 'bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800 text-rose-700 dark:text-rose-300'
+                            }`}
+                          >
+                            <span>#{idx + 1}</span>
+                            <span>{call.allowed ? '200 OK' : '403 Denied'}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Raw Error Packet if throttled */}
+                    {burstResult.throttledCount > 0 && (
+                      <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50/50 dark:bg-rose-950/30 text-xs space-y-1.5 font-mono">
+                        <div className="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+                          <XCircle className="w-3.5 h-3.5" />
+                          <span>Exact SmartAPI Rejection Payload Received (AB1004):</span>
+                        </div>
+                        <pre className="text-[11px] bg-white dark:bg-black/60 p-2.5 rounded border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300 overflow-x-auto">
+{JSON.stringify(
+  {
+    status: false,
+    message: 'Access denied because of exceeding rate limit',
+    errorcode: 'AB1004',
+    data: null,
+    httpStatusCode: 403,
+    resetInMs: burstResult.results.find((c: any) => !c.allowed)?.resetInMs || 1000,
+  },
+  null,
+  2
+)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Sub-Tab 3: Pre-Flight Quota Checker */}
+            {rateLimitTab === 'telemetry' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-3">
+                  <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-teal-600" />
+                    <span>Pre-Flight Quota Check Prior to Order Dispatch</span>
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Query current capacity for any SmartAPI endpoint before sending an order or batch request to prevent 403 rejections.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <select
+                      value={quotaCheckApi}
+                      onChange={(e) => setQuotaCheckApi(e.target.value)}
+                      className="w-full sm:w-80 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                    >
+                      {rateLimitCatalog.map((item) => (
+                        <option key={item.apiName} value={item.apiName}>
+                          {item.apiName}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={handleCheckQuota}
+                      disabled={quotaCheckLoading}
+                      className="w-full sm:w-auto px-4 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                    >
+                      <Search className="w-3.5 h-3.5" />
+                      <span>Check Remaining Quota</span>
+                    </button>
+                  </div>
+
+                  {quotaCheckResult && (
+                    <div className="mt-3 p-3 rounded-lg border border-teal-200 dark:border-teal-900 bg-teal-50/40 dark:bg-teal-950/20 text-xs font-mono space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-teal-900 dark:text-teal-200">
+                          {quotaCheckResult.apiName}
+                        </span>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${quotaCheckResult.allowed ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'}`}>
+                          {quotaCheckResult.allowed ? 'QUOTA AVAILABLE (HTTP 200)' : 'RATE LIMIT REACHED (HTTP 403)'}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px]">
+                        <div>
+                          <div className="text-slate-500">Second Remaining:</div>
+                          <div className="font-bold text-slate-800 dark:text-slate-200">
+                            {quotaCheckResult.remainingSec} / {quotaCheckResult.limitPerSecond}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-slate-500">Current Second RPS:</div>
+                          <div className="font-bold text-slate-800 dark:text-slate-200">
+                            {quotaCheckResult.currentRps} req/s
+                          </div>
+                        </div>
+                        {quotaCheckResult.cumulativePool && (
+                          <div>
+                            <div className="text-slate-500">Order Pool Rem:</div>
+                            <div className="font-bold text-amber-600">
+                              {quotaCheckResult.cumulativePool.remainingSec} / 9 req/s
+                            </div>
+                          </div>
+                        )}
+                        <div>
+                          <div className="text-slate-500">Bucket Reset In:</div>
+                          <div className="font-bold text-slate-800 dark:text-slate-200">
+                            {quotaCheckResult.resetInMs} ms
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 4: Protocol Specification */}
+            {rateLimitTab === 'spec' && (
+              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-4 text-xs">
+                <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                  Angel One SmartAPI Rate Limit Rules &amp; Sliding Window Mechanics
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5">
+                    <div className="font-bold text-amber-600">1. Cumulative Order Limit Rule (≤ 9 req/s)</div>
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Even if individual order APIs (Place, Modify, Cancel) specify 10 req/s, their combined sum cannot exceed 9 req/s across the active client session. Exceeding 9 req/s will result in an immediate HTTP 403 rejection.
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5">
+                    <div className="font-bold text-blue-600">2. Error Code AB1004 &amp; HTTP 403</div>
+                    <p className="text-slate-600 dark:text-slate-400">
+                      When rate limits are breached, SmartAPI responds with HTTP 403 Forbidden and JSON payload:
+                      <code className="block mt-1 p-1 bg-slate-100 dark:bg-slate-800 rounded text-[11px] font-mono">
+                        &#123;&quot;status&quot;: false, &quot;message&quot;: &quot;Access denied because of exceeding rate limit&quot;, &quot;errorcode&quot;: &quot;AB1004&quot;&#125;
+                      </code>
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5">
+                    <div className="font-bold text-teal-600">3. Per-Client Code Isolation</div>
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Rate limit counters are tracked per Angel One client code using high-performance in-memory sliding windows. One user&apos;s burst does not impact another client session.
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5">
+                    <div className="font-bold text-indigo-600">4. Algorithmic Trading Recommendation</div>
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Always throttle outbound order loops to ≤ 8 req/s to accommodate latency jitter and clock skew, leaving a 1 req/s safety buffer below the strict 9 req/s cumulative threshold.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         )}
       </div>

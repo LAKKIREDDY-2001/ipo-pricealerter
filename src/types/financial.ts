@@ -1,4 +1,5 @@
 export type DataQualityStatus =
+  | 'LIVE'
   | 'VERIFIED'
   | 'DELAYED'
   | 'STALE'

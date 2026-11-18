@@ -165,6 +165,17 @@ import {
   type AngelScripMasterItem,
   type AngelScripMasterFilter,
   type AngelLtpDataRequest,
+  ANGEL_OFFICIAL_RATE_LIMITS,
+  ANGEL_RATE_LIMIT_ERROR_CODE,
+  ANGEL_RATE_LIMIT_ERROR_MESSAGE,
+  ANGEL_RATE_LIMIT_STATUS_CODE,
+  CUMULATIVE_ORDER_LIMIT_PER_SEC,
+  getAngelRateLimitRule,
+  checkAngelRateLimit,
+  recordAngelRateLimitRequest,
+  simulateAngelRateLimitBurst,
+  resetAngelRateLimits,
+  getAngelRateLimitTelemetry,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -1361,16 +1372,23 @@ async function startServer() {
       if (alphaSym) {
         candidates.push(
           `https://assets-netstorage.groww.in/stock-assets/logos2/${encodeURIComponent(alphaSym)}.webp`,
+          `https://assets.upstox.com/market-quote/symbols/logos/${encodeURIComponent(alphaSym)}.png`,
           `https://images.dhan.co/symbol/${encodeURIComponent(alphaSym)}.png`,
+          `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
+          `https://s3-symbol-logo.tradingview.com/${encodeURIComponent(alphaSym.toLowerCase())}--big.svg`,
+          `https://s3-symbol-logo.tradingview.com/${encodeURIComponent(alphaSym.toLowerCase())}.svg`,
+          `https://assets.parqet.com/logos/symbol/${encodeURIComponent(alphaSym)}?format=png`,
+          `https://cdn.jsdelivr.net/gh/nvstly/icons@main/ticker_icons/${encodeURIComponent(alphaSym)}.png`,
+          `https://api.dharun.dev/v1/logos/NSE:${encodeURIComponent(alphaSym)}`,
           `https://cdn.alphavantage.co/logos/${encodeURIComponent(alphaSym)}.png`,
           `https://cdn.alphavantage.co/logos/${encodeURIComponent(alphaSym)}.svg`,
-          `https://assets-netstorage.groww.in/stock-assets/logos/${encodeURIComponent(alphaSym)}.png`,
           `https://static.tickertape.in/stock-logos/${encodeURIComponent(alphaSym)}.png`
         );
       }
       if (bse6) {
         candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos/GSTK${bse6}.png`);
         candidates.push(`https://assets-netstorage.groww.in/stock-assets/logos2/GSTK${bse6}.webp`);
+        candidates.push(`https://api.dharun.dev/v1/logos/BSE:${bse6}`);
       }
 
       for (const url of candidates) {
@@ -1489,9 +1507,10 @@ async function startServer() {
         (s) =>
           s.symbol.toLowerCase().includes(q) ||
           s.companyName.toLowerCase().includes(q) ||
-          s.sector.toLowerCase().includes(q)
+          s.sector.toLowerCase().includes(q) ||
+          (s.indmoneyCategory && s.indmoneyCategory.toLowerCase().includes(q))
       )
-      .slice(0, 6)
+      .slice(0, 15)
       .map(globalStockToStockInstrument);
 
     const stocks = [...matchingUsStocks, ...universe
@@ -1503,7 +1522,7 @@ async function startServer() {
           s.isin.toLowerCase().includes(q) ||
           s.sector.toLowerCase().includes(q)
       )]
-      .slice(0, 16);
+      .slice(0, 30);
     const blogs = db.blogs
       .filter(
         (b) => b.title.toLowerCase().includes(q) || b.category.toLowerCase().includes(q)
@@ -2596,6 +2615,92 @@ async function startServer() {
     } catch (err: any) {
       res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch cautionary scrips' });
     }
+  });
+
+  // --- Angel One SmartAPI Rate Limit Suite Endpoints ---
+  app.get('/api/market/angel/rate-limits/catalog', (_req, res) => {
+    res.json({
+      ok: true,
+      status: true,
+      message: 'SUCCESS',
+      count: ANGEL_OFFICIAL_RATE_LIMITS.length,
+      cumulativeOrderLimitPerSec: CUMULATIVE_ORDER_LIMIT_PER_SEC,
+      errorCode: ANGEL_RATE_LIMIT_ERROR_CODE,
+      errorMessage: ANGEL_RATE_LIMIT_ERROR_MESSAGE,
+      httpStatusCode: ANGEL_RATE_LIMIT_STATUS_CODE,
+      catalog: ANGEL_OFFICIAL_RATE_LIMITS,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.get('/api/market/angel/rate-limits/status', (req, res) => {
+    const clientCode = String(req.query.clientCode || 'DEFAULT_CLIENT');
+    const telemetry = getAngelRateLimitTelemetry(clientCode);
+    res.json({
+      ok: true,
+      status: true,
+      message: 'SUCCESS',
+      clientCode,
+      telemetry,
+      cumulativePool: {
+        limit: CUMULATIVE_ORDER_LIMIT_PER_SEC,
+        currentRps: telemetry.cumulativeOrderRps,
+        remainingSec: telemetry.cumulativeOrderRemaining,
+      },
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/market/angel/rate-limits/check', (req, res) => {
+    const { apiName, clientCode, recordRequest } = req.body as {
+      apiName?: string;
+      clientCode?: string;
+      recordRequest?: boolean;
+    };
+    const targetApi = apiName || '/rest/secure/angelbroking/order/v1/placeOrder';
+    const targetClient = clientCode || 'DEFAULT_CLIENT';
+    const shouldRecord = Boolean(recordRequest);
+
+    const result = shouldRecord
+      ? recordAngelRateLimitRequest(targetApi, targetClient)
+      : checkAngelRateLimit(targetApi, targetClient);
+
+    res.status(result.allowed ? 200 : 403).json({
+      ok: true,
+      result,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/market/angel/rate-limits/simulate', (req, res) => {
+    const { apiName, burstCount, clientCode } = req.body as {
+      apiName?: string;
+      burstCount?: number;
+      clientCode?: string;
+    };
+    const targetApi = apiName || '/rest/secure/angelbroking/order/v1/placeOrder';
+    const count = Number(burstCount) || 12;
+    const targetClient = clientCode || 'SIM_CLIENT';
+
+    const simulation = simulateAngelRateLimitBurst(targetApi, count, targetClient);
+    res.json({
+      ok: true,
+      status: true,
+      simulation,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/market/angel/rate-limits/reset', (req, res) => {
+    const { clientCode } = req.body as { clientCode?: string };
+    resetAngelRateLimits(clientCode);
+    res.json({
+      ok: true,
+      status: true,
+      message: 'Rate limit meters reset successfully',
+      clientCode: clientCode || 'ALL',
+      retrievedAt: new Date().toISOString(),
+    });
   });
 
   // --- Authentication ---

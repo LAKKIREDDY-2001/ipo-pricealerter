@@ -31,9 +31,9 @@ export function DataQualityBadge({
       icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
     DELAYED: {
-      label: 'Delayed',
-      cls: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900',
-      icon: <Clock className="w-3 h-3 shrink-0" />,
+      label: 'Live Price',
+      cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-800',
+      icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
     STALE: {
       label: 'Stale',

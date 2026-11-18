@@ -5529,3 +5529,731 @@ export async function fetchAngelInstrumentLtp(
     ltp: defaultLtp,
   };
 }
+
+// ============================================================================
+// ANGEL ONE SMARTAPI RATE LIMIT SUITE (Official Documentation 2026-2027)
+// Ref: https://smartapi.angelone.in/docs/RateLimit#
+// Rule: Rate limits are enforced on the basis of client code.
+// Breach returns: HTTP 403 "Access denied because of exceeding rate limit".
+// Cumulative Rule: placeOrder, modifyOrder, cancelOrder combined <= 9 req/s.
+// ============================================================================
+
+export const ANGEL_RATE_LIMIT_ERROR_CODE = 'AB1004';
+export const ANGEL_RATE_LIMIT_ERROR_MESSAGE = 'Access denied because of exceeding rate limit';
+export const ANGEL_RATE_LIMIT_STATUS_CODE = 403;
+export const CUMULATIVE_ORDER_LIMIT_PER_SEC = 9;
+
+export interface AngelRateLimitRule {
+  srNo: number;
+  apiName: string;
+  category: 'AUTH_USER' | 'ORDERS' | 'PORTFOLIO' | 'MARKET_DATA' | 'MARGIN' | 'GTT' | 'HISTORICAL';
+  limitPerSecond: number;
+  limitPerMinute?: number | null;
+  limitPerHour?: number | null;
+  cumulativeGroup?: string | null;
+  description: string;
+}
+
+export interface AngelRateLimitCheckResult {
+  allowed: boolean;
+  statusCode: number; // 200 or 403
+  message: string;
+  errorcode?: string | null;
+  apiName: string;
+  clientCode: string;
+  rule: AngelRateLimitRule;
+  currentRps: number;
+  limitPerSecond: number;
+  remainingSec: number;
+  currentRpm: number;
+  limitPerMinute: number | null;
+  remainingMin: number | null;
+  currentRph: number;
+  limitPerHour: number | null;
+  remainingHour: number | null;
+  cumulativePool?: {
+    group: string;
+    currentRps: number;
+    limitPerSecond: number;
+    remainingSec: number;
+  } | null;
+  resetInMs: number;
+  timestamp: string;
+}
+
+export interface AngelRateLimitTelemetry {
+  totalRequests: number;
+  throttledRequests: number;
+  allowedRequests: number;
+  throttleRatePct: number;
+  peakRps: number;
+  cumulativeOrderRps: number;
+  cumulativeOrderRemaining: number;
+  activeClientCodes: number;
+  recentBreaches: Array<{
+    apiName: string;
+    clientCode: string;
+    reason: string;
+    timestamp: string;
+  }>;
+}
+
+export interface AngelRateLimitBurstSimulationResult {
+  apiName: string;
+  clientCode: string;
+  totalBurst: number;
+  allowedCount: number;
+  throttledCount: number;
+  throttleRatePct: number;
+  firstThrottledIndex: number | null;
+  cumulativePoolUsed: number;
+  cumulativePoolRemaining: number;
+  results: AngelRateLimitCheckResult[];
+}
+
+/**
+ * Complete Official Catalog of SmartAPI Rate Limits (Table 1-26)
+ */
+export const ANGEL_OFFICIAL_RATE_LIMITS: AngelRateLimitRule[] = [
+  {
+    srNo: 1,
+    apiName: '/rest/auth/angelbroking/user/v1/loginByPassword',
+    category: 'AUTH_USER',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'User login with client code, password, and TOTP authentication',
+  },
+  {
+    srNo: 2,
+    apiName: '/rest/auth/angelbroking/jwt/v1//generateTokens',
+    category: 'AUTH_USER',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: 1000,
+    description: 'Renew JWT access token using refreshToken and client code',
+  },
+  {
+    srNo: 3,
+    apiName: '/rest/secure/angelbroking/user/v1/getProfile',
+    category: 'AUTH_USER',
+    limitPerSecond: 3,
+    limitPerMinute: null,
+    limitPerHour: 1000,
+    description: 'Fetch user profile, client name, broker, DP IDs, and active exchanges',
+  },
+  {
+    srNo: 4,
+    apiName: '/rest/secure/angelbroking/user/v1/logout',
+    category: 'AUTH_USER',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Invalidate current session and revoke authorization tokens',
+  },
+  {
+    srNo: 5,
+    apiName: '/rest/secure/angelbroking/user/v1/getRMS',
+    category: 'AUTH_USER',
+    limitPerSecond: 2,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch RMS available funds, margins, collaterals, and MTM limits',
+  },
+  {
+    srNo: 6,
+    apiName: '/rest/secure/angelbroking/order/v1/placeOrder',
+    category: 'ORDERS',
+    limitPerSecond: 9,
+    limitPerMinute: 500,
+    limitPerHour: 1000,
+    cumulativeGroup: 'ORDER_ACTIONS_POOL',
+    description: 'Submit new order (shared 9 req/s cumulative pool with modify & cancel)',
+  },
+  {
+    srNo: 7,
+    apiName: '/rest/secure/angelbroking/order/v1/modifyOrder',
+    category: 'ORDERS',
+    limitPerSecond: 9,
+    limitPerMinute: 500,
+    limitPerHour: 1000,
+    cumulativeGroup: 'ORDER_ACTIONS_POOL',
+    description: 'Modify order price or quantity (shared 9 req/s cumulative pool)',
+  },
+  {
+    srNo: 8,
+    apiName: '/rest/secure/angelbroking/order/v1/cancelOrder',
+    category: 'ORDERS',
+    limitPerSecond: 9,
+    limitPerMinute: 500,
+    limitPerHour: 1000,
+    cumulativeGroup: 'ORDER_ACTIONS_POOL',
+    description: 'Cancel pending exchange order (shared 9 req/s cumulative pool)',
+  },
+  {
+    srNo: 9,
+    apiName: '/rest/secure/angelbroking/order/v1/getOrderBook',
+    category: 'ORDERS',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch complete order book status for the current trading day',
+  },
+  {
+    srNo: 10,
+    apiName: '/rest/secure/angelbroking/order/v1/getLtpData',
+    category: 'ORDERS',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Fetch real-time Last Traded Price (LTP) quote and day open/high/low/close',
+  },
+  {
+    srNo: 11,
+    apiName: '/rest/secure/angelbroking/order/v1/getPosition',
+    category: 'ORDERS',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch intraday and carry-forward open positions book',
+  },
+  {
+    srNo: 12,
+    apiName: '/rest/secure/angelbroking/order/v1/getTradeBook',
+    category: 'ORDERS',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch trade book of filled executions and trade execution IDs',
+  },
+  {
+    srNo: 13,
+    apiName: '/rest/secure/angelbroking/order/v1/convertPosition',
+    category: 'ORDERS',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Convert position product type (INTRADAY <-> DELIVERY / CARRYFORWARD)',
+  },
+  {
+    srNo: 14,
+    apiName: '/rest/secure/angelbroking/order/v1/searchScrip',
+    category: 'ORDERS',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Resolve single security search scrip to exchange series tokens',
+  },
+  {
+    srNo: 15,
+    apiName: '/rest/secure/angelbroking/order/v1//details/{GuiOrderID}',
+    category: 'ORDERS',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Fetch status and history for individual order by unique GUI order ID',
+  },
+  {
+    srNo: 16,
+    apiName: '/rest/secure/angelbroking/portfolio/v1/getHolding',
+    category: 'PORTFOLIO',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch user Demat equity holdings with ISIN, quantity, and profit/loss',
+  },
+  {
+    srNo: 17,
+    apiName: '/rest/secure/angelbroking/portfolio/v1/getAllHolding',
+    category: 'PORTFOLIO',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch full portfolio Demat and collateral holdings summary',
+  },
+  {
+    srNo: 18,
+    apiName: '/rest/secure/angelbroking/market/v1/quote',
+    category: 'MARKET_DATA',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Full market quote with best 5 bid/ask Level 2 market depth and circuits',
+  },
+  {
+    srNo: 19,
+    apiName: '/rest/secure/angelbroking/margin/v1/batch',
+    category: 'MARGIN',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Calculate upfront basket margin for up to 50 multi-leg positions with hedge benefit',
+  },
+  {
+    srNo: 20,
+    apiName: '/rest/secure/angelbroking/gtt/v1/createRule',
+    category: 'GTT',
+    limitPerSecond: 9,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Create Good-Till-Triggered (GTT) single or OCO stop-loss/target rule',
+  },
+  {
+    srNo: 21,
+    apiName: '/rest/secure/angelbroking/gtt/v1/modifyRule',
+    category: 'GTT',
+    limitPerSecond: 9,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Modify active GTT rule trigger price, limit price, or quantity',
+  },
+  {
+    srNo: 22,
+    apiName: '/rest/secure/angelbroking/gtt/v1/cancelRule',
+    category: 'GTT',
+    limitPerSecond: 9,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Cancel an active GTT rule by rule ID',
+  },
+  {
+    srNo: 23,
+    apiName: '/rest/secure/angelbroking/gtt/v1/ruleDetails',
+    category: 'GTT',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'Fetch details, execution history, and audit log for a GTT rule',
+  },
+  {
+    srNo: 24,
+    apiName: '/rest/secure/angelbroking/gtt/v1/ruleList',
+    category: 'GTT',
+    limitPerSecond: 10,
+    limitPerMinute: 500,
+    limitPerHour: 5000,
+    description: 'List user GTT rules filtered by NEW, CANCELLED, TRIGGERED, or REJECTED status',
+  },
+  {
+    srNo: 25,
+    apiName: '/rest/secure/angelbroking/historical/v1/getCandleData',
+    category: 'HISTORICAL',
+    limitPerSecond: 2,
+    limitPerMinute: 40,
+    limitPerHour: 2000,
+    description: 'Fetch historical OHLCV candle charts (strictly throttled: 2/s, 40/min, 2000/hr)',
+  },
+  {
+    srNo: 26,
+    apiName: '/rest/secure/angelbroking/marketData/v1/optionGreek',
+    category: 'MARKET_DATA',
+    limitPerSecond: 1,
+    limitPerMinute: null,
+    limitPerHour: null,
+    description: 'Fetch Option Greeks (Delta, Gamma, Theta, Vega, IV) for Indian F&O contracts',
+  },
+];
+
+// In-Memory Sliding Window Tracker State
+interface InternalRateLimitTracker {
+  endpointHits: Map<string, number[]>; // key: `${clientCode}::${apiName}`
+  cumulativeHits: Map<string, number[]>; // key: `${clientCode}::ORDER_ACTIONS_POOL`
+  totalRequests: number;
+  throttledRequests: number;
+  peakRps: number;
+  recentBreaches: Array<{
+    apiName: string;
+    clientCode: string;
+    reason: string;
+    timestamp: string;
+  }>;
+}
+
+const rateLimitTracker: InternalRateLimitTracker = {
+  endpointHits: new Map(),
+  cumulativeHits: new Map(),
+  totalRequests: 0,
+  throttledRequests: 0,
+  peakRps: 0,
+  recentBreaches: [],
+};
+
+/**
+ * Normalizes input string to canonical SmartAPI endpoint path
+ */
+export function normalizeAngelApiPath(apiOrName: string): string {
+  const raw = String(apiOrName || '').trim();
+  if (raw.startsWith('/rest/')) return raw;
+
+  const lower = raw.toLowerCase().replace(/[\s\-_/]/g, '');
+  if (lower.includes('loginbypassword') || lower === 'login') {
+    return '/rest/auth/angelbroking/user/v1/loginByPassword';
+  }
+  if (lower.includes('generatetokens') || lower.includes('tokenrenewal') || lower === 'token') {
+    return '/rest/auth/angelbroking/jwt/v1//generateTokens';
+  }
+  if (lower.includes('getprofile') || lower === 'profile') {
+    return '/rest/secure/angelbroking/user/v1/getProfile';
+  }
+  if (lower.includes('logout')) {
+    return '/rest/secure/angelbroking/user/v1/logout';
+  }
+  if (lower.includes('getrms') || lower === 'rms' || lower.includes('marginfunds')) {
+    return '/rest/secure/angelbroking/user/v1/getRMS';
+  }
+  if (lower.includes('placeorder') || lower === 'place') {
+    return '/rest/secure/angelbroking/order/v1/placeOrder';
+  }
+  if (lower.includes('modifyorder') || lower === 'modify') {
+    return '/rest/secure/angelbroking/order/v1/modifyOrder';
+  }
+  if (lower.includes('cancelorder') || lower === 'cancel') {
+    return '/rest/secure/angelbroking/order/v1/cancelOrder';
+  }
+  if (lower.includes('getorderbook') || lower === 'orderbook') {
+    return '/rest/secure/angelbroking/order/v1/getOrderBook';
+  }
+  if (lower.includes('getltpdata') || lower.includes('ltp')) {
+    return '/rest/secure/angelbroking/order/v1/getLtpData';
+  }
+  if (lower.includes('getposition') || lower === 'position') {
+    return '/rest/secure/angelbroking/order/v1/getPosition';
+  }
+  if (lower.includes('gettradebook') || lower === 'tradebook') {
+    return '/rest/secure/angelbroking/order/v1/getTradeBook';
+  }
+  if (lower.includes('convertposition') || lower === 'convert') {
+    return '/rest/secure/angelbroking/order/v1/convertPosition';
+  }
+  if (lower.includes('searchscrip') || lower === 'search') {
+    return '/rest/secure/angelbroking/order/v1/searchScrip';
+  }
+  if (lower.includes('details') || lower.includes('guiorderid')) {
+    return '/rest/secure/angelbroking/order/v1//details/{GuiOrderID}';
+  }
+  if (lower.includes('getholding') || lower === 'holding') {
+    return '/rest/secure/angelbroking/portfolio/v1/getHolding';
+  }
+  if (lower.includes('getallholding') || lower === 'allholding') {
+    return '/rest/secure/angelbroking/portfolio/v1/getAllHolding';
+  }
+  if (lower.includes('quote') || lower === 'marketquote') {
+    return '/rest/secure/angelbroking/market/v1/quote';
+  }
+  if (lower.includes('batch') || lower.includes('margincalc')) {
+    return '/rest/secure/angelbroking/margin/v1/batch';
+  }
+  if (lower.includes('createrule') || lower === 'gttcreate') {
+    return '/rest/secure/angelbroking/gtt/v1/createRule';
+  }
+  if (lower.includes('modifyrule') || lower === 'gttmodify') {
+    return '/rest/secure/angelbroking/gtt/v1/modifyRule';
+  }
+  if (lower.includes('cancelrule') || lower === 'gttcancel') {
+    return '/rest/secure/angelbroking/gtt/v1/cancelRule';
+  }
+  if (lower.includes('ruledetails') || lower === 'gttdetails') {
+    return '/rest/secure/angelbroking/gtt/v1/ruleDetails';
+  }
+  if (lower.includes('rulelist') || lower === 'gttlist') {
+    return '/rest/secure/angelbroking/gtt/v1/ruleList';
+  }
+  if (lower.includes('getcandledata') || lower.includes('candle') || lower.includes('historical')) {
+    return '/rest/secure/angelbroking/historical/v1/getCandleData';
+  }
+  if (lower.includes('optiongreek') || lower.includes('greeks')) {
+    return '/rest/secure/angelbroking/marketData/v1/optionGreek';
+  }
+
+  return raw;
+}
+
+/**
+ * Find rate limit rule for a given API identifier
+ */
+export function getAngelRateLimitRule(apiOrName: string): AngelRateLimitRule {
+  const norm = normalizeAngelApiPath(apiOrName);
+  const found = ANGEL_OFFICIAL_RATE_LIMITS.find(
+    (r) => r.apiName.toLowerCase() === norm.toLowerCase()
+  );
+  if (found) return found;
+
+  // Safe fallback rule for uncataloged API
+  return {
+    srNo: 99,
+    apiName: norm,
+    category: 'ORDERS',
+    limitPerSecond: 1,
+    limitPerMinute: 60,
+    limitPerHour: 1000,
+    description: 'Standard Angel One SmartAPI endpoint',
+  };
+}
+
+/**
+ * Check if a request complies with rate limits without mutating the sliding window
+ */
+export function checkAngelRateLimit(
+  apiOrName: string,
+  clientCode = 'DEFAULT_CLIENT',
+  now = Date.now()
+): AngelRateLimitCheckResult {
+  const rule = getAngelRateLimitRule(apiOrName);
+  const client = (clientCode || 'DEFAULT_CLIENT').trim().toUpperCase();
+  const endpointKey = `${client}::${rule.apiName}`;
+
+  const hits = (rateLimitTracker.endpointHits.get(endpointKey) || []).filter(
+    (t) => now - t < 3600000
+  );
+
+  const secHits = hits.filter((t) => now - t < 1000).length;
+  const minHits = hits.filter((t) => now - t < 60000).length;
+  const hrHits = hits.length;
+
+  let allowed = true;
+  let reason = '';
+
+  // 1. Check Per-Second Limit
+  if (secHits >= rule.limitPerSecond) {
+    allowed = false;
+    reason = `Exceeded per-second limit (${secHits}/${rule.limitPerSecond} req/s)`;
+  }
+
+  // 2. Check Per-Minute Limit (if applicable)
+  if (allowed && rule.limitPerMinute && minHits >= rule.limitPerMinute) {
+    allowed = false;
+    reason = `Exceeded per-minute limit (${minHits}/${rule.limitPerMinute} req/min)`;
+  }
+
+  // 3. Check Per-Hour Limit (if applicable)
+  if (allowed && rule.limitPerHour && hrHits >= rule.limitPerHour) {
+    allowed = false;
+    reason = `Exceeded per-hour limit (${hrHits}/${rule.limitPerHour} req/hr)`;
+  }
+
+  // 4. Check Cumulative Order Actions Pool (placeOrder + modifyOrder + cancelOrder <= 9 req/s)
+  let cumulativePool: AngelRateLimitCheckResult['cumulativePool'] = null;
+  if (rule.cumulativeGroup === 'ORDER_ACTIONS_POOL') {
+    const cumKey = `${client}::ORDER_ACTIONS_POOL`;
+    const cumHits = (rateLimitTracker.cumulativeHits.get(cumKey) || []).filter(
+      (t) => now - t < 1000
+    );
+    const cumSecCount = cumHits.length;
+    const remainingCum = Math.max(0, CUMULATIVE_ORDER_LIMIT_PER_SEC - cumSecCount);
+
+    cumulativePool = {
+      group: 'ORDER_ACTIONS_POOL',
+      currentRps: cumSecCount,
+      limitPerSecond: CUMULATIVE_ORDER_LIMIT_PER_SEC,
+      remainingSec: remainingCum,
+    };
+
+    if (allowed && cumSecCount >= CUMULATIVE_ORDER_LIMIT_PER_SEC) {
+      allowed = false;
+      reason = `Exceeded cumulative order APIs limit (place + modify + cancel: ${cumSecCount}/${CUMULATIVE_ORDER_LIMIT_PER_SEC} req/s)`;
+    }
+  }
+
+  const remainingSec = Math.max(0, rule.limitPerSecond - secHits);
+  const remainingMin = rule.limitPerMinute ? Math.max(0, rule.limitPerMinute - minHits) : null;
+  const remainingHour = rule.limitPerHour ? Math.max(0, rule.limitPerHour - hrHits) : null;
+
+  return {
+    allowed,
+    statusCode: allowed ? 200 : ANGEL_RATE_LIMIT_STATUS_CODE,
+    message: allowed ? 'SUCCESS' : ANGEL_RATE_LIMIT_ERROR_MESSAGE,
+    errorcode: allowed ? null : ANGEL_RATE_LIMIT_ERROR_CODE,
+    apiName: rule.apiName,
+    clientCode: client,
+    rule,
+    currentRps: secHits,
+    limitPerSecond: rule.limitPerSecond,
+    remainingSec,
+    currentRpm: minHits,
+    limitPerMinute: rule.limitPerMinute ?? null,
+    remainingMin,
+    currentRph: hrHits,
+    limitPerHour: rule.limitPerHour ?? null,
+    remainingHour,
+    cumulativePool,
+    resetInMs: Math.max(0, 1000 - (now % 1000)),
+    timestamp: new Date(now).toISOString(),
+  };
+}
+
+/**
+ * Record and enforce rate limit for an API request against the client code
+ */
+export function recordAngelRateLimitRequest(
+  apiOrName: string,
+  clientCode = 'DEFAULT_CLIENT',
+  now = Date.now()
+): AngelRateLimitCheckResult {
+  const check = checkAngelRateLimit(apiOrName, clientCode, now);
+  const client = check.clientCode;
+  const endpointKey = `${client}::${check.rule.apiName}`;
+
+  rateLimitTracker.totalRequests += 1;
+
+  if (check.allowed) {
+    // Record hit in endpoint sliding window
+    const currentHits = rateLimitTracker.endpointHits.get(endpointKey) || [];
+    const validHits = currentHits.filter((t) => now - t < 3600000);
+    validHits.push(now);
+    rateLimitTracker.endpointHits.set(endpointKey, validHits);
+
+    // Record hit in cumulative group if applicable
+    if (check.rule.cumulativeGroup === 'ORDER_ACTIONS_POOL') {
+      const cumKey = `${client}::ORDER_ACTIONS_POOL`;
+      const currentCum = rateLimitTracker.cumulativeHits.get(cumKey) || [];
+      const validCum = currentCum.filter((t) => now - t < 1000);
+      validCum.push(now);
+      rateLimitTracker.cumulativeHits.set(cumKey, validCum);
+    }
+
+    // Update peak RPS telemetry
+    const curRps = validHits.filter((t) => now - t < 1000).length;
+    if (curRps > rateLimitTracker.peakRps) {
+      rateLimitTracker.peakRps = curRps;
+    }
+  } else {
+    // Throttled 403 breach
+    rateLimitTracker.throttledRequests += 1;
+    rateLimitTracker.recentBreaches.unshift({
+      apiName: check.rule.apiName,
+      clientCode: client,
+      reason: check.message,
+      timestamp: check.timestamp,
+    });
+    if (rateLimitTracker.recentBreaches.length > 50) {
+      rateLimitTracker.recentBreaches.pop();
+    }
+  }
+
+  // Recalculate remaining quotas after recording this call
+  const postHits = (rateLimitTracker.endpointHits.get(endpointKey) || []).filter(
+    (t) => now - t < 3600000
+  );
+  const postSecHits = postHits.filter((t) => now - t < 1000).length;
+  check.currentRps = postSecHits;
+  check.remainingSec = Math.max(0, check.rule.limitPerSecond - postSecHits);
+
+  return check;
+}
+
+/**
+ * Simulate burst requests to verify rate limit throttling and 403 rejection
+ */
+export function simulateAngelRateLimitBurst(
+  apiOrName: string,
+  burstCount = 10,
+  clientCode = 'SIM_USER'
+): AngelRateLimitBurstSimulationResult {
+  const norm = normalizeAngelApiPath(apiOrName);
+  const rule = getAngelRateLimitRule(norm);
+  const client = (clientCode || 'SIM_USER').trim().toUpperCase();
+  const count = Math.max(1, Math.min(burstCount, 100));
+
+  // Reset counters for the test client to provide deterministic simulation
+  resetAngelRateLimits(client);
+
+  const results: AngelRateLimitCheckResult[] = [];
+  const baseTime = Date.now();
+  let firstThrottledIndex: number | null = null;
+
+  for (let i = 0; i < count; i++) {
+    // Add 10ms micro-spacing within the same 1-second window
+    const reqTime = baseTime + i * 10;
+    const res = recordAngelRateLimitRequest(norm, client, reqTime);
+    results.push(res);
+    if (!res.allowed && firstThrottledIndex === null) {
+      firstThrottledIndex = i;
+    }
+  }
+
+  const allowedCount = results.filter((r) => r.allowed).length;
+  const throttledCount = results.filter((r) => !r.allowed).length;
+  const throttleRatePct = Math.round((throttledCount / count) * 10000) / 100;
+
+  const cumKey = `${client}::ORDER_ACTIONS_POOL`;
+  const cumHits = rateLimitTracker.cumulativeHits.get(cumKey) || [];
+  const cumUsed = cumHits.length;
+  const cumRemaining = Math.max(0, CUMULATIVE_ORDER_LIMIT_PER_SEC - cumUsed);
+
+  return {
+    apiName: rule.apiName,
+    clientCode: client,
+    totalBurst: count,
+    allowedCount,
+    throttledCount,
+    throttleRatePct,
+    firstThrottledIndex,
+    cumulativePoolUsed: cumUsed,
+    cumulativePoolRemaining: cumRemaining,
+    results,
+  };
+}
+
+/**
+ * Reset rate limit history and telemetry
+ */
+export function resetAngelRateLimits(clientCode?: string): void {
+  if (clientCode) {
+    const prefix = `${clientCode.trim().toUpperCase()}::`;
+    for (const key of Array.from(rateLimitTracker.endpointHits.keys())) {
+      if (key.startsWith(prefix)) rateLimitTracker.endpointHits.delete(key);
+    }
+    for (const key of Array.from(rateLimitTracker.cumulativeHits.keys())) {
+      if (key.startsWith(prefix)) rateLimitTracker.cumulativeHits.delete(key);
+    }
+  } else {
+    rateLimitTracker.endpointHits.clear();
+    rateLimitTracker.cumulativeHits.clear();
+    rateLimitTracker.totalRequests = 0;
+    rateLimitTracker.throttledRequests = 0;
+    rateLimitTracker.peakRps = 0;
+    rateLimitTracker.recentBreaches = [];
+  }
+}
+
+/**
+ * Get aggregate rate limit telemetry across clients
+ */
+export function getAngelRateLimitTelemetry(clientCode?: string): AngelRateLimitTelemetry {
+  const client = clientCode ? clientCode.trim().toUpperCase() : null;
+  const clients = new Set<string>();
+
+  for (const key of rateLimitTracker.endpointHits.keys()) {
+    const parts = key.split('::');
+    if (parts[0]) clients.add(parts[0]);
+  }
+
+  let cumHitsCount = 0;
+  if (client) {
+    const cumHits = rateLimitTracker.cumulativeHits.get(`${client}::ORDER_ACTIONS_POOL`) || [];
+    const now = Date.now();
+    cumHitsCount = cumHits.filter((t) => now - t < 1000).length;
+  }
+
+  const allowedRequests = Math.max(
+    0,
+    rateLimitTracker.totalRequests - rateLimitTracker.throttledRequests
+  );
+  const throttleRatePct =
+    rateLimitTracker.totalRequests > 0
+      ? Math.round((rateLimitTracker.throttledRequests / rateLimitTracker.totalRequests) * 10000) /
+        100
+      : 0;
+
+  return {
+    totalRequests: rateLimitTracker.totalRequests,
+    throttledRequests: rateLimitTracker.throttledRequests,
+    allowedRequests,
+    throttleRatePct,
+    peakRps: rateLimitTracker.peakRps,
+    cumulativeOrderRps: cumHitsCount,
+    cumulativeOrderRemaining: Math.max(0, CUMULATIVE_ORDER_LIMIT_PER_SEC - cumHitsCount),
+    activeClientCodes: Math.max(1, clients.size),
+    recentBreaches: [...rateLimitTracker.recentBreaches],
+  };
+}

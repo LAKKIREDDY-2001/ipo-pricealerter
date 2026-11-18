@@ -65,6 +65,7 @@ interface StockChartTooltipProps {
   label?: string;
   range: string;
   previousClose?: number | null;
+  currency?: 'INR' | 'USD';
 }
 
 function StockChartTooltip({
@@ -72,6 +73,7 @@ function StockChartTooltip({
   payload,
   range,
   previousClose,
+  currency = 'INR',
 }: StockChartTooltipProps) {
   if (!active || !payload || !payload.length) return null;
   const point = payload[0].payload;
@@ -89,7 +91,7 @@ function StockChartTooltip({
       <div className="flex items-baseline justify-between gap-3 pt-0.5">
         <span className="text-[#64748B] dark:text-slate-400">Price:</span>
         <span className="font-data font-bold text-sm text-[#14263F] dark:text-white">
-          {formatINR(point.close)}
+          {currency === 'USD' ? `$${Number(point.close).toFixed(2)}` : formatINR(point.close)}
         </span>
       </div>
       {change !== null && changePct !== null && (
@@ -312,13 +314,11 @@ export function StockDetailPage() {
     stock.financialStatements?.[0];
 
   const finChartData = activeFin
-    ? (finFreq === 'yearly' ? activeFin.revenueYearly : activeFin.revenueQuarterly).map((rev) => {
-        const profList = finFreq === 'yearly' ? activeFin.profitYearly : activeFin.profitQuarterly;
+    ? (finFreq === 'yearly' ? activeFin.revenueYearly || [] : activeFin.revenueQuarterly || []).map((rev) => {
+        const profList = finFreq === 'yearly' ? activeFin.profitYearly || [] : activeFin.profitQuarterly || [];
         const prof = profList.find((p) => p.period === rev.period);
-        const nw =
-          finFreq === 'yearly'
-            ? activeFin.netWorthYearly.find((n) => n.period === rev.period)
-            : undefined;
+        const nwList = finFreq === 'yearly' ? activeFin.netWorthYearly || [] : [];
+        const nw = nwList.find((n) => n.period === rev.period);
         return {
           period: rev.period,
           Revenue: rev.valueCr,
@@ -359,7 +359,7 @@ export function StockDetailPage() {
       <Breadcrumbs
         items={[
           { label: 'Dashboard', to: '/' },
-          { label: 'Live Stocks', to: '/live-prices' },
+          { label: stock.isUsStock ? 'US Stocks' : 'Live Stocks', to: stock.isUsStock ? '/us-stocks' : '/live-prices' },
           { label: stock.companyName },
         ]}
       />
@@ -380,8 +380,12 @@ export function StockDetailPage() {
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2 text-xs text-[#64748B] dark:text-slate-400">
                   <span className="font-semibold text-[#152338] dark:text-slate-200">{stock.exchange}</span>
-                  <span>·</span>
-                  <span>BSE {stock.bseCode}</span>
+                  {stock.bseCode && stock.bseCode !== 'N/A' && stock.bseCode !== 'US' && (
+                    <>
+                      <span>·</span>
+                      <span>BSE {stock.bseCode}</span>
+                    </>
+                  )}
                   {stock.registry?.nseSeries && (
                     <>
                       <span>·</span>
@@ -410,7 +414,18 @@ export function StockDetailPage() {
             </div>
             <div className="mt-3 flex flex-wrap items-baseline gap-3">
               <span className="font-data text-3xl font-bold text-[#14263F] dark:text-white">
-                {formatINR(stock.currentPrice)}
+                {stock.currency === 'USD' ? (
+                  <>
+                    ${typeof stock.currentPrice === 'number' && Number.isFinite(stock.currentPrice) ? stock.currentPrice.toFixed(2) : '—'}
+                    {typeof stock.priceInInr === 'number' && stock.priceInInr > 0 && (
+                      <span className="ml-2 text-base font-normal text-[#64748B] dark:text-slate-400">
+                        (≈ ₹{Math.round(stock.priceInInr).toLocaleString('en-IN')})
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  formatINR(stock.currentPrice)
+                )}
               </span>
               {typeof diff === 'number' && Number.isFinite(diff) && typeof diffPct === 'number' && Number.isFinite(diffPct) && (
                 <span
@@ -419,7 +434,7 @@ export function StockDetailPage() {
                   }`}
                 >
                   {isUp ? '+' : ''}
-                  {diff.toFixed(2)} ({formatPercent(diffPct)})
+                  {stock.currency === 'USD' ? `$${diff.toFixed(2)}` : diff.toFixed(2)} ({formatPercent(diffPct)})
                 </span>
               )}
               <span className="text-xs text-[#64748B] dark:text-slate-400 font-data">
@@ -483,17 +498,25 @@ export function StockDetailPage() {
         <div className="mt-6 pt-5 border-t border-[#E2E8F0] dark:border-slate-800 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs">
           <div>
             <div className="text-[#64748B]">Previous Close</div>
-            <div className="font-data font-bold text-sm mt-0.5">{formatINR(stock.previousClose)}</div>
+            <div className="font-data font-bold text-sm mt-0.5">
+              {stock.currency === 'USD'
+                ? typeof stock.previousClose === 'number' && Number.isFinite(stock.previousClose) ? `$${stock.previousClose.toFixed(2)}` : '—'
+                : formatINR(stock.previousClose)}
+            </div>
           </div>
           <div>
             <div className="text-[#64748B]">Open</div>
-            <div className="font-data font-bold text-sm mt-0.5">{formatINR(stock.open)}</div>
+            <div className="font-data font-bold text-sm mt-0.5">
+              {stock.currency === 'USD'
+                ? typeof stock.open === 'number' && Number.isFinite(stock.open) ? `$${stock.open.toFixed(2)}` : '—'
+                : formatINR(stock.open)}
+            </div>
           </div>
           <div>
             <div className="text-[#64748B]">Day Range</div>
             <div className="font-data font-semibold text-sm mt-0.5">
               {typeof stock.dayLow === 'number' && Number.isFinite(stock.dayLow) && typeof stock.dayHigh === 'number' && Number.isFinite(stock.dayHigh)
-                ? `₹${stock.dayLow.toFixed(2)} – ₹${stock.dayHigh.toFixed(2)}`
+                ? `${stock.currency === 'USD' ? '$' : '₹'}${stock.dayLow.toFixed(2)} – ${stock.currency === 'USD' ? '$' : '₹'}${stock.dayHigh.toFixed(2)}`
                 : 'Unavailable'}
             </div>
           </div>
@@ -501,7 +524,7 @@ export function StockDetailPage() {
             <div className="text-[#64748B]">52-Week Range</div>
             <div className="font-data font-semibold text-sm mt-0.5">
               {typeof stock.week52Low === 'number' && Number.isFinite(stock.week52Low) && typeof stock.week52High === 'number' && Number.isFinite(stock.week52High)
-                ? `₹${stock.week52Low.toFixed(2)} – ₹${stock.week52High.toFixed(2)}`
+                ? `${stock.currency === 'USD' ? '$' : '₹'}${stock.week52Low.toFixed(2)} – ${stock.currency === 'USD' ? '$' : '₹'}${stock.week52High.toFixed(2)}`
                 : 'Unavailable'}
             </div>
           </div>
@@ -514,7 +537,9 @@ export function StockDetailPage() {
           <div>
             <div className="text-[#64748B]">Market Cap</div>
             <div className="font-data font-bold text-sm mt-0.5">
-              {formatCrores(stock.marketCapCr)}
+              {stock.currency === 'USD' && typeof stock.marketCapUsd === 'number'
+                ? `$${(stock.marketCapUsd / 1e9).toFixed(2)}B`
+                : formatCrores(stock.marketCapCr)}
             </div>
           </div>
         </div>
@@ -639,7 +664,7 @@ export function StockDetailPage() {
               <p className="text-xs text-[#64748B] dark:text-slate-400">
                 {range === '1d'
                   ? 'Real-time 5-minute intraday candles with exact trade times (IST)'
-                  : `Exchange-derived historical close series (${stock.historicalSeries.length} sessions)`}
+                  : `Exchange-derived historical close series (${stock.historicalSeries?.length || 0} sessions)`}
               </p>
             </div>
             <div className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-[#F6F8FB] dark:bg-slate-900 p-1 border border-[#E2E8F0] dark:border-slate-800">
@@ -667,11 +692,15 @@ export function StockDetailPage() {
           <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-baseline gap-3">
               <span className="font-data text-2xl font-bold text-[#14263F] dark:text-white">
-                {typeof activePrice === 'number' ? formatINR(activePrice) : '—'}
+                {typeof activePrice === 'number'
+                  ? stock.currency === 'USD'
+                    ? `$${activePrice.toFixed(2)}`
+                    : formatINR(activePrice)
+                  : '—'}
               </span>
               {activeDiff !== null && activeDiffPct !== null && (
                 <span className={`font-data text-sm font-semibold ${isActiveUp ? 'text-[#16A34A]' : 'text-[#DC2626]'}`}>
-                  {isActiveUp ? '+' : ''}{activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
+                  {isActiveUp ? '+' : ''}{stock.currency === 'USD' ? `$${activeDiff.toFixed(2)}` : activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
                 </span>
               )}
             </div>
@@ -720,7 +749,7 @@ export function StockDetailPage() {
                   />
                   <YAxis
                     domain={['auto', 'auto']}
-                    tickFormatter={(v) => `₹${v}`}
+                    tickFormatter={(v) => stock.currency === 'USD' ? `$${v}` : `₹${v}`}
                     tick={{ fontSize: 11, fill: '#64748B' }}
                     width={62}
                   />
@@ -729,6 +758,7 @@ export function StockDetailPage() {
                       <StockChartTooltip
                         range={range}
                         previousClose={stock.previousClose}
+                        currency={stock.currency}
                       />
                     }
                   />
@@ -738,7 +768,7 @@ export function StockDetailPage() {
                       stroke="#94A3B8"
                       strokeDasharray="3 3"
                       label={{
-                        value: `Prev: ₹${stock.previousClose.toFixed(2)}`,
+                        value: `Prev: ${stock.currency === 'USD' ? '$' : '₹'}${stock.previousClose.toFixed(2)}`,
                         position: 'insideTopRight',
                         fill: '#94A3B8',
                         fontSize: 10,
@@ -785,7 +815,7 @@ export function StockDetailPage() {
                 step="0.05"
                 value={alertPrice}
                 onChange={(e) => setAlertPrice(e.target.value)}
-                placeholder="Target price in ₹"
+                placeholder={`Target price in ${stock.currency === 'USD' ? '$' : '₹'}`}
                 required
                 className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 font-data text-[#152338] dark:text-slate-100"
               />
@@ -812,8 +842,8 @@ export function StockDetailPage() {
                 { label: 'P/E Ratio (TTM)', val: stock.fundamentals.pe !== null ? `${stock.fundamentals.pe}x` : 'Unavailable' },
                 { label: 'Industry P/E', val: stock.companyProfile?.industryPe !== null && stock.companyProfile?.industryPe !== undefined ? `${stock.companyProfile.industryPe}x` : 'Unavailable' },
                 { label: 'P/B Ratio', val: stock.fundamentals.pb !== null ? `${stock.fundamentals.pb}x` : 'Unavailable' },
-                { label: 'EPS (TTM)', val: stock.companyProfile?.epsTtm !== null && stock.companyProfile?.epsTtm !== undefined ? formatINR(stock.companyProfile.epsTtm) : 'Unavailable' },
-                { label: 'Book Value', val: stock.companyProfile?.bookValue !== null && stock.companyProfile?.bookValue !== undefined ? formatINR(stock.companyProfile.bookValue) : 'Unavailable' },
+                { label: 'EPS (TTM)', val: stock.companyProfile?.epsTtm !== null && stock.companyProfile?.epsTtm !== undefined ? (stock.currency === 'USD' ? `$${stock.companyProfile.epsTtm.toFixed(2)}` : formatINR(stock.companyProfile.epsTtm)) : 'Unavailable' },
+                { label: 'Book Value', val: stock.companyProfile?.bookValue !== null && stock.companyProfile?.bookValue !== undefined ? (stock.currency === 'USD' ? `$${stock.companyProfile.bookValue.toFixed(2)}` : formatINR(stock.companyProfile.bookValue)) : 'Unavailable' },
                 { label: 'ROE', val: stock.fundamentals.roePct !== null ? `${stock.fundamentals.roePct}%` : 'Unavailable' },
                 { label: 'Debt-to-Equity', val: stock.fundamentals.debtToEquity !== null ? `${stock.fundamentals.debtToEquity}x` : 'N/A' },
                 { label: 'Dividend Yield', val: stock.fundamentals.dividendYieldPct !== null ? `${stock.fundamentals.dividendYieldPct}%` : 'Unavailable' },
@@ -1157,7 +1187,7 @@ export function StockDetailPage() {
           <h2 className="text-base font-semibold text-[#152338] dark:text-white mb-3">
             Corporate Announcements &amp; Exchange Filings
           </h2>
-          {stock.announcements.length === 0 ? (
+          {(!stock.announcements || stock.announcements.length === 0) ? (
             <p className="text-xs text-[#64748B]">
               Check NSE/BSE exchange filing feeds for latest board announcements on {stock.symbol}.
             </p>

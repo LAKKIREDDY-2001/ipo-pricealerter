@@ -425,13 +425,29 @@ export function buildLogoCandidateList(opts: {
     const growwWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSym}.webp`;
     if (!candidates.includes(growwWebp)) candidates.push(growwWebp);
 
-    // 4. Dhan PNG CDN
+    // 4. Upstox CDN
+    const upstoxPng = `https://assets.upstox.com/market-quote/symbols/logos/${cleanSym}.png`;
+    if (!candidates.includes(upstoxPng)) candidates.push(upstoxPng);
+
+    // 5. Dhan PNG CDN
     const dhanPng = `https://images.dhan.co/symbol/${cleanSym}.png`;
     if (!candidates.includes(dhanPng)) candidates.push(dhanPng);
 
-    // 5. Groww PNG CDN
+    // 6. Groww PNG CDN
     const growwPng = `https://assets-netstorage.groww.in/stock-assets/logos/${cleanSym}.png`;
     if (!candidates.includes(growwPng)) candidates.push(growwPng);
+
+    // 7. TradingView CDN (Vector SVGs)
+    const tvSvgBig = `https://s3-symbol-logo.tradingview.com/${cleanSym.toLowerCase()}--big.svg`;
+    if (!candidates.includes(tvSvgBig)) candidates.push(tvSvgBig);
+    const tvSvg = `https://s3-symbol-logo.tradingview.com/${cleanSym.toLowerCase()}.svg`;
+    if (!candidates.includes(tvSvg)) candidates.push(tvSvg);
+
+    // 8. Global/US Ticker CDNs (Parqet & Nvstly)
+    const parqetPng = `https://assets.parqet.com/logos/symbol/${cleanSym}?format=png`;
+    if (!candidates.includes(parqetPng)) candidates.push(parqetPng);
+    const nvstlyPng = `https://cdn.jsdelivr.net/gh/nvstly/icons@main/ticker_icons/${cleanSym}.png`;
+    if (!candidates.includes(nvstlyPng)) candidates.push(nvstlyPng);
   }
 
   // 6. BSE GSTK CDN if 6-digit BSE code (WebP and PNG variants)

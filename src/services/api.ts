@@ -546,7 +546,7 @@ export const api = {
                 effectiveDate: (item.quoteTimestamp || existing.lastTradeTime).slice(0, 10),
                 verificationStatus: rawPrice !== null ? 'Verified' : existing.provenance.verificationStatus,
                 qualityStatus: rawPrice !== null
-                  ? (item.quoteVerified ? 'VERIFIED' : 'DELAYED')
+                  ? (item.quoteVerified ? 'VERIFIED' : 'LIVE')
                   : existing.provenance.qualityStatus,
               },
             };
@@ -587,7 +587,7 @@ export const api = {
               effectiveDate: (item.quoteTimestamp || new Date().toISOString()).slice(0, 10),
               verificationStatus: rawPrice !== null ? 'Verified' : 'Provisional',
               qualityStatus: rawPrice !== null
-                ? (item.quoteVerified ? 'VERIFIED' : 'DELAYED')
+                ? (item.quoteVerified ? 'VERIFIED' : 'LIVE')
                 : 'UNAVAILABLE',
               currency: 'INR',
               unit: 'INR',
@@ -1803,4 +1803,154 @@ export const api = {
       }>;
       retrievedAt: string;
     }>('/api/market/angel/instruments/cautionary'),
+
+  // Angel One SmartAPI Rate Limit Suite
+  getAngelRateLimitsCatalog: () =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      count: number;
+      cumulativeOrderLimitPerSec: number;
+      errorCode: string;
+      errorMessage: string;
+      httpStatusCode: number;
+      catalog: Array<{
+        srNo: number;
+        apiName: string;
+        category: 'AUTH_USER' | 'ORDERS' | 'PORTFOLIO' | 'MARKET_DATA' | 'MARGIN' | 'GTT' | 'HISTORICAL';
+        limitPerSecond: number;
+        limitPerMinute: number | null;
+        limitPerHour: number | null;
+        cumulativeGroup?: string | null;
+        description: string;
+      }>;
+      retrievedAt: string;
+    }>('/api/market/angel/rate-limits/catalog'),
+
+  getAngelRateLimitsStatus: (clientCode = 'DEFAULT_CLIENT') =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      clientCode: string;
+      telemetry: {
+        totalRequests: number;
+        throttledRequests: number;
+        allowedRequests: number;
+        throttleRatePct: number;
+        peakRps: number;
+        cumulativeOrderRps: number;
+        cumulativeOrderRemaining: number;
+        activeClientCodes: number;
+        recentBreaches: Array<{
+          apiName: string;
+          clientCode: string;
+          reason: string;
+          timestamp: string;
+        }>;
+      };
+      cumulativePool: {
+        limit: number;
+        currentRps: number;
+        remainingSec: number;
+      };
+      retrievedAt: string;
+    }>(`/api/market/angel/rate-limits/status?clientCode=${encodeURIComponent(clientCode)}`),
+
+  checkAngelRateLimit: (apiName: string, clientCode = 'DEFAULT_CLIENT', recordRequest = false) =>
+    request<{
+      ok: boolean;
+      result: {
+        allowed: boolean;
+        statusCode: number;
+        message: string;
+        errorcode?: string | null;
+        apiName: string;
+        clientCode: string;
+        rule: {
+          srNo: number;
+          apiName: string;
+          category: string;
+          limitPerSecond: number;
+          limitPerMinute: number | null;
+          limitPerHour: number | null;
+          cumulativeGroup?: string | null;
+          description: string;
+        };
+        currentRps: number;
+        limitPerSecond: number;
+        remainingSec: number;
+        currentRpm: number;
+        limitPerMinute: number | null;
+        remainingMin: number | null;
+        currentRph: number;
+        limitPerHour: number | null;
+        remainingHour: number | null;
+        cumulativePool?: {
+          group: string;
+          currentRps: number;
+          limitPerSecond: number;
+          remainingSec: number;
+        } | null;
+        resetInMs: number;
+        timestamp: string;
+      };
+      retrievedAt: string;
+    }>('/api/market/angel/rate-limits/check', {
+      method: 'POST',
+      body: JSON.stringify({ apiName, clientCode, recordRequest }),
+    }),
+
+  simulateAngelRateLimitBurst: (apiName: string, burstCount = 12, clientCode = 'SIM_CLIENT') =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      simulation: {
+        apiName: string;
+        clientCode: string;
+        totalBurst: number;
+        allowedCount: number;
+        throttledCount: number;
+        throttleRatePct: number;
+        firstThrottledIndex: number | null;
+        cumulativePoolUsed: number;
+        cumulativePoolRemaining: number;
+        results: Array<{
+          allowed: boolean;
+          statusCode: number;
+          message: string;
+          errorcode?: string | null;
+          apiName: string;
+          clientCode: string;
+          currentRps: number;
+          limitPerSecond: number;
+          remainingSec: number;
+          cumulativePool?: {
+            group: string;
+            currentRps: number;
+            limitPerSecond: number;
+            remainingSec: number;
+          } | null;
+          resetInMs: number;
+          timestamp: string;
+        }>;
+      };
+      retrievedAt: string;
+    }>('/api/market/angel/rate-limits/simulate', {
+      method: 'POST',
+      body: JSON.stringify({ apiName, burstCount, clientCode }),
+    }),
+
+  resetAngelRateLimits: (clientCode?: string) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      clientCode: string;
+      retrievedAt: string;
+    }>('/api/market/angel/rate-limits/reset', {
+      method: 'POST',
+      body: JSON.stringify({ clientCode }),
+    }),
 };

@@ -20,6 +20,11 @@ import {
   sendPriceAlertEmail,
 } from '../services/mailerService.ts';
 import { getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
+import {
+  getIndmoneyUsExploreSnapshot,
+  globalStockToStockInstrument,
+  getLiveUsdInrRate,
+} from './indmoneyUsStocksProvider.ts';
 
 interface YahooChartResponse {
   chart?: {
@@ -2852,6 +2857,66 @@ export async function refreshStockBySymbol(
   const db = getDb();
   const rawUpper = rawSymbol.trim().toUpperCase().replace(/\.(NS|BO)$/i, '');
   const cleanSymbol = TICKER_ALIASES[rawUpper] || rawUpper;
+
+  // Check if this is a US / Global stock
+  const usSnapshot = getIndmoneyUsExploreSnapshot();
+  const usStockRaw = (usSnapshot?.stocks || []).find(
+    (s) => s.symbol.toUpperCase() === cleanSymbol
+  );
+  if (usStockRaw) {
+    const baseStock = globalStockToStockInstrument(usStockRaw);
+    const interval = range === '1d' ? '5m' : range === '5d' ? '15m' : range === '1mo' ? '1h' : '1d';
+    const yahooData = await fetchYahooChart(cleanSymbol, range, interval);
+    let historicalSeries: StockHistoricalPoint[] = [];
+    let currentPrice = baseStock.currentPrice;
+    let previousClose = baseStock.previousClose;
+    let open = baseStock.open;
+    let dayHigh = baseStock.dayHigh;
+    let dayLow = baseStock.dayLow;
+    let volume = baseStock.volume;
+
+    if (yahooData) {
+      historicalSeries = parseYahooCandles(yahooData);
+      const meta = yahooData.chart?.result?.[0]?.meta;
+      if (typeof meta?.regularMarketPrice === 'number' && Number.isFinite(meta.regularMarketPrice)) {
+        currentPrice = meta.regularMarketPrice;
+      }
+      if (typeof meta?.chartPreviousClose === 'number' || typeof meta?.previousClose === 'number') {
+        previousClose = meta.chartPreviousClose ?? meta.previousClose ?? previousClose;
+      }
+      if (typeof meta?.regularMarketDayHigh === 'number' && Number.isFinite(meta.regularMarketDayHigh)) {
+        dayHigh = meta.regularMarketDayHigh;
+      }
+      if (typeof meta?.regularMarketDayLow === 'number' && Number.isFinite(meta.regularMarketDayLow)) {
+        dayLow = meta.regularMarketDayLow;
+      }
+      if (typeof meta?.regularMarketVolume === 'number' && Number.isFinite(meta.regularMarketVolume)) {
+        volume = meta.regularMarketVolume;
+      }
+    }
+    const rate = getLiveUsdInrRate();
+    const priceInInr = typeof currentPrice === 'number' ? Math.round(currentPrice * rate * 100) / 100 : undefined;
+
+    const mergedStock: StockInstrument = {
+      ...baseStock,
+      currentPrice,
+      previousClose,
+      open,
+      dayHigh,
+      dayLow,
+      volume,
+      priceInInr,
+      historicalSeries,
+      sparkline: historicalSeries.length > 0 ? historicalSeries.slice(-20).map((p) => p.close) : baseStock.sparkline,
+      provenance: {
+        ...baseStock.provenance,
+        source: yahooData ? 'Real-Time US Market Feed' : baseStock.provenance.source,
+        qualityStatus: 'LIVE',
+        retrievedAt: new Date().toISOString(),
+      },
+    };
+    return { stock: mergedStock, fromUpstream: Boolean(yahooData) };
+  }
 
   if (liveUniverseCache.length === 0) {
     await syncAllIndianStocks();

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -49,7 +49,6 @@ export function GlobalStocksPage() {
   const [currencyMode, setCurrencyMode] = useState<'BOTH' | 'USD' | 'INR'>('BOTH');
   const [searchInput, setSearchInput] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [directSymbol, setDirectSymbol] = useState('');
   const [page, setPage] = useState(1);
   const pageSize = 50;
 
@@ -193,15 +192,6 @@ export function GlobalStocksPage() {
     URL.revokeObjectURL(url);
   };
 
-  const handleDirectLookup = (e: React.FormEvent) => {
-    e.preventDefault();
-    const sym = directSymbol.trim().toUpperCase();
-    if (!sym) return;
-    setSearchInput(sym);
-    setCategoryTab('all');
-    setDirectSymbol('');
-  };
-
   const title = 'US & Global Stocks Terminal';
 
   return (
@@ -212,7 +202,7 @@ export function GlobalStocksPage() {
       />
       <Breadcrumbs items={[{ label: 'Dashboard', to: '/' }, { label: title }]} />
 
-      {/* Header & Direct Lookup */}
+      {/* Header & Controls */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-200 dark:border-blue-900 mb-2">
@@ -228,31 +218,12 @@ export function GlobalStocksPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
-          <form onSubmit={handleDirectLookup} className="flex items-center gap-2 w-full sm:w-auto">
-            <div className="relative flex-1 sm:flex-none">
-              <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={directSymbol}
-                onChange={(e) => setDirectSymbol(e.target.value)}
-                placeholder="Find US ticker (e.g. AAPL, NVDA)..."
-                className="w-full sm:w-60 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] pl-8 pr-3 py-2 text-sm sm:text-xs text-[#152338] dark:text-slate-100 focus:outline-none focus:border-[#2563EB]"
-              />
-            </div>
-            <button
-              type="submit"
-              className="rounded-lg bg-[#14263F] dark:bg-[#2563EB] px-3.5 py-2 min-h-[38px] text-xs font-semibold text-white cursor-pointer whitespace-nowrap shrink-0"
-            >
-              Filter Ticker
-            </button>
-          </form>
-
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => loadData(true)}
             disabled={refreshing}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 py-2 min-h-[38px] text-xs font-semibold text-[#152338] dark:text-slate-100 cursor-pointer whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3.5 py-2 min-h-[38px] text-xs font-semibold text-[#152338] dark:text-slate-100 cursor-pointer whitespace-nowrap shadow-xs"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
             Sync Feed
@@ -262,9 +233,9 @@ export function GlobalStocksPage() {
             <button
               type="button"
               onClick={handleExportCsv}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 py-2 min-h-[38px] text-xs font-semibold text-[#152338] dark:text-slate-100 hover:border-[#2563EB] cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3.5 py-2 min-h-[38px] text-xs font-semibold text-[#152338] dark:text-slate-100 hover:border-[#2563EB] cursor-pointer whitespace-nowrap shadow-xs"
             >
-              <Download className="w-3.5 h-3.5" /> CSV
+              <Download className="w-3.5 h-3.5" /> Export CSV
             </button>
           )}
         </div>
@@ -339,13 +310,25 @@ export function GlobalStocksPage() {
 
       {/* Filter Strip */}
       <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2.5 text-xs">
-        <input
-          type="text"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Filter by symbol, company, or sector..."
-          className="rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 py-2 text-sm sm:text-xs text-[#152338] dark:text-slate-100 w-full sm:w-72"
-        />
+        <div className="relative w-full sm:w-80">
+          <Search className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Search US ticker, company, or sector..."
+            className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] pl-9 pr-8 py-2 text-sm sm:text-xs text-[#152338] dark:text-slate-100 placeholder:text-[#94A3B8] focus:outline-none focus:border-[#2563EB]"
+          />
+          {searchInput && (
+            <button
+              type="button"
+              onClick={() => setSearchInput('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#152338] dark:hover:text-white"
+            >
+              ×
+            </button>
+          )}
+        </div>
 
         <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
           <select
@@ -465,7 +448,7 @@ export function GlobalStocksPage() {
                       className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors"
                     >
                       <td className="py-3 px-4">
-                        <div className="flex items-center gap-2.5">
+                        <Link to={`/stock/${s.symbol}`} className="flex items-center gap-2.5 group">
                           <CompanyLogo
                             companyName={s.companyName}
                             symbol={s.symbol}
@@ -473,7 +456,7 @@ export function GlobalStocksPage() {
                             size="sm"
                           />
                           <div>
-                            <div className="font-semibold text-[#14263F] dark:text-white flex items-center gap-1.5">
+                            <div className="font-semibold text-[#14263F] dark:text-white flex items-center gap-1.5 group-hover:text-[#2563EB] transition-colors">
                               <span>{s.symbol}</span>
                               {s.isEtf && (
                                 <span className="text-[10px] uppercase font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 px-1.5 py-0.2 rounded">
@@ -485,7 +468,7 @@ export function GlobalStocksPage() {
                               {s.companyName}
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       </td>
 
                       <td className="py-3 px-3">
