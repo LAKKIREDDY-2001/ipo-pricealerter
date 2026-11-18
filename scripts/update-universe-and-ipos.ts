@@ -240,6 +240,7 @@ async function main() {
       bseCode: s.bseCode !== 'N/A' ? s.bseCode : null,
       isin: s.isin,
       logo: s.logoUrl,
+      searchId: s.searchId || null,
       initials: s.symbol.slice(0, 2).toUpperCase(),
       price: '₹' + rawPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       rawPrice,
