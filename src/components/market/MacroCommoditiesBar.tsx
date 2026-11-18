@@ -101,14 +101,14 @@ export function MacroCommoditiesBar() {
             {loading ? '—' : usdInr == null ? 'Unavailable' : `₹${formatValue(usdInr)}`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400 font-data">
-            FX spot reference · USD / INR
+            {quoteFreshnessLabel(macro?.usdInr?.lastRefreshed)}
           </div>
         </div>
 
         {/* Gold Spot */}
         <div className="rounded-xl border border-[#E2E8F0]/80 dark:border-slate-800/80 bg-[#F8FAFC] dark:bg-[#111C2E]/60 p-3 hover:border-amber-400 dark:hover:border-amber-500/50 transition-colors">
           <div className="flex items-center justify-between text-[11px] text-[#64748B] dark:text-slate-400 font-medium">
-            <span>Gold Spot (XAU)</span>
+            <span>Gold Futures (USD/oz)</span>
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
@@ -122,7 +122,7 @@ export function MacroCommoditiesBar() {
         {/* Silver Spot */}
         <div className="rounded-xl border border-[#E2E8F0]/80 dark:border-slate-800/80 bg-[#F8FAFC] dark:bg-[#111C2E]/60 p-3 hover:border-slate-400 dark:hover:border-slate-500/50 transition-colors">
           <div className="flex items-center justify-between text-[11px] text-[#64748B] dark:text-slate-400 font-medium">
-            <span>Silver Spot (XAG)</span>
+            <span>Silver Futures (USD/oz)</span>
             <Sparkles className="w-3.5 h-3.5 text-slate-400" />
           </div>
           <div className="mt-1.5 font-data text-base sm:text-lg font-bold text-[#14263F] dark:text-white">
