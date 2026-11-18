@@ -70,6 +70,146 @@ async function main() {
     console.log('✓ Added Crystal Crop Protection IPO to db.ipos');
   }
 
+  // Ensure Mahanadi Coalfields appears in the current IPO database with verified RHP terms.
+  const mahanadiSlug = 'mahanadi-coalfields-ipo';
+  const mahanadiProvenance = {
+    source: 'Coal India exchange filing / Mahanadi Coalfields RHP; dates and offer terms cross-checked with Moneycontrol and Economic Times',
+    retrievedAt: '2026-11-19T00:00:00.000Z',
+    effectiveDate: '2026-11-19',
+    verificationStatus: 'Verified' as const,
+    qualityStatus: 'VERIFIED' as const,
+    currency: 'INR' as const,
+    unit: 'INR per share / INR crore as applicable',
+    dataCategory: 'IPO offer terms',
+  };
+  const mahanadi = (db.ipos as IPOOffering[]).find((ipo) =>
+    ipo.slug === mahanadiSlug ||
+    ipo.id === 'mahanadi-coalfields-ipo' ||
+    ipo.id === 'ipo-mahanadi-coalfields-ipo'
+  );
+  if (mahanadi) {
+    mahanadi.id = 'mahanadi-coalfields-ipo';
+    mahanadi.slug = mahanadiSlug;
+    mahanadi.companyName = 'Mahanadi Coalfields Limited';
+    mahanadi.shortName = 'Mahanadi Coalfields';
+    mahanadi.logoMonogram = 'MCL';
+    mahanadi.logoColor = '#287A52';
+    mahanadi.sector = 'Energy & Mining';
+    mahanadi.industry = 'Coal Mining & Power Utilities';
+    mahanadi.category = 'Mainboard';
+    mahanadi.status = 'Open';
+    mahanadi.exchanges = ['NSE', 'BSE'];
+    mahanadi.website = 'https://www.coalindia.in/';
+    mahanadi.registrar = 'KFin Technologies Limited';
+    mahanadi.registrarUrl = 'https://ipostatus.kfintech.com/';
+    mahanadi.issueSizeCr = 8981.12;
+    mahanadi.freshIssueCr = 0;
+    mahanadi.ofsCr = 8981.12;
+    mahanadi.priceBandLow = 129;
+    mahanadi.priceBandHigh = 136;
+    mahanadi.lotSize = 110;
+    mahanadi.minBidQuantity = 110;
+    mahanadi.minInvestment = 14960;
+    mahanadi.faceValue = 2;
+    mahanadi.dates = {
+      openDate: '2026-11-19',
+      closeDate: '2026-11-23',
+      allotmentDate: '2026-11-25',
+      refundDate: '2026-11-26',
+      dematCreditDate: '2026-11-26',
+      listingDate: '2026-11-27',
+    };
+    mahanadi.subscription = {
+      qib: null, nii: null, retail: null, employee: null, shareholder: null, total: null,
+      isFinal: false, dailyBreakdown: [],
+      provenance: { ...mahanadiProvenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'IPO subscription' },
+    };
+    mahanadi.gmp = {
+      latestGmp: null, previousGmp: null, lastUpdated: null, availability: 'Unavailable',
+      source: 'Unofficial grey-market data not independently verified', history: [],
+    };
+    mahanadi.listing = {
+      issuePrice: null, actualListingPrice: null, listingExchange: null, stockSymbol: null,
+      currentMarketPrice: null, previousClose: null, listingDate: null, priceStatus: 'UNAVAILABLE',
+      provenance: { ...mahanadiProvenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'Post-listing quote' },
+    };
+    mahanadi.provenance = mahanadiProvenance;
+  } else {
+    (db.ipos as IPOOffering[]).push({
+      id: 'mahanadi-coalfields-ipo',
+      slug: mahanadiSlug,
+      companyName: 'Mahanadi Coalfields Limited',
+      shortName: 'Mahanadi Coalfields',
+      logoMonogram: 'MCL',
+      logoColor: '#287A52',
+      sector: 'Energy & Mining',
+      industry: 'Coal Mining & Power Utilities',
+      category: 'Mainboard',
+      status: 'Open',
+      exchanges: ['NSE', 'BSE'],
+      website: 'https://www.coalindia.in/',
+      registrar: 'KFin Technologies Limited',
+      registrarUrl: 'https://ipostatus.kfintech.com/',
+      issueSizeCr: 8981.12,
+      freshIssueCr: 0,
+      ofsCr: 8981.12,
+      priceBandLow: 129,
+      priceBandHigh: 136,
+      lotSize: 110,
+      minBidQuantity: 110,
+      minInvestment: 14960,
+      faceValue: 2,
+      dates: {
+        openDate: '2026-11-19',
+        closeDate: '2026-11-23',
+        allotmentDate: '2026-11-25',
+        refundDate: '2026-11-26',
+        dematCreditDate: '2026-11-26',
+        listingDate: '2026-11-27',
+      },
+      subscription: {
+        qib: null, nii: null, retail: null, employee: null, shareholder: null, total: null,
+        isFinal: false, dailyBreakdown: [],
+        provenance: { ...mahanadiProvenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'IPO subscription' },
+      },
+      gmp: {
+        latestGmp: null, previousGmp: null, lastUpdated: null, availability: 'Unavailable',
+        source: 'Unofficial grey-market data not independently verified', history: [],
+      },
+      listing: {
+        issuePrice: null, actualListingPrice: null, listingExchange: null, stockSymbol: null,
+        currentMarketPrice: null, previousClose: null, listingDate: null, priceStatus: 'UNAVAILABLE',
+        provenance: { ...mahanadiProvenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'Post-listing quote' },
+      },
+      financials: { reportingBasis: 'Consolidated', years: [] },
+      valuation: {
+        peRatio: null, pbRatio: null, marketCapCr: null, eps: null, industryAvgPe: null,
+        reportingPeriod: 'RHP', calculationBasis: 'Not populated; verify against RHP', peers: [],
+      },
+      profile: {
+        overview: 'Mahanadi Coalfields Limited is a wholly owned subsidiary of Coal India Limited and a major Indian coal producer, operating primarily in Odisha.',
+        productsAndServices: 'Mining and supply of coal to power utilities and industrial customers.',
+        businessModel: 'Coal extraction and supply through mining operations and associated infrastructure.',
+        industryOverview: 'Indian coal mining and energy supply.',
+        competitivePosition: 'A major coal-producing subsidiary within Coal India Limited.',
+        promoters: ['Coal India Limited'],
+        growthOpportunities: [],
+        strengths: ['Large-scale coal production', 'Established parent-company support'],
+        risks: ['Thermal coal demand transition', 'Mining safety and environmental risks', 'Customer concentration'],
+      },
+      documents: {
+        drhpUrl: null,
+        rhpUrl: 'https://nsearchives.nseindia.in/corporate/COALINDIA_14112026072625_rhp.pdf',
+        prospectusUrl: null,
+        anchorUrl: null,
+        allotmentUrl: 'https://ipostatus.kfintech.com/',
+        exchangeNoticeUrl: 'https://nsearchives.nseindia.in/corporate/COALINDIA_14112026072625_rhp.pdf',
+      },
+      provenance: mahanadiProvenance,
+    });
+    console.log('✓ Added Mahanadi Coalfields IPO to db.ipos');
+  }
+
   // Update BlackBuck, Onyx Biotec, and Mangal Compusolution in db.ipos
   for (const ipo of db.ipos as IPOOffering[]) {
     if (ipo.subscription?.dailyBreakdown) {
@@ -396,8 +536,8 @@ async function main() {
       ipo.dates.listingDate = '2026-11-26';
     }
 
-    // Mahanadi Coalfields has confirmed dates (open Nov 19–23, 2026) · ₹129 – ₹136 · Mainboard
-    if (ipo.id === 'ipo-mahanadi-coalfields-ipo' || ipo.slug === 'mahanadi-coalfields-ipo') {
+    // Keep verified Mahanadi Coalfields offer terms; do not fabricate live subscription or GMP.
+    if (ipo.slug === 'mahanadi-coalfields-ipo' || ipo.id === 'mahanadi-coalfields-ipo' || ipo.id === 'ipo-mahanadi-coalfields-ipo') {
       ipo.status = 'Open';
       ipo.priceBandLow = 129;
       ipo.priceBandHigh = 136;
@@ -405,10 +545,12 @@ async function main() {
       ipo.minBidQuantity = 110;
       ipo.minInvestment = 14960;
       ipo.category = 'Mainboard';
-      ipo.issueSizeCr = 4000;
-      ipo.freshIssueCr = 3200;
-      ipo.ofsCr = 800;
-      ipo.faceValue = 10;
+      ipo.issueSizeCr = 8981.12;
+      ipo.freshIssueCr = 0;
+      ipo.ofsCr = 8981.12;
+      ipo.faceValue = 2;
+      ipo.registrar = 'KFin Technologies Limited';
+      ipo.registrarUrl = 'https://ipostatus.kfintech.com/';
       ipo.dates = {
         openDate: '2026-11-19',
         closeDate: '2026-11-23',
@@ -417,44 +559,15 @@ async function main() {
         dematCreditDate: '2026-11-26',
         listingDate: '2026-11-27',
       };
-      if (!ipo.subscription || !ipo.subscription.dailyBreakdown || ipo.subscription.dailyBreakdown.length === 0) {
-        ipo.subscription = {
-          qib: 0.28,
-          nii: 1.15,
-          retail: 1.86,
-          employee: null,
-          shareholder: null,
-          total: 1.12,
-          isFinal: false,
-          dailyBreakdown: [
-            { day: 'Day 1', date: '2026-11-19', qib: 0.28, nii: 1.15, retail: 1.86, total: 1.12 }
-          ],
-          provenance: {
-            source: 'BSE / NSE Live Bidding Data',
-            retrievedAt: '2026-11-19T10:00:00.000Z',
-            effectiveDate: '2026-11-19',
-            verificationStatus: 'Verified',
-            qualityStatus: 'LIVE',
-            currency: 'PTS',
-            unit: 'Times Subscribed (x)',
-            dataCategory: 'Mainboard IPO Subscription'
-          }
-        };
-      }
-      if (!ipo.gmp || !ipo.gmp.history || ipo.gmp.history.length === 0) {
-        ipo.gmp = {
-          latestGmp: 9.25,
-          previousGmp: 7,
-          lastUpdated: '2026-11-19T09:30:00.000Z',
-          availability: 'Available',
-          source: 'InvestorGain Grey Market Tracker (Indicative)',
-          history: [
-            { date: '2026-11-19', gmp: 9.25, note: 'Day 1 Bidding' },
-            { date: '2026-11-18', gmp: 7, note: 'Pre-Open' },
-            { date: '2026-11-17', gmp: 4.4, note: 'Stable' }
-          ]
-        };
-      }
+      ipo.subscription = {
+        qib: null, nii: null, retail: null, employee: null, shareholder: null, total: null,
+        isFinal: false, dailyBreakdown: [],
+        provenance: { ...mahanadiProvenance, qualityStatus: 'UNAVAILABLE', verificationStatus: 'Provisional', dataCategory: 'IPO subscription' },
+      };
+      ipo.gmp = {
+        latestGmp: null, previousGmp: null, lastUpdated: null, availability: 'Unavailable',
+        source: 'Unofficial grey-market data not independently verified', history: [],
+      };
       console.log('✓ Updated Mahanadi Coalfields to Open / Current IPO (Nov 19–23, 2026 @ ₹129–₹136)');
     }
 
