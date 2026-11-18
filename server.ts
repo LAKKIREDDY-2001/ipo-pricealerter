@@ -176,6 +176,16 @@ import {
   simulateAngelRateLimitBurst,
   resetAngelRateLimits,
   getAngelRateLimitTelemetry,
+  getAngelCasStatus,
+  getAngelCasPhase,
+  getAngelCasPhases,
+  getAngelAutoSquareOffSchedules,
+  validateAngelCasOrder,
+  calculateAngelCasReferencePrice,
+  discoverAngelCasEquilibriumPrice,
+  isAngelCasScrip,
+  ANGEL_CAS_EFFECTIVE_DATE,
+  ANGEL_CAS_PRICE_BAND_PCT,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2699,6 +2709,83 @@ async function startServer() {
       status: true,
       message: 'Rate limit meters reset successfully',
       clientCode: clientCode || 'ALL',
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  // --- Angel One SmartAPI Closing Auction Session (CAS) Suite ---
+  app.get('/api/market/angel/cas/status', (req, res) => {
+    const timeParam = req.query.time as string | undefined;
+    const casStatus = getAngelCasStatus(timeParam);
+    res.json({
+      ok: true,
+      ...casStatus,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.get('/api/market/angel/cas/phases', (_req, res) => {
+    const phases = getAngelCasPhases();
+    res.json({
+      ok: true,
+      status: true,
+      phases,
+      effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.get('/api/market/angel/cas/auto-square-off', (_req, res) => {
+    const schedules = getAngelAutoSquareOffSchedules();
+    res.json({
+      ok: true,
+      status: true,
+      effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+      schedules,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/market/angel/cas/validate-order', (req, res) => {
+    const validation = validateAngelCasOrder(req.body);
+    res.json({
+      ok: true,
+      status: true,
+      validation,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/market/angel/cas/reference-price', (req, res) => {
+    const result = calculateAngelCasReferencePrice(req.body);
+    res.json({
+      ok: true,
+      status: true,
+      result,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.post('/api/market/angel/cas/equilibrium-price', (req, res) => {
+    const result = discoverAngelCasEquilibriumPrice(req.body);
+    res.json({
+      ok: true,
+      status: true,
+      result,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.get('/api/market/angel/cas/scrip/:symbol', (req, res) => {
+    const sym = (req.params.symbol || '').toUpperCase();
+    const isCas = isAngelCasScrip(sym);
+    res.json({
+      ok: true,
+      status: true,
+      symbol: sym,
+      is_cas_enabled: isCas,
+      referenceLimitPrice: isCas ? '191.00' : null,
+      priceBandPct: isCas ? ANGEL_CAS_PRICE_BAND_PCT : null,
       retrievedAt: new Date().toISOString(),
     });
   });

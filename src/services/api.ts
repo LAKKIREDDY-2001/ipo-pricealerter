@@ -1953,4 +1953,218 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ clientCode }),
     }),
+
+  // --- Angel One SmartAPI Closing Auction Session (CAS) Suite ---
+  getAngelCasStatus: (time?: string) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      effectiveDate: string;
+      currentServerTimeIst: string;
+      currentPhase: {
+        phase: string;
+        timeRange: string;
+        name: string;
+        permittedActions: string;
+        isOrderEntryAllowed: boolean;
+        allowedOrderTypes: string[];
+        canModifyMarketOrders: boolean;
+        canCancelMarketOrders: boolean;
+        isStopLossAllowed: boolean;
+        isIcebergAllowed: boolean;
+        isFoTradingActive: boolean;
+        priceType: string;
+        notes: string;
+      };
+      allPhases: Array<{
+        phase: string;
+        timeRange: string;
+        name: string;
+        permittedActions: string;
+        isOrderEntryAllowed: boolean;
+        allowedOrderTypes: string[];
+        canModifyMarketOrders: boolean;
+        canCancelMarketOrders: boolean;
+        isStopLossAllowed: boolean;
+        isIcebergAllowed: boolean;
+        isFoTradingActive: boolean;
+        priceType: string;
+        notes: string;
+      }>;
+      autoSquareOffSchedules: Array<{
+        segment: string;
+        orderType: string;
+        cutoffTime: string;
+        cutoffFormatted: string;
+        effectiveDate: string;
+        description: string;
+      }>;
+      officialCirculars: Array<{
+        authority: string;
+        title: string;
+        date: string;
+        url: string;
+      }>;
+      rulesSummary: {
+        durationMinutes: number;
+        casTimeWindow: string;
+        priceBandPct: string;
+        extendedFoCloseTime: string;
+        stopLossIcebergDisallowed: string;
+        marketOrderFrozenAfter: string;
+        phase1Transition: string;
+      };
+      retrievedAt: string;
+    }>(`/api/market/angel/cas/status${time ? `?time=${encodeURIComponent(time)}` : ''}`),
+
+  getAngelCasPhases: () =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      phases: Array<{
+        phase: string;
+        timeRange: string;
+        name: string;
+        permittedActions: string;
+        isOrderEntryAllowed: boolean;
+        allowedOrderTypes: string[];
+        canModifyMarketOrders: boolean;
+        canCancelMarketOrders: boolean;
+        isStopLossAllowed: boolean;
+        isIcebergAllowed: boolean;
+        isFoTradingActive: boolean;
+        priceType: string;
+        notes: string;
+      }>;
+      effectiveDate: string;
+      retrievedAt: string;
+    }>('/api/market/angel/cas/phases'),
+
+  getAngelCasAutoSquareOff: () =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      effectiveDate: string;
+      schedules: Array<{
+        segment: string;
+        orderType: string;
+        cutoffTime: string;
+        cutoffFormatted: string;
+        effectiveDate: string;
+        description: string;
+      }>;
+      retrievedAt: string;
+    }>('/api/market/angel/cas/auto-square-off'),
+
+  validateAngelCasOrder: (payload: {
+    symbol: string;
+    isCasEnabled?: boolean;
+    orderType: string;
+    isIceberg?: boolean;
+    action: 'PLACE' | 'MODIFY' | 'CANCEL';
+    price?: number;
+    referencePrice?: number;
+    time?: string;
+  }) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      validation: {
+        allowed: boolean;
+        errorCode?: string;
+        reason?: string;
+        phase: {
+          phase: string;
+          timeRange: string;
+          name: string;
+          permittedActions: string;
+          isOrderEntryAllowed: boolean;
+        };
+        isCasEligible: boolean;
+        priceBand?: {
+          low: number;
+          high: number;
+          referencePrice: number;
+          pct: number;
+        };
+      };
+      retrievedAt: string;
+    }>('/api/market/angel/cas/validate-order', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  calculateAngelCasReferencePrice: (payload: {
+    symbol: string;
+    trades?: Array<{ price: number; volume: number; timestamp?: string }>;
+    fallbackLtp?: number;
+    previousClose?: number;
+  }) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      result: {
+        symbol: string;
+        referencePrice: number;
+        priceBandLow: number;
+        priceBandHigh: number;
+        bandPct: number;
+        calculationMethod: string;
+        tradesCount: number;
+        totalVolume: number;
+        totalValue: number;
+        calculatedAt: string;
+      };
+      retrievedAt: string;
+    }>('/api/market/angel/cas/reference-price', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  discoverAngelCasEquilibriumPrice: (payload: {
+    symbol: string;
+    referencePrice: number;
+    buyOrders: Array<{ price: number; quantity: number }>;
+    sellOrders: Array<{ price: number; quantity: number }>;
+  }) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      result: {
+        symbol: string;
+        equilibriumPrice: number;
+        referencePrice: number;
+        matchedVolume: number;
+        totalBuyVolume: number;
+        totalSellVolume: number;
+        unmatchedBuyVolume: number;
+        unmatchedSellVolume: number;
+        priceBandLow: number;
+        priceBandHigh: number;
+        isDiscovered: boolean;
+        priceStepAnalysis: Array<{
+          price: number;
+          cumulativeBuyQty: number;
+          cumulativeSellQty: number;
+          matchedQty: number;
+          imbalance: number;
+        }>;
+        discoveredAt: string;
+      };
+      retrievedAt: string;
+    }>('/api/market/angel/cas/equilibrium-price', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  getAngelCasScrip: (symbol: string) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      symbol: string;
+      is_cas_enabled: boolean;
+      referenceLimitPrice: string | null;
+      priceBandPct: number | null;
+      retrievedAt: string;
+    }>(`/api/market/angel/cas/scrip/${encodeURIComponent(symbol)}`),
 };

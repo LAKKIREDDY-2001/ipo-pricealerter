@@ -31,6 +31,7 @@ import {
   ExternalLink,
   Gauge,
   Timer,
+  Scale,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
@@ -59,6 +60,42 @@ export function CalculatorsPage() {
   const [lotSize, setLotSize] = useState('34');
   const [lots, setLots] = useState('1');
   const ipoInv = calculateIPOInvestment(Number(ipoPrice), Number(lotSize), Number(lots));
+
+  // 11. Closing Auction Session (CAS) Suite State
+  const [casSimTime, setCasSimTime] = useState<string>('15:22');
+  const [casUseLiveTime, setCasUseLiveTime] = useState<boolean>(false);
+  const [casSymbol, setCasSymbol] = useState<string>('RELIANCE');
+  const [casRefPrice, setCasRefPrice] = useState<string>('1280.00');
+  const [casOrderType, setCasOrderType] = useState<string>('LIMIT');
+  const [casOrderAction, setCasOrderAction] = useState<'PLACE' | 'MODIFY' | 'CANCEL'>('PLACE');
+  const [casOrderPrice, setCasOrderPrice] = useState<string>('1285.00');
+  const [casIsIceberg, setCasIsIceberg] = useState<boolean>(false);
+  const [casTab, setCasTab] = useState<'monitor' | 'validator' | 'bands' | 'auction' | 'squareoff'>('monitor');
+
+  // Sample trades between 3:00 and 3:15 pm for Reference Price calculation
+  const [casSampleTrades, setCasSampleTrades] = useState<Array<{ price: number; volume: number; time: string }>>([
+    { price: 1279.50, volume: 14500, time: '15:02:14' },
+    { price: 1280.25, volume: 28000, time: '15:05:40' },
+    { price: 1280.00, volume: 52000, time: '15:08:12' },
+    { price: 1281.50, volume: 34000, time: '15:11:55' },
+    { price: 1280.75, volume: 41500, time: '15:14:30' },
+  ]);
+
+  // Auction simulation order book (Bids & Asks)
+  const [casBids, setCasBids] = useState<Array<{ price: number; quantity: number }>>([
+    { price: 1295.0, quantity: 5000 },
+    { price: 1290.0, quantity: 12000 },
+    { price: 1285.0, quantity: 25000 },
+    { price: 1280.0, quantity: 40000 },
+    { price: 1275.0, quantity: 15000 },
+  ]);
+  const [casAsks, setCasAsks] = useState<Array<{ price: number; quantity: number }>>([
+    { price: 1270.0, quantity: 8000 },
+    { price: 1275.0, quantity: 18000 },
+    { price: 1280.0, quantity: 35000 },
+    { price: 1285.0, quantity: 22000 },
+    { price: 1290.0, quantity: 10000 },
+  ]);
 
   // 2. GMP Calculator
   const [gmpUpper, setGmpUpper] = useState('435');
@@ -740,6 +777,286 @@ export function CalculatorsPage() {
     };
   }, [ipoPrice, lotSize]);
 
+  // Derived CAS Phase & Timings
+  const effectiveCasTime = useMemo(() => {
+    if (!casUseLiveTime) return casSimTime;
+    const now = new Date();
+    const istOffsetMs = 5.5 * 60 * 60 * 1000;
+    const ist = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + istOffsetMs);
+    const h = String(ist.getHours()).padStart(2, '0');
+    const m = String(ist.getMinutes()).padStart(2, '0');
+    return `${h}:${m}`;
+  }, [casSimTime, casUseLiveTime]);
+
+  const activeCasPhase = useMemo(() => {
+    const [hStr, mStr] = effectiveCasTime.split(':');
+    const h = parseInt(hStr || '15', 10);
+    const m = parseInt(mStr || '20', 10);
+    const mins = h * 60 + m;
+
+    if (mins >= 555 && mins < 915) {
+      return {
+        id: 'CONTINUOUS_TRADING',
+        name: 'Continuous Trading Session',
+        timeRange: '9.15 am - 3.15 pm',
+        permittedActions: 'All order types (Limit, Market, SL, SL-M, Iceberg, Robo) permitted across all segments.',
+        isOrderEntryAllowed: true,
+        allowedOrderTypes: ['LIMIT', 'MARKET', 'SL', 'ICEBERG'],
+        canModifyMarketOrders: true,
+        isStopLossAllowed: true,
+        isIcebergAllowed: true,
+        priceType: 'LTP',
+        badgeColor: 'blue',
+      };
+    } else if (mins >= 915 && mins < 920) {
+      return {
+        id: 'TRANSITION_TO_CAS',
+        name: 'Transition from continuous trading to CAS',
+        timeRange: '3.15 - 3.20 pm',
+        permittedActions: 'Reference price is calculated. Order entry via SmartAPI will be rejected in this phase.',
+        isOrderEntryAllowed: false,
+        allowedOrderTypes: [],
+        canModifyMarketOrders: false,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'REFERENCE_LIMIT_PRICE',
+        badgeColor: 'rose',
+      };
+    } else if (mins >= 920 && mins < 925) {
+      return {
+        id: 'ORDER_ENTRY_AND_MODIFICATION',
+        name: 'Order entry and modification opens',
+        timeRange: '3.20 - 3.25 pm',
+        permittedActions: 'Limit and Market orders can be placed, modified, or cancelled within ±3% Reference Price band.',
+        isOrderEntryAllowed: true,
+        allowedOrderTypes: ['LIMIT', 'MARKET'],
+        canModifyMarketOrders: true,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'REFERENCE_LIMIT_PRICE',
+        badgeColor: 'emerald',
+      };
+    } else if (mins >= 925 && mins < 930) {
+      return {
+        id: 'LIMIT_ORDERS_ONLY',
+        name: 'Limit orders only',
+        timeRange: '3.25 - 3.30 pm',
+        permittedActions: 'No changes or cancellations on Market Orders. Limit orders can still be placed/modified. Random close between 3:28 pm and 3:30 pm.',
+        isOrderEntryAllowed: true,
+        allowedOrderTypes: ['LIMIT'],
+        canModifyMarketOrders: false,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'REFERENCE_LIMIT_PRICE',
+        badgeColor: 'amber',
+      };
+    } else if (mins >= 930 && mins < 935) {
+      return {
+        id: 'ORDER_MATCHING',
+        name: 'Order Matching',
+        timeRange: '3.30 - 3.35 pm',
+        permittedActions: 'Orders are matched against each other via volume maximisation, and the closing price (Equilibrium Price) is set.',
+        isOrderEntryAllowed: false,
+        allowedOrderTypes: [],
+        canModifyMarketOrders: false,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'EQUILIBRIUM_PRICE',
+        badgeColor: 'purple',
+      };
+    } else if (mins >= 935 && mins < 950) {
+      return {
+        id: 'BUFFER_PERIOD',
+        name: 'Buffer Period',
+        timeRange: '3.35 - 3.50 pm',
+        permittedActions: 'Transition from CAS to Post-closing session. Extended F&O trading ceases at 3:40 pm.',
+        isOrderEntryAllowed: false,
+        allowedOrderTypes: [],
+        canModifyMarketOrders: false,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'EQUILIBRIUM_PRICE',
+        badgeColor: 'slate',
+      };
+    } else if (mins >= 950 && mins < 960) {
+      return {
+        id: 'POST_CLOSING_SESSION',
+        name: 'Post-closing Session',
+        timeRange: '3.50 - 4.00 pm',
+        permittedActions: 'Trades settle at the Equilibrium Price discovered in the auction. Applies to all stocks.',
+        isOrderEntryAllowed: true,
+        allowedOrderTypes: ['MARKET'],
+        canModifyMarketOrders: false,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'EQUILIBRIUM_PRICE',
+        badgeColor: 'teal',
+      };
+    } else {
+      return {
+        id: 'MARKET_CLOSED',
+        name: 'Market Closed',
+        timeRange: '4.00 pm - 9.15 am',
+        permittedActions: 'Market sessions closed. Next regular continuous session commences at 9:15 am IST.',
+        isOrderEntryAllowed: false,
+        allowedOrderTypes: [],
+        canModifyMarketOrders: false,
+        isStopLossAllowed: false,
+        isIcebergAllowed: false,
+        priceType: 'EQUILIBRIUM_PRICE',
+        badgeColor: 'slate',
+      };
+    }
+  }, [effectiveCasTime]);
+
+  // Derived Reference Price & ±3% Price Band
+  const casCalculatedRef = useMemo(() => {
+    let totVal = 0;
+    let totVol = 0;
+    for (const t of casSampleTrades) {
+      totVal += t.price * t.volume;
+      totVol += t.volume;
+    }
+    const vwap = totVol > 0 ? Math.round((totVal / totVol) * 20) / 20 : Number(casRefPrice) || 1280.0;
+    const bandLow = Math.round(vwap * 0.97 * 20) / 20;
+    const bandHigh = Math.round(vwap * 1.03 * 20) / 20;
+    return {
+      referencePrice: vwap,
+      bandLow,
+      bandHigh,
+      totVol,
+      totVal,
+    };
+  }, [casSampleTrades, casRefPrice]);
+
+  // Derived Order Validation Result
+  const casOrderValidation = useMemo(() => {
+    const isCasStock = ['RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'ICICIBANK', 'SBIN', 'TATAMOTORS', 'NIFTY'].includes(casSymbol.toUpperCase());
+    const [hStr, mStr] = effectiveCasTime.split(':');
+    const h = parseInt(hStr || '15', 10);
+    const m = parseInt(mStr || '20', 10);
+    const mins = h * 60 + m;
+    const p = Number(casOrderPrice);
+
+    // Rule 1: 3:15-3:20 Transition
+    if (mins >= 915 && mins < 920) {
+      return {
+        allowed: false,
+        errorCode: 'AB_CAS_TRANSITION_REJECT',
+        reason: 'Transition from continuous trading to CAS (3:15-3:20 pm). Reference price is being calculated. Order entry via SmartAPI is rejected in this phase.',
+      };
+    }
+
+    // Rule 2: Stop-loss & Iceberg disallowed 3:15-3:40 pm for CAS stocks
+    if (isCasStock && mins >= 915 && mins < 940) {
+      if (casOrderType === 'STOPLOSS_LIMIT' || casOrderType === 'STOPLOSS_MARKET' || casIsIceberg) {
+        return {
+          allowed: false,
+          errorCode: 'AB_CAS_DISALLOWED_ORDER_TYPE',
+          reason: 'Stop-loss and Iceberg orders for CAS-eligible stocks are disallowed between 3:15-3:40 pm.',
+        };
+      }
+    }
+
+    // Rule 3: 3:25-3:30 Limit orders only. Market orders cannot be modified or cancelled.
+    if (mins >= 925 && mins < 930) {
+      if (casOrderType === 'MARKET' && (casOrderAction === 'MODIFY' || casOrderAction === 'CANCEL')) {
+        return {
+          allowed: false,
+          errorCode: 'AB_CAS_MARKET_MODIFICATION_BLOCKED',
+          reason: 'After 3:25 pm, Market orders can no longer be modified or cancelled - only added or changed as Limit orders.',
+        };
+      }
+    }
+
+    // Rule 4: 3:30-3:35 Order Matching
+    if (mins >= 930 && mins < 935) {
+      return {
+        allowed: false,
+        errorCode: 'AB_CAS_MATCHING_IN_PROGRESS',
+        reason: 'Order Matching phase in progress (3:30-3:35 pm). Orders are being matched via volume maximisation; no modifications or entries allowed.',
+      };
+    }
+
+    // Rule 5: 3:35-3:50 Buffer Period
+    if (mins >= 935 && mins < 950) {
+      return {
+        allowed: false,
+        errorCode: 'AB_CAS_BUFFER_PERIOD',
+        reason: 'Buffer Period (3:35-3:50 pm). Transitioning to Post-closing session; order entry disallowed.',
+      };
+    }
+
+    // Rule 6: Check ±3% price band during 3:20-3:30 pm
+    if (isCasStock && mins >= 920 && mins < 930) {
+      if (Number.isFinite(p) && p > 0) {
+        if (p < casCalculatedRef.bandLow || p > casCalculatedRef.bandHigh) {
+          return {
+            allowed: false,
+            errorCode: 'AB_CAS_PRICE_BAND_BREACH',
+            reason: `Price ₹${p.toFixed(2)} is outside the allowed ±3% CAS price band [₹${casCalculatedRef.bandLow.toFixed(2)} - ₹${casCalculatedRef.bandHigh.toFixed(2)}] for Reference Price ₹${casCalculatedRef.referencePrice.toFixed(2)}.`,
+          };
+        }
+      }
+    }
+
+    return {
+      allowed: true,
+      reason: `Order permitted. Conforms to CAS session rules for ${activeCasPhase.name}.`,
+    };
+  }, [casSymbol, effectiveCasTime, casOrderType, casIsIceberg, casOrderAction, casOrderPrice, casCalculatedRef, activeCasPhase]);
+
+  // Derived Equilibrium Price Discovery (Volume Maximisation)
+  const casEquilibriumDiscovery = useMemo(() => {
+    const prices = new Set<number>();
+    prices.add(casCalculatedRef.referencePrice);
+    for (const b of casBids) prices.add(b.price);
+    for (const a of casAsks) prices.add(a.price);
+
+    const sortedPrices = Array.from(prices).sort((a, b) => a - b);
+    let maxMatched = 0;
+    let candidates: { price: number; matched: number; imbalance: number }[] = [];
+
+    const steps = sortedPrices.map((p) => {
+      let cumBuy = 0;
+      let cumSell = 0;
+      for (const b of casBids) if (b.price >= p) cumBuy += b.quantity;
+      for (const a of casAsks) if (a.price <= p) cumSell += a.quantity;
+      const matched = Math.min(cumBuy, cumSell);
+      const imbalance = Math.abs(cumBuy - cumSell);
+
+      if (matched > maxMatched) {
+        maxMatched = matched;
+        candidates = [{ price: p, matched, imbalance }];
+      } else if (matched === maxMatched && maxMatched > 0) {
+        candidates.push({ price: p, matched, imbalance });
+      }
+
+      return {
+        price: p,
+        cumBuy,
+        cumSell,
+        matched,
+        imbalance,
+      };
+    });
+
+    let discoveredPrice = casCalculatedRef.referencePrice;
+    if (maxMatched > 0 && candidates.length > 0) {
+      candidates.sort((a, b) => a.imbalance - b.imbalance);
+      const minImbalance = candidates[0].imbalance;
+      const tieBreakers = candidates.filter((c) => c.imbalance === minImbalance);
+      tieBreakers.sort((a, b) => Math.abs(a.price - casCalculatedRef.referencePrice) - Math.abs(b.price - casCalculatedRef.referencePrice));
+      discoveredPrice = tieBreakers[0].price;
+    }
+
+    return {
+      steps,
+      discoveredPrice,
+      maxMatched,
+    };
+  }, [casBids, casAsks, casCalculatedRef]);
+
   const prefillFromIpo = (slug: string, target: 'investment' | 'gmp') => {
     const ipo = ipos.find((i) => i.slug === slug);
     if (!ipo) return;
@@ -797,6 +1114,7 @@ export function CalculatorsPage() {
           { label: '⚡ Order Status (WebSocket)', to: '/calculators/order-websocket', id: 'order-websocket' },
           { label: '📜 Instruments & Scrip Master', to: '/calculators/instruments', id: 'instruments' },
           { label: '⏱️ Rate Limit Manager', to: '/calculators/rate-limits', id: 'rate-limits' },
+          { label: '⚖️ Closing Auction (CAS)', to: '/calculators/cas', id: 'cas' },
           { label: 'IPO Investment', to: '/calculators/ipo', id: 'ipo' },
           { label: 'GMP Calculator', to: '/calculators/gmp', id: 'gmp' },
           { label: 'Listing Gain', to: '/calculators/listing-gain', id: 'listing-gain' },
@@ -4447,6 +4765,793 @@ export function CalculatorsPage() {
                     <div className="font-bold text-indigo-600">4. Algorithmic Trading Recommendation</div>
                     <p className="text-slate-600 dark:text-slate-400">
                       Always throttle outbound order loops to ≤ 8 req/s to accommodate latency jitter and clock skew, leaving a 1 req/s safety buffer below the strict 9 req/s cumulative threshold.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* 11. Angel One SmartAPI Closing Auction Session (CAS) Suite */}
+        {show('cas') && (
+          <section className="lg:col-span-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-6 shadow-sm">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900 mb-1.5">
+                  <Scale className="w-3.5 h-3.5" />
+                  <span>SEBI Mandate Effective 03 Aug 2026</span>
+                </div>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>Closing Auction Session (CAS) Suite &amp; Price Discovery Engine</span>
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-4xl">
+                  Official Angel One SmartAPI CAS architecture: 20-minute closing auction (3:15–3:35 pm IST) for F&amp;O-eligible cash segment equities, replacing continuous 30-min VWAP with Volume Maximisation Equilibrium Price discovery and extending F&amp;O trading in NFO/BFO till 3:40 pm.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href="https://smartapi.angelone.in/docs/CASDoc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Angel One CAS Docs</span>
+                </a>
+                <a
+                  href="https://www.sebi.gov.in/legal/circulars/jan-2026/introduction-of-closing-auction-session-cas-in-the-equity-cash-segment-and-certain-modifications-in-the-pre-open-auction-session_99122.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>SEBI Circular</span>
+                </a>
+                <a
+                  href="https://nsearchives.nseindia.com/content/circulars/CMTR74466.zip"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>NSE CMTR74466</span>
+                </a>
+                <a
+                  href="https://www.bseindia.com/downloads/UploadDocs/Notices/20260610-41/20260610-41.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>BSE 20260610-41</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Quick Metrics Bar */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="p-3 rounded-xl border border-emerald-100 dark:border-emerald-950/60 bg-emerald-50/50 dark:bg-emerald-950/20">
+                <div className="text-[11px] font-medium text-emerald-700 dark:text-emerald-400">Auction Window</div>
+                <div className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">3:15 – 3:35 PM</div>
+                <div className="text-[10px] text-emerald-600 dark:text-emerald-500 mt-0.5">20-minute CAS session</div>
+              </div>
+              <div className="p-3 rounded-xl border border-blue-100 dark:border-blue-950/60 bg-blue-50/50 dark:bg-blue-950/20">
+                <div className="text-[11px] font-medium text-blue-700 dark:text-blue-400">CAS Price Band</div>
+                <div className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">±3.0% of Ref Price</div>
+                <div className="text-[10px] text-blue-600 dark:text-blue-500 mt-0.5">VWAP (3:00–3:15 PM)</div>
+              </div>
+              <div className="p-3 rounded-xl border border-purple-100 dark:border-purple-950/60 bg-purple-50/50 dark:bg-purple-950/20">
+                <div className="text-[11px] font-medium text-purple-700 dark:text-purple-400">Extended F&amp;O Close</div>
+                <div className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">3:40 PM IST</div>
+                <div className="text-[10px] text-purple-600 dark:text-purple-500 mt-0.5">NFO &amp; BFO trading active</div>
+              </div>
+              <div className="p-3 rounded-xl border border-amber-100 dark:border-amber-950/60 bg-amber-50/50 dark:bg-amber-950/20">
+                <div className="text-[11px] font-medium text-amber-700 dark:text-amber-400">Auto-Square Off (MIS)</div>
+                <div className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">3:10 PM IST</div>
+                <div className="text-[10px] text-amber-600 dark:text-amber-500 mt-0.5">Robo: 3:05 · F&amp;O: 3:20 PM</div>
+              </div>
+            </div>
+
+            {/* Sub-Tabs */}
+            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar pb-1 border-b border-slate-200 dark:border-slate-800 text-xs">
+              {[
+                { id: 'monitor', label: '⏱️ Live CAS Phase Monitor & Timeline' },
+                { id: 'validator', label: '🛡️ Order Eligibility Pre-Flight Validator' },
+                { id: 'bands', label: '📊 ±3% Reference Price & Band Calculator' },
+                { id: 'auction', label: '⚖️ Equilibrium Price Discovery Simulator' },
+                { id: 'squareoff', label: '🕒 Auto-Square Off Schedules (03 Aug 2026)' },
+              ].map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setCasTab(t.id as any)}
+                  className={`px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition-colors ${
+                    casTab === t.id
+                      ? 'bg-emerald-600 text-white'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Sub-Tab 1: Live CAS Phase Monitor & Timeline */}
+            {casTab === 'monitor' && (
+              <div className="space-y-6">
+                {/* Time Control Bar */}
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-5 h-5 text-emerald-600" />
+                    <div>
+                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                        Simulated Session Time (IST)
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        Adjust time to test CAS phase state machine transitions
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    {['10:30', '15:12', '15:18', '15:22', '15:27', '15:32', '15:38', '15:55'].map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => {
+                          setCasSimTime(t);
+                          setCasUseLiveTime(false);
+                        }}
+                        className={`px-2.5 py-1 rounded text-xs font-mono font-medium transition-colors ${
+                          !casUseLiveTime && casSimTime === t
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100'
+                        }`}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                    <div className="flex items-center gap-1.5 ml-2">
+                      <input
+                        type="time"
+                        value={casSimTime}
+                        onChange={(e) => {
+                          setCasSimTime(e.target.value);
+                          setCasUseLiveTime(false);
+                        }}
+                        className="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono"
+                      />
+                      <button
+                        onClick={() => setCasUseLiveTime(!casUseLiveTime)}
+                        className={`px-2.5 py-1 rounded text-xs font-medium border ${
+                          casUseLiveTime
+                            ? 'bg-emerald-600 text-white border-emerald-600'
+                            : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
+                        }`}
+                      >
+                        {casUseLiveTime ? '● Live Clock' : 'Use Live Clock'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Active Phase Card */}
+                <div className="p-5 rounded-2xl border-2 border-emerald-500/80 bg-gradient-to-br from-emerald-50/70 via-teal-50/40 to-slate-50/70 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-900/40 shadow-sm space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="relative flex h-3.5 w-3.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-600"></span>
+                      </span>
+                      <div>
+                        <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                          Current CAS Phase · Effective at {effectiveCasTime} IST
+                        </div>
+                        <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
+                          {activeCasPhase.name} ({activeCasPhase.timeRange})
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-bold border ${
+                        activeCasPhase.isOrderEntryAllowed
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-900/60 dark:text-emerald-300 dark:border-emerald-700'
+                          : 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-900/60 dark:text-rose-300 dark:border-rose-700'
+                      }`}>
+                        {activeCasPhase.isOrderEntryAllowed ? '✓ Order Entry OPEN' : '✕ Order Entry REJECTED'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-700 dark:text-slate-300 font-medium">
+                    {activeCasPhase.permittedActions}
+                  </p>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-emerald-200/60 dark:border-emerald-900/40 text-xs">
+                    <div>
+                      <span className="text-slate-500">Allowed Order Types:</span>
+                      <div className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                        {activeCasPhase.allowedOrderTypes.length > 0
+                          ? activeCasPhase.allowedOrderTypes.join(', ')
+                          : 'None (SmartAPI Rejection)'}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-slate-500">Market Order Changes:</span>
+                      <div className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                        {activeCasPhase.canModifyMarketOrders ? '✓ Allowed' : '✕ Blocked (Frozen)'}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-slate-500">Stop-Loss &amp; Iceberg:</span>
+                      <div className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                        {activeCasPhase.isStopLossAllowed ? '✓ Permitted' : '✕ Disallowed (3:15-3:40 pm)'}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-slate-500">Active Price Type:</span>
+                      <div className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                        {activeCasPhase.priceType === 'LTP'
+                          ? 'Last Traded Price (LTP)'
+                          : activeCasPhase.priceType === 'REFERENCE_LIMIT_PRICE'
+                            ? 'Reference Limit Price (±3%)'
+                            : 'Equilibrium Price'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 6 CAS Phases Timeline Grid */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    All 6 Closing Auction Session (CAS) Phases
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {[
+                      {
+                        phaseId: 'TRANSITION_TO_CAS',
+                        num: '1',
+                        time: '3.15 - 3.20 pm',
+                        name: 'Transition to CAS',
+                        actions: 'Reference price calculated. Order entry via SmartAPI will be rejected in this phase.',
+                        entry: false,
+                        type: 'Reference Price',
+                      },
+                      {
+                        phaseId: 'ORDER_ENTRY_AND_MODIFICATION',
+                        num: '2',
+                        time: '3.20 - 3.25 pm',
+                        name: 'Order Entry & Modification',
+                        actions: 'Limit and Market orders can be placed, modified, or cancelled within ±3% band.',
+                        entry: true,
+                        type: 'Limit & Market',
+                      },
+                      {
+                        phaseId: 'LIMIT_ORDERS_ONLY',
+                        num: '3',
+                        time: '3.25 - 3.30 pm',
+                        name: 'Limit Orders Only',
+                        actions: 'No changes/cancellations on Market Orders. Limit orders only. Random close 3:28-3:30 pm.',
+                        entry: true,
+                        type: 'Limit Only',
+                      },
+                      {
+                        phaseId: 'ORDER_MATCHING',
+                        num: '4',
+                        time: '3.30 - 3.35 pm',
+                        name: 'Order Matching',
+                        actions: 'Orders matched via volume maximisation algorithm, and closing price is set.',
+                        entry: false,
+                        type: 'Equilibrium Price',
+                      },
+                      {
+                        phaseId: 'BUFFER_PERIOD',
+                        num: '5',
+                        time: '3.35 - 3.50 pm',
+                        name: 'Buffer Period',
+                        actions: 'Transition from CAS to Post-closing session. F&O trading ceases at 3:40 pm.',
+                        entry: false,
+                        type: 'Extended F&O till 3:40',
+                      },
+                      {
+                        phaseId: 'POST_CLOSING_SESSION',
+                        num: '6',
+                        time: '3.50 - 4.00 pm',
+                        name: 'Post-Closing Session',
+                        actions: 'Trades settle at the Equilibrium Price discovered in the auction. Applies to all stocks.',
+                        entry: true,
+                        type: 'At Equilibrium Price',
+                      },
+                    ].map((p) => {
+                      const isActive = activeCasPhase.id === p.phaseId;
+                      return (
+                        <div
+                          key={p.num}
+                          className={`p-4 rounded-xl border transition-all ${
+                            isActive
+                              ? 'border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 shadow-sm ring-2 ring-emerald-500/20'
+                              : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2 mb-1.5">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                              Phase {p.num} · {p.time}
+                            </span>
+                            {isActive && (
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-600 text-white animate-pulse">
+                                CURRENT ACTIVE
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-xs font-bold text-slate-900 dark:text-white">
+                            {p.name}
+                          </div>
+                          <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">
+                            {p.actions}
+                          </p>
+                          <div className="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px]">
+                            <span className="text-slate-400">{p.type}</span>
+                            <span className={`font-semibold ${p.entry ? 'text-emerald-600' : 'text-rose-600'}`}>
+                              {p.entry ? 'Entry Permitted' : 'Entry Rejected'}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 2: Order Eligibility Pre-Flight Validator */}
+            {casTab === 'validator' && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Form */}
+                  <div className="lg:col-span-1 space-y-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                      Configure Order Parameters
+                    </h3>
+
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        Scrip / Symbol (CAS Eligible)
+                      </label>
+                      <div className="flex gap-1.5 flex-wrap mb-2">
+                        {['RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'TATAMOTORS', 'SBIN', 'NIFTY'].map((s) => (
+                          <button
+                            key={s}
+                            onClick={() => {
+                              setCasSymbol(s);
+                              if (s === 'RELIANCE') setCasRefPrice('1280.00');
+                              if (s === 'TCS') setCasRefPrice('3950.00');
+                              if (s === 'INFY') setCasRefPrice('1840.00');
+                              if (s === 'HDFCBANK') setCasRefPrice('1740.00');
+                              if (s === 'TATAMOTORS') setCasRefPrice('840.00');
+                              if (s === 'SBIN') setCasRefPrice('810.00');
+                            }}
+                            className={`px-2 py-0.5 rounded text-[11px] font-mono border ${
+                              casSymbol === s
+                                ? 'bg-emerald-600 text-white border-emerald-600'
+                                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        value={casSymbol}
+                        onChange={(e) => setCasSymbol(e.target.value.toUpperCase())}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        Order Type
+                      </label>
+                      <select
+                        value={casOrderType}
+                        onChange={(e) => setCasOrderType(e.target.value)}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs"
+                      >
+                        <option value="LIMIT">LIMIT (Allowed in CAS)</option>
+                        <option value="MARKET">MARKET (Frozen after 3:25 pm)</option>
+                        <option value="STOPLOSS_LIMIT">STOPLOSS_LIMIT (Disallowed 3:15-3:40 pm)</option>
+                        <option value="STOPLOSS_MARKET">STOPLOSS_MARKET (Disallowed 3:15-3:40 pm)</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="icebergCheck"
+                        checked={casIsIceberg}
+                        onChange={(e) => setCasIsIceberg(e.target.checked)}
+                        className="rounded border-slate-300 text-emerald-600"
+                      />
+                      <label htmlFor="icebergCheck" className="text-xs text-slate-700 dark:text-slate-300 font-medium">
+                        Iceberg Order (Disallowed 3:15-3:40 pm)
+                      </label>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        Action
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {(['PLACE', 'MODIFY', 'CANCEL'] as const).map((act) => (
+                          <button
+                            key={act}
+                            onClick={() => setCasOrderAction(act)}
+                            className={`px-2 py-1.5 rounded text-xs font-bold border transition-colors ${
+                              casOrderAction === act
+                                ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900'
+                                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600'
+                            }`}
+                          >
+                            {act}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        Order Limit Price (₹)
+                      </label>
+                      <input
+                        type="number"
+                        step="0.05"
+                        value={casOrderPrice}
+                        onChange={(e) => setCasOrderPrice(e.target.value)}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono font-bold"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Validation Output */}
+                  <div className="lg:col-span-2 space-y-4">
+                    <div
+                      className={`p-6 rounded-2xl border-2 transition-all shadow-sm ${
+                        casOrderValidation.allowed
+                          ? 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/30'
+                          : 'border-rose-500 bg-rose-50/70 dark:bg-rose-950/30'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        {casOrderValidation.allowed ? (
+                          <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                        ) : (
+                          <XCircle className="w-6 h-6 text-rose-600 dark:text-rose-400 shrink-0" />
+                        )}
+                        <div>
+                          <div className={`text-xs font-bold uppercase tracking-wider ${
+                            casOrderValidation.allowed ? 'text-emerald-800 dark:text-emerald-300' : 'text-rose-800 dark:text-rose-300'
+                          }`}>
+                            SmartAPI Pre-Flight Validation Verdict
+                          </div>
+                          <h3 className={`text-xl font-extrabold ${
+                            casOrderValidation.allowed ? 'text-emerald-900 dark:text-emerald-200' : 'text-rose-900 dark:text-rose-200'
+                          }`}>
+                            {casOrderValidation.allowed ? '✓ ORDER APPROVED' : '✕ ORDER REJECTED'}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200">
+                        {casOrderValidation.reason}
+                        {casOrderValidation.errorCode && (
+                          <div className="mt-1 font-mono font-bold text-rose-600 dark:text-rose-400">
+                            Error Code: {casOrderValidation.errorCode}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4 text-xs">
+                        <div className="p-3 rounded-lg bg-white/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
+                          <span className="text-slate-500">CAS Eligibility:</span>
+                          <div className="font-bold text-slate-900 dark:text-white mt-0.5">
+                            {['RELIANCE', 'TCS', 'INFY', 'HDFCBANK', 'ICICIBANK', 'SBIN', 'TATAMOTORS', 'NIFTY'].includes(casSymbol)
+                              ? '✓ is_cas_enabled: true'
+                              : 'Standard Continuous (Non-CAS)'}
+                          </div>
+                        </div>
+
+                        <div className="p-3 rounded-lg bg-white/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
+                          <span className="text-slate-500">Allowed ±3% Band:</span>
+                          <div className="font-bold text-slate-900 dark:text-white font-mono mt-0.5">
+                            ₹{casCalculatedRef.bandLow.toFixed(2)} – ₹{casCalculatedRef.bandHigh.toFixed(2)}
+                          </div>
+                        </div>
+
+                        <div className="p-3 rounded-lg bg-white/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
+                          <span className="text-slate-500">Reference Price:</span>
+                          <div className="font-bold text-slate-900 dark:text-white font-mono mt-0.5">
+                            ₹{casCalculatedRef.referencePrice.toFixed(2)}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Pre-Flight Rules Explanation */}
+                    <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 space-y-2 text-xs">
+                      <h4 className="font-bold text-slate-900 dark:text-white">
+                        SmartAPI Closing Auction Session Pre-Flight Verification Rules
+                      </h4>
+                      <ul className="list-disc pl-5 space-y-1 text-slate-600 dark:text-slate-400">
+                        <li><strong>Phase 1 (3:15–3:20 pm):</strong> All SmartAPI order entries are strictly rejected while the exchange calculates the Reference Price.</li>
+                        <li><strong>Stop-loss &amp; Iceberg orders:</strong> Disallowed between 3:15–3:40 pm for all CAS-eligible stocks.</li>
+                        <li><strong>Market orders after 3:25 pm:</strong> Cannot be modified or cancelled; only Limit orders can be added or adjusted.</li>
+                        <li><strong>Price Band:</strong> Orders must fall within the ±3% band of the discovered Reference Price.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 3: ±3% Reference Price & Band Calculator */}
+            {casTab === 'bands' && (
+              <div className="space-y-6">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                        Reference Price (VWAP 3:00 - 3:15 PM) &amp; ±3% Price Band
+                      </h3>
+                      <p className="text-xs text-slate-500">
+                        The Reference Price is the volume-weighted average price (VWAP) of all trades between 3:00 and 3:15 pm. It sets the strict ±3% band within which auction orders can be accepted.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-xs text-slate-500">Prefill:</span>
+                      {[
+                        { name: 'Reliance', price: 1280.0 },
+                        { name: 'TCS', price: 3950.0 },
+                        { name: 'Infosys', price: 1840.0 },
+                        { name: 'HDFC Bank', price: 1740.0 },
+                        { name: 'SBI', price: 810.0 },
+                      ].map((item) => (
+                        <button
+                          key={item.name}
+                          onClick={() => {
+                            setCasRefPrice(String(item.price));
+                            setCasSampleTrades([
+                              { price: item.price - 0.5, volume: 14500, time: '15:02:14' },
+                              { price: item.price + 0.25, volume: 28000, time: '15:05:40' },
+                              { price: item.price, volume: 52000, time: '15:08:12' },
+                              { price: item.price + 1.5, volume: 34000, time: '15:11:55' },
+                              { price: item.price + 0.75, volume: 41500, time: '15:14:30' },
+                            ]);
+                          }}
+                          className="px-2 py-0.5 rounded text-[11px] font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100"
+                        >
+                          {item.name} (₹{item.price})
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Calculated Band Highlights */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                    <div className="p-4 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/20 text-center">
+                      <span className="text-xs font-semibold text-rose-700 dark:text-rose-400">Lower Band (-3.0%)</span>
+                      <div className="text-2xl font-extrabold text-rose-900 dark:text-rose-200 font-mono mt-1">
+                        ₹{casCalculatedRef.bandLow.toFixed(2)}
+                      </div>
+                      <span className="text-[10px] text-slate-500">Minimum allowed auction bid/ask</span>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/50 dark:bg-emerald-950/20 text-center">
+                      <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">Reference Price (VWAP)</span>
+                      <div className="text-2xl font-extrabold text-emerald-900 dark:text-emerald-200 font-mono mt-1">
+                        ₹{casCalculatedRef.referencePrice.toFixed(2)}
+                      </div>
+                      <span className="text-[10px] text-slate-500">Starting auction benchmark</span>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/20 text-center">
+                      <span className="text-xs font-semibold text-blue-700 dark:text-blue-400">Upper Band (+3.0%)</span>
+                      <div className="text-2xl font-extrabold text-blue-900 dark:text-blue-200 font-mono mt-1">
+                        ₹{casCalculatedRef.bandHigh.toFixed(2)}
+                      </div>
+                      <span className="text-[10px] text-slate-500">Maximum allowed auction bid/ask</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sample Trades Breakdown */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Pre-CAS Trade Prints Considered (3:00 PM – 3:15 PM)
+                  </h4>
+                  <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+                    <table className="w-full text-xs">
+                      <thead className="bg-slate-50 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                        <tr>
+                          <th className="px-3 py-2 text-left">Trade Timestamp</th>
+                          <th className="px-3 py-2 text-right">Execution Price (₹)</th>
+                          <th className="px-3 py-2 text-right">Volume (Shares)</th>
+                          <th className="px-3 py-2 text-right">Trade Value (₹ Cr)</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {casSampleTrades.map((tr, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                            <td className="px-3 py-2 font-mono text-slate-600 dark:text-slate-400">{tr.time}</td>
+                            <td className="px-3 py-2 font-mono font-bold text-right text-slate-900 dark:text-white">
+                              ₹{tr.price.toFixed(2)}
+                            </td>
+                            <td className="px-3 py-2 font-mono text-right text-slate-700 dark:text-slate-300">
+                              {tr.volume.toLocaleString('en-IN')}
+                            </td>
+                            <td className="px-3 py-2 font-mono text-right text-slate-600 dark:text-slate-400">
+                              ₹{((tr.price * tr.volume) / 1e7).toFixed(3)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      <tfoot className="bg-slate-50 dark:bg-slate-900/80 font-bold border-t border-slate-200 dark:border-slate-800">
+                        <tr>
+                          <td className="px-3 py-2">Total Considered</td>
+                          <td className="px-3 py-2 font-mono text-right text-emerald-600 dark:text-emerald-400">
+                            VWAP: ₹{casCalculatedRef.referencePrice.toFixed(2)}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-right">
+                            {casCalculatedRef.totVol.toLocaleString('en-IN')}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-right">
+                            ₹{(casCalculatedRef.totVal / 1e7).toFixed(3)} Cr
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 4: Equilibrium Price Discovery Simulator */}
+            {casTab === 'auction' && (
+              <div className="space-y-6">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      SEBI Volume Maximisation Auction Engine
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      Orders placed during CAS are matched using the volume maximisation algorithm. The price with the highest executable matched quantity becomes the official daily closing price.
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-xl border border-emerald-500/80 bg-emerald-50 dark:bg-emerald-950/40 text-center shrink-0">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                      Discovered Equilibrium Price
+                    </div>
+                    <div className="text-2xl font-black text-emerald-900 dark:text-emerald-200 font-mono mt-0.5">
+                      ₹{casEquilibriumDiscovery.discoveredPrice.toFixed(2)}
+                    </div>
+                    <div className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
+                      Matched: {casEquilibriumDiscovery.maxMatched.toLocaleString('en-IN')} shares
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step-by-Step Volume Maximisation Table */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Price Level Volume Maximisation Table (Auction Matching)
+                  </h4>
+                  <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+                    <table className="w-full text-xs">
+                      <thead className="bg-slate-50 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                        <tr>
+                          <th className="px-3 py-2 text-left">Price (₹)</th>
+                          <th className="px-3 py-2 text-right">Cumulative Buy Qty (Bid ≥ P)</th>
+                          <th className="px-3 py-2 text-right">Cumulative Sell Qty (Ask ≤ P)</th>
+                          <th className="px-3 py-2 text-right">Matched Volume (Shares)</th>
+                          <th className="px-3 py-2 text-right">Unmatched Imbalance</th>
+                          <th className="px-3 py-2 text-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {casEquilibriumDiscovery.steps.map((st) => {
+                          const isDiscovered = st.price === casEquilibriumDiscovery.discoveredPrice;
+                          return (
+                            <tr
+                              key={st.price}
+                              className={`transition-colors ${
+                                isDiscovered
+                                  ? 'bg-emerald-100/80 dark:bg-emerald-950/60 font-bold'
+                                  : 'hover:bg-slate-50 dark:hover:bg-slate-800/40'
+                              }`}
+                            >
+                              <td className="px-3 py-2.5 font-mono text-slate-900 dark:text-white">
+                                ₹{st.price.toFixed(2)}
+                              </td>
+                              <td className="px-3 py-2.5 font-mono text-right text-blue-600 dark:text-blue-400">
+                                {st.cumBuy.toLocaleString('en-IN')}
+                              </td>
+                              <td className="px-3 py-2.5 font-mono text-right text-purple-600 dark:text-purple-400">
+                                {st.cumSell.toLocaleString('en-IN')}
+                              </td>
+                              <td className="px-3 py-2.5 font-mono text-right font-bold text-slate-900 dark:text-white">
+                                {st.matched.toLocaleString('en-IN')}
+                              </td>
+                              <td className="px-3 py-2.5 font-mono text-right text-slate-500">
+                                {st.imbalance.toLocaleString('en-IN')}
+                              </td>
+                              <td className="px-3 py-2.5 text-center">
+                                {isDiscovered ? (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-600 text-white">
+                                    ★ EQUILIBRIUM
+                                  </span>
+                                ) : (
+                                  <span className="text-slate-400 text-[10px]">Candidate</span>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 5: Auto-Square Off Timings */}
+            {casTab === 'squareoff' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-2">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                    Revised Auto-Square Off Timings (Effective 03 Aug 2026)
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    To prevent square-off orders from colliding with the 3:15 pm CAS transition, brokers and exchanges are shifting auto-square off timings earlier into the session.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-2">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                      Equity &amp; F&amp;O Robo Orders
+                    </span>
+                    <div className="text-2xl font-black text-slate-900 dark:text-white font-mono">
+                      3:05 PM IST
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
+                      Auto-square off triggers at 3:05 pm for all Robo orders to prevent pending brackets at market close.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-2">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300">
+                      Equity MIS Orders
+                    </span>
+                    <div className="text-2xl font-black text-slate-900 dark:text-white font-mono">
+                      3:10 PM IST
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
+                      Intraday MIS square-off occurs 5 minutes prior to CAS to avoid getting frozen in the 3:15–3:20 pm transition window.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-2">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300">
+                      Equity F&amp;O Positions
+                    </span>
+                    <div className="text-2xl font-black text-slate-900 dark:text-white font-mono">
+                      3:20 PM IST
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">
+                      Since F&amp;O trading continues until 3:40 pm, F&amp;O square-off occurs at 3:20 pm, giving 20 minutes before contract expiration.
                     </p>
                   </div>
                 </div>

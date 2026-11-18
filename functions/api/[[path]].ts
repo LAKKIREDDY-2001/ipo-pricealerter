@@ -110,6 +110,16 @@ import {
   simulateAngelRateLimitBurst,
   resetAngelRateLimits,
   getAngelRateLimitTelemetry,
+  getAngelCasStatus,
+  getAngelCasPhase,
+  getAngelCasPhases,
+  getAngelAutoSquareOffSchedules,
+  validateAngelCasOrder,
+  calculateAngelCasReferencePrice,
+  discoverAngelCasEquilibriumPrice,
+  isAngelCasScrip,
+  ANGEL_CAS_EFFECTIVE_DATE,
+  ANGEL_CAS_PRICE_BAND_PCT,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -2095,6 +2105,86 @@ export async function onRequest(context: {
       status: true,
       message: "Rate limit meters reset successfully",
       clientCode: body?.clientCode || "ALL",
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  // --- Angel One SmartAPI Closing Auction Session (CAS) Suite ---
+  if (pathname === "/api/market/angel/cas/status" && (method === "GET" || method === "POST")) {
+    const timeParam = url.searchParams.get("time") || undefined;
+    const casStatus = getAngelCasStatus(timeParam);
+    return json({
+      ok: true,
+      ...casStatus,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/cas/phases" && method === "GET") {
+    const phases = getAngelCasPhases();
+    return json({
+      ok: true,
+      status: true,
+      phases,
+      effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/cas/auto-square-off" && method === "GET") {
+    const schedules = getAngelAutoSquareOffSchedules();
+    return json({
+      ok: true,
+      status: true,
+      effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+      schedules,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/cas/validate-order" && method === "POST") {
+    const body = (await request.json().catch(() => ({}))) as any;
+    const validation = validateAngelCasOrder(body);
+    return json({
+      ok: true,
+      status: true,
+      validation,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/cas/reference-price" && method === "POST") {
+    const body = (await request.json().catch(() => ({}))) as any;
+    const result = calculateAngelCasReferencePrice(body);
+    return json({
+      ok: true,
+      status: true,
+      result,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/cas/equilibrium-price" && method === "POST") {
+    const body = (await request.json().catch(() => ({}))) as any;
+    const result = discoverAngelCasEquilibriumPrice(body);
+    return json({
+      ok: true,
+      status: true,
+      result,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname.startsWith("/api/market/angel/cas/scrip/") && method === "GET") {
+    const sym = pathname.replace("/api/market/angel/cas/scrip/", "").toUpperCase();
+    const isCas = isAngelCasScrip(sym);
+    return json({
+      ok: true,
+      status: true,
+      symbol: sym,
+      is_cas_enabled: isCas,
+      referenceLimitPrice: isCas ? "191.00" : null,
+      priceBandPct: isCas ? ANGEL_CAS_PRICE_BAND_PCT : null,
       retrievedAt: new Date().toISOString(),
     });
   }

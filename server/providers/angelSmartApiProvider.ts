@@ -6257,3 +6257,858 @@ export function getAngelRateLimitTelemetry(clientCode?: string): AngelRateLimitT
     recentBreaches: [...rateLimitTracker.recentBreaches],
   };
 }
+
+/* ============================================================================
+ * Angel One SmartAPI Closing Auction Session (CAS) Suite Provider
+ * Official Documentation: https://smartapi.angelone.in/docs/CASDoc
+ * SEBI Mandate effective: 03 Aug 2026
+ *
+ * Features:
+ * 1. 20-minute CAS window (3:15 pm – 3:35 pm) replacing last 30-min continuous VWAP
+ * 2. 6 CAS Phases with strict permitted and restricted actions
+ * 3. Extension of F&O Trading (NFO & BFO) till 3:40 pm
+ * 4. Revised auto-square off timings from 03 Aug 2026:
+ *    - Robo Orders (Equity & F&O): 3:05 pm
+ *    - MIS Orders (Equity): 3:10 pm
+ *    - F&O Orders (Equity): 3:20 pm
+ * 5. Order placement & modification validation (rejections during transition,
+ *    disallowed SL/Iceberg, no Market order changes after 3:25 pm, ±3% price band)
+ * 6. Reference Price (VWAP 3:00–3:15 pm) & ±3% price band calculator
+ * 7. Equilibrium Price Discovery (SEBI volume maximization auction matching)
+ * 8. is_cas_enabled identification & referenceLimitPrice quote resolution
+ * ============================================================================
+ */
+
+export const ANGEL_CAS_EFFECTIVE_DATE = '2026-08-03';
+export const ANGEL_CAS_DURATION_MINUTES = 20;
+export const ANGEL_CAS_START_TIME = '15:15';
+export const ANGEL_CAS_END_TIME = '15:35';
+export const ANGEL_CAS_PRICE_BAND_PCT = 3.0; // ±3%
+export const ANGEL_CAS_FO_CLOSE_TIME = '15:40';
+
+export const ANGEL_CAS_OFFICIAL_CIRCULARS = [
+  {
+    authority: 'SEBI',
+    title: 'Introduction of Closing Auction Session (CAS) in the Equity Cash Segment and Certain Modifications in Pre-Open',
+    date: '16 Jan 2026',
+    url: 'https://www.sebi.gov.in/legal/circulars/jan-2026/introduction-of-closing-auction-session-cas-in-the-equity-cash-segment-and-certain-modifications-in-the-pre-open-auction-session_99122.html',
+  },
+  {
+    authority: 'NSE',
+    title: 'NSE Circular CMTR74466: Implementation of Closing Auction Session (CAS) in Capital Market Segment',
+    date: '29 May 2026',
+    url: 'https://nsearchives.nseindia.com/content/circulars/CMTR74466.zip',
+  },
+  {
+    authority: 'BSE',
+    title: 'BSE Notice 20260610-41: Introduction of Closing Auction Session (CAS) for F&O Eligible Securities',
+    date: '10 Jun 2026',
+    url: 'https://www.bseindia.com/downloads/UploadDocs/Notices/20260610-41/20260610-41.pdf',
+  },
+  {
+    authority: 'Angel One',
+    title: 'Angel One SmartAPI Closing Auction Session (CAS) Official Documentation',
+    date: '2026',
+    url: 'https://smartapi.angelone.in/docs/CASDoc',
+  },
+];
+
+export type AngelCasPhaseId =
+  | 'CONTINUOUS_TRADING'
+  | 'TRANSITION_TO_CAS'
+  | 'ORDER_ENTRY_AND_MODIFICATION'
+  | 'LIMIT_ORDERS_ONLY'
+  | 'ORDER_MATCHING'
+  | 'BUFFER_PERIOD'
+  | 'POST_CLOSING_SESSION'
+  | 'MARKET_CLOSED';
+
+export interface AngelCasPhaseInfo {
+  phase: AngelCasPhaseId;
+  timeRange: string;
+  name: string;
+  permittedActions: string;
+  isOrderEntryAllowed: boolean;
+  allowedOrderTypes: ('LIMIT' | 'MARKET')[];
+  canModifyMarketOrders: boolean;
+  canCancelMarketOrders: boolean;
+  isStopLossAllowed: boolean;
+  isIcebergAllowed: boolean;
+  isFoTradingActive: boolean;
+  priceType: 'LTP' | 'REFERENCE_LIMIT_PRICE' | 'EQUILIBRIUM_PRICE';
+  notes: string;
+}
+
+export const ANGEL_CAS_PHASES: Record<AngelCasPhaseId, AngelCasPhaseInfo> = {
+  CONTINUOUS_TRADING: {
+    phase: 'CONTINUOUS_TRADING',
+    timeRange: '9.15 am - 3.15 pm',
+    name: 'Continuous Trading Session',
+    permittedActions: 'All order types (Limit, Market, SL, SL-M, Iceberg, Robo) permitted across all segments.',
+    isOrderEntryAllowed: true,
+    allowedOrderTypes: ['LIMIT', 'MARKET'],
+    canModifyMarketOrders: true,
+    canCancelMarketOrders: true,
+    isStopLossAllowed: true,
+    isIcebergAllowed: true,
+    isFoTradingActive: true,
+    priceType: 'LTP',
+    notes: 'Regular continuous trading session. LTP retrieved for symbols.',
+  },
+  TRANSITION_TO_CAS: {
+    phase: 'TRANSITION_TO_CAS',
+    timeRange: '3.15 - 3.20 pm',
+    name: 'Transition from continuous trading to CAS',
+    permittedActions: 'Reference price is calculated. Order entry via SmartAPI will be rejected in this phase.',
+    isOrderEntryAllowed: false,
+    allowedOrderTypes: [],
+    canModifyMarketOrders: false,
+    canCancelMarketOrders: false,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: true,
+    priceType: 'REFERENCE_LIMIT_PRICE',
+    notes: 'Transition phase. VWAP of trades between 3:00-3:15 pm establishes the Reference Price and ±3% price band.',
+  },
+  ORDER_ENTRY_AND_MODIFICATION: {
+    phase: 'ORDER_ENTRY_AND_MODIFICATION',
+    timeRange: '3.20 - 3.25 pm',
+    name: 'Order entry and modification opens',
+    permittedActions: 'Limit and Market orders can be placed, modified, or cancelled within ±3% Reference Price band.',
+    isOrderEntryAllowed: true,
+    allowedOrderTypes: ['LIMIT', 'MARKET'],
+    canModifyMarketOrders: true,
+    canCancelMarketOrders: true,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: true,
+    priceType: 'REFERENCE_LIMIT_PRICE',
+    notes: 'Order entry window open. Stop-loss and Iceberg orders remain strictly disallowed for CAS stocks.',
+  },
+  LIMIT_ORDERS_ONLY: {
+    phase: 'LIMIT_ORDERS_ONLY',
+    timeRange: '3.25 - 3.30 pm',
+    name: 'Limit orders only',
+    permittedActions: 'No changes or cancellations on Market Orders. Limit orders can still be placed/modified. Random close between 3:28 pm and 3:30 pm.',
+    isOrderEntryAllowed: true,
+    allowedOrderTypes: ['LIMIT'],
+    canModifyMarketOrders: false,
+    canCancelMarketOrders: false,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: true,
+    priceType: 'REFERENCE_LIMIT_PRICE',
+    notes: 'Market orders frozen. Random auction closure occurs anytime between 3:28 pm and 3:30 pm.',
+  },
+  ORDER_MATCHING: {
+    phase: 'ORDER_MATCHING',
+    timeRange: '3.30 - 3.35 pm',
+    name: 'Order Matching',
+    permittedActions: 'Orders are matched against each other via volume maximisation algorithm, and the closing price (Equilibrium Price) is set.',
+    isOrderEntryAllowed: false,
+    allowedOrderTypes: [],
+    canModifyMarketOrders: false,
+    canCancelMarketOrders: false,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: true,
+    priceType: 'EQUILIBRIUM_PRICE',
+    notes: 'Auction matching engine running. Discovers Equilibrium Price where maximum order quantity gets matched.',
+  },
+  BUFFER_PERIOD: {
+    phase: 'BUFFER_PERIOD',
+    timeRange: '3.35 - 3.50 pm',
+    name: 'Buffer Period',
+    permittedActions: 'Transition from CAS to Post-closing session. F&O trading in NFO and BFO closes at 3:40 pm.',
+    isOrderEntryAllowed: false,
+    allowedOrderTypes: [],
+    canModifyMarketOrders: false,
+    canCancelMarketOrders: false,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: false, // F&O ceases at 3:40 pm
+    priceType: 'EQUILIBRIUM_PRICE',
+    notes: 'Intermission buffer period. F&O extended trading window terminates at 3:40 pm.',
+  },
+  POST_CLOSING_SESSION: {
+    phase: 'POST_CLOSING_SESSION',
+    timeRange: '3.50 - 4.00 pm',
+    name: 'Post-closing Session',
+    permittedActions: 'Trades settle at the Equilibrium Price discovered in the auction. Applies to all stocks.',
+    isOrderEntryAllowed: true,
+    allowedOrderTypes: ['MARKET'],
+    canModifyMarketOrders: false,
+    canCancelMarketOrders: false,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: false,
+    priceType: 'EQUILIBRIUM_PRICE',
+    notes: 'Post-closing session open to all stocks. Bids and asks match strictly at the discovered Equilibrium Price.',
+  },
+  MARKET_CLOSED: {
+    phase: 'MARKET_CLOSED',
+    timeRange: '4.00 pm - 9.15 am',
+    name: 'Market Closed',
+    permittedActions: 'Market sessions closed. AMO (After Market Orders) accepted depending on broker configuration.',
+    isOrderEntryAllowed: false,
+    allowedOrderTypes: [],
+    canModifyMarketOrders: false,
+    canCancelMarketOrders: false,
+    isStopLossAllowed: false,
+    isIcebergAllowed: false,
+    isFoTradingActive: false,
+    priceType: 'EQUILIBRIUM_PRICE',
+    notes: 'Market closed. Next regular continuous session commences at 9:15 am IST.',
+  },
+};
+
+export interface AngelCasAutoSquareOffSchedule {
+  segment: string;
+  orderType: string;
+  cutoffTime: string;
+  cutoffFormatted: string;
+  effectiveDate: string;
+  description: string;
+}
+
+export const ANGEL_CAS_AUTO_SQUARE_OFF_SCHEDULES: AngelCasAutoSquareOffSchedule[] = [
+  {
+    segment: 'Equity, F&O Robo Orders',
+    orderType: 'ROBO',
+    cutoffTime: '15:05',
+    cutoffFormatted: '3:05 pm',
+    effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+    description: 'Auto-square off triggers at 3:05 pm for all Equity and F&O Robo orders.',
+  },
+  {
+    segment: 'Equity MIS Orders',
+    orderType: 'MIS',
+    cutoffTime: '15:10',
+    cutoffFormatted: '3:10 pm',
+    effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+    description: 'Auto-square off triggers at 3:10 pm for all Equity Intraday (MIS) orders.',
+  },
+  {
+    segment: 'Equity F&O Orders',
+    orderType: 'NRML / MIS (F&O)',
+    cutoffTime: '15:20',
+    cutoffFormatted: '3:20 pm',
+    effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+    description: 'Auto-square off triggers at 3:20 pm for Equity F&O positions.',
+  },
+];
+
+/**
+ * List of canonical NSE F&O-eligible securities that participate in CAS
+ */
+export const ANGEL_CAS_ELIGIBLE_SYMBOLS = new Set<string>([
+  'NIFTY',
+  'BANKNIFTY',
+  'FINNIFTY',
+  'MIDCPNIFTY',
+  'NIFTYNXT50',
+  'RELIANCE',
+  'TCS',
+  'INFY',
+  'HDFCBANK',
+  'ICICIBANK',
+  'SBIN',
+  'BHARTIARTL',
+  'ITC',
+  'KOTAKBANK',
+  'LT',
+  'AXISBANK',
+  'TATAMOTORS',
+  'MARUTI',
+  'SUNPHARMA',
+  'BAJFINANCE',
+  'TITAN',
+  'ULTRACEMCO',
+  'ASIANPAINT',
+  'WIPRO',
+  'NTPC',
+  'ONGC',
+  'POWERGRID',
+  'TATASTEEL',
+  'JSWSTEEL',
+  'HINDALCO',
+  'COALINDIA',
+  'ADANIENT',
+  'ADANIPORTS',
+  'TRENT',
+  'BEL',
+  'HAL',
+  'VEDL',
+  'BHEL',
+  'DLF',
+  'DIVISLAB',
+  'CHOLAFIN',
+  'EICHERMOT',
+  'INDIGO',
+  'SIEMENS',
+  'PIDILITIND',
+  'DIXON',
+  'POLYCAB',
+  'SHREECEM',
+  'MUTHOOTFIN',
+  'PFC',
+  'REC',
+  'MASTEK',
+  'APOLLOHOSP',
+  'CIPLA',
+  'HEROMOTOCO',
+  'BRITANNIA',
+  'NESTLEIND',
+  'DRREDDY',
+  'TECHM',
+  'HCLTECH',
+  'HDFCLIFE',
+  'SBILIFE',
+  'BAJAJFINSV',
+  'GRASIM',
+  'M&M',
+  'BPCL',
+  'TATACONSUM',
+  'HINDUNILVR',
+]);
+
+/**
+ * Check whether an instrument/scrip is eligible for Closing Auction Session (CAS)
+ */
+export function isAngelCasScrip(symbolOrToken: string, isCasEnabledFlag?: boolean): boolean {
+  if (isCasEnabledFlag === true) return true;
+  if (!symbolOrToken) return false;
+  const clean = symbolOrToken.replace(/[-_](EQ|BE|SM|ST|NSE|BSE)$/i, '').trim().toUpperCase();
+  return ANGEL_CAS_ELIGIBLE_SYMBOLS.has(clean);
+}
+
+/**
+ * Parse an arbitrary Date or time string into IST hours & minutes
+ */
+export function parseTimeToIstMinutes(timeOrDate?: Date | string | number): {
+  minutesFromMidnight: number;
+  timeFormatted: string;
+  hours: number;
+  minutes: number;
+} {
+  let dateObj: Date;
+
+  if (!timeOrDate) {
+    dateObj = new Date();
+  } else if (typeof timeOrDate === 'string') {
+    // If string is HH:mm or HH:mm:ss
+    const timeMatch = timeOrDate.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+    if (timeMatch) {
+      const h = parseInt(timeMatch[1], 10);
+      const m = parseInt(timeMatch[2], 10);
+      return {
+        minutesFromMidnight: h * 60 + m,
+        timeFormatted: `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`,
+        hours: h,
+        minutes: m,
+      };
+    }
+    dateObj = new Date(timeOrDate);
+    if (isNaN(dateObj.getTime())) {
+      dateObj = new Date();
+    }
+  } else if (typeof timeOrDate === 'number') {
+    dateObj = new Date(timeOrDate);
+  } else {
+    dateObj = timeOrDate;
+  }
+
+  // Convert to IST (UTC + 5:30)
+  const istOffsetMs = 5.5 * 60 * 60 * 1000;
+  const istDate = new Date(dateObj.getTime() + (dateObj.getTimezoneOffset() * 60000) + istOffsetMs);
+
+  const h = istDate.getHours();
+  const m = istDate.getMinutes();
+  const minutesFromMidnight = h * 60 + m;
+  const timeFormatted = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+  return {
+    minutesFromMidnight,
+    timeFormatted,
+    hours: h,
+    minutes: m,
+  };
+}
+
+/**
+ * Determine the active CAS Phase based on IST time
+ */
+export function getAngelCasPhase(timeOrDate?: Date | string | number): AngelCasPhaseInfo {
+  const { minutesFromMidnight } = parseTimeToIstMinutes(timeOrDate);
+
+  // 9:15 am is 9 * 60 + 15 = 555
+  // 3:15 pm is 15 * 60 + 15 = 915
+  // 3:20 pm is 15 * 60 + 20 = 920
+  // 3:25 pm is 15 * 60 + 25 = 925
+  // 3:30 pm is 15 * 60 + 30 = 930
+  // 3:35 pm is 15 * 60 + 35 = 935
+  // 3:40 pm is 15 * 60 + 40 = 940 (F&O Extended Close)
+  // 3:50 pm is 15 * 60 + 50 = 950
+  // 4:00 pm is 16 * 60 + 0 = 960
+
+  if (minutesFromMidnight >= 555 && minutesFromMidnight < 915) {
+    return { ...ANGEL_CAS_PHASES.CONTINUOUS_TRADING };
+  } else if (minutesFromMidnight >= 915 && minutesFromMidnight < 920) {
+    return { ...ANGEL_CAS_PHASES.TRANSITION_TO_CAS };
+  } else if (minutesFromMidnight >= 920 && minutesFromMidnight < 925) {
+    return { ...ANGEL_CAS_PHASES.ORDER_ENTRY_AND_MODIFICATION };
+  } else if (minutesFromMidnight >= 925 && minutesFromMidnight < 930) {
+    return { ...ANGEL_CAS_PHASES.LIMIT_ORDERS_ONLY };
+  } else if (minutesFromMidnight >= 930 && minutesFromMidnight < 935) {
+    return { ...ANGEL_CAS_PHASES.ORDER_MATCHING };
+  } else if (minutesFromMidnight >= 935 && minutesFromMidnight < 950) {
+    const isFoStillActive = minutesFromMidnight < 940;
+    return {
+      ...ANGEL_CAS_PHASES.BUFFER_PERIOD,
+      isFoTradingActive: isFoStillActive,
+    };
+  } else if (minutesFromMidnight >= 950 && minutesFromMidnight < 960) {
+    return { ...ANGEL_CAS_PHASES.POST_CLOSING_SESSION };
+  } else {
+    return { ...ANGEL_CAS_PHASES.MARKET_CLOSED };
+  }
+}
+
+/**
+ * Returns all 6 CAS phases and market phases
+ */
+export function getAngelCasPhases(): AngelCasPhaseInfo[] {
+  return Object.values(ANGEL_CAS_PHASES);
+}
+
+/**
+ * Returns official Auto-Square Off schedules effective 03 Aug 2026
+ */
+export function getAngelAutoSquareOffSchedules(): AngelCasAutoSquareOffSchedule[] {
+  return [...ANGEL_CAS_AUTO_SQUARE_OFF_SCHEDULES];
+}
+
+export interface AngelCasOrderValidationRequest {
+  symbol: string;
+  isCasEnabled?: boolean;
+  orderType: 'LIMIT' | 'MARKET' | 'STOPLOSS_LIMIT' | 'STOPLOSS_MARKET' | string;
+  isIceberg?: boolean;
+  action: 'PLACE' | 'MODIFY' | 'CANCEL';
+  price?: number;
+  referencePrice?: number;
+  time?: Date | string | number;
+}
+
+export interface AngelCasOrderValidationResult {
+  allowed: boolean;
+  errorCode?: string;
+  reason?: string;
+  phase: AngelCasPhaseInfo;
+  isCasEligible: boolean;
+  priceBand?: {
+    low: number;
+    high: number;
+    referencePrice: number;
+    pct: number;
+  };
+}
+
+/**
+ * Validate an order placement or modification against CAS rules & SEBI guidelines
+ */
+export function validateAngelCasOrder(
+  request: AngelCasOrderValidationRequest
+): AngelCasOrderValidationResult {
+  const { symbol, isCasEnabled, orderType, isIceberg, action, price, referencePrice, time } = request;
+  const isCasEligible = isAngelCasScrip(symbol, isCasEnabled);
+  const phase = getAngelCasPhase(time);
+  const { minutesFromMidnight } = parseTimeToIstMinutes(time);
+  const normalizedType = (orderType || 'LIMIT').toUpperCase();
+
+  // Price band calculation if reference price is provided
+  let priceBand: AngelCasOrderValidationResult['priceBand'] = undefined;
+  if (referencePrice && referencePrice > 0) {
+    const bandLow = Math.round(referencePrice * (1 - ANGEL_CAS_PRICE_BAND_PCT / 100) * 20) / 20; // 0.05 tick
+    const bandHigh = Math.round(referencePrice * (1 + ANGEL_CAS_PRICE_BAND_PCT / 100) * 20) / 20;
+    priceBand = {
+      low: bandLow,
+      high: bandHigh,
+      referencePrice,
+      pct: ANGEL_CAS_PRICE_BAND_PCT,
+    };
+  }
+
+  // Outside market hours
+  if (phase.phase === 'MARKET_CLOSED') {
+    return {
+      allowed: false,
+      errorCode: 'AB_CAS_CLOSED',
+      reason: 'Market session is closed. Closing Auction Session operates between 3:15 pm and 3:35 pm IST.',
+      phase,
+      isCasEligible,
+      priceBand,
+    };
+  }
+
+  // During continuous trading (9:15 - 3:15 pm), standard rules apply
+  if (phase.phase === 'CONTINUOUS_TRADING') {
+    return {
+      allowed: true,
+      phase,
+      isCasEligible,
+      priceBand,
+    };
+  }
+
+  // Rule 1: Phase 1 (3:15 - 3:20 pm) Transition Phase: Order entry via SmartAPI is REJECTED
+  if (phase.phase === 'TRANSITION_TO_CAS') {
+    return {
+      allowed: false,
+      errorCode: 'AB_CAS_TRANSITION_REJECT',
+      reason: 'Transition from continuous trading to CAS (3:15-3:20 pm). Reference price is being calculated. Order entry via SmartAPI is rejected in this phase.',
+      phase,
+      isCasEligible,
+      priceBand,
+    };
+  }
+
+  // Rule 2: Stop-loss and Iceberg orders for CAS-eligible stocks are disallowed between 3:15-3:40 pm (minutes 915 to 940)
+  if (isCasEligible && minutesFromMidnight >= 915 && minutesFromMidnight < 940) {
+    if (
+      normalizedType === 'STOPLOSS_LIMIT' ||
+      normalizedType === 'STOPLOSS_MARKET' ||
+      normalizedType.includes('SL') ||
+      isIceberg === true
+    ) {
+      return {
+        allowed: false,
+        errorCode: 'AB_CAS_DISALLOWED_ORDER_TYPE',
+        reason: 'Stop-loss and Iceberg orders for CAS-eligible stocks are disallowed between 3:15-3:40 pm.',
+        phase,
+        isCasEligible,
+        priceBand,
+      };
+    }
+  }
+
+  // Rule 3: Phase 3 (3:25 - 3:30 pm): Limit orders only. No changes or cancellations on Market Orders.
+  if (phase.phase === 'LIMIT_ORDERS_ONLY') {
+    if (normalizedType === 'MARKET') {
+      if (action === 'MODIFY' || action === 'CANCEL') {
+        return {
+          allowed: false,
+          errorCode: 'AB_CAS_MARKET_MODIFICATION_BLOCKED',
+          reason: 'After 3:25 pm, Market orders can no longer be modified or cancelled - only added or changed as Limit orders.',
+          phase,
+          isCasEligible,
+          priceBand,
+        };
+      }
+    }
+  }
+
+  // Rule 4: Phase 4 (3:30 - 3:35 pm) Order Matching: No orders can be entered or modified
+  if (phase.phase === 'ORDER_MATCHING') {
+    return {
+      allowed: false,
+      errorCode: 'AB_CAS_MATCHING_IN_PROGRESS',
+      reason: 'Order Matching phase in progress (3:30-3:35 pm). Orders are being matched via volume maximisation; no modifications or entries allowed.',
+      phase,
+      isCasEligible,
+      priceBand,
+    };
+  }
+
+  // Rule 5: Phase 5 (3:35 - 3:50 pm) Buffer Period: No order entries
+  if (phase.phase === 'BUFFER_PERIOD') {
+    return {
+      allowed: false,
+      errorCode: 'AB_CAS_BUFFER_PERIOD',
+      reason: 'Buffer Period (3:35-3:50 pm). Transitioning to Post-closing session; no order placement permitted in equity cash segment.',
+      phase,
+      isCasEligible,
+      priceBand,
+    };
+  }
+
+  // Rule 6: Check ±3% price band during order entry in CAS (3:20 - 3:30 pm)
+  if (
+    isCasEligible &&
+    (phase.phase === 'ORDER_ENTRY_AND_MODIFICATION' || phase.phase === 'LIMIT_ORDERS_ONLY')
+  ) {
+    if (price !== undefined && price !== null && priceBand) {
+      if (price < priceBand.low || price > priceBand.high) {
+        return {
+          allowed: false,
+          errorCode: 'AB_CAS_PRICE_BAND_BREACH',
+          reason: `Price ₹${price.toFixed(2)} is outside the allowed ±3% CAS price band [₹${priceBand.low.toFixed(2)} - ₹${priceBand.high.toFixed(2)}] for Reference Price ₹${referencePrice?.toFixed(2)}.`,
+          phase,
+          isCasEligible,
+          priceBand,
+        };
+      }
+    }
+  }
+
+  return {
+    allowed: true,
+    phase,
+    isCasEligible,
+    priceBand,
+  };
+}
+
+export interface AngelCasReferencePriceResult {
+  symbol: string;
+  referencePrice: number;
+  priceBandLow: number;
+  priceBandHigh: number;
+  bandPct: number;
+  calculationMethod: 'VWAP_1500_1515' | 'LTP_FALLBACK' | 'PREV_CLOSE_FALLBACK';
+  tradesCount: number;
+  totalVolume: number;
+  totalValue: number;
+  calculatedAt: string;
+}
+
+/**
+ * Calculate the CAS Reference Price (VWAP of trades between 3:00-3:15 pm)
+ * and the applicable ±3% price band.
+ */
+export function calculateAngelCasReferencePrice(options: {
+  symbol: string;
+  trades?: { price: number; volume: number; timestamp?: string }[];
+  fallbackLtp?: number;
+  previousClose?: number;
+}): AngelCasReferencePriceResult {
+  const { symbol, trades, fallbackLtp, previousClose } = options;
+  const cleanSym = symbol ? symbol.toUpperCase() : 'UNKNOWN';
+
+  let totalValue = 0;
+  let totalVolume = 0;
+  let tradesCount = 0;
+
+  if (trades && trades.length > 0) {
+    for (const t of trades) {
+      if (t.price > 0 && t.volume > 0) {
+        totalValue += t.price * t.volume;
+        totalVolume += t.volume;
+        tradesCount++;
+      }
+    }
+  }
+
+  let referencePrice: number;
+  let calculationMethod: AngelCasReferencePriceResult['calculationMethod'];
+
+  if (totalVolume > 0) {
+    referencePrice = Math.round((totalValue / totalVolume) * 20) / 20; // Round to nearest 0.05 tick
+    calculationMethod = 'VWAP_1500_1515';
+  } else if (fallbackLtp && fallbackLtp > 0) {
+    referencePrice = Math.round(fallbackLtp * 20) / 20;
+    calculationMethod = 'LTP_FALLBACK';
+  } else if (previousClose && previousClose > 0) {
+    referencePrice = Math.round(previousClose * 20) / 20;
+    calculationMethod = 'PREV_CLOSE_FALLBACK';
+  } else {
+    referencePrice = 100.0;
+    calculationMethod = 'LTP_FALLBACK';
+  }
+
+  const priceBandLow = Math.round(referencePrice * (1 - ANGEL_CAS_PRICE_BAND_PCT / 100) * 20) / 20;
+  const priceBandHigh = Math.round(referencePrice * (1 + ANGEL_CAS_PRICE_BAND_PCT / 100) * 20) / 20;
+
+  return {
+    symbol: cleanSym,
+    referencePrice,
+    priceBandLow,
+    priceBandHigh,
+    bandPct: ANGEL_CAS_PRICE_BAND_PCT,
+    calculationMethod,
+    tradesCount,
+    totalVolume,
+    totalValue,
+    calculatedAt: new Date().toISOString(),
+  };
+}
+
+export interface AngelCasAuctionOrder {
+  price: number;
+  quantity: number;
+}
+
+export interface AngelCasEquilibriumPriceResult {
+  symbol: string;
+  equilibriumPrice: number;
+  referencePrice: number;
+  matchedVolume: number;
+  totalBuyVolume: number;
+  totalSellVolume: number;
+  unmatchedBuyVolume: number;
+  unmatchedSellVolume: number;
+  priceBandLow: number;
+  priceBandHigh: number;
+  isDiscovered: boolean;
+  priceStepAnalysis: {
+    price: number;
+    cumulativeBuyQty: number;
+    cumulativeSellQty: number;
+    matchedQty: number;
+    imbalance: number;
+  }[];
+  discoveredAt: string;
+}
+
+/**
+ * Discover the Equilibrium Price at the end of CAS (3:30 - 3:35 pm)
+ * using SEBI's volume maximisation algorithm within the ±3% reference price band.
+ */
+export function discoverAngelCasEquilibriumPrice(options: {
+  symbol: string;
+  referencePrice: number;
+  buyOrders: AngelCasAuctionOrder[];
+  sellOrders: AngelCasAuctionOrder[];
+}): AngelCasEquilibriumPriceResult {
+  const { symbol, referencePrice, buyOrders, sellOrders } = options;
+  const cleanSym = symbol ? symbol.toUpperCase() : 'UNKNOWN';
+
+  const ref = referencePrice > 0 ? referencePrice : 100.0;
+  const priceBandLow = Math.round(ref * (1 - ANGEL_CAS_PRICE_BAND_PCT / 100) * 20) / 20;
+  const priceBandHigh = Math.round(ref * (1 + ANGEL_CAS_PRICE_BAND_PCT / 100) * 20) / 20;
+
+  // Total volumes
+  let totalBuyVolume = 0;
+  let totalSellVolume = 0;
+  const validBids = buyOrders.filter((b) => {
+    if (b.price > 0 && b.quantity > 0) {
+      totalBuyVolume += b.quantity;
+      return true;
+    }
+    return false;
+  });
+  const validAsks = sellOrders.filter((a) => {
+    if (a.price > 0 && a.quantity > 0) {
+      totalSellVolume += a.quantity;
+      return true;
+    }
+    return false;
+  });
+
+  // Extract all distinct price points within the price band
+  const pricesSet = new Set<number>();
+  pricesSet.add(ref);
+  for (const b of validBids) {
+    if (b.price >= priceBandLow && b.price <= priceBandHigh) {
+      pricesSet.add(b.price);
+    }
+  }
+  for (const a of validAsks) {
+    if (a.price >= priceBandLow && a.price <= priceBandHigh) {
+      pricesSet.add(a.price);
+    }
+  }
+
+  const sortedPrices = Array.from(pricesSet).sort((a, b) => a - b);
+
+  const priceStepAnalysis: AngelCasEquilibriumPriceResult['priceStepAnalysis'] = [];
+  let maxMatchedVolume = 0;
+  let candidatePrices: { price: number; matched: number; imbalance: number }[] = [];
+
+  for (const p of sortedPrices) {
+    // Cumulative Buy: all bids willing to buy at or above price P (bid.price >= P)
+    let cumulativeBuyQty = 0;
+    for (const b of validBids) {
+      if (b.price >= p) cumulativeBuyQty += b.quantity;
+    }
+
+    // Cumulative Sell: all asks willing to sell at or below price P (ask.price <= P)
+    let cumulativeSellQty = 0;
+    for (const a of validAsks) {
+      if (a.price <= p) cumulativeSellQty += a.quantity;
+    }
+
+    const matchedQty = Math.min(cumulativeBuyQty, cumulativeSellQty);
+    const imbalance = Math.abs(cumulativeBuyQty - cumulativeSellQty);
+
+    priceStepAnalysis.push({
+      price: p,
+      cumulativeBuyQty,
+      cumulativeSellQty,
+      matchedQty,
+      imbalance,
+    });
+
+    if (matchedQty > maxMatchedVolume) {
+      maxMatchedVolume = matchedQty;
+      candidatePrices = [{ price: p, matched: matchedQty, imbalance }];
+    } else if (matchedQty === maxMatchedVolume && maxMatchedVolume > 0) {
+      candidatePrices.push({ price: p, matched: matchedQty, imbalance });
+    }
+  }
+
+  let equilibriumPrice = ref;
+  let isDiscovered = false;
+
+  if (maxMatchedVolume > 0 && candidatePrices.length > 0) {
+    isDiscovered = true;
+    // Tie-breaking:
+    // 1. Minimum imbalance
+    candidatePrices.sort((a, b) => a.imbalance - b.imbalance);
+    const minImbalance = candidatePrices[0].imbalance;
+    const lowestImbalanceCandidates = candidatePrices.filter((c) => c.imbalance === minImbalance);
+
+    // 2. Closest to reference price
+    lowestImbalanceCandidates.sort(
+      (a, b) => Math.abs(a.price - ref) - Math.abs(b.price - ref)
+    );
+    equilibriumPrice = lowestImbalanceCandidates[0].price;
+  }
+
+  const selectedStep = priceStepAnalysis.find((s) => s.price === equilibriumPrice);
+  const unmatchedBuy = selectedStep ? Math.max(0, selectedStep.cumulativeBuyQty - maxMatchedVolume) : 0;
+  const unmatchedSell = selectedStep ? Math.max(0, selectedStep.cumulativeSellQty - maxMatchedVolume) : 0;
+
+  return {
+    symbol: cleanSym,
+    equilibriumPrice,
+    referencePrice: ref,
+    matchedVolume: maxMatchedVolume,
+    totalBuyVolume,
+    totalSellVolume,
+    unmatchedBuyVolume: unmatchedBuy,
+    unmatchedSellVolume: unmatchedSell,
+    priceBandLow,
+    priceBandHigh,
+    isDiscovered,
+    priceStepAnalysis,
+    discoveredAt: new Date().toISOString(),
+  };
+}
+
+/**
+ * Returns comprehensive CAS status, timings, active phase, and circulars
+ */
+export function getAngelCasStatus(timeOrDate?: Date | string | number) {
+  const currentPhase = getAngelCasPhase(timeOrDate);
+  const { timeFormatted } = parseTimeToIstMinutes(timeOrDate);
+
+  return {
+    status: true,
+    effectiveDate: ANGEL_CAS_EFFECTIVE_DATE,
+    currentServerTimeIst: timeFormatted,
+    currentPhase,
+    allPhases: getAngelCasPhases(),
+    autoSquareOffSchedules: getAngelAutoSquareOffSchedules(),
+    officialCirculars: ANGEL_CAS_OFFICIAL_CIRCULARS,
+    rulesSummary: {
+      durationMinutes: ANGEL_CAS_DURATION_MINUTES,
+      casTimeWindow: `${ANGEL_CAS_START_TIME} - ${ANGEL_CAS_END_TIME} IST`,
+      priceBandPct: `±${ANGEL_CAS_PRICE_BAND_PCT}%`,
+      extendedFoCloseTime: `${ANGEL_CAS_FO_CLOSE_TIME} IST`,
+      stopLossIcebergDisallowed: '3:15 pm - 3:40 pm IST for CAS stocks',
+      marketOrderFrozenAfter: '3:25 pm IST',
+      phase1Transition: '3:15 pm - 3:20 pm IST (SmartAPI order entry rejected)',
+    },
+  };
+}
+

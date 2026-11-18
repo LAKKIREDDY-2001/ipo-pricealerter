@@ -571,9 +571,14 @@ interface CuratedUpcomingData {
   issuePrice?: number;
   actualListingPrice?: number;
   lotSize?: number;
+  minBidQuantity?: number;
+  minInvestment?: number;
   issueSizeCr?: number;
   freshIssueCr?: number;
   ofsCr?: number;
+  faceValue?: number;
+  refundDate?: string;
+  dematCreditDate?: string;
   openDate?: string;
   closeDate?: string;
   allotmentDate?: string;
@@ -865,10 +870,17 @@ const CURATED_UPCOMING_ENRICHMENT: Record<string, CuratedUpcomingData> = {
     priceBandLow: 129,
     priceBandHigh: 136,
     lotSize: 110,
+    minBidQuantity: 110,
+    minInvestment: 14960,
     issueSizeCr: 4000,
+    freshIssueCr: 3200,
+    ofsCr: 800,
+    faceValue: 10,
     openDate: '2026-11-19',
     closeDate: '2026-11-23',
     allotmentDate: '2026-11-25',
+    refundDate: '2026-11-26',
+    dematCreditDate: '2026-11-26',
     listingDate: '2026-11-27',
     gmp: 9.25,
     registrar: 'Link Intime India Private Limited',
