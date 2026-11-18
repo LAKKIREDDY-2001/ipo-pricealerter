@@ -220,21 +220,23 @@ export interface AngelApiCredentials {
   macAddress?: string;
 }
 
-const LOGIN_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/loginByPassword';
-const HISTORICAL_API_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getCandleData';
-const HISTORICAL_OI_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData';
-const LIVE_MARKET_DATA_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/';
-const GAINERS_LOSERS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/gainersLosers';
-const PCR_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/putCallRatio';
-const OI_BUILDUP_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/OIBuildup';
-const ALL_HOLDINGS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getAllHolding';
-const POSITIONS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getPosition';
+export const ANGEL_SMARTAPI_ROOT_URL = 'https://apiconnect.angelone.in';
+
+const LOGIN_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/loginByPassword`;
+const HISTORICAL_API_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getCandleData`;
+const HISTORICAL_OI_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getOIData`;
+const LIVE_MARKET_DATA_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/market/v1/quote/`;
+const GAINERS_LOSERS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/gainersLosers`;
+const PCR_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/putCallRatio`;
+const OI_BUILDUP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/OIBuildup`;
+const ALL_HOLDINGS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/portfolio/v1/getAllHolding`;
+const POSITIONS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getPosition`;
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
-const SEARCH_SCRIP_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/searchScrip';
-const LTP_DATA_URL = 'https://apiconnect.angelone.in/order-service/rest/secure/angelbroking/order/v1/getLtpData';
-const NSE_INTRADAY_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/nseIntraday';
-const BSE_INTRADAY_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/bseIntraday';
-const CAUTIONARY_SCRIPS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/securities/v1/cautionaryScrips';
+const SEARCH_SCRIP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/searchScrip`;
+const LTP_DATA_URL = `${ANGEL_SMARTAPI_ROOT_URL}/order-service/rest/secure/angelbroking/order/v1/getLtpData`;
+const NSE_INTRADAY_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/nseIntraday`;
+const BSE_INTRADAY_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/bseIntraday`;
+const CAUTIONARY_SCRIPS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/securities/v1/cautionaryScrips`;
 
 // Interval max days lookup per Angel One documentation
 export const ANGEL_INTERVAL_MAX_DAYS: Record<AngelInterval, number> = {

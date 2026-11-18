@@ -14,6 +14,7 @@ import {
   KNOWN_ANGEL_TOKENS,
   ANGEL_INTERVAL_MAX_DAYS,
   SCRIP_MASTER_URL,
+  ANGEL_SMARTAPI_ROOT_URL,
   type AngelCandlePoint,
   type AngelLiveQuoteItem,
   type AngelGainerLoserItem,
@@ -292,6 +293,7 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(cautionaryItem.symbol, 'SHKALYN');
     assert.equal(cautionaryItem.category, 'TRADE_FOR_TRADE');
 
+    assert.equal(ANGEL_SMARTAPI_ROOT_URL, 'https://apiconnect.angelone.in');
     assert.ok(SCRIP_MASTER_URL.includes('OpenAPIScripMaster.json'));
   });
 });
