@@ -532,11 +532,12 @@ function normalizeStocks(snapshot: Snapshot): any[] {
     const rawPrice = Number(item.rawPrice ?? item.price ?? 0);
     const price = Number.isFinite(rawPrice) && rawPrice > 0 ? rawPrice : null;
     const change = item.rawChange == null ? null : Number(item.rawChange);
-    const tradeTime = item.quoteTimestamp || item.lastTradeTime || snapshot.lastSyncTime || null;
+    const tradeTime = item.quoteTimestamp || item.lastTradeTime || null;
     const existingIndex = bySymbol.get(symbol);
 
     if (existingIndex !== undefined) {
       const existing = base[existingIndex];
+      const effectiveTradeTime = tradeTime || existing.lastTradeTime || null;
       base[existingIndex] = {
         ...existing,
         currentPrice: price ?? existing.currentPrice ?? null,
@@ -551,15 +552,15 @@ function normalizeStocks(snapshot: Snapshot): any[] {
         volume: Number(item.volRaw ?? item.volume) >= 0 ? Number(item.volRaw ?? item.volume) : existing.volume ?? null,
         marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : existing.marketCapCr ?? null,
         logoUrl: item.logo || existing.logoUrl || null,
-        lastTradeTime: tradeTime || existing.lastTradeTime || null,
+        lastTradeTime: effectiveTradeTime,
         quoteSource: item.quoteSource || existing.quoteSource || "Published market snapshot",
         provenance: {
           ...(existing.provenance || {}),
           source: item.quoteSource || existing.provenance?.source || "Published market snapshot",
-          retrievedAt: tradeTime || existing.provenance?.retrievedAt || null,
-          effectiveDate: tradeTime ? tradeTime.split("T")[0] : existing.provenance?.effectiveDate || null,
+          retrievedAt: effectiveTradeTime || existing.provenance?.retrievedAt || null,
+          effectiveDate: effectiveTradeTime ? effectiveTradeTime.split("T")[0] : existing.provenance?.effectiveDate || null,
           verificationStatus: "Unverified",
-          qualityStatus: price !== null ? "DELAYED" : existing.provenance?.qualityStatus || "UNAVAILABLE",
+          qualityStatus: price !== null ? quoteFreshnessStatus(effectiveTradeTime) : existing.provenance?.qualityStatus || "UNAVAILABLE",
           currency: "INR",
           unit: "INR per share",
           dataCategory: existing.provenance?.dataCategory || "Equities",
@@ -569,8 +570,7 @@ function normalizeStocks(snapshot: Snapshot): any[] {
     }
 
     if (price === null) continue;
-    const nowIso = new Date().toISOString();
-    const effectiveTradeTime = tradeTime || nowIso;
+    const effectiveTradeTime = tradeTime || null;
     const stock = {
       id: `snapshot-${symbol}`,
       symbol,
@@ -593,13 +593,13 @@ function normalizeStocks(snapshot: Snapshot): any[] {
       volume: Number(item.volRaw ?? item.volume) >= 0 ? Number(item.volRaw ?? item.volume) : null,
       marketCapCr: Number(item.marketCapCr) > 0 ? Number(item.marketCapCr) : null,
       lastTradeTime: effectiveTradeTime,
-      dataSource: "NSE/BSE exchange snapshot (delayed)",
+      dataSource: "Published market snapshot",
       provenance: {
-        source: item.quoteSource || "NSE/BSE exchange snapshot (delayed)",
+        source: item.quoteSource || "Published market snapshot",
         retrievedAt: effectiveTradeTime,
-        effectiveDate: effectiveTradeTime.split("T")[0],
+        effectiveDate: effectiveTradeTime ? effectiveTradeTime.split("T")[0] : null,
         verificationStatus: "Unverified",
-        qualityStatus: "DELAYED",
+        qualityStatus: effectiveTradeTime ? quoteFreshnessStatus(effectiveTradeTime) : "STALE",
         currency: "INR",
         unit: "INR per share",
         dataCategory: item.category === "RECENT_IPO" ? "IPO Debut" : "Equities",
