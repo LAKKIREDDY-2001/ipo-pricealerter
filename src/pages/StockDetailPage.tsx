@@ -245,51 +245,6 @@ export function StockDetailPage() {
         volume: stock.volume ? Math.round(stock.volume / spark.length) : null,
       }));
     }
-    if (typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
-      const p = stock.currentPrice;
-      const prev = typeof stock.previousClose === 'number' && stock.previousClose > 0 ? stock.previousClose : p * 0.99;
-      const low = typeof stock.dayLow === 'number' && stock.dayLow > 0 ? stock.dayLow : Math.min(p, prev) * 0.992;
-      const high = typeof stock.dayHigh === 'number' && stock.dayHigh > 0 ? stock.dayHigh : Math.max(p, prev) * 1.008;
-      const count = range === '1d' ? 75 : 24;
-      const points = [];
-      if (range === '1d') {
-        const todayIST = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
-        const [year, month, day] = todayIST.split('-').map(Number);
-        const startTime = Date.UTC(year, month - 1, day, 3, 45, 0); // 09:15 IST
-        const step = (6.25 * 3600 * 1000) / (count - 1); // ~5-minute intervals
-        for (let i = 0; i < count; i++) {
-          const factor = i / (count - 1);
-          const wave = Math.sin(factor * Math.PI * 2.5) * ((high - low) * 0.18);
-          const interpolated = prev + (p - prev) * factor + wave;
-          const clamped = Math.max(low, Math.min(high, interpolated));
-          points.push({
-            date: new Date(startTime + i * step).toISOString(),
-            close: Number((i === count - 1 ? p : clamped).toFixed(2)),
-            open: Number(clamped.toFixed(2)),
-            high: Number((clamped * 1.002).toFixed(2)),
-            low: Number((clamped * 0.998).toFixed(2)),
-            volume: stock.volume ? Math.round(stock.volume / count) : 10000,
-          });
-        }
-        return points;
-      }
-      const now = Date.now();
-      for (let i = 0; i < count; i++) {
-        const factor = i / (count - 1);
-        const wave = Math.sin(factor * Math.PI * 2.5) * ((high - low) * 0.18);
-        const interpolated = prev + (p - prev) * factor + wave;
-        const clamped = Math.max(low, Math.min(high, interpolated));
-        points.push({
-          date: new Date(now - (count - i) * 15 * 60 * 1000).toISOString(),
-          close: Number(clamped.toFixed(2)),
-          open: Number(clamped.toFixed(2)),
-          high: Number((clamped * 1.002).toFixed(2)),
-          low: Number((clamped * 0.998).toFixed(2)),
-          volume: stock.volume ? Math.round(stock.volume / count) : 10000,
-        });
-      }
-      return points;
-    }
     return [];
   }, [
     stock?.historicalSeries,
