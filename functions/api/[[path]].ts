@@ -386,8 +386,8 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
 
 async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
   // Keep the number of upstream requests bounded for Cloudflare Pages.
-  // Quotes for other symbols remain explicitly marked as snapshot values.
-  const MAX_QUOTE_LOOKUPS = 20;
+  // Refresh every stock on the visible 50-row page; later pages are refreshed when opened.
+  const MAX_QUOTE_LOOKUPS = 50;
   const CONCURRENCY = 4;
   const result = [...stocks];
   let successful = 0;
