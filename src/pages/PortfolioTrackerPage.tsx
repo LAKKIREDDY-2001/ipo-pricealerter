@@ -71,7 +71,9 @@ const KNOWN_ISIN_MAP: Record<string, string> = {
   BAJFINANCE: 'INE296A01024',
 };
 
-const DEFAULT_SAMPLE_HOLDINGS: PortfolioHolding[] = [
+const DEFAULT_SAMPLE_HOLDINGS: PortfolioHolding[] = [];
+/* Removed hard-coded sample holdings from production UI.
+const LEGACY_SAMPLE_HOLDINGS: PortfolioHolding[] = [
   {
     id: 'h-reliance',
     name: 'Reliance Industries Ltd',
@@ -145,6 +147,7 @@ const DEFAULT_SAMPLE_HOLDINGS: PortfolioHolding[] = [
     mcapCategory: 'Small Cap',
   },
 ];
+*/
 
 const STORAGE_KEY = 'pa_external_portfolio_v2';
 
@@ -153,7 +156,11 @@ export function PortfolioTrackerPage() {
     if (typeof localStorage !== 'undefined') {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
+        if (raw) {
+          const saved = JSON.parse(raw);
+          const demoIds = new Set(['h-reliance', 'h-hdfc', 'h-tcs', 'h-trent', 'h-ppfas', 'h-nippon']);
+          return Array.isArray(saved) ? saved.filter((holding) => !demoIds.has(holding?.id)) : [];
+        }
       } catch {
         // ignore
       }
@@ -332,7 +339,7 @@ export function PortfolioTrackerPage() {
       form.appendChild(input);
     };
 
-    addField('DPId', edisVerifyData.DPId || '33200');
+    addField('DPId', edisVerifyData.DPId || '');
     addField('ReqId', edisVerifyData.ReqId || '');
     addField('Version', edisVerifyData.version || '1.1');
     addField('TransDtls', edisVerifyData.TransDtls || '');
@@ -371,7 +378,7 @@ export function PortfolioTrackerPage() {
       const res = await api.generateAngelEdisTpin({
         dpId: edisVerifyData?.DPId || '33200',
         reqId: edisVerifyData?.ReqId || `${Date.now()}`.slice(0, 16),
-        boid: edisVerifyData?.BOID || '1203320015222472',
+        boid: edisVerifyData?.BOID || '',
         pan: tpinPan.trim().toUpperCase(),
       });
       if (res.status) {
@@ -764,10 +771,6 @@ export function PortfolioTrackerPage() {
     setHoldings((prev) => prev.filter((h) => h.id !== id));
   };
 
-  const handleResetSample = () => {
-    setHoldings(DEFAULT_SAMPLE_HOLDINGS);
-  };
-
   const handleSimulateCasUpload = () => {
     setCasProcessing(true);
     setCasSuccess(false);
@@ -800,9 +803,7 @@ export function PortfolioTrackerPage() {
       const res = await fetch('/api/portfolio/angel/holdings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          // Credentials are read only from server-side environment secrets.
-        }),
+        body: JSON.stringify({}),
       });
 
       if (res.ok) {
@@ -903,14 +904,6 @@ export function PortfolioTrackerPage() {
           >
             <UploadCloud className="w-4 h-4 text-emerald-500" />
             <span>Import CAS Statement</span>
-          </button>
-          <button
-            type="button"
-            onClick={handleResetSample}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C2E] px-3 py-2 text-xs font-medium text-[#64748B] dark:text-slate-300 hover:text-[#14263F] transition-colors cursor-pointer"
-            title="Reload realistic sample data"
-          >
-            Reset Sample
           </button>
         </div>
       </section>
@@ -2050,47 +2043,8 @@ export function PortfolioTrackerPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div>
-                <label className="block text-[#64748B] dark:text-slate-400 mb-1 font-medium">Client ID</label>
-                <input
-                  type="text"
-                  value={angelClientId}
-                  onChange={(e) => setAngelClientId(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-xs font-mono font-bold text-slate-800 dark:text-white outline-none focus:border-orange-500"
-                />
-              </div>
-              <div>
-                <label className="block text-[#64748B] dark:text-slate-400 mb-1 font-medium">MPIN</label>
-                <input
-                  type="password"
-                  value={angelPin}
-                  onChange={(e) => setAngelPin(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-xs font-mono font-bold text-slate-800 dark:text-white outline-none focus:border-orange-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-medium text-[#64748B] dark:text-slate-400">TOTP Secret Key (Optional if already in Cloudflare)</label>
-                <a
-                  href="https://smartapi.angelone.in/enable-totp"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] text-orange-600 dark:text-orange-400 hover:underline inline-flex items-center gap-0.5 font-semibold"
-                >
-                  <span>Get TOTP Key</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </div>
-              <input
-                type="text"
-                placeholder="Leave blank to use Cloudflare ANGELONE_TOTP_KEY"
-                value={angelTotpSecret}
-                onChange={(e) => setAngelTotpSecret(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-xs font-mono text-slate-800 dark:text-white outline-none focus:border-orange-500"
-              />
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-3 text-xs text-slate-600 dark:text-slate-300">
+              Connection credentials are kept in the server environment and are never requested or displayed on this page.
             </div>
 
             {angelSyncError && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-2 text-xs text-red-700">{angelSyncError}</p>}
@@ -2764,7 +2718,7 @@ export function PortfolioTrackerPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-400 font-sans">DP ID / BO ID:</span>
-                    <span className="text-slate-800 dark:text-slate-200">{edisVerifyData.DPId || '33200'} / {edisVerifyData.BOID || '1203320015222472'}</span>
+                    <span className="text-slate-800 dark:text-slate-200">{edisVerifyData.DPId || '33200'} / {edisVerifyData.BOID || ''}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-400 font-sans">eDIS Protocol:</span>
