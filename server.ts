@@ -84,6 +84,11 @@ import {
   fetchAngelUserProfile,
   fetchAngelRMSFunds,
   logoutAngelSession,
+  createAngelGttRule,
+  modifyAngelGttRule,
+  cancelAngelGttRule,
+  fetchAngelGttRuleDetails,
+  fetchAngelGttRuleList,
   type AngelExchange,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
@@ -1806,6 +1811,110 @@ async function startServer() {
       res.json({ ok: result.status, ...result });
     } catch (err: any) {
       res.status(500).json({ ok: false, error: err?.message || 'Logout failed' });
+    }
+  });
+
+  // --- Angel One SmartAPI GTT (Good-Till-Triggered) Routes ---
+  app.post('/api/gtt/angel/create', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const body = req.body || {};
+      if (!body.tradingsymbol || !body.symboltoken || !body.price || !body.triggerprice) {
+        res.status(400).json({
+          ok: false,
+          error: 'Missing required fields: tradingsymbol, symboltoken, price, triggerprice',
+        });
+        return;
+      }
+      const result = await createAngelGttRule(body, creds);
+      res.status(result.status ? 200 : 400).json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'GTT rule creation failed' });
+    }
+  });
+
+  app.post('/api/gtt/angel/modify', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const body = req.body || {};
+      if (!body.id || !body.symboltoken || !body.price || !body.triggerprice) {
+        res.status(400).json({
+          ok: false,
+          error: 'Missing required fields: id, symboltoken, price, triggerprice',
+        });
+        return;
+      }
+      const result = await modifyAngelGttRule(body, creds);
+      res.status(result.status ? 200 : 400).json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'GTT rule modification failed' });
+    }
+  });
+
+  app.post('/api/gtt/angel/cancel', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    try {
+      const body = req.body || {};
+      if (!body.id || !body.symboltoken) {
+        res.status(400).json({ ok: false, error: 'Missing required fields: id, symboltoken' });
+        return;
+      }
+      const result = await cancelAngelGttRule(body, creds);
+      res.status(result.status ? 200 : 400).json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'GTT rule cancellation failed' });
+    }
+  });
+
+  app.all('/api/gtt/angel/details', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured' });
+      return;
+    }
+    const ruleId = String(req.query.id || req.body?.id || '').trim();
+    if (!ruleId) {
+      res.status(400).json({ ok: false, error: 'Missing GTT rule id' });
+      return;
+    }
+    try {
+      const result = await fetchAngelGttRuleDetails(ruleId, creds);
+      res.status(result.status ? 200 : 400).json({ ok: result.status, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch GTT rule details' });
+    }
+  });
+
+  app.all('/api/gtt/angel/list', async (req, res) => {
+    const creds = getAngelCredentials();
+    if (!creds?.apiKey) {
+      res.status(400).json({ ok: false, error: 'Angel One credentials not configured', data: [] });
+      return;
+    }
+    const listReq = req.method === 'POST' ? req.body : undefined;
+    try {
+      const rules = await fetchAngelGttRuleList(listReq, creds);
+      res.json({
+        ok: true,
+        source: 'Angel One SmartAPI (GTT Rules)',
+        count: rules.length,
+        data: rules,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch GTT rule list', data: [] });
     }
   });
 

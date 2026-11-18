@@ -1255,4 +1255,28 @@ export const api = {
     request<{ success: boolean; stock: GlobalStockInstrument; usdInrRate: number }>(
       `/api/market/us-stocks/${encodeURIComponent(symbol)}`
     ),
+
+  // Angel One SmartAPI GTT (Good-Till-Triggered) API
+  getAngelGttRules: () =>
+    request<{ ok: boolean; count: number; data: any[] }>('/api/gtt/angel/list'),
+  createAngelGttRule: (payload: {
+    tradingsymbol: string;
+    symboltoken: string;
+    exchange: 'NSE' | 'BSE';
+    transactiontype: 'BUY' | 'SELL';
+    producttype: 'DELIVERY' | 'MARGIN';
+    price: string | number;
+    qty: string | number;
+    triggerprice: string | number;
+    disclosedqty?: string | number;
+  }) =>
+    request<{ ok: boolean; status: boolean; message: string; data?: { id?: string | number } }>(
+      '/api/gtt/angel/create',
+      { method: 'POST', body: JSON.stringify(payload) }
+    ),
+  cancelAngelGttRule: (payload: { id: string | number; symboltoken: string; exchange: 'NSE' | 'BSE' }) =>
+    request<{ ok: boolean; status: boolean; message: string; data?: { id?: string | number } }>(
+      '/api/gtt/angel/cancel',
+      { method: 'POST', body: JSON.stringify(payload) }
+    ),
 };

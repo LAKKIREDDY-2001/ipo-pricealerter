@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BellRing, Pause, Play, RefreshCw, Search, Trash2 } from 'lucide-react';
+import { BellRing, Pause, Play, RefreshCw, Search, Trash2, Zap, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import type { PriceAlertRule, StockInstrument } from '../types/financial';
@@ -12,6 +12,8 @@ import { Breadcrumbs, EmptyState, LoadingSkeleton } from '../components/common/S
 export function AlertsPage() {
   const { user, loading: authLoading, alerts, refreshUserData } = useAuth();
   const navigate = useNavigate();
+
+  const [activeTab, setActiveTab] = useState<'alerts' | 'gtt'>('alerts');
 
   const [stockResults, setStockResults] = useState<StockInstrument[]>([]);
   const [stockSearch, setStockSearch] = useState('');
@@ -26,6 +28,42 @@ export function AlertsPage() {
 
   const [alertStocksBySym, setAlertStocksBySym] = useState<Record<string, StockInstrument>>({});
 
+  // Angel One SmartAPI GTT (Good-Till-Triggered) State
+  const [gttRules, setGttRules] = useState<any[]>([]);
+  const [gttLoading, setGttLoading] = useState(false);
+  const [gttError, setGttError] = useState<string | null>(null);
+  const [gttSuccess, setGttSuccess] = useState<string | null>(null);
+
+  const [gttExchange, setGttExchange] = useState<'NSE' | 'BSE'>('NSE');
+  const [gttTransactionType, setGttTransactionType] = useState<'BUY' | 'SELL'>('BUY');
+  const [gttProductType, setGttProductType] = useState<'DELIVERY' | 'MARGIN'>('DELIVERY');
+  const [gttPrice, setGttPrice] = useState('195');
+  const [gttTriggerPrice, setGttTriggerPrice] = useState('196');
+  const [gttQty, setGttQty] = useState('1');
+  const [gttDisclosedQty, setGttDisclosedQty] = useState('1');
+  const [gttSymbolToken, setGttSymbolToken] = useState('3045');
+
+  const loadGttRules = async () => {
+    setGttLoading(true);
+    setGttError(null);
+    try {
+      const res = await api.getAngelGttRules();
+      if (res.ok && Array.isArray(res.data)) {
+        setGttRules(res.data);
+      }
+    } catch (err: any) {
+      setGttError(err?.message || 'Failed to load GTT rules from SmartAPI');
+    } finally {
+      setGttLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'gtt') {
+      loadGttRules();
+    }
+  }, [activeTab]);
+
   useEffect(() => {
     const q = stockSearch.trim();
     const timer = setTimeout(async () => {
@@ -38,6 +76,8 @@ export function AlertsPage() {
           setSymbol(def.symbol);
           if (def.currentPrice) {
             setTargetValue(String(Math.round(def.currentPrice * 0.97)));
+            setGttPrice(String(Math.round(def.currentPrice * 0.97)));
+            setGttTriggerPrice(String(Math.round(def.currentPrice * 0.98)));
           }
         }
       } catch {
@@ -94,6 +134,66 @@ export function AlertsPage() {
     setStockSearch(`${stk.companyName} (${formatStockTickerLabel(stk.symbol, stk.bseCode)})`);
     if (stk.currentPrice) {
       setTargetValue(String(Math.round(stk.currentPrice * 0.97)));
+      setGttPrice(String(Math.round(stk.currentPrice * 0.97)));
+      setGttTriggerPrice(String(Math.round(stk.currentPrice * 0.98)));
+    }
+    if (stk.exchange === 'BSE') {
+      setGttExchange('BSE');
+    } else {
+      setGttExchange('NSE');
+    }
+  };
+
+  const handleCreateGtt = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setGttError(null);
+    setGttSuccess(null);
+    setBusy(true);
+    try {
+      const res = await api.createAngelGttRule({
+        tradingsymbol: `${symbol.trim().toUpperCase()}-EQ`,
+        symboltoken: gttSymbolToken || '3045',
+        exchange: gttExchange,
+        transactiontype: gttTransactionType,
+        producttype: gttProductType,
+        price: Number(gttPrice),
+        qty: Number(gttQty),
+        triggerprice: Number(gttTriggerPrice),
+        disclosedqty: Number(gttDisclosedQty || gttQty),
+      });
+      if (res.ok && res.status) {
+        setGttSuccess(`GTT Rule created successfully with ID: ${res.data?.id ?? 'Active'}`);
+        await loadGttRules();
+      } else {
+        setGttError(res.message || 'Failed to create GTT rule on SmartAPI');
+      }
+    } catch (err: any) {
+      setGttError(err?.message || 'Failed to create GTT rule on SmartAPI');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleCancelGtt = async (rule: any) => {
+    setGttError(null);
+    setGttSuccess(null);
+    setBusy(true);
+    try {
+      const res = await api.cancelAngelGttRule({
+        id: rule.id,
+        symboltoken: String(rule.symboltoken || gttSymbolToken),
+        exchange: rule.exchange || gttExchange,
+      });
+      if (res.ok && res.status) {
+        setGttSuccess(`GTT Rule #${rule.id} cancelled successfully.`);
+        await loadGttRules();
+      } else {
+        setGttError(res.message || 'Failed to cancel GTT rule');
+      }
+    } catch (err: any) {
+      setGttError(err?.message || 'Failed to cancel GTT rule');
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -168,8 +268,38 @@ export function AlertsPage() {
         </button>
       </div>
 
-      {/* Create Alert Form */}
-      <section className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4">
+      {/* Tab Switcher: In-App Alerts vs Angel One SmartAPI GTT Orders */}
+      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+        <button
+          type="button"
+          onClick={() => setActiveTab('alerts')}
+          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+            activeTab === 'alerts'
+              ? 'bg-[#14263F] dark:bg-blue-600 text-white shadow-sm'
+              : 'text-[#64748B] dark:text-slate-400 hover:text-[#14263F] dark:hover:text-white bg-slate-100 dark:bg-slate-800/60'
+          }`}
+        >
+          <BellRing className="w-3.5 h-3.5" />
+          <span>In-App Price Alerts ({alerts.length})</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab('gtt')}
+          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+            activeTab === 'gtt'
+              ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-sm'
+              : 'text-[#64748B] dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 bg-slate-100 dark:bg-slate-800/60'
+          }`}
+        >
+          <Zap className="w-3.5 h-3.5" />
+          <span>Angel One SmartAPI GTT Orders {gttRules.length > 0 && `(${gttRules.length})`}</span>
+        </button>
+      </div>
+
+      {activeTab === 'alerts' ? (
+        <>
+          {/* Create Alert Form */}
+          <section className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-sm font-bold text-[#14263F] dark:text-white flex items-center gap-2">
             <BellRing className="w-4 h-4 text-[#059669]" /> Create New Alert Rule
@@ -398,6 +528,289 @@ export function AlertsPage() {
             </div>
             );
           })}
+        </div>
+      )}
+        </>
+      ) : (
+        /* Angel One SmartAPI GTT Orders Tab */
+        <div className="space-y-6">
+          {/* GTT Information & Compliance Banner */}
+          <div className="rounded-xl border border-orange-200 dark:border-orange-900/40 bg-gradient-to-r from-orange-50/80 via-amber-50/50 to-white dark:from-[#1f1712] dark:to-[#111C2E] p-4 text-xs space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 font-bold text-orange-950 dark:text-orange-200">
+                <ShieldCheck className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                <span>Angel One SmartAPI Good-Till-Triggered (GTT) Orders</span>
+              </div>
+              <a
+                href="https://smartapi.angelone.in/docs/Gtt"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] font-semibold text-orange-600 dark:text-orange-400 hover:underline inline-flex items-center gap-0.5"
+              >
+                <span>SmartAPI GTT Docs</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+            <p className="text-[11px] text-orange-900/80 dark:text-orange-300/80 leading-relaxed">
+              GTT rules are official broker-level conditional triggers executed directly on the exchanges.
+              Supported exchanges are <strong>NSE</strong> and <strong>BSE</strong> only, and supported product types are{' '}
+              <strong>DELIVERY</strong> and <strong>MARGIN</strong>. Orders remain active for up to 1 year until triggered.
+            </p>
+          </div>
+
+          {/* GTT Rule Creation Form */}
+          <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-bold text-[#14263F] dark:text-white flex items-center gap-2">
+                <Zap className="w-4 h-4 text-orange-500" /> Create Official GTT Trigger Rule
+              </h2>
+              <span className="text-[11px] font-mono text-slate-500">
+                Token: {gttSymbolToken} · {gttExchange}
+              </span>
+            </div>
+
+            {gttError && (
+              <div className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-950/30 px-3 py-2 text-xs text-[#DC2626]">
+                {gttError}
+              </div>
+            )}
+            {gttSuccess && (
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 px-3 py-2 text-xs text-[#059669]">
+                {gttSuccess}
+              </div>
+            )}
+
+            <form onSubmit={handleCreateGtt} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                {/* Symbol & Autocomplete */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Trading Symbol</label>
+                  <input
+                    type="text"
+                    value={symbol}
+                    onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+                    placeholder="e.g. SBIN, RELIANCE"
+                    required
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-mono font-bold text-slate-800 dark:text-white outline-none"
+                  />
+                </div>
+
+                {/* Symbol Token */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Symbol Token</label>
+                  <input
+                    type="text"
+                    value={gttSymbolToken}
+                    onChange={(e) => setGttSymbolToken(e.target.value)}
+                    placeholder="e.g. 3045"
+                    required
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-mono text-slate-800 dark:text-white outline-none"
+                  />
+                </div>
+
+                {/* Exchange */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Exchange</label>
+                  <select
+                    value={gttExchange}
+                    onChange={(e) => setGttExchange(e.target.value as 'NSE' | 'BSE')}
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-semibold text-slate-800 dark:text-white outline-none"
+                  >
+                    <option value="NSE">NSE (National Stock Exchange)</option>
+                    <option value="BSE">BSE (Bombay Stock Exchange)</option>
+                  </select>
+                </div>
+
+                {/* Transaction Type */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Side</label>
+                  <select
+                    value={gttTransactionType}
+                    onChange={(e) => setGttTransactionType(e.target.value as 'BUY' | 'SELL')}
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-semibold text-slate-800 dark:text-white outline-none"
+                  >
+                    <option value="BUY">BUY Order</option>
+                    <option value="SELL">SELL Order</option>
+                  </select>
+                </div>
+
+                {/* Product Type */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Product Type</label>
+                  <select
+                    value={gttProductType}
+                    onChange={(e) => setGttProductType(e.target.value as 'DELIVERY' | 'MARGIN')}
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-semibold text-slate-800 dark:text-white outline-none"
+                  >
+                    <option value="DELIVERY">DELIVERY (Cash CNC)</option>
+                    <option value="MARGIN">MARGIN (MTF)</option>
+                  </select>
+                </div>
+
+                {/* Trigger Price */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Trigger Price (₹)</label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={gttTriggerPrice}
+                    onChange={(e) => setGttTriggerPrice(e.target.value)}
+                    required
+                    placeholder="e.g. 196"
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-mono font-bold text-slate-800 dark:text-white outline-none"
+                  />
+                </div>
+
+                {/* Execution Limit Price */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Limit Price (₹)</label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={gttPrice}
+                    onChange={(e) => setGttPrice(e.target.value)}
+                    required
+                    placeholder="e.g. 195"
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-mono font-bold text-slate-800 dark:text-white outline-none"
+                  />
+                </div>
+
+                {/* Order Quantity */}
+                <div className="space-y-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300">Quantity (Shares)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={gttQty}
+                    onChange={(e) => {
+                      setGttQty(e.target.value);
+                      setGttDisclosedQty(e.target.value);
+                    }}
+                    required
+                    placeholder="e.g. 1"
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#152338] px-3 py-1.5 font-mono text-slate-800 dark:text-white outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <span className="text-[11px] text-slate-500">
+                  Target: {gttTransactionType} {gttQty} shares of {symbol}-EQ @ ₹{gttPrice} when price hits ₹{gttTriggerPrice}
+                </span>
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:brightness-105 px-5 py-2 text-xs font-bold text-white shadow-md transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {busy ? 'Placing GTT...' : `Place GTT Rule on Angel One`}
+                </button>
+              </div>
+            </form>
+          </section>
+
+          {/* GTT Active Rules List */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>Active &amp; Historical GTT Orders</span>
+                <span className="rounded-full bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-xs text-slate-600 dark:text-slate-400">
+                  {gttRules.length}
+                </span>
+              </h3>
+              <button
+                type="button"
+                onClick={loadGttRules}
+                disabled={gttLoading}
+                className="inline-flex items-center gap-1 text-xs text-orange-600 dark:text-orange-400 hover:underline font-semibold cursor-pointer"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${gttLoading ? 'animate-spin' : ''}`} />
+                <span>Refresh GTT Rules</span>
+              </button>
+            </div>
+
+            {gttLoading && gttRules.length === 0 ? (
+              <LoadingSkeleton rows={3} />
+            ) : gttRules.length === 0 ? (
+              <EmptyState
+                title="No GTT rules found on Angel One"
+                description="Create a Good-Till-Triggered order above to set automated broker-side buy/sell triggers on NSE or BSE."
+              />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {gttRules.map((rule, idx) => (
+                  <div
+                    key={rule.id || idx}
+                    className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 space-y-3 shadow-sm"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-slate-900 dark:text-white">
+                          {rule.tradingsymbol || 'SBIN-EQ'}
+                        </span>
+                        <span className="text-xs font-mono text-slate-500">
+                          ({rule.exchange || 'NSE'})
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                            rule.transactiontype === 'SELL'
+                              ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
+                              : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
+                          }`}
+                        >
+                          {rule.transactiontype || 'BUY'}
+                        </span>
+                      </div>
+                      <span
+                        className={`text-[11px] font-semibold px-2 py-0.5 rounded border ${
+                          rule.status === 'TRIGGERED' || rule.status === 'SENTTOEXCHANGE'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:border-emerald-900'
+                            : rule.status === 'ACTIVE' || rule.status === 'NEW'
+                              ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:border-blue-900'
+                              : 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:border-slate-700'
+                        }`}
+                      >
+                        {rule.status || 'ACTIVE'}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2 text-xs font-mono">
+                      <div>
+                        <div className="text-[10px] text-slate-500 font-sans">Trigger Price</div>
+                        <div className="font-bold text-slate-800 dark:text-slate-200">
+                          ₹{rule.triggerprice || rule.price}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-500 font-sans">Limit Price</div>
+                        <div className="font-bold text-slate-800 dark:text-slate-200">
+                          ₹{rule.price}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-slate-500 font-sans">Quantity</div>
+                        <div className="font-bold text-slate-800 dark:text-slate-200">
+                          {rule.qty} shares
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500">
+                      <span>Rule ID: <strong className="font-mono text-slate-700 dark:text-slate-300">{rule.id}</strong></span>
+                      {rule.status !== 'CANCELLED' && rule.status !== 'TRIGGERED' && (
+                        <button
+                          type="button"
+                          onClick={() => handleCancelGtt(rule)}
+                          className="text-red-600 dark:text-red-400 hover:underline font-semibold cursor-pointer"
+                        >
+                          Cancel Rule
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
         </div>
       )}
     </main>

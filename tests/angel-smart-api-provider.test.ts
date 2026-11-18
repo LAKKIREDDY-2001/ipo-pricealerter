@@ -33,11 +33,25 @@ import {
   type AngelUserProfile,
   type AngelRMSFunds,
   type AngelLogoutResponse,
+  type AngelGttCreateRuleRequest,
+  type AngelGttCreateRuleResponse,
+  type AngelGttModifyRuleRequest,
+  type AngelGttCancelRuleRequest,
+  type AngelGttRuleDetailsItem,
+  type AngelGttRuleDetailsResponse,
+  type AngelGttRuleListRequest,
+  type AngelGttRuleListResponse,
   ANGEL_LOGIN_URL,
   ANGEL_GENERATE_TOKENS_URL,
   ANGEL_GET_PROFILE_URL,
   ANGEL_GET_RMS_URL,
   ANGEL_LOGOUT_URL,
+  ANGEL_GTT_CREATE_RULE_URL,
+  ANGEL_GTT_MODIFY_RULE_URL,
+  ANGEL_GTT_CANCEL_RULE_URL,
+  ANGEL_GTT_RULE_DETAILS_URL,
+  ANGEL_GTT_RULE_LIST_URL,
+  ANGEL_GTT_ERROR_CODES,
   clearCachedAngelSession,
   getCachedAngelSession,
 } from '../server/providers/angelSmartApiProvider.ts';
@@ -493,5 +507,101 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     // Test clearCachedAngelSession
     clearCachedAngelSession();
     assert.equal(getCachedAngelSession(), null);
+  });
+
+  await t.test('validates Angel One GTT API endpoints and error code catalog', () => {
+    assert.equal(ANGEL_GTT_CREATE_RULE_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/createRule');
+    assert.equal(ANGEL_GTT_MODIFY_RULE_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/modifyRule');
+    assert.equal(ANGEL_GTT_CANCEL_RULE_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/cancelRule');
+    assert.equal(ANGEL_GTT_RULE_DETAILS_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/ruleDetails');
+    assert.equal(ANGEL_GTT_RULE_LIST_URL, 'https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/ruleList');
+
+    assert.equal(ANGEL_GTT_ERROR_CODES['AB9000'], 'Internal Server Error');
+    assert.equal(ANGEL_GTT_ERROR_CODES['AB9001'], 'Invalid Parameters');
+    assert.equal(ANGEL_GTT_ERROR_CODES['AB9009'], 'Invalid Trigger Price');
+    assert.equal(ANGEL_GTT_ERROR_CODES['AB9010'], 'Invalid Exchange Segment');
+    assert.equal(ANGEL_GTT_ERROR_CODES['AB9015'], 'Invalid Product Type');
+  });
+
+  await t.test('validates Angel One GTT Create and Modify Rule contracts', () => {
+    const createReq: AngelGttCreateRuleRequest = {
+      tradingsymbol: 'SBIN-EQ',
+      symboltoken: '3045',
+      exchange: 'NSE',
+      transactiontype: 'BUY',
+      producttype: 'DELIVERY',
+      price: '195',
+      qty: '1',
+      triggerprice: '196',
+      disclosedqty: '10',
+    };
+    assert.equal(createReq.tradingsymbol, 'SBIN-EQ');
+    assert.equal(createReq.exchange, 'NSE');
+    assert.equal(createReq.producttype, 'DELIVERY');
+
+    const createRes: AngelGttCreateRuleResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: { id: '1' },
+    };
+    assert.equal(createRes.status, true);
+    assert.equal(createRes.data?.id, '1');
+
+    const modifyReq: AngelGttModifyRuleRequest = {
+      id: '1',
+      symboltoken: '3045',
+      exchange: 'NSE',
+      price: '198',
+      qty: '2',
+      triggerprice: '199',
+      disclosedqty: '10',
+    };
+    assert.equal(modifyReq.id, '1');
+    assert.equal(modifyReq.triggerprice, '199');
+  });
+
+  await t.test('validates Angel One GTT Cancel, Details, and List contracts', () => {
+    const cancelReq: AngelGttCancelRuleRequest = {
+      id: '1',
+      symboltoken: '3045',
+      exchange: 'NSE',
+    };
+    assert.equal(cancelReq.id, '1');
+
+    const detailsRes: AngelGttRuleDetailsResponse = {
+      status: true,
+      message: 'SUCCESS',
+      errorcode: '',
+      data: {
+        id: '1',
+        status: 'NEW',
+        createddate: '2020-11-16T14:19:51Z',
+        updateddate: '2020-11-16T14:28:01Z',
+        expirydate: '2021-11-16T14:19:51Z',
+        clientid: '100',
+        tradingsymbol: 'SBIN-EQ',
+        symboltoken: '3045',
+        exchange: 'NSE',
+        transactiontype: 'BUY',
+        producttype: 'DELIVERY',
+        price: '195',
+        qty: '1',
+        triggerprice: '196',
+        disclosedqty: '10',
+      },
+    };
+    assert.equal(detailsRes.status, true);
+    assert.equal(detailsRes.data?.status, 'NEW');
+    assert.equal(detailsRes.data?.tradingsymbol, 'SBIN-EQ');
+
+    const listReq: AngelGttRuleListRequest = {
+      status: ['NEW', 'CANCELLED', 'ACTIVE', 'SENTTOEXCHANGE', 'FORALL'],
+      page: 1,
+      count: 10,
+    };
+    assert.equal(listReq.page, 1);
+    assert.equal(listReq.count, 10);
+    assert.ok(listReq.status?.includes('ACTIVE'));
   });
 });

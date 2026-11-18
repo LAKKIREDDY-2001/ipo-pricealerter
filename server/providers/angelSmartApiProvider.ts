@@ -324,6 +324,115 @@ export interface AngelLogoutResponse {
   data?: string;
 }
 
+export type AngelGttExchange = 'NSE' | 'BSE';
+export type AngelGttProductType = 'DELIVERY' | 'MARGIN';
+export type AngelGttTransactionType = 'BUY' | 'SELL';
+export type AngelGttStatusType =
+  | 'NEW'
+  | 'CANCELLED'
+  | 'ACTIVE'
+  | 'SENTTOEXCHANGE'
+  | 'FORALL'
+  | 'REJECTED'
+  | 'TRIGGERED';
+
+export interface AngelGttCreateRuleRequest {
+  tradingsymbol: string;
+  symboltoken: string;
+  exchange: AngelGttExchange;
+  transactiontype: AngelGttTransactionType;
+  producttype: AngelGttProductType;
+  price: string | number;
+  qty: string | number;
+  triggerprice: string | number;
+  disclosedqty: string | number;
+}
+
+export interface AngelGttCreateRuleResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: {
+    id?: string | number;
+  } | null;
+}
+
+export interface AngelGttModifyRuleRequest {
+  id: string | number;
+  symboltoken: string;
+  exchange: AngelGttExchange;
+  price: string | number;
+  qty: string | number;
+  triggerprice: string | number;
+  disclosedqty: string | number;
+}
+
+export interface AngelGttCancelRuleRequest {
+  id: string | number;
+  symboltoken: string;
+  exchange: AngelGttExchange;
+}
+
+export interface AngelGttRuleDetailsItem {
+  id?: string | number;
+  status: string;
+  createddate?: string;
+  updateddate?: string;
+  expirydate?: string;
+  clientid?: string;
+  tradingsymbol: string;
+  symboltoken: string;
+  exchange: AngelGttExchange;
+  transactiontype: AngelGttTransactionType;
+  producttype: AngelGttProductType;
+  price: string | number;
+  qty: string | number;
+  triggerprice: string | number;
+  disclosedqty: string | number;
+}
+
+export interface AngelGttRuleDetailsResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: AngelGttRuleDetailsItem | null;
+}
+
+export interface AngelGttRuleListRequest {
+  status?: string[];
+  page?: number;
+  count?: number;
+}
+
+export interface AngelGttRuleListResponse {
+  status: boolean;
+  message: string;
+  errorcode?: string;
+  data?: AngelGttRuleDetailsItem[] | AngelGttRuleDetailsItem | null;
+}
+
+export const ANGEL_GTT_ERROR_CODES: Record<string, string> = {
+  AB9000: 'Internal Server Error',
+  AB9001: 'Invalid Parameters',
+  AB9002: 'Method Not Allowed',
+  AB9003: 'Invalid Client ID',
+  AB9004: 'Invalid Status Array Size',
+  AB9005: 'Invalid Session ID',
+  AB9006: 'Invalid Order Quantity',
+  AB9007: 'Invalid Disclosed Quantity',
+  AB9008: 'Invalid Price',
+  AB9009: 'Invalid Trigger Price',
+  AB9010: 'Invalid Exchange Segment',
+  AB9011: 'Invalid Symbol Token',
+  AB9012: 'Invalid Trading Symbol',
+  AB9013: 'Invalid Rule ID',
+  AB9014: 'Invalid Order Side',
+  AB9015: 'Invalid Product Type',
+  AB9016: 'Invalid Time Period',
+  AB9017: 'Invalid Page Value',
+  AB9018: 'Invalid Count Value',
+};
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -342,6 +451,12 @@ export const ANGEL_GENERATE_TOKENS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/auth/a
 export const ANGEL_GET_PROFILE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/getProfile`;
 export const ANGEL_GET_RMS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/getRMS`;
 export const ANGEL_LOGOUT_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/user/v1/logout`;
+
+export const ANGEL_GTT_CREATE_RULE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/createRule`;
+export const ANGEL_GTT_MODIFY_RULE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/modifyRule`;
+export const ANGEL_GTT_CANCEL_RULE_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/cancelRule`;
+export const ANGEL_GTT_RULE_DETAILS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/ruleDetails`;
+export const ANGEL_GTT_RULE_LIST_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/gtt/v1/ruleList`;
 
 const LOGIN_URL = ANGEL_LOGIN_URL;
 const HISTORICAL_API_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getCandleData`;
@@ -2140,5 +2255,235 @@ export async function checkAngelEdisTranStatus(
       authorized: false,
       reqId,
     };
+  }
+}
+
+/**
+ * Create a Good-Till-Triggered (GTT) Rule with Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/createRule
+ * Supported exchange: NSE, BSE. Supported product types: DELIVERY, MARGIN.
+ */
+export async function createAngelGttRule(
+  request: AngelGttCreateRuleRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelGttCreateRuleResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const exchange = request.exchange.toUpperCase() === 'BSE' ? 'BSE' : 'NSE';
+  const producttype = request.producttype.toUpperCase() === 'MARGIN' ? 'MARGIN' : 'DELIVERY';
+  const transactiontype = request.transactiontype.toUpperCase() === 'SELL' ? 'SELL' : 'BUY';
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(ANGEL_GTT_CREATE_RULE_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        tradingsymbol: request.tradingsymbol.trim().toUpperCase(),
+        symboltoken: String(request.symboltoken).trim(),
+        exchange,
+        transactiontype,
+        producttype,
+        price: String(request.price),
+        qty: String(request.qty),
+        triggerprice: String(request.triggerprice),
+        disclosedqty: String(request.disclosedqty ?? request.qty),
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelGttCreateRuleResponse;
+    if (!json.status && json.errorcode && ANGEL_GTT_ERROR_CODES[json.errorcode]) {
+      json.message = `${json.message || 'GTT Creation Error'}: ${ANGEL_GTT_ERROR_CODES[json.errorcode]}`;
+    }
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error creating GTT rule',
+    };
+  }
+}
+
+/**
+ * Modify an existing GTT Rule on Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/modifyRule
+ */
+export async function modifyAngelGttRule(
+  request: AngelGttModifyRuleRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelGttCreateRuleResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(ANGEL_GTT_MODIFY_RULE_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        id: String(request.id).trim(),
+        symboltoken: String(request.symboltoken).trim(),
+        exchange: request.exchange.toUpperCase() === 'BSE' ? 'BSE' : 'NSE',
+        price: String(request.price),
+        qty: String(request.qty),
+        triggerprice: String(request.triggerprice),
+        disclosedqty: String(request.disclosedqty ?? request.qty),
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelGttCreateRuleResponse;
+    if (!json.status && json.errorcode && ANGEL_GTT_ERROR_CODES[json.errorcode]) {
+      json.message = `${json.message || 'GTT Modification Error'}: ${ANGEL_GTT_ERROR_CODES[json.errorcode]}`;
+    }
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error modifying GTT rule',
+    };
+  }
+}
+
+/**
+ * Cancel an existing GTT Rule on Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/cancelRule
+ */
+export async function cancelAngelGttRule(
+  request: AngelGttCancelRuleRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelGttCreateRuleResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(ANGEL_GTT_CANCEL_RULE_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        id: String(request.id).trim(),
+        symboltoken: String(request.symboltoken).trim(),
+        exchange: request.exchange.toUpperCase() === 'BSE' ? 'BSE' : 'NSE',
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelGttCreateRuleResponse;
+    if (!json.status && json.errorcode && ANGEL_GTT_ERROR_CODES[json.errorcode]) {
+      json.message = `${json.message || 'GTT Cancellation Error'}: ${ANGEL_GTT_ERROR_CODES[json.errorcode]}`;
+    }
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error cancelling GTT rule',
+    };
+  }
+}
+
+/**
+ * Retrieve details of a specific GTT Rule from Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/ruleDetails
+ */
+export async function fetchAngelGttRuleDetails(
+  ruleId: string | number,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelGttRuleDetailsResponse> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { status: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(ANGEL_GTT_RULE_DETAILS_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ id: String(ruleId).trim() }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as AngelGttRuleDetailsResponse;
+    return json;
+  } catch (error) {
+    return {
+      status: false,
+      message: error instanceof Error ? error.message : 'Network error fetching GTT rule details',
+    };
+  }
+}
+
+/**
+ * Fetch List of GTT Rules from Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/ruleList
+ */
+export async function fetchAngelGttRuleList(
+  request?: AngelGttRuleListRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelGttRuleDetailsItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(ANGEL_GTT_RULE_LIST_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        status:
+          request?.status && request.status.length > 0
+            ? request.status
+            : ['NEW', 'CANCELLED', 'ACTIVE', 'SENTTOEXCHANGE', 'FORALL'],
+        page: request?.page || 1,
+        count: request?.count || 50,
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as AngelGttRuleListResponse;
+    if (json.status && json.data) {
+      if (Array.isArray(json.data)) {
+        return json.data;
+      } else if (typeof json.data === 'object' && 'tradingsymbol' in json.data) {
+        return [json.data as AngelGttRuleDetailsItem];
+      }
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelGttRuleList error:`, error);
+    return [];
   }
 }
