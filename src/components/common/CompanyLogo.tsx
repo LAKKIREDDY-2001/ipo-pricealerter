@@ -409,7 +409,16 @@ export function buildLogoCandidateList(opts: {
     }
   }
 
-  // 3. Groww WebP CDN (covers 2,000+ Indian equities directly in browser)
+  // 3. Groww WebP CDN (covers a broad range of Indian equities directly in browser)
+  // Try the exchange symbol and provider search ID: some small-cap listings use
+  // a provider asset key that differs from their trading symbol.
+  const cleanSearchId = String(opts.searchId || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (cleanSearchId && cleanSearchId !== cleanSym && !/^\d+$/.test(cleanSearchId)) {
+    const searchLogo = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSearchId}.webp`;
+    if (!candidates.includes(searchLogo)) candidates.push(searchLogo);
+    const searchPng = `https://assets-netstorage.groww.in/stock-assets/logos/${cleanSearchId}.png`;
+    if (!candidates.includes(searchPng)) candidates.push(searchPng);
+  }
   if (cleanSym && !/^\d+$/.test(cleanSym)) {
     const growwWebp = `https://assets-netstorage.groww.in/stock-assets/logos2/${cleanSym}.webp`;
     if (!candidates.includes(growwWebp)) candidates.push(growwWebp);
