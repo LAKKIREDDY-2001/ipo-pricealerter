@@ -459,7 +459,6 @@ export function HomePage() {
             ['GMP Tracker', 'gmp-widget-heading'],
             ['Live Stocks', 'live-stocks-heading'],
             ['Mutual Funds', '/mutual-funds'],
-            ['Portfolio X-Ray', '/portfolio'],
             ['Listed IPOs', 'listed-ipos-heading'],
             ['SIP Calculator', '/calculators'],
             ['Market Insights', 'market-intel-heading'],
@@ -502,18 +501,6 @@ export function HomePage() {
             </div>
           </Link>
 
-          <Link
-            to="/portfolio"
-            className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 shadow-sm hover:border-[#2563EB] transition-all flex items-center gap-3"
-          >
-            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-[#14263F] dark:text-white group-hover:text-[#2563EB] transition-colors">Portfolio Tracker</div>
-              <div className="text-[11px] text-[#64748B] dark:text-slate-400">Multi-broker CAS X-Ray</div>
-            </div>
-          </Link>
 
           <Link
             to="/calculators"
