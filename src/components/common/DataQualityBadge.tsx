@@ -26,7 +26,7 @@ export function DataQualityBadge({
       icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
     VERIFIED: {
-      label: 'Live',
+      label: 'Verified',
       cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-800',
       icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
