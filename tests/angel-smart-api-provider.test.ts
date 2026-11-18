@@ -79,6 +79,13 @@ import {
   ANGEL_POSTBACK_PATH,
   ANGEL_POSTBACK_DEFAULT_URL,
   ANGEL_MARGIN_BATCH_URL,
+  ANGEL_OPTION_GREEK_URL,
+  type AngelOptionGreekItem,
+  type AngelOptionGreekRequest,
+  type AngelOptionGreekResponse,
+  parseOptionExpiryToYears,
+  simulateAngelOptionGreeks,
+  fetchAngelOptionGreeks,
   recordAngelPostback,
   getRecentAngelPostbacks,
   clearAngelPostbacks,
@@ -1123,5 +1130,123 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(intraRes.status, true);
     assert.equal(intraRes.data?.marginComponents.nonNFOMargin, 4000);
     assert.equal(intraRes.data?.totalMarginRequired, 4000);
+  });
+
+  await t.test('validates Angel One SmartAPI Option Greeks API endpoint URL and request contract', () => {
+    assert.equal(
+      ANGEL_OPTION_GREEK_URL,
+      'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/optionGreek'
+    );
+
+    const officialSampleRequest: AngelOptionGreekRequest = {
+      name: 'TCS',
+      expirydate: '25JAN2024',
+    };
+    assert.equal(officialSampleRequest.name, 'TCS');
+    assert.equal(officialSampleRequest.expirydate, '25JAN2024');
+  });
+
+  await t.test('parses option expiry dates and handles next Thursday defaulting', () => {
+    // Explicit DDMMMYYYY format
+    const parsedExplicit = parseOptionExpiryToYears('25JAN2024');
+    assert.equal(parsedExplicit.formattedExpiry, '25JAN2024');
+    assert.ok(parsedExplicit.daysToExpiry >= 1);
+    assert.ok(parsedExplicit.yearsToExpiry > 0);
+
+    // Empty/Default computes upcoming Thursday in DDMMMYYYY format
+    const parsedDefault = parseOptionExpiryToYears();
+    assert.match(parsedDefault.formattedExpiry, /^\d{2}[A-Z]{3}\d{4}$/);
+    assert.ok(parsedDefault.daysToExpiry >= 1);
+    assert.ok(parsedDefault.yearsToExpiry > 0);
+  });
+
+  await t.test('simulates Black-Scholes Option Greeks adhering to SmartAPI sample data shape', () => {
+    const res = simulateAngelOptionGreeks('TCS', '25JAN2024', 3900);
+    assert.equal(res.status, true);
+    assert.equal(res.message, 'SUCCESS');
+    assert.equal(res.errorcode, '');
+    assert.ok(Array.isArray(res.data));
+    assert.ok(res.data.length > 0);
+
+    // Verify first item matches official documentation sample keys
+    const item = res.data[0];
+    assert.equal(item.name, 'TCS');
+    assert.equal(item.expiry, '25JAN2024');
+    assert.ok(typeof item.strikePrice === 'string' && item.strikePrice.includes('.'));
+    assert.ok(item.optionType === 'CE' || item.optionType === 'PE');
+    assert.ok(typeof item.delta === 'string' && item.delta.includes('.'));
+    assert.ok(typeof item.gamma === 'string' && item.gamma.includes('.'));
+    assert.ok(typeof item.theta === 'string' && item.theta.includes('.'));
+    assert.ok(typeof item.vega === 'string' && item.vega.includes('.'));
+    assert.ok(typeof item.impliedVolatility === 'string' && item.impliedVolatility.includes('.'));
+    assert.ok(typeof item.tradeVolume === 'string');
+  });
+
+  await t.test('verifies Black-Scholes mathematical properties and bounds across strikes', () => {
+    const res = simulateAngelOptionGreeks('TCS', '25JAN2024', 3900);
+    assert.ok(res.data);
+
+    // Pair CE and PE by strike
+    const ceItems = res.data.filter((i) => i.optionType === 'CE');
+    const peItems = res.data.filter((i) => i.optionType === 'PE');
+    assert.equal(ceItems.length, peItems.length);
+
+    for (let idx = 0; idx < ceItems.length; idx++) {
+      const ce = ceItems[idx];
+      const pe = peItems[idx];
+
+      const deltaCE = Number(ce.delta);
+      const deltaPE = Number(pe.delta);
+      const gammaCE = Number(ce.gamma);
+      const gammaPE = Number(pe.gamma);
+      const vegaCE = Number(ce.vega);
+      const thetaCE = Number(ce.theta);
+      const thetaPE = Number(pe.theta);
+      const ivCE = Number(ce.impliedVolatility);
+
+      // Call Delta must be strictly in (0, 1)
+      assert.ok(deltaCE > 0 && deltaCE < 1, `Call Delta ${deltaCE} must be in (0, 1)`);
+      // Put Delta must be strictly in (-1, 0)
+      assert.ok(deltaPE > -1 && deltaPE < 0, `Put Delta ${deltaPE} must be in (-1, 0)`);
+      // Put-Call Parity approximation: Delta(CE) - Delta(PE) ~ 1.0
+      assert.ok(Math.abs(deltaCE - deltaPE - 1.0) < 0.05, 'Put-Call Parity Delta difference must be ~1');
+
+      // Gamma must be strictly positive
+      assert.ok(gammaCE > 0 && gammaPE > 0, 'Gamma must be strictly positive');
+      // Vega must be strictly positive
+      assert.ok(vegaCE > 0, 'Vega must be strictly positive');
+      // Theta must be negative (time decay)
+      assert.ok(thetaCE < 0 && thetaPE < 0, 'Theta must be negative showing time decay');
+      // Implied Volatility must be positive percentage
+      assert.ok(ivCE > 5 && ivCE < 80, 'IV must be a realistic positive percentage');
+    }
+  });
+
+  await t.test('handles liquid Indian indices and equities with accurate strike intervals', () => {
+    // NIFTY 50: 50-point strike steps
+    const nifty = simulateAngelOptionGreeks('NIFTY');
+    assert.ok(nifty.data);
+    const niftyStrikes = Array.from(new Set(nifty.data.map((i) => Number(i.strikePrice)))).sort((a, b) => a - b);
+    assert.equal(niftyStrikes[1] - niftyStrikes[0], 50, 'NIFTY strikes must increment by 50 points');
+
+    // BANK NIFTY: 100-point strike steps
+    const bankNifty = simulateAngelOptionGreeks('BANKNIFTY');
+    assert.ok(bankNifty.data);
+    const bnfStrikes = Array.from(new Set(bankNifty.data.map((i) => Number(i.strikePrice)))).sort((a, b) => a - b);
+    assert.equal(bnfStrikes[1] - bnfStrikes[0], 100, 'BANKNIFTY strikes must increment by 100 points');
+
+    // RELIANCE: 20-point strike steps
+    const rel = simulateAngelOptionGreeks('RELIANCE');
+    assert.ok(rel.data);
+    const relStrikes = Array.from(new Set(rel.data.map((i) => Number(i.strikePrice)))).sort((a, b) => a - b);
+    assert.equal(relStrikes[1] - relStrikes[0], 20, 'RELIANCE strikes must increment by 20 points');
+  });
+
+  await t.test('fetches or simulates Option Greeks reliably through fetchAngelOptionGreeks', async () => {
+    const res = await fetchAngelOptionGreeks('INFY');
+    assert.equal(res.status, true);
+    assert.equal(res.message, 'SUCCESS');
+    assert.ok(res.data && res.data.length > 0);
+    assert.equal(res.data[0].name, 'INFY');
   });
 });

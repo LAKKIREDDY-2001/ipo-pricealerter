@@ -102,6 +102,8 @@ import {
   createSimulatedAngelPostback,
   ANGEL_POSTBACK_DEFAULT_URL,
   calculateAngelBatchMargin,
+  fetchAngelOptionGreeks,
+  simulateAngelOptionGreeks,
   type AngelPlaceOrderRequest,
   type AngelModifyOrderRequest,
   type AngelCancelOrderRequest,
@@ -110,6 +112,8 @@ import {
   type AngelPostbackStatusCategory,
   type AngelMarginPosition,
   type AngelMarginBatchResponse,
+  type AngelOptionGreekItem,
+  type AngelOptionGreekResponse,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2225,6 +2229,41 @@ async function startServer() {
       });
     } catch (err: any) {
       res.status(500).json({ ok: false, error: err?.message || 'Failed to calculate margin' });
+    }
+  });
+
+  // --- Angel One SmartAPI Option Greeks Suite ---
+  app.all(['/api/market/angel/option-greeks', '/api/options/angel/greeks'], async (req, res) => {
+    const creds = getAngelCredentials();
+    let name = (req.query.name as string) || (req.query.symbol as string) || 'NIFTY';
+    let expirydate = (req.query.expirydate as string) || (req.query.expiry as string) || '';
+    let spotPrice: number | undefined = undefined;
+
+    if (req.method === 'POST') {
+      const body = req.body || {};
+      name = body.name || body.symbol || body.underlying || name;
+      expirydate = body.expirydate || body.expiry || expirydate;
+      if (typeof body.spotPrice === 'number' && body.spotPrice > 0) spotPrice = body.spotPrice;
+    }
+    if (req.query.spotPrice) {
+      const sp = Number(req.query.spotPrice);
+      if (Number.isFinite(sp) && sp > 0) spotPrice = sp;
+    }
+
+    try {
+      const result = await fetchAngelOptionGreeks(name, expirydate, creds || undefined, spotPrice);
+      res.status(result.status ? 200 : 400).json({
+        ok: result.status,
+        ...result,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({
+        ok: false,
+        status: false,
+        message: err?.message || 'Failed to retrieve option greeks',
+        errorcode: 'OPTION_GREEKS_ERROR',
+      });
     }
   });
 

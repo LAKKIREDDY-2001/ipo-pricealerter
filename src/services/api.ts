@@ -1489,4 +1489,29 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ positions }),
     }),
+
+  // Angel One SmartAPI Option Greeks API Suite
+  getAngelOptionGreeks: (name: string, expirydate?: string, spotPrice?: number) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      data?: Array<{
+        name: string;
+        expiry: string;
+        strikePrice: string;
+        optionType: 'CE' | 'PE' | string;
+        delta: string;
+        gamma: string;
+        theta: string;
+        vega: string;
+        impliedVolatility: string;
+        tradeVolume?: string;
+      }>;
+      retrievedAt: string;
+    }>('/api/market/angel/option-greeks', {
+      method: 'POST',
+      body: JSON.stringify({ name, expirydate, spotPrice }),
+    }),
 };

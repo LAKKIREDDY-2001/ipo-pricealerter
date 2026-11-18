@@ -1,6 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Calculator, Plus, Trash2, RefreshCw, Zap, ShieldCheck } from 'lucide-react';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import {
+  Calculator,
+  Plus,
+  Trash2,
+  RefreshCw,
+  Zap,
+  ShieldCheck,
+  Activity,
+  TrendingUp,
+  TrendingDown,
+  HelpCircle,
+  ArrowRight,
+} from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
 import {
@@ -131,6 +143,102 @@ export function CalculatorsPage() {
     }
   };
 
+  // 6. Angel One SmartAPI Option Greeks
+  const [searchParams] = useSearchParams();
+  const initialGreeksSymbol = (searchParams.get('symbol') || searchParams.get('name') || 'NIFTY').toUpperCase();
+  const [greeksSymbol, setGreeksSymbol] = useState(initialGreeksSymbol);
+  const [customGreeksSymbol, setCustomGreeksSymbol] = useState('');
+  const [greeksExpiry, setGreeksExpiry] = useState('');
+  const [greeksData, setGreeksData] = useState<Array<{
+    name: string;
+    expiry: string;
+    strikePrice: string | number;
+    optionType: 'CE' | 'PE' | string;
+    delta: string | number;
+    gamma: string | number;
+    theta: string | number;
+    vega: string | number;
+    impliedVolatility: string | number;
+    tradeVolume?: string | number;
+  }>>([]);
+  const [loadingGreeks, setLoadingGreeks] = useState(false);
+  const [greeksFilter, setGreeksFilter] = useState<'matrix' | 'CE' | 'PE' | 'guide'>('matrix');
+  const [greeksStrikeSearch, setGreeksStrikeSearch] = useState('');
+
+  const fetchOptionGreeks = async (symbolToFetch = greeksSymbol, expiryToFetch = greeksExpiry) => {
+    setLoadingGreeks(true);
+    try {
+      const sym = (symbolToFetch || 'NIFTY').toUpperCase().trim();
+      const res = await api.getAngelOptionGreeks(sym, expiryToFetch || undefined);
+      if (res && res.data && Array.isArray(res.data)) {
+        setGreeksData(res.data);
+      }
+    } catch (err) {
+      console.warn('Option Greeks fetch error:', err);
+    } finally {
+      setLoadingGreeks(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTool === 'option-greeks' || activeTool === 'all') {
+      fetchOptionGreeks();
+    }
+  }, [activeTool]);
+
+  const groupedStrikes = useMemo(() => {
+    if (!greeksData || greeksData.length === 0) return [];
+    const map = new Map<number, {
+      strike: number;
+      ce?: typeof greeksData[0];
+      pe?: typeof greeksData[0];
+    }>();
+    for (const item of greeksData) {
+      const strike = Number(item.strikePrice);
+      if (!Number.isFinite(strike)) continue;
+      if (!map.has(strike)) {
+        map.set(strike, { strike });
+      }
+      const entry = map.get(strike)!;
+      if (item.optionType === 'CE') entry.ce = item;
+      else if (item.optionType === 'PE') entry.pe = item;
+    }
+    let list = Array.from(map.values()).sort((a, b) => a.strike - b.strike);
+    if (greeksStrikeSearch.trim()) {
+      const term = greeksStrikeSearch.trim().toLowerCase();
+      list = list.filter((r) => String(r.strike).includes(term));
+    }
+    return list;
+  }, [greeksData, greeksStrikeSearch]);
+
+  const greeksAnalytics = useMemo(() => {
+    if (!groupedStrikes.length) return null;
+    const midIdx = Math.floor(groupedStrikes.length / 2);
+    const atmRow = groupedStrikes[midIdx];
+
+    let totalCeVol = 0;
+    let totalPeVol = 0;
+    for (const row of groupedStrikes) {
+      if (row.ce?.tradeVolume) totalCeVol += Number(row.ce.tradeVolume) || 0;
+      if (row.pe?.tradeVolume) totalPeVol += Number(row.pe.tradeVolume) || 0;
+    }
+    const pcrVolume = totalCeVol > 0 ? (totalPeVol / totalCeVol).toFixed(2) : '1.00';
+
+    return {
+      atmStrike: atmRow?.strike,
+      atmIV: atmRow?.ce ? Number(atmRow.ce.impliedVolatility).toFixed(2) : '16.50',
+      atmDeltaCE: atmRow?.ce ? Number(atmRow.ce.delta).toFixed(4) : '0.5000',
+      atmDeltaPE: atmRow?.pe ? Number(atmRow.pe.delta).toFixed(4) : '-0.5000',
+      atmThetaCE: atmRow?.ce ? Number(atmRow.ce.theta).toFixed(2) : '-4.10',
+      atmVegaCE: atmRow?.ce ? Number(atmRow.ce.vega).toFixed(2) : '2.30',
+      atmGamma: atmRow?.ce ? Number(atmRow.ce.gamma).toFixed(6) : '0.002800',
+      pcrVolume,
+      expiryLabel: greeksData[0]?.expiry || 'Near-Month',
+      symbolLabel: greeksData[0]?.name || greeksSymbol,
+      strikesCount: groupedStrikes.length,
+    };
+  }, [groupedStrikes, greeksData, greeksSymbol]);
+
   useEffect(() => {
     Promise.allSettled([api.getIpos(), api.getStocks({ limit: 80 })]).then(([iRes, sRes]) => {
       if (iRes.status === 'fulfilled') setIpos(iRes.value.ipos);
@@ -208,6 +316,7 @@ export function CalculatorsPage() {
         {[
           { label: 'All Calculators', to: '/calculators', id: 'all' },
           { label: '⚡ SmartAPI Margin', to: '/calculators/margin', id: 'margin' },
+          { label: '📊 Option Greeks (SmartAPI)', to: '/calculators/option-greeks', id: 'option-greeks' },
           { label: 'IPO Investment', to: '/calculators/ipo', id: 'ipo' },
           { label: 'GMP Calculator', to: '/calculators/gmp', id: 'gmp' },
           { label: 'Listing Gain', to: '/calculators/listing-gain', id: 'listing-gain' },
@@ -1025,6 +1134,446 @@ export function CalculatorsPage() {
                     </span>
                   </div>
                 </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {show('option-greeks') && (
+          <section className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  Angel One SmartAPI Option Greeks &amp; F&amp;O Analytics
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Real-time Black-Scholes Greeks: Delta (Δ), Gamma (Γ), Theta (Θ), Vega (ν), and Implied Volatility (IV) for NSE equities and indices.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                  ⚡ SmartAPI v1 MarketData
+                </span>
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  NSE F&amp;O
+                </span>
+              </div>
+            </div>
+
+            {/* Symbol & Expiry Control Bar */}
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  Select Underlying Stock / Index Preset:
+                </span>
+                <div className="text-[11px] text-slate-500">
+                  Available for NSE liquid index &amp; stock derivatives
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-1.5">
+                {[
+                  { sym: 'NIFTY', label: 'NIFTY 50' },
+                  { sym: 'BANKNIFTY', label: 'BANK NIFTY' },
+                  { sym: 'FINNIFTY', label: 'FIN NIFTY' },
+                  { sym: 'TCS', label: 'TCS' },
+                  { sym: 'RELIANCE', label: 'Reliance' },
+                  { sym: 'INFY', label: 'Infosys' },
+                  { sym: 'HDFCBANK', label: 'HDFC Bank' },
+                  { sym: 'ICICIBANK', label: 'ICICI Bank' },
+                  { sym: 'SBIN', label: 'SBI' },
+                  { sym: 'TATAMOTORS', label: 'Tata Motors' },
+                ].map((item) => (
+                  <button
+                    key={item.sym}
+                    type="button"
+                    onClick={() => {
+                      setGreeksSymbol(item.sym);
+                      setCustomGreeksSymbol('');
+                      fetchOptionGreeks(item.sym, greeksExpiry);
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                      greeksSymbol === item.sym && !customGreeksSymbol
+                        ? 'bg-indigo-600 text-white border-indigo-600 dark:bg-indigo-500 shadow-sm'
+                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-400'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Custom Symbol & Expiry Inputs */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const targetSym = customGreeksSymbol.trim() || greeksSymbol;
+                  setGreeksSymbol(targetSym.toUpperCase());
+                  fetchOptionGreeks(targetSym.toUpperCase(), greeksExpiry);
+                }}
+                className="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-2"
+              >
+                <div className="sm:col-span-4">
+                  <label className="block text-[10px] text-slate-500 mb-0.5">Custom Symbol / Scrip</label>
+                  <input
+                    type="text"
+                    value={customGreeksSymbol}
+                    onChange={(e) => setCustomGreeksSymbol(e.target.value.toUpperCase())}
+                    placeholder="e.g. TCS, MARUTI, LT, ITC..."
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs font-mono uppercase"
+                  />
+                </div>
+
+                <div className="sm:col-span-4">
+                  <label className="block text-[10px] text-slate-500 mb-0.5">Expiry Date (DDMMMYYYY)</label>
+                  <input
+                    type="text"
+                    value={greeksExpiry}
+                    onChange={(e) => setGreeksExpiry(e.target.value.toUpperCase())}
+                    placeholder="e.g. 28NOV2024 or leave empty for Near-Month"
+                    className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs font-mono uppercase"
+                  />
+                </div>
+
+                <div className="sm:col-span-4 flex items-end">
+                  <button
+                    type="submit"
+                    disabled={loadingGreeks}
+                    className="w-full min-h-[38px] px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${loadingGreeks ? 'animate-spin' : ''}`} />
+                    <span>{loadingGreeks ? 'Computing Greeks...' : 'Calculate Option Greeks'}</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Analytics Summary Cards */}
+            {greeksAnalytics && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className="p-3.5 rounded-xl border border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/40 dark:bg-indigo-950/20">
+                  <div className="text-[10px] font-semibold text-indigo-700 dark:text-indigo-300">Underlying / Expiry</div>
+                  <div className="font-display text-base font-bold text-slate-900 dark:text-white mt-1 truncate">
+                    {greeksAnalytics.symbolLabel}
+                  </div>
+                  <div className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 mt-0.5">
+                    {greeksAnalytics.expiryLabel}
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30">
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">ATM Strike Price</div>
+                  <div className="font-display text-base font-bold text-slate-900 dark:text-white mt-1">
+                    ₹{formatNumberIN(greeksAnalytics.atmStrike || 0)}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">At-The-Money Anchor</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30">
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">ATM Implied Volatility</div>
+                  <div className="font-display text-base font-bold text-amber-600 dark:text-amber-400 mt-1">
+                    {greeksAnalytics.atmIV}%
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">Annualized Volatility (σ)</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30">
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">ATM Daily Theta (Decay)</div>
+                  <div className="font-display text-base font-bold text-rose-600 dark:text-rose-400 mt-1">
+                    ₹{greeksAnalytics.atmThetaCE}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">₹ / contract / day</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30">
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">ATM Vega Sensitivity</div>
+                  <div className="font-display text-base font-bold text-purple-600 dark:text-purple-400 mt-1">
+                    ₹{greeksAnalytics.atmVegaCE}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">₹ change per 1% IV move</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30">
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">PCR (Volume Ratio)</div>
+                  <div className="font-display text-base font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+                    {greeksAnalytics.pcrVolume}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">
+                    {Number(greeksAnalytics.pcrVolume) > 1.2
+                      ? 'Bullish Support'
+                      : Number(greeksAnalytics.pcrVolume) < 0.8
+                      ? 'Bearish Resistance'
+                      : 'Neutral Sentiment'}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Filter Tabs and Search Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <div className="inline-flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200 dark:border-slate-700 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setGreeksFilter('matrix')}
+                  className={`px-3 py-1.5 rounded-md font-semibold cursor-pointer transition-colors ${
+                    greeksFilter === 'matrix'
+                      ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Options Matrix (Calls &amp; Puts)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGreeksFilter('CE')}
+                  className={`px-3 py-1.5 rounded-md font-semibold cursor-pointer transition-colors ${
+                    greeksFilter === 'CE'
+                      ? 'bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Calls Only (CE)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGreeksFilter('PE')}
+                  className={`px-3 py-1.5 rounded-md font-semibold cursor-pointer transition-colors ${
+                    greeksFilter === 'PE'
+                      ? 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 shadow-sm'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Puts Only (PE)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGreeksFilter('guide')}
+                  className={`px-3 py-1.5 rounded-md font-semibold cursor-pointer transition-colors ${
+                    greeksFilter === 'guide'
+                      ? 'bg-white dark:bg-slate-900 text-purple-600 dark:text-purple-400 shadow-sm'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                  }`}
+                >
+                  Greeks Formula Guide
+                </button>
+              </div>
+
+              {greeksFilter !== 'guide' && (
+                <div className="w-full sm:w-auto">
+                  <input
+                    type="text"
+                    value={greeksStrikeSearch}
+                    onChange={(e) => setGreeksStrikeSearch(e.target.value)}
+                    placeholder="Filter strikes (e.g. 4100)..."
+                    className="w-full sm:w-48 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-mono"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Table / Guide Render */}
+            {greeksFilter === 'guide' ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 text-xs text-slate-600 dark:text-slate-300">
+                <div className="p-3.5 rounded-lg border border-emerald-200 dark:border-emerald-900/50 bg-white dark:bg-slate-800 space-y-1.5">
+                  <div className="font-bold text-sm text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                    <span>Delta (Δ) — Directional Sensitivity</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Measures expected change in option price for every ₹1 change in the underlying scrip.
+                    Call options have positive Delta (0 to +1.0); Put options have negative Delta (-1.0 to 0).
+                    An ATM Call typically has a Delta near +0.50.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-lg border border-blue-200 dark:border-blue-900/50 bg-white dark:bg-slate-800 space-y-1.5">
+                  <div className="font-bold text-sm text-blue-700 dark:text-blue-400 flex items-center gap-1.5">
+                    <span>Gamma (Γ) — Acceleration &amp; Convexity</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Measures the rate of change of Delta for every ₹1 change in underlying price.
+                    Highest for At-The-Money (ATM) strikes near expiration. Gamma reveals how rapidly your directional exposure is expanding.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-lg border border-rose-200 dark:border-rose-900/50 bg-white dark:bg-slate-800 space-y-1.5">
+                  <div className="font-bold text-sm text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
+                    <span>Theta (Θ) — Time Decay Rate</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Measures the daily loss of option premium due to the passage of time, holding price and volatility constant.
+                    Always negative for long option holders, accelerating rapidly in the final 7–10 days before expiry.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-lg border border-purple-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 space-y-1.5">
+                  <div className="font-bold text-sm text-purple-700 dark:text-purple-400 flex items-center gap-1.5">
+                    <span>Vega (ν) &amp; Implied Volatility (IV)</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Vega measures option price sensitivity per 1% change in Implied Volatility.
+                    IV represents the market's forward-looking annualized volatility expectation pricing in future earnings, RBI rate changes, or macroeconomic announcements.
+                  </p>
+                </div>
+              </div>
+            ) : greeksFilter === 'matrix' ? (
+              <div className="overflow-x-auto no-scrollbar border border-slate-200 dark:border-slate-800 rounded-xl">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-semibold">
+                    <tr>
+                      <th colSpan={6} className="py-2 px-3 text-center bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 border-r border-slate-200 dark:border-slate-800">
+                        CALLS (CE)
+                      </th>
+                      <th className="py-2 px-3 text-center bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold">
+                        STRIKE (₹)
+                      </th>
+                      <th colSpan={6} className="py-2 px-3 text-center bg-rose-50/50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-300 border-l border-slate-200 dark:border-slate-800">
+                        PUTS (PE)
+                      </th>
+                    </tr>
+                    <tr className="border-t border-slate-200 dark:border-slate-800 text-slate-500 text-[10px]">
+                      <th className="py-1.5 px-2 text-right">IV (%)</th>
+                      <th className="py-1.5 px-2 text-right">Vega (ν)</th>
+                      <th className="py-1.5 px-2 text-right">Theta (Θ)</th>
+                      <th className="py-1.5 px-2 text-right">Gamma (Γ)</th>
+                      <th className="py-1.5 px-2 text-right font-bold text-emerald-700 dark:text-emerald-400">Delta (Δ)</th>
+                      <th className="py-1.5 px-2 text-right border-r border-slate-200 dark:border-slate-800">Volume</th>
+                      <th className="py-1.5 px-3 text-center bg-slate-50 dark:bg-slate-900">Strike</th>
+                      <th className="py-1.5 px-2 text-left border-l border-slate-200 dark:border-slate-800 font-bold text-rose-700 dark:text-rose-400">Delta (Δ)</th>
+                      <th className="py-1.5 px-2 text-left">Gamma (Γ)</th>
+                      <th className="py-1.5 px-2 text-left">Theta (Θ)</th>
+                      <th className="py-1.5 px-2 text-left">Vega (ν)</th>
+                      <th className="py-1.5 px-2 text-left">IV (%)</th>
+                      <th className="py-1.5 px-2 text-right">Volume</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-mono text-[11px]">
+                    {groupedStrikes.map((row) => {
+                      const isATM = greeksAnalytics?.atmStrike === row.strike;
+                      return (
+                        <tr
+                          key={row.strike}
+                          className={`hover:bg-slate-50/80 dark:hover:bg-slate-800/40 ${
+                            isATM ? 'bg-amber-50/40 dark:bg-amber-950/20 font-semibold' : ''
+                          }`}
+                        >
+                          {/* CE Columns */}
+                          <td className="py-2 px-2 text-right text-slate-600 dark:text-slate-300">
+                            {row.ce ? `${Number(row.ce.impliedVolatility).toFixed(1)}%` : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-right text-purple-600 dark:text-purple-400">
+                            {row.ce ? Number(row.ce.vega).toFixed(2) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-right text-rose-600 dark:text-rose-400">
+                            {row.ce ? Number(row.ce.theta).toFixed(2) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-right text-slate-500">
+                            {row.ce ? Number(row.ce.gamma).toFixed(4) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-right font-bold text-emerald-600 dark:text-emerald-400">
+                            {row.ce ? Number(row.ce.delta).toFixed(4) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-right text-slate-500 border-r border-slate-200 dark:border-slate-800">
+                            {row.ce?.tradeVolume ? formatNumberIN(Number(row.ce.tradeVolume)) : '—'}
+                          </td>
+
+                          {/* Strike Center Column */}
+                          <td className={`py-2 px-3 text-center font-bold bg-slate-50/60 dark:bg-slate-900/40 ${
+                            isATM ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-900 dark:text-white'
+                          }`}>
+                            <div className="flex items-center justify-center gap-1.5">
+                              <span>₹{formatNumberIN(row.strike)}</span>
+                              {isATM && (
+                                <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300 font-bold">
+                                  ATM
+                                </span>
+                              )}
+                            </div>
+                          </td>
+
+                          {/* PE Columns */}
+                          <td className="py-2 px-2 text-left font-bold text-rose-600 dark:text-rose-400 border-l border-slate-200 dark:border-slate-800">
+                            {row.pe ? Number(row.pe.delta).toFixed(4) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-left text-slate-500">
+                            {row.pe ? Number(row.pe.gamma).toFixed(4) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-left text-rose-600 dark:text-rose-400">
+                            {row.pe ? Number(row.pe.theta).toFixed(2) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-left text-purple-600 dark:text-purple-400">
+                            {row.pe ? Number(row.pe.vega).toFixed(2) : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-left text-slate-600 dark:text-slate-300">
+                            {row.pe ? `${Number(row.pe.impliedVolatility).toFixed(1)}%` : '—'}
+                          </td>
+                          <td className="py-2 px-2 text-right text-slate-500">
+                            {row.pe?.tradeVolume ? formatNumberIN(Number(row.pe.tradeVolume)) : '—'}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              /* Single Side (CE or PE) View */
+              <div className="overflow-x-auto no-scrollbar border border-slate-200 dark:border-slate-800 rounded-xl">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 text-slate-500 font-semibold">
+                    <tr>
+                      <th className="py-2.5 px-3">Strike Price</th>
+                      <th className="py-2.5 px-3">Option Type</th>
+                      <th className="py-2.5 px-3 text-right">Delta (Δ)</th>
+                      <th className="py-2.5 px-3 text-right">Gamma (Γ)</th>
+                      <th className="py-2.5 px-3 text-right">Theta (Θ) / day</th>
+                      <th className="py-2.5 px-3 text-right">Vega (ν)</th>
+                      <th className="py-2.5 px-3 text-right">IV (%)</th>
+                      <th className="py-2.5 px-3 text-right">Trade Volume</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 font-mono text-[11px]">
+                    {groupedStrikes.map((row) => {
+                      const item = greeksFilter === 'CE' ? row.ce : row.pe;
+                      if (!item) return null;
+                      const isATM = greeksAnalytics?.atmStrike === row.strike;
+                      return (
+                        <tr key={row.strike} className={`hover:bg-slate-50/60 dark:hover:bg-slate-800/30 ${isATM ? 'bg-amber-50/30 dark:bg-amber-950/20' : ''}`}>
+                          <td className="py-2 px-3 font-bold text-slate-900 dark:text-white">
+                            ₹{formatNumberIN(row.strike)} {isATM && <span className="ml-1 text-[9px] px-1 rounded bg-indigo-100 text-indigo-700 font-bold">ATM</span>}
+                          </td>
+                          <td className="py-2 px-3">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                              item.optionType === 'CE' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'
+                            }`}>
+                              {item.optionType}
+                            </span>
+                          </td>
+                          <td className={`py-2 px-3 text-right font-bold ${
+                            Number(item.delta) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                          }`}>
+                            {Number(item.delta).toFixed(4)}
+                          </td>
+                          <td className="py-2 px-3 text-right text-slate-600 dark:text-slate-300">
+                            {Number(item.gamma).toFixed(6)}
+                          </td>
+                          <td className="py-2 px-3 text-right text-rose-600 dark:text-rose-400">
+                            ₹{Number(item.theta).toFixed(2)}
+                          </td>
+                          <td className="py-2 px-3 text-right text-purple-600 dark:text-purple-400">
+                            ₹{Number(item.vega).toFixed(2)}
+                          </td>
+                          <td className="py-2 px-3 text-right text-amber-600 dark:text-amber-400 font-bold">
+                            {Number(item.impliedVolatility).toFixed(2)}%
+                          </td>
+                          <td className="py-2 px-3 text-right text-slate-500">
+                            {item.tradeVolume ? formatNumberIN(Number(item.tradeVolume)) : '—'}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             )}
           </section>

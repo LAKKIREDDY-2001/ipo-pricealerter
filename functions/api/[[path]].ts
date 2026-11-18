@@ -35,6 +35,8 @@ import {
   createSimulatedAngelPostback,
   ANGEL_POSTBACK_DEFAULT_URL,
   calculateAngelBatchMargin,
+  fetchAngelOptionGreeks,
+  simulateAngelOptionGreeks,
   type AngelPlaceOrderRequest,
   type AngelModifyOrderRequest,
   type AngelCancelOrderRequest,
@@ -44,6 +46,8 @@ import {
   type AngelPostbackStatusCategory,
   type AngelMarginPosition,
   type AngelMarginBatchResponse,
+  type AngelOptionGreekItem,
+  type AngelOptionGreekResponse,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -1562,6 +1566,62 @@ export async function onRequest(context: {
       );
     } catch (err: any) {
       return json({ ok: false, error: err?.message || "Failed to calculate margin" }, 500);
+    }
+  }
+
+  // --- Angel One SmartAPI Option Greeks Suite ---
+  if (
+    (pathname === "/api/market/angel/option-greeks" || pathname === "/api/options/angel/greeks") &&
+    (method === "POST" || method === "GET")
+  ) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    let name = "NIFTY";
+    let expirydate = "";
+    let spotPrice: number | undefined = undefined;
+
+    if (method === "POST") {
+      try {
+        const body = (await request.json()) as any;
+        if (body) {
+          name = body.name || body.symbol || body.underlying || name;
+          expirydate = body.expirydate || body.expiry || "";
+          if (typeof body.spotPrice === "number" && body.spotPrice > 0) spotPrice = body.spotPrice;
+        }
+      } catch (err: any) {
+        // Fallback to query params
+      }
+    }
+
+    if (url.searchParams.has("name")) name = url.searchParams.get("name")!;
+    if (url.searchParams.has("symbol")) name = url.searchParams.get("symbol")!;
+    if (url.searchParams.has("expirydate")) expirydate = url.searchParams.get("expirydate")!;
+    if (url.searchParams.has("expiry")) expirydate = url.searchParams.get("expiry")!;
+    if (url.searchParams.has("spotPrice")) {
+      const parsedSpot = Number(url.searchParams.get("spotPrice"));
+      if (Number.isFinite(parsedSpot) && parsedSpot > 0) spotPrice = parsedSpot;
+    }
+
+    try {
+      const result = await fetchAngelOptionGreeks(name, expirydate, creds || undefined, spotPrice);
+      return json(
+        {
+          ok: result.status,
+          ...result,
+          retrievedAt: new Date().toISOString(),
+        },
+        result.status ? 200 : 400
+      );
+    } catch (err: any) {
+      return json(
+        {
+          ok: false,
+          status: false,
+          message: err?.message || "Failed to retrieve option greeks",
+          errorcode: "OPTION_GREEKS_ERROR",
+        },
+        500
+      );
     }
   }
 

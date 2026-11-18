@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { BellPlus, Building2, Clock, RefreshCw } from 'lucide-react';
+import { Activity, BellPlus, Building2, Clock, RefreshCw } from 'lucide-react';
 import {
   Area,
   AreaChart,
@@ -466,6 +466,16 @@ export function StockDetailPage() {
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               Refresh Quote
             </button>
+            {stock.registry?.isFnoEnabled && (
+              <Link
+                to={`/calculators/option-greeks?symbol=${stock.symbol}`}
+                className="inline-flex items-center gap-1.5 rounded-md border border-indigo-200 dark:border-indigo-800 bg-indigo-50/60 dark:bg-indigo-950/30 px-3 py-2 text-xs font-semibold text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100/60 transition-colors"
+                title="View SmartAPI Option Greeks & Chain"
+              >
+                <Activity className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                <span>Option Greeks</span>
+              </Link>
+            )}
           </div>
         </div>
 
@@ -1022,6 +1032,27 @@ export function StockDetailPage() {
               </div>
             </div>
           </div>
+
+          {stock.registry?.isFnoEnabled && (
+            <div className="mt-3 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/50 bg-indigo-50/40 dark:bg-indigo-950/20 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2">
+                <Activity className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                  NSE F&amp;O Derivatives Active for {stock.symbol}
+                </span>
+                <span className="text-[11px] text-slate-500">
+                  (Lot Size: {stock.registry.marketLot ?? 1} shares)
+                </span>
+              </div>
+              <Link
+                to={`/calculators/option-greeks?symbol=${stock.symbol}`}
+                className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 text-[11px]"
+              >
+                <span>Open SmartAPI Option Greeks &amp; Chain Matrix</span>
+                <span>→</span>
+              </Link>
+            </div>
+          )}
         </section>
       </div>
 
