@@ -5,9 +5,11 @@ import {
   mapTimeframeToAngelRequest,
   isAngelSmartApiConfigured,
   formatAngelCandlesForChart,
+  convertAngelQuoteToStandard,
   KNOWN_ANGEL_TOKENS,
   ANGEL_INTERVAL_MAX_DAYS,
   type AngelCandlePoint,
+  type AngelLiveQuoteItem,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -86,5 +88,55 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(chartPoints[0].low, 19534.4);
     assert.equal(chartPoints[0].close, 19552.05);
     assert.equal(chartPoints[0].value, 19552.05);
+  });
+
+  await t.test('converts full live market data quote into standard PriceAlerter format with depth and circuits', () => {
+    const sampleFullQuote: AngelLiveQuoteItem = {
+      exchange: 'NSE',
+      tradingSymbol: 'SBIN-EQ',
+      symbolToken: '3045',
+      ltp: 568.2,
+      open: 567.4,
+      high: 569.35,
+      low: 566.1,
+      close: 567.4,
+      lastTradeQty: 1,
+      exchFeedTime: '21-Jun-2023 10:46:10',
+      exchTradeTime: '21-Jun-2023 10:46:09',
+      netChange: 0.8,
+      percentChange: 0.14,
+      avgPrice: 567.83,
+      tradeVolume: 3556150,
+      opnInterest: 0,
+      lowerCircuit: 510.7,
+      upperCircuit: 624.1,
+      totBuyQuan: 839549,
+      totSellQuan: 1284767,
+      week52High: 629.55,
+      week52Low: 430.7,
+      depth: {
+        buy: [
+          { price: 568.2, quantity: 511, orders: 2 },
+          { price: 568.15, quantity: 411, orders: 2 },
+        ],
+        sell: [{ price: 568.25, quantity: 3348, orders: 5 }],
+      },
+    };
+
+    const standard = convertAngelQuoteToStandard(sampleFullQuote);
+    assert.equal(standard.symbol, 'SBIN');
+    assert.equal(standard.exchange, 'NSE');
+    assert.equal(standard.currentPrice, 568.2);
+    assert.equal(standard.dayChange, 0.8);
+    assert.equal(standard.dayChangePercent, 0.14);
+    assert.equal(standard.vwap, 567.83);
+    assert.equal(standard.upperCircuit, 624.1);
+    assert.equal(standard.lowerCircuit, 510.7);
+    assert.equal(standard.week52High, 629.55);
+    assert.equal(standard.week52Low, 430.7);
+    assert.equal(standard.lastTradeTime, '21-Jun-2023 10:46:10');
+    assert.ok(standard.depth);
+    assert.equal(standard.depth.buy.length, 2);
+    assert.equal(standard.depth.sell.length, 1);
   });
 });

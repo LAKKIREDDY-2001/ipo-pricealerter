@@ -1,7 +1,9 @@
 /**
  * Angel One SmartAPI Suite Provider
  * Enterprise-grade provider for Indian equities, indices, F&O, and MCX commodities.
- * Reference: https://smartapi.angelone.in/docs/Historical
+ * Reference:
+ * - Historical API: https://smartapi.angelone.in/docs/Historical
+ * - Live Market Data API: https://smartapi.angelone.in/docs/MarketData
  */
 
 export type AngelExchange = 'NSE' | 'BSE' | 'NFO' | 'BFO' | 'MCX' | 'CDS';
@@ -15,6 +17,8 @@ export type AngelInterval =
   | 'THIRTY_MINUTE'
   | 'ONE_HOUR'
   | 'ONE_DAY';
+
+export type AngelQuoteMode = 'LTP' | 'OHLC' | 'FULL';
 
 export interface AngelCandlePoint {
   timestamp: string;
@@ -46,6 +50,48 @@ export interface AngelOIPoint {
   oi: number;
 }
 
+export interface AngelMarketDepthLevel {
+  price: number;
+  quantity: number;
+  orders: number;
+}
+
+export interface AngelMarketDepth {
+  buy: AngelMarketDepthLevel[];
+  sell: AngelMarketDepthLevel[];
+}
+
+export interface AngelLiveQuoteItem {
+  exchange: AngelExchange;
+  tradingSymbol: string;
+  symbolToken: string;
+  ltp: number;
+  open?: number;
+  high?: number;
+  low?: number;
+  close?: number;
+  lastTradeQty?: number;
+  exchFeedTime?: string;
+  exchTradeTime?: string;
+  netChange?: number;
+  percentChange?: number;
+  avgPrice?: number;
+  tradeVolume?: number;
+  opnInterest?: number;
+  lowerCircuit?: number;
+  upperCircuit?: number;
+  totBuyQuan?: number;
+  totSellQuan?: number;
+  week52High?: number;
+  week52Low?: number;
+  depth?: AngelMarketDepth;
+}
+
+export interface AngelLiveMarketDataRequest {
+  mode: AngelQuoteMode;
+  exchangeTokens: Partial<Record<AngelExchange, string[]>>;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -57,6 +103,7 @@ export interface AngelApiCredentials {
 
 const HISTORICAL_API_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getCandleData';
 const HISTORICAL_OI_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData';
+const LIVE_MARKET_DATA_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/';
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
 
 // Interval max days lookup per Angel One documentation
@@ -271,6 +318,115 @@ export async function fetchAngelHistoricalCandles(
 }
 
 /**
+ * Fetch Live Market Data (LTP, OHLC, or FULL mode) from Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/
+ * Allows fetching up to 50 symbols across NSE, BSE, MCX, CDS in 1 request.
+ */
+export async function fetchAngelLiveMarketQuotes(
+  request: AngelLiveMarketDataRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<AngelLiveQuoteItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey || !creds.authToken) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(LIVE_MARKET_DATA_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'X-PrivateKey': creds.apiKey,
+        Authorization: `Bearer ${creds.authToken}`,
+        'X-SourceID': 'WEB',
+        'X-ClientLocalIP': creds.clientLocalIp || '127.0.0.1',
+        'X-ClientPublicIP': creds.clientPublicIp || '127.0.0.1',
+        'X-MACAddress': creds.macAddress || '00:00:00:00:00:00',
+        'X-UserType': 'USER',
+      },
+      body: JSON.stringify({
+        mode: request.mode,
+        exchangeTokens: request.exchangeTokens,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) {
+      console.warn(`[AngelSmartAPI] Live Market Data failed with HTTP ${response.status}`);
+      return [];
+    }
+
+    const json = (await response.json()) as {
+      status?: boolean;
+      success?: boolean;
+      message?: string;
+      data?: {
+        fetched?: Array<{
+          exchange: AngelExchange;
+          tradingSymbol: string;
+          symbolToken: string;
+          ltp: number;
+          open?: number;
+          high?: number;
+          low?: number;
+          close?: number;
+          lastTradeQty?: number;
+          exchFeedTime?: string;
+          exchTradeTime?: string;
+          netChange?: number;
+          percentChange?: number;
+          avgPrice?: number;
+          tradeVolume?: number;
+          opnInterest?: number;
+          lowerCircuit?: number;
+          upperCircuit?: number;
+          totBuyQuan?: number;
+          totSellQuan?: number;
+          '52WeekHigh'?: number;
+          '52WeekLow'?: number;
+          depth?: AngelMarketDepth;
+        }>;
+      };
+    };
+
+    const isOk = json.status === true || json.success === true;
+    if (!isOk || !json.data?.fetched || !Array.isArray(json.data.fetched)) {
+      return [];
+    }
+
+    return json.data.fetched.map((item) => ({
+      exchange: item.exchange,
+      tradingSymbol: item.tradingSymbol,
+      symbolToken: item.symbolToken,
+      ltp: item.ltp,
+      open: item.open,
+      high: item.high,
+      low: item.low,
+      close: item.close,
+      lastTradeQty: item.lastTradeQty,
+      exchFeedTime: item.exchFeedTime,
+      exchTradeTime: item.exchTradeTime,
+      netChange: item.netChange,
+      percentChange: item.percentChange,
+      avgPrice: item.avgPrice,
+      tradeVolume: item.tradeVolume,
+      opnInterest: item.opnInterest,
+      lowerCircuit: item.lowerCircuit,
+      upperCircuit: item.upperCircuit,
+      totBuyQuan: item.totBuyQuan,
+      totSellQuan: item.totSellQuan,
+      week52High: item['52WeekHigh'],
+      week52Low: item['52WeekLow'],
+      depth: item.depth,
+    }));
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelLiveMarketQuotes error:`, error);
+    return [];
+  }
+}
+
+/**
  * Fetch Historical Open Interest (OI) from Angel One SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData
  */
@@ -341,4 +497,30 @@ export function formatAngelCandlesForChart(candles: AngelCandlePoint[]) {
     volume: c.volume,
     value: c.close,
   }));
+}
+
+/**
+ * Convert AngelLiveQuoteItem to PriceAlerter standard quote representation
+ */
+export function convertAngelQuoteToStandard(item: AngelLiveQuoteItem) {
+  const cleanSymbol = item.tradingSymbol.replace(/-EQ$/i, '').trim();
+  return {
+    symbol: cleanSymbol,
+    exchange: item.exchange,
+    currentPrice: item.ltp,
+    dayChange: item.netChange ?? 0,
+    dayChangePercent: item.percentChange ?? 0,
+    open: item.open ?? item.ltp,
+    high: item.high ?? item.ltp,
+    low: item.low ?? item.ltp,
+    close: item.close ?? item.ltp,
+    volume: item.tradeVolume ?? 0,
+    vwap: item.avgPrice,
+    upperCircuit: item.upperCircuit,
+    lowerCircuit: item.lowerCircuit,
+    week52High: item.week52High,
+    week52Low: item.week52Low,
+    lastTradeTime: item.exchFeedTime || item.exchTradeTime || new Date().toISOString(),
+    depth: item.depth,
+  };
 }
