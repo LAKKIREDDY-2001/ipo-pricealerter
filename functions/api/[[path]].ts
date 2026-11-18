@@ -507,14 +507,17 @@ function filterAndPageStocks(all: any[], url: URL) {
     );
   }
   const changePct = (s: any) => {
-    const explicit = Number(s.dayChangePercent ?? s.changePercent);
+    const rawExplicit = s.dayChangePercent ?? s.changePercent;
+    const explicit = rawExplicit === null || rawExplicit === undefined || rawExplicit === ""
+      ? Number.NaN
+      : Number(rawExplicit);
     if (Number.isFinite(explicit)) return explicit;
     const current = Number(s.currentPrice);
     const previous = Number(s.previousClose);
-    return current > 0 && previous > 0 ? ((current - previous) / previous) * 100 : 0;
+    return current > 0 && previous > 0 ? ((current - previous) / previous) * 100 : Number.NaN;
   };
-  if (tab === "gainers") rows = rows.filter((s) => changePct(s) > 0).sort((a, b) => changePct(b) - changePct(a));
-  if (tab === "losers") rows = rows.filter((s) => changePct(s) < 0).sort((a, b) => changePct(a) - changePct(b));
+  if (tab === "gainers") rows = rows.filter((s) => Number.isFinite(changePct(s)) && changePct(s) > 0).sort((a, b) => changePct(b) - changePct(a));
+  if (tab === "losers") rows = rows.filter((s) => Number.isFinite(changePct(s)) && changePct(s) < 0).sort((a, b) => changePct(a) - changePct(b));
   if (tab === "active") rows.sort((a, b) => Number(b.volume || 0) - Number(a.volume || 0));
 
   const sortBy = url.searchParams.get("sortBy");
