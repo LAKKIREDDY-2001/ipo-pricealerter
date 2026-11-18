@@ -24,6 +24,11 @@ import {
   Send,
   Copy,
   Check,
+  FileText,
+  Search,
+  Layers,
+  ShieldAlert,
+  ExternalLink,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
@@ -446,6 +451,182 @@ export function CalculatorsPage() {
     setOrderWsBreachError(null);
   };
 
+  // 9. Angel One SmartAPI Instruments & Scrip Master Suite
+  const [scripMasterSegment, setScripMasterSegment] = useState<string>('all');
+  const [scripMasterQuery, setScripMasterQuery] = useState<string>('');
+  const [scripMasterData, setScripMasterData] = useState<{
+    instruments: Array<{
+      token: string;
+      symbol: string;
+      name: string;
+      expiry?: string;
+      strike?: string | number;
+      lotsize?: string | number;
+      instrumenttype?: string;
+      exch_seg: string;
+      tick_size?: string | number;
+      is_cas_enabled?: boolean;
+    }>;
+    totalAvailable: number;
+    filteredCount: number;
+    segmentCounts: Record<string, number>;
+    sourceUrl: string;
+    retrievedAt: string;
+  } | null>(null);
+  const [scripMasterLoading, setScripMasterLoading] = useState<boolean>(false);
+  const [scripMasterCopiedToken, setScripMasterCopiedToken] = useState<string | null>(null);
+
+  // Search Scrip
+  const [searchScripExchange, setSearchScripExchange] = useState<'NSE' | 'BSE' | 'NFO' | 'MCX'>('NSE');
+  const [searchScripQuery, setSearchScripQuery] = useState<string>('SBIN');
+  const [searchScripLoading, setSearchScripLoading] = useState<boolean>(false);
+  const [searchScripResults, setSearchScripResults] = useState<
+    Array<{ exchange: string; tradingsymbol: string; symboltoken: string }>
+  >([]);
+
+  // Intraday Allowed Scrips
+  const [intradayExchange, setIntradayExchange] = useState<'NSE' | 'BSE'>('NSE');
+  const [intradayLoading, setIntradayLoading] = useState<boolean>(false);
+  const [intradayScrips, setIntradayScrips] = useState<
+    Array<{ exchange: string; SymbolName: string; Multiplier: string }>
+  >([]);
+  const [intradayFilterQuery, setIntradayFilterQuery] = useState<string>('');
+
+  // Cautionary Scrips
+  const [cautionaryLoading, setCautionaryLoading] = useState<boolean>(false);
+  const [cautionaryScrips, setCautionaryScrips] = useState<
+    Array<{ token: string; symbol: string; message: string; category?: string }>
+  >([]);
+  const [cautionaryCategoryFilter, setCautionaryCategoryFilter] = useState<string>('ALL');
+
+  // Live LTP Quote Tester
+  const [ltpExchange, setLtpExchange] = useState<'NSE' | 'BSE'>('NSE');
+  const [ltpSymbol, setLtpSymbol] = useState<string>('SBIN-EQ');
+  const [ltpToken, setLtpToken] = useState<string>('3045');
+  const [ltpLoading, setLtpLoading] = useState<boolean>(false);
+  const [ltpQuote, setLtpQuote] = useState<{
+    exchange: string;
+    tradingsymbol: string;
+    symboltoken: string;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
+    ltp: number;
+  } | null>(null);
+  const [ltpError, setLtpError] = useState<string | null>(null);
+
+  // Fetch Scrip Master
+  const loadScripMaster = async (segment = scripMasterSegment, query = scripMasterQuery) => {
+    setScripMasterLoading(true);
+    try {
+      const res = await api.getAngelScripMaster({
+        segment: segment === 'all' ? undefined : segment,
+        query: query.trim() || undefined,
+        limit: 100,
+      });
+      if (res && res.ok) {
+        setScripMasterData(res);
+      }
+    } catch (err) {
+      console.warn('Failed to load scrip master:', err);
+    } finally {
+      setScripMasterLoading(false);
+    }
+  };
+
+  // Perform Scrip Search
+  const performSearchScrip = async (exchange = searchScripExchange, q = searchScripQuery) => {
+    if (!q.trim()) return;
+    setSearchScripLoading(true);
+    try {
+      const res = await api.searchAngelScrip(exchange, q.trim());
+      if (res && res.data) {
+        setSearchScripResults(res.data);
+      }
+    } catch (err) {
+      console.warn('Failed to search scrip:', err);
+    } finally {
+      setSearchScripLoading(false);
+    }
+  };
+
+  // Load Intraday Scrips
+  const loadIntradayScrips = async (exchange = intradayExchange) => {
+    setIntradayLoading(true);
+    try {
+      const res = await api.getAngelIntradayScrips(exchange);
+      if (res && res.data) {
+        setIntradayScrips(res.data);
+      }
+    } catch (err) {
+      console.warn('Failed to load intraday scrips:', err);
+    } finally {
+      setIntradayLoading(false);
+    }
+  };
+
+  // Load Cautionary Scrips
+  const loadCautionaryScrips = async () => {
+    setCautionaryLoading(true);
+    try {
+      const res = await api.getAngelCautionaryScrips();
+      if (res && res.data) {
+        setCautionaryScrips(res.data);
+      }
+    } catch (err) {
+      console.warn('Failed to load cautionary scrips:', err);
+    } finally {
+      setCautionaryLoading(false);
+    }
+  };
+
+  // Fetch Live LTP
+  const handleFetchLtp = async (exch = ltpExchange, sym = ltpSymbol, tok = ltpToken) => {
+    if (!tok.trim()) {
+      setLtpError('Please enter a valid symbol token');
+      return;
+    }
+    setLtpLoading(true);
+    setLtpError(null);
+    try {
+      const res = await api.getAngelInstrumentLtp(exch, sym.trim(), tok.trim());
+      if (res && res.data && res.data.length > 0) {
+        setLtpQuote(res.data[0]);
+      } else {
+        setLtpError('No quote returned for this symbol/token');
+      }
+    } catch (err: any) {
+      setLtpError(err?.message || 'Failed to fetch LTP');
+    } finally {
+      setLtpLoading(false);
+    }
+  };
+
+  const handleCopyToken = (tok: string) => {
+    navigator.clipboard?.writeText(tok);
+    setScripMasterCopiedToken(tok);
+    setTimeout(() => setScripMasterCopiedToken(null), 2000);
+  };
+
+  const handleSelectInstrumentForLtp = (exch: string, sym: string, tok: string) => {
+    const standardExch = exch.toLowerCase().includes('bse') ? 'BSE' : 'NSE';
+    setLtpExchange(standardExch);
+    setLtpSymbol(sym);
+    setLtpToken(tok);
+    handleFetchLtp(standardExch, sym, tok);
+  };
+
+  useEffect(() => {
+    if (activeTool === 'instruments' || activeTool === 'all') {
+      loadScripMaster('all', '');
+      performSearchScrip('NSE', 'SBIN');
+      loadIntradayScrips('NSE');
+      loadCautionaryScrips();
+      handleFetchLtp('NSE', 'SBIN-EQ', '3045');
+    }
+  }, [activeTool]);
+
   useEffect(() => {
     Promise.allSettled([api.getIpos(), api.getStocks({ limit: 80 })]).then(([iRes, sRes]) => {
       if (iRes.status === 'fulfilled') setIpos(iRes.value.ipos);
@@ -526,6 +707,7 @@ export function CalculatorsPage() {
           { label: '📊 Option Greeks (SmartAPI)', to: '/calculators/option-greeks', id: 'option-greeks' },
           { label: '📡 SmartStream 2.0 (WebSocket)', to: '/calculators/smart-stream', id: 'smart-stream' },
           { label: '⚡ Order Status (WebSocket)', to: '/calculators/order-websocket', id: 'order-websocket' },
+          { label: '📜 Instruments & Scrip Master', to: '/calculators/instruments', id: 'instruments' },
           { label: 'IPO Investment', to: '/calculators/ipo', id: 'ipo' },
           { label: 'GMP Calculator', to: '/calculators/gmp', id: 'gmp' },
           { label: 'Listing Gain', to: '/calculators/listing-gain', id: 'listing-gain' },
@@ -2891,6 +3073,761 @@ export function CalculatorsPage() {
                 </div>
               </div>
             )}
+          </section>
+        )}
+
+        {show('instruments') && (
+          <section className={`rounded-xl border border-teal-200 dark:border-teal-900/60 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-6 ${activeTool === 'instruments' ? 'col-span-full' : 'lg:col-span-2'}`}>
+            {/* Header */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-teal-600/10 dark:bg-teal-500/20 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold shadow-sm">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="text-base sm:text-lg font-bold text-[#14263F] dark:text-white flex items-center gap-2 flex-wrap">
+                    <span>Angel One SmartAPI Instruments &amp; Scrip Master Suite</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] bg-teal-100 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 font-mono font-semibold">
+                      OpenAPI 1.0
+                    </span>
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Daily Tradable Instruments Dump, Single Scrip Search API, Intraday Margin Feeds, Exchange Surveillance Feeds &amp; Live LTP.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <a
+                  href="https://smartapi.angelone.in/docs/Instruments#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Official Docs</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    loadScripMaster();
+                    loadIntradayScrips();
+                    loadCautionaryScrips();
+                    if (searchScripQuery) performSearchScrip();
+                  }}
+                  disabled={scripMasterLoading || intradayLoading || cautionaryLoading}
+                  className="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm disabled:opacity-50"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${scripMasterLoading ? 'animate-spin' : ''}`} />
+                  <span>{scripMasterLoading ? 'Syncing...' : 'Refresh All'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Segment Statistics Cards */}
+            {scripMasterData && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                {[
+                  { id: 'all', label: 'All Instruments', count: scripMasterData.totalAvailable, color: 'text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800' },
+                  { id: 'nse_cm', label: 'NSE Equity (CM)', count: scripMasterData.segmentCounts['nse_cm'] || 0, color: 'text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40' },
+                  { id: 'nse_fo', label: 'NSE F&O Derivatives', count: scripMasterData.segmentCounts['nse_fo'] || 0, color: 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40' },
+                  { id: 'bse_cm', label: 'BSE Equity (CM)', count: scripMasterData.segmentCounts['bse_cm'] || 0, color: 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40' },
+                  { id: 'mcx_fo', label: 'MCX Commodities', count: scripMasterData.segmentCounts['mcx_fo'] || 0, color: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40' },
+                  { id: 'cns_fo', label: 'Currency (CDS)', count: scripMasterData.segmentCounts['cns_fo'] || 0, color: 'text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40' },
+                ].map((seg) => (
+                  <button
+                    key={seg.id}
+                    type="button"
+                    onClick={() => {
+                      setScripMasterSegment(seg.id);
+                      loadScripMaster(seg.id, scripMasterQuery);
+                    }}
+                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                      scripMasterSegment === seg.id
+                        ? 'border-teal-500 ring-2 ring-teal-500/20 bg-teal-50/50 dark:bg-teal-950/30'
+                        : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate">{seg.label}</div>
+                    <div className="text-lg font-bold text-slate-900 dark:text-white mt-1">
+                      {formatNumberIN(seg.count)}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* SECTION 1: OpenAPI Scrip Master Explorer */}
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/20 p-4 sm:p-5 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                    OpenAPI Scrip Master Daily Instruments Dump
+                  </h3>
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                    OpenAPIScripMaster.json
+                  </span>
+                </div>
+                <div className="text-xs text-slate-500">
+                  Showing {scripMasterData?.instruments.length || 0} of {scripMasterData?.filteredCount || 0} filtered
+                </div>
+              </div>
+
+              {/* Controls: Segment Filter + Search Input + Presets */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    value={scripMasterQuery}
+                    onChange={(e) => {
+                      setScripMasterQuery(e.target.value);
+                      loadScripMaster(scripMasterSegment, e.target.value);
+                    }}
+                    placeholder="Search by Symbol (e.g. RELIANCE, NIFTY24NOV, SBIN) or Name..."
+                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
+                  />
+                </div>
+
+                <select
+                  value={scripMasterSegment}
+                  onChange={(e) => {
+                    setScripMasterSegment(e.target.value);
+                    loadScripMaster(e.target.value, scripMasterQuery);
+                  }}
+                  className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200"
+                >
+                  <option value="all">All Segments</option>
+                  <option value="nse_cm">NSE Equity (nse_cm)</option>
+                  <option value="nse_fo">NSE F&amp;O (nse_fo)</option>
+                  <option value="bse_cm">BSE Equity (bse_cm)</option>
+                  <option value="mcx_fo">MCX Commodities (mcx_fo)</option>
+                  <option value="cns_fo">Currency (cns_fo)</option>
+                </select>
+
+                <div className="flex items-center gap-1.5 shrink-0 overflow-x-auto no-scrollbar py-0.5">
+                  <span className="text-[11px] text-slate-400 font-medium">Chips:</span>
+                  {['RELIANCE', 'SBIN', 'TCS', 'NIFTY', 'CRUDEOIL'].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => {
+                        setScripMasterQuery(preset);
+                        loadScripMaster(scripMasterSegment, preset);
+                      }}
+                      className="px-2 py-1 rounded bg-slate-200/70 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-mono transition-colors"
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                  {scripMasterQuery && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setScripMasterQuery('');
+                        loadScripMaster(scripMasterSegment, '');
+                      }}
+                      className="px-2 py-1 rounded bg-rose-100 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-[11px] font-semibold"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Scrip Master Table */}
+              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 dark:bg-slate-800/80 text-[11px] text-slate-500 uppercase font-semibold">
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Token</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Trading Symbol</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Name</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Segment</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Type</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Expiry / Strike</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700 text-right">Lot Size</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700 text-center">CAS</th>
+                      <th className="p-2.5 border-b border-slate-200 dark:border-slate-700 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                    {scripMasterLoading && (!scripMasterData || scripMasterData.instruments.length === 0) ? (
+                      <tr>
+                        <td colSpan={9} className="p-6 text-center text-slate-400">
+                          <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-teal-600" />
+                          Loading tradable scrip master dump...
+                        </td>
+                      </tr>
+                    ) : scripMasterData?.instruments.length === 0 ? (
+                      <tr>
+                        <td colSpan={9} className="p-6 text-center text-slate-400">
+                          No tradable instruments matching your filter query. Try selecting another segment or clearing search.
+                        </td>
+                      </tr>
+                    ) : (
+                      scripMasterData?.instruments.map((item) => (
+                        <tr key={`${item.exch_seg}-${item.token}-${item.symbol}`} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                          <td className="p-2.5 font-mono font-bold text-teal-600 dark:text-teal-400 whitespace-nowrap">
+                            <button
+                              type="button"
+                              onClick={() => handleCopyToken(item.token)}
+                              title="Click to copy token"
+                              className="inline-flex items-center gap-1 hover:underline cursor-pointer"
+                            >
+                              <span>{item.token}</span>
+                              {scripMasterCopiedToken === item.token ? (
+                                <Check className="w-3 h-3 text-emerald-500" />
+                              ) : (
+                                <Copy className="w-3 h-3 text-slate-400 opacity-60" />
+                              )}
+                            </button>
+                          </td>
+                          <td className="p-2.5 font-mono font-bold text-slate-900 dark:text-white whitespace-nowrap">
+                            {item.symbol}
+                          </td>
+                          <td className="p-2.5 text-slate-600 dark:text-slate-300 max-w-[160px] truncate">
+                            {item.name || item.symbol}
+                          </td>
+                          <td className="p-2.5 whitespace-nowrap">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
+                              item.exch_seg === 'nse_cm' ? 'bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300' :
+                              item.exch_seg === 'nse_fo' ? 'bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300' :
+                              item.exch_seg === 'bse_cm' ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300' :
+                              item.exch_seg === 'mcx_fo' ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300' :
+                              'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                            }`}>
+                              {item.exch_seg}
+                            </span>
+                          </td>
+                          <td className="p-2.5 whitespace-nowrap">
+                            <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] text-slate-600 dark:text-slate-400 font-medium">
+                              {item.instrumenttype || (item.symbol.includes('-EQ') ? 'EQ' : '-')}
+                            </span>
+                          </td>
+                          <td className="p-2.5 whitespace-nowrap font-mono text-[11px] text-slate-500">
+                            {item.expiry ? (
+                              <span>
+                                {item.expiry} {Number(item.strike) > 0 ? `@ ₹${Number(item.strike)}` : ''}
+                              </span>
+                            ) : (
+                              <span className="text-slate-400">-</span>
+                            )}
+                          </td>
+                          <td className="p-2.5 text-right font-mono text-slate-700 dark:text-slate-300">
+                            {item.lotsize || '1'}
+                          </td>
+                          <td className="p-2.5 text-center">
+                            {item.is_cas_enabled ? (
+                              <span className="px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-[10px] font-semibold">
+                                CAS Yes
+                              </span>
+                            ) : (
+                              <span className="text-slate-400 text-[11px]">-</span>
+                            )}
+                          </td>
+                          <td className="p-2.5 text-right whitespace-nowrap">
+                            <button
+                              type="button"
+                              onClick={() => handleSelectInstrumentForLtp(item.exch_seg, item.symbol, item.token)}
+                              className="px-2 py-1 rounded bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/40 dark:hover:bg-teal-900/60 text-teal-700 dark:text-teal-300 text-[11px] font-semibold transition-colors cursor-pointer"
+                            >
+                              Test LTP
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 pt-1">
+                <span className="font-mono">
+                  Dump URL: https://margincalculator.angelone.in/OpenAPI_File/files/OpenAPIScripMaster.json
+                </span>
+                <span>Auto-cached with 12h freshness • Includes all tradable equities and derivatives</span>
+              </div>
+            </div>
+
+            {/* SECTION 2 & 3: Two Column Layout (Single Scrip Search + Live LTP Tester) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Card 2: Single Scrip Search API */}
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/20 p-4 sm:p-5 space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Search className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                      Search Scrip API (Series Token Resolver)
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 font-semibold">
+                    searchScrip
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Resolves individual scrips to exchange series tokens (e.g. <code className="font-mono text-cyan-600">-EQ</code> regular equity, <code className="font-mono text-cyan-600">-BE</code> trade-for-trade, <code className="font-mono text-cyan-600">-BL</code> block deals, <code className="font-mono text-cyan-600">-AF</code> physical settlement).
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                  <select
+                    value={searchScripExchange}
+                    onChange={(e) => setSearchScripExchange(e.target.value as any)}
+                    className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200"
+                  >
+                    <option value="NSE">NSE</option>
+                    <option value="BSE">BSE</option>
+                    <option value="NFO">NFO</option>
+                    <option value="MCX">MCX</option>
+                  </select>
+
+                  <input
+                    type="text"
+                    value={searchScripQuery}
+                    onChange={(e) => setSearchScripQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') performSearchScrip();
+                    }}
+                    placeholder="Search scrip (e.g. SBIN, RELIANCE, TCS)..."
+                    className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 font-mono"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => performSearchScrip()}
+                    disabled={searchScripLoading}
+                    className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white font-semibold text-xs transition-colors cursor-pointer shadow-sm disabled:opacity-50 flex items-center justify-center gap-1.5"
+                  >
+                    <Search className={`w-3.5 h-3.5 ${searchScripLoading ? 'animate-spin' : ''}`} />
+                    <span>Search</span>
+                  </button>
+                </div>
+
+                {/* Quick Presets */}
+                <div className="flex items-center gap-1.5 flex-wrap text-[11px]">
+                  <span className="text-slate-400">Official Samples:</span>
+                  {['SBIN', 'RELIANCE', 'TCS', 'INFY', 'HDFCBANK'].map((sample) => (
+                    <button
+                      key={sample}
+                      type="button"
+                      onClick={() => {
+                        setSearchScripQuery(sample);
+                        performSearchScrip(searchScripExchange, sample);
+                      }}
+                      className="px-2 py-0.5 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono hover:bg-slate-300 dark:hover:bg-slate-700"
+                    >
+                      {sample}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Results Table */}
+                <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="bg-slate-50 dark:bg-slate-800/80 text-[11px] text-slate-500 uppercase font-semibold">
+                        <th className="p-2 border-b border-slate-200 dark:border-slate-700">Exchange</th>
+                        <th className="p-2 border-b border-slate-200 dark:border-slate-700">Trading Symbol</th>
+                        <th className="p-2 border-b border-slate-200 dark:border-slate-700">Symbol Token</th>
+                        <th className="p-2 border-b border-slate-200 dark:border-slate-700 text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {searchScripResults.length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="p-4 text-center text-slate-400 text-xs">
+                            No series tokens returned. Enter a scrip symbol and search.
+                          </td>
+                        </tr>
+                      ) : (
+                        searchScripResults.map((item) => (
+                          <tr key={`${item.exchange}-${item.tradingsymbol}-${item.symboltoken}`} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                            <td className="p-2 font-mono font-semibold text-slate-700 dark:text-slate-300">
+                              {item.exchange}
+                            </td>
+                            <td className="p-2 font-mono font-bold text-slate-900 dark:text-white">
+                              {item.tradingsymbol}
+                            </td>
+                            <td className="p-2 font-mono text-cyan-600 dark:text-cyan-400">
+                              <button
+                                type="button"
+                                onClick={() => handleCopyToken(item.symboltoken)}
+                                title="Click to copy token"
+                                className="inline-flex items-center gap-1 hover:underline cursor-pointer"
+                              >
+                                <span>{item.symboltoken}</span>
+                                {scripMasterCopiedToken === item.symboltoken ? (
+                                  <Check className="w-3 h-3 text-emerald-500" />
+                                ) : (
+                                  <Copy className="w-3 h-3 text-slate-400 opacity-60" />
+                                )}
+                              </button>
+                            </td>
+                            <td className="p-2 text-right">
+                              <button
+                                type="button"
+                                onClick={() => handleSelectInstrumentForLtp(item.exchange, item.tradingsymbol, item.symboltoken)}
+                                className="px-2 py-0.5 rounded bg-cyan-50 hover:bg-cyan-100 dark:bg-cyan-950/40 dark:hover:bg-cyan-900/60 text-cyan-700 dark:text-cyan-300 text-[11px] font-semibold transition-colors cursor-pointer"
+                              >
+                                Test LTP
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Card 3: Live LTP Quote Tester */}
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/20 p-4 sm:p-5 space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-amber-500" />
+                    <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                      Get LTP Data API Tester
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-semibold">
+                    getLtpData
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Fetches instantaneous Last Traded Price, Day's High, Low, Open, and Previous Close for an instrument token.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div>
+                    <label className="block text-[11px] font-medium text-slate-500 mb-1">Exchange</label>
+                    <select
+                      value={ltpExchange}
+                      onChange={(e) => setLtpExchange(e.target.value as any)}
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200"
+                    >
+                      <option value="NSE">NSE</option>
+                      <option value="BSE">BSE</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-medium text-slate-500 mb-1">Trading Symbol</label>
+                    <input
+                      type="text"
+                      value={ltpSymbol}
+                      onChange={(e) => setLtpSymbol(e.target.value)}
+                      placeholder="e.g. SBIN-EQ"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white font-mono"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-medium text-slate-500 mb-1">Symbol Token</label>
+                    <input
+                      type="text"
+                      value={ltpToken}
+                      onChange={(e) => setLtpToken(e.target.value)}
+                      placeholder="e.g. 3045"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white font-mono"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleFetchLtp()}
+                  disabled={ltpLoading}
+                  className="w-full py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-sm disabled:opacity-50"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${ltpLoading ? 'animate-spin' : ''}`} />
+                  <span>{ltpLoading ? 'Fetching LTP...' : 'Query Live LTP Quote'}</span>
+                </button>
+
+                {ltpError && (
+                  <div className="p-3 rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{ltpError}</span>
+                  </div>
+                )}
+
+                {ltpQuote && (
+                  <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-xs text-slate-500 font-mono">
+                          {ltpQuote.exchange} • {ltpQuote.tradingsymbol} (Token: {ltpQuote.symboltoken})
+                        </div>
+                        <div className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1">
+                          ₹{formatNumberIN(ltpQuote.ltp)}
+                        </div>
+                      </div>
+
+                      {ltpQuote.close > 0 && (
+                        <div className={`px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${
+                          ltpQuote.ltp >= ltpQuote.close
+                            ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400'
+                            : 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400'
+                        }`}>
+                          {ltpQuote.ltp >= ltpQuote.close ? '+' : ''}
+                          {(((ltpQuote.ltp - ltpQuote.close) / ltpQuote.close) * 100).toFixed(2)}%
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-center">
+                      <div className="p-2 rounded bg-slate-50 dark:bg-slate-800/50">
+                        <div className="text-[10px] text-slate-400 uppercase">Open</div>
+                        <div className="text-xs font-bold font-mono text-slate-700 dark:text-slate-300 mt-0.5">
+                          ₹{formatNumberIN(ltpQuote.open)}
+                        </div>
+                      </div>
+                      <div className="p-2 rounded bg-slate-50 dark:bg-slate-800/50">
+                        <div className="text-[10px] text-slate-400 uppercase">High</div>
+                        <div className="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-0.5">
+                          ₹{formatNumberIN(ltpQuote.high)}
+                        </div>
+                      </div>
+                      <div className="p-2 rounded bg-slate-50 dark:bg-slate-800/50">
+                        <div className="text-[10px] text-slate-400 uppercase">Low</div>
+                        <div className="text-xs font-bold font-mono text-rose-600 dark:text-rose-400 mt-0.5">
+                          ₹{formatNumberIN(ltpQuote.low)}
+                        </div>
+                      </div>
+                      <div className="p-2 rounded bg-slate-50 dark:bg-slate-800/50">
+                        <div className="text-[10px] text-slate-400 uppercase">Prev Close</div>
+                        <div className="text-xs font-bold font-mono text-slate-700 dark:text-slate-300 mt-0.5">
+                          ₹{formatNumberIN(ltpQuote.close)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* SECTION 4 & 5: Two Column Layout (Intraday Multipliers + Cautionary Surveillance) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Card 4: Intraday Allowed Scrips */}
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/20 p-4 sm:p-5 space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                    <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                      Scrips Allowed for Intraday Trading
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-1 bg-slate-200 dark:bg-slate-800 p-0.5 rounded-lg">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIntradayExchange('NSE');
+                        loadIntradayScrips('NSE');
+                      }}
+                      className={`px-2.5 py-1 rounded text-xs font-bold transition-all ${
+                        intradayExchange === 'NSE'
+                          ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                          : 'text-slate-600 dark:text-slate-400'
+                      }`}
+                    >
+                      NSE
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIntradayExchange('BSE');
+                        loadIntradayScrips('BSE');
+                      }}
+                      className={`px-2.5 py-1 rounded text-xs font-bold transition-all ${
+                        intradayExchange === 'BSE'
+                          ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs'
+                          : 'text-slate-600 dark:text-slate-400'
+                      }`}
+                    >
+                      BSE
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Approved securities permitted for intraday leverage with broker margin multipliers (<code className="font-mono text-indigo-600">5.0x = 20% margin</code>, <code className="font-mono text-indigo-600">1.0x = 100% full cash</code>).
+                </p>
+
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={intradayFilterQuery}
+                    onChange={(e) => setIntradayFilterQuery(e.target.value)}
+                    placeholder={`Filter ${intradayExchange} intraday scrips...`}
+                    className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-mono"
+                  />
+                  <span className="text-xs text-slate-500 shrink-0 font-medium">
+                    {intradayScrips.filter((s) => !intradayFilterQuery || s.SymbolName.toUpperCase().includes(intradayFilterQuery.toUpperCase())).length} Scrips
+                  </span>
+                </div>
+
+                <div className="max-h-[300px] overflow-y-auto rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead className="sticky top-0 bg-slate-50 dark:bg-slate-800">
+                      <tr className="text-[11px] text-slate-500 uppercase font-semibold">
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Symbol Name</th>
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Exchange</th>
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700 text-center">Multiplier</th>
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700 text-right">Margin Required</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {intradayLoading ? (
+                        <tr>
+                          <td colSpan={4} className="p-4 text-center text-slate-400 text-xs">
+                            <RefreshCw className="w-4 h-4 animate-spin mx-auto mb-1 text-indigo-600" />
+                            Loading {intradayExchange} intraday eligible scrips...
+                          </td>
+                        </tr>
+                      ) : (
+                        intradayScrips
+                          .filter((s) => !intradayFilterQuery || s.SymbolName.toUpperCase().includes(intradayFilterQuery.toUpperCase()))
+                          .map((scrip, idx) => {
+                            const mult = Number(scrip.Multiplier) || 1.0;
+                            const marginPct = (100 / mult).toFixed(0);
+                            return (
+                              <tr key={`${scrip.exchange}-${scrip.SymbolName}-${idx}`} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                                <td className="p-2.5 font-mono font-bold text-slate-900 dark:text-white">
+                                  {scrip.SymbolName}
+                                </td>
+                                <td className="p-2.5 font-semibold text-slate-600 dark:text-slate-300">
+                                  {scrip.exchange}
+                                </td>
+                                <td className="p-2.5 text-center">
+                                  <span className="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400">
+                                    {scrip.Multiplier}x
+                                  </span>
+                                </td>
+                                <td className="p-2.5 text-right font-mono text-slate-600 dark:text-slate-400">
+                                  {marginPct}% Upfront
+                                </td>
+                              </tr>
+                            );
+                          })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Card 5: Cautionary & Surveillance Scrips */}
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/20 p-4 sm:p-5 space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <ShieldAlert className="w-4 h-4 text-rose-500" />
+                    <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                      Exchange Cautionary &amp; Surveillance Scrips
+                    </h3>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-semibold">
+                    cautionaryScrips
+                  </span>
+                </div>
+
+                <div className="p-3 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/70 dark:bg-amber-950/20 text-amber-800 dark:text-amber-300 text-xs flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
+                  <div>
+                    <span className="font-semibold">SEBI Surveillance Frameworks:</span> Securities under Additional Surveillance Measure (ASM), Graded Surveillance Measure (GSM), or Gross Settlement require 100% upfront cash margin, have reduced price circuit bands (5% or 2%), and intraday squaring off is disallowed.
+                  </div>
+                </div>
+
+                {/* Surveillance Category Filter */}
+                <div className="flex items-center gap-1.5 flex-wrap text-xs">
+                  {['ALL', 'ASM', 'GSM', 'TRADE_FOR_TRADE'].map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setCautionaryCategoryFilter(cat)}
+                      className={`px-2.5 py-1 rounded-lg font-semibold text-xs transition-colors cursor-pointer ${
+                        cautionaryCategoryFilter === cat
+                          ? 'bg-rose-600 text-white shadow-xs'
+                          : 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'
+                      }`}
+                    >
+                      {cat === 'TRADE_FOR_TRADE' ? 'Gross Settlement' : cat}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="max-h-[280px] overflow-y-auto rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead className="sticky top-0 bg-slate-50 dark:bg-slate-800">
+                      <tr className="text-[11px] text-slate-500 uppercase font-semibold">
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Token</th>
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Symbol</th>
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Surveillance Notice</th>
+                        <th className="p-2.5 border-b border-slate-200 dark:border-slate-700 text-right">Category</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {cautionaryLoading ? (
+                        <tr>
+                          <td colSpan={4} className="p-4 text-center text-slate-400 text-xs">
+                            <RefreshCw className="w-4 h-4 animate-spin mx-auto mb-1 text-rose-500" />
+                            Loading cautionary securities...
+                          </td>
+                        </tr>
+                      ) : (
+                        cautionaryScrips
+                          .filter((s) => cautionaryCategoryFilter === 'ALL' || s.category === cautionaryCategoryFilter)
+                          .map((scrip) => (
+                            <tr key={`${scrip.token}-${scrip.symbol}`} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                              <td className="p-2.5 font-mono text-slate-500">
+                                {scrip.token}
+                              </td>
+                              <td className="p-2.5 font-mono font-bold text-rose-600 dark:text-rose-400 whitespace-nowrap">
+                                {scrip.symbol}
+                              </td>
+                              <td className="p-2.5 text-slate-700 dark:text-slate-300">
+                                {scrip.message}
+                              </td>
+                              <td className="p-2.5 text-right whitespace-nowrap">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400">
+                                  {scrip.category || 'SURVEILLANCE'}
+                                </span>
+                              </td>
+                            </tr>
+                          ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Architectural & Protocol Documentation Reference */}
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 space-y-3">
+              <h3 className="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+                <span>Angel One SmartAPI Instruments Endpoints Architecture</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 space-y-1">
+                  <div className="font-mono font-bold text-teal-600">GET Scrip Master Dump</div>
+                  <p className="text-[11px] font-mono text-slate-500">OpenAPIScripMaster.json</p>
+                  <p className="text-[11px] text-slate-500">Complete tradable master dump across all segments generated daily ~08:00 IST.</p>
+                </div>
+                <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 space-y-1">
+                  <div className="font-mono font-bold text-cyan-600">POST searchScrip</div>
+                  <p className="text-[11px] font-mono text-slate-500">v1/searchScrip</p>
+                  <p className="text-[11px] text-slate-500">Single scrip resolution for symbol series tokens (EQ, BE, BL, AF, etc.).</p>
+                </div>
+                <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 space-y-1">
+                  <div className="font-mono font-bold text-indigo-600">GET Intraday Feeds</div>
+                  <p className="text-[11px] font-mono text-slate-500">nseIntraday &amp; bseIntraday</p>
+                  <p className="text-[11px] text-slate-500">Exchange-wise eligible intraday scrips with leverage multiplier coefficients.</p>
+                </div>
+                <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 space-y-1">
+                  <div className="font-mono font-bold text-rose-600">POST cautionaryScrips</div>
+                  <p className="text-[11px] font-mono text-slate-500">v1/cautionaryScrips</p>
+                  <p className="text-[11px] text-slate-500">Surveillance measure scrips (ASM/GSM/Trade-For-Trade) with 100% margin mandate.</p>
+                </div>
+              </div>
+            </div>
           </section>
         )}
       </div>

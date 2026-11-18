@@ -153,6 +153,18 @@ import {
   type AngelWsOrderStatusMessage,
   type AngelWsOrderStatusRecord,
   type AngelWsOrderData,
+  fetchAngelScripMaster,
+  fetchAngelInstrumentLtp,
+  ANGEL_SCRIP_MASTER_URL,
+  ANGEL_SCRIP_MASTER_FALLBACK_URL,
+  ANGEL_INSTRUMENTS_LTP_URL,
+  ANGEL_SEARCH_SCRIP_URL,
+  ANGEL_NSE_INTRADAY_URL,
+  ANGEL_BSE_INTRADAY_URL,
+  ANGEL_CAUTIONARY_SCRIPS_URL,
+  type AngelScripMasterItem,
+  type AngelScripMasterFilter,
+  type AngelLtpDataRequest,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2493,6 +2505,97 @@ async function startServer() {
   app.post('/api/streaming/angel/order-status/clear', (_req, res) => {
     clearAngelOrderUpdates();
     res.json({ ok: true, message: 'Cleared WebSocket order status history', retrievedAt: new Date().toISOString() });
+  });
+
+  // --- Angel One SmartAPI Instruments API Suite ---
+  app.get('/api/market/angel/instruments/scrip-master', async (req, res) => {
+    try {
+      const segment = (req.query.segment as string) || 'all';
+      const query = (req.query.query as string) || undefined;
+      const limit = Number(req.query.limit) || 50;
+
+      const result = await fetchAngelScripMaster({ segment, query, limit });
+      res.json({ ok: true, ...result });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch Scrip Master' });
+    }
+  });
+
+  app.all(['/api/market/angel/instruments/search', '/api/order/angel/search-scrip'], async (req, res) => {
+    try {
+      const creds = getAngelCredentials();
+      let exchange: any = req.query.exchange || req.body?.exchange || 'NSE';
+      let searchscrip = req.query.query || req.query.searchscrip || req.body?.searchscrip || req.body?.query || req.body?.symbol || '';
+
+      const results = await searchAngelScrip(exchange, String(searchscrip), creds || undefined);
+      res.json({
+        ok: true,
+        count: results.length,
+        exchange,
+        query: searchscrip,
+        data: results,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to search scrip' });
+    }
+  });
+
+  app.post(['/api/market/angel/instruments/ltp', '/api/order/angel/get-ltp'], async (req, res) => {
+    try {
+      const creds = getAngelCredentials();
+      const exchange = req.body?.exchange || 'NSE';
+      const tradingsymbol = req.body?.tradingsymbol || req.body?.symbol || 'SBIN-EQ';
+      const symboltoken = String(req.body?.symboltoken || req.body?.token || '3045');
+
+      const quote = await fetchAngelInstrumentLtp({ exchange, tradingsymbol, symboltoken }, creds || undefined);
+      res.json({
+        ok: Boolean(quote),
+        status: true,
+        message: 'SUCCESS',
+        data: quote ? [quote] : [],
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(400).json({ ok: false, error: err?.message || 'Failed to fetch instrument LTP' });
+    }
+  });
+
+  app.get('/api/market/angel/instruments/intraday', async (req, res) => {
+    try {
+      const creds = getAngelCredentials();
+      const exchange = ((req.query.exchange as string)?.toUpperCase() === 'BSE' ? 'BSE' : 'NSE') as 'NSE' | 'BSE';
+
+      const scrips = await fetchAngelIntradayScrips(exchange, creds || undefined);
+      res.json({
+        ok: true,
+        status: true,
+        message: 'SUCCESS',
+        exchange,
+        count: scrips.length,
+        data: scrips,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch intraday scrips' });
+    }
+  });
+
+  app.get('/api/market/angel/instruments/cautionary', async (_req, res) => {
+    try {
+      const creds = getAngelCredentials();
+      const scrips = await fetchAngelCautionaryScrips(creds || undefined);
+      res.json({
+        ok: true,
+        status: true,
+        message: 'SUCCESS',
+        count: scrips.length,
+        data: scrips,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch cautionary scrips' });
+    }
   });
 
   // --- Authentication ---

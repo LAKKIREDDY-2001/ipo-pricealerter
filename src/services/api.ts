@@ -1706,4 +1706,101 @@ export const api = {
     }>('/api/streaming/angel/order-status/clear', {
       method: 'POST',
     }),
+
+  // Angel One SmartAPI Instruments API Suite
+  getAngelScripMaster: (filter?: { segment?: string; query?: string; limit?: number }) => {
+    const params = new URLSearchParams();
+    if (filter?.segment) params.set('segment', filter.segment);
+    if (filter?.query) params.set('query', filter.query);
+    if (filter?.limit) params.set('limit', String(filter.limit));
+    const query = params.toString();
+    return request<{
+      ok: boolean;
+      instruments: Array<{
+        token: string;
+        symbol: string;
+        name: string;
+        expiry?: string;
+        strike?: string | number;
+        lotsize?: string | number;
+        instrumenttype?: string;
+        exch_seg: string;
+        tick_size?: string | number;
+        is_cas_enabled?: boolean;
+      }>;
+      totalAvailable: number;
+      filteredCount: number;
+      segmentCounts: Record<string, number>;
+      sourceUrl: string;
+      retrievedAt: string;
+    }>(`/api/market/angel/instruments/scrip-master${query ? `?${query}` : ''}`);
+  },
+
+  searchAngelScrip: (exchange = 'NSE', query = '') =>
+    request<{
+      ok: boolean;
+      count: number;
+      exchange: string;
+      query: string;
+      data: Array<{
+        exchange: string;
+        tradingsymbol: string;
+        symboltoken: string;
+      }>;
+      retrievedAt: string;
+    }>('/api/market/angel/instruments/search', {
+      method: 'POST',
+      body: JSON.stringify({ exchange, query, searchscrip: query }),
+    }),
+
+  getAngelInstrumentLtp: (exchange: string, tradingsymbol: string, symboltoken: string) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      data: Array<{
+        exchange: string;
+        tradingsymbol: string;
+        symboltoken: string;
+        open: number;
+        high: number;
+        low: number;
+        close: number;
+        ltp: number;
+      }>;
+      retrievedAt: string;
+    }>('/api/market/angel/instruments/ltp', {
+      method: 'POST',
+      body: JSON.stringify({ exchange, tradingsymbol, symboltoken }),
+    }),
+
+  getAngelIntradayScrips: (exchange = 'NSE') =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      exchange: string;
+      count: number;
+      data: Array<{
+        exchange: string;
+        SymbolName: string;
+        Multiplier: string;
+      }>;
+      retrievedAt: string;
+    }>(`/api/market/angel/instruments/intraday?exchange=${encodeURIComponent(exchange)}`),
+
+  getAngelCautionaryScrips: () =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      count: number;
+      data: Array<{
+        token: string;
+        symbol: string;
+        message: string;
+        category?: string;
+      }>;
+      retrievedAt: string;
+    }>('/api/market/angel/instruments/cautionary'),
 };

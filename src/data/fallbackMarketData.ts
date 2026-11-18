@@ -101273,7 +101273,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -101506,7 +101506,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -102121,7 +102121,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -102623,7 +102623,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -102846,7 +102846,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -103071,7 +103071,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -103480,7 +103480,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104801,7 +104801,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104986,7 +104986,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -105213,7 +105213,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106322,7 +106322,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106512,7 +106512,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106698,7 +106698,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107179,7 +107179,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107661,7 +107661,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -109293,7 +109293,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -109491,7 +109491,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -109677,7 +109677,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -109870,7 +109870,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -110062,7 +110062,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -110256,7 +110256,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -110516,7 +110516,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -110708,7 +110708,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -110899,7 +110899,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -111091,7 +111091,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -111283,7 +111283,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -111475,7 +111475,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -111660,7 +111660,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -111850,7 +111850,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -112033,7 +112033,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -112227,7 +112227,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -112421,7 +112421,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -112613,7 +112613,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -112801,7 +112801,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -113000,7 +113000,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -113194,7 +113194,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -113385,7 +113385,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -113576,7 +113576,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -113763,7 +113763,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -113950,7 +113950,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -114137,7 +114137,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -114323,7 +114323,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -114548,7 +114548,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -114733,7 +114733,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -114918,7 +114918,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -115145,7 +115145,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -115330,7 +115330,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -115556,7 +115556,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -115742,7 +115742,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -115968,7 +115968,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -116196,7 +116196,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -116426,7 +116426,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -116652,7 +116652,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -116880,7 +116880,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -117108,7 +117108,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -117334,7 +117334,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -117788,7 +117788,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",
@@ -118016,7 +118016,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "DELAYED",
       "provenance": {
         "source": "NSE/BSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-18T16:44:48.420Z",
+        "retrievedAt": "2026-11-18T18:04:02.133Z",
         "effectiveDate": "2026-11-18",
         "verificationStatus": "Verified",
         "qualityStatus": "DELAYED",

@@ -87,6 +87,18 @@ import {
   type AngelWsOrderStatusMessage,
   type AngelWsOrderStatusRecord,
   type AngelWsOrderData,
+  fetchAngelScripMaster,
+  fetchAngelInstrumentLtp,
+  ANGEL_SCRIP_MASTER_URL,
+  ANGEL_SCRIP_MASTER_FALLBACK_URL,
+  ANGEL_INSTRUMENTS_LTP_URL,
+  ANGEL_SEARCH_SCRIP_URL,
+  ANGEL_NSE_INTRADAY_URL,
+  ANGEL_BSE_INTRADAY_URL,
+  ANGEL_CAUTIONARY_SCRIPS_URL,
+  type AngelScripMasterItem,
+  type AngelScripMasterFilter,
+  type AngelLtpDataRequest,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -1877,6 +1889,108 @@ export async function onRequest(context: {
   if (pathname === "/api/streaming/angel/order-status/clear" && method === "POST") {
     clearAngelOrderUpdates();
     return json({ ok: true, message: "Cleared WebSocket order status history", retrievedAt: new Date().toISOString() });
+  }
+
+  // --- Angel One SmartAPI Instruments API Suite ---
+  if (pathname === "/api/market/angel/instruments/scrip-master" && method === "GET") {
+    const segment = url.searchParams.get("segment") || "all";
+    const query = url.searchParams.get("query") || undefined;
+    const limit = Number(url.searchParams.get("limit")) || 50;
+
+    const result = await fetchAngelScripMaster({ segment, query, limit });
+    return json({ ok: true, ...result });
+  }
+
+  if (
+    (pathname === "/api/market/angel/instruments/search" || pathname === "/api/order/angel/search-scrip") &&
+    (method === "POST" || method === "GET")
+  ) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    let exchange: any = "NSE";
+    let searchscrip = "";
+
+    if (method === "POST") {
+      try {
+        const body = (await request.json()) as any;
+        if (body) {
+          exchange = body.exchange || exchange;
+          searchscrip = body.searchscrip || body.query || body.symbol || "";
+        }
+      } catch {
+        // query fallback
+      }
+    }
+    if (url.searchParams.has("exchange")) exchange = url.searchParams.get("exchange")!;
+    if (url.searchParams.has("query")) searchscrip = url.searchParams.get("query")!;
+    if (url.searchParams.has("searchscrip")) searchscrip = url.searchParams.get("searchscrip")!;
+
+    const results = await searchAngelScrip(exchange, searchscrip, creds || undefined);
+    return json({
+      ok: true,
+      count: results.length,
+      exchange,
+      query: searchscrip,
+      data: results,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (
+    (pathname === "/api/market/angel/instruments/ltp" || pathname === "/api/order/angel/get-ltp") &&
+    method === "POST"
+  ) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    try {
+      const body = (await request.json()) as any;
+      const exchange = body?.exchange || "NSE";
+      const tradingsymbol = body?.tradingsymbol || body?.symbol || "SBIN-EQ";
+      const symboltoken = String(body?.symboltoken || body?.token || "3045");
+
+      const quote = await fetchAngelInstrumentLtp({ exchange, tradingsymbol, symboltoken }, creds || undefined);
+      return json({
+        ok: Boolean(quote),
+        status: true,
+        message: "SUCCESS",
+        data: quote ? [quote] : [],
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to fetch instrument LTP" }, 400);
+    }
+  }
+
+  if (pathname === "/api/market/angel/instruments/intraday" && method === "GET") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    const exchange = (url.searchParams.get("exchange")?.toUpperCase() === "BSE" ? "BSE" : "NSE") as "NSE" | "BSE";
+
+    const scrips = await fetchAngelIntradayScrips(exchange, creds || undefined);
+    return json({
+      ok: true,
+      status: true,
+      message: "SUCCESS",
+      exchange,
+      count: scrips.length,
+      data: scrips,
+      retrievedAt: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/market/angel/instruments/cautionary" && method === "GET") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+
+    const scrips = await fetchAngelCautionaryScrips(creds || undefined);
+    return json({
+      ok: true,
+      status: true,
+      message: "SUCCESS",
+      count: scrips.length,
+      data: scrips,
+      retrievedAt: new Date().toISOString(),
+    });
   }
 
   if (method !== "GET" && method !== "HEAD") {

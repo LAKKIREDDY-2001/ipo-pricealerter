@@ -134,6 +134,24 @@ import {
   type AngelWsOrderStatusMessage,
   type AngelWsOrderStatusRecord,
   type AngelWsOrderData,
+  fetchAngelScripMaster,
+  fetchAngelInstrumentLtp,
+  searchAngelScrip,
+  fetchAngelIntradayScrips,
+  fetchAngelCautionaryScrips,
+  ANGEL_SCRIP_MASTER_URL,
+  ANGEL_SCRIP_MASTER_FALLBACK_URL,
+  ANGEL_INSTRUMENTS_LTP_URL,
+  ANGEL_SEARCH_SCRIP_URL,
+  ANGEL_NSE_INTRADAY_URL,
+  ANGEL_BSE_INTRADAY_URL,
+  ANGEL_CAUTIONARY_SCRIPS_URL,
+  DEFAULT_ANGEL_SCRIP_MASTER,
+  DEFAULT_NSE_INTRADAY_SCRIPS,
+  DEFAULT_BSE_INTRADAY_SCRIPS,
+  DEFAULT_CAUTIONARY_SCRIPS,
+  type AngelScripMasterItem,
+  type AngelLtpDataRequest,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -1705,5 +1723,130 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     // Clear
     clearAngelOrderUpdates();
     assert.equal(getRecentAngelOrderUpdates().length, 0);
+  });
+
+  await t.test('validates Angel One Instruments endpoints and Scrip Master URLs', () => {
+    assert.equal(
+      ANGEL_SCRIP_MASTER_URL,
+      'https://margincalculator.angelone.in/OpenAPI_File/files/OpenAPIScripMaster.json'
+    );
+    assert.equal(
+      ANGEL_SCRIP_MASTER_FALLBACK_URL,
+      'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json'
+    );
+    assert.equal(
+      ANGEL_INSTRUMENTS_LTP_URL,
+      'https://apiconnect.angelone.in/order-service/rest/secure/angelbroking/order/v1/getLtpData'
+    );
+    assert.equal(
+      ANGEL_SEARCH_SCRIP_URL,
+      'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/searchScrip'
+    );
+    assert.equal(
+      ANGEL_NSE_INTRADAY_URL,
+      'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/nseIntraday'
+    );
+    assert.equal(
+      ANGEL_BSE_INTRADAY_URL,
+      'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/bseIntraday'
+    );
+    assert.equal(
+      ANGEL_CAUTIONARY_SCRIPS_URL,
+      'https://apiconnect.angelone.in/rest/secure/angelbroking/securities/v1/cautionaryScrips'
+    );
+  });
+
+  await t.test('parses and filters Scrip Master instruments by exchange segment and search query', async () => {
+    // 1. Fetch NSE Cash equities segment
+    const nseCmResult = await fetchAngelScripMaster({ segment: 'nse_cm' });
+    assert.ok(nseCmResult.instruments.length > 0);
+    assert.ok(nseCmResult.instruments.every((i) => i.exch_seg === 'nse_cm'));
+
+    // 2. Fetch NSE F&O derivatives segment
+    const nseFoResult = await fetchAngelScripMaster({ segment: 'nse_fo' });
+    assert.ok(nseFoResult.instruments.length > 0);
+    assert.ok(nseFoResult.instruments.every((i) => i.exch_seg === 'nse_fo'));
+
+    // 3. Search query: RELIANCE
+    const relianceResult = await fetchAngelScripMaster({ query: 'RELIANCE' });
+    assert.ok(relianceResult.instruments.length > 0);
+    const relianceEq = relianceResult.instruments.find((i) => i.symbol === 'RELIANCE-EQ');
+    assert.ok(relianceEq);
+    assert.equal(relianceEq.token, '2885');
+    assert.equal(relianceEq.name, 'RELIANCE');
+    assert.equal(relianceEq.is_cas_enabled, true);
+
+    // 4. Validate derivatives attributes (NIFTY option)
+    const niftyOpt = nseFoResult.instruments.find((i) => i.symbol.includes('NIFTY24NOV24000CE'));
+    assert.ok(niftyOpt);
+    assert.equal(niftyOpt.instrumenttype, 'CE');
+    assert.equal(niftyOpt.lotsize, '25');
+  });
+
+  await t.test('validates Search Scrip API token resolution matching official documentation sample', async () => {
+    // Official doc request: {"exchange": "NSE", "searchscrip": "SBIN"}
+    const results = await searchAngelScrip('NSE', 'SBIN');
+    assert.ok(results.length >= 4);
+
+    const sbinEq = results.find((r) => r.tradingsymbol === 'SBIN-EQ');
+    assert.ok(sbinEq);
+    assert.equal(sbinEq.symboltoken, '3045');
+
+    const sbinBe = results.find((r) => r.tradingsymbol === 'SBIN-BE');
+    assert.ok(sbinBe);
+    assert.equal(sbinBe.symboltoken, '4884');
+
+    const sbinBl = results.find((r) => r.tradingsymbol === 'SBIN-BL');
+    assert.ok(sbinBl);
+    assert.equal(sbinBl.symboltoken, '12740');
+  });
+
+  await t.test('retrieves and normalizes LTP quotes for instruments', async () => {
+    const ltpRes = await fetchAngelInstrumentLtp({
+      exchange: 'NSE',
+      tradingsymbol: 'SBIN-EQ',
+      symboltoken: '3045',
+    });
+    assert.ok(ltpRes);
+    assert.equal(ltpRes.exchange, 'NSE');
+    assert.equal(ltpRes.tradingsymbol, 'SBIN-EQ');
+    assert.equal(ltpRes.symboltoken, '3045');
+    assert.ok(ltpRes.ltp > 0);
+    assert.ok(ltpRes.high >= ltpRes.low);
+    assert.ok(ltpRes.open > 0);
+    assert.ok(ltpRes.close > 0);
+  });
+
+  await t.test('validates NSE and BSE Intraday scrips allowed with leverage margin multipliers', async () => {
+    // NSE Intraday Scrips
+    const nseScrips = await fetchAngelIntradayScrips('NSE');
+    assert.ok(nseScrips.length > 0);
+    assert.ok(nseScrips.every((s) => s.exchange === 'NSE'));
+    assert.ok(nseScrips.some((s) => s.SymbolName === 'CHEMPLASTS' && s.Multiplier === '5.0'));
+    assert.ok(nseScrips.some((s) => s.SymbolName === 'SANGHVIMOV' && s.Multiplier === '5.0'));
+
+    // BSE Intraday Scrips
+    const bseScrips = await fetchAngelIntradayScrips('BSE');
+    assert.ok(bseScrips.length > 0);
+    assert.ok(bseScrips.every((s) => s.exchange === 'BSE'));
+    assert.ok(bseScrips.some((s) => s.SymbolName === 'TAALENT' && s.Multiplier === '1.0'));
+    assert.ok(bseScrips.some((s) => s.SymbolName === 'ARE&M' && s.Multiplier === '5.0'));
+  });
+
+  await t.test('classifies exchange cautionary and surveillance scrips (ASM, GSM, Gross Settlement)', async () => {
+    const cautionary = await fetchAngelCautionaryScrips();
+    assert.ok(cautionary.length > 0);
+
+    const shkalyn = cautionary.find((s) => s.symbol === 'SHKALYN');
+    assert.ok(shkalyn);
+    assert.equal(shkalyn.token, '532083');
+    assert.ok(shkalyn.message.includes('Gross settlement'));
+    assert.equal(shkalyn.category, 'TRADE_FOR_TRADE');
+
+    const betxind = cautionary.find((s) => s.symbol === 'BETXIND');
+    assert.ok(betxind);
+    assert.equal(betxind.token, '512477');
+    assert.ok(betxind.message.includes('Stage 1 Long Term ASM'));
+    assert.equal(betxind.category, 'ASM');
   });
 });
