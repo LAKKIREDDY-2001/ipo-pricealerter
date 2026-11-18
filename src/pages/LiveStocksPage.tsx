@@ -15,7 +15,6 @@ import {
 } from '../components/common/StateViews';
 import { StockTable } from '../components/stocks/StockTable';
 import { SectorHeatmap } from '../components/stocks/SectorHeatmap';
-import { useLiveMarketStream } from '../hooks/useLiveMarketStream';
 
 interface LiveStocksPageProps {
   presetExchange?: 'NSE' | 'BSE';
@@ -178,12 +177,8 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
     return () => clearInterval(timer);
   }, [autoRefresh, section, loadStocks]);
 
-  useLiveMarketStream({
-    enabled: autoRefresh && section !== 'sectors',
-    onStocks: () => {
-      void loadStocks(false);
-    },
-  });
+  // Polling is the single refresh mechanism on this page. Avoid triggering a
+  // second full page fetch for every server-sent market event.
 
   const handleDirectLookup = (e: React.FormEvent) => {
     e.preventDefault();
