@@ -9,6 +9,7 @@ export function MarketTicker() {
   const [indices, setIndices] = useState<MarketIndexInstrument[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [feedReachable, setFeedReachable] = useState(false);
 
   const loadIndices = async (force = false) => {
     if (force) setRefreshing(true);
@@ -16,6 +17,7 @@ export function MarketTicker() {
       const res = await api.getIndices(force);
       if (Array.isArray(res?.indices)) {
         setIndices(res.indices);
+        setFeedReachable(Boolean(res.liveFeedReachable));
       }
     } catch {
       // Keep existing if refresh fails
@@ -61,6 +63,17 @@ export function MarketTicker() {
           {indices.map((item) => {
             const isUp = (item.change ?? 0) >= 0;
             const unavailable = typeof item.value !== 'number' || !Number.isFinite(item.value);
+            const quality = String(item.provenance?.qualityStatus || '').toUpperCase();
+            const quoteStatus = !feedReachable ? 'Snapshot'
+              : quality === 'LIVE' || quality === 'VERIFIED' ? 'Live'
+              : quality === 'DELAYED' ? 'Delayed'
+              : quality === 'STALE' ? 'Stale'
+              : unavailable ? 'Unavailable' : 'Delayed';
+            const statusClass = quoteStatus === 'Live'
+              ? 'text-emerald-400'
+              : quoteStatus === 'Delayed'
+                ? 'text-amber-300'
+                : 'text-slate-400';
             return (
               <div
                 key={item.id}
@@ -74,9 +87,9 @@ export function MarketTicker() {
                 <div>
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-slate-300 whitespace-nowrap">
                     <span>{item.symbol}</span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      Live
+                    <span className={`inline-flex items-center gap-1 text-[10px] font-semibold ${statusClass}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${quoteStatus === 'Live' ? 'bg-emerald-400 animate-pulse' : quoteStatus === 'Delayed' ? 'bg-amber-300' : 'bg-slate-400'}`} />
+                      {quoteStatus}
                     </span>
                   </div>
                   <div className="flex items-baseline gap-2 mt-0.5">
