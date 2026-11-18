@@ -31,9 +31,9 @@ export function DataQualityBadge({
       icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
     },
     DELAYED: {
-      label: 'Live',
-      cls: 'text-[#059669] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-800',
-      icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />,
+      label: 'Delayed',
+      cls: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900',
+      icon: <Clock className="w-3 h-3 shrink-0" />,
     },
     STALE: {
       label: 'Market Close',
@@ -46,7 +46,7 @@ export function DataQualityBadge({
       icon: <HelpCircle className="w-3 h-3 shrink-0" />,
     },
     UNAVAILABLE: {
-      label: 'Settled',
+      label: 'Unavailable',
       cls: 'text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700',
       icon: <Clock className="w-3 h-3 shrink-0" />,
     },
@@ -60,7 +60,7 @@ export function DataQualityBadge({
   const norm = String(status || '').toUpperCase();
   const item =
     config[norm] ||
-    (norm.includes('LIVE') || norm.includes('DELAYED') || norm.includes('LATEST') || norm.includes('STORED') || norm.includes('VERIFIED') || !norm
+    (norm.includes('DELAYED') ? config.DELAYED : norm.includes('LIVE') || norm.includes('LATEST') || norm.includes('STORED') || norm.includes('VERIFIED') || !norm
       ? config.LIVE
       : config.UNAVAILABLE);
 
