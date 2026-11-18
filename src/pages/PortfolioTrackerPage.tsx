@@ -1242,7 +1242,7 @@ export function PortfolioTrackerPage() {
               className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:brightness-105 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Place Angel Order</span>
+              <span>Place Order</span>
             </button>
           </div>
         </div>
@@ -2082,8 +2082,8 @@ export function PortfolioTrackerPage() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <img
-                  src="/assets/movers/angel-one.png"
-                  alt="Broker"
+                  src="/logo-512x512.png"
+                  alt="PriceAlerter"
                   className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
@@ -2422,8 +2422,8 @@ export function PortfolioTrackerPage() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <img
-                  src="/assets/movers/angel-one.png"
-                  alt="Broker"
+                  src="/logo-512x512.png"
+                  alt="PriceAlerter"
                   className="w-9 h-9 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
@@ -2562,8 +2562,8 @@ export function PortfolioTrackerPage() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <img
-                  src="/assets/movers/angel-one.png"
-                  alt="Broker"
+                  src="/logo-512x512.png"
+                  alt="PriceAlerter"
                   className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
