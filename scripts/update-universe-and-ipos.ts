@@ -231,9 +231,9 @@ async function main() {
   // Build allLiveStocks array across ALL priced equities (6,000+)
   const allLive = validPriced.map((s) => {
     const rawPrice = s.currentPrice || 0;
-    const prev = s.previousClose || rawPrice;
-    const changeVal = Number((rawPrice - prev).toFixed(2));
-    const pct = prev > 0 ? Number(((changeVal / prev) * 100).toFixed(2)) : 0;
+    const prev = typeof s.previousClose === 'number' && s.previousClose > 0 ? s.previousClose : null;
+    const changeVal = prev !== null ? Number((rawPrice - prev).toFixed(2)) : null;
+    const pct = prev !== null ? Number(((changeVal! / prev) * 100).toFixed(2)) : null;
     return {
       name: s.companyName,
       symbol: s.symbol,
@@ -246,10 +246,10 @@ async function main() {
       rawPrice,
       previousClose: prev,
       rawChange: changeVal,
-      change: (changeVal >= 0 ? '₹+' : '₹') + changeVal + ' (' + (pct >= 0 ? '+' : '') + pct + '%)',
+      change: changeVal === null || pct === null ? 'Unavailable' : (changeVal >= 0 ? '₹+' : '₹') + changeVal + ' (' + (pct >= 0 ? '+' : '') + pct + '%)',
       pct,
-      isGain: changeVal >= 0,
-      volume: s.volume ? s.volume.toLocaleString('en-IN') : 'Standard',
+      isGain: changeVal === null ? null : changeVal >= 0,
+      volume: s.volume ? s.volume.toLocaleString('en-IN') : 'Unavailable',
       volRaw: s.volume || 0,
       high: s.dayHigh ?? null,
       low: s.dayLow ?? null,
