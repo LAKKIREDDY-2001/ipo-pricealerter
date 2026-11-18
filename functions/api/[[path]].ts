@@ -34,6 +34,7 @@ import {
   clearAngelPostbacks,
   createSimulatedAngelPostback,
   ANGEL_POSTBACK_DEFAULT_URL,
+  calculateAngelBatchMargin,
   type AngelPlaceOrderRequest,
   type AngelModifyOrderRequest,
   type AngelCancelOrderRequest,
@@ -41,6 +42,8 @@ import {
   type AngelExchange,
   type AngelPostbackPayload,
   type AngelPostbackStatusCategory,
+  type AngelMarginPosition,
+  type AngelMarginBatchResponse,
 } from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
@@ -1513,6 +1516,52 @@ export async function onRequest(context: {
       });
     } catch (err: any) {
       return json({ ok: false, error: err?.message || "Simulation failed" }, 400);
+    }
+  }
+
+  // --- Angel One SmartAPI Margin Calculator Suite ---
+  if (
+    (pathname === "/api/margin/angel/batch" || pathname === "/api/margin/angel/calculate") &&
+    (method === "POST" || method === "GET")
+  ) {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    let positions: AngelMarginPosition[] = [];
+
+    if (method === "POST") {
+      try {
+        const body = (await request.json()) as any;
+        if (body && Array.isArray(body.positions)) {
+          positions = body.positions;
+        } else if (Array.isArray(body)) {
+          positions = body;
+        }
+      } catch (err: any) {
+        return json({ ok: false, error: "Invalid JSON request body" }, 400);
+      }
+    } else {
+      const exchange = url.searchParams.get("exchange") || "NSE";
+      const qty = Number(url.searchParams.get("qty")) || 1;
+      const price = Number(url.searchParams.get("price")) || 0;
+      const productType = url.searchParams.get("productType") || "INTRADAY";
+      const token = url.searchParams.get("token") || "3045";
+      const tradeType = url.searchParams.get("tradeType") || "BUY";
+      const orderType = url.searchParams.get("orderType") || "LIMIT";
+      positions = [{ exchange, qty, price, productType, token, tradeType, orderType }];
+    }
+
+    try {
+      const result = await calculateAngelBatchMargin(positions, creds || undefined);
+      return json(
+        {
+          ok: result.status,
+          ...result,
+          retrievedAt: new Date().toISOString(),
+        },
+        result.status ? 200 : 400
+      );
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Failed to calculate margin" }, 500);
     }
   }
 

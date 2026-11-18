@@ -1457,4 +1457,36 @@ export const api = {
     }>('/api/orders/angel/postback', {
       method: 'DELETE',
     }),
+
+  // Angel One SmartAPI Margin Calculator API Suite
+  calculateAngelBatchMargin: (positions: Array<{
+    exchange: string;
+    qty: number;
+    price: number;
+    productType: string;
+    token: string;
+    tradeType: string;
+    orderType?: string;
+  }>) =>
+    request<{
+      ok: boolean;
+      status: boolean;
+      message: string;
+      errorcode?: string;
+      data?: {
+        totalMarginRequired: number;
+        marginComponents: {
+          netPremium: number;
+          spanMargin: number;
+          marginBenefit: number;
+          deliveryMargin: number;
+          nonNFOMargin: number;
+          totOptionsPremium: number;
+        };
+      };
+      retrievedAt: string;
+    }>('/api/margin/angel/batch', {
+      method: 'POST',
+      body: JSON.stringify({ positions }),
+    }),
 };

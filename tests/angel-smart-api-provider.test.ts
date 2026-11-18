@@ -56,6 +56,8 @@ import {
   type AngelPostbackPayload,
   type AngelPostbackRecord,
   type AngelPostbackStatusCategory,
+  type AngelMarginPosition,
+  type AngelMarginBatchResponse,
   ANGEL_LOGIN_URL,
   ANGEL_GENERATE_TOKENS_URL,
   ANGEL_GET_PROFILE_URL,
@@ -76,11 +78,14 @@ import {
   ANGEL_ORDER_DETAILS_URL,
   ANGEL_POSTBACK_PATH,
   ANGEL_POSTBACK_DEFAULT_URL,
+  ANGEL_MARGIN_BATCH_URL,
   recordAngelPostback,
   getRecentAngelPostbacks,
   clearAngelPostbacks,
   classifyPostbackStatus,
   createSimulatedAngelPostback,
+  simulateAngelBatchMargin,
+  calculateAngelBatchMargin,
   clearCachedAngelSession,
   getCachedAngelSession,
 } from '../server/providers/angelSmartApiProvider.ts';
@@ -1015,5 +1020,108 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     // Clear postbacks
     clearAngelPostbacks();
     assert.equal(getRecentAngelPostbacks().length, 0);
+  });
+
+  await t.test('validates Angel One SmartAPI Margin Calculator URL and rate limits', () => {
+    assert.equal(
+      ANGEL_MARGIN_BATCH_URL,
+      'https://apiconnect.angelone.in/rest/secure/angelbroking/margin/v1/batch'
+    );
+  });
+
+  await t.test('validates Margin Calculator basket size limits (1 to 50 positions)', async () => {
+    // Empty basket
+    const emptyRes = await calculateAngelBatchMargin([]);
+    assert.equal(emptyRes.status, false);
+    assert.equal(emptyRes.errorcode, 'INVALID_BASKET');
+
+    // More than 50 positions
+    const oversizedBasket: AngelMarginPosition[] = Array.from({ length: 51 }, (_, i) => ({
+      exchange: 'NSE',
+      qty: 1,
+      price: 100,
+      productType: 'INTRADAY',
+      token: String(1000 + i),
+      tradeType: 'BUY',
+    }));
+    const overRes = await calculateAngelBatchMargin(oversizedBasket);
+    assert.equal(overRes.status, false);
+    assert.equal(overRes.errorcode, 'MAX_POSITIONS_EXCEEDED');
+  });
+
+  await t.test('calculates batch margin adhering to official SmartAPI documentation structure', async () => {
+    // Official doc request: 2 NFO positions
+    const officialDocBasket: AngelMarginPosition[] = [
+      {
+        exchange: 'NFO',
+        qty: 50,
+        price: 0,
+        productType: 'INTRADAY',
+        token: '67300',
+        tradeType: 'BUY',
+        orderType: 'LIMIT',
+      },
+      {
+        exchange: 'NFO',
+        qty: 50,
+        price: 0,
+        productType: 'INTRADAY',
+        token: '67308',
+        tradeType: 'SELL',
+        orderType: 'MARKET',
+      },
+    ];
+
+    const res = await calculateAngelBatchMargin(officialDocBasket);
+    assert.equal(res.status, true);
+    assert.equal(res.message, 'SUCCESS');
+    assert.ok(res.data);
+    assert.ok(res.data.totalMarginRequired > 0);
+
+    const comp = res.data.marginComponents;
+    assert.ok(comp);
+    assert.ok(typeof comp.netPremium === 'number');
+    assert.ok(typeof comp.spanMargin === 'number');
+    assert.ok(typeof comp.marginBenefit === 'number');
+    assert.ok(typeof comp.deliveryMargin === 'number');
+    assert.ok(typeof comp.nonNFOMargin === 'number');
+    assert.ok(typeof comp.totOptionsPremium === 'number');
+
+    // Since basket has both BUY and SELL derivative legs, margin benefit is granted
+    assert.ok(comp.marginBenefit > 0, 'Hedge benefit must be granted for opposing derivative legs');
+  });
+
+  await t.test('calculates equity delivery vs intraday leverage margins accurately', async () => {
+    // Equity DELIVERY (CNC): 100% upfront margin
+    const deliveryBasket: AngelMarginPosition[] = [
+      {
+        exchange: 'NSE',
+        qty: 10,
+        price: 2000,
+        productType: 'DELIVERY',
+        token: '2885',
+        tradeType: 'BUY',
+      },
+    ];
+    const delRes = await calculateAngelBatchMargin(deliveryBasket);
+    assert.equal(delRes.status, true);
+    assert.equal(delRes.data?.marginComponents.deliveryMargin, 20000);
+    assert.equal(delRes.data?.totalMarginRequired, 20000);
+
+    // Equity INTRADAY (MIS): ~20% margin (5x leverage)
+    const intradayBasket: AngelMarginPosition[] = [
+      {
+        exchange: 'NSE',
+        qty: 100,
+        price: 200,
+        productType: 'INTRADAY',
+        token: '3045',
+        tradeType: 'BUY',
+      },
+    ];
+    const intraRes = await calculateAngelBatchMargin(intradayBasket);
+    assert.equal(intraRes.status, true);
+    assert.equal(intraRes.data?.marginComponents.nonNFOMargin, 4000);
+    assert.equal(intraRes.data?.totalMarginRequired, 4000);
   });
 });

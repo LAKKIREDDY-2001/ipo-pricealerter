@@ -101,12 +101,15 @@ import {
   clearAngelPostbacks,
   createSimulatedAngelPostback,
   ANGEL_POSTBACK_DEFAULT_URL,
+  calculateAngelBatchMargin,
   type AngelPlaceOrderRequest,
   type AngelModifyOrderRequest,
   type AngelCancelOrderRequest,
   type AngelExchange,
   type AngelPostbackPayload,
   type AngelPostbackStatusCategory,
+  type AngelMarginPosition,
+  type AngelMarginBatchResponse,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2187,6 +2190,41 @@ async function startServer() {
       });
     } catch (err: any) {
       res.status(400).json({ ok: false, error: err?.message || 'Simulation failed' });
+    }
+  });
+
+  // --- Angel One SmartAPI Margin Calculator Suite ---
+  app.all(['/api/margin/angel/batch', '/api/margin/angel/calculate'], async (req, res) => {
+    const creds = getAngelCredentials();
+    let positions: AngelMarginPosition[] = [];
+
+    if (req.method === 'POST') {
+      const body = req.body || {};
+      if (Array.isArray(body.positions)) {
+        positions = body.positions;
+      } else if (Array.isArray(body)) {
+        positions = body;
+      }
+    } else {
+      const exchange = (req.query.exchange as string) || 'NSE';
+      const qty = Number(req.query.qty) || 1;
+      const price = Number(req.query.price) || 0;
+      const productType = (req.query.productType as string) || 'INTRADAY';
+      const token = (req.query.token as string) || '3045';
+      const tradeType = (req.query.tradeType as string) || 'BUY';
+      const orderType = (req.query.orderType as string) || 'LIMIT';
+      positions = [{ exchange, qty, price, productType, token, tradeType, orderType }];
+    }
+
+    try {
+      const result = await calculateAngelBatchMargin(positions, creds || undefined);
+      res.status(result.status ? 200 : 400).json({
+        ok: result.status,
+        ...result,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      res.status(500).json({ ok: false, error: err?.message || 'Failed to calculate margin' });
     }
   });
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   TrendingUp,
   TrendingDown,
@@ -29,6 +30,7 @@ import {
   Copy,
   Check,
   Radio,
+  Calculator,
 } from 'lucide-react';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs } from '../components/common/StateViews';
@@ -1407,6 +1409,15 @@ export function PortfolioTrackerPage() {
               </button>
             )}
 
+            <Link
+              to="/calculators/margin"
+              className="px-3 py-1.5 rounded-xl border border-purple-200 dark:border-purple-800 bg-purple-50 hover:bg-purple-100 dark:bg-purple-950/40 dark:hover:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+              title="Open SmartAPI Basket Margin Calculator"
+            >
+              <Calculator className="w-3.5 h-3.5" />
+              <span>Margin Calculator</span>
+            </Link>
+
             <button
               type="button"
               onClick={() => {
@@ -2550,6 +2561,37 @@ export function PortfolioTrackerPage() {
                   />
                 </div>
               </div>
+
+              {/* Live Margin Calculation Indicator */}
+              {(() => {
+                const q = Math.abs(Number(orderQty) || 1);
+                const p = Number(orderPrice) || (orderType === 'MARKET' ? 250 : 0);
+                const notional = q * p;
+                const isDelivery = orderProduct === 'DELIVERY' && orderSide === 'BUY';
+                const isDeriv = orderExchange === 'NFO' || orderExchange === 'BFO' || orderExchange === 'MCX';
+                const estMargin = isDelivery
+                  ? notional
+                  : isDeriv
+                  ? (orderSide === 'BUY' ? notional : Math.round(notional * 0.18))
+                  : Math.round(notional * 0.20);
+
+                return (
+                  <div className="rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/50 dark:bg-purple-950/20 p-2.5 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <Calculator className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        SmartAPI Margin Estimate:
+                      </span>
+                      <span className="text-[10px] text-slate-500">
+                        {isDelivery ? '(100% Delivery Cash)' : isDeriv ? '(SPAN/Options Premium)' : '(~5x Intraday MIS Leverage)'}
+                      </span>
+                    </div>
+                    <div className="font-mono font-bold text-purple-700 dark:text-purple-300">
+                      ₹{formatNumberIN(estMargin)}
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Compliance & Scrip Consent Checkbox */}
               <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 p-3 space-y-1.5">
