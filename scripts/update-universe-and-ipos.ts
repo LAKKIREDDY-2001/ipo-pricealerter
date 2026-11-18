@@ -259,11 +259,13 @@ async function main() {
       marketCapCr: s.marketCapCr ?? null,
       category: s.exchange.includes('NSE') ? 'NSE' : 'BSE',
       status: 'LISTED',
-      priceStatus: 'TRADING',
-      priceSource: s.exchange.includes('NSE') ? 'NSE Live Bhavcopy' : 'BSE Live Bhavcopy',
+      priceStatus: s.lastTradeTime
+        ? (new Date(s.lastTradeTime).toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }) === new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }) ? 'DELAYED' : 'STALE')
+        : 'STALE',
+      priceSource: s.exchange.includes('NSE') ? 'NSE exchange data' : 'BSE exchange data',
       quoteSource: 'Market data feed',
-      quoteVerified: true,
-      quoteTimestamp: s.lastTradeTime || new Date().toISOString(),
+      quoteVerified: Boolean(s.lastTradeTime),
+      quoteTimestamp: s.lastTradeTime || null,
     };
   });
 
