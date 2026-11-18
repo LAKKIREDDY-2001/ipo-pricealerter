@@ -1545,8 +1545,8 @@ function mapGrowwRecordToStock(
   if (!symbol) return null;
 
   const dto = rec.livePriceDto;
-  const ltp = round2(dto?.ltp ?? rec.closePrice ?? curated?.currentPrice ?? null);
-  let prevClose = round2(dto?.close ?? rec.closePrice ?? curated?.previousClose ?? ltp);
+  const ltp = round2(dto?.ltp ?? rec.closePrice ?? null);
+  let prevClose = round2(dto?.close ?? rec.closePrice ?? null);
   // When post-close dto.close has already rolled to ltp and dayChange=0, rec.closePrice holds the prior session close
   if (
     ltp !== null &&
@@ -1558,36 +1558,30 @@ function mapGrowwRecordToStock(
   ) {
     prevClose = round2(rec.closePrice);
   }
-  const open = round2(dto?.open ?? curated?.open ?? prevClose);
-  const dayHigh = round2(dto?.high ?? curated?.dayHigh ?? ltp);
-  const dayLow = round2(dto?.low ?? curated?.dayLow ?? ltp);
-  const week52High = round2(rec.yearlyHighPrice ?? curated?.week52High ?? null);
-  const week52Low = round2(rec.yearlyLowPrice ?? curated?.week52Low ?? null);
+  const open = round2(dto?.open ?? null);
+  const dayHigh = round2(dto?.high ?? null);
+  const dayLow = round2(dto?.low ?? null);
+  const week52High = round2(rec.yearlyHighPrice ?? null);
+  const week52Low = round2(rec.yearlyLowPrice ?? null);
   const volume =
     typeof dto?.volume === 'number'
       ? Math.round(dto.volume)
-      : curated?.volume ?? null;
+      : null;
 
   // Groww all_stocks marketCap is denominated in paise (1 Cr = 1e9 paise)
   const marketCapCr =
     typeof rec.marketCap === 'number' && rec.marketCap > 0
       ? Number((rec.marketCap / 1e9).toFixed(2))
-      : curated?.marketCapCr ?? null;
+      : null;
 
   const lastTradeIso =
     toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis) ??
-    curated?.lastTradeTime ??
     retrievedAtIso;
 
   const exchange: StockInstrument['exchange'] =
     nseCode && bseCode ? 'NSE/BSE' : nseCode ? 'NSE' : 'BSE';
 
-  const sparkline =
-    curated && curated.sparkline.length > 0
-      ? [...curated.sparkline.slice(0, -1), ltp ?? curated.sparkline[curated.sparkline.length - 1]]
-      : prevClose !== null && ltp !== null
-        ? [prevClose, Number(((prevClose + ltp) / 2).toFixed(2)), ltp]
-        : [];
+  const sparkline: number[] = [];
 
   const mappedSector =
     (typeof rec.industryCode === 'number' && GROWW_INDUSTRY_SECTOR_MAP[rec.industryCode]) ||
@@ -1765,14 +1759,14 @@ function buildRegistryEquityStock(params: {
   const hydQ = hydrated?.quote;
 
   const ltp = round2(
-    hydQ?.ltp ?? primaryBhav?.last ?? primaryBhav?.close ?? curated?.currentPrice ?? null
+    hydQ?.ltp ?? primaryBhav?.last ?? primaryBhav?.close ?? null
   );
   const prevClose = round2(
-    hydQ?.previousClose ?? primaryBhav?.prevClose ?? curated?.previousClose ?? ltp
+    hydQ?.previousClose ?? primaryBhav?.prevClose ?? null
   );
-  const open = round2(hydQ?.open ?? primaryBhav?.open ?? curated?.open ?? prevClose);
-  const dayHigh = round2(hydQ?.high ?? primaryBhav?.high ?? curated?.dayHigh ?? ltp);
-  const dayLow = round2(hydQ?.low ?? primaryBhav?.low ?? curated?.dayLow ?? ltp);
+  const open = round2(hydQ?.open ?? primaryBhav?.open ?? null);
+  const dayHigh = round2(hydQ?.high ?? primaryBhav?.high ?? null);
+  const dayLow = round2(hydQ?.low ?? primaryBhav?.low ?? null);
   const volume =
     hydQ?.volume ??
     ((nseBhav?.volume ?? 0) + (bseBhav?.volume ?? 0) > 0
@@ -1807,12 +1801,7 @@ function buildRegistryEquityStock(params: {
       ? 'DELAYED'
       : 'UNAVAILABLE';
 
-  const sparkline =
-    curated && curated.sparkline.length > 0
-      ? curated.sparkline
-      : prevClose !== null && ltp !== null
-        ? [prevClose, Number(((prevClose + ltp) / 2).toFixed(2)), ltp]
-        : [];
+  const sparkline: number[] = [];
 
   const isNseYahoo = exchange.includes('NSE') && !/^\d+$/.test(symbol);
   const resolvedStatic = resolveStaticMoverLogo(symbol, companyName);
@@ -1841,10 +1830,10 @@ function buildRegistryEquityStock(params: {
     open,
     dayHigh,
     dayLow,
-    week52High: curated?.week52High ?? null,
-    week52Low: curated?.week52Low ?? null,
+    week52High: null,
+    week52Low: null,
     volume,
-    marketCapCr: curated?.marketCapCr ?? null,
+    marketCapCr: null,
     lastTradeTime: hydQ?.lastTradeTime || (primaryBhav?.tradDt ? `${primaryBhav.tradDt}T10:00:00.000Z` : retrievedAtIso),
     nseQuote: curated?.nseQuote ?? null,
     bseQuote: curated?.bseQuote ?? null,
