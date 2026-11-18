@@ -72,6 +72,7 @@ function getFallbackColor(name: string, colorHint?: string | null): string {
 }
 
 const KNOWN_STATIC_LOGOS: Record<string, string> = {
+  NSE: 'https://nsearchives.nseindia.in/web/sites/default/files/2019-07/NSE%404x-100.jpg',
   ABB: '/assets/movers/abb.webp',
   ADANIENSOL: '/assets/movers/adaniensol.webp',
   ADANIENT: '/assets/movers/adani-enterprises.png',
@@ -250,6 +251,7 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
 };
 
 const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
+  [/\\bnational\\s+stock\\s+exchange\\s+of\\s+india\\b/i, 'https://nsearchives.nseindia.in/web/sites/default/files/2019-07/NSE%404x-100.jpg'],
   [/\blarsen\s*&?\s*toubro\b/i, '/assets/movers/lt.png'],
   [/\bmahindra\s*&?\s*mahindra\b/i, '/assets/movers/mm.png'],
   [/\bindian\s*oil\b/i, '/assets/movers/ioc.png'],
