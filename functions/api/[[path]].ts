@@ -239,6 +239,21 @@ function parseGrowwNumber(value: unknown): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function growwCompanyMatchesStock(stock: any, data: any): boolean {
+  const header = data?.header || {};
+  const stockIsin = String(stock.isin || "").trim().toUpperCase();
+  const companyIsin = String(header.isin || "").trim().toUpperCase();
+  if (stockIsin && stockIsin !== "AVAILABLE ON EXCHANGE" && companyIsin) {
+    return stockIsin === companyIsin;
+  }
+  const stockSymbol = String(stock.symbol || "").trim().toUpperCase();
+  const companyNse = String(header.nseScriptCode || "").trim().toUpperCase();
+  if (stockSymbol && companyNse) return stockSymbol === companyNse;
+  const stockBse = String(stock.bseCode || "").trim().toUpperCase();
+  const companyBse = String(header.bseScriptCode || "").trim().toUpperCase();
+  return Boolean(stockBse && companyBse && stockBse === companyBse);
+}
+
 async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
   let searchId = String(stock.searchId || "").trim();
   if (!searchId) {
@@ -271,7 +286,7 @@ async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
   }
   if (!searchId) return null;
   const cached = growwCompanyCache.get(searchId);
-  if (cached && cached.expiresAt > Date.now()) return cached.data;
+  if (cached && cached.expiresAt > Date.now() && growwCompanyMatchesStock(stock, cached.data)) return cached.data;
   try {
     const endpoint = `https://groww.in/v1/api/stocks_data/v1/company/search_id/${encodeURIComponent(searchId)}?page=0&size=10`;
     const response = await fetch(endpoint, {
@@ -280,7 +295,7 @@ async function fetchGrowwCompanyInfo(stock: any): Promise<any | null> {
     });
     if (!response.ok) return null;
     const data = await response.json() as any;
-    if (!data || typeof data !== "object") return null;
+    if (!data || typeof data !== "object" || !growwCompanyMatchesStock(stock, data)) return null;
     growwCompanyCache.set(searchId, { data, expiresAt: Date.now() + 6 * 60 * 60 * 1000 });
     return data;
   } catch {
