@@ -794,9 +794,17 @@ export async function onRequest(context: {
       const refreshed = await Promise.all(baseIndices.map(async (item: any, index: number) => {
         if (index >= 24) return item;
         const label = `${item.symbol || ""} ${item.name || ""}`.toUpperCase();
-        const ticker = item.yahooSymbol || (label.includes("SENSEX") ? "^BSESN" : label.includes("BANK NIFTY") ? "^NSEBANK" : label.includes("NIFTY 50") || label.includes("NIFTY50") ? "^NSEI" : label.includes("INDIA VIX") ? "^INDIAVIX" : "");
+        const ticker = label.includes("SENSEX") ? "^BSESN"
+          : label.includes("BANK NIFTY") || label.includes("NIFTY BANK") ? "^NSEBANK"
+          : label.includes("NIFTY 50") || label.includes("NIFTY50") ? "^NSEI"
+          : label.includes("INDIA VIX") ? "^INDIAVIX"
+          : label.includes("USD/INR") || label.includes("USDINR") || label.includes("USD INR") ? "INR=X"
+          : label.includes("GOLD") ? "GC=F"
+          : label.includes("SILVER") ? "SI=F"
+          : label.includes("CRUDE") ? "BZ=F"
+          : item.yahooSymbol || "";
         if (!ticker) return item;
-        const quote = await fetchYahooTickerQuote(ticker, forceIndices);
+        const quote = await fetchYahooTickerQuote(ticker, forceIndices, ["GC=F", "SI=F", "BZ=F"].includes(ticker) ? null : "INR");
         if (!quote) return item;
         const defaultCurrency = item.provenance?.currency || (ticker.includes("=") ? "INR" : ticker.endsWith("=F") ? "USD" : "PTS");
         return {
