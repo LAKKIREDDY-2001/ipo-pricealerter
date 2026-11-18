@@ -195,6 +195,7 @@ export function HomePage() {
   });
 
   useEffect(() => {
+    let active = true;
     if (stockTab === 'Watchlist') {
       const savedSymbols = watchlist
         .filter((w) => w.itemType === 'stock')
@@ -202,11 +203,12 @@ export function HomePage() {
       if (savedSymbols.length === 0) {
         setStocks([]);
         setStockTotal(0);
-        return;
+        return () => { active = false; };
       }
       setStocksLoading(true);
       Promise.allSettled(savedSymbols.map((sym) => api.getStockBySymbol(sym, '1mo')))
         .then((res) => {
+          if (!active) return;
           const list = res
             .filter(
               (r): r is PromiseFulfilledResult<{
@@ -219,8 +221,10 @@ export function HomePage() {
           setStocks(list);
           setStockTotal(list.length);
         })
-        .finally(() => setStocksLoading(false));
-      return;
+        .finally(() => {
+          if (active) setStocksLoading(false);
+        });
+      return () => { active = false; };
     }
 
     setStocksLoading(true);
@@ -242,12 +246,16 @@ export function HomePage() {
         limit: 20,
       })
       .then((res) => {
+        if (!active) return;
         setStocks(res.stocks);
         setStockTotal(res.total);
         if (res.sectors.length > 0) setAllSectors(res.sectors);
         if (res.totalUniverse) setTotalUniverse(res.totalUniverse);
       })
-      .finally(() => setStocksLoading(false));
+      .finally(() => {
+        if (active) setStocksLoading(false);
+      });
+    return () => { active = false; };
   }, [stockTab, stockSector, stockMoverFilter, debouncedStockSearch, stockPage, stockSortBy, stockSortDir, watchlist]);
 
   // Derived Overview Metrics from actual records
