@@ -207,9 +207,6 @@ export function MainNavbar() {
             <NavLink to="/mutual-funds" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Mutual Funds
             </NavLink>
-            <NavLink to="/portfolio" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
-              Portfolio
-            </NavLink>
             <NavLink to="/listed" className={({ isActive }) => `hidden 2xl:inline-block ${navLinkClass({ isActive })}`}>
               Listed IPOs
             </NavLink>
@@ -241,7 +238,6 @@ export function MainNavbar() {
                   <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] shadow-lg p-1.5 grid gap-0.5">
                     {[
                       { label: 'Mutual Funds & SIP', to: '/mutual-funds' },
-                      { label: 'Portfolio Tracker', to: '/portfolio' },
                       { label: 'Listed IPO Performance', to: '/listed' },
                       { label: 'Calculators', to: '/calculators' },
                       { label: 'Market Insights', to: '/market-insights' },
@@ -468,7 +464,6 @@ export function MainNavbar() {
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: 'Mutual Funds & SIP', to: '/mutual-funds' },
-                    { label: 'Portfolio Tracker', to: '/portfolio' },
                     { label: 'Calculators', to: '/calculators' },
                     { label: 'Market Insights', to: '/market-insights' },
                     { label: 'Learn / Guides', to: '/blog' },
