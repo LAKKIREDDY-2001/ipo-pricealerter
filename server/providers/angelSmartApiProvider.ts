@@ -209,6 +209,30 @@ export interface AngelCautionaryScrip {
   category: 'ASM' | 'GSM' | 'TRADE_FOR_TRADE' | 'CAUTIONARY';
 }
 
+export interface AngelConvertPositionRequest {
+  exchange: AngelExchange;
+  symboltoken: string;
+  oldproducttype: string;
+  newproducttype: string;
+  tradingsymbol: string;
+  symbolname: string;
+  instrumenttype?: string;
+  priceden?: string;
+  pricenum?: string;
+  genden?: string;
+  gennum?: string;
+  precision?: string;
+  multiplier?: string;
+  boardlotsize?: string;
+  buyqty: string;
+  sellqty: string;
+  buyamount: string;
+  sellamount: string;
+  transactiontype: 'BUY' | 'SELL';
+  quantity: number;
+  type: 'DAY' | 'NET';
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -230,7 +254,9 @@ const GAINERS_LOSERS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/
 const PCR_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/putCallRatio`;
 const OI_BUILDUP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/marketData/v1/OIBuildup`;
 const ALL_HOLDINGS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/portfolio/v1/getAllHolding`;
+const BASIC_HOLDINGS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/portfolio/v1/getHolding`;
 const POSITIONS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getPosition`;
+const CONVERT_POSITION_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/convertPosition`;
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
 const SEARCH_SCRIP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/searchScrip`;
 const LTP_DATA_URL = `${ANGEL_SMARTAPI_ROOT_URL}/order-service/rest/secure/angelbroking/order/v1/getLtpData`;
@@ -1085,6 +1111,45 @@ export async function fetchAngelHoldings(
 }
 
 /**
+ * Fetch Basic Demat Holdings list from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getHolding
+ */
+export async function fetchAngelBasicHoldings(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelHoldingItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) return [];
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) return [];
+
+  try {
+    const response = await fetch(BASIC_HOLDINGS_URL, {
+      method: 'GET',
+      headers,
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: AngelHoldingItem[] | { holdings?: AngelHoldingItem[] };
+    };
+
+    if (json.status && json.data) {
+      if (Array.isArray(json.data)) return json.data;
+      if (Array.isArray((json.data as any).holdings)) return (json.data as any).holdings;
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelBasicHoldings error:`, error);
+    return [];
+  }
+}
+
+/**
  * Fetch Net and Day Trading Positions from Angel One SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getPosition
  */
@@ -1123,6 +1188,72 @@ export async function fetchAngelPositions(
   } catch (error) {
     console.warn(`[AngelSmartAPI] fetchAngelPositions error:`, error);
     return [];
+  }
+}
+
+/**
+ * Convert product type of an open position (e.g. DELIVERY to INTRADAY, or INTRADAY to DELIVERY)
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/convertPosition
+ */
+export async function convertAngelPosition(
+  request: AngelConvertPositionRequest,
+  credsOverride?: AngelApiCredentials
+): Promise<{ success: boolean; message: string }> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey) {
+    return { success: false, message: 'Angel One credentials not configured' };
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
+    return { success: false, message: 'Authentication failed with Angel One SmartAPI' };
+  }
+
+  try {
+    const response = await fetch(CONVERT_POSITION_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        exchange: request.exchange,
+        symboltoken: request.symboltoken,
+        oldproducttype: request.oldproducttype,
+        newproducttype: request.newproducttype,
+        tradingsymbol: request.tradingsymbol,
+        symbolname: request.symbolname,
+        instrumenttype: request.instrumenttype ?? '',
+        priceden: request.priceden ?? '1',
+        pricenum: request.pricenum ?? '1',
+        genden: request.genden ?? '1',
+        gennum: request.gennum ?? '1',
+        precision: request.precision ?? '2',
+        multiplier: request.multiplier ?? '-1',
+        boardlotsize: request.boardlotsize ?? '1',
+        buyqty: request.buyqty,
+        sellqty: request.sellqty,
+        buyamount: request.buyamount,
+        sellamount: request.sellamount,
+        transactiontype: request.transactiontype,
+        quantity: request.quantity,
+        type: request.type,
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      errorcode?: string;
+    };
+
+    return {
+      success: Boolean(json.status),
+      message: json.message || (json.status ? 'Position converted successfully' : 'Position conversion failed'),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : 'Network error during position conversion',
+    };
   }
 }
 

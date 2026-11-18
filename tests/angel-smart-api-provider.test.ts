@@ -22,6 +22,8 @@ import {
   type AngelHoldingItem,
   type AngelLtpQuote,
   type AngelCautionaryScrip,
+  type AngelConvertPositionRequest,
+  type AngelPositionItem,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -295,5 +297,46 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
 
     assert.equal(ANGEL_SMARTAPI_ROOT_URL, 'https://apiconnect.angelone.in');
     assert.ok(SCRIP_MASTER_URL.includes('OpenAPIScripMaster.json'));
+  });
+
+  await t.test('validates Angel One position item and position conversion payload contract', () => {
+    const samplePosition: AngelPositionItem = {
+      exchange: 'NSE',
+      symboltoken: '2885',
+      producttype: 'DELIVERY',
+      tradingsymbol: 'RELIANCE-EQ',
+      symbolname: 'RELIANCE',
+      buyqty: '1',
+      sellqty: '0',
+      buyamount: '2235.80',
+      sellamount: '0',
+      netqty: '1',
+      netvalue: '-2235.80',
+      buyavgprice: '2235.80',
+      sellavgprice: '0',
+      netprice: '2235.80',
+      totalbuyvalue: '2235.80',
+      totalsellvalue: '0',
+    };
+    assert.equal(samplePosition.tradingsymbol, 'RELIANCE-EQ');
+    assert.equal(samplePosition.producttype, 'DELIVERY');
+
+    const conversionReq: AngelConvertPositionRequest = {
+      exchange: 'NSE',
+      symboltoken: '2885',
+      oldproducttype: 'DELIVERY',
+      newproducttype: 'INTRADAY',
+      tradingsymbol: 'RELIANCE-EQ',
+      symbolname: 'RELIANCE',
+      buyqty: '1',
+      sellqty: '0',
+      buyamount: '2235.80',
+      sellamount: '0',
+      transactiontype: 'BUY',
+      quantity: 1,
+      type: 'DAY',
+    };
+    assert.equal(conversionReq.newproducttype, 'INTRADAY');
+    assert.equal(conversionReq.quantity, 1);
   });
 });

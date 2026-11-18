@@ -3,6 +3,8 @@ import {
   getAngelCredentials,
   fetchAngelHoldings,
   convertAngelHoldingsToPortfolio,
+  fetchAngelPositions,
+  convertAngelPosition,
   fetchAngelCautionaryScrips,
   searchAngelScrip,
   fetchAngelIntradayScrips,
@@ -834,6 +836,41 @@ export async function onRequest(context: {
         error: err?.message || "Error communicating with Angel One SmartAPI",
         holdings: [],
       }, 500);
+    }
+  }
+
+  if (pathname === "/api/portfolio/angel/positions") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured", positions: [] }, 400);
+    }
+    try {
+      const positions = await fetchAngelPositions(creds);
+      return json({
+        ok: true,
+        source: "Angel One SmartAPI (Positions)",
+        count: positions.length,
+        positions,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({ ok: false, error: err?.message || "Error fetching positions", positions: [] }, 500);
+    }
+  }
+
+  if (pathname === "/api/portfolio/angel/convert-position" && method === "POST") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    if (!creds?.apiKey) {
+      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+    }
+    try {
+      const body = (await request.json()) as any;
+      const res = await convertAngelPosition(body, creds);
+      return json(res, res.success ? 200 : 400);
+    } catch (err: any) {
+      return json({ success: false, message: err?.message || "Position conversion request failed" }, 500);
     }
   }
 
