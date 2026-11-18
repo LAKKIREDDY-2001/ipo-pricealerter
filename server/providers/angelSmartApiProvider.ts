@@ -130,6 +130,55 @@ export interface AngelOIBuildupItem {
   tradingSymbol: string;
 }
 
+export interface AngelHoldingItem {
+  tradingsymbol: string;
+  exchange: AngelExchange;
+  isin: string;
+  t1quantity: number;
+  realisedquantity: number;
+  quantity: number;
+  authorisedquantity: number;
+  product: string;
+  collateralquantity: number | null;
+  collateraltype: string | null;
+  haircut: number;
+  averageprice: number;
+  ltp: number;
+  symboltoken: string;
+  close: number;
+  profitandloss: number;
+  pnlpercentage: number;
+}
+
+export interface AngelAllHoldingsData {
+  holdings: AngelHoldingItem[];
+  totalholding: {
+    totalholdingvalue: number;
+    totalinvvalue: number;
+    totalprofitandloss: number;
+    totalpnlpercentage: number;
+  };
+}
+
+export interface AngelPositionItem {
+  exchange: AngelExchange;
+  symboltoken: string;
+  producttype: string;
+  tradingsymbol: string;
+  symbolname: string;
+  buyqty: string;
+  sellqty: string;
+  buyamount: string;
+  sellamount: string;
+  netqty: string;
+  netvalue: string;
+  buyavgprice: string;
+  sellavgprice: string;
+  netprice: string;
+  totalbuyvalue: string;
+  totalsellvalue: string;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -146,6 +195,8 @@ const LIVE_MARKET_DATA_URL = 'https://apiconnect.angelone.in/rest/secure/angelbr
 const GAINERS_LOSERS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/gainersLosers';
 const PCR_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/putCallRatio';
 const OI_BUILDUP_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/OIBuildup';
+const ALL_HOLDINGS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getAllHolding';
+const POSITIONS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getPosition';
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
 
 // Interval max days lookup per Angel One documentation
@@ -872,4 +923,108 @@ export function convertAngelQuoteToStandard(item: AngelLiveQuoteItem) {
     lastTradeTime: item.exchFeedTime || item.exchTradeTime || new Date().toISOString(),
     depth: item.depth,
   };
+}
+
+/**
+ * Fetch All Demat Holdings from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getAllHolding
+ */
+export async function fetchAngelHoldings(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelAllHoldingsData | null> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey || !creds.authToken) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(ALL_HOLDINGS_URL, {
+      method: 'GET',
+      headers: getAngelAuthHeaders(creds),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) {
+      console.warn(`[AngelSmartAPI] fetchAngelHoldings failed with HTTP ${response.status}`);
+      return null;
+    }
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: AngelAllHoldingsData;
+    };
+
+    if (json.status && json.data) {
+      return json.data;
+    }
+    return null;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelHoldings error:`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetch Net and Day Trading Positions from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getPosition
+ */
+export async function fetchAngelPositions(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelPositionItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey || !creds.authToken) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(POSITIONS_URL, {
+      method: 'GET',
+      headers: getAngelAuthHeaders(creds),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: AngelPositionItem[];
+    };
+
+    if (json.status && Array.isArray(json.data)) {
+      return json.data;
+    }
+    return [];
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelPositions error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Convert Angel One Holdings into PriceAlerter PortfolioHolding items
+ */
+export function convertAngelHoldingsToPortfolio(holdings: AngelHoldingItem[]) {
+  return holdings.map((h, index) => {
+    const cleanSymbol = h.tradingsymbol.replace(/-(EQ|BE|BZ)$/i, '').trim().toUpperCase();
+    const dayChangePercent =
+      h.close > 0 ? Number((((h.ltp - h.close) / h.close) * 100).toFixed(2)) : 0;
+
+    return {
+      id: `angel-${cleanSymbol}-${index}`,
+      name: cleanSymbol,
+      symbol: cleanSymbol,
+      assetType: 'Equity' as const,
+      quantity: Number(h.quantity) || 0,
+      buyPrice: Number(h.averageprice) || 0,
+      currentPrice: Number(h.ltp) || 0,
+      dayChangePercent,
+      sector: 'Diversified',
+      mcapCategory: 'Large Cap' as const,
+      isin: h.isin,
+      pnl: Number(h.profitandloss) || 0,
+      pnlPercent: Number(h.pnlpercentage) || 0,
+    };
+  });
 }

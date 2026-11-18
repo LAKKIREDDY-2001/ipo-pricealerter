@@ -6,6 +6,7 @@ import {
   isAngelSmartApiConfigured,
   formatAngelCandlesForChart,
   convertAngelQuoteToStandard,
+  convertAngelHoldingsToPortfolio,
   classifyPcrSentiment,
   generateTOTP,
   KNOWN_ANGEL_TOKENS,
@@ -14,6 +15,7 @@ import {
   type AngelLiveQuoteItem,
   type AngelGainerLoserItem,
   type AngelOIBuildupItem,
+  type AngelHoldingItem,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -196,5 +198,39 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     };
     assert.equal(sampleBuildup.tradingSymbol, 'JINDALSTEL25JAN24FUT');
     assert.equal(sampleBuildup.ltp, 723.8);
+  });
+
+  await t.test('converts Angel One Demat holdings into PriceAlerter PortfolioHolding records', () => {
+    const sampleAngelHoldings: AngelHoldingItem[] = [
+      {
+        tradingsymbol: 'TATASTEEL-EQ',
+        exchange: 'NSE',
+        isin: 'INE081A01020',
+        t1quantity: 0,
+        realisedquantity: 2,
+        quantity: 2,
+        authorisedquantity: 0,
+        product: 'DELIVERY',
+        collateralquantity: null,
+        collateraltype: null,
+        haircut: 0,
+        averageprice: 111.87,
+        ltp: 130.15,
+        symboltoken: '3499',
+        close: 129.6,
+        profitandloss: 37,
+        pnlpercentage: 16.34,
+      },
+    ];
+
+    const portfolioHoldings = convertAngelHoldingsToPortfolio(sampleAngelHoldings);
+    assert.equal(portfolioHoldings.length, 1);
+    assert.equal(portfolioHoldings[0].symbol, 'TATASTEEL');
+    assert.equal(portfolioHoldings[0].quantity, 2);
+    assert.equal(portfolioHoldings[0].buyPrice, 111.87);
+    assert.equal(portfolioHoldings[0].currentPrice, 130.15);
+    assert.equal(portfolioHoldings[0].pnl, 37);
+    assert.equal(portfolioHoldings[0].pnlPercent, 16.34);
+    assert.equal(portfolioHoldings[0].assetType, 'Equity');
   });
 });
