@@ -38,7 +38,6 @@ import {
 } from '../components/common/StateViews';
 import { DataQualityBadge } from '../components/common/DataQualityBadge';
 import { WatchlistButton } from '../components/common/WatchlistButton';
-import { useLiveMarketStream } from '../hooks/useLiveMarketStream';
 
 const CHART_RANGES = [
   { label: '1D', value: '1d' },
@@ -184,12 +183,7 @@ export function StockDetailPage() {
     return () => clearInterval(timer);
   }, [autoRefresh, symbol, range]);
 
-  useLiveMarketStream({
-    enabled: autoRefresh && Boolean(symbol),
-    onStocks: () => {
-      void fetchStock(range, true);
-    },
-  });
+  // The 15-second quote poll is sufficient; avoid duplicate requests from SSE.
 
   const effectiveChartSeries = useMemo(() => {
     if (!stock) return [];
@@ -216,7 +210,9 @@ export function StockDetailPage() {
       }
       return stock.historicalSeries;
     }
-    const spark = Array.isArray(stock.sparkline) && stock.sparkline.length > 0
+    // A price-only sparkline has no historical timestamps. Never stretch it
+    // across arbitrary ranges or label synthetic points as historical dates.
+    const spark = range === '1d' && Array.isArray(stock.sparkline) && stock.sparkline.length > 0
       ? stock.sparkline
       : [];
     if (spark.length > 0) {
