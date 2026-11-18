@@ -636,10 +636,7 @@ export const api = {
             volume: typeof liveMatch.volRaw === 'number' ? liveMatch.volRaw : null,
             marketCapCr: liveMatch.marketCapCr ?? null,
             lastTradeTime: liveMatch.quoteTimestamp || new Date().toISOString(),
-            sparkline:
-              prev !== null && rawPrice !== null
-                ? [prev, Number(((prev + rawPrice) / 2).toFixed(2)), rawPrice]
-                : [],
+            sparkline: [],
             historicalSeries: [],
             announcements: [],
             provenance: {
