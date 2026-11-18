@@ -1012,14 +1012,12 @@ export function getAngelCredentials(customEnv?: Record<string, string | undefine
   const clientCode =
     env.ANGELONE_CLIENT_CODE?.trim() ||
     env.ANGEL_CLIENT_CODE?.trim() ||
-    env.SMARTAPI_CLIENT_CODE?.trim() ||
-    'AABF820686';
+    env.SMARTAPI_CLIENT_CODE?.trim();
 
   const pin =
     env.ANGELONE_PIN?.trim() ||
     env.ANGEL_PIN?.trim() ||
-    env.ANGELONE_PASSWORD?.trim() ||
-    '2001';
+    env.ANGELONE_PASSWORD?.trim();
 
   const totpKey =
     env.ANGELONE_TOTP_KEY?.trim() ||
