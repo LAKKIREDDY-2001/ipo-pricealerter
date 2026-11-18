@@ -150,8 +150,9 @@ async function main() {
   );
   console.log(`Priced liquid equities: ${validPriced.length}`);
 
-  // Top 2,500 stocks with complete quote & profile data
-  const top2500 = validPriced.slice(0, 2500).map((s) => {
+  // Preserve the complete exchange universe in the snapshot, including securities
+  // that are currently unpriced or temporarily have no live quote.
+  const top2500 = [...allSyncedStocks].map((s) => {
     const copy = { ...s };
     if (copy.historicalSeries && copy.historicalSeries.length > 30) {
       copy.historicalSeries = copy.historicalSeries.slice(-30);
@@ -162,7 +163,7 @@ async function main() {
   // Save top 2,500 to db.stocks
   db.stocks = top2500;
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
-  console.log(`✓ Saved ${top2500.length} equities into server/data/db.json (db.stocks)`);
+  console.log(`✓ Saved the complete ${top2500.length}-security universe into server/data/db.json (db.stocks)`);
 
   // Build allLiveStocks array across ALL priced equities (6,000+)
   const allLive = validPriced.map((s) => {
@@ -216,7 +217,7 @@ async function main() {
   snap.ipos = db.ipos;
 
   fs.writeFileSync(snapPath, JSON.stringify(snap, null, 2), 'utf8');
-  console.log(`✓ Updated public/data/live-market-data.json: ${snap.stocks.length} stocks, ${snap.allLiveStocks.length} allLiveStocks, ${snap.ipos.length} ipos`);
+  console.log(`✓ Updated public/data/live-market-data.json: ${snap.stocks.length} universe securities, ${snap.allLiveStocks.length} priced live stocks, ${snap.ipos.length} ipos`);
 
   // Sync to dist/data if it exists
   const distSnapPath = path.resolve('dist/data/live-market-data.json');
