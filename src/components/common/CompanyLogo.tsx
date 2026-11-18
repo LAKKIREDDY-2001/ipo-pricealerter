@@ -442,7 +442,18 @@ export function buildLogoCandidateList(opts: {
     if (!candidates.includes(bseUrl)) candidates.push(bseUrl);
   }
 
-  // 7. Alpha Vantage CDN
+  // 7. Broad Indian listed-company logo directory, including BSE-only listings.
+  // Use exchange-qualified symbols so a BSE-only security is not mistaken for an NSE ticker.
+  if (cleanSym && !/^\d+$/.test(cleanSym)) {
+    const listedLogo = `https://api.dharun.dev/v1/logos/NSE:${encodeURIComponent(cleanSym)}`;
+    if (!candidates.includes(listedLogo)) candidates.push(listedLogo);
+  }
+  if (bse6 && /^\d{6}$/.test(bse6)) {
+    const bseListedLogo = `https://api.dharun.dev/v1/logos/BSE:${bse6}`;
+    if (!candidates.includes(bseListedLogo)) candidates.push(bseListedLogo);
+  }
+
+  // 8. Alpha Vantage CDN
   if (cleanSym && !/^\d+$/.test(cleanSym)) {
     const avPng = `https://cdn.alphavantage.co/logos/${cleanSym}.png`;
     if (!candidates.includes(avPng)) candidates.push(avPng);
