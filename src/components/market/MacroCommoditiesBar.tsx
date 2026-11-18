@@ -4,6 +4,16 @@ import { api } from '../../services/api';
 import type { GlobalMacroSnapshot } from '../../types/financial';
 import { formatNumberIN } from '../../utils/calculations';
 
+function quoteFreshnessLabel(timestamp?: string | null): string {
+  if (!timestamp) return 'Timestamp unavailable';
+  const date = new Date(timestamp);
+  if (Number.isNaN(date.getTime())) return 'Timestamp unavailable';
+  const quoteDay = date.toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+  const time = date.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' });
+  return quoteDay === today ? `Delayed · ${time} IST` : `Stale · ${quoteDay}`;
+}
+
 export function MacroCommoditiesBar() {
   const [macro, setMacro] = useState<GlobalMacroSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,9 +62,9 @@ export function MacroCommoditiesBar() {
               <h3 className="font-display text-sm font-bold text-[#14263F] dark:text-white">
                 Global Macro &amp; Commodities Feed
               </h3>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live Feed
+              <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${macro?.liveFeedReachable ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200/60 dark:border-amber-800/60' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${macro?.liveFeedReachable ? 'bg-amber-500' : 'bg-slate-400'}`} />
+                {macro ? macro.liveFeedReachable ? `Delayed feed · ${macro.liveQuotesCount ?? 0}/5` : 'Published snapshot' : 'Connecting'}
               </span>
             </div>
             <p className="text-[11px] text-[#64748B] dark:text-slate-400 mt-0.5">
@@ -105,7 +115,7 @@ export function MacroCommoditiesBar() {
             {loading ? '—' : gold == null ? 'Unavailable' : `${formatNumberIN(gold)}/oz`}
           </div>
           <div className="mt-0.5 text-[10px] text-amber-600 dark:text-amber-400 font-semibold">
-            Bullion Spot Benchmark
+            {quoteFreshnessLabel(macro?.gold?.timestamp)}
           </div>
         </div>
 
@@ -119,7 +129,7 @@ export function MacroCommoditiesBar() {
             {loading ? '—' : silver == null ? 'Unavailable' : `${formatValue(silver)}/oz`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400 font-semibold">
-            Industrial &amp; Jewellery
+            {quoteFreshnessLabel(macro?.silver?.timestamp)}
           </div>
         </div>
 
@@ -133,7 +143,7 @@ export function MacroCommoditiesBar() {
             {loading ? '—' : crude == null ? 'Unavailable' : `${formatValue(crude)}/bbl`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400">
-            Energy Input Cost
+            {quoteFreshnessLabel(macro?.brentCrude?.date)}
           </div>
         </div>
 
@@ -147,7 +157,7 @@ export function MacroCommoditiesBar() {
             {loading ? '—' : us10y == null ? 'Unavailable' : `${formatValue(us10y)}%`}
           </div>
           <div className="mt-0.5 text-[10px] text-[#64748B] dark:text-slate-400">
-            Global Risk-Free Rate
+            {quoteFreshnessLabel(macro?.us10yYield?.date)}
           </div>
         </div>
       </div>
