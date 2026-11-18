@@ -96,10 +96,17 @@ import {
   fetchAngelTradeBook,
   fetchAngelIndividualOrderStatus,
   fetchAngelLtpQuote,
+  recordAngelPostback,
+  getRecentAngelPostbacks,
+  clearAngelPostbacks,
+  createSimulatedAngelPostback,
+  ANGEL_POSTBACK_DEFAULT_URL,
   type AngelPlaceOrderRequest,
   type AngelModifyOrderRequest,
   type AngelCancelOrderRequest,
   type AngelExchange,
+  type AngelPostbackPayload,
+  type AngelPostbackStatusCategory,
 } from './server/providers/angelSmartApiProvider.ts';
 import type { IPOOffering, PriceAlertRule } from './src/types/financial.ts';
 
@@ -2126,6 +2133,60 @@ async function startServer() {
       });
     } catch (err: any) {
       res.status(500).json({ ok: false, error: err?.message || 'Failed to fetch LTP' });
+    }
+  });
+
+  // --- Angel One SmartAPI Postback / Webhook Suite ---
+  app.post('/api/orders/angel/postback', async (req, res) => {
+    try {
+      const payload = req.body as Partial<AngelPostbackPayload>;
+      const record = recordAngelPostback(payload);
+      res.status(200).json({
+        status: true,
+        message: 'Postback received successfully',
+        orderid: record.orderid,
+        statusCategory: record.statusCategory,
+      });
+    } catch (err: any) {
+      res.status(400).json({
+        status: false,
+        message: err?.message || 'Failed to process postback webhook',
+      });
+    }
+  });
+
+  app.get('/api/orders/angel/postback', async (req, res) => {
+    const clientcode = (req.query.clientcode as string) || undefined;
+    const orderid = (req.query.orderid as string) || undefined;
+    const statusCategory = (req.query.statusCategory as AngelPostbackStatusCategory) || undefined;
+    const limit = Number(req.query.limit) || undefined;
+
+    const records = getRecentAngelPostbacks({ clientcode, orderid, statusCategory, limit });
+    res.json({
+      ok: true,
+      source: 'Angel One SmartAPI Postback / Webhook Stream',
+      webhookUrl: ANGEL_POSTBACK_DEFAULT_URL,
+      count: records.length,
+      data: records,
+      retrievedAt: new Date().toISOString(),
+    });
+  });
+
+  app.delete('/api/orders/angel/postback', async (_req, res) => {
+    clearAngelPostbacks();
+    res.json({ ok: true, message: 'Postback log cleared successfully' });
+  });
+
+  app.post('/api/orders/angel/postback/simulate', async (req, res) => {
+    try {
+      const record = createSimulatedAngelPostback(req.body || {});
+      res.json({
+        ok: true,
+        message: 'Simulated postback recorded successfully',
+        data: record,
+      });
+    } catch (err: any) {
+      res.status(400).json({ ok: false, error: err?.message || 'Simulation failed' });
     }
   });
 

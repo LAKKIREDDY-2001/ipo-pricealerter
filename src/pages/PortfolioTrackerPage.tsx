@@ -25,6 +25,10 @@ import {
   Lock,
   Unlock,
   ShieldAlert,
+  Zap,
+  Copy,
+  Check,
+  Radio,
 } from 'lucide-react';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs } from '../components/common/StateViews';
@@ -180,8 +184,8 @@ export function PortfolioTrackerPage() {
     collateral?: string;
   } | null>(null);
 
-  // Tab State: Demat Holdings vs Angel One SmartAPI Orders & Trades
-  const [portfolioTab, setPortfolioTab] = useState<'holdings' | 'orderbook' | 'tradebook'>('holdings');
+  // Tab State: Demat Holdings vs Angel One SmartAPI Orders & Trades vs Webhook Postbacks
+  const [portfolioTab, setPortfolioTab] = useState<'holdings' | 'orderbook' | 'tradebook' | 'postbacks'>('holdings');
 
   // Order Book & Trade Book State
   const [orderBook, setOrderBook] = useState<any[]>([
@@ -246,6 +250,82 @@ export function PortfolioTrackerPage() {
 
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [orderFilter, setOrderFilter] = useState<'ALL' | 'OPEN' | 'EXECUTED' | 'CANCELLED' | 'REJECTED'>('ALL');
+
+  // Postback / Webhook Stream State
+  const [postbacks, setPostbacks] = useState<any[]>([
+    {
+      orderid: '201020000000080',
+      tradingsymbol: 'SBIN-EQ',
+      symboltoken: '3045',
+      transactiontype: 'BUY',
+      exchange: 'NSE',
+      ordertype: 'LIMIT',
+      producttype: 'INTRADAY',
+      duration: 'DAY',
+      variety: 'NORMAL',
+      price: 195.0,
+      averageprice: 194.8,
+      quantity: 10,
+      filledshares: 10,
+      unfilledshares: 0,
+      status: 'complete',
+      orderstatus: 'complete',
+      statusCategory: 'COMPLETE',
+      fillPercent: 100,
+      fillid: '112345',
+      text: 'Traded',
+      updatetime: '20-Oct-2020 14:20:10',
+      exchorderupdatetime: '20-Oct-2020 14:20:10',
+      clientcode: 'A102934',
+      receivedAt: new Date().toISOString(),
+    },
+    {
+      orderid: '231010000000970',
+      tradingsymbol: 'RELIANCE-EQ',
+      symboltoken: '2885',
+      transactiontype: 'BUY',
+      exchange: 'NSE',
+      ordertype: 'LIMIT',
+      producttype: 'DELIVERY',
+      duration: 'DAY',
+      variety: 'NORMAL',
+      price: 2298.25,
+      averageprice: 0,
+      quantity: 1,
+      filledshares: 0,
+      unfilledshares: 1,
+      status: 'rejected',
+      orderstatus: 'rejected',
+      statusCategory: 'REJECTED',
+      fillPercent: 0,
+      fillid: '',
+      text: 'RMS:Rule: Check Margin failed. Insufficient funds in trading account',
+      updatetime: '10-Oct-2023 09:00:16',
+      exchorderupdatetime: '10-Oct-2023 09:00:16',
+      clientcode: 'A102934',
+      receivedAt: new Date(Date.now() - 3600000).toISOString(),
+    },
+  ]);
+  const [loadingPostbacks, setLoadingPostbacks] = useState(false);
+  const [postbackFilter, setPostbackFilter] = useState<'ALL' | 'COMPLETE' | 'PARTIALLY_EXECUTED' | 'OPEN' | 'CANCELLED' | 'REJECTED'>('ALL');
+  const [postbackSearch, setPostbackSearch] = useState('');
+  const [postbackCopied, setPostbackCopied] = useState(false);
+  const [expandedPostbackId, setExpandedPostbackId] = useState<string | null>(null);
+
+  // Simulate Postback Modal State
+  const [simulateModalOpen, setSimulateModalOpen] = useState(false);
+  const [simOrderId, setSimOrderId] = useState('201020000000080');
+  const [simSymbol, setSimSymbol] = useState('SBIN-EQ');
+  const [simToken, setSimToken] = useState('3045');
+  const [simExchange, setSimExchange] = useState('NSE');
+  const [simSide, setSimSide] = useState<'BUY' | 'SELL'>('BUY');
+  const [simProduct, setSimProduct] = useState('DELIVERY');
+  const [simOrderType, setSimOrderType] = useState('LIMIT');
+  const [simQty, setSimQty] = useState('10');
+  const [simPrice, setSimPrice] = useState('195.00');
+  const [simEvent, setSimEvent] = useState<'COMPLETE' | 'PARTIAL' | 'OPEN' | 'CANCELLED' | 'REJECTED'>('COMPLETE');
+  const [simReason, setSimReason] = useState('RMS:Rule: Check Margin failed. Insufficient funds in trading account');
+  const [simulating, setSimulating] = useState(false);
 
   // Place Order Modal State
   const [placeOrderModalOpen, setPlaceOrderModalOpen] = useState(false);
@@ -451,6 +531,109 @@ export function PortfolioTrackerPage() {
     }
   };
 
+  const refreshPostbacks = async () => {
+    setLoadingPostbacks(true);
+    try {
+      const res = await api.getAngelPostbacks();
+      if (res && res.data && Array.isArray(res.data) && res.data.length > 0) {
+        setPostbacks(res.data);
+      }
+    } catch {
+      // retain state
+    } finally {
+      setLoadingPostbacks(false);
+    }
+  };
+
+  const handleSimulatePostback = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setSimulating(true);
+    try {
+      const qty = Number(simQty) || 1;
+      const price = Number(simPrice) || 0;
+      const res = await api.simulateAngelPostback({
+        orderid: simOrderId.trim() || `ORD_${Date.now()}`,
+        tradingsymbol: simSymbol.trim().toUpperCase(),
+        symboltoken: simToken.trim(),
+        exchange: simExchange,
+        transactiontype: simSide,
+        producttype: simProduct,
+        ordertype: simOrderType,
+        quantity: qty,
+        price,
+        event: simEvent,
+        rejectionReason: simReason,
+      });
+
+      if (res.ok && res.data) {
+        const newRecord = res.data;
+        setPostbacks((prev) => [newRecord, ...prev.filter((p) => p.orderid !== newRecord.orderid || p.receivedAt !== newRecord.receivedAt)]);
+
+        // Sync with live Order Book if matching order exists
+        setOrderBook((prev) =>
+          prev.map((ord) => {
+            if (String(ord.orderid) === String(newRecord.orderid)) {
+              return {
+                ...ord,
+                status: newRecord.status,
+                orderstatus: newRecord.orderstatus,
+                filledshares: String(newRecord.filledshares),
+                unfilledshares: String(newRecord.unfilledshares),
+                averageprice: String(newRecord.averageprice),
+                text: newRecord.text,
+              };
+            }
+            return ord;
+          })
+        );
+
+        // If completed or partial fill, append trade to Trade Book
+        if (newRecord.numericFilledShares > 0) {
+          setTradeBook((prev) => [
+            {
+              orderid: newRecord.orderid,
+              fillid: newRecord.fillid || String(Math.floor(100000 + Math.random() * 900000)),
+              tradingsymbol: newRecord.tradingsymbol,
+              exchange: newRecord.exchange,
+              transactiontype: newRecord.transactiontype,
+              producttype: newRecord.producttype,
+              fillprice: String(newRecord.averageprice),
+              fillsize: String(newRecord.numericFilledShares),
+              tradevalue: String(newRecord.averageprice * newRecord.numericFilledShares),
+              filltime: new Date().toLocaleTimeString('en-IN', { hour12: false }),
+            },
+            ...prev,
+          ]);
+        }
+
+        setSimulateModalOpen(false);
+      }
+    } catch (err: any) {
+      alert(err?.message || 'Failed to simulate postback');
+    } finally {
+      setSimulating(false);
+    }
+  };
+
+  const handleClearPostbacks = async () => {
+    if (!confirm('Are you sure you want to clear the postback event stream?')) return;
+    try {
+      await api.clearAngelPostbacks();
+      setPostbacks([]);
+    } catch (err: any) {
+      alert(err?.message || 'Error clearing postbacks');
+    }
+  };
+
+  const handleCopyWebhookUrl = () => {
+    const url = typeof window !== 'undefined'
+      ? `${window.location.origin}/api/orders/angel/postback`
+      : 'https://pricealerter.com/api/orders/angel/postback';
+    navigator.clipboard?.writeText(url);
+    setPostbackCopied(true);
+    setTimeout(() => setPostbackCopied(false), 2000);
+  };
+
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setOrderSubmitting(true);
@@ -639,6 +822,23 @@ export function PortfolioTrackerPage() {
       }))
       .sort((a, b) => b.value - a.value);
   }, [holdings, summary.totalCurrent]);
+
+  const filteredPostbacks = useMemo(() => {
+    let list = postbacks;
+    if (postbackFilter !== 'ALL') {
+      list = list.filter((p) => p.statusCategory === postbackFilter);
+    }
+    if (postbackSearch.trim()) {
+      const q = postbackSearch.trim().toLowerCase();
+      list = list.filter(
+        (p) =>
+          String(p.orderid).toLowerCase().includes(q) ||
+          String(p.tradingsymbol).toLowerCase().includes(q) ||
+          String(p.clientcode || '').toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [postbacks, postbackFilter, postbackSearch]);
 
   const handleAddHolding = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1125,9 +1325,62 @@ export function PortfolioTrackerPage() {
                 </span>
               )}
             </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setPortfolioTab('postbacks');
+                refreshPostbacks();
+              }}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                portfolioTab === 'postbacks'
+                  ? 'bg-purple-600 text-white shadow-sm'
+                  : 'bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-400 hover:bg-purple-100'
+              }`}
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>⚡ Webhook / Postbacks</span>
+              {postbacks.length > 0 && (
+                <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-purple-700/60 text-white">
+                  {postbacks.length}
+                </span>
+              )}
+            </button>
           </div>
 
           <div className="flex items-center gap-2">
+            {portfolioTab === 'postbacks' && (
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSimulateModalOpen(true)}
+                  className="px-2.5 py-1.5 text-xs bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg flex items-center gap-1 transition-colors cursor-pointer shadow-sm"
+                  title="Simulate Webhook Postback"
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>Simulate Webhook</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={refreshPostbacks}
+                  disabled={loadingPostbacks}
+                  className="px-2.5 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
+                  title="Refresh postbacks"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${loadingPostbacks ? 'animate-spin' : ''}`} />
+                  <span>Refresh</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClearPostbacks}
+                  className="px-2.5 py-1.5 text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
+                  title="Clear postback stream"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Clear</span>
+                </button>
+              </div>
+            )}
             {portfolioTab === 'orderbook' && (
               <button
                 type="button"
@@ -1485,6 +1738,302 @@ export function PortfolioTrackerPage() {
                 </tbody>
               </table>
             </div>
+          </div>
+        )}
+
+        {portfolioTab === 'postbacks' && (
+          <div className="space-y-4">
+            {/* Webhook Configuration Banner */}
+            <div className="rounded-xl border border-purple-200 dark:border-purple-900/60 bg-gradient-to-r from-purple-50/70 via-indigo-50/50 to-slate-50 dark:from-purple-950/20 dark:via-indigo-950/20 dark:to-slate-900/40 p-4 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-purple-600/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-slate-900 dark:text-white flex items-center gap-2">
+                      <span>Angel One SmartAPI Postback Webhook Endpoint</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800 font-mono">
+                        HTTPS Port 443
+                      </span>
+                    </h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      SmartAPI provides real-time updates of order execution via HTTP POST. AMO orders are dispatched at 9:00 AM on market open.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSimulateModalOpen(true)}
+                    className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>Simulate Webhook Delivery</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Webhook URL Input & Copy */}
+              <div className="flex items-center gap-2 bg-white dark:bg-[#111C2E] border border-purple-200 dark:border-purple-900/50 rounded-lg p-1.5 shadow-inner">
+                <span className="px-2 py-1 bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 font-mono text-[10px] font-bold rounded">
+                  POST
+                </span>
+                <input
+                  type="text"
+                  readOnly
+                  value={
+                    typeof window !== 'undefined'
+                      ? `${window.location.origin}/api/orders/angel/postback`
+                      : 'https://pricealerter.com/api/orders/angel/postback'
+                  }
+                  className="flex-1 bg-transparent font-mono text-xs text-slate-800 dark:text-slate-200 outline-none px-2 select-all"
+                />
+                <button
+                  type="button"
+                  onClick={handleCopyWebhookUrl}
+                  className="px-3 py-1 text-xs rounded bg-purple-600 text-white hover:bg-purple-700 transition-colors font-medium flex items-center gap-1 cursor-pointer"
+                >
+                  {postbackCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{postbackCopied ? 'Copied!' : 'Copy URL'}</span>
+                </button>
+              </div>
+
+              {/* Badges / Specification pills */}
+              <div className="flex flex-wrap items-center gap-2 text-[10px] text-slate-600 dark:text-slate-400 pt-1">
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  Port 443 SSL Required
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                  application/json
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  AMO 9:00 AM Callbacks
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                  Live Fills, Partial Fills &amp; RMS Rejections
+                </span>
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                {(
+                  [
+                    { key: 'ALL', label: 'All Postbacks' },
+                    { key: 'COMPLETE', label: 'Complete / Executed' },
+                    { key: 'PARTIALLY_EXECUTED', label: 'Partial Fill' },
+                    { key: 'OPEN', label: 'Open / Pending' },
+                    { key: 'CANCELLED', label: 'Cancelled' },
+                    { key: 'REJECTED', label: 'Rejected' },
+                  ] as const
+                ).map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setPostbackFilter(f.key)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      postbackFilter === f.key
+                        ? 'bg-purple-600 text-white shadow-sm'
+                        : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200'
+                    }`}
+                  >
+                    {f.label}
+                    {f.key === 'ALL' && (
+                      <span className="ml-1 opacity-70">({postbacks.length})</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Filter by Order ID or Symbol..."
+                  value={postbackSearch}
+                  onChange={(e) => setPostbackSearch(e.target.value)}
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 px-3 py-1 text-xs text-slate-800 dark:text-slate-200 outline-none w-48 sm:w-56"
+                />
+              </div>
+            </div>
+
+            {/* Postback Stream Table */}
+            {filteredPostbacks.length === 0 ? (
+              <div className="p-8 text-center rounded-xl border border-dashed border-slate-200 dark:border-slate-800 text-slate-400 space-y-2">
+                <Zap className="w-8 h-8 mx-auto text-slate-300 dark:text-slate-600" />
+                <div className="text-xs font-semibold">No webhook postback events match the selected criteria.</div>
+                <div className="text-[11px] text-slate-500">
+                  Click <span className="font-semibold text-purple-600 dark:text-purple-400">"Simulate Webhook Delivery"</span> above to test an incoming fill or rejection event.
+                </div>
+              </div>
+            ) : (
+              <div className="overflow-x-auto no-scrollbar">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-slate-200 dark:border-slate-800 text-[#64748B] dark:text-slate-400 font-semibold">
+                      <th className="pb-3 pr-3">Event Time</th>
+                      <th className="pb-3 px-3">Security &amp; Side</th>
+                      <th className="pb-3 px-3">Order Specs</th>
+                      <th className="pb-3 px-3">Status</th>
+                      <th className="pb-3 px-3 text-right">Execution Fill</th>
+                      <th className="pb-3 px-3 text-right">Prices (Order / Avg)</th>
+                      <th className="pb-3 pl-3 text-right">Order ID / Fill ID</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80">
+                    {filteredPostbacks.map((pb, idx) => {
+                      const isComplete = pb.statusCategory === 'COMPLETE';
+                      const isPartial = pb.statusCategory === 'PARTIALLY_EXECUTED';
+                      const isRejected = pb.statusCategory === 'REJECTED';
+                      const isCancelled = pb.statusCategory === 'CANCELLED';
+                      const isExpanded = expandedPostbackId === `${pb.orderid}-${idx}`;
+
+                      return (
+                        <React.Fragment key={`${pb.orderid}-${idx}`}>
+                          <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td className="py-3 pr-3 font-mono text-[11px] text-slate-500">
+                              <div>{pb.exchorderupdatetime || pb.updatetime || 'Just now'}</div>
+                              <div className="text-[9px] text-slate-400">Recv: {new Date(pb.receivedAt || Date.now()).toLocaleTimeString()}</div>
+                            </td>
+
+                            <td className="py-3 px-3">
+                              <div className="flex items-center gap-2">
+                                <CompanyLogo
+                                  companyName={pb.tradingsymbol}
+                                  symbol={pb.tradingsymbol ? pb.tradingsymbol.replace(/-EQ$/, '') : ''}
+                                  size="sm"
+                                />
+                                <div>
+                                  <div className="font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                                    <span>{pb.tradingsymbol}</span>
+                                    <span
+                                      className={`px-1.5 py-0.2 rounded text-[9px] font-bold ${
+                                        pb.transactiontype === 'BUY'
+                                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                          : 'bg-red-50 text-red-700 border border-red-200'
+                                      }`}
+                                    >
+                                      {pb.transactiontype}
+                                    </span>
+                                  </div>
+                                  <div className="font-mono text-[10px] text-slate-400">
+                                    {pb.exchange || 'NSE'} • {pb.symboltoken || ''}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+
+                            <td className="py-3 px-3">
+                              <div className="flex flex-wrap gap-1">
+                                <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                  {pb.ordertype}
+                                </span>
+                                <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] text-slate-700 dark:text-slate-300">
+                                  {pb.producttype}
+                                </span>
+                                {pb.variety && pb.variety !== 'NORMAL' && (
+                                  <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200 font-mono text-[10px]">
+                                    {pb.variety}
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            <td className="py-3 px-3">
+                              <div>
+                                <span
+                                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1 ${
+                                    isComplete
+                                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300'
+                                      : isPartial
+                                      ? 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300'
+                                      : isRejected
+                                      ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300'
+                                      : isCancelled
+                                      ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                                      : 'bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300'
+                                  }`}
+                                >
+                                  {isComplete && <CheckCircle2 className="w-3 h-3 text-emerald-600" />}
+                                  {isRejected && <AlertCircle className="w-3 h-3 text-rose-600" />}
+                                  <span>{pb.statusCategory || pb.status}</span>
+                                </span>
+                                {pb.text && (
+                                  <div className="text-[10px] text-slate-500 max-w-xs truncate pt-0.5" title={pb.text}>
+                                    {pb.text}
+                                  </div>
+                                )}
+                              </div>
+                            </td>
+
+                            <td className="py-3 px-3 text-right">
+                              <div className="font-mono font-semibold text-slate-800 dark:text-slate-200">
+                                {pb.filledshares} / {pb.quantity} ({pb.fillPercent}%)
+                              </div>
+                              <div className="w-20 ml-auto h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 mt-1 overflow-hidden">
+                                <div
+                                  className={`h-full rounded-full ${
+                                    isComplete ? 'bg-emerald-500' : isPartial ? 'bg-amber-500' : 'bg-slate-400'
+                                  }`}
+                                  style={{ width: `${pb.fillPercent}%` }}
+                                />
+                              </div>
+                            </td>
+
+                            <td className="py-3 px-3 text-right font-mono">
+                              <div className="font-bold text-slate-900 dark:text-white">
+                                ₹{Number(pb.price || 0).toFixed(2)}
+                              </div>
+                              <div className="text-[10px] text-slate-400">
+                                Avg: ₹{Number(pb.averageprice || 0).toFixed(2)}
+                              </div>
+                            </td>
+
+                            <td className="py-3 pl-3 text-right font-mono text-[10px] text-slate-400">
+                              <div className="font-semibold text-slate-700 dark:text-slate-300">#{pb.orderid}</div>
+                              {pb.fillid && <div className="text-[9px]">Fill: {pb.fillid}</div>}
+                              <button
+                                type="button"
+                                onClick={() => setExpandedPostbackId(isExpanded ? null : `${pb.orderid}-${idx}`)}
+                                className="text-purple-600 dark:text-purple-400 hover:underline text-[9px] mt-0.5 cursor-pointer"
+                              >
+                                {isExpanded ? 'Hide JSON ▲' : 'Raw JSON ▼'}
+                              </button>
+                            </td>
+                          </tr>
+
+                          {/* Expandable Raw JSON inspection drawer */}
+                          {isExpanded && (
+                            <tr className="bg-slate-50/80 dark:bg-slate-900/60">
+                              <td colSpan={7} className="p-3">
+                                <div className="space-y-1">
+                                  <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                                    <span>Exact SmartAPI Webhook Payload Snapshot</span>
+                                    <span className="font-mono text-[10px]">Client: {pb.clientcode || 'A102934'}</span>
+                                  </div>
+                                  <pre className="p-3 rounded-lg bg-slate-900 text-slate-100 font-mono text-[11px] overflow-x-auto leading-relaxed max-h-48">
+                                    {JSON.stringify(pb, null, 2)}
+                                  </pre>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
       </section>
@@ -2430,6 +2979,238 @@ export function PortfolioTrackerPage() {
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Simulate Postback Webhook Modal */}
+      {simulateModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="w-full max-w-lg rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-purple-600/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-[#14263F] dark:text-white">
+                    Simulate SmartAPI Postback Webhook
+                  </h3>
+                  <p className="text-[11px] text-[#64748B]">
+                    Simulate real-time execution callbacks delivered to HTTPS Port 443
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSimulateModalOpen(false)}
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Quick Presets */}
+            <div className="space-y-1.5">
+              <label className="block text-[11px] font-semibold text-slate-500">
+                1-Click Execution Scenario Presets:
+              </label>
+              <div className="grid grid-cols-2 gap-2 text-left">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSimOrderId('201020000000080');
+                    setSimSymbol('SBIN-EQ');
+                    setSimToken('3045');
+                    setSimExchange('NSE');
+                    setSimSide('BUY');
+                    setSimProduct('INTRADAY');
+                    setSimOrderType('LIMIT');
+                    setSimQty('10');
+                    setSimPrice('195.00');
+                    setSimEvent('COMPLETE');
+                  }}
+                  className="p-2 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20 text-[11px] hover:border-emerald-400 transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-emerald-800 dark:text-emerald-300">⚡ Full Fill: SBIN 10 Qty</div>
+                  <div className="text-[10px] text-emerald-600 dark:text-emerald-400">100% Executed @ ₹195.00</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSimOrderId('201020000000080');
+                    setSimSymbol('SBIN-EQ');
+                    setSimToken('3045');
+                    setSimExchange('NSE');
+                    setSimSide('BUY');
+                    setSimProduct('INTRADAY');
+                    setSimOrderType('LIMIT');
+                    setSimQty('10');
+                    setSimPrice('195.00');
+                    setSimEvent('PARTIAL');
+                  }}
+                  className="p-2 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 text-[11px] hover:border-amber-400 transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-amber-800 dark:text-amber-300">⚡ Partial Fill: 50%</div>
+                  <div className="text-[10px] text-amber-600 dark:text-amber-400">5 filled, 5 pending execution</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSimOrderId('231010000000970');
+                    setSimSymbol('RELIANCE-EQ');
+                    setSimToken('2885');
+                    setSimExchange('NSE');
+                    setSimSide('BUY');
+                    setSimProduct('DELIVERY');
+                    setSimOrderType('LIMIT');
+                    setSimQty('1');
+                    setSimPrice('2298.25');
+                    setSimEvent('REJECTED');
+                    setSimReason('RMS:Rule: Check Margin failed. Insufficient funds in trading account');
+                  }}
+                  className="p-2 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20 text-[11px] hover:border-rose-400 transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-rose-800 dark:text-rose-300">⚡ RMS Rejection: Reliance</div>
+                  <div className="text-[10px] text-rose-600 dark:text-rose-400">Margin shortfall callback</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSimOrderId(`ORD${Date.now()}`);
+                    setSimSymbol('INFY-EQ');
+                    setSimToken('1594');
+                    setSimExchange('NSE');
+                    setSimSide('BUY');
+                    setSimProduct('DELIVERY');
+                    setSimOrderType('LIMIT');
+                    setSimQty('5');
+                    setSimPrice('1850.00');
+                    setSimEvent('CANCELLED');
+                  }}
+                  className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/30 text-[11px] hover:border-slate-400 transition-colors cursor-pointer"
+                >
+                  <div className="font-bold text-slate-800 dark:text-slate-200">⚡ Order Cancelled</div>
+                  <div className="text-[10px] text-slate-500">User / Exchange cancellation</div>
+                </button>
+              </div>
+            </div>
+
+            <form onSubmit={handleSimulatePostback} className="space-y-3 text-xs pt-1">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Order ID (SmartAPI)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={simOrderId}
+                    onChange={(e) => setSimOrderId(e.target.value)}
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-slate-800 dark:text-white outline-none font-mono text-xs"
+                    placeholder="e.g. 201020000000080"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Event Outcome
+                  </label>
+                  <select
+                    value={simEvent}
+                    onChange={(e) => setSimEvent(e.target.value as any)}
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-slate-800 dark:text-white outline-none text-xs font-semibold"
+                  >
+                    <option value="COMPLETE">COMPLETE (100% Filled / Traded)</option>
+                    <option value="PARTIAL">PARTIAL (50% Filled, 50% Unfilled)</option>
+                    <option value="OPEN">OPEN (Trigger Pending / Put to Exch)</option>
+                    <option value="REJECTED">REJECTED (RMS Margin / Price Out of Circuit)</option>
+                    <option value="CANCELLED">CANCELLED (Order Cancelled)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Trading Symbol
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={simSymbol}
+                    onChange={(e) => setSimSymbol(e.target.value.toUpperCase())}
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-slate-800 dark:text-white outline-none font-mono text-xs uppercase"
+                    placeholder="SBIN-EQ"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Quantity
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    required
+                    value={simQty}
+                    onChange={(e) => setSimQty(e.target.value)}
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-slate-800 dark:text-white outline-none font-mono text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    Price (₹)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.05"
+                    min="0"
+                    required
+                    value={simPrice}
+                    onChange={(e) => setSimPrice(e.target.value)}
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#152338] px-3 py-2 text-slate-800 dark:text-white outline-none font-mono text-xs"
+                  />
+                </div>
+              </div>
+
+              {simEvent === 'REJECTED' && (
+                <div>
+                  <label className="block text-[11px] font-semibold text-rose-700 dark:text-rose-400 mb-1">
+                    Rejection Reason / RMS Exchange Message
+                  </label>
+                  <input
+                    type="text"
+                    value={simReason}
+                    onChange={(e) => setSimReason(e.target.value)}
+                    className="w-full rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/20 px-3 py-2 text-slate-800 dark:text-white outline-none text-xs"
+                    placeholder="RMS:Rule: Check Margin failed..."
+                  />
+                </div>
+              )}
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                <button
+                  type="button"
+                  onClick={() => setSimulateModalOpen(false)}
+                  className="rounded-xl px-4 py-2 text-xs font-semibold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={simulating}
+                  className="rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2 text-xs transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm disabled:opacity-50"
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>{simulating ? 'Firing Webhook...' : 'Deliver Webhook Callback'}</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

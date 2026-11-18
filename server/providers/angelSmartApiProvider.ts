@@ -591,6 +591,63 @@ export interface AngelIndividualOrderResponse {
   data?: AngelOrderItem | null;
 };
 
+export type AngelPostbackStatusCategory =
+  | 'COMPLETE'
+  | 'PARTIALLY_EXECUTED'
+  | 'OPEN'
+  | 'CANCELLED'
+  | 'REJECTED';
+
+export interface AngelPostbackPayload {
+  variety: string;
+  ordertype: string;
+  producttype: string;
+  duration: string;
+  price: number | string;
+  triggerprice?: number | string;
+  quantity: number | string;
+  disclosedquantity?: number | string;
+  squareoff?: number | string;
+  stoploss?: number | string;
+  trailingstoploss?: number | string;
+  tradingsymbol: string;
+  transactiontype: 'BUY' | 'SELL' | string;
+  exchange: AngelExchange | string;
+  symboltoken: string;
+  ordertag?: string;
+  instrumenttype?: string;
+  strikeprice?: number | string;
+  optiontype?: string;
+  expirydate?: string;
+  lotsize?: number | string;
+  cancelsize?: number | string;
+  averageprice?: number | string;
+  filledshares?: number | string;
+  unfilledshares?: number | string;
+  orderid: string;
+  text?: string;
+  status: string;
+  orderstatus?: string;
+  updatetime?: string;
+  exchtime?: string;
+  exchorderupdatetime?: string;
+  fillid?: string;
+  filltime?: string;
+  parentorderid?: string;
+  clientcode?: string;
+}
+
+export interface AngelPostbackRecord extends AngelPostbackPayload {
+  receivedAt: string;
+  statusCategory: AngelPostbackStatusCategory;
+  numericPrice: number;
+  numericAvgPrice: number;
+  numericQuantity: number;
+  numericFilledShares: number;
+  numericUnfilledShares: number;
+  fillPercent: number;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -623,6 +680,8 @@ export const ANGEL_ORDER_BOOK_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/ange
 export const ANGEL_TRADE_BOOK_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getTradeBook`;
 export const ANGEL_ORDER_LTP_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/getLtpData`;
 export const ANGEL_ORDER_DETAILS_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/order/v1/details`;
+export const ANGEL_POSTBACK_PATH = '/api/orders/angel/postback';
+export const ANGEL_POSTBACK_DEFAULT_URL = 'https://pricealerter.com/api/orders/angel/postback';
 
 const LOGIN_URL = ANGEL_LOGIN_URL;
 const HISTORICAL_API_URL = `${ANGEL_SMARTAPI_ROOT_URL}/rest/secure/angelbroking/historical/v1/getCandleData`;
@@ -2955,4 +3014,292 @@ export async function fetchAngelIndividualOrderStatus(
     console.warn(`[AngelSmartAPI] fetchAngelIndividualOrderStatus error:`, error);
     return null;
   }
+}
+
+/**
+ * ============================================================================
+ * Angel One SmartAPI Postback / Webhook API Suite
+ * Reference: https://smartapi.angelone.in/docs/Postback#
+ *
+ * Receives real-time order updates via HTTPS POST (Port 443).
+ * Supports live market execution feeds and 9:00 AM AMO (After Market Orders).
+ * ============================================================================
+ */
+
+export function classifyPostbackStatus(
+  statusOrPayload: string | Partial<AngelPostbackPayload>,
+  filled?: number | string,
+  unfilled?: number | string
+): AngelPostbackStatusCategory {
+  let rawStatus = '';
+  let filledQty = 0;
+  let unfilledQty = 0;
+  let totalQty = 0;
+
+  if (typeof statusOrPayload === 'string') {
+    rawStatus = statusOrPayload.toLowerCase();
+    filledQty = Number(filled) || 0;
+    unfilledQty = Number(unfilled) || 0;
+  } else if (statusOrPayload && typeof statusOrPayload === 'object') {
+    rawStatus = (statusOrPayload.orderstatus || statusOrPayload.status || '').toLowerCase();
+    filledQty = Number(statusOrPayload.filledshares) || 0;
+    unfilledQty = Number(statusOrPayload.unfilledshares) || 0;
+    totalQty = Number(statusOrPayload.quantity) || 0;
+  }
+
+  if (rawStatus.includes('reject') || rawStatus.includes('rms') || rawStatus.includes('shortfall')) {
+    return 'REJECTED';
+  }
+  if (rawStatus.includes('cancel')) {
+    return 'CANCELLED';
+  }
+  if (rawStatus.includes('partial') || (filledQty > 0 && unfilledQty > 0)) {
+    return 'PARTIALLY_EXECUTED';
+  }
+  if (
+    rawStatus.includes('complete') ||
+    rawStatus.includes('traded') ||
+    rawStatus.includes('executed') ||
+    (totalQty > 0 && filledQty >= totalQty)
+  ) {
+    return 'COMPLETE';
+  }
+  if (filledQty > 0 && unfilledQty > 0) {
+    return 'PARTIALLY_EXECUTED';
+  }
+  if (
+    rawStatus.includes('open') ||
+    rawStatus.includes('pending') ||
+    rawStatus.includes('trigger') ||
+    rawStatus.includes('amo') ||
+    rawStatus.includes('received')
+  ) {
+    if (filledQty > 0) {
+      return 'PARTIALLY_EXECUTED';
+    }
+    return 'OPEN';
+  }
+
+  return 'OPEN';
+}
+
+const MAX_ANGEL_POSTBACKS = 200;
+let angelPostbackStore: AngelPostbackRecord[] = [];
+
+/**
+ * Record an incoming Angel One SmartAPI postback webhook payload.
+ * Normalizes numeric values, parses status category and timestamp, and retains latest 200 records.
+ */
+export function recordAngelPostback(payload: Partial<AngelPostbackPayload>): AngelPostbackRecord {
+  const numericPrice = Number(payload.price) || 0;
+  const numericAvgPrice = Number(payload.averageprice) || 0;
+  const numericQuantity = Number(payload.quantity) || 0;
+  const numericFilledShares = Number(payload.filledshares) || 0;
+  const numericUnfilledShares =
+    Number(payload.unfilledshares) || Math.max(0, numericQuantity - numericFilledShares);
+
+  const statusCategory = classifyPostbackStatus(payload);
+  const fillPercent =
+    numericQuantity > 0
+      ? Math.min(100, Math.round((numericFilledShares / numericQuantity) * 100))
+      : statusCategory === 'COMPLETE'
+      ? 100
+      : 0;
+
+  const nowIso = new Date().toISOString();
+
+  const record: AngelPostbackRecord = {
+    variety: payload.variety || 'NORMAL',
+    ordertype: payload.ordertype || 'LIMIT',
+    producttype: payload.producttype || 'DELIVERY',
+    duration: payload.duration || 'DAY',
+    price: payload.price ?? numericPrice,
+    triggerprice: payload.triggerprice ?? 0,
+    quantity: payload.quantity ?? numericQuantity,
+    disclosedquantity: payload.disclosedquantity ?? 0,
+    squareoff: payload.squareoff ?? 0,
+    stoploss: payload.stoploss ?? 0,
+    trailingstoploss: payload.trailingstoploss ?? 0,
+    tradingsymbol: payload.tradingsymbol || 'UNKNOWN',
+    transactiontype: (payload.transactiontype || 'BUY').toUpperCase(),
+    exchange: (payload.exchange || 'NSE').toUpperCase(),
+    symboltoken: String(payload.symboltoken || ''),
+    ordertag: payload.ordertag || '',
+    instrumenttype: payload.instrumenttype || '',
+    strikeprice: payload.strikeprice ?? -1,
+    optiontype: payload.optiontype || '',
+    expirydate: payload.expirydate || '',
+    lotsize: payload.lotsize ?? 1,
+    cancelsize: payload.cancelsize ?? 0,
+    averageprice: payload.averageprice ?? numericAvgPrice,
+    filledshares: payload.filledshares ?? numericFilledShares,
+    unfilledshares: payload.unfilledshares ?? numericUnfilledShares,
+    orderid: String(payload.orderid || `SIM_${Date.now()}`),
+    text: payload.text || (statusCategory === 'COMPLETE' ? 'Traded' : 'Order update received'),
+    status: payload.status || (statusCategory === 'COMPLETE' ? 'complete' : 'open'),
+    orderstatus: payload.orderstatus || payload.status || (statusCategory === 'COMPLETE' ? 'complete' : 'open'),
+    updatetime: payload.updatetime || nowIso,
+    exchtime: payload.exchtime || nowIso,
+    exchorderupdatetime: payload.exchorderupdatetime || nowIso,
+    fillid: payload.fillid || (numericFilledShares > 0 ? String(Math.floor(100000 + Math.random() * 900000)) : ''),
+    filltime: payload.filltime || (numericFilledShares > 0 ? nowIso : ''),
+    parentorderid: payload.parentorderid || '',
+    clientcode: payload.clientcode || 'CLIENT01',
+    receivedAt: nowIso,
+    statusCategory,
+    numericPrice,
+    numericAvgPrice: numericAvgPrice > 0 ? numericAvgPrice : numericPrice,
+    numericQuantity,
+    numericFilledShares,
+    numericUnfilledShares,
+    fillPercent,
+  };
+
+  angelPostbackStore.unshift(record);
+  if (angelPostbackStore.length > MAX_ANGEL_POSTBACKS) {
+    angelPostbackStore = angelPostbackStore.slice(0, MAX_ANGEL_POSTBACKS);
+  }
+
+  return record;
+}
+
+/**
+ * Retrieve recent Angel One SmartAPI postback events with optional filtering.
+ */
+export function getRecentAngelPostbacks(filter?: {
+  clientcode?: string;
+  orderid?: string;
+  statusCategory?: AngelPostbackStatusCategory;
+  limit?: number;
+}): AngelPostbackRecord[] {
+  let list = [...angelPostbackStore];
+  if (filter?.clientcode) {
+    const code = filter.clientcode.toLowerCase().trim();
+    list = list.filter((r) => r.clientcode?.toLowerCase().includes(code));
+  }
+  if (filter?.orderid) {
+    const oid = filter.orderid.toLowerCase().trim();
+    list = list.filter((r) => r.orderid.toLowerCase().includes(oid));
+  }
+  if (filter?.statusCategory) {
+    list = list.filter((r) => r.statusCategory === filter.statusCategory);
+  }
+  if (filter?.limit && filter.limit > 0) {
+    list = list.slice(0, filter.limit);
+  }
+  return list;
+}
+
+/**
+ * Clear all in-memory recorded postbacks.
+ */
+export function clearAngelPostbacks(): void {
+  angelPostbackStore = [];
+}
+
+/**
+ * Get count of in-memory recorded postbacks.
+ */
+export function getAngelPostbackCount(): number {
+  return angelPostbackStore.length;
+}
+
+/**
+ * Simulate an Angel One SmartAPI postback webhook event for local testing or UI verification.
+ */
+export function createSimulatedAngelPostback(options: {
+  orderid?: string;
+  tradingsymbol?: string;
+  symboltoken?: string;
+  exchange?: AngelExchange | string;
+  transactiontype?: 'BUY' | 'SELL';
+  producttype?: string;
+  ordertype?: string;
+  quantity?: number;
+  price?: number;
+  event?: 'COMPLETE' | 'PARTIAL' | 'OPEN' | 'CANCELLED' | 'REJECTED';
+  clientcode?: string;
+  rejectionReason?: string;
+}): AngelPostbackRecord {
+  const qty = options.quantity ?? 10;
+  const price = options.price ?? 250.0;
+  const event = options.event || 'COMPLETE';
+  const orderid = options.orderid || `ORD${Date.now()}`;
+  const nowStr = new Date().toISOString();
+
+  let status = 'complete';
+  let orderstatus = 'complete';
+  let filledshares = qty;
+  let unfilledshares = 0;
+  let avgPrice = price;
+  let text = 'Traded';
+
+  if (event === 'PARTIAL') {
+    status = 'open';
+    orderstatus = 'partially executed';
+    filledshares = Math.max(1, Math.floor(qty / 2));
+    unfilledshares = qty - filledshares;
+    avgPrice = price;
+    text = `Partially executed: ${filledshares} / ${qty} shares filled`;
+  } else if (event === 'OPEN') {
+    status = 'open';
+    orderstatus = 'open';
+    filledshares = 0;
+    unfilledshares = qty;
+    avgPrice = 0;
+    text = 'Order received and put to exchange pending execution';
+  } else if (event === 'CANCELLED') {
+    status = 'cancelled';
+    orderstatus = 'cancelled';
+    filledshares = 0;
+    unfilledshares = qty;
+    avgPrice = 0;
+    text = 'Order cancelled by user';
+  } else if (event === 'REJECTED') {
+    status = 'rejected';
+    orderstatus = 'rejected';
+    filledshares = 0;
+    unfilledshares = qty;
+    avgPrice = 0;
+    text = options.rejectionReason || 'RMS:Rule: Check Margin failed. Insufficient funds in trading account';
+  }
+
+  return recordAngelPostback({
+    variety: 'NORMAL',
+    ordertype: options.ordertype || 'LIMIT',
+    producttype: options.producttype || 'DELIVERY',
+    duration: 'DAY',
+    price,
+    triggerprice: 0,
+    quantity: qty,
+    disclosedquantity: 0,
+    squareoff: 0,
+    stoploss: 0,
+    trailingstoploss: 0,
+    tradingsymbol: options.tradingsymbol || 'SBIN-EQ',
+    transactiontype: options.transactiontype || 'BUY',
+    exchange: (options.exchange || 'NSE') as AngelExchange,
+    symboltoken: options.symboltoken || '3045',
+    ordertag: 'simulated_postback',
+    instrumenttype: '',
+    strikeprice: -1,
+    optiontype: '',
+    expirydate: '',
+    lotsize: 1,
+    cancelsize: event === 'CANCELLED' ? qty : 0,
+    averageprice: avgPrice,
+    filledshares,
+    unfilledshares,
+    orderid,
+    text,
+    status,
+    orderstatus,
+    updatetime: nowStr,
+    exchtime: nowStr,
+    exchorderupdatetime: nowStr,
+    fillid: filledshares > 0 ? `FILL${Date.now()}` : '',
+    filltime: filledshares > 0 ? nowStr : '',
+    parentorderid: '',
+    clientcode: options.clientcode || 'DEMO_USER',
+  });
 }

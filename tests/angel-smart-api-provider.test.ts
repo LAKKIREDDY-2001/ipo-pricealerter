@@ -53,6 +53,9 @@ import {
   type AngelTradeItem,
   type AngelTradeBookResponse,
   type AngelIndividualOrderResponse,
+  type AngelPostbackPayload,
+  type AngelPostbackRecord,
+  type AngelPostbackStatusCategory,
   ANGEL_LOGIN_URL,
   ANGEL_GENERATE_TOKENS_URL,
   ANGEL_GET_PROFILE_URL,
@@ -71,6 +74,13 @@ import {
   ANGEL_TRADE_BOOK_URL,
   ANGEL_ORDER_LTP_URL,
   ANGEL_ORDER_DETAILS_URL,
+  ANGEL_POSTBACK_PATH,
+  ANGEL_POSTBACK_DEFAULT_URL,
+  recordAngelPostback,
+  getRecentAngelPostbacks,
+  clearAngelPostbacks,
+  classifyPostbackStatus,
+  createSimulatedAngelPostback,
   clearCachedAngelSession,
   getCachedAngelSession,
 } from '../server/providers/angelSmartApiProvider.ts';
@@ -864,5 +874,146 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(indOrderRes.status, true);
     assert.equal(indOrderRes.data?.uniqueorderid, '05ebf91b-bea4-4a1d-b0f2-4259606570e3');
     assert.equal(indOrderRes.data?.orderstatus, 'rejected');
+  });
+
+  await t.test('validates Angel One SmartAPI Postback Webhook endpoint path and URL', () => {
+    assert.equal(ANGEL_POSTBACK_PATH, '/api/orders/angel/postback');
+    assert.equal(ANGEL_POSTBACK_DEFAULT_URL, 'https://pricealerter.com/api/orders/angel/postback');
+  });
+
+  await t.test('classifies postback status categories accurately across execution states', () => {
+    assert.equal(classifyPostbackStatus('complete'), 'COMPLETE');
+    assert.equal(classifyPostbackStatus('traded'), 'COMPLETE');
+    assert.equal(classifyPostbackStatus('executed'), 'COMPLETE');
+    assert.equal(classifyPostbackStatus('partially executed'), 'PARTIALLY_EXECUTED');
+    assert.equal(classifyPostbackStatus('open'), 'OPEN');
+    assert.equal(classifyPostbackStatus('trigger pending'), 'OPEN');
+    assert.equal(classifyPostbackStatus('validation pending'), 'OPEN');
+    assert.equal(classifyPostbackStatus('cancelled'), 'CANCELLED');
+    assert.equal(classifyPostbackStatus('rejected'), 'REJECTED');
+    assert.equal(classifyPostbackStatus('rms:check margin failed'), 'REJECTED');
+
+    // Partial fill detection with numeric shares
+    assert.equal(classifyPostbackStatus('open', 5, 5), 'PARTIALLY_EXECUTED');
+    assert.equal(classifyPostbackStatus({ status: 'open', filledshares: 5, unfilledshares: 5, quantity: 10 }), 'PARTIALLY_EXECUTED');
+    assert.equal(classifyPostbackStatus({ status: 'complete', filledshares: 10, unfilledshares: 0, quantity: 10 }), 'COMPLETE');
+  });
+
+  await t.test('validates Angel One SmartAPI Postback Webhook payload contract and record ingestion', () => {
+    clearAngelPostbacks();
+
+    const officialSamplePayload: AngelPostbackPayload = {
+      variety: 'NORMAL',
+      ordertype: 'LIMIT',
+      producttype: 'INTRADAY',
+      duration: 'DAY',
+      price: 195.0,
+      triggerprice: 0.0,
+      quantity: 10,
+      disclosedquantity: 0,
+      squareoff: 0.0,
+      stoploss: 0.0,
+      trailingstoploss: 0.0,
+      tradingsymbol: 'SBIN-EQ',
+      transactiontype: 'BUY',
+      exchange: 'NSE',
+      symboltoken: '3045',
+      ordertag: 'tag1',
+      instrumenttype: '',
+      strikeprice: -1.0,
+      optiontype: '',
+      expirydate: '',
+      lotsize: 1,
+      cancelsize: 0,
+      averageprice: 194.8,
+      filledshares: 10,
+      unfilledshares: 0,
+      orderid: '201020000000080',
+      text: 'Traded',
+      status: 'complete',
+      orderstatus: 'complete',
+      updatetime: '20-Oct-2020 14:20:10',
+      exchtime: '20-Oct-2020 14:20:09',
+      exchorderupdatetime: '20-Oct-2020 14:20:10',
+      fillid: '112345',
+      filltime: '20-Oct-2020 14:20:10',
+      parentorderid: '',
+      clientcode: 'A102934',
+    };
+
+    const record = recordAngelPostback(officialSamplePayload);
+    assert.equal(record.orderid, '201020000000080');
+    assert.equal(record.tradingsymbol, 'SBIN-EQ');
+    assert.equal(record.statusCategory, 'COMPLETE');
+    assert.equal(record.fillPercent, 100);
+    assert.equal(record.numericPrice, 195.0);
+    assert.equal(record.numericAvgPrice, 194.8);
+    assert.equal(record.numericFilledShares, 10);
+    assert.equal(record.numericUnfilledShares, 0);
+    assert.ok(record.receivedAt);
+
+    // Retrieve recent postbacks
+    const recents = getRecentAngelPostbacks();
+    assert.equal(recents.length, 1);
+    assert.equal(recents[0].orderid, '201020000000080');
+  });
+
+  await t.test('supports postback querying, filtering, and simulated callback generation', () => {
+    clearAngelPostbacks();
+
+    // Ingest simulated partial fill
+    const partialRecord = createSimulatedAngelPostback({
+      orderid: 'SIM_ORD_101',
+      tradingsymbol: 'TATASTEEL-EQ',
+      symboltoken: '3499',
+      exchange: 'NSE',
+      transactiontype: 'BUY',
+      quantity: 20,
+      price: 155.0,
+      event: 'PARTIAL',
+      clientcode: 'TEST_USER_1',
+    });
+    assert.equal(partialRecord.statusCategory, 'PARTIALLY_EXECUTED');
+    assert.equal(partialRecord.numericFilledShares, 10);
+    assert.equal(partialRecord.fillPercent, 50);
+
+    // Ingest simulated rejection
+    const rejectRecord = createSimulatedAngelPostback({
+      orderid: 'SIM_ORD_102',
+      tradingsymbol: 'RELIANCE-EQ',
+      symboltoken: '2885',
+      exchange: 'NSE',
+      transactiontype: 'SELL',
+      quantity: 5,
+      price: 2300.0,
+      event: 'REJECTED',
+      clientcode: 'TEST_USER_2',
+      rejectionReason: 'RMS:Rule: Check Margin failed',
+    });
+    assert.equal(rejectRecord.statusCategory, 'REJECTED');
+    assert.equal(rejectRecord.numericFilledShares, 0);
+    assert.equal(rejectRecord.fillPercent, 0);
+
+    // Filter by client code
+    const user1List = getRecentAngelPostbacks({ clientcode: 'TEST_USER_1' });
+    assert.equal(user1List.length, 1);
+    assert.equal(user1List[0].tradingsymbol, 'TATASTEEL-EQ');
+
+    // Filter by status category
+    const rejectedList = getRecentAngelPostbacks({ statusCategory: 'REJECTED' });
+    assert.equal(rejectedList.length, 1);
+    assert.equal(rejectedList[0].tradingsymbol, 'RELIANCE-EQ');
+
+    // Filter by order ID
+    const orderList = getRecentAngelPostbacks({ orderid: 'SIM_ORD_101' });
+    assert.equal(orderList.length, 1);
+
+    // Filter by limit
+    const limitedList = getRecentAngelPostbacks({ limit: 1 });
+    assert.equal(limitedList.length, 1);
+
+    // Clear postbacks
+    clearAngelPostbacks();
+    assert.equal(getRecentAngelPostbacks().length, 0);
   });
 });

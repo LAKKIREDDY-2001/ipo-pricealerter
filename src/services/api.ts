@@ -1403,4 +1403,58 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ reqId }),
     }),
+
+  // Angel One SmartAPI Postback / Webhook Suite
+  getAngelPostbacks: (params?: {
+    clientcode?: string;
+    orderid?: string;
+    statusCategory?: string;
+    limit?: number;
+  }) => {
+    const qs = new URLSearchParams();
+    if (params?.clientcode) qs.set('clientcode', params.clientcode);
+    if (params?.orderid) qs.set('orderid', params.orderid);
+    if (params?.statusCategory) qs.set('statusCategory', params.statusCategory);
+    if (params?.limit) qs.set('limit', String(params.limit));
+    const query = qs.toString() ? `?${qs.toString()}` : '';
+    return request<{
+      ok: boolean;
+      source: string;
+      webhookUrl: string;
+      count: number;
+      data: any[];
+      retrievedAt: string;
+    }>(`/api/orders/angel/postback${query}`);
+  },
+
+  simulateAngelPostback: (payload: {
+    orderid?: string;
+    tradingsymbol?: string;
+    symboltoken?: string;
+    exchange?: string;
+    transactiontype?: 'BUY' | 'SELL';
+    producttype?: string;
+    ordertype?: string;
+    quantity?: number;
+    price?: number;
+    event?: 'COMPLETE' | 'PARTIAL' | 'OPEN' | 'CANCELLED' | 'REJECTED';
+    clientcode?: string;
+    rejectionReason?: string;
+  }) =>
+    request<{
+      ok: boolean;
+      message: string;
+      data: any;
+    }>('/api/orders/angel/postback/simulate', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  clearAngelPostbacks: () =>
+    request<{
+      ok: boolean;
+      message: string;
+    }>('/api/orders/angel/postback', {
+      method: 'DELETE',
+    }),
 };
