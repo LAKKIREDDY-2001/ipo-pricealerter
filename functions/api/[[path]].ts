@@ -886,10 +886,8 @@ export async function onRequest(context: {
       ok: true,
       configured: Boolean(creds?.apiKey),
       clientCodeConfigured: Boolean(creds?.clientCode),
-      pinConfigured: Boolean(creds?.pin),
       totpConfigured: Boolean(creds?.totpKey),
       apiKeyPresent: Boolean(creds?.apiKey),
-      clientCode: creds?.clientCode ? creds.clientCode.replace(/(?<=.{2}).(?=.{2})/g, "*") : null,
       status: (creds?.apiKey && creds?.totpKey) ? "ready" : creds?.apiKey ? "missing_totp" : "unconfigured",
       timestamp: new Date().toISOString(),
     });
@@ -898,27 +896,7 @@ export async function onRequest(context: {
   if (pathname === "/api/portfolio/angel/holdings") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     let overrideCreds = getAngelCredentials(customEnv);
-    if (method === "POST") {
-      try {
-        const body = (await request.json()) as any;
-        if (body && typeof body === "object") {
-          if (!overrideCreds && body.apiKey) {
-            overrideCreds = {
-              apiKey: body.apiKey,
-              clientCode: body.clientCode,
-              pin: body.pin,
-              totpKey: body.totpKey,
-            };
-          } else if (overrideCreds) {
-            if (body.clientCode) overrideCreds.clientCode = body.clientCode;
-            if (body.pin) overrideCreds.pin = body.pin;
-            if (body.totpKey) overrideCreds.totpKey = body.totpKey;
-          }
-        }
-      } catch {
-        // use default overrideCreds
-      }
-    }
+
 
     if (!overrideCreds || !overrideCreds.apiKey || !overrideCreds.totpKey) {
       return json({
