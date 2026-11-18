@@ -142,6 +142,9 @@ async function main() {
   console.log('--- Step 2: Fetching All Indian Equities from Official Exchange Bhavcopies & Groww ---');
   const allSyncedStocks = await syncAllIndianStocks(false);
   console.log(`Fetched ${allSyncedStocks.length} total Indian securities.`);
+  if (allSyncedStocks.length < 1000) {
+    throw new Error(`Refusing to publish an incomplete NSE/BSE universe: only ${allSyncedStocks.length} securities were fetched. Check the exchange/provider feeds and retry the build.`);
+  }
 
   // Filter valid priced stocks and sort by Market Cap then Volume
   const validPriced = allSyncedStocks.filter((s) => s.currentPrice && s.currentPrice > 0);
@@ -160,7 +163,7 @@ async function main() {
     return copy;
   });
 
-  // Save top 2,500 to db.stocks
+  // Save the complete NSE/BSE universe to db.stocks
   db.stocks = top2500;
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
   console.log(`✓ Saved the complete ${top2500.length}-security universe into server/data/db.json (db.stocks)`);
