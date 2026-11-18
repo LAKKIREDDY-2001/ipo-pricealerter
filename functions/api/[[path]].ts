@@ -843,6 +843,30 @@ export async function onRequest(context: {
           });
         }
       }
+
+      if (env.DB && responseStocks.length) {
+        const historySymbols = responseStocks.map((stock: any) => String(stock.symbol || "").toUpperCase()).filter(Boolean);
+        if (historySymbols.length) {
+          const placeholders = historySymbols.map(() => "?").join(",");
+          const historyRows = await env.DB.prepare(
+            "SELECT symbol, price, quote_time, retrieved_at FROM stock_quote_history WHERE symbol IN (" + placeholders + ") ORDER BY retrieved_at DESC LIMIT ?"
+          ).bind(...historySymbols, historySymbols.length * 24).all<any>();
+          const historyBySymbol = new Map<string, number[]>();
+          for (const row of historyRows.results || []) {
+            const key = String(row.symbol || "").toUpperCase();
+            const price = Number(row.price);
+            if (!key || !Number.isFinite(price) || price <= 0) continue;
+            const values = historyBySymbol.get(key) || [];
+            if (values.length < 24) values.push(price);
+            historyBySymbol.set(key, values);
+          }
+          responseStocks = responseStocks.map((stock: any) => {
+            if (Array.isArray(stock.sparkline) && stock.sparkline.filter((v: any) => Number.isFinite(v)).length >= 2) return stock;
+            const values = (historyBySymbol.get(String(stock.symbol || "").toUpperCase()) || []).reverse();
+            return values.length >= 2 ? { ...stock, sparkline: values } : stock;
+          });
+        }
+      }
       if (env.DB && enriched.successful) {
         const writes: any[] = [];
         for (const stock of enriched.stocks.filter((item: any) => item.quoteSource)) {
@@ -864,7 +888,7 @@ export async function onRequest(context: {
         liveFeedReachable: enriched.successful > 0,
         quotesUpdated: enriched.successful,
         storedQuotesUsed: storedQuoteCount,
-        quoteSource: enriched.successful > 0 ? "NSE/BSE Real-Time Market Feed" : storedQuoteCount > 0 ? "Cloudflare D1 stored quotes" : "published-market-snapshot",
+        quoteSource: enriched.successful > 0 ? "Market data feed" : storedQuoteCount > 0 ? "Stored market data" : "Published market snapshot",
         quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
       });
     }
@@ -889,13 +913,30 @@ export async function onRequest(context: {
         fetchYahooHistory(stock, requestedRange, forceStock),
         fetchGrowwCompanyInfo(stock),
       ]);
+      let storedHistory: any[] = [];
+      if (!history.length && env.DB) {
+        try {
+          const saved = await env.DB.prepare(
+            "SELECT price, quote_time, retrieved_at FROM stock_quote_history WHERE symbol=? ORDER BY retrieved_at DESC LIMIT 250"
+          ).bind(String(stock.symbol).toUpperCase()).all<any>();
+          storedHistory = (saved.results || []).reverse().map((row: any) => {
+            const close = Number(row.price);
+            const date = row.quote_time || row.retrieved_at;
+            return Number.isFinite(close) && close > 0 && date
+              ? { date, open: close, high: close, low: close, close, volume: 0 }
+              : null;
+          }).filter(Boolean);
+        } catch {
+          storedHistory = [];
+        }
+      }
       const companyEnriched = mergeGrowwCompanyDetails(normalizeStockDetail(stock), companyInfo);
       const nowIso = new Date().toISOString();
       let output = {
         ...companyEnriched,
         ...(enriched || {}),
-        historicalSeries: history.length ? history : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []),
-        sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : []),
+        historicalSeries: history.length ? history : storedHistory.length ? storedHistory : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []),
+        sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : storedHistory.map((point: any) => point.close)),
       };
 
       if (enriched && typeof enriched.currentPrice === "number" && Number.isFinite(enriched.currentPrice)) {
@@ -907,7 +948,7 @@ export async function onRequest(context: {
         output.lastTradeTime = tradeTime;
         output.provenance = {
           ...(output.provenance || {}),
-          source: "NSE/BSE Real-Time Market Feed",
+          source: "Market data feed",
           retrievedAt: nowIso,
           effectiveDate: nowIso.split("T")[0],
           verificationStatus: "Verified",
@@ -974,7 +1015,7 @@ export async function onRequest(context: {
         stock: output,
         fromUpstream: Boolean(enriched || history.length || companyInfo),
         linkedIpo: null,
-        dataSource: enriched ? "NSE/BSE Real-Time Market Feed" : companyInfo ? "Official Corporate Filings" : output.quoteStatus === "stored-not-live" ? "Cloudflare D1 stored quote" : "published-market-snapshot",
+        dataSource: enriched ? "Market data feed" : companyInfo ? "Company disclosures" : output.quoteStatus === "stored-not-live" ? "Stored market data" : "Published market snapshot",
         quoteDisclaimer: "Exchange quotes are synchronized with IST timestamps. Outside market hours (9:15 AM – 3:30 PM IST), prices reflect the latest settled session.",
       });
     }
