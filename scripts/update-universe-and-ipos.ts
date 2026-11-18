@@ -261,7 +261,7 @@ async function main() {
       status: 'LISTED',
       priceStatus: 'TRADING',
       priceSource: s.exchange.includes('NSE') ? 'NSE Live Bhavcopy' : 'BSE Live Bhavcopy',
-      quoteSource: 'NSE & BSE · Official Exchange Bhavcopy · Zerodha Kite Registry',
+      quoteSource: 'Market data feed',
       quoteVerified: true,
       quoteTimestamp: s.lastTradeTime || new Date().toISOString(),
     };
