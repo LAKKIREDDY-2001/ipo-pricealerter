@@ -24,6 +24,11 @@ export interface D1Env {
   ANGELONE_PIN?: string;
   ANGELONE_PASSWORD?: string;
   ANGELONE_TOTP_KEY?: string;
+  ANGELONE_TOTP?: string;
+  ANGEL_TOTP_KEY?: string;
+  ANGEL_TOTP_SECRET?: string;
+  TOTP_KEY?: string;
+  TOTP?: string;
 }
 const encoder = new TextEncoder();
 const nowIso = () => new Date().toISOString();

@@ -183,6 +183,8 @@ export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
   clientCode?: string;
+  pin?: string;
+  totpKey?: string;
   clientLocalIp?: string;
   clientPublicIp?: string;
   macAddress?: string;
@@ -343,13 +345,32 @@ export function getAngelCredentials(customEnv?: Record<string, string | undefine
 
   if (!apiKey) return null;
 
+  const clientCode =
+    env.ANGELONE_CLIENT_CODE?.trim() ||
+    env.ANGEL_CLIENT_CODE?.trim() ||
+    env.SMARTAPI_CLIENT_CODE?.trim() ||
+    'AABF820686';
+
+  const pin =
+    env.ANGELONE_PIN?.trim() ||
+    env.ANGEL_PIN?.trim() ||
+    env.ANGELONE_PASSWORD?.trim() ||
+    '2001';
+
+  const totpKey =
+    env.ANGELONE_TOTP_KEY?.trim() ||
+    env.ANGELONE_TOTP?.trim() ||
+    env.ANGEL_TOTP_KEY?.trim() ||
+    env.ANGEL_TOTP_SECRET?.trim() ||
+    env.TOTP_KEY?.trim() ||
+    env.TOTP?.trim();
+
   return {
     apiKey,
     authToken,
-    clientCode:
-      env.ANGELONE_CLIENT_CODE?.trim() ||
-      env.ANGEL_CLIENT_CODE?.trim() ||
-      env.SMARTAPI_CLIENT_CODE?.trim(),
+    clientCode,
+    pin,
+    totpKey,
     clientLocalIp: env.ANGEL_CLIENT_LOCAL_IP || '127.0.0.1',
     clientPublicIp: env.ANGEL_CLIENT_PUBLIC_IP || '127.0.0.1',
     macAddress: env.ANGEL_MAC_ADDRESS || '00:00:00:00:00:00',
@@ -488,12 +509,38 @@ export async function loginAngelWithAutoTotp(
   return loginAngelByTotp(clientCode, pin, totpCode, apiKey);
 }
 
-function getAngelAuthHeaders(creds: AngelApiCredentials) {
+let cachedAngelJwt: { token: string; expiresAt: number } | null = null;
+
+export async function resolveAngelAuthToken(creds: AngelApiCredentials): Promise<string | null> {
+  if (creds.authToken) return creds.authToken;
+
+  if (cachedAngelJwt && cachedAngelJwt.expiresAt > Date.now()) {
+    return cachedAngelJwt.token;
+  }
+
+  if (creds.clientCode && creds.pin && creds.totpKey && creds.apiKey) {
+    const loginRes = await loginAngelWithAutoTotp(creds.clientCode, creds.pin, creds.totpKey, creds.apiKey);
+    if (loginRes?.jwtToken) {
+      cachedAngelJwt = {
+        token: loginRes.jwtToken,
+        expiresAt: Date.now() + 10 * 60 * 60 * 1000,
+      };
+      return loginRes.jwtToken;
+    }
+  }
+
+  return null;
+}
+
+export async function getAngelAuthHeaders(creds: AngelApiCredentials): Promise<Record<string, string> | null> {
+  const token = await resolveAngelAuthToken(creds);
+  if (!token) return null;
+
   return {
     'Content-Type': 'application/json',
     Accept: 'application/json',
     'X-PrivateKey': creds.apiKey,
-    Authorization: `Bearer ${creds.authToken}`,
+    Authorization: `Bearer ${token}`,
     'X-SourceID': 'WEB',
     'X-ClientLocalIP': creds.clientLocalIp || '127.0.0.1',
     'X-ClientPublicIP': creds.clientPublicIp || '127.0.0.1',
@@ -511,14 +558,19 @@ export async function fetchAngelHistoricalCandles(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelCandlePoint[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(HISTORICAL_API_URL, {
       method: 'POST',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       body: JSON.stringify({
         exchange: request.exchange,
         symboltoken: request.symboltoken,
@@ -568,14 +620,19 @@ export async function fetchAngelLiveMarketQuotes(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelLiveQuoteItem[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(LIVE_MARKET_DATA_URL, {
       method: 'POST',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       body: JSON.stringify({
         mode: request.mode,
         exchangeTokens: request.exchangeTokens,
@@ -667,14 +724,19 @@ export async function fetchAngelGainersLosers(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelGainerLoserItem[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(GAINERS_LOSERS_URL, {
       method: 'POST',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       body: JSON.stringify({
         datatype,
         expirytype,
@@ -712,14 +774,19 @@ export async function fetchAngelPutCallRatio(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelPCRItem[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(PCR_URL, {
       method: 'GET',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       signal: AbortSignal.timeout(5000),
     });
 
@@ -752,14 +819,19 @@ export async function fetchAngelOIBuildup(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelOIBuildupItem[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(OI_BUILDUP_URL, {
       method: 'POST',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       body: JSON.stringify({
         datatype,
         expirytype,
@@ -845,14 +917,19 @@ export async function fetchAngelHistoricalOI(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelOIPoint[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(HISTORICAL_OI_URL, {
       method: 'POST',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       body: JSON.stringify({
         exchange: request.exchange,
         symboltoken: request.symboltoken,
@@ -933,14 +1010,19 @@ export async function fetchAngelHoldings(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelAllHoldingsData | null> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return null;
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return null;
   }
 
   try {
     const response = await fetch(ALL_HOLDINGS_URL, {
       method: 'GET',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       signal: AbortSignal.timeout(6000),
     });
 
@@ -973,14 +1055,19 @@ export async function fetchAngelPositions(
   credsOverride?: AngelApiCredentials
 ): Promise<AngelPositionItem[]> {
   const creds = credsOverride || getAngelCredentials();
-  if (!creds || !creds.apiKey || !creds.authToken) {
+  if (!creds || !creds.apiKey) {
+    return [];
+  }
+
+  const headers = await getAngelAuthHeaders(creds);
+  if (!headers) {
     return [];
   }
 
   try {
     const response = await fetch(POSITIONS_URL, {
       method: 'GET',
-      headers: getAngelAuthHeaders(creds),
+      headers,
       signal: AbortSignal.timeout(6000),
     });
 

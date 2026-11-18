@@ -1,4 +1,10 @@
 import { handleD1Api, syncMarketSnapshotToD1, type D1Env } from "../lib/d1-api";
+import {
+  getAngelCredentials,
+  fetchAngelHoldings,
+  convertAngelHoldingsToPortfolio,
+  type AngelApiCredentials,
+} from "../../server/providers/angelSmartApiProvider";
 
 type Snapshot = {
   stocks?: any[];
@@ -746,6 +752,85 @@ export async function onRequest(context: {
       error: error instanceof Error ? error.message : "Database API execution error",
       code: "D1_API_EXECUTION_ERROR",
     }, 500);
+  }
+
+  if (pathname === "/api/market/angel/status") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    const creds = getAngelCredentials(customEnv);
+    return json({
+      ok: true,
+      configured: Boolean(creds?.apiKey),
+      clientCodeConfigured: Boolean(creds?.clientCode),
+      pinConfigured: Boolean(creds?.pin),
+      totpConfigured: Boolean(creds?.totpKey),
+      apiKeyPresent: Boolean(creds?.apiKey),
+      clientCode: creds?.clientCode ? creds.clientCode.replace(/(?<=.{2}).(?=.{2})/g, "*") : null,
+      status: (creds?.apiKey && creds?.totpKey) ? "ready" : creds?.apiKey ? "missing_totp" : "unconfigured",
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  if (pathname === "/api/portfolio/angel/holdings") {
+    const customEnv = env as unknown as Record<string, string | undefined>;
+    let overrideCreds = getAngelCredentials(customEnv);
+    if (method === "POST") {
+      try {
+        const body = (await request.json()) as any;
+        if (body && typeof body === "object") {
+          if (!overrideCreds && body.apiKey) {
+            overrideCreds = {
+              apiKey: body.apiKey,
+              clientCode: body.clientCode,
+              pin: body.pin,
+              totpKey: body.totpKey,
+            };
+          } else if (overrideCreds) {
+            if (body.clientCode) overrideCreds.clientCode = body.clientCode;
+            if (body.pin) overrideCreds.pin = body.pin;
+            if (body.totpKey) overrideCreds.totpKey = body.totpKey;
+          }
+        }
+      } catch {
+        // use default overrideCreds
+      }
+    }
+
+    if (!overrideCreds || !overrideCreds.apiKey || !overrideCreds.totpKey) {
+      return json({
+        ok: false,
+        error: "Angel One credentials (API key or TOTP key) not configured.",
+        configured: Boolean(overrideCreds?.apiKey),
+        holdings: [],
+      }, 400);
+    }
+
+    try {
+      const holdingsData = await fetchAngelHoldings(overrideCreds);
+      if (!holdingsData) {
+        return json({
+          ok: false,
+          error: "Failed to authenticate or fetch holdings from Angel One SmartAPI.",
+          holdings: [],
+        }, 502);
+      }
+      const holdings = convertAngelHoldingsToPortfolio(holdingsData.holdings || []);
+      return json({
+        ok: true,
+        source: "Angel One SmartAPI (Live Demat)",
+        totalHoldingsValue: holdingsData.totalholding?.totalholdingvalue ?? 0,
+        totalInvValue: holdingsData.totalholding?.totalinvvalue ?? 0,
+        totalProfitLoss: holdingsData.totalholding?.totalprofitandloss ?? 0,
+        totalPnlPercentage: holdingsData.totalholding?.totalpnlpercentage ?? 0,
+        holdings,
+        retrievedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      return json({
+        ok: false,
+        error: err?.message || "Error communicating with Angel One SmartAPI",
+        holdings: [],
+      }, 500);
+    }
   }
 
   if (method !== "GET" && method !== "HEAD") {
