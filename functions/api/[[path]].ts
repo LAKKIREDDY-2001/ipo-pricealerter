@@ -817,7 +817,7 @@ export async function onRequest(context: {
             },
           };
         }
-        const defaultCurrency = item.provenance?.currency || (ticker.includes("=") ? "INR" : ticker.endsWith("=F") ? "USD" : "PTS");
+        const defaultCurrency = ticker.endsWith("=F") ? "USD" : ticker === "INR=X" ? "INR" : "PTS";
         return {
           ...item,
           value: quote.currentPrice,
