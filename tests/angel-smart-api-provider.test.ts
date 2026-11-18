@@ -7,6 +7,7 @@ import {
   formatAngelCandlesForChart,
   convertAngelQuoteToStandard,
   classifyPcrSentiment,
+  generateTOTP,
   KNOWN_ANGEL_TOKENS,
   ANGEL_INTERVAL_MAX_DAYS,
   type AngelCandlePoint,
@@ -48,6 +49,14 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.equal(ANGEL_INTERVAL_MAX_DAYS['FIVE_MINUTE'], 100);
     assert.equal(ANGEL_INTERVAL_MAX_DAYS['ONE_HOUR'], 400);
     assert.equal(ANGEL_INTERVAL_MAX_DAYS['ONE_DAY'], 2000);
+  });
+
+  await t.test('generates valid RFC 6238 TOTP codes matching official test vectors', async () => {
+    // Standard RFC 6238 test secret "12345678901234567890" in base32
+    const testSecret = 'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ';
+    assert.equal(await generateTOTP(testSecret, 59), '287082');
+    assert.equal(await generateTOTP(testSecret, 1111111109), '081804');
+    assert.equal(await generateTOTP(testSecret, 1234567890), '005924');
   });
 
   await t.test('detects Angel SmartAPI configuration reliably with ANGELONE_API_KEY', () => {

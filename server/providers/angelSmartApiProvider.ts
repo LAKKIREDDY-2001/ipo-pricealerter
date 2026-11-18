@@ -306,6 +306,63 @@ export function getAngelCredentials(customEnv?: Record<string, string | undefine
 }
 
 /**
+ * Decode base32 encoded TOTP secret key into binary bytes
+ */
+export function base32Decode(str: string): Uint8Array {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+  const cleaned = str.toUpperCase().replace(/[\s=-]/g, '');
+  let bits = 0;
+  let value = 0;
+  const output: number[] = [];
+  for (let i = 0; i < cleaned.length; i++) {
+    const idx = alphabet.indexOf(cleaned[i]);
+    if (idx === -1) continue;
+    value = (value << 5) | idx;
+    bits += 5;
+    if (bits >= 8) {
+      output.push((value >>> (bits - 8)) & 255);
+      bits -= 8;
+    }
+  }
+  return new Uint8Array(output);
+}
+
+/**
+ * Universal RFC 6238 TOTP generator (compatible with Node.js, Cloudflare Workers, and Web Crypto)
+ * Generates the standard 6-digit one-time password from the user's base32 TOTP secret key.
+ */
+export async function generateTOTP(
+  secret: string,
+  timeSec: number = Math.floor(Date.now() / 1000)
+): Promise<string> {
+  const keyBytes = base32Decode(secret);
+  const epoch = Math.floor(timeSec / 30);
+  const timeBuf = new ArrayBuffer(8);
+  const view = new DataView(timeBuf);
+  view.setBigUint64(0, BigInt(epoch));
+
+  const keyBuf = new ArrayBuffer(keyBytes.byteLength);
+  new Uint8Array(keyBuf).set(keyBytes);
+
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    keyBuf,
+    { name: 'HMAC', hash: { name: 'SHA-1' } },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', cryptoKey, timeBuf);
+  const digest = new Uint8Array(signature);
+  const offset = digest[digest.length - 1] & 0xf;
+  const binary =
+    ((digest[offset] & 0x7f) << 24) |
+    ((digest[offset + 1] & 0xff) << 16) |
+    ((digest[offset + 2] & 0xff) << 8) |
+    (digest[offset + 3] & 0xff);
+  return String(binary % 1000000).padStart(6, '0');
+}
+
+/**
  * Perform login to Angel One SmartAPI using TOTP to obtain a live JWT token
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/loginByPassword
  */
@@ -365,6 +422,19 @@ export async function loginAngelByTotp(
     console.warn(`[AngelSmartAPI] login error:`, error);
     return null;
   }
+}
+
+/**
+ * Automatically compute 6-digit TOTP from base32 secret and log in to Angel One
+ */
+export async function loginAngelWithAutoTotp(
+  clientCode: string,
+  pin: string,
+  totpSecret: string,
+  apiKey: string
+): Promise<{ jwtToken: string; feedToken?: string; refreshToken?: string } | null> {
+  const totpCode = await generateTOTP(totpSecret);
+  return loginAngelByTotp(clientCode, pin, totpCode, apiKey);
 }
 
 function getAngelAuthHeaders(creds: AngelApiCredentials) {
