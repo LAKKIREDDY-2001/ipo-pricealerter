@@ -93,7 +93,7 @@ async function loadUsStocksSnapshot(request: Request, assets: { fetch: (input: R
   return null;
 }
 
-async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any | null> {
+async function fetchYahooTickerQuote(ticker: string, force = false, expectedCurrency: string | null = "INR"): Promise<any | null> {
   if (!force) {
     const cached = quoteCache.get(ticker);
     if (cached && cached.expiresAt > Date.now()) return cached.quote;
@@ -104,7 +104,7 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
     endpoint.searchParams.set("interval", "5m");
     const response = await fetch(endpoint.toString(), {
       headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
-      signal: AbortSignal.timeout(4500),
+      signal: AbortSignal.timeout(3000),
     });
     if (!response.ok) return null;
     const payload = (await response.json()) as YahooChart;
@@ -114,7 +114,7 @@ async function fetchYahooTickerQuote(ticker: string, force = false): Promise<any
     if (!meta || !Number.isFinite(price) || price <= 0) return null;
     // Prevent a ticker collision from assigning another company's quote to this stock.
     if (String(meta.symbol || "").toUpperCase() !== ticker.toUpperCase()) return null;
-    if (meta.currency && String(meta.currency).toUpperCase() !== "INR") return null;
+    if (expectedCurrency && meta.currency && String(meta.currency).toUpperCase() !== expectedCurrency) return null;
     const previous = Number(meta.chartPreviousClose ?? meta.previousClose ?? 0);
     const closes = (result?.indicators?.quote?.[0]?.close || []).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
     const quote = {
@@ -148,11 +148,10 @@ async function fetchYahooQuote(stock: any, force = false): Promise<any | null> {
   const candidates = symbol.includes(".") || symbol.startsWith("^") || symbol.includes("=") || symbol.endsWith("=F")
     ? [symbol]
     : [`${symbol}.NS`, `${symbol}.BO`];
-  for (const ticker of candidates) {
-    const quote = await fetchYahooTickerQuote(ticker, force);
-    if (quote) return quote;
-  }
-  return null;
+  // Query NSE and BSE symbols concurrently so a missing NSE listing does not
+  // make the user wait for two serial upstream timeouts.
+  const quotes = await Promise.all(candidates.map((ticker) => fetchYahooTickerQuote(ticker, force, "INR")));
+  return quotes.find(Boolean) || null;
 }
 
 async function fetchYahooHistory(stock: any, requestedRange: string, force = false): Promise<any[]> {
@@ -406,7 +405,7 @@ async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful:
   // Keep the number of upstream requests bounded for Cloudflare Pages.
   // Refresh every stock on the visible 50-row page; later pages are refreshed when opened.
   const MAX_QUOTE_LOOKUPS = 50;
-  const CONCURRENCY = 4;
+  const CONCURRENCY = 12;
   const result = [...stocks];
   let successful = 0;
   let next = 0;
@@ -696,10 +695,10 @@ export async function onRequest(context: {
       const base = snapshot.benchmarks?.macro || snapshot.benchmarks || {};
       const [fx, gold, silver, crude, yield10y] = await Promise.all([
         fetchYahooTickerQuote("USDINR=X", forceMacro),
-        fetchYahooTickerQuote("GC=F", forceMacro),
-        fetchYahooTickerQuote("SI=F", forceMacro),
-        fetchYahooTickerQuote("BZ=F", forceMacro),
-        fetchYahooTickerQuote("^TNX", forceMacro),
+        fetchYahooTickerQuote("GC=F", forceMacro, null),
+        fetchYahooTickerQuote("SI=F", forceMacro, null),
+        fetchYahooTickerQuote("BZ=F", forceMacro, null),
+        fetchYahooTickerQuote("^TNX", forceMacro, null),
       ]);
       const now = new Date().toISOString();
       const data = {
@@ -891,7 +890,7 @@ export async function onRequest(context: {
       let output = {
         ...companyEnriched,
         ...(enriched || {}),
-        historicalSeries: history.length ? history : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []),
+        historicalSeries: history,
         sparkline: enriched?.sparkline?.length ? enriched.sparkline : (Array.isArray(stock.sparkline) ? stock.sparkline : []),
       };
 
