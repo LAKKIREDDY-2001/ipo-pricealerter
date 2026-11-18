@@ -7,7 +7,6 @@ import {
   Calculator,
   ExternalLink,
   Search,
-  ShieldCheck,
   Sparkles,
   TrendingDown,
   TrendingUp,
