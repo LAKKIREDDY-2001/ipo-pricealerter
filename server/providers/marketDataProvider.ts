@@ -1866,7 +1866,7 @@ function buildRegistryEquityStock(params: {
     dataSourcesUsed: [
       ...(nseBhav || nseArch ? ['NSE India Official'] : []),
       ...(bseBhav || bseCode !== 'N/A' ? ['BSE India Official'] : []),
-      ...(kiteNse || kiteBse ? ['Zerodha Kite Registry'] : []),
+      ...(kiteNse || kiteBse ? ['Exchange Instrument Registry'] : []),
     ],
     sparkline,
     historicalSeries: curated?.historicalSeries || [],
@@ -2251,7 +2251,7 @@ export async function syncAllIndianStocks(force = false): Promise<StockInstrumen
         srcRow.lastCheckedAt = retrievedAtIso;
         srcRow.lastSuccessAt = retrievedAtIso;
         srcRow.recordsCount = unified.length;
-        srcRow.notes = `Live NSE & BSE full-market feed synced (${unified.length} equities across Groww, Official NSE/BSE Bhavcopies & Zerodha Kite).`;
+        srcRow.notes = `Live NSE & BSE full-market feed synced (${unified.length} equities using exchange records and instrument registries).`;
       }
 
       liveUniverseCache = unified;
@@ -3170,7 +3170,7 @@ export async function refreshStockBySymbol(
   if (nseQuote || nseArch || nseAnnouncements.length > 0) dataSourcesUsed.push('NSE India');
   if (bseQuote || finalBseCode) dataSourcesUsed.push('BSE India');
   if (companyInfo || primaryLive) dataSourcesUsed.push('Groww Exchange & Filings');
-  if (kiteNse || kiteBse) dataSourcesUsed.push('Zerodha Kite Registry');
+  if (kiteNse || kiteBse) dataSourcesUsed.push('Exchange Instrument Registry');
   if (finalYahoo && (!indstocksCandles || indstocksCandles.length === 0)) dataSourcesUsed.push('Yahoo Finance Historical');
 
   const nowIso = new Date().toISOString();
