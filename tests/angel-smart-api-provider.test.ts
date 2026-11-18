@@ -6,10 +6,13 @@ import {
   isAngelSmartApiConfigured,
   formatAngelCandlesForChart,
   convertAngelQuoteToStandard,
+  classifyPcrSentiment,
   KNOWN_ANGEL_TOKENS,
   ANGEL_INTERVAL_MAX_DAYS,
   type AngelCandlePoint,
   type AngelLiveQuoteItem,
+  type AngelGainerLoserItem,
+  type AngelOIBuildupItem,
 } from '../server/providers/angelSmartApiProvider.ts';
 
 test('Angel One SmartAPI Suite Provider', async (t) => {
@@ -138,5 +141,43 @@ test('Angel One SmartAPI Suite Provider', async (t) => {
     assert.ok(standard.depth);
     assert.equal(standard.depth.buy.length, 2);
     assert.equal(standard.depth.sell.length, 1);
+  });
+
+  await t.test('classifies Put-Call Ratio (PCR) market sentiment accurately', () => {
+    assert.equal(classifyPcrSentiment(1.45).label, 'Extremely Bullish');
+    assert.equal(classifyPcrSentiment(1.45).bias, 'bullish');
+
+    assert.equal(classifyPcrSentiment(1.12).label, 'Mildly Bullish');
+    assert.equal(classifyPcrSentiment(1.12).bias, 'bullish');
+
+    assert.equal(classifyPcrSentiment(0.85).label, 'Neutral / Rangebound');
+    assert.equal(classifyPcrSentiment(0.85).bias, 'neutral');
+
+    assert.equal(classifyPcrSentiment(0.62).label, 'Bearish / Oversold');
+    assert.equal(classifyPcrSentiment(0.62).bias, 'bearish');
+  });
+
+  await t.test('validates shapes of OI Gainers and OI Buildup contracts', () => {
+    const sampleGainer: AngelGainerLoserItem = {
+      tradingSymbol: 'HDFCBANK25JAN24FUT',
+      percentChange: 20.02,
+      symbolToken: 55394,
+      opnInterest: 118861600,
+      netChangeOpnInterest: 19825300,
+    };
+    assert.equal(sampleGainer.tradingSymbol, 'HDFCBANK25JAN24FUT');
+    assert.ok(sampleGainer.percentChange > 0);
+
+    const sampleBuildup: AngelOIBuildupItem = {
+      symbolToken: '55424',
+      ltp: 723.8,
+      netChange: -28.25,
+      percentChange: -3.76,
+      opnInterest: 24982.5,
+      netChangeOpnInterest: -76.25,
+      tradingSymbol: 'JINDALSTEL25JAN24FUT',
+    };
+    assert.equal(sampleBuildup.tradingSymbol, 'JINDALSTEL25JAN24FUT');
+    assert.equal(sampleBuildup.ltp, 723.8);
   });
 });

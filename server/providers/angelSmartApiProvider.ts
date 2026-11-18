@@ -4,6 +4,7 @@
  * Reference:
  * - Historical API: https://smartapi.angelone.in/docs/Historical
  * - Live Market Data API: https://smartapi.angelone.in/docs/MarketData
+ * - Top Gainers / Losers, PCR & OI Buildup: https://smartapi.angelone.in/docs/TopGainers
  */
 
 export type AngelExchange = 'NSE' | 'BSE' | 'NFO' | 'BFO' | 'MCX' | 'CDS';
@@ -19,6 +20,20 @@ export type AngelInterval =
   | 'ONE_DAY';
 
 export type AngelQuoteMode = 'LTP' | 'OHLC' | 'FULL';
+
+export type AngelGainersLosersType =
+  | 'PercPriceGainers'
+  | 'PercPriceLosers'
+  | 'PercOIGainers'
+  | 'PercOILosers';
+
+export type AngelExpiryType = 'NEAR' | 'NEXT' | 'FAR';
+
+export type AngelOIBuildupType =
+  | 'Long Built Up'
+  | 'Short Built Up'
+  | 'Short Covering'
+  | 'Long Unwinding';
 
 export interface AngelCandlePoint {
   timestamp: string;
@@ -92,6 +107,29 @@ export interface AngelLiveMarketDataRequest {
   exchangeTokens: Partial<Record<AngelExchange, string[]>>;
 }
 
+export interface AngelGainerLoserItem {
+  tradingSymbol: string;
+  percentChange: number;
+  symbolToken: number | string;
+  opnInterest: number;
+  netChangeOpnInterest: number;
+}
+
+export interface AngelPCRItem {
+  pcr: number;
+  tradingSymbol: string;
+}
+
+export interface AngelOIBuildupItem {
+  symbolToken: string;
+  ltp: number;
+  netChange: number;
+  percentChange: number;
+  opnInterest: number;
+  netChangeOpnInterest: number;
+  tradingSymbol: string;
+}
+
 export interface AngelApiCredentials {
   apiKey: string;
   authToken?: string;
@@ -104,6 +142,9 @@ export interface AngelApiCredentials {
 const HISTORICAL_API_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getCandleData';
 const HISTORICAL_OI_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData';
 const LIVE_MARKET_DATA_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/';
+const GAINERS_LOSERS_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/gainersLosers';
+const PCR_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/putCallRatio';
+const OI_BUILDUP_URL = 'https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/OIBuildup';
 export const SCRIP_MASTER_URL = 'https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json';
 
 // Interval max days lookup per Angel One documentation
@@ -249,10 +290,23 @@ export function getAngelCredentials(): AngelApiCredentials | null {
   };
 }
 
+function getAngelAuthHeaders(creds: AngelApiCredentials) {
+  return {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'X-PrivateKey': creds.apiKey,
+    Authorization: `Bearer ${creds.authToken}`,
+    'X-SourceID': 'WEB',
+    'X-ClientLocalIP': creds.clientLocalIp || '127.0.0.1',
+    'X-ClientPublicIP': creds.clientPublicIp || '127.0.0.1',
+    'X-MACAddress': creds.macAddress || '00:00:00:00:00:00',
+    'X-UserType': 'USER',
+  };
+}
+
 /**
  * Fetch Historical Candle Data from Angel One SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getCandleData
- * Output: parsed array of { timestamp, open, high, low, close, volume }
  */
 export async function fetchAngelHistoricalCandles(
   request: AngelHistoricalCandleRequest,
@@ -266,17 +320,7 @@ export async function fetchAngelHistoricalCandles(
   try {
     const response = await fetch(HISTORICAL_API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'X-PrivateKey': creds.apiKey,
-        Authorization: `Bearer ${creds.authToken}`,
-        'X-SourceID': 'WEB',
-        'X-ClientLocalIP': creds.clientLocalIp || '127.0.0.1',
-        'X-ClientPublicIP': creds.clientPublicIp || '127.0.0.1',
-        'X-MACAddress': creds.macAddress || '00:00:00:00:00:00',
-        'X-UserType': 'USER',
-      },
+      headers: getAngelAuthHeaders(creds),
       body: JSON.stringify({
         exchange: request.exchange,
         symboltoken: request.symboltoken,
@@ -320,7 +364,6 @@ export async function fetchAngelHistoricalCandles(
 /**
  * Fetch Live Market Data (LTP, OHLC, or FULL mode) from Angel One SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/
- * Allows fetching up to 50 symbols across NSE, BSE, MCX, CDS in 1 request.
  */
 export async function fetchAngelLiveMarketQuotes(
   request: AngelLiveMarketDataRequest,
@@ -334,17 +377,7 @@ export async function fetchAngelLiveMarketQuotes(
   try {
     const response = await fetch(LIVE_MARKET_DATA_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'X-PrivateKey': creds.apiKey,
-        Authorization: `Bearer ${creds.authToken}`,
-        'X-SourceID': 'WEB',
-        'X-ClientLocalIP': creds.clientLocalIp || '127.0.0.1',
-        'X-ClientPublicIP': creds.clientPublicIp || '127.0.0.1',
-        'X-MACAddress': creds.macAddress || '00:00:00:00:00:00',
-        'X-UserType': 'USER',
-      },
+      headers: getAngelAuthHeaders(creds),
       body: JSON.stringify({
         mode: request.mode,
         exchangeTokens: request.exchangeTokens,
@@ -427,6 +460,185 @@ export async function fetchAngelLiveMarketQuotes(
 }
 
 /**
+ * Fetch Top Gainers / Losers in Derivatives (F&O) from Angel One SmartAPI
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/gainersLosers
+ */
+export async function fetchAngelGainersLosers(
+  datatype: AngelGainersLosersType = 'PercPriceGainers',
+  expirytype: AngelExpiryType = 'NEAR',
+  credsOverride?: AngelApiCredentials
+): Promise<AngelGainerLoserItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey || !creds.authToken) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(GAINERS_LOSERS_URL, {
+      method: 'POST',
+      headers: getAngelAuthHeaders(creds),
+      body: JSON.stringify({
+        datatype,
+        expirytype,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: Array<{
+        tradingSymbol: string;
+        percentChange: number;
+        symbolToken: number | string;
+        opnInterest: number;
+        netChangeOpnInterest: number;
+      }>;
+    };
+
+    if (!json.status || !Array.isArray(json.data)) return [];
+    return json.data;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelGainersLosers error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Fetch Put-Call Ratio (PCR) from Angel One SmartAPI
+ * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/putCallRatio
+ */
+export async function fetchAngelPutCallRatio(
+  credsOverride?: AngelApiCredentials
+): Promise<AngelPCRItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey || !creds.authToken) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(PCR_URL, {
+      method: 'GET',
+      headers: getAngelAuthHeaders(creds),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: Array<{
+        pcr: number;
+        tradingSymbol: string;
+      }>;
+    };
+
+    if (!json.status || !Array.isArray(json.data)) return [];
+    return json.data;
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelPutCallRatio error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Fetch Open Interest Buildup (Long Buildup, Short Buildup, Short Covering, Long Unwinding)
+ * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/OIBuildup
+ */
+export async function fetchAngelOIBuildup(
+  datatype: AngelOIBuildupType = 'Long Built Up',
+  expirytype: AngelExpiryType = 'NEAR',
+  credsOverride?: AngelApiCredentials
+): Promise<AngelOIBuildupItem[]> {
+  const creds = credsOverride || getAngelCredentials();
+  if (!creds || !creds.apiKey || !creds.authToken) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(OI_BUILDUP_URL, {
+      method: 'POST',
+      headers: getAngelAuthHeaders(creds),
+      body: JSON.stringify({
+        datatype,
+        expirytype,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as {
+      status: boolean;
+      message: string;
+      data?: Array<{
+        symbolToken: string;
+        ltp: string | number;
+        netChange: string | number;
+        percentChange: string | number;
+        opnInterest: string | number;
+        netChangeOpnInterest: string | number;
+        tradingSymbol: string;
+      }>;
+    };
+
+    if (!json.status || !Array.isArray(json.data)) return [];
+
+    return json.data.map((item) => ({
+      symbolToken: String(item.symbolToken),
+      ltp: Number(item.ltp) || 0,
+      netChange: Number(item.netChange) || 0,
+      percentChange: Number(item.percentChange) || 0,
+      opnInterest: Number(item.opnInterest) || 0,
+      netChangeOpnInterest: Number(item.netChangeOpnInterest) || 0,
+      tradingSymbol: item.tradingSymbol,
+    }));
+  } catch (error) {
+    console.warn(`[AngelSmartAPI] fetchAngelOIBuildup error:`, error);
+    return [];
+  }
+}
+
+/**
+ * Classify market sentiment from Put-Call Ratio (PCR)
+ */
+export function classifyPcrSentiment(pcr: number): {
+  label: string;
+  bias: 'bullish' | 'bearish' | 'neutral';
+  description: string;
+} {
+  if (pcr >= 1.3) {
+    return {
+      label: 'Extremely Bullish',
+      bias: 'bullish',
+      description: 'Heavy put writing by institutional desks indicates strong price support.',
+    };
+  }
+  if (pcr >= 1.0) {
+    return {
+      label: 'Mildly Bullish',
+      bias: 'bullish',
+      description: 'More puts being written than calls; upward market momentum expected.',
+    };
+  }
+  if (pcr >= 0.75) {
+    return {
+      label: 'Neutral / Rangebound',
+      bias: 'neutral',
+      description: 'Balanced call and put open interest; index likely to consolidate in range.',
+    };
+  }
+  return {
+    label: 'Bearish / Oversold',
+    bias: 'bearish',
+    description: 'Heavy call writing indicates strong overhead resistance, or potential oversold bounce.',
+  };
+}
+
+/**
  * Fetch Historical Open Interest (OI) from Angel One SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData
  */
@@ -442,17 +654,7 @@ export async function fetchAngelHistoricalOI(
   try {
     const response = await fetch(HISTORICAL_OI_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'X-PrivateKey': creds.apiKey,
-        Authorization: `Bearer ${creds.authToken}`,
-        'X-SourceID': 'WEB',
-        'X-ClientLocalIP': creds.clientLocalIp || '127.0.0.1',
-        'X-ClientPublicIP': creds.clientPublicIp || '127.0.0.1',
-        'X-MACAddress': creds.macAddress || '00:00:00:00:00:00',
-        'X-UserType': 'USER',
-      },
+      headers: getAngelAuthHeaders(creds),
       body: JSON.stringify({
         exchange: request.exchange,
         symboltoken: request.symboltoken,
