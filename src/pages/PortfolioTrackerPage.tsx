@@ -166,11 +166,9 @@ export function PortfolioTrackerPage() {
   const [casProcessing, setCasProcessing] = useState(false);
   const [casSuccess, setCasSuccess] = useState(false);
 
-  // Angel One SmartAPI Demat Sync Modal
+  // Broker Market API Demat Sync Modal
   const [angelModalOpen, setAngelModalOpen] = useState(false);
-  const [angelClientId, setAngelClientId] = useState('AABF820686');
-  const [angelPin, setAngelPin] = useState('2001');
-  const [angelTotpSecret, setAngelTotpSecret] = useState('');
+  const [angelSyncError, setAngelSyncError] = useState<string | null>(null);
   const [angelSyncing, setAngelSyncing] = useState(false);
   const [angelSuccess, setAngelSuccess] = useState(false);
   const [angelProfile, setAngelProfile] = useState<{
@@ -186,128 +184,19 @@ export function PortfolioTrackerPage() {
     collateral?: string;
   } | null>(null);
 
-  // Tab State: Demat Holdings vs Angel One SmartAPI Orders & Trades vs Webhook Postbacks
+  // Tab State: Demat Holdings vs Broker Market API Orders & Trades vs Webhook Postbacks
   const [portfolioTab, setPortfolioTab] = useState<'holdings' | 'orderbook' | 'tradebook' | 'postbacks'>('holdings');
 
   // Order Book & Trade Book State
-  const [orderBook, setOrderBook] = useState<any[]>([
-    {
-      orderid: '201020000000080',
-      uniqueorderid: '34reqfachdfih',
-      tradingsymbol: 'SBIN-EQ',
-      symboltoken: '3045',
-      transactiontype: 'BUY',
-      exchange: 'NSE',
-      ordertype: 'LIMIT',
-      producttype: 'INTRADAY',
-      duration: 'DAY',
-      variety: 'NORMAL',
-      price: '194.00',
-      triggerprice: '0',
-      quantity: '1',
-      filledshares: '0',
-      unfilledshares: '1',
-      status: 'cancelled',
-      orderstatus: 'cancelled',
-      updatetime: '20-Oct-2020 13:10:59',
-      exchangeorderid: '1100000000048358',
-    },
-    {
-      orderid: '231010000000970',
-      uniqueorderid: '05ebf91b-bea4-4a1d-b0f2-4259606570e3',
-      tradingsymbol: 'RELIANCE-EQ',
-      symboltoken: '2885',
-      transactiontype: 'BUY',
-      exchange: 'NSE',
-      ordertype: 'LIMIT',
-      producttype: 'DELIVERY',
-      duration: 'DAY',
-      variety: 'NORMAL',
-      price: '2298.25',
-      triggerprice: '0',
-      quantity: '1',
-      filledshares: '0',
-      unfilledshares: '1',
-      status: 'rejected',
-      orderstatus: 'rejected',
-      updatetime: '10-Oct-2023 09:00:16',
-      text: 'Your order has been rejected due to Insufficient Funds. Available funds - Rs. 937.00. You require Rs. 2298.25 funds to execute this order.',
-    },
-  ]);
+  const [orderBook, setOrderBook] = useState<any[]>([]);
 
-  const [tradeBook, setTradeBook] = useState<any[]>([
-    {
-      orderid: '201020000000095',
-      fillid: '50005750',
-      tradingsymbol: 'ITC-EQ',
-      exchange: 'NSE',
-      transactiontype: 'BUY',
-      producttype: 'DELIVERY',
-      fillprice: '175.00',
-      fillsize: '1',
-      tradevalue: '175.00',
-      filltime: '13:27:53',
-    },
-  ]);
+  const [tradeBook, setTradeBook] = useState<any[]>([]);
 
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [orderFilter, setOrderFilter] = useState<'ALL' | 'OPEN' | 'EXECUTED' | 'CANCELLED' | 'REJECTED'>('ALL');
 
   // Postback / Webhook Stream State
-  const [postbacks, setPostbacks] = useState<any[]>([
-    {
-      orderid: '201020000000080',
-      tradingsymbol: 'SBIN-EQ',
-      symboltoken: '3045',
-      transactiontype: 'BUY',
-      exchange: 'NSE',
-      ordertype: 'LIMIT',
-      producttype: 'INTRADAY',
-      duration: 'DAY',
-      variety: 'NORMAL',
-      price: 195.0,
-      averageprice: 194.8,
-      quantity: 10,
-      filledshares: 10,
-      unfilledshares: 0,
-      status: 'complete',
-      orderstatus: 'complete',
-      statusCategory: 'COMPLETE',
-      fillPercent: 100,
-      fillid: '112345',
-      text: 'Traded',
-      updatetime: '20-Oct-2020 14:20:10',
-      exchorderupdatetime: '20-Oct-2020 14:20:10',
-      clientcode: 'A102934',
-      receivedAt: new Date().toISOString(),
-    },
-    {
-      orderid: '231010000000970',
-      tradingsymbol: 'RELIANCE-EQ',
-      symboltoken: '2885',
-      transactiontype: 'BUY',
-      exchange: 'NSE',
-      ordertype: 'LIMIT',
-      producttype: 'DELIVERY',
-      duration: 'DAY',
-      variety: 'NORMAL',
-      price: 2298.25,
-      averageprice: 0,
-      quantity: 1,
-      filledshares: 0,
-      unfilledshares: 1,
-      status: 'rejected',
-      orderstatus: 'rejected',
-      statusCategory: 'REJECTED',
-      fillPercent: 0,
-      fillid: '',
-      text: 'RMS:Rule: Check Margin failed. Insufficient funds in trading account',
-      updatetime: '10-Oct-2023 09:00:16',
-      exchorderupdatetime: '10-Oct-2023 09:00:16',
-      clientcode: 'A102934',
-      receivedAt: new Date(Date.now() - 3600000).toISOString(),
-    },
-  ]);
+  const [postbacks, setPostbacks] = useState<any[]>([]);
   const [loadingPostbacks, setLoadingPostbacks] = useState(false);
   const [postbackFilter, setPostbackFilter] = useState<'ALL' | 'COMPLETE' | 'PARTIALLY_EXECUTED' | 'OPEN' | 'CANCELLED' | 'REJECTED'>('ALL');
   const [postbackSearch, setPostbackSearch] = useState('');
@@ -467,7 +356,7 @@ export function PortfolioTrackerPage() {
         setEdisMessage('CDSL Status: 0 (Pending authorization). If you just entered your TPIN on CDSL, please wait 10 seconds and re-check.');
       }
     } catch (err: any) {
-      setEdisMessage(err?.message || 'Could not verify transaction status from Angel One.');
+      setEdisMessage(err?.message || 'Could not verify transaction status from Broker.');
     } finally {
       setEdisStatusChecking(false);
     }
@@ -692,7 +581,7 @@ export function PortfolioTrackerPage() {
           setPortfolioTab('orderbook');
         }, 1500);
       } else {
-        setOrderErrorMessage(res.message || 'Failed to place order on Angel One SmartAPI');
+        setOrderErrorMessage(res.message || 'Failed to place order on Broker Market API');
       }
     } catch (err: any) {
       setOrderErrorMessage(err?.message || 'Network error placing order');
@@ -905,15 +794,14 @@ export function PortfolioTrackerPage() {
   const handleSyncAngelHoldings = async () => {
     setAngelSyncing(true);
     setAngelSuccess(false);
+    setAngelSyncError(null);
 
     try {
       const res = await fetch('/api/portfolio/angel/holdings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          clientCode: angelClientId || undefined,
-          pin: angelPin || undefined,
-          totpKey: angelTotpSecret || undefined,
+          // Credentials are read only from server-side environment secrets.
         }),
       });
 
@@ -926,7 +814,7 @@ export function PortfolioTrackerPage() {
             return [...nonDuplicate, ...prev];
           });
 
-          // Fetch Angel One User Profile and RMS Funds in parallel
+          // Fetch Broker User Profile and RMS Funds in parallel
           fetch('/api/user/angel/profile')
             .then((r) => r.json())
             .then((d) => {
@@ -954,72 +842,8 @@ export function PortfolioTrackerPage() {
       // Backend sync gracefully falls back to verified holdings snapshot
     }
 
-    // Fallback: Synchronize verified Angel One Demat holdings snapshot
-    setTimeout(() => {
-      const angelHoldings: PortfolioHolding[] = [
-        {
-          id: 'angel-tatasteel',
-          name: 'Tata Steel Limited',
-          symbol: 'TATASTEEL',
-          assetType: 'Equity',
-          quantity: 2,
-          buyPrice: 111.87,
-          currentPrice: 130.15,
-          dayChangePercent: 0.42,
-          sector: 'Metals & Mining',
-          mcapCategory: 'Large Cap',
-        },
-        {
-          id: 'angel-paragmilk',
-          name: 'Parag Milk Foods Ltd',
-          symbol: 'PARAGMILK',
-          assetType: 'Equity',
-          quantity: 2,
-          buyPrice: 154.03,
-          currentPrice: 201.0,
-          dayChangePercent: 4.63,
-          sector: 'FMCG & Dairy',
-          mcapCategory: 'Small Cap',
-        },
-        {
-          id: 'angel-sbin',
-          name: 'State Bank of India',
-          symbol: 'SBIN',
-          assetType: 'Equity',
-          quantity: 8,
-          buyPrice: 573.1,
-          currentPrice: 579.05,
-          dayChangePercent: 1.5,
-          sector: 'Banking & Financials',
-          mcapCategory: 'Large Cap',
-        },
-      ];
-
-      setHoldings((prev) => {
-        const existingSymbols = new Set(prev.map((h) => h.symbol));
-        const nonDuplicate = angelHoldings.filter((h) => !existingSymbols.has(h.symbol));
-        return [...nonDuplicate, ...prev];
-      });
-
-      setAngelProfile({
-        clientcode: angelClientId || 'AABF820686',
-        name: 'Angel One Demat User',
-        exchanges: ['NSE', 'BSE', 'MCX', 'NFO'],
-        products: ['DELIVERY', 'INTRADAY', 'MARGIN'],
-      });
-      setAngelFunds({
-        net: '150000',
-        availablecash: '125000',
-        collateral: '25000',
-      });
-
-      setAngelSyncing(false);
-      setAngelSuccess(true);
-      setTimeout(() => {
-        setAngelModalOpen(false);
-        setAngelSuccess(false);
-      }, 1600);
-    }, 1200);
+    setAngelSyncError('Live holdings could not be retrieved. No sample account data was added. Check the server-side SmartAPI configuration and try again.');
+    setAngelSyncing(false);
   };
 
   return (
@@ -1062,7 +886,7 @@ export function PortfolioTrackerPage() {
             className="inline-flex items-center gap-1.5 rounded-xl border border-orange-200 dark:border-orange-800/60 bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 text-xs font-bold text-white shadow-sm hover:brightness-105 transition-all cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-amber-200" />
-            <span>Sync Angel One Demat</span>
+            <span>Sync Broker Demat</span>
           </button>
           <button
             type="button"
@@ -1142,19 +966,19 @@ export function PortfolioTrackerPage() {
         </div>
       </section>
 
-      {/* Angel One SmartAPI Live Session & RMS Limits Card */}
+      {/* Broker Market API Live Session & RMS Limits Card */}
       {angelProfile && (
         <section className="rounded-2xl border border-orange-200 dark:border-orange-900/40 bg-gradient-to-r from-orange-50/70 via-amber-50/40 to-white dark:from-[#1e1510] dark:via-[#19151e] dark:to-[#111C2E] p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <img
               src="/assets/movers/angel-one.png"
-              alt="Angel One"
+              alt="Broker"
               className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
             />
             <div>
               <div className="flex items-center gap-2">
                 <h4 className="font-bold text-sm text-[#14263F] dark:text-white">
-                  Angel One SmartAPI Session Connected
+                  Broker Market API Session Connected
                 </h4>
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 px-2 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -1162,7 +986,6 @@ export function PortfolioTrackerPage() {
                 </span>
               </div>
               <div className="text-xs text-[#64748B] dark:text-slate-400 mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span>Client Code: <strong className="font-mono text-slate-800 dark:text-slate-200">{angelProfile.clientcode}</strong></span>
                 {angelProfile.name && <span>• Name: <strong className="text-slate-800 dark:text-slate-200">{angelProfile.name}</strong></span>}
                 {angelProfile.exchanges && (
                   <span>• Segments: <span className="font-mono text-[11px] text-orange-700 dark:text-orange-400 font-semibold">{angelProfile.exchanges.join(', ')}</span></span>
@@ -1299,7 +1122,7 @@ export function PortfolioTrackerPage() {
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Angel One Order Book</span>
+              <span>Broker Order Book</span>
               {orderBook.length > 0 && (
                 <span className="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-orange-700/60 text-white">
                   {orderBook.length}
@@ -1684,7 +1507,7 @@ export function PortfolioTrackerPage() {
         {portfolioTab === 'tradebook' && (
           <div className="space-y-3">
             <div className="text-xs text-slate-500">
-              Today's Executed Trades retrieved from Angel One SmartAPI
+              Today's Executed Trades retrieved from Broker Market API
             </div>
             <div className="overflow-x-auto no-scrollbar">
               <table className="w-full text-left text-xs">
@@ -1763,7 +1586,7 @@ export function PortfolioTrackerPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-xs text-slate-900 dark:text-white flex items-center gap-2">
-                      <span>Angel One SmartAPI Postback Webhook Endpoint</span>
+                      <span>Broker Market API Postback Webhook Endpoint</span>
                       <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800 font-mono">
                         HTTPS Port 443
                       </span>
@@ -2029,7 +1852,7 @@ export function PortfolioTrackerPage() {
                                 <div className="space-y-1">
                                   <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
                                     <span>Exact SmartAPI Webhook Payload Snapshot</span>
-                                    <span className="font-mono text-[10px]">Client: {pb.clientcode || 'A102934'}</span>
+                                    <span className="font-mono text-[10px]">Webhook payload</span>
                                   </div>
                                   <pre className="p-3 rounded-lg bg-slate-900 text-slate-100 font-mono text-[11px] overflow-x-auto leading-relaxed max-h-48">
                                     {JSON.stringify(pb, null, 2)}
@@ -2188,7 +2011,7 @@ export function PortfolioTrackerPage() {
         </div>
       )}
 
-      {/* Angel One SmartAPI Demat Sync Modal */}
+      {/* Broker Market API Demat Sync Modal */}
       {angelModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-lg rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-6 shadow-2xl space-y-4">
@@ -2196,12 +2019,12 @@ export function PortfolioTrackerPage() {
               <div className="flex items-center gap-2.5">
                 <img
                   src="/assets/movers/angel-one.png"
-                  alt="Angel One"
+                  alt="Broker"
                   className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
                   <h3 className="font-bold text-base text-[#14263F] dark:text-white">
-                    Angel One SmartAPI Portfolio Sync
+                    Broker Market API Portfolio Sync
                   </h3>
                   <p className="text-[11px] text-[#64748B] dark:text-slate-400">
                     Direct Demat holdings import via official SmartAPI v1
@@ -2223,7 +2046,7 @@ export function PortfolioTrackerPage() {
                 <span>SEBI-Compliant Read-Only Integration</span>
               </div>
               <p className="text-[11px] text-amber-800/80 dark:text-amber-300/80 leading-relaxed">
-                Uses Angel One's official <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded">/portfolio/v1/getAllHolding</code> endpoint. PriceAlerter only reads settled shares and never executes orders.
+                Uses Broker's official <code className="bg-amber-100 dark:bg-amber-900/60 px-1 py-0.5 rounded">/portfolio/v1/getAllHolding</code> endpoint. PriceAlerter only reads settled shares and never executes orders.
               </p>
             </div>
 
@@ -2270,6 +2093,7 @@ export function PortfolioTrackerPage() {
               />
             </div>
 
+            {angelSyncError && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-2 text-xs text-red-700">{angelSyncError}</p>}
             <div className="pt-2">
               <button
                 type="button"
@@ -2280,7 +2104,7 @@ export function PortfolioTrackerPage() {
                 {angelSyncing ? (
                   <>
                     <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Connecting to Angel One Demat...</span>
+                    <span>Connecting to Broker Demat...</span>
                   </>
                 ) : angelSuccess ? (
                   <>
@@ -2290,7 +2114,7 @@ export function PortfolioTrackerPage() {
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4" />
-                    <span>Sync My Angel One Demat Holdings</span>
+                    <span>Sync My Broker Demat Holdings</span>
                   </>
                 )}
               </button>
@@ -2299,7 +2123,7 @@ export function PortfolioTrackerPage() {
         </div>
       )}
 
-      {/* Angel One SmartAPI Place Order Modal */}
+      {/* Broker Market API Place Order Modal */}
       {placeOrderModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
           <div className="w-full max-w-lg rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-6 shadow-2xl space-y-4 my-8">
@@ -2307,12 +2131,12 @@ export function PortfolioTrackerPage() {
               <div className="flex items-center gap-2.5">
                 <img
                   src="/assets/movers/angel-one.png"
-                  alt="Angel One"
+                  alt="Broker"
                   className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
                   <h3 className="font-bold text-base text-[#14263F] dark:text-white flex items-center gap-1.5">
-                    <span>Angel One SmartAPI Order Execution</span>
+                    <span>Broker Market API Order Execution</span>
                   </h3>
                   <p className="text-[11px] text-[#64748B] dark:text-slate-400">
                     Direct exchange routing (NSE/BSE) via <code className="font-mono text-[10px]">/order/v1/placeOrder</code>
@@ -2607,7 +2431,7 @@ export function PortfolioTrackerPage() {
                   </span>
                 </label>
                 <p className="text-[10px] text-slate-500">
-                  Complies with static IP headers (<code className="font-mono">X-ClientLocalIP</code>, <code className="font-mono">X-ClientPublicIP</code>) and Angel One SmartAPI security guidelines.
+                  Complies with static IP headers (<code className="font-mono">X-ClientLocalIP</code>, <code className="font-mono">X-ClientPublicIP</code>) and Broker Market API security guidelines.
                 </p>
               </div>
 
@@ -2630,7 +2454,7 @@ export function PortfolioTrackerPage() {
                       <span>Sending Order...</span>
                     </>
                   ) : (
-                    <span>Submit Order to Angel One</span>
+                    <span>Submit Order to Broker</span>
                   )}
                 </button>
               </div>
@@ -2647,7 +2471,7 @@ export function PortfolioTrackerPage() {
               <div className="flex items-center gap-2.5">
                 <img
                   src="/assets/movers/angel-one.png"
-                  alt="Angel One"
+                  alt="Broker"
                   className="w-9 h-9 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
@@ -2671,7 +2495,7 @@ export function PortfolioTrackerPage() {
             {inspectLoading ? (
               <div className="py-8 flex flex-col items-center justify-center gap-2 text-slate-500">
                 <RefreshCw className="w-5 h-5 animate-spin text-orange-500" />
-                <span className="text-xs">Fetching live status from Angel One...</span>
+                <span className="text-xs">Fetching live status from Broker...</span>
               </div>
             ) : inspectOrderData ? (
               <div className="space-y-4 text-xs">
@@ -2787,7 +2611,7 @@ export function PortfolioTrackerPage() {
               <div className="flex items-center gap-2.5">
                 <img
                   src="/assets/movers/angel-one.png"
-                  alt="Angel One"
+                  alt="Broker"
                   className="w-10 h-10 rounded-xl object-contain bg-white dark:bg-slate-900 p-1 border border-orange-200 dark:border-orange-800 shadow-md shrink-0"
                 />
                 <div>
@@ -2917,7 +2741,7 @@ export function PortfolioTrackerPage() {
                     {edisLoading ? (
                       <>
                         <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Initiating with Angel One &amp; CDSL...</span>
+                        <span>Initiating with Broker &amp; CDSL...</span>
                       </>
                     ) : (
                       <>
