@@ -160,7 +160,7 @@ async function fetchYahooTickerQuote(ticker: string, force = false, expectedCurr
       week52Low: typeof meta.fiftyTwoWeekLow === "number" ? meta.fiftyTwoWeekLow : null,
       volume: typeof meta.regularMarketVolume === "number" ? meta.regularMarketVolume : null,
       sparkline: closes.slice(-24),
-      lastTradeTime: lastTradeTime || new Date().toISOString(),
+      lastTradeTime,
       quoteSource: "Market data feed",
       quoteStatus: quoteFreshnessStatus(lastTradeTime),
       quoteCurrency: meta.currency || "INR",
@@ -1085,7 +1085,7 @@ export async function onRequest(context: {
       };
 
       if (enriched && typeof enriched.currentPrice === "number" && Number.isFinite(enriched.currentPrice)) {
-        const tradeTime = enriched.lastTradeTime || nowIso;
+        const tradeTime = enriched.lastTradeTime || null;
         output.currentPrice = enriched.currentPrice;
         output.previousClose = enriched.previousClose ?? output.previousClose;
         output.open = enriched.open ?? output.open;
@@ -1096,7 +1096,7 @@ export async function onRequest(context: {
         output.dayChange = enriched.dayChange ?? output.dayChange;
         output.dayChangePercent = enriched.dayChangePercent ?? output.dayChangePercent;
         output.volume = enriched.volume ?? output.volume;
-        output.lastTradeTime = tradeTime;
+        output.lastTradeTime = tradeTime || output.lastTradeTime || null;
         output.provenance = {
           ...(output.provenance || {}),
           source: "Market data feed",
@@ -1113,7 +1113,7 @@ export async function onRequest(context: {
             dayChange: enriched.dayChange ?? output.nseQuote.dayChange,
             dayChangePct: enriched.dayChangePercent ?? output.nseQuote.dayChangePct,
             volume: enriched.volume ?? output.nseQuote.volume,
-            lastTradeTime: tradeTime,
+            lastTradeTime: tradeTime || output.nseQuote.lastTradeTime,
           };
         }
         if (output.bseQuote) {
@@ -1123,7 +1123,7 @@ export async function onRequest(context: {
             dayChange: enriched.dayChange ?? output.bseQuote.dayChange,
             dayChangePct: enriched.dayChangePercent ?? output.bseQuote.dayChangePct,
             volume: enriched.volume ?? output.bseQuote.volume,
-            lastTradeTime: tradeTime,
+            lastTradeTime: tradeTime || output.bseQuote.lastTradeTime,
           };
         }
         if (env.DB) {
