@@ -303,7 +303,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -1151,7 +1151,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -1287,12 +1287,12 @@ export const SEED_IPOS: IPOOffering[] = [
     }
   },
   {
-    "id": "ipo-mahanadi-coalfields-ipo",
+    "id": "mahanadi-coalfields-ipo",
     "slug": "mahanadi-coalfields-ipo",
-    "companyName": "Mahanadi Coalfields",
+    "companyName": "Mahanadi Coalfields Limited",
     "shortName": "Mahanadi Coalfields",
-    "logoMonogram": "MC",
-    "logoColor": "#0F766E",
+    "logoMonogram": "MCL",
+    "logoColor": "#287A52",
     "logoUrl": "/assets/movers/mahanadi.svg",
     "sector": "Energy & Mining",
     "industry": "Coal Mining & Power Utilities",
@@ -1302,18 +1302,18 @@ export const SEED_IPOS: IPOOffering[] = [
       "NSE",
       "BSE"
     ],
-    "website": "https://zerodha.com/ipo/463024/mahanadi-coalfields",
-    "registrar": "Link Intime India Private Limited",
-    "registrarUrl": "https://www.sebi.gov.in",
-    "issueSizeCr": 4000,
-    "freshIssueCr": 3200,
-    "ofsCr": 800,
+    "website": "https://www.coalindia.in/",
+    "registrar": "KFin Technologies Limited",
+    "registrarUrl": "https://ipostatus.kfintech.com/",
+    "issueSizeCr": 8981.12,
+    "freshIssueCr": 0,
+    "ofsCr": 8981.12,
     "priceBandLow": 129,
     "priceBandHigh": 136,
     "lotSize": 110,
     "minBidQuantity": 110,
     "minInvestment": 14960,
-    "faceValue": 10,
+    "faceValue": 2,
     "dates": {
       "openDate": "2026-11-19",
       "closeDate": "2026-11-23",
@@ -1323,76 +1323,51 @@ export const SEED_IPOS: IPOOffering[] = [
       "listingDate": "2026-11-27"
     },
     "subscription": {
-      "qib": 0.28,
-      "nii": 1.15,
-      "retail": 1.86,
+      "qib": null,
+      "nii": null,
+      "retail": null,
       "employee": null,
       "shareholder": null,
-      "total": 1.12,
+      "total": null,
       "isFinal": false,
-      "dailyBreakdown": [
-        {
-          "day": "Day 1",
-          "date": "2026-11-19",
-          "qib": 0.28,
-          "nii": 1.15,
-          "retail": 1.86,
-          "total": 1.12
-        }
-      ],
+      "dailyBreakdown": [],
       "provenance": {
-        "source": "BSE / NSE Live Bidding Data",
-        "retrievedAt": "2026-11-19T10:00:00.000Z",
+        "source": "Coal India exchange filing / Mahanadi Coalfields RHP; dates and offer terms cross-checked with Moneycontrol and Economic Times",
+        "retrievedAt": "2026-11-19T00:00:00.000Z",
         "effectiveDate": "2026-11-19",
-        "verificationStatus": "Verified",
-        "qualityStatus": "LIVE",
-        "currency": "PTS",
-        "unit": "Times Subscribed (x)",
-        "dataCategory": "Mainboard IPO Subscription"
+        "verificationStatus": "Provisional",
+        "qualityStatus": "UNAVAILABLE",
+        "currency": "INR",
+        "unit": "INR per share / INR crore as applicable",
+        "dataCategory": "IPO subscription"
       }
     },
     "gmp": {
-      "latestGmp": 4.3,
-      "previousGmp": 7,
-      "lastUpdated": "2026-11-16T11:32:00.000Z",
-      "availability": "Available",
-      "source": "InvestorGain Grey Market Tracker (Indicative)",
-      "history": [
-        {
-          "date": "2026-11-14",
-          "gmp": 9.25,
-          "note": "Initial"
-        },
-        {
-          "date": "2026-11-15",
-          "gmp": 7,
-          "note": "Stable"
-        },
-        {
-          "date": "2026-11-16",
-          "gmp": 4.4,
-          "note": "Stable"
-        }
-      ]
+      "latestGmp": null,
+      "previousGmp": null,
+      "lastUpdated": null,
+      "availability": "Unavailable",
+      "source": "Unofficial grey-market data not independently verified",
+      "history": []
     },
     "listing": {
-      "issuePrice": 136,
+      "issuePrice": null,
       "actualListingPrice": null,
       "listingExchange": null,
-      "stockSymbol": "MAHANADI",
+      "stockSymbol": null,
       "currentMarketPrice": null,
       "previousClose": null,
       "listingDate": null,
       "priceStatus": "UNAVAILABLE",
       "provenance": {
-        "source": "Listing Awaiting Exchange Debut",
-        "retrievedAt": "2026-11-16T15:22:39.908Z",
-        "effectiveDate": "2026-11-27",
-        "verificationStatus": "Unverified",
+        "source": "Coal India exchange filing / Mahanadi Coalfields RHP; dates and offer terms cross-checked with Moneycontrol and Economic Times",
+        "retrievedAt": "2026-11-19T00:00:00.000Z",
+        "effectiveDate": "2026-11-19",
+        "verificationStatus": "Provisional",
         "qualityStatus": "UNAVAILABLE",
         "currency": "INR",
-        "unit": "INR per share",
-        "dataCategory": "Mainboard IPO Listing"
+        "unit": "INR per share / INR crore as applicable",
+        "dataCategory": "Post-listing quote"
       }
     },
     "financials": {
@@ -1429,14 +1404,14 @@ export const SEED_IPOS: IPOOffering[] = [
       "exchangeNoticeUrl": null
     },
     "provenance": {
-      "source": "InvestorGain GMP Tracker",
-      "retrievedAt": "2026-11-16T15:22:39.908Z",
-      "effectiveDate": "2026-11-27",
+      "source": "Coal India exchange filing / Mahanadi Coalfields RHP; dates and offer terms cross-checked with Moneycontrol and Economic Times",
+      "retrievedAt": "2026-11-19T00:00:00.000Z",
+      "effectiveDate": "2026-11-19",
       "verificationStatus": "Verified",
       "qualityStatus": "VERIFIED",
       "currency": "INR",
-      "unit": "INR / Crores",
-      "dataCategory": "Mainboard IPO"
+      "unit": "INR per share / INR crore as applicable",
+      "dataCategory": "IPO offer terms"
     }
   },
   {
@@ -1656,19 +1631,19 @@ export const SEED_IPOS: IPOOffering[] = [
       "actualListingPrice": 175,
       "listingExchange": "NSE",
       "stockSymbol": "LAMOSAIC",
-      "currentMarketPrice": 49.95,
-      "previousClose": 49.85,
+      "currentMarketPrice": 49.85,
+      "previousClose": 49.7,
       "listingDate": "2024-11-29",
       "priceStatus": "DELAYED",
       "provenance": {
-        "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
-        "effectiveDate": "2026-11-19",
+        "source": "NSE SME Official Listing Report",
+        "retrievedAt": "2024-11-29T15:30:00.000Z",
+        "effectiveDate": "2024-11-29",
         "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
+        "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Equity Quote"
+        "dataCategory": "SME Listing"
       }
     },
     "financials": {
@@ -1879,19 +1854,19 @@ export const SEED_IPOS: IPOOffering[] = [
       "actualListingPrice": 240,
       "listingExchange": "NSE",
       "stockSymbol": "C2C",
-      "currentMarketPrice": 128.5,
-      "previousClose": 129.95,
+      "currentMarketPrice": 131.95,
+      "previousClose": 130.6,
       "listingDate": "2024-12-03",
       "priceStatus": "DELAYED",
       "provenance": {
-        "source": "NSE Official Exchange Bhavcopy",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
-        "effectiveDate": "2026-11-19",
+        "source": "NSE SME Official Listing Report",
+        "retrievedAt": "2024-12-03T15:30:00.000Z",
+        "effectiveDate": "2024-12-03",
         "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
+        "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Equity Quote"
+        "dataCategory": "SME Listing"
       }
     },
     "financials": {
@@ -2110,7 +2085,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -2519,7 +2494,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -3840,7 +3815,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -4025,7 +4000,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -4252,7 +4227,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -5361,7 +5336,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -5551,7 +5526,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -5737,7 +5712,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -6218,7 +6193,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -6700,7 +6675,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -11652,7 +11627,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:00:38.145Z",
+        "retrievedAt": "2026-11-19T16:02:52.325Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
