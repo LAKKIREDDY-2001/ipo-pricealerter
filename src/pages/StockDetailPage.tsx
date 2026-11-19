@@ -400,6 +400,18 @@ export function StockDetailPage() {
     range,
   ]);
 
+  // Ensure the live timestamp is fresh and never stuck on an old historical date (hook at top level)
+  const liveTimestamp = useMemo(() => {
+    const raw = stock?.lastTradeTime || stock?.provenance?.retrievedAt;
+    if (raw) {
+      const dt = new Date(raw);
+      if (!Number.isNaN(dt.getTime()) && Date.now() - dt.getTime() < 24 * 60 * 60 * 1000) {
+        return raw;
+      }
+    }
+    return new Date().toISOString();
+  }, [stock?.lastTradeTime, stock?.provenance?.retrievedAt]);
+
   const handleQuickAlert = async (e: React.FormEvent) => {
     e.preventDefault();
     setAlertMsg(null);
@@ -530,18 +542,6 @@ export function StockDetailPage() {
         };
       })
     : [];
-
-  // Ensure the live timestamp is fresh and never stuck on an old historical date
-  const liveTimestamp = useMemo(() => {
-    const raw = stock?.lastTradeTime || stock?.provenance?.retrievedAt;
-    if (raw) {
-      const dt = new Date(raw);
-      if (!Number.isNaN(dt.getTime()) && Date.now() - dt.getTime() < 24 * 60 * 60 * 1000) {
-        return raw;
-      }
-    }
-    return new Date().toISOString();
-  }, [stock?.lastTradeTime, stock?.provenance?.retrievedAt]);
 
   const activePrice = hoveredPoint?.close ?? currentPrice;
   const activeDiff = activePrice - effectivePrevClose;
