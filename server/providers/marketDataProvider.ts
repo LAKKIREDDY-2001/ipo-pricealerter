@@ -36,6 +36,7 @@ interface YahooChartResponse {
         exchangeName?: string;
         currency?: string;
         regularMarketPrice?: number;
+        regularMarketOpen?: number;
         chartPreviousClose?: number;
         previousClose?: number;
         regularMarketDayHigh?: number;
