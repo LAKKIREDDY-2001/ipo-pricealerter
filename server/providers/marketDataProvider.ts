@@ -19,7 +19,7 @@ import {
   dispatchWebhookNotification,
   sendPriceAlertEmail,
 } from '../services/mailerService.ts';
-import { getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
+import { fetchIndstocksQuotes, getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
 import {
   getIndmoneyUsExploreSnapshot,
   globalStockToStockInstrument,
@@ -37,6 +37,7 @@ interface YahooChartResponse {
         exchangeName?: string;
         currency?: string;
         regularMarketPrice?: number;
+        regularMarketOpen?: number;
         chartPreviousClose?: number;
         previousClose?: number;
         regularMarketDayHigh?: number;
@@ -1443,6 +1444,20 @@ function parseYahooCandles(data: YahooChartResponse): StockHistoricalPoint[] {
   return points;
 }
 
+function isCurrentIstMarketDate(isoTime: string | null | undefined): boolean {
+  if (!isoTime) return false;
+  const quoteDate = new Date(isoTime);
+  if (Number.isNaN(quoteDate.getTime())) return false;
+  const istDate = (date: Date) =>
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(date);
+  return istDate(quoteDate) === istDate(new Date());
+}
+
 async function fetchGrowwLiveQuote(
   exchange: 'NSE' | 'BSE',
   scripCode: string
@@ -1451,10 +1466,14 @@ async function fetchGrowwLiveQuote(
     scripCode
   )}`;
   const dto = await fetchJsonWithTimeout<GrowwLivePriceDto>(url, {}, 3500);
-  if (!dto || (typeof dto.ltp !== 'number' && typeof dto.close !== 'number')) {
+  if (!dto || typeof dto.ltp !== 'number') {
     return null;
   }
-  const ltp = round2(dto.ltp ?? dto.close);
+  const quoteTime = toIsoFromEpochSec(dto.lastTradeTime ?? dto.tsInMillis);
+  // Do not turn yesterday's close into a live quote. A quote without an exchange
+  // timestamp, or from a prior Indian market date, is not current-session data.
+  if (!isCurrentIstMarketDate(quoteTime)) return null;
+  const ltp = round2(dto.ltp);
   let previousClose = round2(dto.close ?? dto.ltp);
   if (
     ltp !== null &&
@@ -1473,7 +1492,7 @@ async function fetchGrowwLiveQuote(
     dayChange: round2(dto.dayChange),
     dayChangePct: round2(dto.dayChangePerc),
     volume: typeof dto.volume === 'number' ? Math.round(dto.volume) : null,
-    lastTradeTime: toIsoFromEpochSec(dto.lastTradeTime ?? dto.tsInMillis),
+    lastTradeTime: quoteTime,
     lastTradeQty: typeof dto.lastTradeQty === 'number' ? Math.round(dto.lastTradeQty) : null,
     totalBuyQty: typeof dto.totalBuyQty === 'number' ? Math.round(dto.totalBuyQty) : null,
     totalSellQty: typeof dto.totalSellQty === 'number' ? Math.round(dto.totalSellQty) : null,
@@ -1551,7 +1570,14 @@ function mapGrowwRecordToStock(
   if (!symbol) return null;
 
   const dto = rec.livePriceDto;
-  const ltp = round2(dto?.ltp ?? rec.closePrice ?? null);
+  // closePrice is an end-of-day/previous-close field, never a substitute for LTP.
+  // If the provider omits a current-session trade, leave LTP unavailable.
+  const dtoTradeTime = toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis);
+  const hasCurrentSessionDto =
+    dto?.type === 'LIVE_PRICE' &&
+    typeof dto.ltp === 'number' &&
+    isCurrentIstMarketDate(dtoTradeTime);
+  const ltp = hasCurrentSessionDto ? round2(dto?.ltp) : null;
   let prevClose = round2(dto?.close ?? rec.closePrice ?? null);
   // When post-close dto.close has already rolled to ltp and dayChange=0, rec.closePrice holds the prior session close
   if (
@@ -1580,9 +1606,7 @@ function mapGrowwRecordToStock(
       ? Number((rec.marketCap / 1e9).toFixed(2))
       : null;
 
-  const lastTradeIso =
-    toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis) ??
-    retrievedAtIso;
+  const lastTradeIso = dtoTradeTime ?? retrievedAtIso;
 
   const exchange: StockInstrument['exchange'] =
     nseCode && bseCode ? 'NSE/BSE' : nseCode ? 'NSE' : 'BSE';
@@ -1614,7 +1638,7 @@ function mapGrowwRecordToStock(
       : round2(dto?.dayChangePerc);
 
   const dtoQuote: ExchangeLiveQuote | null =
-    dto && ltp !== null
+    hasCurrentSessionDto && ltp !== null
       ? {
           ltp,
           previousClose: prevClose,
@@ -1688,7 +1712,7 @@ function mapGrowwRecordToStock(
       retrievedAt: retrievedAtIso,
       effectiveDate: lastTradeIso.slice(0, 10),
       verificationStatus: 'Verified',
-      qualityStatus: dto?.type === 'LIVE_PRICE' ? 'VERIFIED' : 'DELAYED',
+      qualityStatus: hasCurrentSessionDto ? 'VERIFIED' : 'DELAYED',
       currency: 'INR',
       unit: 'INR per share',
       dataCategory: 'Equity Quote',
@@ -1764,11 +1788,11 @@ function buildRegistryEquityStock(params: {
       : undefined;
   const hydQ = hydrated?.quote;
 
-  const ltp = round2(
-    hydQ?.ltp ?? primaryBhav?.last ?? primaryBhav?.close ?? null
-  );
+  // Bhavcopy values are end-of-day prices, not today's live LTP.
+  // Keep them in the previous/last-close field until a current-session quote arrives.
+  const ltp = round2(hydQ?.ltp ?? null);
   const prevClose = round2(
-    hydQ?.previousClose ?? primaryBhav?.prevClose ?? null
+    hydQ?.previousClose ?? primaryBhav?.close ?? primaryBhav?.prevClose ?? null
   );
   const open = round2(hydQ?.open ?? primaryBhav?.open ?? null);
   const dayHigh = round2(hydQ?.high ?? primaryBhav?.high ?? null);
@@ -2347,26 +2371,100 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
   const candidates = items
     .filter((s) => {
       const cached = liveQuoteHydrationCache.get(s.symbol);
-      if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 30_000;
-      if (force) return !cached || now - cached.fetchedAt > 15_000;
-      if (s.provenance.source.includes('Groww')) return false;
-      return !cached || now - cached.fetchedAt > 30_000;
+      // A quote from a previous Indian market date must never count as fresh,
+      // even if it was fetched recently from a cache or restored after a restart.
+      const cachedTradeTime = cached?.quote.lastTradeTime;
+      const cachedIsToday = cachedTradeTime
+        ? isCurrentIstMarketDate(cachedTradeTime)
+        : cached
+          ? isCurrentIstMarketDate(new Date(cached.fetchedAt).toISOString())
+          : false;
+      const storedIsToday = isCurrentIstMarketDate(
+        s.provenance?.effectiveDate ? `${s.provenance.effectiveDate}T12:00:00+05:30` : s.lastTradeTime
+      );
+      if (!cached || !cachedIsToday || !storedIsToday || s.currentPrice === null) return true;
+      if (force) return now - cached.fetchedAt > 5_000;
+      return now - cached.fetchedAt > 8_000;
     })
     .slice(0, 50);
 
   if (candidates.length > 0) {
-    await Promise.all(
-      candidates.map(async (s) => {
+    // Use the configured INDstocks API as the second Indian quote source.
+    // Fetch all visible instruments in batches instead of making one request per row.
+    const indstocksCodes: string[] = [];
+    for (const stock of candidates) {
+      const codes = [
+        stock.registry?.zerodhaNseToken ? `NSE_${stock.registry.zerodhaNseToken}` : null,
+        stock.symbol && !/^\d+$/.test(stock.symbol) ? `NSE_${stock.symbol.toUpperCase()}` : null,
+        stock.bseCode && /^\d{6}$/.test(stock.bseCode) ? `BSE_${stock.bseCode}` : null,
+      ].filter((code): code is string => Boolean(code));
+      for (const code of codes) {
+        indstocksCodes.push(code);
+      }
+    }
+    const indstocksQuotes = indstocksCodes.length
+      ? await fetchIndstocksQuotes(indstocksCodes, 6500)
+      : {};
+
+    // Keep the per-request fan-out bounded, but hydrate before responding.
+    // On serverless deployments background work after res.json() may be suspended,
+    // which previously made users reload several times before quotes appeared.
+    for (let batchStart = 0; batchStart < candidates.length; batchStart += 20) {
+      await Promise.all(
+      candidates.slice(batchStart, batchStart + 20).map(async (s) => {
         const useNse = s.exchange.includes('NSE') && !/^\d+$/.test(s.symbol);
+        let quoteSource = 'Groww Exchange Quote';
         let quote =
           (useNse ? await fetchGrowwLiveQuote('NSE', s.symbol) : null) ??
           (s.bseCode && s.bseCode !== 'N/A' ? await fetchGrowwLiveQuote('BSE', s.bseCode) : null);
 
-        if (!quote && s.currentPrice === null && s.yahooSymbol) {
+        // INDstocks is the configured batch fallback for NSE/BSE. Its full-quote
+        // endpoint returns LTP/OHLC/volume; do not substitute previous close.
+        if (!quote) {
+          const candidateCodes = [
+            s.registry?.zerodhaNseToken ? `NSE_${s.registry.zerodhaNseToken}` : null,
+            s.symbol && !/^\d+$/.test(s.symbol) ? `NSE_${s.symbol.toUpperCase()}` : null,
+            s.bseCode && /^\d{6}$/.test(s.bseCode) ? `BSE_${s.bseCode}` : null,
+          ].filter((code): code is string => Boolean(code));
+          const indstocksQuote = candidateCodes
+            .map((code) => indstocksQuotes[code])
+            .find((item) => typeof item?.live_price === 'number' && item.live_price > 0);
+          if (indstocksQuote) {
+            const ltp = round2(indstocksQuote.live_price);
+            const previous = round2(indstocksQuote.prev_close);
+            quote = {
+              ltp,
+              previousClose: previous,
+              open: round2(indstocksQuote.day_open),
+              high: round2(indstocksQuote.day_high),
+              low: round2(indstocksQuote.day_low),
+              dayChange: ltp !== null && previous !== null ? round2(ltp - previous) : null,
+              dayChangePct:
+                ltp !== null && previous !== null && previous > 0
+                  ? round2(((ltp - previous) / previous) * 100)
+                  : null,
+              volume:
+                typeof indstocksQuote.volume === 'number'
+                  ? Math.round(indstocksQuote.volume)
+                  : null,
+              // The API response has no exchange timestamp; retrievedAt below
+              // records when this provider response was obtained.
+              lastTradeTime: null,
+            };
+            quoteSource = 'INDstocks Live Market Feed';
+          }
+        }
+
+        // A previously populated price is not proof that it is current. Use a
+        // timestamped Yahoo chart quote as a clearly-labelled delayed fallback.
+        if (!quote && s.yahooSymbol) {
+          quoteSource = 'Yahoo Finance Delayed Quote';
           const yData = await fetchYahooChart(s.yahooSymbol, '5d', '1d');
           const yMeta = yData?.chart?.result?.[0]?.meta;
           if (yMeta && typeof yMeta.regularMarketPrice === 'number') {
             const candles = parseYahooCandles(yData!);
+            const yahooTradeTime = toIsoFromEpochSec(yMeta.regularMarketTime);
+            if (!isCurrentIstMarketDate(yahooTradeTime)) return;
             const ltp = round2(yMeta.regularMarketPrice);
             const prevCandle =
               ltp !== null
@@ -2389,7 +2487,7 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
               dayChange: ltp !== null && prev !== null ? round2(ltp - prev) : null,
               dayChangePct: ltp !== null && prev && prev > 0 ? round2(((ltp - prev) / prev) * 100) : null,
               volume: typeof yMeta.regularMarketVolume === 'number' ? Math.round(yMeta.regularMarketVolume) : null,
-              lastTradeTime: toIsoFromEpochSec(yMeta.regularMarketTime),
+              lastTradeTime: yahooTradeTime,
             };
           }
         }
@@ -2417,14 +2515,16 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
         }
         s.provenance = {
           ...s.provenance,
-          source: `${s.exchange} Live Quote (Groww Adapter)`,
+          source: `${s.exchange} ${quoteSource}`,
           retrievedAt: new Date().toISOString(),
           effectiveDate: (quote.lastTradeTime || new Date().toISOString()).slice(0, 10),
           verificationStatus: 'Verified',
-          qualityStatus: 'VERIFIED',
+          qualityStatus:
+            quoteSource === 'Yahoo Finance Delayed Quote' ? 'DELAYED' : 'VERIFIED',
         };
       })
-    );
+      );
+    }
   }
 
   // Enrich visible stocks missing live TTM fundamentals/sector (e.g. from Groww company filings)
@@ -2664,6 +2764,40 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
   const paged = filtered.slice(start, start + limit);
 
   if (paged.length <= 100) {
+    // Re-apply the latest successfully fetched quote to the current response.
+    // This makes background-updated prices visible on the next lightweight poll.
+    const now = Date.now();
+    for (const stock of paged) {
+      const cached = liveQuoteHydrationCache.get(stock.symbol);
+      if (!cached || now - cached.fetchedAt > 90_000) continue;
+      const cachedTradeTime = cached.quote.lastTradeTime;
+      const cachedIsToday = cachedTradeTime
+        ? isCurrentIstMarketDate(cachedTradeTime)
+        : isCurrentIstMarketDate(new Date(cached.fetchedAt).toISOString());
+      if (!cachedIsToday) continue;
+      const q = cached.quote;
+      stock.currentPrice = q.ltp;
+      if (q.previousClose !== null) stock.previousClose = q.previousClose;
+      stock.open = q.open ?? stock.open;
+      stock.dayHigh = q.high ?? stock.dayHigh;
+      stock.dayLow = q.low ?? stock.dayLow;
+      stock.volume = q.volume ?? stock.volume;
+      stock.lastTradeTime = q.lastTradeTime || stock.lastTradeTime;
+      if (stock.exchange.includes('NSE') && !/^\d+$/.test(stock.symbol)) stock.nseQuote = q;
+      else if (stock.bseCode && stock.bseCode !== 'N/A') stock.bseQuote = q;
+      stock.provenance = {
+        ...stock.provenance,
+        source: stock.provenance.source.includes('Yahoo')
+          ? stock.provenance.source
+          : 'NSE/BSE Market Quote',
+        retrievedAt: new Date(cached.fetchedAt).toISOString(),
+        effectiveDate: (q.lastTradeTime || new Date(cached.fetchedAt).toISOString()).slice(0, 10),
+        verificationStatus: 'Verified',
+        qualityStatus: stock.provenance.source.includes('Yahoo') ? 'DELAYED' : 'VERIFIED',
+      };
+    }
+    // Complete visible-page quote hydration before returning the API response.
+    // Do not rely on fire-and-forget network work surviving a Cloudflare request.
     await hydrateVisibleLiveQuotes(paged, Boolean(opts.refresh));
   }
 
@@ -2857,7 +2991,8 @@ function computeYoYGrowthPct(series: Array<{ period: string; valueCr: number }> 
 
 export async function refreshStockBySymbol(
   rawSymbol: string,
-  range = '3mo'
+  range = '3mo',
+  force = false
 ): Promise<{ stock: StockInstrument | null; fromUpstream: boolean }> {
   const db = getDb();
   const rawUpper = rawSymbol.trim().toUpperCase().replace(/\.(NS|BO)$/i, '');
@@ -2873,12 +3008,14 @@ export async function refreshStockBySymbol(
     const interval = range === '1d' ? '5m' : range === '5d' ? '15m' : range === '1mo' ? '1h' : '1d';
     const yahooData = await fetchYahooChart(cleanSymbol, range, interval);
     let historicalSeries: StockHistoricalPoint[] = [];
-    let currentPrice = baseStock.currentPrice;
-    let previousClose = baseStock.previousClose;
-    let open = baseStock.open;
-    let dayHigh = baseStock.dayHigh;
-    let dayLow = baseStock.dayLow;
-    let volume = baseStock.volume;
+    // Never present the curated registry's historical sample values as a live quote.
+    // A price is populated only when Yahoo returns a verifiable market quote.
+    let currentPrice: number | null = null;
+    let previousClose: number | null = null;
+    let open: number | null = null;
+    let dayHigh: number | null = null;
+    let dayLow: number | null = null;
+    let volume: number | null = null;
 
     if (yahooData) {
       historicalSeries = parseYahooCandles(yahooData);
@@ -2887,7 +3024,10 @@ export async function refreshStockBySymbol(
         currentPrice = meta.regularMarketPrice;
       }
       if (typeof meta?.chartPreviousClose === 'number' || typeof meta?.previousClose === 'number') {
-        previousClose = meta.chartPreviousClose ?? meta.previousClose ?? previousClose;
+        previousClose = meta.chartPreviousClose ?? meta.previousClose ?? null;
+      }
+      if (typeof meta?.regularMarketOpen === 'number' && Number.isFinite(meta.regularMarketOpen)) {
+        open = meta.regularMarketOpen;
       }
       if (typeof meta?.regularMarketDayHigh === 'number' && Number.isFinite(meta.regularMarketDayHigh)) {
         dayHigh = meta.regularMarketDayHigh;
@@ -2931,8 +3071,10 @@ export async function refreshStockBySymbol(
       sparkline: historicalSeries.length > 0 ? historicalSeries.slice(-20).map((p) => p.close) : baseStock.sparkline,
       provenance: {
         ...baseStock.provenance,
-        source: yahooData ? 'Real-Time US Market Feed' : baseStock.provenance.source,
-        qualityStatus: 'LIVE',
+        source: yahooData && currentPrice !== null
+          ? 'Yahoo Finance market quote'
+          : 'US quote unavailable; registry reference data only',
+        qualityStatus: yahooData && currentPrice !== null ? 'LIVE' : 'UNAVAILABLE',
         retrievedAt: new Date().toISOString(),
       },
     };
@@ -2947,6 +3089,7 @@ export async function refreshStockBySymbol(
   const cacheKey = `STK_${cleanSymbol}_${range}`;
   const lastCheck = lastFetchMap.get(cacheKey) ?? 0;
   if (
+    !force &&
     existing &&
     existing.historicalSeries.length > 0 &&
     existing.companyProfile !== undefined &&
@@ -2977,13 +3120,16 @@ export async function refreshStockBySymbol(
 
   if (!searchId || (!nseCode && !bseCode)) {
     const searchMatches = await fetchGrowwSearch(cleanSymbol);
-    const exactMatch =
-      searchMatches.find(
-        (m) =>
-          m.nseSymbol?.toUpperCase() === cleanSymbol ||
-          m.bseCode === cleanSymbol ||
-          (bseCode && m.bseCode === bseCode)
-      ) || (!existing ? searchMatches[0] : undefined);
+    const normalizedQuery = cleanSymbol.replace(/[^A-Z0-9]/g, '');
+    const exactMatch = searchMatches.find((m) => {
+      const titleKey = m.title.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      return (
+        m.nseSymbol?.toUpperCase() === cleanSymbol ||
+        m.bseCode === cleanSymbol ||
+        (bseCode && m.bseCode === bseCode) ||
+        (titleKey.length > 3 && titleKey === normalizedQuery)
+      );
+    });
     if (exactMatch) {
       nseCode = exactMatch.nseSymbol || nseCode;
       bseCode = exactMatch.bseCode || bseCode;

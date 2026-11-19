@@ -1,5 +1,5 @@
 /**
- * Angel One SmartAPI Suite Provider
+ * Market Data API SmartAPI Suite Provider
  * Enterprise-grade provider for Indian equities, indices, F&O, and MCX commodities.
  * Reference:
  * - Historical API: https://smartapi.angelone.in/docs/Historical
@@ -865,7 +865,7 @@ export const ANGEL_NSE_INTRADAY_URL = NSE_INTRADAY_URL;
 export const ANGEL_BSE_INTRADAY_URL = BSE_INTRADAY_URL;
 export const ANGEL_CAUTIONARY_SCRIPS_URL = CAUTIONARY_SCRIPS_URL;
 
-// Interval max days lookup per Angel One documentation
+// Interval max days lookup per Market Data API documentation
 export const ANGEL_INTERVAL_MAX_DAYS: Record<AngelInterval, number> = {
   ONE_MINUTE: 30,
   THREE_MINUTE: 60,
@@ -877,7 +877,7 @@ export const ANGEL_INTERVAL_MAX_DAYS: Record<AngelInterval, number> = {
   ONE_DAY: 2000,
 };
 
-// Popular Angel One Index & Commodity Token mappings for immediate zero-config lookup
+// Popular Market Data API Index & Commodity Token mappings for immediate zero-config lookup
 export const KNOWN_ANGEL_TOKENS: Record<string, { exchange: AngelExchange; token: string }> = {
   // Indices (NSE)
   NIFTY: { exchange: 'NSE', token: '99926000' },
@@ -911,7 +911,7 @@ export const KNOWN_ANGEL_TOKENS: Record<string, { exchange: AngelExchange; token
 };
 
 /**
- * Format dates to Angel One SmartAPI requirement: 'yyyy-MM-dd HH:mm'
+ * Format dates to Market Data API SmartAPI requirement: 'yyyy-MM-dd HH:mm'
  */
 export function formatAngelDateTime(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -924,7 +924,7 @@ export function formatAngelDateTime(date: Date): string {
 }
 
 /**
- * Map user timeframe (1D, 1W, 1M, 1Y, 5Y) to Angel One Interval and date boundaries
+ * Map user timeframe (1D, 1W, 1M, 1Y, 5Y) to Market Data API Interval and date boundaries
  */
 export function mapTimeframeToAngelRequest(
   symbol: string,
@@ -980,7 +980,7 @@ export function mapTimeframeToAngelRequest(
 }
 
 /**
- * Check if Angel One API credentials are configured in environment or custom env object (e.g. Cloudflare Pages)
+ * Check if Market Data API API credentials are configured in environment or custom env object (e.g. Cloudflare Pages)
  */
 export function isAngelSmartApiConfigured(customEnv?: Record<string, string | undefined>): boolean {
   const env = customEnv || process.env;
@@ -1012,14 +1012,12 @@ export function getAngelCredentials(customEnv?: Record<string, string | undefine
   const clientCode =
     env.ANGELONE_CLIENT_CODE?.trim() ||
     env.ANGEL_CLIENT_CODE?.trim() ||
-    env.SMARTAPI_CLIENT_CODE?.trim() ||
-    'AABF820686';
+    env.SMARTAPI_CLIENT_CODE?.trim();
 
   const pin =
     env.ANGELONE_PIN?.trim() ||
     env.ANGEL_PIN?.trim() ||
-    env.ANGELONE_PASSWORD?.trim() ||
-    '2001';
+    env.ANGELONE_PASSWORD?.trim();
 
   const totpKey =
     env.ANGELONE_TOTP_KEY?.trim() ||
@@ -1120,7 +1118,7 @@ export function getCachedAngelSession(): CachedAngelSession | null {
 }
 
 /**
- * Clear cached in-memory Angel One session tokens
+ * Clear cached in-memory Market Data API session tokens
  */
 export function clearCachedAngelSession(): void {
   cachedAngelJwt = null;
@@ -1198,7 +1196,7 @@ export async function loginAngelByPassword(
   } catch (error) {
     return {
       status: false,
-      message: error instanceof Error ? error.message : 'Login failed with Angel One',
+      message: error instanceof Error ? error.message : 'Login failed with Market Data API',
       errorcode: 'NETWORK_ERROR',
       data: null,
     };
@@ -1206,7 +1204,7 @@ export async function loginAngelByPassword(
 }
 
 /**
- * Perform login to Angel One SmartAPI using TOTP to obtain a live JWT token
+ * Perform login to Market Data API SmartAPI using TOTP to obtain a live JWT token
  * Endpoint: POST https://apiconnect.angelone.in/rest/auth/angelbroking/user/v1/loginByPassword
  */
 export async function loginAngelByTotp(
@@ -1229,7 +1227,7 @@ export async function loginAngelByTotp(
 }
 
 /**
- * Automatically compute 6-digit TOTP from base32 secret and log in to Angel One
+ * Automatically compute 6-digit TOTP from base32 secret and log in to Market Data API
  */
 export async function loginAngelWithAutoTotp(
   clientCode: string,
@@ -1300,7 +1298,7 @@ export async function generateAngelTokens(
 }
 
 /**
- * Retrieve user profile from Angel One SmartAPI
+ * Retrieve user profile from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/getProfile
  */
 export async function fetchAngelUserProfile(
@@ -1363,7 +1361,7 @@ export async function fetchAngelUserProfile(
 }
 
 /**
- * Retrieve RMS funds, cash, and margin information from Angel One SmartAPI
+ * Retrieve RMS funds, cash, and margin information from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/getRMS
  */
 export async function fetchAngelRMSFunds(
@@ -1417,7 +1415,7 @@ export async function fetchAngelRMSFunds(
 }
 
 /**
- * Invalidate session and destroy access token on Angel One SmartAPI
+ * Invalidate session and destroy access token on Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/logout
  */
 export async function logoutAngelSession(
@@ -1517,7 +1515,7 @@ export async function getAngelAuthHeaders(creds: AngelApiCredentials): Promise<R
 }
 
 /**
- * Fetch Historical Candle Data from Angel One SmartAPI
+ * Fetch Historical Candle Data from Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getCandleData
  */
 export async function fetchAngelHistoricalCandles(
@@ -1579,7 +1577,7 @@ export async function fetchAngelHistoricalCandles(
 }
 
 /**
- * Fetch Live Market Data (LTP, OHLC, or FULL mode) from Angel One SmartAPI
+ * Fetch Live Market Data (LTP, OHLC, or FULL mode) from Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/market/v1/quote/
  */
 export async function fetchAngelLiveMarketQuotes(
@@ -1682,7 +1680,7 @@ export async function fetchAngelLiveMarketQuotes(
 }
 
 /**
- * Fetch Top Gainers / Losers in Derivatives (F&O) from Angel One SmartAPI
+ * Fetch Top Gainers / Losers in Derivatives (F&O) from Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/gainersLosers
  */
 export async function fetchAngelGainersLosers(
@@ -1734,7 +1732,7 @@ export async function fetchAngelGainersLosers(
 }
 
 /**
- * Fetch Put-Call Ratio (PCR) from Angel One SmartAPI
+ * Fetch Put-Call Ratio (PCR) from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/marketData/v1/putCallRatio
  */
 export async function fetchAngelPutCallRatio(
@@ -1876,7 +1874,7 @@ export function classifyPcrSentiment(pcr: number): {
 }
 
 /**
- * Fetch Historical Open Interest (OI) from Angel One SmartAPI
+ * Fetch Historical Open Interest (OI) from Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/historical/v1/getOIData
  */
 export async function fetchAngelHistoricalOI(
@@ -1970,7 +1968,7 @@ export function convertAngelQuoteToStandard(item: AngelLiveQuoteItem) {
 }
 
 /**
- * Fetch All Demat Holdings from Angel One SmartAPI
+ * Fetch All Demat Holdings from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getAllHolding
  */
 export async function fetchAngelHoldings(
@@ -2015,7 +2013,7 @@ export async function fetchAngelHoldings(
 }
 
 /**
- * Fetch Basic Demat Holdings list from Angel One SmartAPI
+ * Fetch Basic Demat Holdings list from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/portfolio/v1/getHolding
  */
 export async function fetchAngelBasicHoldings(
@@ -2054,7 +2052,7 @@ export async function fetchAngelBasicHoldings(
 }
 
 /**
- * Fetch Net and Day Trading Positions from Angel One SmartAPI
+ * Fetch Net and Day Trading Positions from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getPosition
  */
 export async function fetchAngelPositions(
@@ -2105,12 +2103,12 @@ export async function convertAngelPosition(
 ): Promise<{ success: boolean; message: string }> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { success: false, message: 'Angel One credentials not configured' };
+    return { success: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { success: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { success: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2162,7 +2160,7 @@ export async function convertAngelPosition(
 }
 
 /**
- * Convert Angel One Holdings into PriceAlerter PortfolioHolding items
+ * Convert Market Data API Holdings into PriceAlerter PortfolioHolding items
  */
 export function convertAngelHoldingsToPortfolio(holdings: AngelHoldingItem[]) {
   return holdings.map((h, index) => {
@@ -2206,7 +2204,7 @@ export function classifyCautionaryMessage(
 const dynamicTokenCache = new Map<string, string>();
 
 /**
- * Search scrip tokens dynamically using Angel One SmartAPI Search Scrip
+ * Search scrip tokens dynamically using Market Data API SmartAPI Search Scrip
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/searchScrip
  */
 export async function searchAngelScrip(
@@ -2281,10 +2279,10 @@ export async function searchAngelScrip(
 }
 
 /**
- * Resolve Angel One symbol token with fallback cascade:
+ * Resolve Market Data API symbol token with fallback cascade:
  * 1. Known dictionary lookup
  * 2. Memory cache lookup
- * 3. Dynamic searchScrip lookup from Angel One SmartAPI
+ * 3. Dynamic searchScrip lookup from Market Data API SmartAPI
  */
 export async function resolveAngelSymbolToken(
   symbol: string,
@@ -2342,7 +2340,7 @@ export async function fetchAngelLtpQuote(
     return null;
   }
 
-  // Try primary Angel One Order LTP URL first, fallback to order-service URL if needed
+  // Try primary Market Data API Order LTP URL first, fallback to order-service URL if needed
   const urlsToTry = [ANGEL_ORDER_LTP_URL, LTP_DATA_URL];
 
   for (const url of urlsToTry) {
@@ -2569,12 +2567,12 @@ export async function initiateAngelEdisVerification(
 ): Promise<AngelEdisVerifyResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2631,12 +2629,12 @@ export async function generateAngelEdisTPIN(
 ): Promise<{ status: boolean; message: string }> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2693,12 +2691,12 @@ export async function checkAngelEdisTranStatus(
 ): Promise<AngelEdisTranStatusResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured', authorized: false };
+    return { status: false, message: 'Market Data API credentials not configured', authorized: false };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI', authorized: false };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI', authorized: false };
   }
 
   try {
@@ -2743,7 +2741,7 @@ export async function checkAngelEdisTranStatus(
 }
 
 /**
- * Create a Good-Till-Triggered (GTT) Rule with Angel One SmartAPI
+ * Create a Good-Till-Triggered (GTT) Rule with Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/createRule
  * Supported exchange: NSE, BSE. Supported product types: DELIVERY, MARGIN.
  */
@@ -2753,7 +2751,7 @@ export async function createAngelGttRule(
 ): Promise<AngelGttCreateRuleResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const exchange = request.exchange.toUpperCase() === 'BSE' ? 'BSE' : 'NSE';
@@ -2762,7 +2760,7 @@ export async function createAngelGttRule(
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2797,7 +2795,7 @@ export async function createAngelGttRule(
 }
 
 /**
- * Modify an existing GTT Rule on Angel One SmartAPI
+ * Modify an existing GTT Rule on Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/modifyRule
  */
 export async function modifyAngelGttRule(
@@ -2806,12 +2804,12 @@ export async function modifyAngelGttRule(
 ): Promise<AngelGttCreateRuleResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2844,7 +2842,7 @@ export async function modifyAngelGttRule(
 }
 
 /**
- * Cancel an existing GTT Rule on Angel One SmartAPI
+ * Cancel an existing GTT Rule on Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/cancelRule
  */
 export async function cancelAngelGttRule(
@@ -2853,12 +2851,12 @@ export async function cancelAngelGttRule(
 ): Promise<AngelGttCreateRuleResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2887,7 +2885,7 @@ export async function cancelAngelGttRule(
 }
 
 /**
- * Retrieve details of a specific GTT Rule from Angel One SmartAPI
+ * Retrieve details of a specific GTT Rule from Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/ruleDetails
  */
 export async function fetchAngelGttRuleDetails(
@@ -2896,12 +2894,12 @@ export async function fetchAngelGttRuleDetails(
 ): Promise<AngelGttRuleDetailsResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -2923,7 +2921,7 @@ export async function fetchAngelGttRuleDetails(
 }
 
 /**
- * Fetch List of GTT Rules from Angel One SmartAPI
+ * Fetch List of GTT Rules from Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/gtt/v1/ruleList
  */
 export async function fetchAngelGttRuleList(
@@ -2973,9 +2971,9 @@ export async function fetchAngelGttRuleList(
 }
 
 /**
- * Place Order on Angel One SmartAPI
+ * Place Order on Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/placeOrder
- * For users utilizing static IP-based API key, Angel One validates source IP against the registered static IP.
+ * For users utilizing static IP-based API key, Market Data API validates source IP against the registered static IP.
  * To execute cash orders for scrips under surveillance, keep "scripconsent" as "yes".
  */
 export async function placeAngelOrder(
@@ -2984,12 +2982,12 @@ export async function placeAngelOrder(
 ): Promise<AngelPlaceOrderResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -3036,13 +3034,13 @@ export async function placeAngelOrder(
   } catch (error) {
     return {
       status: false,
-      message: error instanceof Error ? error.message : 'Network error placing order on Angel One SmartAPI',
+      message: error instanceof Error ? error.message : 'Network error placing order on Market Data API SmartAPI',
     };
   }
 }
 
 /**
- * Modify Order on Angel One SmartAPI
+ * Modify Order on Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/modifyOrder
  */
 export async function modifyAngelOrder(
@@ -3051,12 +3049,12 @@ export async function modifyAngelOrder(
 ): Promise<AngelModifyOrderResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -3092,13 +3090,13 @@ export async function modifyAngelOrder(
   } catch (error) {
     return {
       status: false,
-      message: error instanceof Error ? error.message : 'Network error modifying order on Angel One SmartAPI',
+      message: error instanceof Error ? error.message : 'Network error modifying order on Market Data API SmartAPI',
     };
   }
 }
 
 /**
- * Cancel Order on Angel One SmartAPI
+ * Cancel Order on Market Data API SmartAPI
  * Endpoint: POST https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/cancelOrder
  */
 export async function cancelAngelOrder(
@@ -3107,12 +3105,12 @@ export async function cancelAngelOrder(
 ): Promise<AngelCancelOrderResponse> {
   const creds = credsOverride || getAngelCredentials();
   if (!creds || !creds.apiKey) {
-    return { status: false, message: 'Angel One credentials not configured' };
+    return { status: false, message: 'Market Data API credentials not configured' };
   }
 
   const headers = await getAngelAuthHeaders(creds);
   if (!headers) {
-    return { status: false, message: 'Authentication failed with Angel One SmartAPI' };
+    return { status: false, message: 'Authentication failed with Market Data API SmartAPI' };
   }
 
   try {
@@ -3131,13 +3129,13 @@ export async function cancelAngelOrder(
   } catch (error) {
     return {
       status: false,
-      message: error instanceof Error ? error.message : 'Network error cancelling order on Angel One SmartAPI',
+      message: error instanceof Error ? error.message : 'Network error cancelling order on Market Data API SmartAPI',
     };
   }
 }
 
 /**
- * Get Order Book from Angel One SmartAPI
+ * Get Order Book from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getOrderBook
  */
 export async function fetchAngelOrderBook(
@@ -3178,7 +3176,7 @@ export async function fetchAngelOrderBook(
 }
 
 /**
- * Get Trade Book from Angel One SmartAPI
+ * Get Trade Book from Market Data API SmartAPI
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/getTradeBook
  */
 export async function fetchAngelTradeBook(
@@ -3219,7 +3217,7 @@ export async function fetchAngelTradeBook(
 }
 
 /**
- * Get Individual Order Status from Angel One SmartAPI using uniqueorderid
+ * Get Individual Order Status from Market Data API SmartAPI using uniqueorderid
  * Endpoint: GET https://apiconnect.angelone.in/rest/secure/angelbroking/order/v1/details/{UniqueOrderID}
  */
 export async function fetchAngelIndividualOrderStatus(
@@ -3259,7 +3257,7 @@ export async function fetchAngelIndividualOrderStatus(
 
 /**
  * ============================================================================
- * Angel One SmartAPI Postback / Webhook API Suite
+ * Market Data API SmartAPI Postback / Webhook API Suite
  * Reference: https://smartapi.angelone.in/docs/Postback#
  *
  * Receives real-time order updates via HTTPS POST (Port 443).
@@ -3328,7 +3326,7 @@ const MAX_ANGEL_POSTBACKS = 200;
 let angelPostbackStore: AngelPostbackRecord[] = [];
 
 /**
- * Record an incoming Angel One SmartAPI postback webhook payload.
+ * Record an incoming Market Data API SmartAPI postback webhook payload.
  * Normalizes numeric values, parses status category and timestamp, and retains latest 200 records.
  */
 export function recordAngelPostback(payload: Partial<AngelPostbackPayload>): AngelPostbackRecord {
@@ -3405,7 +3403,7 @@ export function recordAngelPostback(payload: Partial<AngelPostbackPayload>): Ang
 }
 
 /**
- * Retrieve recent Angel One SmartAPI postback events with optional filtering.
+ * Retrieve recent Market Data API SmartAPI postback events with optional filtering.
  */
 export function getRecentAngelPostbacks(filter?: {
   clientcode?: string;
@@ -3446,7 +3444,7 @@ export function getAngelPostbackCount(): number {
 }
 
 /**
- * Simulate an Angel One SmartAPI postback webhook event for local testing or UI verification.
+ * Simulate an Market Data API SmartAPI postback webhook event for local testing or UI verification.
  */
 export function createSimulatedAngelPostback(options: {
   orderid?: string;
@@ -3547,7 +3545,7 @@ export function createSimulatedAngelPostback(options: {
 
 /**
  * ============================================================================
- * Angel One SmartAPI Margin Calculator API Suite
+ * Market Data API SmartAPI Margin Calculator API Suite
  * Reference: https://smartapi.angelone.in/docs/MarginCalculator#
  *
  * Delivers real-time margin calculations for a basket of positions (up to 50).
@@ -3845,8 +3843,8 @@ const KNOWN_FNO_SPOTS: Record<string, { spot: number; step: number }> = {
 };
 
 /**
- * Deterministic Black-Scholes simulator for Angel One Option Greeks.
- * Adheres strictly to Angel One SmartAPI response format:
+ * Deterministic Black-Scholes simulator for Market Data API Option Greeks.
+ * Adheres strictly to Market Data API SmartAPI response format:
  * {"status": true, "message": "SUCCESS", "errorcode": "", "data": [...]}
  */
 export function simulateAngelOptionGreeks(
@@ -3945,7 +3943,7 @@ export function simulateAngelOptionGreeks(
 }
 
 /**
- * Fetch live Option Greeks from Angel One SmartAPI platform.
+ * Fetch live Option Greeks from Market Data API SmartAPI platform.
  * Returns Delta, Gamma, Theta, Vega, and IV across strikes.
  * Reference: https://smartapi.angelone.in/docs/OptionGreeks#
  */
@@ -4023,7 +4021,7 @@ export function buildAngelWsUrl(options?: {
 }
 
 /**
- * Maps exchange strings to Angel One SmartAPI WebSocket exchange types:
+ * Maps exchange strings to Market Data API SmartAPI WebSocket exchange types:
  * 1 (nse_cm), 2 (nse_fo), 3 (bse_cm), 4 (bse_fo), 5 (mcx_fo)
  */
 export function mapExchangeToAngelWsType(exchange: string, isDerivatives = false): number {
@@ -4434,7 +4432,7 @@ export function createSimulatedAngelWsTick(options: {
 
 /**
  * ============================================================================
- * Angel One SmartAPI WebSocket Order Status API Suite
+ * Market Data API SmartAPI WebSocket Order Status API Suite
  * Reference: https://smartapi.angelone.in/docs/WebSocketOrderStatus#
  *
  * Real-time streaming WebSocket server connection providing live order status
@@ -4817,7 +4815,7 @@ const MAX_ANGEL_ORDER_UPDATES = 200;
 let angelWsOrderStatusStore: AngelWsOrderStatusRecord[] = [];
 
 /**
- * Ingests and stores an Angel One SmartAPI WebSocket Order Status update.
+ * Ingests and stores an Market Data API SmartAPI WebSocket Order Status update.
  */
 export function recordAngelOrderUpdate(message: AngelWsOrderStatusMessage): AngelWsOrderStatusRecord {
   const info = classifyAngelWsOrderStatus(message['order-status']);
@@ -5027,7 +5025,7 @@ export function createSimulatedAngelOrderUpdate(options: {
 
 /**
  * ============================================================================
- * Angel One SmartAPI Instruments API Suite
+ * Market Data API SmartAPI Instruments API Suite
  * Reference: https://smartapi.angelone.in/docs/Instruments#
  *
  * 1. OpenAPIScripMaster.json: Consolidated daily dump of all tradable instruments
@@ -5986,7 +5984,7 @@ export function getAngelRateLimitRule(apiOrName: string): AngelRateLimitRule {
     limitPerSecond: 1,
     limitPerMinute: 60,
     limitPerHour: 1000,
-    description: 'Standard Angel One SmartAPI endpoint',
+    description: 'Standard Market Data API SmartAPI endpoint',
   };
 }
 
@@ -6259,7 +6257,7 @@ export function getAngelRateLimitTelemetry(clientCode?: string): AngelRateLimitT
 }
 
 /* ============================================================================
- * Angel One SmartAPI Closing Auction Session (CAS) Suite Provider
+ * Market Data API SmartAPI Closing Auction Session (CAS) Suite Provider
  * Official Documentation: https://smartapi.angelone.in/docs/CASDoc
  * SEBI Mandate effective: 03 Aug 2026
  *
@@ -6306,8 +6304,8 @@ export const ANGEL_CAS_OFFICIAL_CIRCULARS = [
     url: 'https://www.bseindia.com/downloads/UploadDocs/Notices/20260610-41/20260610-41.pdf',
   },
   {
-    authority: 'Angel One',
-    title: 'Angel One SmartAPI Closing Auction Session (CAS) Official Documentation',
+    authority: 'Market Data API',
+    title: 'Market Data API SmartAPI Closing Auction Session (CAS) Official Documentation',
     date: '2026',
     url: 'https://smartapi.angelone.in/docs/CASDoc',
   },

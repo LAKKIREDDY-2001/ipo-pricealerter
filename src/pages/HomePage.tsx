@@ -7,7 +7,6 @@ import {
   Calculator,
   ExternalLink,
   Search,
-  ShieldCheck,
   Sparkles,
   TrendingDown,
   TrendingUp,
@@ -96,43 +95,36 @@ export function HomePage() {
   const loadDashboard = async (background = false) => {
     if (!background) setLoading(true);
     setError(null);
+
+    // Keep the first paint dependent only on the three core dashboard datasets.
+    // Movers, insights and articles are non-blocking and can fill in afterwards.
+    const corePromise = Promise.allSettled([
+      api.getIndices(background),
+      api.getIpos(),
+      api.getStocks({ limit: 60, refresh: background }),
+    ] as const);
+
+    const secondaryPromise = Promise.allSettled([
+      api.getStocks({ tab: 'gainers', limit: 5 }),
+      api.getStocks({ tab: 'losers', limit: 5 }),
+      api.getInsights(),
+      api.getBlogs(),
+    ] as const);
+
     try {
-      const results = await Promise.allSettled([
-        api.getIndices(background),
-        api.getIpos(),
-        api.getStocks({ limit: 100, refresh: background }),
-        api.getStocks({ tab: 'gainers', limit: 5 }),
-        api.getStocks({ tab: 'losers', limit: 5 }),
-        api.getInsights(),
-        api.getBlogs(),
-      ]);
+      const results = await corePromise;
       const idxRes = results[0].status === 'fulfilled' ? results[0].value : null;
       const ipoRes = results[1].status === 'fulfilled' ? results[1].value : null;
       const stkRes = results[2].status === 'fulfilled' ? results[2].value : null;
-      const gRes = results[3].status === 'fulfilled' ? results[3].value : null;
-      const lRes = results[4].status === 'fulfilled' ? results[4].value : null;
-      const insRes = results[5].status === 'fulfilled' ? results[5].value : null;
-      const blogRes = results[6].status === 'fulfilled' ? results[6].value : null;
       const nextIndices = Array.isArray(idxRes?.indices) ? idxRes.indices : [];
       const nextIpos = Array.isArray(ipoRes?.ipos) ? ipoRes.ipos : [];
       const nextStocks = Array.isArray(stkRes?.stocks) ? stkRes.stocks : [];
-      const nextGainers = Array.isArray(gRes?.stocks) ? gRes.stocks : [];
-      const nextLosers = Array.isArray(lRes?.stocks) ? lRes.stocks : [];
-      const nextSectors = Array.isArray(stkRes?.sectors) ? stkRes.sectors : [];
-      const nextInsights = Array.isArray(insRes?.insights) ? insRes.insights : [];
-      const nextBlogs = Array.isArray(blogRes?.articles) ? blogRes.articles : [];
 
       setIndices(nextIndices);
       setIpos(nextIpos);
       setHeatmapStocks(nextStocks);
-      // The dedicated stock-filter effect owns the visible table state.
-      // Do not overwrite a user's selected/search-filtered stocks during background refresh.
-      setTopGainers(nextGainers.slice(0, 5));
-      setTopLosers(nextLosers.slice(0, 5));
-      setAllSectors(nextSectors);
+      setAllSectors(Array.isArray(stkRes?.sectors) ? stkRes.sectors : []);
       setTotalUniverse(stkRes?.totalUniverse || stkRes?.total || nextStocks.length);
-      setInsights(nextInsights);
-      setBlogs(nextBlogs);
 
       if (!ipoTabTouchedRef.current && nextIpos.length > 0) {
         const hasOpen = nextIpos.some((i) => i.status === 'Open');
@@ -148,12 +140,29 @@ export function HomePage() {
         const firstWithGmp = nextIpos.find((i) => i.gmp.history.length > 0);
         if (firstWithGmp) setSelectedGmpSlug(firstWithGmp.slug);
       }
+
+      if (!background && results.every((r) => r.status === 'rejected')) {
+        setError('Dashboard data is temporarily unavailable. Please retry.');
+      }
+
+      // Release the dashboard's main loading state before optional widgets finish.
+      if (!background) setLoading(false);
+
+      void secondaryPromise.then((secondary) => {
+        const gainers = secondary[0].status === 'fulfilled' ? secondary[0].value : null;
+        const losers = secondary[1].status === 'fulfilled' ? secondary[1].value : null;
+        const insightRes = secondary[2].status === 'fulfilled' ? secondary[2].value : null;
+        const blogRes = secondary[3].status === 'fulfilled' ? secondary[3].value : null;
+        if (gainers && Array.isArray(gainers.stocks)) setTopGainers(gainers.stocks.slice(0, 5));
+        if (losers && Array.isArray(losers.stocks)) setTopLosers(losers.stocks.slice(0, 5));
+        if (insightRes && Array.isArray(insightRes.insights)) setInsights(insightRes.insights);
+        if (blogRes && Array.isArray(blogRes.articles)) setBlogs(blogRes.articles);
+      });
     } catch (err) {
       if (!background) {
         setError(err instanceof Error ? err.message : 'Unable to load dashboard intelligence.');
+        setLoading(false);
       }
-    } finally {
-      if (!background) setLoading(false);
     }
   };
 
@@ -469,7 +478,6 @@ export function HomePage() {
             ['GMP Tracker', 'gmp-widget-heading'],
             ['Live Stocks', 'live-stocks-heading'],
             ['Mutual Funds', '/mutual-funds'],
-            ['Portfolio X-Ray', '/portfolio'],
             ['Listed IPOs', 'listed-ipos-heading'],
             ['SIP Calculator', '/calculators'],
             ['Market Insights', 'market-intel-heading'],
@@ -512,18 +520,6 @@ export function HomePage() {
             </div>
           </Link>
 
-          <Link
-            to="/portfolio"
-            className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 shadow-sm hover:border-[#2563EB] transition-all flex items-center gap-3"
-          >
-            <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-[#14263F] dark:text-white group-hover:text-[#2563EB] transition-colors">Portfolio Tracker</div>
-              <div className="text-[11px] text-[#64748B] dark:text-slate-400">Multi-broker CAS X-Ray</div>
-            </div>
-          </Link>
 
           <Link
             to="/calculators"

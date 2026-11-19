@@ -760,7 +760,7 @@ export const api = {
         (s) =>
           s.symbol.toLowerCase() === symLower ||
           s.bseCode?.toLowerCase() === symLower ||
-          s.companyName?.toLowerCase().includes(symLower)
+          s.companyName?.toLowerCase().trim() === symLower
       );
       if (!found && !hasFullUniverseLoaded) {
         snap = await loadStaticMarketSnapshot(true);
@@ -769,15 +769,12 @@ export const api = {
           (s) =>
             s.symbol.toLowerCase() === symLower ||
             s.bseCode?.toLowerCase() === symLower ||
-            s.companyName?.toLowerCase().includes(symLower)
+            s.companyName?.toLowerCase().trim() === symLower
         );
       }
       if (found) {
         const liveMatchForFound = snap.allLiveStocks?.find(
           (item: any) =>
-            (item.symbol || '').toLowerCase() === symLower ||
-            (item.bseCode || '').toLowerCase() === symLower ||
-            (item.name || '').toLowerCase().includes(symLower) ||
             (item.symbol || '').toUpperCase() === found.symbol.toUpperCase() ||
             (item.bseCode && item.bseCode === found.bseCode)
         );
@@ -854,9 +851,9 @@ export const api = {
       if (snap.allLiveStocks && snap.allLiveStocks.length > 0) {
         const liveMatch = snap.allLiveStocks.find(
           (item: any) =>
-            (item.symbol || '').toLowerCase() === symLower ||
-            (item.bseCode || '').toLowerCase() === symLower ||
-            (item.name || '').toLowerCase().includes(symLower)
+            (item.symbol || '').toUpperCase() === symLower.toUpperCase() ||
+            (item.bseCode || '').toUpperCase() === symLower.toUpperCase() ||
+            (item.isin || '').toUpperCase() === symLower.toUpperCase()
         );
         if (liveMatch) {
           const rawPrice =

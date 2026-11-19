@@ -193,6 +193,8 @@ type YahooChart = {
   };
 };
 const quoteCache = new Map<string, { expiresAt: number; quote: any }>();
+const mutualFundCache = new Map<string, { expiresAt: number; data: any }>();
+
 const historyCache = new Map<string, { expiresAt: number; history: any[] }>();
 const macroCache: { expiresAt: number; data: any } = { expiresAt: 0, data: null };
 let usStocksCache: { expiresAt: number; data: any } | null = null;
@@ -216,14 +218,61 @@ async function loadUsStocksSnapshot(request: Request, assets: { fetch: (input: R
 }
 
 function quoteFreshnessStatus(lastTradeTime: unknown): "LIVE" | "STALE" {
-  if (!lastTradeTime) return "LIVE";
+  if (!lastTradeTime) return "STALE";
   const timestamp = typeof lastTradeTime === "number"
     ? new Date(lastTradeTime > 1e12 ? lastTradeTime : lastTradeTime * 1000)
     : new Date(String(lastTradeTime));
-  if (Number.isNaN(timestamp.getTime())) return "LIVE";
+  if (Number.isNaN(timestamp.getTime())) return "STALE";
   const tradeDate = timestamp.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
   return tradeDate === today ? "LIVE" : "STALE";
+}
+
+function isCurrentIndianSessionQuote(lastTradeTime: unknown): boolean {
+  return quoteFreshnessStatus(lastTradeTime) === "LIVE";
+}
+
+async function fetchIndstocksPageQuotes(stocks: any[], env: any): Promise<Map<string, any>> {
+  const token = String(env.INDSTOCKS_ACCESS_TOKEN || env.INDSTOCKS_API_KEY || "").trim();
+  if (!token || !stocks.length) return new Map();
+  const codes: string[] = [];
+  const codeToSymbol = new Map<string, string>();
+  for (const stock of stocks) {
+    const symbol = String(stock.symbol || "").trim().toUpperCase();
+    const bseCode = String(stock.bseCode || "").trim();
+    const candidates = [
+      stock.registry?.zerodhaNseToken ? `NSE_${stock.registry.zerodhaNseToken}` : "",
+      symbol && !/^\d+$/.test(symbol) ? `NSE_${symbol}` : "",
+      /^\d{6}$/.test(bseCode) ? `BSE_${bseCode}` : "",
+    ].filter(Boolean);
+    for (const code of candidates) {
+      codes.push(code);
+      codeToSymbol.set(code, symbol);
+    }
+  }
+  const result = new Map<string, any>();
+  const unique = [...new Set(codes)];
+  for (let i = 0; i < unique.length; i += 500) {
+    const batch = unique.slice(i, i + 500);
+    try {
+      const endpoint = new URL("https://api.indstocks.com/market/quotes/full");
+      endpoint.searchParams.set("scrip-codes", batch.join(","));
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "application/json", authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}` },
+        signal: AbortSignal.timeout(6500),
+      });
+      if (!response.ok) continue;
+      const payload = await response.json() as any;
+      if (payload?.status !== "success" || !payload.data) continue;
+      for (const [code, quote] of Object.entries(payload.data)) {
+        const symbol = codeToSymbol.get(code);
+        if (symbol && quote && Number((quote as any).live_price) > 0) result.set(symbol, quote);
+      }
+    } catch {
+      // Continue with timestamp-verified Yahoo quotes if INDstocks is unavailable.
+    }
+  }
+  return result;
 }
 
 function stockYahooCandidates(stock: any): string[] {
@@ -682,30 +731,65 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
   };
 }
 
-async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
-  // Keep the number of upstream requests bounded for Cloudflare Pages.
-  // Refresh every stock on the visible 50-row page; later pages are refreshed when opened.
+async function enrichQuotes(stocks: any[], env: any): Promise<{ stocks: any[]; successful: number }> {
+  // Each requested page is refreshed. Pages beyond the visible page are refreshed
+  // when the user navigates to them, avoiding an unbounded provider burst.
   const MAX_QUOTE_LOOKUPS = 50;
   const CONCURRENCY = 12;
   const result = [...stocks];
   let successful = 0;
+  const indianStocks = stocks.slice(0, MAX_QUOTE_LOOKUPS).filter((s) =>
+    !s.isUsStock && String(s.currency || "INR").toUpperCase() !== "USD"
+  );
+  const indstocksQuotes = await fetchIndstocksPageQuotes(indianStocks, env);
   let next = 0;
   async function worker() {
     while (next < Math.min(stocks.length, MAX_QUOTE_LOOKUPS)) {
       const index = next++;
       const stock = stocks[index];
-      const quote = await fetchYahooQuote(stock) || await fetchGoogleFinanceQuote(stock);
+      const isUs = stock.isUsStock || String(stock.currency || "").toUpperCase() === "USD";
+      let quote: any = null;
+      if (!isUs) {
+        const ind = indstocksQuotes.get(String(stock.symbol || "").toUpperCase());
+        if (ind && Number(ind.live_price) > 0) {
+          const retrievedAt = new Date().toISOString();
+          const price = Number(ind.live_price);
+          const previous = Number(ind.prev_close) > 0 ? Number(ind.prev_close) : null;
+          quote = {
+            currentPrice: price,
+            previousClose: previous,
+            dayChange: previous ? Number((price - previous).toFixed(2)) : null,
+            dayChangePercent: previous ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
+            open: Number(ind.day_open) > 0 ? Number(ind.day_open) : null,
+            dayHigh: Number(ind.day_high) > 0 ? Number(ind.day_high) : null,
+            dayLow: Number(ind.day_low) > 0 ? Number(ind.day_low) : null,
+            volume: Number(ind.volume) >= 0 ? Number(ind.volume) : null,
+            quoteRetrievedAt: retrievedAt,
+            quoteSource: "INDstocks market quote",
+            quoteStatus: "UNVERIFIED",
+            quoteCurrency: "INR",
+          };
+        }
+      }
+      if (!quote) {
+        const yahoo = await fetchYahooQuote(stock);
+        // Never replace a quote with a previous-session Yahoo price.
+        if (yahoo && isCurrentIndianSessionQuote(yahoo.lastTradeTime)) quote = yahoo;
+      }
+      // Google Finance HTML does not provide a reliable exchange trade timestamp;
+      // it must not be used to label an old or undated price as today's live quote.
       if (!quote) continue;
       successful++;
       result[index] = {
         ...stock,
         ...quote,
+        lastTradeTime: quote.lastTradeTime || stock.lastTradeTime || null,
         provenance: {
           ...(stock.provenance || {}),
           source: quote.quoteSource || "Market data feed",
-          retrievedAt: quote.lastTradeTime || new Date().toISOString(),
-          verificationStatus: "Unverified",
-          qualityStatus: quote.quoteStatus === "DELAYED" ? "DELAYED" : "LIVE",
+          retrievedAt: quote.lastTradeTime || quote.quoteRetrievedAt || new Date().toISOString(),
+          verificationStatus: quote.quoteStatus === "LIVE" ? "Verified" : "Unverified",
+          qualityStatus: quote.quoteStatus === "DELAYED" ? "DELAYED" : quote.quoteStatus === "UNVERIFIED" ? "UNVERIFIED" : "LIVE",
           currency: quote.quoteCurrency || "INR",
         },
       };
@@ -967,6 +1051,76 @@ export async function onRequest(context: {
     }, 500);
   }
 
+  // Broker account, order, compliance and websocket-auth endpoints are deliberately
+  // disabled on the public site. In particular, never return feed tokens or broker
+  // account identifiers to browser code. Public market-data instrument/quote routes
+  // remain available below.
+  const disabledBrokerPaths = [
+    pathname.startsWith("/api/portfolio/angel"),
+    pathname.startsWith("/api/user/angel"),
+    pathname.startsWith("/api/orders/angel"),
+    pathname.startsWith("/api/gtt/angel"),
+    pathname.startsWith("/api/margin/angel"),
+    pathname.startsWith("/api/streaming/angel"),
+    pathname.startsWith("/api/market/angel/cas"),
+    pathname.startsWith("/api/market/angel/rate-limits"),
+    pathname === "/api/market/angel/option-greeks",
+    pathname === "/api/options/angel/greeks",
+  ];
+  if (disabledBrokerPaths.some(Boolean)) {
+    return json({ ok: false, error: "Broker account, order and compliance features are not enabled on this site." }, 410);
+  }
+
+  if (pathname === "/api/mutual-funds/schemes" && request.method === "GET") {
+    const query = (url.searchParams.get("q") || "").trim().slice(0, 100);
+    const offset = Math.max(0, Math.min(100000, Number(url.searchParams.get("offset") || 0)));
+    const limit = Math.max(1, Math.min(100, Number(url.searchParams.get("limit") || 100)));
+    const cacheKey = query ? `search:${query.toLowerCase()}` : `list:${offset}:${limit}`;
+    const cached = mutualFundCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) return json(cached.data);
+    try {
+      const endpoint = new URL(query ? "https://api.mfapi.in/mf/search" : "https://api.mfapi.in/mf");
+      if (query) endpoint.searchParams.set("q", query);
+      else {
+        endpoint.searchParams.set("limit", String(limit));
+        endpoint.searchParams.set("offset", String(offset));
+      }
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) return json({ ok: false, error: "Mutual fund directory is temporarily unavailable." }, 502);
+      const payload = await response.json();
+      const schemes = Array.isArray(payload) ? payload : [];
+      const result = { ok: true, schemes, count: schemes.length, offset, limit, searched: Boolean(query), source: "MFapi.in scheme registry", retrievedAt: new Date().toISOString() };
+      mutualFundCache.set(cacheKey, { data: result, expiresAt: Date.now() + (query ? 15 * 60_000 : 6 * 60 * 60_000) });
+      return json(result);
+    } catch {
+      return json({ ok: false, error: "Unable to retrieve mutual fund schemes right now." }, 502);
+    }
+  }
+
+  const mutualFundDetailMatch = pathname.match(/^\/api\/mutual-funds\/schemes\/(\d+)$/);
+  if (mutualFundDetailMatch && request.method === "GET") {
+    const schemeCode = mutualFundDetailMatch[1];
+    const cacheKey = `detail:${schemeCode}`;
+    const cached = mutualFundCache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) return json(cached.data);
+    try {
+      const response = await fetch(`https://api.mfapi.in/mf/${schemeCode}/latest`, {
+        headers: { accept: "application/json", "user-agent": "Mozilla/5.0 PriceAlerter/1.0" },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) return json({ ok: false, error: "Latest NAV is not available for this scheme." }, 502);
+      const payload = await response.json();
+      const result = { ok: true, ...payload, source: "MFapi.in latest NAV", retrievedAt: new Date().toISOString() };
+      mutualFundCache.set(cacheKey, { data: result, expiresAt: 6 * 60 * 60_000 });
+      return json(result);
+    } catch {
+      return json({ ok: false, error: "Unable to retrieve the latest NAV right now." }, 502);
+    }
+  }
+
   if (pathname === "/api/market/angel/status") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
@@ -974,10 +1128,8 @@ export async function onRequest(context: {
       ok: true,
       configured: Boolean(creds?.apiKey),
       clientCodeConfigured: Boolean(creds?.clientCode),
-      pinConfigured: Boolean(creds?.pin),
       totpConfigured: Boolean(creds?.totpKey),
       apiKeyPresent: Boolean(creds?.apiKey),
-      clientCode: creds?.clientCode ? creds.clientCode.replace(/(?<=.{2}).(?=.{2})/g, "*") : null,
       status: (creds?.apiKey && creds?.totpKey) ? "ready" : creds?.apiKey ? "missing_totp" : "unconfigured",
       timestamp: new Date().toISOString(),
     });
@@ -986,32 +1138,12 @@ export async function onRequest(context: {
   if (pathname === "/api/portfolio/angel/holdings") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     let overrideCreds = getAngelCredentials(customEnv);
-    if (method === "POST") {
-      try {
-        const body = (await request.json()) as any;
-        if (body && typeof body === "object") {
-          if (!overrideCreds && body.apiKey) {
-            overrideCreds = {
-              apiKey: body.apiKey,
-              clientCode: body.clientCode,
-              pin: body.pin,
-              totpKey: body.totpKey,
-            };
-          } else if (overrideCreds) {
-            if (body.clientCode) overrideCreds.clientCode = body.clientCode;
-            if (body.pin) overrideCreds.pin = body.pin;
-            if (body.totpKey) overrideCreds.totpKey = body.totpKey;
-          }
-        }
-      } catch {
-        // use default overrideCreds
-      }
-    }
+
 
     if (!overrideCreds || !overrideCreds.apiKey || !overrideCreds.totpKey) {
       return json({
         ok: false,
-        error: "Angel One credentials (API key or TOTP key) not configured.",
+        error: "Market Data API credentials (API key or TOTP key) not configured.",
         configured: Boolean(overrideCreds?.apiKey),
         holdings: [],
       }, 400);
@@ -1022,14 +1154,14 @@ export async function onRequest(context: {
       if (!holdingsData) {
         return json({
           ok: false,
-          error: "Failed to authenticate or fetch holdings from Angel One SmartAPI.",
+          error: "Failed to authenticate or fetch holdings from Market Data API SmartAPI.",
           holdings: [],
         }, 502);
       }
       const holdings = convertAngelHoldingsToPortfolio(holdingsData.holdings || []);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Live Demat)",
+        source: "Market Data API SmartAPI (Live Demat)",
         totalHoldingsValue: holdingsData.totalholding?.totalholdingvalue ?? 0,
         totalInvValue: holdingsData.totalholding?.totalinvvalue ?? 0,
         totalProfitLoss: holdingsData.totalholding?.totalprofitandloss ?? 0,
@@ -1040,7 +1172,7 @@ export async function onRequest(context: {
     } catch (err: any) {
       return json({
         ok: false,
-        error: err?.message || "Error communicating with Angel One SmartAPI",
+        error: err?.message || "Error communicating with Market Data API SmartAPI",
         holdings: [],
       }, 500);
     }
@@ -1050,13 +1182,13 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", positions: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", positions: [] }, 400);
     }
     try {
       const positions = await fetchAngelPositions(creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Positions)",
+        source: "Market Data API SmartAPI (Positions)",
         count: positions.length,
         positions,
         retrievedAt: new Date().toISOString(),
@@ -1070,7 +1202,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1103,7 +1235,7 @@ export async function onRequest(context: {
             ReqId: simulatedReqId,
             ReturnURL: "https://trade.angelbroking.com/cdslpoa/response",
             DPId: "33200",
-            BOID: "1203320015222472",
+            BOID: "",
             TransDtls: "fZ6jlmt9GosSO0kFdI9S9FCD+IYFvjUN94Bph46YMC1BzexE1hDuCwjSUzXVoEgV3mTP5aXnwxJDikFm1xymcjfhEgtWm7ykrpxaDXSuQF25Fg5olDgXy/Suu916VNg9XID0GHy1CT5E9WBP0gocixvOFrCPFmRMmY+7Nqbb3cNfqPZ8uHfX0un5tFnQXV3AXK0g2exwRf3EINSTHSv66/inPArtDko70vuc1pb5e0tRXa14FN2hzklop2UyrcIiDmkmzcHvjdGGomCM4PU90S28xHze5/dAlTv7ywIzrQOA4N2LW7n7M9atFExQTC2tczdwhKkVzScYmpVdRvtY+Lqo8o/OSVQ8Gd3Guz7ZRpqV5073lZ/BnPN8FtJW6shfOwgbYgqmhV2jik0uw57eQ7f+SI0pYYC8noOwKncJ3/umtVY2NVgLjdZq2yxZh7wTQKC2WYaYl/MnZLpgF9yYlBAtZ6trgLG6kcmtlbibtkimi2TecMGN3KrAETsWY07fZCc9Ks/RetFzD1qNIGWZ/4WnpWyW5XTxSxlQILCz7Qwk5f+dKcXVe5CS/7DMB7aa9KQ4t1ru1xo7jM4GmUdwcGVwUqb2pfNSEUX+I10INA0TwXkWdUAAQYO0++q6mYpN59G3IW9vV/dW0/bHh4xcsPg9ysDBZ8bLlk4C3hL6RiVrxcF2AgxjJgLSxL2YerAKkgivk22KULtEDpOpE7IcwxjuWjRxOPGfnSGbc4Ii1avte50WZFh6EKIP6E16sZgKaOh/r5CSnysEtDetvhn8siIWDQbhInAoExMpsuewIthg4QVWvx0EzQL6LqNO74Hc9/JicH+cGFtn6nHjwHgquzbCZx6W6XlzHJVV04Pd0m4kXC27RrnoraFj3KpXcfmdSr0GK3HtUKYV2QgSM8COvEEuL++oxjD4PKi40JmTv2I=",
             version: "1.1",
           },
@@ -1188,7 +1320,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured.", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured.", data: [] }, 400);
     }
     const cautionary = await fetchAngelCautionaryScrips(creds);
     return json({
@@ -1246,7 +1378,7 @@ export async function onRequest(context: {
     const state = body.state ? String(body.state) : undefined;
 
     if (!apiKey) {
-      return json({ ok: false, error: "Missing API Key for Angel One login." }, 400);
+      return json({ ok: false, error: "Missing API Key for Market Data API login." }, 400);
     }
     if (!clientCode || !pin) {
       return json({ ok: false, error: "Missing clientCode or pin/password." }, 400);
@@ -1306,7 +1438,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const profile = await fetchAngelUserProfile(creds);
@@ -1315,7 +1447,7 @@ export async function onRequest(context: {
       }
       return json({
         ok: true,
-        source: "Angel One SmartAPI (User Profile)",
+        source: "Market Data API SmartAPI (User Profile)",
         profile,
         retrievedAt: new Date().toISOString(),
       });
@@ -1328,7 +1460,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const funds = await fetchAngelRMSFunds(creds);
@@ -1337,7 +1469,7 @@ export async function onRequest(context: {
       }
       return json({
         ok: true,
-        source: "Angel One SmartAPI (RMS Funds & Margins)",
+        source: "Market Data API SmartAPI (RMS Funds & Margins)",
         funds,
         retrievedAt: new Date().toISOString(),
       });
@@ -1363,12 +1495,12 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI GTT (Good-Till-Triggered) Endpoints ---
+  // --- Market Data API SmartAPI GTT (Good-Till-Triggered) Endpoints ---
   if (pathname === "/api/gtt/angel/create" && method === "POST") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1389,7 +1521,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1410,7 +1542,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const body = (await request.json()) as any;
@@ -1428,7 +1560,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     let ruleId = url.searchParams.get("id") || "";
     if (!ruleId && method === "POST") {
@@ -1452,7 +1584,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", data: [] }, 400);
     }
     let listReq: any = undefined;
     if (method === "POST") {
@@ -1464,7 +1596,7 @@ export async function onRequest(context: {
       const rules = await fetchAngelGttRuleList(listReq, creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (GTT Rules)",
+        source: "Market Data API SmartAPI (GTT Rules)",
         count: rules.length,
         data: rules,
         retrievedAt: new Date().toISOString(),
@@ -1474,12 +1606,12 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Orders Suite Endpoints ---
+  // --- Market Data API SmartAPI Orders Suite Endpoints ---
   if (pathname === "/api/orders/angel/place" && method === "POST") {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const orderReq = (await request.json()) as AngelPlaceOrderRequest;
@@ -1500,7 +1632,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const modReq = (await request.json()) as AngelModifyOrderRequest;
@@ -1521,7 +1653,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     try {
       const cancelReq = (await request.json()) as AngelCancelOrderRequest;
@@ -1542,13 +1674,13 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", data: [] }, 400);
     }
     try {
       const orders = await fetchAngelOrderBook(creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Order Book)",
+        source: "Market Data API SmartAPI (Order Book)",
         count: orders.length,
         data: orders,
         retrievedAt: new Date().toISOString(),
@@ -1562,13 +1694,13 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured", data: [] }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured", data: [] }, 400);
     }
     try {
       const trades = await fetchAngelTradeBook(creds);
       return json({
         ok: true,
-        source: "Angel One SmartAPI (Trade Book)",
+        source: "Market Data API SmartAPI (Trade Book)",
         count: trades.length,
         data: trades,
         retrievedAt: new Date().toISOString(),
@@ -1582,7 +1714,7 @@ export async function onRequest(context: {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
     if (!creds?.apiKey) {
-      return json({ ok: false, error: "Angel One credentials not configured" }, 400);
+      return json({ ok: false, error: "Market Data API credentials not configured" }, 400);
     }
     const urlParts = pathname.split("/api/orders/angel/details/");
     const uniqueOrderId = urlParts[1] || url.searchParams.get("uniqueorderid") || url.searchParams.get("id");
@@ -1593,7 +1725,7 @@ export async function onRequest(context: {
       const order = await fetchAngelIndividualOrderStatus(uniqueOrderId, creds);
       return json({
         ok: Boolean(order),
-        source: "Angel One SmartAPI (Order Status)",
+        source: "Market Data API SmartAPI (Order Status)",
         data: order,
         retrievedAt: new Date().toISOString(),
       });
@@ -1626,7 +1758,7 @@ export async function onRequest(context: {
       const quote = await fetchAngelLtpQuote(exchange, tradingsymbol, symboltoken, creds || undefined);
       return json({
         ok: Boolean(quote),
-        source: "Angel One SmartAPI (Order LTP)",
+        source: "Market Data API SmartAPI (Order LTP)",
         data: quote,
         retrievedAt: new Date().toISOString(),
       });
@@ -1635,7 +1767,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Postback / Webhook Suite ---
+  // --- Market Data API SmartAPI Postback / Webhook Suite ---
   if (pathname === "/api/orders/angel/postback") {
     if (method === "POST") {
       try {
@@ -1664,7 +1796,7 @@ export async function onRequest(context: {
       const records = getRecentAngelPostbacks({ clientcode, orderid, statusCategory, limit });
       return json({
         ok: true,
-        source: "Angel One SmartAPI Postback / Webhook Stream",
+        source: "Market Data API SmartAPI Postback / Webhook Stream",
         webhookUrl: ANGEL_POSTBACK_DEFAULT_URL,
         count: records.length,
         data: records,
@@ -1692,7 +1824,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Margin Calculator Suite ---
+  // --- Market Data API SmartAPI Margin Calculator Suite ---
   if (
     (pathname === "/api/margin/angel/batch" || pathname === "/api/margin/angel/calculate") &&
     (method === "POST" || method === "GET")
@@ -1738,7 +1870,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI Option Greeks Suite ---
+  // --- Market Data API SmartAPI Option Greeks Suite ---
   if (
     (pathname === "/api/market/angel/option-greeks" || pathname === "/api/options/angel/greeks") &&
     (method === "POST" || method === "GET")
@@ -1794,7 +1926,7 @@ export async function onRequest(context: {
     }
   }
 
-  // --- Angel One SmartAPI WebSocket Streaming 2.0 Suite ---
+  // --- Market Data API SmartAPI WebSocket Streaming 2.0 Suite ---
   if (pathname === "/api/streaming/angel/config" && (method === "GET" || method === "POST")) {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
@@ -1907,7 +2039,7 @@ export async function onRequest(context: {
     });
   }
 
-  // --- Angel One SmartAPI WebSocket Order Status API Suite ---
+  // --- Market Data API SmartAPI WebSocket Order Status API Suite ---
   if (pathname === "/api/streaming/angel/order-status/config" && (method === "GET" || method === "POST")) {
     const customEnv = env as unknown as Record<string, string | undefined>;
     const creds = getAngelCredentials(customEnv);
@@ -2009,7 +2141,7 @@ export async function onRequest(context: {
     return json({ ok: true, message: "Cleared WebSocket order status history", retrievedAt: new Date().toISOString() });
   }
 
-  // --- Angel One SmartAPI Instruments API Suite ---
+  // --- Market Data API SmartAPI Instruments API Suite ---
   if (pathname === "/api/market/angel/instruments/scrip-master" && method === "GET") {
     const segment = url.searchParams.get("segment") || "all";
     const query = url.searchParams.get("query") || undefined;
@@ -2111,7 +2243,7 @@ export async function onRequest(context: {
     });
   }
 
-  // Angel One SmartAPI Rate Limit Suite Endpoints
+  // Market Data API SmartAPI Rate Limit Suite Endpoints
   if (pathname === "/api/market/angel/rate-limits/catalog" && method === "GET") {
     return json({
       ok: true,
@@ -2197,7 +2329,7 @@ export async function onRequest(context: {
     });
   }
 
-  // --- Angel One SmartAPI Closing Auction Session (CAS) Suite ---
+  // --- Market Data API SmartAPI Closing Auction Session (CAS) Suite ---
   if (pathname === "/api/market/angel/cas/status" && (method === "GET" || method === "POST")) {
     const timeParam = url.searchParams.get("time") || undefined;
     const casStatus = getAngelCasStatus(timeParam);
@@ -2495,7 +2627,7 @@ export async function onRequest(context: {
         }
       }
       const page = filterAndPageStocks(universe, url);
-      const enriched = await enrichQuotes(page.stocks || []);
+      const enriched = await enrichQuotes(page.stocks || [], env);
       let responseStocks = enriched.stocks;
       let storedQuoteCount = 0;
       if (env.DB && responseStocks.length) {
@@ -2508,6 +2640,16 @@ export async function onRequest(context: {
             if (stock.quoteSource) return stock;
             const row: any = bySymbol.get(String(stock.symbol || "").toUpperCase());
             if (!row) return stock;
+            // D1 may contain yesterday's cached quote. Only reuse it when its
+            // exchange timestamp belongs to today's Indian market date.
+            if (quoteFreshnessStatus(row.quote_time) !== "LIVE") return {
+              ...stock,
+              currentPrice: null,
+              dayChange: null,
+              dayChangePercent: null,
+              quoteStatus: "STALE",
+              provenance: { ...(stock.provenance || {}), qualityStatus: "STALE", verificationStatus: "Unverified" },
+            };
             storedQuoteCount++;
             return {
               ...stock,
