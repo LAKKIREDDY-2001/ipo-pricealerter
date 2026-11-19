@@ -673,7 +673,7 @@ export const api = {
         (s) =>
           s.symbol.toLowerCase() === symLower ||
           s.bseCode?.toLowerCase() === symLower ||
-          s.companyName?.toLowerCase().includes(symLower)
+          s.companyName?.toLowerCase().trim() === symLower
       );
       if (!found && !hasFullUniverseLoaded) {
         snap = await loadStaticMarketSnapshot(true);
@@ -682,7 +682,7 @@ export const api = {
           (s) =>
             s.symbol.toLowerCase() === symLower ||
             s.bseCode?.toLowerCase() === symLower ||
-            s.companyName?.toLowerCase().includes(symLower)
+            s.companyName?.toLowerCase().trim() === symLower
         );
       }
       if (found) {
