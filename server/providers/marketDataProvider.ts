@@ -2369,9 +2369,11 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
   const candidates = items
     .filter((s) => {
       const cached = liveQuoteHydrationCache.get(s.symbol);
-      if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 30_000;
-      if (force) return !cached || now - cached.fetchedAt > 15_000;
-      return !cached || now - cached.fetchedAt > 30_000;
+      // Refresh quotes frequently during the session; do not let a yesterday/old
+      // in-memory value suppress a fresh upstream request.
+      if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 8_000;
+      if (force) return !cached || now - cached.fetchedAt > 5_000;
+      return !cached || now - cached.fetchedAt > 8_000;
     })
     .slice(0, 50);
 
@@ -2689,8 +2691,34 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
   const paged = filtered.slice(start, start + limit);
 
   if (paged.length <= 100) {
-    // Return the cached page immediately. Quote hydration runs in the background;
-    // the page's short polling interval picks up the updated prices on its next request.
+    // Re-apply the latest successfully fetched quote to the current response.
+    // This makes background-updated prices visible on the next lightweight poll.
+    const now = Date.now();
+    for (const stock of paged) {
+      const cached = liveQuoteHydrationCache.get(stock.symbol);
+      if (!cached || now - cached.fetchedAt > 90_000) continue;
+      const q = cached.quote;
+      stock.currentPrice = q.ltp;
+      if (q.previousClose !== null) stock.previousClose = q.previousClose;
+      stock.open = q.open ?? stock.open;
+      stock.dayHigh = q.high ?? stock.dayHigh;
+      stock.dayLow = q.low ?? stock.dayLow;
+      stock.volume = q.volume ?? stock.volume;
+      stock.lastTradeTime = q.lastTradeTime || stock.lastTradeTime;
+      if (stock.exchange.includes('NSE') && !/^\\d+$/.test(stock.symbol)) stock.nseQuote = q;
+      else if (stock.bseCode && stock.bseCode !== 'N/A') stock.bseQuote = q;
+      stock.provenance = {
+        ...stock.provenance,
+        source: stock.provenance.source.includes('Yahoo')
+          ? stock.provenance.source
+          : 'NSE/BSE Market Quote',
+        retrievedAt: new Date(cached.fetchedAt).toISOString(),
+        effectiveDate: (q.lastTradeTime || new Date(cached.fetchedAt).toISOString()).slice(0, 10),
+        verificationStatus: 'Verified',
+        qualityStatus: stock.provenance.source.includes('Yahoo') ? 'DELAYED' : 'VERIFIED',
+      };
+    }
+    // Hydrate asynchronously; subsequent API polls return these fresh cached values.
     void hydrateVisibleLiveQuotes(paged, Boolean(opts.refresh)).catch(() => undefined);
   }
 
