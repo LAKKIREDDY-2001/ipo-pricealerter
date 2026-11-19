@@ -2348,20 +2348,24 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
       const cached = liveQuoteHydrationCache.get(s.symbol);
       if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 30_000;
       if (force) return !cached || now - cached.fetchedAt > 15_000;
-      if (s.provenance.source.includes('Groww')) return false;
       return !cached || now - cached.fetchedAt > 30_000;
     })
     .slice(0, 50);
 
   if (candidates.length > 0) {
-    await Promise.all(
-      candidates.map(async (s) => {
+    for (let batchStart = 0; batchStart < candidates.length; batchStart += 8) {
+      await Promise.all(
+      candidates.slice(batchStart, batchStart + 8).map(async (s) => {
         const useNse = s.exchange.includes('NSE') && !/^\d+$/.test(s.symbol);
+        let quoteSource = 'Groww Exchange Quote';
         let quote =
           (useNse ? await fetchGrowwLiveQuote('NSE', s.symbol) : null) ??
           (s.bseCode && s.bseCode !== 'N/A' ? await fetchGrowwLiveQuote('BSE', s.bseCode) : null);
 
-        if (!quote && s.currentPrice === null && s.yahooSymbol) {
+        // A previously populated price is not proof that it is current. Use a
+        // timestamped Yahoo chart quote as a clearly-labelled delayed fallback.
+        if (!quote && s.yahooSymbol) {
+          quoteSource = 'Yahoo Finance Delayed Quote';
           const yData = await fetchYahooChart(s.yahooSymbol, '5d', '1d');
           const yMeta = yData?.chart?.result?.[0]?.meta;
           if (yMeta && typeof yMeta.regularMarketPrice === 'number') {
@@ -2416,14 +2420,15 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
         }
         s.provenance = {
           ...s.provenance,
-          source: `${s.exchange} Live Quote (Groww Adapter)`,
+          source: `${s.exchange} ${quoteSource}`,
           retrievedAt: new Date().toISOString(),
           effectiveDate: (quote.lastTradeTime || new Date().toISOString()).slice(0, 10),
           verificationStatus: 'Verified',
-          qualityStatus: 'VERIFIED',
+          qualityStatus: quoteSource === 'Groww Exchange Quote' ? 'VERIFIED' : 'DELAYED',
         };
       })
-    );
+      );
+    }
   }
 
   // Enrich visible stocks missing live TTM fundamentals/sector (e.g. from Groww company filings)
@@ -2956,13 +2961,16 @@ export async function refreshStockBySymbol(
 
   if (!searchId || (!nseCode && !bseCode)) {
     const searchMatches = await fetchGrowwSearch(cleanSymbol);
-    const exactMatch =
-      searchMatches.find(
-        (m) =>
-          m.nseSymbol?.toUpperCase() === cleanSymbol ||
-          m.bseCode === cleanSymbol ||
-          (bseCode && m.bseCode === bseCode)
-      ) || (!existing ? searchMatches[0] : undefined);
+    const normalizedQuery = cleanSymbol.replace(/[^A-Z0-9]/g, '');
+    const exactMatch = searchMatches.find((m) => {
+      const titleKey = m.title.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      return (
+        m.nseSymbol?.toUpperCase() === cleanSymbol ||
+        m.bseCode === cleanSymbol ||
+        (bseCode && m.bseCode === bseCode) ||
+        (titleKey.length > 3 && titleKey === normalizedQuery)
+      );
+    });
     if (exactMatch) {
       nseCode = exactMatch.nseSymbol || nseCode;
       bseCode = exactMatch.bseCode || bseCode;
