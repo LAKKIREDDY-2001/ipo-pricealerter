@@ -2929,12 +2929,14 @@ export async function refreshStockBySymbol(
     const interval = range === '1d' ? '5m' : range === '5d' ? '15m' : range === '1mo' ? '1h' : '1d';
     const yahooData = await fetchYahooChart(cleanSymbol, range, interval);
     let historicalSeries: StockHistoricalPoint[] = [];
-    let currentPrice = baseStock.currentPrice;
-    let previousClose = baseStock.previousClose;
-    let open = baseStock.open;
-    let dayHigh = baseStock.dayHigh;
-    let dayLow = baseStock.dayLow;
-    let volume = baseStock.volume;
+    // Never present the curated registry's historical sample values as a live quote.
+    // A price is populated only when Yahoo returns a verifiable market quote.
+    let currentPrice: number | null = null;
+    let previousClose: number | null = null;
+    let open: number | null = null;
+    let dayHigh: number | null = null;
+    let dayLow: number | null = null;
+    let volume: number | null = null;
 
     if (yahooData) {
       historicalSeries = parseYahooCandles(yahooData);
@@ -2943,7 +2945,10 @@ export async function refreshStockBySymbol(
         currentPrice = meta.regularMarketPrice;
       }
       if (typeof meta?.chartPreviousClose === 'number' || typeof meta?.previousClose === 'number') {
-        previousClose = meta.chartPreviousClose ?? meta.previousClose ?? previousClose;
+        previousClose = meta.chartPreviousClose ?? meta.previousClose ?? null;
+      }
+      if (typeof meta?.regularMarketOpen === 'number' && Number.isFinite(meta.regularMarketOpen)) {
+        open = meta.regularMarketOpen;
       }
       if (typeof meta?.regularMarketDayHigh === 'number' && Number.isFinite(meta.regularMarketDayHigh)) {
         dayHigh = meta.regularMarketDayHigh;
@@ -2971,8 +2976,10 @@ export async function refreshStockBySymbol(
       sparkline: historicalSeries.length > 0 ? historicalSeries.slice(-20).map((p) => p.close) : baseStock.sparkline,
       provenance: {
         ...baseStock.provenance,
-        source: yahooData ? 'Real-Time US Market Feed' : baseStock.provenance.source,
-        qualityStatus: 'LIVE',
+        source: yahooData && currentPrice !== null
+          ? 'Yahoo Finance market quote'
+          : 'US quote unavailable; registry reference data only',
+        qualityStatus: yahooData && currentPrice !== null ? 'LIVE' : 'UNAVAILABLE',
         retrievedAt: new Date().toISOString(),
       },
     };
