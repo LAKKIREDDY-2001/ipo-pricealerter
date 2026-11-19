@@ -2370,11 +2370,20 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
   const candidates = items
     .filter((s) => {
       const cached = liveQuoteHydrationCache.get(s.symbol);
-      // Refresh quotes frequently during the session; do not let a yesterday/old
-      // in-memory value suppress a fresh upstream request.
-      if (s.currentPrice === null) return !cached || now - cached.fetchedAt > 8_000;
-      if (force) return !cached || now - cached.fetchedAt > 5_000;
-      return !cached || now - cached.fetchedAt > 8_000;
+      // A quote from a previous Indian market date must never count as fresh,
+      // even if it was fetched recently from a cache or restored after a restart.
+      const cachedTradeTime = cached?.quote.lastTradeTime;
+      const cachedIsToday = cachedTradeTime
+        ? isCurrentIstMarketDate(cachedTradeTime)
+        : cached
+          ? isCurrentIstMarketDate(new Date(cached.fetchedAt).toISOString())
+          : false;
+      const storedIsToday = isCurrentIstMarketDate(
+        s.provenance?.effectiveDate ? `${s.provenance.effectiveDate}T12:00:00+05:30` : s.lastTradeTime
+      );
+      if (!cached || !cachedIsToday || !storedIsToday || s.currentPrice === null) return true;
+      if (force) return now - cached.fetchedAt > 5_000;
+      return now - cached.fetchedAt > 8_000;
     })
     .slice(0, 50);
 
@@ -2756,6 +2765,11 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
     for (const stock of paged) {
       const cached = liveQuoteHydrationCache.get(stock.symbol);
       if (!cached || now - cached.fetchedAt > 90_000) continue;
+      const cachedTradeTime = cached.quote.lastTradeTime;
+      const cachedIsToday = cachedTradeTime
+        ? isCurrentIstMarketDate(cachedTradeTime)
+        : isCurrentIstMarketDate(new Date(cached.fetchedAt).toISOString());
+      if (!cachedIsToday) continue;
       const q = cached.quote;
       stock.currentPrice = q.ltp;
       if (q.previousClose !== null) stock.previousClose = q.previousClose;
