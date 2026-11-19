@@ -2381,7 +2381,6 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
   if (candidates.length > 0) {
     // Use the configured INDstocks API as the second Indian quote source.
     // Fetch all visible instruments in batches instead of making one request per row.
-    const indstocksCodeToStock = new Map<string, StockInstrument>();
     const indstocksCodes: string[] = [];
     for (const stock of candidates) {
       const codes = [
@@ -2391,7 +2390,6 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
       ].filter((code): code is string => Boolean(code));
       for (const code of codes) {
         indstocksCodes.push(code);
-        indstocksCodeToStock.set(code, stock);
       }
     }
     const indstocksQuotes = indstocksCodes.length
