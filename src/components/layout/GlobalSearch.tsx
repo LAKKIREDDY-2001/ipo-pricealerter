@@ -97,11 +97,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
   const cleanTickerCandidate = query.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
   const hasAnyResults =
-    results.ipos.length > 0 ||
-    results.stocks.length > 0 ||
-    results.blogs.length > 0 ||
-    results.insights.length > 0 ||
-    results.sectors.length > 0;
+    (results?.ipos?.length ?? 0) > 0 ||
+    (results?.stocks?.length ?? 0) > 0 ||
+    (results?.blogs?.length ?? 0) > 0 ||
+    (results?.insights?.length ?? 0) > 0 ||
+    (results?.sectors?.length ?? 0) > 0;
 
   return (
     <div
@@ -124,12 +124,33 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && query.trim()) {
-                if (results.ipos[0]) {
-                  goTo(`/ipo/${results.ipos[0].slug}`, results.ipos[0].companyName);
-                } else if (results.stocks[0]) {
-                  goTo(`/stock/${results.stocks[0].symbol}`, results.stocks[0].symbol);
-                } else if (cleanTickerCandidate.length >= 2) {
+                const qClean = query.trim().toUpperCase();
+                // 1. Look for exact symbol or BSE code match first to prevent collision
+                const exactStock = results?.stocks?.find(
+                  (s) => s.symbol?.toUpperCase() === qClean || s.bseCode === qClean
+                );
+                if (exactStock) {
+                  goTo(`/stock/${exactStock.symbol}`, exactStock.symbol);
+                  return;
+                }
+                // 2. Look for exact IPO match
+                const exactIpo = results?.ipos?.find(
+                  (i) => i.companyName?.toUpperCase() === qClean || i.slug?.toUpperCase() === qClean
+                );
+                if (exactIpo) {
+                  goTo(`/ipo/${exactIpo.slug}`, exactIpo.companyName);
+                  return;
+                }
+                // 3. Direct clean ticker candidate if no direct search results
+                if (cleanTickerCandidate.length >= 2 && !(results?.stocks?.length) && !(results?.ipos?.length)) {
                   goTo(`/stock/${cleanTickerCandidate}`, cleanTickerCandidate);
+                  return;
+                }
+                // 4. Default to first stock or IPO from list
+                if (results?.stocks?.[0]) {
+                  goTo(`/stock/${results.stocks[0].symbol}`, results.stocks[0].symbol);
+                } else if (results?.ipos?.[0]) {
+                  goTo(`/ipo/${results.ipos[0].slug}`, results.ipos[0].companyName);
                 }
               }
             }}
@@ -197,7 +218,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
           {query.trim() && !loading && (
             <>
-              {results.ipos.length > 0 && (
+              {(results?.ipos?.length ?? 0) > 0 && (
                 <div>
                   <div className="text-xs font-semibold text-[#64748B] dark:text-slate-400 mb-2 flex items-center gap-1.5">
                     <Building2 className="w-3.5 h-3.5" />
@@ -241,7 +262,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 </div>
               )}
 
-              {results.stocks.length > 0 && (
+              {(results?.stocks?.length ?? 0) > 0 && (
                 <div>
                   <div className="text-xs font-semibold text-[#64748B] dark:text-slate-400 mb-2 flex items-center gap-1.5">
                     <TrendingUp className="w-3.5 h-3.5" />
@@ -298,7 +319,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 </div>
               )}
 
-              {results.sectors.length > 0 && (
+              {(results?.sectors?.length ?? 0) > 0 && (
                 <div>
                   <div className="text-xs font-semibold text-[#64748B] dark:text-slate-400 mb-2">
                     Sectors
@@ -318,7 +339,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 </div>
               )}
 
-              {results.insights.length > 0 && (
+              {(results?.insights?.length ?? 0) > 0 && (
                 <div>
                   <div className="text-xs font-semibold text-[#64748B] dark:text-slate-400 mb-2 flex items-center gap-1.5">
                     <Newspaper className="w-3.5 h-3.5" />
@@ -339,7 +360,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 </div>
               )}
 
-              {results.blogs.length > 0 && (
+              {(results?.blogs?.length ?? 0) > 0 && (
                 <div>
                   <div className="text-xs font-semibold text-[#64748B] dark:text-slate-400 mb-2 flex items-center gap-1.5">
                     <BookOpen className="w-3.5 h-3.5" />

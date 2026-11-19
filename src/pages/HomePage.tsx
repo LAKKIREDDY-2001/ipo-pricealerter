@@ -323,28 +323,38 @@ export function HomePage() {
     e.preventDefault();
     const q = heroSearch.trim();
     if (!q) return;
-    const matchedIpo = ipos.find((i) => i.companyName.toLowerCase().includes(q.toLowerCase()));
+    const qLower = q.toLowerCase().trim();
+    // 1. Exact match on symbol or BSE code first to prevent collision
+    const exactStk = stocks.find(
+      (s) => s.symbol.toLowerCase() === qLower || s.bseCode === q
+    );
+    if (exactStk) {
+      navigate(`/stock/${exactStk.symbol}`);
+      return;
+    }
+    // 2. Exact match on companyName
+    const exactNameStk = stocks.find(
+      (s) => s.companyName.toLowerCase() === qLower
+    );
+    if (exactNameStk) {
+      navigate(`/stock/${exactNameStk.symbol}`);
+      return;
+    }
+    // 3. Exact IPO match
+    const matchedIpo = ipos.find(
+      (i) => i.companyName.toLowerCase() === qLower || i.slug.toLowerCase() === qLower
+    );
     if (matchedIpo) {
       navigate(`/ipo/${matchedIpo.slug}`);
       return;
     }
-    const matchedStk = stocks.find(
-      (s) =>
-        s.symbol.toLowerCase() === q.toLowerCase() ||
-        s.bseCode === q ||
-        s.companyName.toLowerCase().includes(q.toLowerCase())
-    );
-    if (matchedStk) {
-      navigate(`/stock/${matchedStk.symbol}`);
-      return;
-    }
     try {
       const searchRes = await api.globalSearch(q);
-      if (searchRes.ipos.length > 0) {
+      if (searchRes?.ipos && searchRes.ipos.length > 0) {
         navigate(`/ipo/${searchRes.ipos[0].slug}`);
         return;
       }
-      if (searchRes.stocks.length > 0) {
+      if (searchRes?.stocks && searchRes.stocks.length > 0) {
         navigate(`/stock/${searchRes.stocks[0].symbol}`);
         return;
       }

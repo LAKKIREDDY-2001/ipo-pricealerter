@@ -146,6 +146,29 @@ const KNOWN_STATIC_LOGOS: Record<string, string> = {
   HCLTECH: '/assets/movers/hcltech.webp',
   HDFCBANK: '/assets/movers/hdfc-bank.png',
   HDFCLIFE: '/assets/movers/hdfc-life.png',
+  HEROMOTORS: 'https://assets-netstorage.groww.in/stock-assets/logos2/GSTK544936.webp',
+  HEROMOTOCO: 'https://assets-netstorage.groww.in/stock-assets/logos2/HEROMOTOCO.webp',
+  NVDA: 'https://logo.clearbit.com/nvidia.com',
+  AAPL: 'https://logo.clearbit.com/apple.com',
+  MSFT: 'https://logo.clearbit.com/microsoft.com',
+  GOOG: 'https://logo.clearbit.com/abc.xyz',
+  GOOGL: 'https://logo.clearbit.com/abc.xyz',
+  AMZN: 'https://logo.clearbit.com/amazon.com',
+  META: 'https://logo.clearbit.com/meta.com',
+  TSLA: 'https://logo.clearbit.com/tesla.com',
+  AVGO: 'https://logo.clearbit.com/broadcom.com',
+  ORCL: 'https://logo.clearbit.com/oracle.com',
+  AMD: 'https://logo.clearbit.com/amd.com',
+  NFLX: 'https://logo.clearbit.com/netflix.com',
+  INTC: 'https://logo.clearbit.com/intel.com',
+  QCOM: 'https://logo.clearbit.com/qualcomm.com',
+  ADBE: 'https://logo.clearbit.com/adobe.com',
+  CRM: 'https://logo.clearbit.com/salesforce.com',
+  IBM: 'https://logo.clearbit.com/ibm.com',
+  UBER: 'https://logo.clearbit.com/uber.com',
+  COIN: 'https://logo.clearbit.com/coinbase.com',
+  PLTR: 'https://logo.clearbit.com/palantir.com',
+  ARM: 'https://logo.clearbit.com/arm.com',
   HINDALCO: '/assets/movers/hindalco.png',
   HINDUNILVR: '/assets/movers/hul.png',
   HINDZINC: '/assets/movers/hindustan-zinc.png',
@@ -310,6 +333,15 @@ const BRAND_NAME_LOGOS: Array<[RegExp, string]> = [
   [/\bblackbuck\b|\bzinka\s*logistics\b/i, '/assets/movers/blackbuck.png'],
   [/\bonyx\s*biotec\b/i, '/assets/movers/onyx.svg'],
   [/\bmangal\s*compusolution\b/i, '/assets/movers/mangal.svg'],
+  [/\bhero\s+motors\b/i, 'https://assets-netstorage.groww.in/stock-assets/logos2/GSTK544936.webp'],
+  [/\bhero\s+motocorp\b/i, 'https://assets-netstorage.groww.in/stock-assets/logos2/HEROMOTOCO.webp'],
+  [/\bnvidia\b/i, 'https://logo.clearbit.com/nvidia.com'],
+  [/\bapple\b/i, 'https://logo.clearbit.com/apple.com'],
+  [/\bmicrosoft\b/i, 'https://logo.clearbit.com/microsoft.com'],
+  [/\balphabet\b|\bgoogle\b/i, 'https://logo.clearbit.com/abc.xyz'],
+  [/\bamazon\b/i, 'https://logo.clearbit.com/amazon.com'],
+  [/\bmeta\s+platforms\b|\bfacebook\b/i, 'https://logo.clearbit.com/meta.com'],
+  [/\btesla\b/i, 'https://logo.clearbit.com/tesla.com'],
 ];
 
 function normalizeStockSymbol(value?: string | null): string {
@@ -448,6 +480,12 @@ export function buildLogoCandidateList(opts: {
     if (!candidates.includes(parqetPng)) candidates.push(parqetPng);
     const nvstlyPng = `https://cdn.jsdelivr.net/gh/nvstly/icons@main/ticker_icons/${cleanSym}.png`;
     if (!candidates.includes(nvstlyPng)) candidates.push(nvstlyPng);
+
+    // 9. Clearbit & Google Favicon high-res fallback for Global/US tickers
+    const clearbitUrl = `https://logo.clearbit.com/${cleanSym.toLowerCase()}.com`;
+    if (!candidates.includes(clearbitUrl)) candidates.push(clearbitUrl);
+    const googleFaviconUrl = `https://www.google.com/s2/favicons?domain=${cleanSym.toLowerCase()}.com&sz=128`;
+    if (!candidates.includes(googleFaviconUrl)) candidates.push(googleFaviconUrl);
   }
 
   // 6. BSE GSTK CDN if 6-digit BSE code (WebP and PNG variants)
