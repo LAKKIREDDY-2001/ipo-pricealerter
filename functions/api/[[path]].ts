@@ -242,8 +242,8 @@ async function fetchIndstocksPageQuotes(stocks: any[], env: any): Promise<Map<st
     const bseCode = String(stock.bseCode || "").trim();
     const candidates = [
       stock.registry?.zerodhaNseToken ? `NSE_${stock.registry.zerodhaNseToken}` : "",
-      symbol && !/^\\d+$/.test(symbol) ? `NSE_${symbol}` : "",
-      /^\\d{6}$/.test(bseCode) ? `BSE_${bseCode}` : "",
+      symbol && !/^\d+$/.test(symbol) ? `NSE_${symbol}` : "",
+      /^\d{6}$/.test(bseCode) ? `BSE_${bseCode}` : "",
     ].filter(Boolean);
     for (const code of candidates) {
       codes.push(code);
