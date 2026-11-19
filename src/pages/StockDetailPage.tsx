@@ -151,9 +151,39 @@ export function StockDetailPage() {
     try {
       const res = await api.getStockBySymbol(symbol, targetRange, force);
       setStock((prev) => {
+        const isIndianIncoming = Boolean(
+          (res.stock.isin && (res.stock.isin.startsWith('INE') || res.stock.isin.startsWith('INF'))) ||
+          (res.stock.bseCode && /^\d{6}$/.test(String(res.stock.bseCode).trim())) ||
+          ['NSE', 'BSE', 'NSE/BSE'].includes(String(res.stock.exchange || '').toUpperCase())
+        );
+
         if (!prev || prev.symbol.toUpperCase() !== res.stock.symbol.toUpperCase()) {
+          if (isIndianIncoming) {
+            return {
+              ...res.stock,
+              isUsStock: false,
+              currency: 'INR',
+              exchange: ['NASDAQ', 'NYSE', 'AMEX', 'GLOBAL'].includes(res.stock.exchange)
+                ? (res.stock.bseCode && /^\d{6}$/.test(String(res.stock.bseCode).trim()) ? 'NSE/BSE' : 'NSE')
+                : (res.stock.exchange || 'NSE/BSE'),
+            };
+          }
           return res.stock;
         }
+
+        const isIndian = isIndianIncoming || Boolean(
+          (prev.isin && (prev.isin.startsWith('INE') || prev.isin.startsWith('INF'))) ||
+          (prev.bseCode && /^\d{6}$/.test(String(prev.bseCode).trim())) ||
+          ['NSE', 'BSE', 'NSE/BSE'].includes(String(prev.exchange || '').toUpperCase())
+        );
+        const resolvedUs = !isIndian && Boolean(prev.isUsStock || res.stock.isUsStock);
+        const resolvedCurrency = isIndian ? 'INR' : (resolvedUs ? 'USD' : (res.stock.currency || prev.currency || 'INR'));
+        const resolvedExchange = isIndian
+          ? (['NASDAQ', 'NYSE', 'AMEX', 'GLOBAL'].includes(res.stock.exchange)
+              ? (res.stock.bseCode && /^\d{6}$/.test(String(res.stock.bseCode).trim()) ? 'NSE/BSE' : 'NSE')
+              : (res.stock.exchange || prev.exchange || 'NSE/BSE'))
+          : (prev.exchange || res.stock.exchange);
+
         // Big-app stability: preserve companyProfile, registry, fundamentals, ISIN, exchange,
         // and only update dynamic market fields (price, change, volume, candles)
         const prevPrice = prev.currentPrice;
@@ -162,13 +192,13 @@ export function StockDetailPage() {
           ...prev,
           ...res.stock,
           companyName: prev.companyName || res.stock.companyName,
-          exchange: prev.exchange || res.stock.exchange,
+          exchange: resolvedExchange,
           sector: prev.sector || res.stock.sector,
           industry: prev.industry || res.stock.industry,
           isin: prev.isin && prev.isin !== 'Unavailable' ? prev.isin : res.stock.isin,
-          currency: prev.currency || res.stock.currency,
+          currency: resolvedCurrency,
           logoUrl: prev.logoUrl || res.stock.logoUrl,
-          isUsStock: prev.isUsStock || res.stock.isUsStock,
+          isUsStock: resolvedUs,
           currentPrice: newPrice,
           previousClose: res.stock.previousClose ?? prev.previousClose ?? newPrice,
           open: res.stock.open ?? prev.open ?? res.stock.previousClose ?? newPrice,
@@ -212,9 +242,11 @@ export function StockDetailPage() {
             zerodhaBseToken: res.stock.registry?.zerodhaBseToken ?? prev.registry?.zerodhaBseToken ?? null,
             isFnoEnabled: res.stock.registry?.isFnoEnabled ?? prev.registry?.isFnoEnabled ?? false,
           },
-          historicalSeries: (res.stock.historicalSeries && res.stock.historicalSeries.length >= 2)
-            ? res.stock.historicalSeries
-            : prev.historicalSeries,
+          historicalSeries: (background && prev.historicalSeries && prev.historicalSeries.length >= 2)
+            ? prev.historicalSeries
+            : (res.stock.historicalSeries && res.stock.historicalSeries.length >= 2)
+                ? res.stock.historicalSeries
+                : prev.historicalSeries,
         };
       });
       setLinkedIpo((prev) => res.linkedIpo || prev);
@@ -335,7 +367,12 @@ export function StockDetailPage() {
     if (!stock) return [];
     const symUpper = (stock.symbol || '').toUpperCase().trim();
     const isHeroMotors = symUpper === 'HEROMOTORS' || stock.bseCode === '544936';
-    const isUs = Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[symUpper]);
+    const isIndian = Boolean(
+      (stock.isin && (stock.isin.startsWith('INE') || stock.isin.startsWith('INF'))) ||
+      (stock.bseCode && /^\d{6}$/.test(String(stock.bseCode).trim())) ||
+      ['NSE', 'BSE', 'NSE/BSE'].includes(String(stock.exchange || '').toUpperCase())
+    );
+    const isUs = !isIndian && Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[symUpper]);
     const usMeta = isUs ? getKnownUsStockMetadata(symUpper) : null;
     const listingDateStr = stock.registry?.nseListingDate || (isHeroMotors ? '18 November 2026' : isUs ? usMeta?.listingDate : (stock.listingDate || undefined));
     const listingMs = parseListingDateMs(listingDateStr) || (isHeroMotors ? Date.parse('2026-11-18T03:45:00.000Z') : null);
@@ -363,23 +400,17 @@ export function StockDetailPage() {
     }
 
     if (series && series.length >= 2) {
+      // For 1D intraday: update the current active trading candle in place without pushing new candles or timestamps
       if (range === '1d' && typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
         const cloned = [...series];
         const last = cloned[cloned.length - 1];
         if (last && Math.abs(last.close - stock.currentPrice) > 0.001) {
-          const tradeTime = new Date().toISOString();
-          const lastTime = new Date(last.date).getTime();
-          const currTime = new Date(tradeTime).getTime();
-          if (currTime > lastTime + 60_000) {
-            cloned.push({
-              date: tradeTime,
-              close: stock.currentPrice,
-              open: stock.currentPrice,
-              high: Math.max(stock.currentPrice, stock.dayHigh ?? stock.currentPrice),
-              low: Math.min(stock.currentPrice, stock.dayLow ?? stock.currentPrice),
-              volume: stock.volume ?? 0,
-            });
-          }
+          cloned[cloned.length - 1] = {
+            ...last,
+            close: stock.currentPrice,
+            high: Math.max(last.high, stock.currentPrice),
+            low: Math.min(last.low, stock.currentPrice),
+          };
         }
         return cloned;
       }
@@ -398,7 +429,7 @@ export function StockDetailPage() {
       week52Low: stock.week52Low,
       volume: stock.volume,
       range,
-      isUsStock: stock.isUsStock || stock.currency === 'USD',
+      isUsStock: isUs,
       listingDate: listingDateStr,
     });
   }, [
@@ -407,14 +438,10 @@ export function StockDetailPage() {
     stock?.sparkline,
     stock?.currentPrice,
     stock?.previousClose,
-    stock?.dayLow,
-    stock?.dayHigh,
-    stock?.week52High,
-    stock?.week52Low,
-    stock?.volume,
-    stock?.lastTradeTime,
     stock?.isUsStock,
     stock?.currency,
+    stock?.isin,
+    stock?.bseCode,
     stock?.registry?.nseListingDate,
     stock?.listingDate,
     range,
@@ -480,13 +507,20 @@ export function StockDetailPage() {
 
   // Master US Equity & Indian Security metadata resolution
   const symUpper = stock.symbol.toUpperCase().trim();
-  const isUsStock = Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[symUpper]);
+  const isIndianSecurity = Boolean(
+    (stock.isin && (stock.isin.startsWith('INE') || stock.isin.startsWith('INF'))) ||
+    (stock.bseCode && /^\d{6}$/.test(String(stock.bseCode).trim())) ||
+    ['NSE', 'BSE', 'NSE/BSE'].includes(String(stock.exchange || '').toUpperCase()) ||
+    symUpper.endsWith('.NS') ||
+    symUpper.endsWith('.BO')
+  );
+  const isUsStock = !isIndianSecurity && Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[symUpper]);
   const usMeta = isUsStock ? getKnownUsStockMetadata(symUpper) : null;
   const isHeroMotors = symUpper === 'HEROMOTORS' || stock.bseCode === '544936';
 
   const effectiveExchange = isUsStock
     ? (stock.exchange && (stock.exchange === 'NASDAQ' || stock.exchange === 'NYSE') ? stock.exchange : (usMeta?.exchange || 'NASDAQ'))
-    : (stock.exchange || 'NSE/BSE');
+    : (stock.exchange && !['NASDAQ', 'NYSE', 'AMEX', 'GLOBAL'].includes(stock.exchange) ? stock.exchange : (stock.bseCode && /^\d{6}$/.test(String(stock.bseCode).trim()) ? 'NSE/BSE' : 'NSE'));
 
   const effectiveIsin = stock.isin && stock.isin !== 'Unavailable' && stock.isin !== 'Available on Exchange'
     ? stock.isin
@@ -536,7 +570,7 @@ export function StockDetailPage() {
   const effectiveFounded = stock.companyProfile?.foundedYear || (isHeroMotors ? '1988' : isUsStock ? (usMeta?.foundedYear || '1993') : 'Corporate Records');
   const effectiveListingDate = stock.registry?.nseListingDate || (isHeroMotors ? '18 November 2026' : isUsStock ? (usMeta?.listingDate || '22 January 1999') : 'Active on Exchange');
   const effectiveMarketLot = stock.registry?.marketLot ?? 1;
-  const effectiveTickSize = stock.registry?.tickSize ?? (isUsStock || stock.currency === 'USD' ? 0.01 : 0.05);
+  const effectiveTickSize = stock.registry?.tickSize ?? (isUsStock ? 0.01 : 0.05);
   const effectiveSummary = stock.companyProfile?.businessSummary ||
     (isHeroMotors
       ? 'Hero Motors Limited (part of Hero Motors Company - HMC) is a world-class automotive powertrain, transmission systems, and gear technology manufacturer catering to premier international and Indian two-wheeler and four-wheeler OEMs.'
@@ -638,7 +672,7 @@ export function StockDetailPage() {
             </div>
             <div className="mt-3 flex flex-wrap items-baseline gap-3">
               <span className="font-data text-3xl font-bold text-[#14263F] dark:text-white">
-                {stock.currency === 'USD' ? (
+                {isUsStock ? (
                   <>
                     ${currentPrice.toFixed(2)}
                     {typeof stock.priceInInr === 'number' && stock.priceInInr > 0 ? (
@@ -661,7 +695,7 @@ export function StockDetailPage() {
                 }`}
               >
                 {isUp ? '+' : ''}
-                {stock.currency === 'USD' ? `$${diff.toFixed(2)}` : diff.toFixed(2)} ({formatPercent(diffPct)})
+                {isUsStock ? `$${Math.abs(diff).toFixed(2)}` : diff.toFixed(2)} ({formatPercent(diffPct)})
               </span>
               <span className="text-xs text-[#64748B] dark:text-slate-400 font-data">
                 Updated: {formatTimestampIN(liveTimestamp)}
@@ -734,25 +768,25 @@ export function StockDetailPage() {
           <div>
             <div className="text-[#64748B]">Previous Close</div>
             <div className="font-data font-bold text-sm mt-0.5">
-              {stock.currency === 'USD' ? `$${effectivePrevClose.toFixed(2)}` : formatINR(effectivePrevClose)}
+              {isUsStock ? `$${effectivePrevClose.toFixed(2)}` : formatINR(effectivePrevClose)}
             </div>
           </div>
           <div>
             <div className="text-[#64748B]">Open</div>
             <div className="font-data font-bold text-sm mt-0.5">
-              {stock.currency === 'USD' ? `$${effectiveOpen.toFixed(2)}` : formatINR(effectiveOpen)}
+              {isUsStock ? `$${effectiveOpen.toFixed(2)}` : formatINR(effectiveOpen)}
             </div>
           </div>
           <div>
             <div className="text-[#64748B]">Day Range</div>
             <div className="font-data font-semibold text-sm mt-0.5">
-              {stock.currency === 'USD' ? '$' : '₹'}{effectiveDayLow.toFixed(2)} – {stock.currency === 'USD' ? '$' : '₹'}{effectiveDayHigh.toFixed(2)}
+              {isUsStock ? '$' : '₹'}{effectiveDayLow.toFixed(2)} – {isUsStock ? '$' : '₹'}{effectiveDayHigh.toFixed(2)}
             </div>
           </div>
           <div>
             <div className="text-[#64748B]">52-Week Range</div>
             <div className="font-data font-semibold text-sm mt-0.5">
-              {stock.currency === 'USD' ? '$' : '₹'}{effective52Low.toFixed(2)} – {stock.currency === 'USD' ? '$' : '₹'}{effective52High.toFixed(2)}
+              {isUsStock ? '$' : '₹'}{effective52Low.toFixed(2)} – {isUsStock ? '$' : '₹'}{effective52High.toFixed(2)}
             </div>
           </div>
           <div>
@@ -764,7 +798,7 @@ export function StockDetailPage() {
           <div>
             <div className="text-[#64748B]">Market Cap</div>
             <div className="font-data font-bold text-sm mt-0.5">
-              {stock.currency === 'USD'
+              {isUsStock
                 ? effectiveMarketCapUsd ? `$${(effectiveMarketCapUsd / 1e9).toFixed(2)}B` : '—'
                 : formatCrores(effectiveMarketCapCr)}
             </div>
@@ -919,10 +953,10 @@ export function StockDetailPage() {
           <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-baseline gap-3">
               <span className="font-data text-2xl font-bold text-[#14263F] dark:text-white">
-                {stock.currency === 'USD' ? `$${activePrice.toFixed(2)}` : formatINR(activePrice)}
+                {isUsStock ? `$${activePrice.toFixed(2)}` : formatINR(activePrice)}
               </span>
               <span className={`font-data text-sm font-semibold ${isActiveUp ? 'text-[#16A34A]' : 'text-[#DC2626]'}`}>
-                {isActiveUp ? '+' : ''}{stock.currency === 'USD' ? `$${activeDiff.toFixed(2)}` : activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
+                {isActiveUp ? '+' : ''}{isUsStock ? `$${Math.abs(activeDiff).toFixed(2)}` : activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
               </span>
             </div>
             <div className="flex items-center gap-2 text-xs font-data">
@@ -981,7 +1015,7 @@ export function StockDetailPage() {
                   />
                   <YAxis
                     domain={['auto', 'auto']}
-                    tickFormatter={(v) => stock.currency === 'USD' ? `$${v}` : `₹${v}`}
+                    tickFormatter={(v) => isUsStock ? `$${v}` : `₹${v}`}
                     tick={{ fontSize: 11, fill: '#64748B' }}
                     width={62}
                   />
@@ -990,7 +1024,7 @@ export function StockDetailPage() {
                       <StockChartTooltip
                         range={range}
                         previousClose={stock.previousClose}
-                        currency={stock.currency}
+                        currency={isUsStock ? 'USD' : 'INR'}
                       />
                     }
                   />
@@ -1000,7 +1034,7 @@ export function StockDetailPage() {
                       stroke="#94A3B8"
                       strokeDasharray="3 3"
                       label={{
-                        value: `Prev: ${stock.currency === 'USD' ? '$' : '₹'}${stock.previousClose.toFixed(2)}`,
+                        value: `Prev: ${isUsStock ? '$' : '₹'}${stock.previousClose.toFixed(2)}`,
                         position: 'insideTopRight',
                         fill: '#94A3B8',
                         fontSize: 10,
@@ -1047,7 +1081,7 @@ export function StockDetailPage() {
                 step="0.05"
                 value={alertPrice}
                 onChange={(e) => setAlertPrice(e.target.value)}
-                placeholder={`Target price in ${stock.currency === 'USD' ? '$' : '₹'}`}
+                placeholder={`Target price in ${isUsStock ? '$' : '₹'}`}
                 required
                 className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 font-data text-[#152338] dark:text-slate-100"
               />
@@ -1074,12 +1108,12 @@ export function StockDetailPage() {
                 { label: 'P/E Ratio (TTM)', val: `${effectivePe.toFixed(1)}x` },
                 { label: 'Industry P/E', val: `${effectiveIndustryPe.toFixed(1)}x` },
                 { label: 'P/B Ratio', val: `${effectivePb.toFixed(1)}x` },
-                { label: 'EPS (TTM)', val: stock.currency === 'USD' ? `$${effectiveEps.toFixed(2)}` : formatINR(effectiveEps) },
-                { label: 'Book Value', val: stock.currency === 'USD' ? `$${effectiveBookValue.toFixed(2)}` : formatINR(effectiveBookValue) },
+                { label: 'EPS (TTM)', val: isUsStock ? `$${effectiveEps.toFixed(2)}` : formatINR(effectiveEps) },
+                { label: 'Book Value', val: isUsStock ? `$${effectiveBookValue.toFixed(2)}` : formatINR(effectiveBookValue) },
                 { label: 'ROE', val: `${effectiveRoe.toFixed(1)}%` },
                 { label: 'Debt-to-Equity', val: `${effectiveDebtToEquity.toFixed(2)}x` },
                 { label: 'Dividend Yield', val: `${effectiveDividendYield.toFixed(2)}%` },
-                { label: 'Face Value', val: stock.currency === 'USD' ? `$${effectiveFaceValue}` : `₹${effectiveFaceValue}` },
+                { label: 'Face Value', val: isUsStock ? `$${effectiveFaceValue}` : `₹${effectiveFaceValue}` },
               ].map((row) => (
                 <div key={row.label} className="py-2 flex items-center justify-between">
                   <dt className="text-[#64748B]">{row.label}</dt>
@@ -1276,7 +1310,7 @@ export function StockDetailPage() {
             <div>
               <div className="text-[#64748B]">Market Lot / Tick Size</div>
               <div className="font-data font-semibold mt-0.5">
-                {effectiveMarketLot} share · {stock.currency === 'USD' ? `$${effectiveTickSize}` : `₹${effectiveTickSize}`}
+                {effectiveMarketLot} share · {isUsStock ? `$${effectiveTickSize}` : `₹${effectiveTickSize}`}
               </div>
             </div>
             <div>

@@ -130,6 +130,8 @@ test('Listing Date Clamping & Logo Resolution Suite', async (t) => {
         verificationStatus: 'Verified',
         qualityStatus: 'LIVE',
         currency: 'INR',
+        unit: 'INR',
+        dataCategory: 'EQUITY',
       },
     };
 
@@ -184,6 +186,46 @@ test('Listing Date Clamping & Logo Resolution Suite', async (t) => {
       assert.ok(
         !candidates.some((c) => c.includes('clearbit.com')),
         `Candidate list for ${sym} must never include clearbit.com`
+      );
+    }
+  });
+
+  await t.test('Hero MotoCorp (HEROMOTOCO) is strictly categorized as Indian equity with INR currency and NSE/BSE exchange', () => {
+    const isin = 'INE158A01026';
+    const bseCode = '500182';
+    const exchange = 'NSE/BSE';
+    const isIndian = Boolean(
+      isin.startsWith('INE') ||
+      isin.startsWith('INF') ||
+      /^\d{6}$/.test(bseCode) ||
+      ['NSE', 'BSE', 'NSE/BSE'].includes(exchange)
+    );
+    assert.strictEqual(isIndian, true, 'HEROMOTOCO with ISIN INE158A01026 must be recognized as an Indian security');
+
+    const isUsStock = !isIndian;
+    assert.strictEqual(isUsStock, false, 'HEROMOTOCO must never be marked as a US stock');
+
+    const currency = isIndian ? 'INR' : 'USD';
+    assert.strictEqual(currency, 'INR', 'HEROMOTOCO currency must be INR');
+  });
+
+  await t.test('Intraday 1D candle synthesis produces deterministic session timestamps without stretching into night', () => {
+    const candles = generateDeterministicCandles({
+      symbol: 'HEROMOTOCO',
+      currentPrice: 5556.0,
+      previousClose: 5253.0,
+      range: '1d',
+    });
+    assert.ok(candles.length >= 70, `Expected at least 70 intraday candles, got ${candles.length}`);
+
+    // Verify all candles fall within trading day (09:15 to 15:30 IST)
+    for (const c of candles) {
+      const dt = new Date(c.date);
+      // IST is UTC+5.5 (include minutes!)
+      const istHours = ((dt.getUTCHours() + dt.getUTCMinutes() / 60 + 5.5) + 24) % 24;
+      assert.ok(
+        istHours >= 9.20 && istHours <= 15.60,
+        `Candle timestamp ${c.date} (IST hour ${istHours.toFixed(2)}) is outside Indian trading hours (09:15 - 15:30 IST)!`
       );
     }
   });

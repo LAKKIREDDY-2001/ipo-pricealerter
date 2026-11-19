@@ -118,9 +118,7 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
       const candleLow = Math.min(candleOpen, candleClose, candleClose * 0.999);
       running = candleClose;
 
-      const candleTime = i === count - 1
-        ? now.toISOString()
-        : new Date(startMs + i * stepMs).toISOString();
+      const candleTime = new Date(startMs + i * stepMs).toISOString();
       const candleVol = Math.round(volPerCandle * (0.6 + hashToFloat(`${symbol}_vol_${i}`) * 0.8));
 
       candles.push({
@@ -226,9 +224,7 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
     const lowVal = Math.min(openVal, closePrice) * (1 - hashToFloat(`${symbol}_l_${i}`) * 0.008);
     prevClosePrice = closePrice;
 
-    const candleTime = i === numCandles - 1
-      ? now.toISOString()
-      : new Date(startMs + i * msStep).toISOString();
+    const candleTime = new Date(startMs + i * msStep).toISOString();
     const candleVol = Math.round(volPerSession * (0.7 + hashToFloat(`${symbol}_v_${i}`) * 0.6));
 
     candles.push({
