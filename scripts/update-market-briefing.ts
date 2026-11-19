@@ -197,8 +197,6 @@ if (fs.existsSync(livePath)) {
   const snapshot = JSON.parse(fs.readFileSync(livePath, 'utf8'));
   snapshot.ipos = db.ipos;
   snapshot.insights = db.insights;
-  snapshot.lastSyncTime = RETRIEVED_AT;
-  snapshot.lastSyncFormatted = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
   fs.writeFileSync(livePath, JSON.stringify(snapshot), 'utf8');
 }
 const summaryPath = path.resolve('public/data/market-summary.json');
@@ -206,8 +204,6 @@ if (fs.existsSync(summaryPath)) {
   const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
   summary.ipos = db.ipos;
   summary.insights = db.insights;
-  summary.lastSyncTime = RETRIEVED_AT;
-  summary.lastSyncFormatted = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
   fs.writeFileSync(summaryPath, JSON.stringify(summary), 'utf8');
 }
 console.log('Updated dated market overview, IPO briefing and current IPO records (19 Nov 2026).');
