@@ -183,7 +183,7 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
       // Quotes are hydrated asynchronously by the API; poll the already-cached
       // page frequently so fresh ticks appear without blocking the first render.
       loadStocks(false);
-    }, 15_000);
+    }, 5_000);
     return () => clearInterval(timer);
   }, [autoRefresh, section, loadStocks]);
 
@@ -287,7 +287,7 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
                 : 'border-[#E2E8F0] dark:border-slate-700 bg-white dark:bg-[#111C2E] text-[#64748B]'
             }`}
           >
-            Auto-Refresh: {autoRefresh ? 'ON (15s)' : 'OFF'}
+            Auto-Refresh: {autoRefresh ? 'ON (5s)' : 'OFF'}
           </button>
 
           <button
