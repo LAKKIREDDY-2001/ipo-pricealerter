@@ -2857,7 +2857,8 @@ function computeYoYGrowthPct(series: Array<{ period: string; valueCr: number }> 
 
 export async function refreshStockBySymbol(
   rawSymbol: string,
-  range = '3mo'
+  range = '3mo',
+  force = false
 ): Promise<{ stock: StockInstrument | null; fromUpstream: boolean }> {
   const db = getDb();
   const rawUpper = rawSymbol.trim().toUpperCase().replace(/\.(NS|BO)$/i, '');
@@ -2931,6 +2932,7 @@ export async function refreshStockBySymbol(
   const cacheKey = `STK_${cleanSymbol}_${range}`;
   const lastCheck = lastFetchMap.get(cacheKey) ?? 0;
   if (
+    !force &&
     existing &&
     existing.historicalSeries.length > 0 &&
     existing.companyProfile !== undefined &&
