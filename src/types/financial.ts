@@ -245,6 +245,7 @@ export interface StockMutualFundHolding {
 export interface StockRegistryMetadata {
   nseSeries: string | null;
   nseListingDate: string | null;
+  bseListingDate?: string | null;
   faceValue: number | null;
   marketLot: number | null;
   tickSize: number | null;
@@ -290,6 +291,7 @@ export interface StockInstrument {
   marketCapUsd?: number;
   indmoneyCategory?: string;
   isUsStock?: boolean;
+  listingDate?: string | null;
   lastTradeTime?: string | null;
   nseQuote?: ExchangeLiveQuote | null;
   bseQuote?: ExchangeLiveQuote | null;

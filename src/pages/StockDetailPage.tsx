@@ -39,7 +39,7 @@ import {
 } from '../components/common/StateViews';
 import { DataQualityBadge } from '../components/common/DataQualityBadge';
 import { WatchlistButton } from '../components/common/WatchlistButton';
-import { generateDeterministicCandles } from '../utils/candleSynthesis';
+import { generateDeterministicCandles, parseListingDateMs } from '../utils/candleSynthesis';
 
 const CHART_RANGES = [
   { label: '1D', value: '1d' },
@@ -238,7 +238,7 @@ export function StockDetailPage() {
             bseCode: 'US',
             yahooSymbol: symUpper,
             companyName: symUpper === 'NVDA' ? 'NVIDIA Corporation' : symUpper,
-            logoUrl: `https://logo.clearbit.com/${symUpper.toLowerCase()}.com`,
+            logoUrl: `https://assets.parqet.com/logos/symbol/${symUpper}?format=png`,
             exchange: knownUs.exchange,
             sector: 'Information Technology',
             industry: 'US Equity',
@@ -333,9 +333,26 @@ export function StockDetailPage() {
 
   const effectiveChartSeries = useMemo(() => {
     if (!stock) return [];
+    const symUpper = (stock.symbol || '').toUpperCase().trim();
+    const isHeroMotors = symUpper === 'HEROMOTORS' || stock.bseCode === '544936';
+    const isUs = Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[symUpper]);
+    const usMeta = isUs ? getKnownUsStockMetadata(symUpper) : null;
+    const listingDateStr = stock.registry?.nseListingDate || (isHeroMotors ? '18 November 2026' : isUs ? usMeta?.listingDate : (stock.listingDate || undefined));
+    const listingMs = parseListingDateMs(listingDateStr) || (isHeroMotors ? Date.parse('2026-11-18T03:45:00.000Z') : null);
+
     let series = stock.historicalSeries && stock.historicalSeries.length >= 2
       ? stock.historicalSeries
       : null;
+
+    // For newly listed stocks (such as Hero Motors listed 18 Nov 2026), filter out any pre-listing candles from prior years
+    if (listingMs && listingMs > 0 && series && series.length > 0) {
+      const filtered = series.filter((p) => new Date(p.date).getTime() >= listingMs - 86_400_000);
+      if (filtered.length >= 2) {
+        series = filtered;
+      } else {
+        series = null;
+      }
+    }
 
     // For 1D intraday, if existing series is from an older day (>24h ago), discard stale history and synthesize fresh live intraday
     if (range === '1d' && series && series.length > 0) {
@@ -382,6 +399,7 @@ export function StockDetailPage() {
       volume: stock.volume,
       range,
       isUsStock: stock.isUsStock || stock.currency === 'USD',
+      listingDate: listingDateStr,
     });
   }, [
     stock?.symbol,
@@ -397,6 +415,8 @@ export function StockDetailPage() {
     stock?.lastTradeTime,
     stock?.isUsStock,
     stock?.currency,
+    stock?.registry?.nseListingDate,
+    stock?.listingDate,
     range,
   ]);
 

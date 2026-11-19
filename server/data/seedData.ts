@@ -303,7 +303,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -1151,7 +1151,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -1460,7 +1460,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "dailyBreakdown": [],
       "provenance": {
         "source": "Moneycontrol IPO; Economic Times IPO",
-        "retrievedAt": "2026-11-19T17:03:55.107Z",
+        "retrievedAt": "2026-11-19T17:12:02.959Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Provisional",
         "qualityStatus": "UNAVAILABLE",
@@ -2064,7 +2064,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -2473,7 +2473,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -3794,7 +3794,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -3979,7 +3979,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -4206,7 +4206,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -5315,7 +5315,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -5505,7 +5505,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -5691,7 +5691,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -6172,7 +6172,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -6654,7 +6654,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -11606,7 +11606,7 @@ export const SEED_IPOS: IPOOffering[] = [
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T17:12:01.369Z",
+        "retrievedAt": "2026-11-19T17:31:56.138Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",

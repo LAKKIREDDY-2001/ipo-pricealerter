@@ -27,7 +27,7 @@ export class ApiError extends Error {
 }
 
 export const API_BASE_URL = (
-  (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() || ''
+  (typeof import.meta !== 'undefined' && import.meta.env ? (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() : '') || ''
 ).replace(/\/+$/, '');
 
 export function resolveApiUrl(url: string): string {
@@ -771,7 +771,7 @@ export const api = {
           bseCode: 'US',
           yahooSymbol: symUpper,
           companyName: (symUpper === 'NVDA') ? 'NVIDIA Corporation' : (liveMatch?.companyName || symUpper),
-          logoUrl: liveMatch?.logoUrl || `https://logo.clearbit.com/${symUpper.toLowerCase()}.com`,
+          logoUrl: liveMatch?.logoUrl || `https://assets.parqet.com/logos/symbol/${symUpper}?format=png`,
           exchange: (liveMatch?.exchange || meta.exchange) as 'NASDAQ' | 'NYSE',
           sector: liveMatch?.sector || 'Information Technology',
           industry: liveMatch?.industry || 'US Equity',
@@ -881,6 +881,7 @@ export const api = {
 
         const stock: StockInstrument = {
           ...found,
+          logoUrl: isHeroMotors ? '/assets/movers/hero-motors.png' : (found.logoUrl || null),
           currentPrice: livePrice,
           previousClose: livePreviousClose,
           open: typeof liveMatchForFound?.open === 'number' ? liveMatchForFound.open : (found.open ?? livePreviousClose),

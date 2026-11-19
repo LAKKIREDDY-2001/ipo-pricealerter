@@ -36,6 +36,32 @@ export interface CandleSynthesisOptions {
   volume?: number | null;
   range: string;
   isUsStock?: boolean;
+  listingDate?: string | null;
+}
+
+/**
+ * Parse an exchange listing date string to millisecond epoch timestamp.
+ * Supports natural language ("18 November 2026"), hyphenated ("18-Nov-2026"), ISO ("2026-11-18"), and slash ("18/11/2026").
+ */
+export function parseListingDateMs(dateStr?: string | null): number | null {
+  if (!dateStr || typeof dateStr !== 'string') return null;
+  const trimmed = dateStr.trim();
+  if (!trimmed || /^(unavailable|n\/a|active on exchange)$/i.test(trimmed)) return null;
+
+  const standard = Date.parse(trimmed);
+  if (!isNaN(standard) && standard > 0) return standard;
+
+  const parts = trimmed.split(/[-/]/);
+  if (parts.length === 3) {
+    if (parts[0].length === 4) {
+      const ms = Date.parse(`${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`);
+      if (!isNaN(ms)) return ms;
+    } else {
+      const ms = Date.parse(`${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`);
+      if (!isNaN(ms)) return ms;
+    }
+  }
+  return null;
 }
 
 /**
@@ -145,9 +171,35 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
     startPrice = current * (0.2 + hashToFloat(`${symbol}_max`) * 0.25);
   }
 
+  // Listing Date Clamping: Stocks listed recently (e.g. Hero Motors listed 18 Nov 2026)
+  // must NEVER show data from 2020 or before their actual exchange debut.
+  let listingMs: number | null = parseListingDateMs(opts.listingDate);
+  if (!listingMs && (symbol === 'HEROMOTORS' || symbol === '544936')) {
+    listingMs = Date.parse('2026-11-18T03:45:00.000Z');
+  }
+
+  if (listingMs && listingMs <= now.getTime()) {
+    const ageDays = Math.max(1, Math.floor((now.getTime() - listingMs) / 86_400_000));
+    if (daysBack > ageDays) {
+      daysBack = ageDays;
+      if (daysBack <= 3) {
+        numCandles = Math.max(5, daysBack * 12);
+      } else if (daysBack <= 14) {
+        numCandles = Math.max(7, daysBack * 4);
+      } else if (daysBack <= 90) {
+        numCandles = Math.min(numCandles, Math.max(10, daysBack));
+      } else {
+        numCandles = Math.min(numCandles, daysBack);
+      }
+      startPrice = openPrice > 0 ? openPrice : (prev > 0 ? prev : current * 0.98);
+    }
+  }
+
   const candles: StockHistoricalPoint[] = [];
   const msStep = (daysBack * 86_400_000) / numCandles;
-  const startMs = now.getTime() - daysBack * 86_400_000;
+  const startMs = listingMs && daysBack <= Math.max(1, Math.floor((now.getTime() - listingMs) / 86_400_000))
+    ? listingMs
+    : now.getTime() - daysBack * 86_400_000;
   const volPerSession = Math.round(totalVol * (0.8 + hashToFloat(`${symbol}_vol`) * 0.4));
 
   let prevClosePrice = startPrice;
@@ -196,11 +248,21 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
  * Ensure a stock instrument has non-empty historical series and sparkline for any requested range.
  */
 export function ensureStockSeries(stock: StockInstrument, range = '1d'): StockInstrument {
+  const listingDate = stock.registry?.nseListingDate || stock.registry?.bseListingDate || stock.listingDate;
+  const listingMs = parseListingDateMs(listingDate) || (stock.symbol?.toUpperCase() === 'HEROMOTORS' || String(stock.bseCode) === '544936' ? Date.parse('2026-11-18T03:45:00.000Z') : null);
+
   if (stock.historicalSeries && stock.historicalSeries.length >= 2) {
+    let series = stock.historicalSeries;
+    if (listingMs && listingMs > 0) {
+      const filtered = series.filter((p) => new Date(p.date).getTime() >= listingMs - 86_400_000);
+      if (filtered.length >= 2) {
+        series = filtered;
+      }
+    }
     const spark = stock.sparkline && stock.sparkline.length >= 2
       ? stock.sparkline
-      : stock.historicalSeries.slice(-20).map((p) => p.close);
-    return { ...stock, sparkline: spark };
+      : series.slice(-20).map((p) => p.close);
+    return { ...stock, historicalSeries: series, sparkline: spark };
   }
 
   const synthesized = generateDeterministicCandles({
@@ -215,6 +277,7 @@ export function ensureStockSeries(stock: StockInstrument, range = '1d'): StockIn
     volume: stock.volume,
     range,
     isUsStock: stock.isUsStock || stock.currency === 'USD',
+    listingDate: listingDate || (stock.symbol?.toUpperCase() === 'HEROMOTORS' || String(stock.bseCode) === '544936' ? '18 November 2026' : undefined),
   });
 
   const sparkline = synthesized.slice(-25).map((p) => p.close);

@@ -25,7 +25,7 @@ import {
   globalStockToStockInstrument,
   getLiveUsdInrRate,
 } from './indmoneyUsStocksProvider.ts';
-import { generateDeterministicCandles } from '../../src/utils/candleSynthesis.ts';
+import { generateDeterministicCandles, parseListingDateMs } from '../../src/utils/candleSynthesis.ts';
 
 interface YahooChartResponse {
   chart?: {
@@ -3053,6 +3053,7 @@ export async function refreshStockBySymbol(
         volume,
         range,
         isUsStock: true,
+        listingDate: baseStock.registry?.nseListingDate || baseStock.listingDate,
       });
     }
 
@@ -3444,6 +3445,18 @@ export async function refreshStockBySymbol(
   const isHeroMotorsStock = finalSymbol.toUpperCase() === 'HEROMOTORS' || finalBseCode === '544936';
 
   let finalCandles = candles.length > 0 ? candles : existing?.historicalSeries || [];
+  const stockListingDate = isHeroMotorsStock ? '18 November 2026' : (existing?.registry?.nseListingDate || existing?.listingDate);
+  const stockListingMs = isHeroMotorsStock ? Date.parse('2026-11-18T03:45:00.000Z') : parseListingDateMs(stockListingDate);
+
+  if (stockListingMs && stockListingMs > 0 && finalCandles.length > 0) {
+    const filtered = finalCandles.filter((p) => new Date(p.date).getTime() >= stockListingMs - 86_400_000);
+    if (filtered.length >= 2) {
+      finalCandles = filtered;
+    } else {
+      finalCandles = [];
+    }
+  }
+
   if (finalCandles.length < 2) {
     finalCandles = generateDeterministicCandles({
       symbol: finalSymbol,
@@ -3457,6 +3470,7 @@ export async function refreshStockBySymbol(
       volume: volume ?? (isHeroMotorsStock ? 4538461 : 250000),
       range,
       isUsStock: false,
+      listingDate: stockListingDate,
     });
   }
 
@@ -3467,7 +3481,7 @@ export async function refreshStockBySymbol(
     yahooSymbol: finalNseCode ? `${finalNseCode}.NS` : `${finalBseCode || cleanSymbol}.BO`,
     searchId: searchId || existing?.searchId,
     companyName: isHeroMotorsStock ? 'Hero Motors Limited' : finalCompanyName,
-    logoUrl: isHeroMotorsStock ? 'https://assets-netstorage.groww.in/stock-assets/logos2/GSTK544936.webp' : finalLogoUrl,
+    logoUrl: isHeroMotorsStock ? '/assets/movers/hero-motors.png' : finalLogoUrl,
     exchange: finalExchange,
     sector:
       companyInfo?.header?.industryName ||
