@@ -218,14 +218,61 @@ async function loadUsStocksSnapshot(request: Request, assets: { fetch: (input: R
 }
 
 function quoteFreshnessStatus(lastTradeTime: unknown): "LIVE" | "STALE" {
-  if (!lastTradeTime) return "LIVE";
+  if (!lastTradeTime) return "STALE";
   const timestamp = typeof lastTradeTime === "number"
     ? new Date(lastTradeTime > 1e12 ? lastTradeTime : lastTradeTime * 1000)
     : new Date(String(lastTradeTime));
-  if (Number.isNaN(timestamp.getTime())) return "LIVE";
+  if (Number.isNaN(timestamp.getTime())) return "STALE";
   const tradeDate = timestamp.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
   return tradeDate === today ? "LIVE" : "STALE";
+}
+
+function isCurrentIndianSessionQuote(lastTradeTime: unknown): boolean {
+  return quoteFreshnessStatus(lastTradeTime) === "LIVE";
+}
+
+async function fetchIndstocksPageQuotes(stocks: any[], env: any): Promise<Map<string, any>> {
+  const token = String(env.INDSTOCKS_ACCESS_TOKEN || env.INDSTOCKS_API_KEY || "").trim();
+  if (!token || !stocks.length) return new Map();
+  const codes: string[] = [];
+  const codeToSymbol = new Map<string, string>();
+  for (const stock of stocks) {
+    const symbol = String(stock.symbol || "").trim().toUpperCase();
+    const bseCode = String(stock.bseCode || "").trim();
+    const candidates = [
+      stock.registry?.zerodhaNseToken ? `NSE_${stock.registry.zerodhaNseToken}` : "",
+      symbol && !/^\\d+$/.test(symbol) ? `NSE_${symbol}` : "",
+      /^\\d{6}$/.test(bseCode) ? `BSE_${bseCode}` : "",
+    ].filter(Boolean);
+    for (const code of candidates) {
+      codes.push(code);
+      codeToSymbol.set(code, symbol);
+    }
+  }
+  const result = new Map<string, any>();
+  const unique = [...new Set(codes)];
+  for (let i = 0; i < unique.length; i += 500) {
+    const batch = unique.slice(i, i + 500);
+    try {
+      const endpoint = new URL("https://api.indstocks.com/market/quotes/full");
+      endpoint.searchParams.set("scrip-codes", batch.join(","));
+      const response = await fetch(endpoint.toString(), {
+        headers: { accept: "application/json", authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}` },
+        signal: AbortSignal.timeout(6500),
+      });
+      if (!response.ok) continue;
+      const payload = await response.json() as any;
+      if (payload?.status !== "success" || !payload.data) continue;
+      for (const [code, quote] of Object.entries(payload.data)) {
+        const symbol = codeToSymbol.get(code);
+        if (symbol && quote && Number((quote as any).live_price) > 0) result.set(symbol, quote);
+      }
+    } catch {
+      // Continue with timestamp-verified Yahoo quotes if INDstocks is unavailable.
+    }
+  }
+  return result;
 }
 
 function stockYahooCandidates(stock: any): string[] {
@@ -614,30 +661,65 @@ function mergeGrowwCompanyDetails(stock: any, info: any) {
   };
 }
 
-async function enrichQuotes(stocks: any[]): Promise<{ stocks: any[]; successful: number }> {
-  // Keep the number of upstream requests bounded for Cloudflare Pages.
-  // Refresh every stock on the visible 50-row page; later pages are refreshed when opened.
+async function enrichQuotes(stocks: any[], env: any): Promise<{ stocks: any[]; successful: number }> {
+  // Each requested page is refreshed. Pages beyond the visible page are refreshed
+  // when the user navigates to them, avoiding an unbounded provider burst.
   const MAX_QUOTE_LOOKUPS = 50;
   const CONCURRENCY = 12;
   const result = [...stocks];
   let successful = 0;
+  const indianStocks = stocks.slice(0, MAX_QUOTE_LOOKUPS).filter((s) =>
+    !s.isUsStock && String(s.currency || "INR").toUpperCase() !== "USD"
+  );
+  const indstocksQuotes = await fetchIndstocksPageQuotes(indianStocks, env);
   let next = 0;
   async function worker() {
     while (next < Math.min(stocks.length, MAX_QUOTE_LOOKUPS)) {
       const index = next++;
       const stock = stocks[index];
-      const quote = await fetchYahooQuote(stock) || await fetchGoogleFinanceQuote(stock);
+      const isUs = stock.isUsStock || String(stock.currency || "").toUpperCase() === "USD";
+      let quote: any = null;
+      if (!isUs) {
+        const ind = indstocksQuotes.get(String(stock.symbol || "").toUpperCase());
+        if (ind && Number(ind.live_price) > 0) {
+          const retrievedAt = new Date().toISOString();
+          const price = Number(ind.live_price);
+          const previous = Number(ind.prev_close) > 0 ? Number(ind.prev_close) : null;
+          quote = {
+            currentPrice: price,
+            previousClose: previous,
+            dayChange: previous ? Number((price - previous).toFixed(2)) : null,
+            dayChangePercent: previous ? Number((((price - previous) / previous) * 100).toFixed(2)) : null,
+            open: Number(ind.day_open) > 0 ? Number(ind.day_open) : null,
+            dayHigh: Number(ind.day_high) > 0 ? Number(ind.day_high) : null,
+            dayLow: Number(ind.day_low) > 0 ? Number(ind.day_low) : null,
+            volume: Number(ind.volume) >= 0 ? Number(ind.volume) : null,
+            quoteRetrievedAt: retrievedAt,
+            quoteSource: "INDstocks market quote",
+            quoteStatus: "UNVERIFIED",
+            quoteCurrency: "INR",
+          };
+        }
+      }
+      if (!quote) {
+        const yahoo = await fetchYahooQuote(stock);
+        // Never replace a quote with a previous-session Yahoo price.
+        if (yahoo && isCurrentIndianSessionQuote(yahoo.lastTradeTime)) quote = yahoo;
+      }
+      // Google Finance HTML does not provide a reliable exchange trade timestamp;
+      // it must not be used to label an old or undated price as today's live quote.
       if (!quote) continue;
       successful++;
       result[index] = {
         ...stock,
         ...quote,
+        lastTradeTime: quote.lastTradeTime || stock.lastTradeTime || null,
         provenance: {
           ...(stock.provenance || {}),
           source: quote.quoteSource || "Market data feed",
-          retrievedAt: quote.lastTradeTime || new Date().toISOString(),
-          verificationStatus: "Unverified",
-          qualityStatus: quote.quoteStatus === "DELAYED" ? "DELAYED" : "LIVE",
+          retrievedAt: quote.lastTradeTime || quote.quoteRetrievedAt || new Date().toISOString(),
+          verificationStatus: quote.quoteStatus === "LIVE" ? "Verified" : "Unverified",
+          qualityStatus: quote.quoteStatus === "DELAYED" ? "DELAYED" : quote.quoteStatus === "UNVERIFIED" ? "UNVERIFIED" : "LIVE",
           currency: quote.quoteCurrency || "INR",
         },
       };
@@ -2457,7 +2539,7 @@ export async function onRequest(context: {
         }
       }
       const page = filterAndPageStocks(universe, url);
-      const enriched = await enrichQuotes(page.stocks || []);
+      const enriched = await enrichQuotes(page.stocks || [], env);
       let responseStocks = enriched.stocks;
       let storedQuoteCount = 0;
       if (env.DB && responseStocks.length) {
@@ -2470,6 +2552,16 @@ export async function onRequest(context: {
             if (stock.quoteSource) return stock;
             const row: any = bySymbol.get(String(stock.symbol || "").toUpperCase());
             if (!row) return stock;
+            // D1 may contain yesterday's cached quote. Only reuse it when its
+            // exchange timestamp belongs to today's Indian market date.
+            if (quoteFreshnessStatus(row.quote_time) !== "LIVE") return {
+              ...stock,
+              currentPrice: null,
+              dayChange: null,
+              dayChangePercent: null,
+              quoteStatus: "STALE",
+              provenance: { ...(stock.provenance || {}), qualityStatus: "STALE", verificationStatus: "Unverified" },
+            };
             storedQuoteCount++;
             return {
               ...stock,
