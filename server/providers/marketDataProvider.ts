@@ -2379,9 +2379,12 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
     .slice(0, 50);
 
   if (candidates.length > 0) {
-    for (let batchStart = 0; batchStart < candidates.length; batchStart += 8) {
+    // Keep the per-request fan-out bounded, but hydrate before responding.
+    // On serverless deployments background work after res.json() may be suspended,
+    // which previously made users reload several times before quotes appeared.
+    for (let batchStart = 0; batchStart < candidates.length; batchStart += 20) {
       await Promise.all(
-      candidates.slice(batchStart, batchStart + 8).map(async (s) => {
+      candidates.slice(batchStart, batchStart + 20).map(async (s) => {
         const useNse = s.exchange.includes('NSE') && !/^\d+$/.test(s.symbol);
         let quoteSource = 'Groww Exchange Quote';
         let quote =
@@ -2719,8 +2722,9 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
         qualityStatus: stock.provenance.source.includes('Yahoo') ? 'DELAYED' : 'VERIFIED',
       };
     }
-    // Hydrate asynchronously; subsequent API polls return these fresh cached values.
-    void hydrateVisibleLiveQuotes(paged, Boolean(opts.refresh)).catch(() => undefined);
+    // Complete visible-page quote hydration before returning the API response.
+    // Do not rely on fire-and-forget network work surviving a Cloudflare request.
+    await hydrateVisibleLiveQuotes(paged, Boolean(opts.refresh));
   }
 
   return {
