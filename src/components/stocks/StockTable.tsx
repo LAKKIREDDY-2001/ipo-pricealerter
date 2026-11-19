@@ -180,7 +180,7 @@ export function StockTable({
                   />
                   <div className="min-w-0">
                     <Link
-                      to={`/stock/${s.symbol}`}
+                      to={`/stock/${encodeURIComponent(s.symbol)}`}
                       className="text-sm font-bold text-[#152338] dark:text-slate-100 hover:text-[#2563EB] block truncate"
                     >
                       {s.companyName}
@@ -231,7 +231,7 @@ export function StockTable({
                     compact
                   />
                   <Link
-                    to={`/stock/${s.symbol}`}
+                    to={`/stock/${encodeURIComponent(s.symbol)}`}
                     className="rounded-md border border-[#E2E8F0] dark:border-slate-700 px-2.5 py-1 text-[11px] font-semibold text-[#152338] dark:text-slate-100 hover:bg-[#14263F] hover:text-white dark:hover:bg-[#2563EB] transition-colors"
                   >
                     Quote
@@ -334,7 +334,7 @@ export function StockTable({
                       />
                       <div className="min-w-0">
                         <Link
-                          to={`/stock/${s.symbol}`}
+                          to={`/stock/${encodeURIComponent(s.symbol)}`}
                           className="font-semibold text-[#152338] dark:text-slate-100 hover:text-[#2563EB] block truncate max-w-[210px]"
                         >
                           {s.companyName}
