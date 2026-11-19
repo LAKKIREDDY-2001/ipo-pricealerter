@@ -101267,19 +101267,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "actualListingPrice": 280.9,
       "listingExchange": "NSE",
       "stockSymbol": "BLACKBUCK",
-      "currentMarketPrice": 280.9,
-      "previousClose": 280.9,
+      "currentMarketPrice": 521.4,
+      "previousClose": 515.25,
       "listingDate": "2024-11-22",
-      "priceStatus": "DELAYED",
+      "priceStatus": "VERIFIED",
       "provenance": {
-        "source": "NSE & BSE Official Listing Report",
-        "retrievedAt": "2024-11-22T15:30:00.000Z",
-        "effectiveDate": "2024-11-22",
+        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
+        "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Mainboard Listing"
+        "dataCategory": "Equity Quote"
       }
     },
     "financials": {
@@ -102115,19 +102115,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "actualListingPrice": 111.6,
       "listingExchange": "NSE",
       "stockSymbol": "NTPCGREEN",
-      "currentMarketPrice": 82.38,
-      "previousClose": 82.99,
+      "currentMarketPrice": 82.48,
+      "previousClose": 82.38,
       "listingDate": "2024-11-27",
-      "priceStatus": "DELAYED",
+      "priceStatus": "VERIFIED",
       "provenance": {
-        "source": "NSE/BSE Official Listing Report",
-        "retrievedAt": "2024-11-27T15:30:00.000Z",
-        "effectiveDate": "2024-11-27",
+        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
+        "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Mainboard Listing"
+        "dataCategory": "Equity Quote"
       }
     },
     "financials": {
@@ -102430,7 +102430,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "dailyBreakdown": [],
       "provenance": {
         "source": "Moneycontrol IPO; Economic Times IPO",
-        "retrievedAt": "2026-11-19T16:27:41.938Z",
+        "retrievedAt": "2026-11-19T16:59:40.805Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Provisional",
         "qualityStatus": "UNAVAILABLE",
@@ -103028,19 +103028,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "actualListingPrice": 218,
       "listingExchange": "NSE",
       "stockSymbol": "EIEL",
-      "currentMarketPrice": 165.99,
-      "previousClose": 168.23,
+      "currentMarketPrice": 168.54,
+      "previousClose": 165.99,
       "listingDate": "2024-11-29",
-      "priceStatus": "DELAYED",
+      "priceStatus": "VERIFIED",
       "provenance": {
-        "source": "NSE/BSE Official Listing Report",
-        "retrievedAt": "2024-11-29T15:30:00.000Z",
-        "effectiveDate": "2024-11-29",
+        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
+        "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Mainboard Listing"
+        "dataCategory": "Equity Quote"
       }
     },
     "financials": {
@@ -103438,18 +103438,18 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "listingExchange": "NSE",
       "stockSymbol": "RAJPUTANA",
       "currentMarketPrice": 27,
-      "previousClose": 26.61,
+      "previousClose": 27,
       "listingDate": "2024-12-03",
-      "priceStatus": "DELAYED",
+      "priceStatus": "VERIFIED",
       "provenance": {
-        "source": "NSE SME Official Listing Report",
-        "retrievedAt": "2024-12-03T15:30:00.000Z",
-        "effectiveDate": "2024-12-03",
+        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
+        "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "SME Listing"
+        "dataCategory": "Equity Quote"
       }
     },
     "financials": {
@@ -104764,7 +104764,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104949,7 +104949,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -105176,7 +105176,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106285,7 +106285,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106475,7 +106475,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106661,7 +106661,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107142,7 +107142,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107624,7 +107624,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:02:52.325Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -112576,7 +112576,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
+        "retrievedAt": "2026-11-19T17:03:53.513Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
