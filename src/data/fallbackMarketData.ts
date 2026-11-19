@@ -101267,19 +101267,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "actualListingPrice": 280.9,
       "listingExchange": "NSE",
       "stockSymbol": "BLACKBUCK",
-      "currentMarketPrice": 521.4,
-      "previousClose": 515.25,
+      "currentMarketPrice": 280.9,
+      "previousClose": 280.9,
       "listingDate": "2024-11-22",
-      "priceStatus": "VERIFIED",
+      "priceStatus": "DELAYED",
       "provenance": {
-        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
-        "effectiveDate": "2026-11-19",
+        "source": "NSE & BSE Official Listing Report",
+        "retrievedAt": "2024-11-22T15:30:00.000Z",
+        "effectiveDate": "2024-11-22",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Equity Quote"
+        "dataCategory": "Mainboard Listing"
       }
     },
     "financials": {
@@ -102115,19 +102115,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "actualListingPrice": 111.6,
       "listingExchange": "NSE",
       "stockSymbol": "NTPCGREEN",
-      "currentMarketPrice": 82.48,
-      "previousClose": 82.38,
+      "currentMarketPrice": 82.38,
+      "previousClose": 82.99,
       "listingDate": "2024-11-27",
-      "priceStatus": "VERIFIED",
+      "priceStatus": "DELAYED",
       "provenance": {
-        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
-        "effectiveDate": "2026-11-19",
+        "source": "NSE/BSE Official Listing Report",
+        "retrievedAt": "2024-11-27T15:30:00.000Z",
+        "effectiveDate": "2024-11-27",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Equity Quote"
+        "dataCategory": "Mainboard Listing"
       }
     },
     "financials": {
@@ -102430,7 +102430,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "dailyBreakdown": [],
       "provenance": {
         "source": "Moneycontrol IPO; Economic Times IPO",
-        "retrievedAt": "2026-11-19T16:02:53.795Z",
+        "retrievedAt": "2026-11-19T16:27:41.938Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Provisional",
         "qualityStatus": "UNAVAILABLE",
@@ -103028,19 +103028,19 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "actualListingPrice": 218,
       "listingExchange": "NSE",
       "stockSymbol": "EIEL",
-      "currentMarketPrice": 168.54,
-      "previousClose": 165.99,
+      "currentMarketPrice": 165.99,
+      "previousClose": 168.23,
       "listingDate": "2024-11-29",
-      "priceStatus": "VERIFIED",
+      "priceStatus": "DELAYED",
       "provenance": {
-        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
-        "effectiveDate": "2026-11-19",
+        "source": "NSE/BSE Official Listing Report",
+        "retrievedAt": "2024-11-29T15:30:00.000Z",
+        "effectiveDate": "2024-11-29",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Equity Quote"
+        "dataCategory": "Mainboard Listing"
       }
     },
     "financials": {
@@ -103438,18 +103438,18 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "listingExchange": "NSE",
       "stockSymbol": "RAJPUTANA",
       "currentMarketPrice": 27,
-      "previousClose": 27,
+      "previousClose": 26.61,
       "listingDate": "2024-12-03",
-      "priceStatus": "VERIFIED",
+      "priceStatus": "DELAYED",
       "provenance": {
-        "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-19T16:27:40.551Z",
-        "effectiveDate": "2026-11-19",
+        "source": "NSE SME Official Listing Report",
+        "retrievedAt": "2024-12-03T15:30:00.000Z",
+        "effectiveDate": "2024-12-03",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
         "currency": "INR",
         "unit": "INR per share",
-        "dataCategory": "Equity Quote"
+        "dataCategory": "SME Listing"
       }
     },
     "financials": {

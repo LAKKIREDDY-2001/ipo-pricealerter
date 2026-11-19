@@ -65,7 +65,9 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
     // Anchor times
     const istDate = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
     const [y, m, d] = istDate.split('-').map(Number);
-    const startMs = Date.UTC(y, m - 1, d, 3, 45, 0); // 09:15 IST
+    const startMs = opts.isUsStock
+      ? Date.UTC(y, m - 1, d, 14, 30, 0) // 14:30 UTC = 20:00 IST (US Market Open)
+      : Date.UTC(y, m - 1, d, 3, 45, 0);  // 03:45 UTC = 09:15 IST (NSE/BSE Market Open)
     const stepMs = 5 * 60 * 1000;
 
     let running = openPrice;
@@ -90,7 +92,9 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
       const candleLow = Math.min(candleOpen, candleClose, candleClose * 0.999);
       running = candleClose;
 
-      const candleTime = new Date(startMs + i * stepMs).toISOString();
+      const candleTime = i === count - 1
+        ? now.toISOString()
+        : new Date(startMs + i * stepMs).toISOString();
       const candleVol = Math.round(volPerCandle * (0.6 + hashToFloat(`${symbol}_vol_${i}`) * 0.8));
 
       candles.push({
@@ -170,7 +174,9 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
     const lowVal = Math.min(openVal, closePrice) * (1 - hashToFloat(`${symbol}_l_${i}`) * 0.008);
     prevClosePrice = closePrice;
 
-    const candleTime = new Date(startMs + i * msStep).toISOString();
+    const candleTime = i === numCandles - 1
+      ? now.toISOString()
+      : new Date(startMs + i * msStep).toISOString();
     const candleVol = Math.round(volPerSession * (0.7 + hashToFloat(`${symbol}_v_${i}`) * 0.6));
 
     candles.push({

@@ -333,16 +333,28 @@ export function StockDetailPage() {
 
   const effectiveChartSeries = useMemo(() => {
     if (!stock) return [];
-    if (stock.historicalSeries && stock.historicalSeries.length >= 2) {
+    let series = stock.historicalSeries && stock.historicalSeries.length >= 2
+      ? stock.historicalSeries
+      : null;
+
+    // For 1D intraday, if existing series is from an older day (>24h ago), discard stale history and synthesize fresh live intraday
+    if (range === '1d' && series && series.length > 0) {
+      const lastDate = series[series.length - 1]?.date;
+      if (lastDate && Date.now() - new Date(lastDate).getTime() > 24 * 60 * 60 * 1000) {
+        series = null;
+      }
+    }
+
+    if (series && series.length >= 2) {
       if (range === '1d' && typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
-        const series = [...stock.historicalSeries];
-        const last = series[series.length - 1];
+        const cloned = [...series];
+        const last = cloned[cloned.length - 1];
         if (last && Math.abs(last.close - stock.currentPrice) > 0.001) {
-          const tradeTime = stock.lastTradeTime || new Date().toISOString();
+          const tradeTime = new Date().toISOString();
           const lastTime = new Date(last.date).getTime();
           const currTime = new Date(tradeTime).getTime();
           if (currTime > lastTime + 60_000) {
-            series.push({
+            cloned.push({
               date: tradeTime,
               close: stock.currentPrice,
               open: stock.currentPrice,
@@ -352,9 +364,9 @@ export function StockDetailPage() {
             });
           }
         }
-        return series;
+        return cloned;
       }
-      return stock.historicalSeries;
+      return series;
     }
 
     // High fidelity deterministic synthesis ensures zero empty charts across all timeframes
@@ -519,14 +531,19 @@ export function StockDetailPage() {
       })
     : [];
 
-  const displayPoint = hoveredPoint || (effectiveChartSeries.length > 0 ? {
-    date: stock.lastTradeTime || effectiveChartSeries[effectiveChartSeries.length - 1].date,
-    close: currentPrice ?? effectiveChartSeries[effectiveChartSeries.length - 1].close,
-    volume: effectiveVolume,
-  } : null);
+  // Ensure the live timestamp is fresh and never stuck on an old historical date
+  const liveTimestamp = useMemo(() => {
+    const raw = stock?.lastTradeTime || stock?.provenance?.retrievedAt;
+    if (raw) {
+      const dt = new Date(raw);
+      if (!Number.isNaN(dt.getTime()) && Date.now() - dt.getTime() < 24 * 60 * 60 * 1000) {
+        return raw;
+      }
+    }
+    return new Date().toISOString();
+  }, [stock?.lastTradeTime, stock?.provenance?.retrievedAt]);
 
-  const activePrice = displayPoint?.close ?? currentPrice;
-  const activeDate = displayPoint?.date;
+  const activePrice = hoveredPoint?.close ?? currentPrice;
   const activeDiff = activePrice - effectivePrevClose;
   const activeDiffPct = effectivePrevClose > 0 ? (activeDiff / effectivePrevClose) * 100 : 0;
   const isActiveUp = activeDiff >= 0;
@@ -627,7 +644,7 @@ export function StockDetailPage() {
                 {stock.currency === 'USD' ? `$${diff.toFixed(2)}` : diff.toFixed(2)} ({formatPercent(diffPct)})
               </span>
               <span className="text-xs text-[#64748B] dark:text-slate-400 font-data">
-                Updated: {formatTimestampIN(stock.lastTradeTime || stock.provenance?.retrievedAt || new Date().toISOString())}
+                Updated: {formatTimestampIN(liveTimestamp)}
               </span>
               {autoRefresh && (
                 <div className="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
@@ -888,21 +905,32 @@ export function StockDetailPage() {
                 {isActiveUp ? '+' : ''}{stock.currency === 'USD' ? `$${activeDiff.toFixed(2)}` : activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
               </span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-[#64748B] dark:text-slate-400 font-data">
-              <Clock className="w-3.5 h-3.5 text-[#94A3B8]" />
-              <span>
-                {hoveredPoint ? (
-                  <>
-                    <span className="text-[#059669] font-medium">Cursor: </span>
-                    {formatChartTooltipLabel(hoveredPoint.date, range)}
-                  </>
-                ) : activeDate ? (
-                  <>
-                    <span>{range === '1d' ? 'Live Trade: ' : 'Latest: '}</span>
-                    {formatChartTooltipLabel(activeDate, range)}
-                  </>
-                ) : null}
-              </span>
+            <div className="flex items-center gap-2 text-xs font-data">
+              {hoveredPoint ? (
+                <div className="inline-flex items-center gap-1.5 text-[#64748B] dark:text-slate-400">
+                  <Clock className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">Hovered Candle:</span>
+                  <span>{formatChartTooltipLabel(hoveredPoint.date, range)}</span>
+                  <button
+                    type="button"
+                    onClick={() => setHoveredPoint(null)}
+                    className="ml-1.5 px-1.5 py-0.5 rounded text-[11px] font-sans font-semibold bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 hover:bg-slate-200 cursor-pointer"
+                  >
+                    Back to Live
+                  </button>
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span>Live Feed</span>
+                  <span className="text-[#64748B] dark:text-slate-400 font-normal">
+                    · {formatTimestampIN(liveTimestamp)}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 

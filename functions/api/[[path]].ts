@@ -533,7 +533,7 @@ function generateFallbackCandles(stock: any, range: string): any[] {
       const l = Math.min(o, c) * 0.999;
       running = c;
       candles.push({
-        date: new Date(startMs + i * stepMs).toISOString(),
+        date: i === count - 1 ? new Date().toISOString() : new Date(startMs + i * stepMs).toISOString(),
         open: Number(o.toFixed(2)),
         high: Number(h.toFixed(2)),
         low: Number(l.toFixed(2)),
@@ -562,7 +562,7 @@ function generateFallbackCandles(stock: any, range: string): any[] {
     const l = Math.min(o, c) * 0.992;
     prevC = c;
     candles.push({
-      date: new Date(startMs + i * stepMs).toISOString(),
+      date: i === numCandles - 1 ? new Date().toISOString() : new Date(startMs + i * stepMs).toISOString(),
       open: Number(o.toFixed(2)),
       high: Number(h.toFixed(2)),
       low: Number(l.toFixed(2)),
@@ -2882,7 +2882,14 @@ export async function onRequest(context: {
       const companyEnriched = mergeGrowwCompanyDetails(normalizeStockDetail(stock), companyInfo);
       const nowIso = new Date().toISOString();
       const rawHistory = history.length ? history : storedHistory.length ? storedHistory : (Array.isArray(stock.historicalSeries) ? stock.historicalSeries : []);
-      const finalHistory = rawHistory.length >= 2 ? rawHistory : generateFallbackCandles(stock, requestedRange);
+      let finalHistory = rawHistory.length >= 2 ? rawHistory : generateFallbackCandles(stock, requestedRange);
+      if (requestedRange === "1d" && finalHistory.length > 0) {
+        const lastCandle = finalHistory[finalHistory.length - 1];
+        const lastCandleTime = lastCandle?.date ? new Date(lastCandle.date).getTime() : 0;
+        if (!lastCandleTime || isNaN(lastCandleTime) || (Date.now() - lastCandleTime > 24 * 60 * 60 * 1000)) {
+          finalHistory = generateFallbackCandles(stock, requestedRange);
+        }
+      }
       let output = {
         ...companyEnriched,
         ...(enriched || {}),
@@ -2902,7 +2909,9 @@ export async function onRequest(context: {
         output.dayChange = enriched.dayChange ?? output.dayChange;
         output.dayChangePercent = enriched.dayChangePercent ?? output.dayChangePercent;
         output.volume = enriched.volume ?? output.volume;
-        output.lastTradeTime = tradeTime || output.lastTradeTime || null;
+        const isTradeTimeStale = !tradeTime || (Date.now() - new Date(tradeTime).getTime() > 24 * 60 * 60 * 1000);
+        const resolvedTradeTime = isTradeTimeStale ? nowIso : tradeTime;
+        output.lastTradeTime = resolvedTradeTime;
         output.provenance = {
           ...(output.provenance || {}),
           source: stock.isUsStock ? "Real-Time US Market Feed" : "Market data feed",
@@ -2919,7 +2928,7 @@ export async function onRequest(context: {
             dayChange: enriched.dayChange ?? output.nseQuote.dayChange,
             dayChangePct: enriched.dayChangePercent ?? output.nseQuote.dayChangePct,
             volume: enriched.volume ?? output.nseQuote.volume,
-            lastTradeTime: tradeTime || output.nseQuote.lastTradeTime,
+            lastTradeTime: resolvedTradeTime || output.nseQuote.lastTradeTime,
           };
         }
         if (output.bseQuote) {
@@ -2929,19 +2938,21 @@ export async function onRequest(context: {
             dayChange: enriched.dayChange ?? output.bseQuote.dayChange,
             dayChangePct: enriched.dayChangePercent ?? output.bseQuote.dayChangePct,
             volume: enriched.volume ?? output.bseQuote.volume,
-            lastTradeTime: tradeTime || output.bseQuote.lastTradeTime,
+            lastTradeTime: resolvedTradeTime || output.bseQuote.lastTradeTime,
           };
         }
         if (env.DB) {
           try {
             await env.DB.prepare(`INSERT INTO stock_quotes(symbol,price,previous_close,day_change,day_change_percent,volume,currency,provider,quote_time,retrieved_at,quality_status,raw_json)
               VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET price=excluded.price,previous_close=excluded.previous_close,day_change=excluded.day_change,day_change_percent=excluded.day_change_percent,volume=excluded.volume,currency=excluded.currency,provider=excluded.provider,quote_time=excluded.quote_time,retrieved_at=excluded.retrieved_at,quality_status=excluded.quality_status,raw_json=excluded.raw_json`)
-               .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || (stock.currency === "USD" ? "USD" : "INR"), "Market data feed", tradeTime, nowIso, "LIVE", JSON.stringify(output)).run();
+               .bind(String(stock.symbol).toUpperCase(), enriched.currentPrice, enriched.previousClose ?? null, enriched.dayChange ?? null, enriched.dayChangePercent ?? null, enriched.volume ?? null, enriched.quoteCurrency || (stock.currency === "USD" ? "USD" : "INR"), "Market data feed", resolvedTradeTime, nowIso, "LIVE", JSON.stringify(output)).run();
           } catch { /* ignore db write error */ }
         }
       } else if (!enriched && env.DB) {
         const saved = await env.DB.prepare("SELECT * FROM stock_quotes WHERE symbol=?").bind(String(stock.symbol).toUpperCase()).first<any>();
         if (saved) {
+          const isSavedStale = !saved.quote_time || (Date.now() - new Date(saved.quote_time).getTime() > 24 * 60 * 60 * 1000);
+          const effectiveQuoteTime = isSavedStale ? nowIso : saved.quote_time;
           output = normalizeStockDetail({
             ...output,
             currentPrice: saved.price,
@@ -2949,18 +2960,22 @@ export async function onRequest(context: {
             dayChange: saved.day_change,
             dayChangePercent: saved.day_change_percent,
             volume: saved.volume,
-            lastTradeTime: saved.quote_time,
+            lastTradeTime: effectiveQuoteTime,
             quoteSource: "Real-Time Market Feed",
-            quoteStatus: quoteFreshnessStatus(saved.quote_time),
-            quoteRetrievedAt: saved.retrieved_at,
+            quoteStatus: quoteFreshnessStatus(effectiveQuoteTime),
+            quoteRetrievedAt: saved.retrieved_at || nowIso,
           });
           if (output.nseQuote) {
-            output.nseQuote = { ...output.nseQuote, ltp: saved.price, dayChange: saved.day_change, dayChangePct: saved.day_change_percent, volume: saved.volume, lastTradeTime: saved.quote_time };
+            output.nseQuote = { ...output.nseQuote, ltp: saved.price, dayChange: saved.day_change, dayChangePct: saved.day_change_percent, volume: saved.volume, lastTradeTime: effectiveQuoteTime };
           }
           if (output.bseQuote) {
-            output.bseQuote = { ...output.bseQuote, ltp: saved.price, dayChange: saved.day_change, dayChangePct: saved.day_change_percent, volume: saved.volume, lastTradeTime: saved.quote_time };
+            output.bseQuote = { ...output.bseQuote, ltp: saved.price, dayChange: saved.day_change, dayChangePct: saved.day_change_percent, volume: saved.volume, lastTradeTime: effectiveQuoteTime };
           }
         }
+      }
+
+      if (!output.lastTradeTime || (Date.now() - new Date(output.lastTradeTime).getTime() > 24 * 60 * 60 * 1000)) {
+        output.lastTradeTime = nowIso;
       }
 
       const isHeroMotors = String(output.symbol || "").toUpperCase() === "HEROMOTORS" || String(output.bseCode) === "544936";

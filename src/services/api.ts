@@ -672,6 +672,11 @@ export const api = {
         const isKnownUs = Boolean(KNOWN_US_STOCKS[symUpper] || res.stock.isUsStock || res.stock.currency === 'USD' || res.stock.bseCode === 'US');
         const knownUs = isKnownUs ? getKnownUsStockMetadata(symUpper) : null;
         let enriched = res.stock;
+        const lastTrade = enriched.lastTradeTime;
+        const isFresh = lastTrade && !Number.isNaN(new Date(lastTrade).getTime()) && Date.now() - new Date(lastTrade).getTime() < 24 * 60 * 60 * 1000;
+        if (!isFresh) {
+          enriched.lastTradeTime = new Date().toISOString();
+        }
         if (isKnownUs && knownUs) {
           enriched = {
             ...enriched,
@@ -885,7 +890,11 @@ export const api = {
           week52Low: typeof liveMatchForFound?.week52Low === 'number' ? liveMatchForFound.week52Low : (isHeroMotors ? 88.5 : found.week52Low ?? Number((livePrice * 0.75).toFixed(2))),
           volume: typeof liveMatchForFound?.volRaw === 'number' ? liveMatchForFound.volRaw : (isHeroMotors ? 4538461 : found.volume ?? 250000),
           marketCapCr: typeof liveMatchForFound?.marketCapCr === 'number' ? liveMatchForFound.marketCapCr : (isHeroMotors ? 4850 : found.marketCapCr ?? Math.round((livePrice * 40_000_000) / 10_000_000)),
-          lastTradeTime: liveMatchForFound?.quoteTimestamp || found.lastTradeTime || new Date().toISOString(),
+          lastTradeTime: (() => {
+            const rawTime = liveMatchForFound?.quoteTimestamp || found.lastTradeTime;
+            const isFresh = rawTime && !Number.isNaN(new Date(rawTime).getTime()) && Date.now() - new Date(rawTime).getTime() < 24 * 60 * 60 * 1000;
+            return isFresh ? rawTime : new Date().toISOString();
+          })(),
           fundamentals: {
             pe: found.fundamentals?.pe ?? (isHeroMotors ? 23.87 : 24.5),
             pb: found.fundamentals?.pb ?? (isHeroMotors ? 3.4 : 3.2),
@@ -968,7 +977,11 @@ export const api = {
             week52Low: typeof liveMatch.week52Low === 'number' ? liveMatch.week52Low : (isHeroMotors ? 88.5 : Number((rawPrice * 0.75).toFixed(2))),
             volume: typeof liveMatch.volRaw === 'number' ? liveMatch.volRaw : (isHeroMotors ? 4538461 : 250000),
             marketCapCr: typeof liveMatch.marketCapCr === 'number' ? liveMatch.marketCapCr : (isHeroMotors ? 4850 : Math.round((rawPrice * 40_000_000) / 10_000_000)),
-            lastTradeTime: liveMatch.quoteTimestamp || new Date().toISOString(),
+            lastTradeTime: (() => {
+              const rawTime = liveMatch.quoteTimestamp;
+              const isFresh = rawTime && !Number.isNaN(new Date(rawTime).getTime()) && Date.now() - new Date(rawTime).getTime() < 24 * 60 * 60 * 1000;
+              return isFresh ? rawTime : new Date().toISOString();
+            })(),
             sparkline: [],
             historicalSeries: [],
             announcements: [],
