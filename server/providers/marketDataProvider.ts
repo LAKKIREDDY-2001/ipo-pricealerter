@@ -2385,8 +2385,8 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
     for (const stock of candidates) {
       const codes = [
         stock.registry?.zerodhaNseToken ? `NSE_${stock.registry.zerodhaNseToken}` : null,
-        stock.symbol && !/^\\d+$/.test(stock.symbol) ? `NSE_${stock.symbol.toUpperCase()}` : null,
-        stock.bseCode && /^\\d{6}$/.test(stock.bseCode) ? `BSE_${stock.bseCode}` : null,
+        stock.symbol && !/^\d+$/.test(stock.symbol) ? `NSE_${stock.symbol.toUpperCase()}` : null,
+        stock.bseCode && /^\d{6}$/.test(stock.bseCode) ? `BSE_${stock.bseCode}` : null,
       ].filter((code): code is string => Boolean(code));
       for (const code of codes) {
         indstocksCodes.push(code);
@@ -2413,8 +2413,8 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
         if (!quote) {
           const candidateCodes = [
             s.registry?.zerodhaNseToken ? `NSE_${s.registry.zerodhaNseToken}` : null,
-            s.symbol && !/^\\d+$/.test(s.symbol) ? `NSE_${s.symbol.toUpperCase()}` : null,
-            s.bseCode && /^\\d{6}$/.test(s.bseCode) ? `BSE_${s.bseCode}` : null,
+            s.symbol && !/^\d+$/.test(s.symbol) ? `NSE_${s.symbol.toUpperCase()}` : null,
+            s.bseCode && /^\d{6}$/.test(s.bseCode) ? `BSE_${s.bseCode}` : null,
           ].filter((code): code is string => Boolean(code));
           const indstocksQuote = candidateCodes
             .map((code) => indstocksQuotes[code])
@@ -2764,7 +2764,7 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
       stock.dayLow = q.low ?? stock.dayLow;
       stock.volume = q.volume ?? stock.volume;
       stock.lastTradeTime = q.lastTradeTime || stock.lastTradeTime;
-      if (stock.exchange.includes('NSE') && !/^\\d+$/.test(stock.symbol)) stock.nseQuote = q;
+      if (stock.exchange.includes('NSE') && !/^\d+$/.test(stock.symbol)) stock.nseQuote = q;
       else if (stock.bseCode && stock.bseCode !== 'N/A') stock.bseQuote = q;
       stock.provenance = {
         ...stock.provenance,
