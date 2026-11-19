@@ -19,7 +19,7 @@ import {
   dispatchWebhookNotification,
   sendPriceAlertEmail,
 } from '../services/mailerService.ts';
-import { getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
+import { fetchIndstocksQuotes, getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
 import {
   getIndmoneyUsExploreSnapshot,
   globalStockToStockInstrument,
@@ -2379,6 +2379,25 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
     .slice(0, 50);
 
   if (candidates.length > 0) {
+    // Use the configured INDstocks API as the second Indian quote source.
+    // Fetch all visible instruments in batches instead of making one request per row.
+    const indstocksCodeToStock = new Map<string, StockInstrument>();
+    const indstocksCodes: string[] = [];
+    for (const stock of candidates) {
+      const codes = [
+        stock.registry?.zerodhaNseToken ? `NSE_${stock.registry.zerodhaNseToken}` : null,
+        stock.symbol && !/^\\d+$/.test(stock.symbol) ? `NSE_${stock.symbol.toUpperCase()}` : null,
+        stock.bseCode && /^\\d{6}$/.test(stock.bseCode) ? `BSE_${stock.bseCode}` : null,
+      ].filter((code): code is string => Boolean(code));
+      for (const code of codes) {
+        indstocksCodes.push(code);
+        indstocksCodeToStock.set(code, stock);
+      }
+    }
+    const indstocksQuotes = indstocksCodes.length
+      ? await fetchIndstocksQuotes(indstocksCodes, 6500)
+      : {};
+
     // Keep the per-request fan-out bounded, but hydrate before responding.
     // On serverless deployments background work after res.json() may be suspended,
     // which previously made users reload several times before quotes appeared.
@@ -2390,6 +2409,43 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
         let quote =
           (useNse ? await fetchGrowwLiveQuote('NSE', s.symbol) : null) ??
           (s.bseCode && s.bseCode !== 'N/A' ? await fetchGrowwLiveQuote('BSE', s.bseCode) : null);
+
+        // INDstocks is the configured batch fallback for NSE/BSE. Its full-quote
+        // endpoint returns LTP/OHLC/volume; do not substitute previous close.
+        if (!quote) {
+          const candidateCodes = [
+            s.registry?.zerodhaNseToken ? `NSE_${s.registry.zerodhaNseToken}` : null,
+            s.symbol && !/^\\d+$/.test(s.symbol) ? `NSE_${s.symbol.toUpperCase()}` : null,
+            s.bseCode && /^\\d{6}$/.test(s.bseCode) ? `BSE_${s.bseCode}` : null,
+          ].filter((code): code is string => Boolean(code));
+          const indstocksQuote = candidateCodes
+            .map((code) => indstocksQuotes[code])
+            .find((item) => typeof item?.live_price === 'number' && item.live_price > 0);
+          if (indstocksQuote) {
+            const ltp = round2(indstocksQuote.live_price);
+            const previous = round2(indstocksQuote.prev_close);
+            quote = {
+              ltp,
+              previousClose: previous,
+              open: round2(indstocksQuote.day_open),
+              high: round2(indstocksQuote.day_high),
+              low: round2(indstocksQuote.day_low),
+              dayChange: ltp !== null && previous !== null ? round2(ltp - previous) : null,
+              dayChangePct:
+                ltp !== null && previous !== null && previous > 0
+                  ? round2(((ltp - previous) / previous) * 100)
+                  : null,
+              volume:
+                typeof indstocksQuote.volume === 'number'
+                  ? Math.round(indstocksQuote.volume)
+                  : null,
+              // The API response has no exchange timestamp; retrievedAt below
+              // records when this provider response was obtained.
+              lastTradeTime: null,
+            };
+            quoteSource = 'INDstocks Live Market Feed';
+          }
+        }
 
         // A previously populated price is not proof that it is current. Use a
         // timestamped Yahoo chart quote as a clearly-labelled delayed fallback.
@@ -2455,7 +2511,8 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
           retrievedAt: new Date().toISOString(),
           effectiveDate: (quote.lastTradeTime || new Date().toISOString()).slice(0, 10),
           verificationStatus: 'Verified',
-          qualityStatus: quoteSource === 'Groww Exchange Quote' ? 'VERIFIED' : 'DELAYED',
+          qualityStatus:
+            quoteSource === 'Yahoo Finance Delayed Quote' ? 'DELAYED' : 'VERIFIED',
         };
       })
       );
