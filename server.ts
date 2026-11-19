@@ -924,7 +924,8 @@ async function startServer() {
   app.get('/api/stocks/:symbol', async (req, res) => {
     const symbol = req.params.symbol;
     const range = typeof req.query.range === 'string' ? req.query.range : '3mo';
-    const { stock, fromUpstream } = await refreshStockBySymbol(symbol, range);
+    const force = req.query.refresh === '1';
+    const { stock, fromUpstream } = await refreshStockBySymbol(symbol, range, force);
     if (!stock) {
       res.status(404).json({
         error: `Security "${symbol.toUpperCase()}" is unavailable from the connected NSE/BSE feed right now.`,
