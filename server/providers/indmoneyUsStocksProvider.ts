@@ -2458,11 +2458,13 @@ export function buildGlobalStockInstruments(
       fractionalAllowed: true,
       sparkline: [s1, s2, s3],
       provenance: {
-        source: 'NASDAQ & NYSE Real-Time Feed · US Equities Registry',
+        // The curated registry contains company metadata and reference figures,
+        // not a live exchange quote. Live prices are supplied separately by Yahoo.
+        source: 'US equities company registry (reference data; not a live quote)',
         retrievedAt: nowIso,
         effectiveDate,
-        verificationStatus: 'Verified',
-        qualityStatus: 'VERIFIED',
+        verificationStatus: 'Registry metadata',
+        qualityStatus: 'UNAVAILABLE',
         currency: 'USD',
         unit: 'USD per share',
         dataCategory: item.isEtf ? 'US Index ETF' : 'Global Equities',
@@ -2562,7 +2564,7 @@ export function getIndmoneyUsExploreSnapshot(): IndmoneyUsExploreSnapshot {
 
   return {
     sourceUrl: 'https://pricealerter.in/us-stocks',
-    provenance: 'Official NASDAQ & NYSE US Equities Registry',
+    provenance: 'Curated US company registry; live prices require a separate market quote feed',
     retrievedAt: new Date().toISOString(),
     usdInrRate,
     totalUniverse: stocks.length,
