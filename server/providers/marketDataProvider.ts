@@ -1442,6 +1442,20 @@ function parseYahooCandles(data: YahooChartResponse): StockHistoricalPoint[] {
   return points;
 }
 
+function isCurrentIstMarketDate(isoTime: string | null | undefined): boolean {
+  if (!isoTime) return false;
+  const quoteDate = new Date(isoTime);
+  if (Number.isNaN(quoteDate.getTime())) return false;
+  const istDate = (date: Date) =>
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(date);
+  return istDate(quoteDate) === istDate(new Date());
+}
+
 async function fetchGrowwLiveQuote(
   exchange: 'NSE' | 'BSE',
   scripCode: string
@@ -1450,10 +1464,14 @@ async function fetchGrowwLiveQuote(
     scripCode
   )}`;
   const dto = await fetchJsonWithTimeout<GrowwLivePriceDto>(url, {}, 3500);
-  if (!dto || (typeof dto.ltp !== 'number' && typeof dto.close !== 'number')) {
+  if (!dto || typeof dto.ltp !== 'number') {
     return null;
   }
-  const ltp = round2(dto.ltp ?? dto.close);
+  const quoteTime = toIsoFromEpochSec(dto.lastTradeTime ?? dto.tsInMillis);
+  // Do not turn yesterday's close into a live quote. A quote without an exchange
+  // timestamp, or from a prior Indian market date, is not current-session data.
+  if (!isCurrentIstMarketDate(quoteTime)) return null;
+  const ltp = round2(dto.ltp);
   let previousClose = round2(dto.close ?? dto.ltp);
   if (
     ltp !== null &&
@@ -1472,7 +1490,7 @@ async function fetchGrowwLiveQuote(
     dayChange: round2(dto.dayChange),
     dayChangePct: round2(dto.dayChangePerc),
     volume: typeof dto.volume === 'number' ? Math.round(dto.volume) : null,
-    lastTradeTime: toIsoFromEpochSec(dto.lastTradeTime ?? dto.tsInMillis),
+    lastTradeTime: quoteTime,
     lastTradeQty: typeof dto.lastTradeQty === 'number' ? Math.round(dto.lastTradeQty) : null,
     totalBuyQty: typeof dto.totalBuyQty === 'number' ? Math.round(dto.totalBuyQty) : null,
     totalSellQty: typeof dto.totalSellQty === 'number' ? Math.round(dto.totalSellQty) : null,
@@ -1550,7 +1568,14 @@ function mapGrowwRecordToStock(
   if (!symbol) return null;
 
   const dto = rec.livePriceDto;
-  const ltp = round2(dto?.ltp ?? rec.closePrice ?? null);
+  // closePrice is an end-of-day/previous-close field, never a substitute for LTP.
+  // If the provider omits a current-session trade, leave LTP unavailable.
+  const dtoTradeTime = toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis);
+  const hasCurrentSessionDto =
+    dto?.type === 'LIVE_PRICE' &&
+    typeof dto.ltp === 'number' &&
+    isCurrentIstMarketDate(dtoTradeTime);
+  const ltp = hasCurrentSessionDto ? round2(dto?.ltp) : null;
   let prevClose = round2(dto?.close ?? rec.closePrice ?? null);
   // When post-close dto.close has already rolled to ltp and dayChange=0, rec.closePrice holds the prior session close
   if (
@@ -1579,9 +1604,7 @@ function mapGrowwRecordToStock(
       ? Number((rec.marketCap / 1e9).toFixed(2))
       : null;
 
-  const lastTradeIso =
-    toIsoFromEpochSec(dto?.lastTradeTime ?? dto?.tsInMillis) ??
-    retrievedAtIso;
+  const lastTradeIso = dtoTradeTime ?? retrievedAtIso;
 
   const exchange: StockInstrument['exchange'] =
     nseCode && bseCode ? 'NSE/BSE' : nseCode ? 'NSE' : 'BSE';
@@ -1613,7 +1636,7 @@ function mapGrowwRecordToStock(
       : round2(dto?.dayChangePerc);
 
   const dtoQuote: ExchangeLiveQuote | null =
-    dto && ltp !== null
+    hasCurrentSessionDto && ltp !== null
       ? {
           ltp,
           previousClose: prevClose,
@@ -1687,7 +1710,7 @@ function mapGrowwRecordToStock(
       retrievedAt: retrievedAtIso,
       effectiveDate: lastTradeIso.slice(0, 10),
       verificationStatus: 'Verified',
-      qualityStatus: dto?.type === 'LIVE_PRICE' ? 'VERIFIED' : 'DELAYED',
+      qualityStatus: hasCurrentSessionDto ? 'VERIFIED' : 'DELAYED',
       currency: 'INR',
       unit: 'INR per share',
       dataCategory: 'Equity Quote',
@@ -1763,11 +1786,11 @@ function buildRegistryEquityStock(params: {
       : undefined;
   const hydQ = hydrated?.quote;
 
-  const ltp = round2(
-    hydQ?.ltp ?? primaryBhav?.last ?? primaryBhav?.close ?? null
-  );
+  // Bhavcopy values are end-of-day prices, not today's live LTP.
+  // Keep them in the previous/last-close field until a current-session quote arrives.
+  const ltp = round2(hydQ?.ltp ?? null);
   const prevClose = round2(
-    hydQ?.previousClose ?? primaryBhav?.prevClose ?? null
+    hydQ?.previousClose ?? primaryBhav?.close ?? primaryBhav?.prevClose ?? null
   );
   const open = round2(hydQ?.open ?? primaryBhav?.open ?? null);
   const dayHigh = round2(hydQ?.high ?? primaryBhav?.high ?? null);
@@ -2370,6 +2393,8 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
           const yMeta = yData?.chart?.result?.[0]?.meta;
           if (yMeta && typeof yMeta.regularMarketPrice === 'number') {
             const candles = parseYahooCandles(yData!);
+            const yahooTradeTime = toIsoFromEpochSec(yMeta.regularMarketTime);
+            if (!isCurrentIstMarketDate(yahooTradeTime)) return;
             const ltp = round2(yMeta.regularMarketPrice);
             const prevCandle =
               ltp !== null
@@ -2392,7 +2417,7 @@ async function hydrateVisibleLiveQuotes(items: StockInstrument[], force: boolean
               dayChange: ltp !== null && prev !== null ? round2(ltp - prev) : null,
               dayChangePct: ltp !== null && prev && prev > 0 ? round2(((ltp - prev) / prev) * 100) : null,
               volume: typeof yMeta.regularMarketVolume === 'number' ? Math.round(yMeta.regularMarketVolume) : null,
-              lastTradeTime: toIsoFromEpochSec(yMeta.regularMarketTime),
+              lastTradeTime: yahooTradeTime,
             };
           }
         }
@@ -2664,7 +2689,9 @@ export async function queryAllIndianStocks(opts: StockUniverseQueryOptions = {})
   const paged = filtered.slice(start, start + limit);
 
   if (paged.length <= 100) {
-    await hydrateVisibleLiveQuotes(paged, Boolean(opts.refresh));
+    // Return the cached page immediately. Quote hydration runs in the background;
+    // the page's short polling interval picks up the updated prices on its next request.
+    void hydrateVisibleLiveQuotes(paged, Boolean(opts.refresh)).catch(() => undefined);
   }
 
   return {
