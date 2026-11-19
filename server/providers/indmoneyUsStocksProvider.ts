@@ -2463,7 +2463,7 @@ export function buildGlobalStockInstruments(
         source: 'US equities company registry (reference data; not a live quote)',
         retrievedAt: nowIso,
         effectiveDate,
-        verificationStatus: 'Registry metadata',
+        verificationStatus: 'Unverified',
         qualityStatus: 'UNAVAILABLE',
         currency: 'USD',
         unit: 'USD per share',
