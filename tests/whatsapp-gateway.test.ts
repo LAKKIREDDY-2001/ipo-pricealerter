@@ -42,6 +42,34 @@ test("uses Meta Cloud API when configured and accepted", async () => {
   }
 });
 
+test("falls back to Twilio API Key authentication when Meta rejects the request", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls: string[] = [];
+  let twilioAuthorization = "";
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    calls.push(String(input));
+    if (String(input).includes("graph.facebook.com")) return new Response("{}", { status: 401 });
+    twilioAuthorization = (init?.headers as Record<string, string>).authorization;
+    return new Response(JSON.stringify({ sid: "SM-test" }), { status: 201 });
+  }) as typeof fetch;
+  try {
+    const result = await dispatchWhatsApp({
+      WHATSAPP_TOKEN: "bad-meta-token",
+      WHATSAPP_PHONE_NUMBER_ID: "123456",
+      TWILIO_ACCOUNT_SID: "AC-account",
+      TWILIO_API_KEY_SID: "SK-api-key",
+      TWILIO_API_KEY_SECRET: "api-key-secret",
+      TWILIO_WHATSAPP_NUMBER: "whatsapp:+14155238886",
+    }, { phone: "9876543210", title: "Test", message: "Meta fallback" });
+    assert.equal(result.provider, "twilio");
+    assert.equal(result.delivered, true);
+    assert.equal(calls.length, 2);
+    assert.equal(twilioAuthorization, "Basic " + btoa("SK-api-key:api-key-secret"));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("authenticates Twilio with API Key SID and Secret while using Account SID in the URL", async () => {
   const originalFetch = globalThis.fetch;
   let requestUrl = "";
