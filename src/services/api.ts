@@ -2739,7 +2739,7 @@ export const api = {
     }),
 
   testWhatsAppAlert: (payload: { phone: string; symbol?: string; message?: string }) =>
-    request<{ ok?: boolean; success: boolean; message: string; provider?: string; clickToChatUrl?: string }>('/api/alerts/test-whatsapp', {
+    request<{ ok?: boolean; success: boolean; delivered?: boolean; message: string; provider?: string; clickToChatUrl?: string }>('/api/alerts/test-whatsapp', {
       method: 'POST',
       body: JSON.stringify(payload),
     }),

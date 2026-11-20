@@ -1,4 +1,5 @@
 import { generateIpoReportHtml, generateStockReportHtml } from "./report-generator";
+import { dispatchWhatsApp, type WhatsAppEnv } from "./whatsapp-gateway";
 
 type D1Result<T = Record<string, unknown>> = { results?: T[]; success?: boolean; meta?: { changes?: number } };
 interface D1Statement {
@@ -388,11 +389,23 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
       prefs.ipoReminders = true;
       await db.prepare("UPDATE users SET preferences_json=?, updated_at=? WHERE id=?")
         .bind(JSON.stringify(prefs), nowIso(), existing.id).run();
+      let whatsappResult: any = null;
+      if (phone) {
+        try {
+          whatsappResult = await dispatchWhatsApp(env, {
+            phone,
+            title: "PriceAlerter WhatsApp Alerts Activated",
+            message: "Your number is registered for PriceAlerter alerts. You can now manage price alerts, IPO updates and GMP notifications.",
+            url: (env.SITE_URL || url.origin).replace(/\/+$/, "") + "/alerts",
+          });
+        } catch { /* subscription remains successful if WhatsApp is unavailable */ }
+      }
       return json({
         ok: true,
         success: true,
         alreadySubscribed: true,
         message: "You are already subscribed! Your WhatsApp & market alert preferences have been refreshed.",
+        whatsappResult,
       });
     }
 
@@ -408,35 +421,59 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     if (email) {
       void sendQuickWelcomeEmail(env, email, displayName);
     }
+    let whatsappResult: any = null;
+    if (phone) {
+      try {
+        whatsappResult = await dispatchWhatsApp(env, {
+          phone,
+          title: "Welcome to PriceAlerter: WhatsApp Alerts Activated",
+          message: "Your number is registered for PriceAlerter alerts. Manage your stock price alerts, IPO updates and GMP notifications on the website.",
+          url: (env.SITE_URL || url.origin).replace(/\/+$/, "") + "/alerts",
+        });
+      } catch { /* subscription remains successful if WhatsApp is unavailable */ }
+    }
 
     return json({
       ok: true,
       success: true,
-      message: "🎉 You are subscribed! You will receive live WhatsApp and market alerts.",
+      message: "🎉 Your subscription is saved. WhatsApp delivery status is included below.",
+      whatsappResult,
     });
   }
 
   if (path === "/api/alerts/test-whatsapp" && method === "POST") {
     const body = await readBody(request);
-    const phone = String(body.phone || "").trim().replace(/[^\d+]/g, "");
-    if (!phone) {
-      return fail("Please provide a valid WhatsApp phone number.", 400);
+    const phone = String(body.phone || "").trim().slice(0, 25);
+    const normalized = phone.replace(/[^\d]/g, "");
+    if (!normalized || normalized.length < 8 || normalized.length > 15) {
+      return fail("Please provide a valid WhatsApp phone number with country code.", 400);
     }
-    const cleanDigits = phone.replace(/\D/g, "");
-    const normalized = cleanDigits.length === 10 ? "91" + cleanDigits : cleanDigits;
-    const testSymbol = String(body.symbol || "RELIANCE").toUpperCase();
-    const siteUrl = (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "");
-    const alertMessage = String(body.message || ("Target reached on " + testSymbol + ": Live test alert triggered at ₹1,280.50 (Target ≤ ₹1,300.00)."));
-    const fullText = "🔔 *PriceAlerter Real-Time Market Alert*\n━━━━━━━━━━━━━━━━━━━━\n📊 *Test Price Alert: " + testSymbol + "*\n" + alertMessage + "\n\n👉 *Live Chart & Action:*\n" + siteUrl + "/stock/" + testSymbol + "\n\n_PriceAlerter India · Instant NSE/BSE & IPO Intelligence_";
-    const clickToChatUrl = "https://api.whatsapp.com/send?phone=" + normalized + "&text=" + encodeURIComponent(fullText);
-
-    return json({
-      ok: true,
-      success: true,
-      message: "WhatsApp alert successfully prepared for +" + normalized + "!",
-      provider: "whatsapp_direct_link",
-      clickToChatUrl,
-    });
+    const ip = request.headers.get("cf-connecting-ip") || "unknown";
+    if (!(await rateLimit(db, "wa-test:" + ip, 5, 10 * 60_000))) {
+      return fail("Too many WhatsApp test messages. Please wait 10 minutes.", 429);
+    }
+    const testSymbol = String(body.symbol || "RELIANCE").toUpperCase().replace(/[^A-Z0-9._-]/g, "").slice(0, 20) || "RELIANCE";
+    const alertMessage = String(body.message || ("This is a test notification for " + testSymbol + ". Configure a price rule to receive real trigger alerts.")).slice(0, 1200);
+    try {
+      const result = await dispatchWhatsApp(env, {
+        phone,
+        title: "Test WhatsApp Alert: " + testSymbol,
+        message: alertMessage,
+        url: (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "") + "/stock/" + encodeURIComponent(testSymbol),
+      });
+      return json({
+        ok: true,
+        success: true,
+        delivered: result.delivered,
+        provider: result.provider,
+        recipient: result.recipient,
+        message: result.message,
+        clickToChatUrl: result.clickToChatUrl,
+        ...(result.error ? { gatewayError: result.error } : {}),
+      });
+    } catch (error) {
+      return fail(error instanceof Error ? error.message : "WhatsApp dispatch failed.", 400);
+    }
   }
 
   const user = await authenticate(request, db);
@@ -626,6 +663,21 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
         await db.prepare("INSERT INTO notifications (id, user_id, category, title, message, link, is_read, created_at) VALUES (?,?,?,?,?,?,0,?)")
           .bind(notifId, alert.user_id, "PRICE_ALERT", `Price Alert Triggered: ${sym}`, reason, `/stock/${sym}`, timestamp).run();
 
+        let whatsappDelivery: any = null;
+        try {
+          const owner = await db.prepare("SELECT preferences_json FROM users WHERE id=?").bind(alert.user_id).first<any>();
+          const prefs = JSON.parse(owner?.preferences_json || "{}");
+          const phone = String(prefs.phone || "");
+          if (phone && prefs.whatsappAlerts !== false) {
+            whatsappDelivery = await dispatchWhatsApp(env, {
+              phone,
+              title: "Price Alert Triggered: " + sym,
+              message: reason + " · Live price ₹" + currentPrice.toFixed(2),
+              url: (env.SITE_URL || url.origin).replace(/\/+$/, "") + "/stock/" + encodeURIComponent(sym),
+            });
+          }
+        } catch { /* keep the in-app alert even when a WhatsApp gateway is unavailable */ }
+
         triggeredAlerts.push({
           id: alert.id,
           symbol: sym,
@@ -634,6 +686,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
           targetValue: target,
           conditionType: alert.condition_type,
           reason,
+          ...(whatsappDelivery ? { whatsappDelivery } : {}),
         });
         triggeredCount++;
       }
