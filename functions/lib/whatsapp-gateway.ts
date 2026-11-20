@@ -20,7 +20,7 @@ export interface WhatsAppDispatch {
 }
 export function normalizeWhatsAppPhone(value: string): string {
   const digits = value.replace(/\D/g, "");
-  if (digits.length === 10 && /^[6-9]/.test(digits)) return "91" + digits;
+  if (digits.length === 10) return /^[6-9]/.test(digits) ? "91" + digits : "";
   if (digits.length === 11 && digits.startsWith("0")) return "91" + digits.slice(1);
   if (digits.length >= 8 && digits.length <= 15) return digits;
   return "";
