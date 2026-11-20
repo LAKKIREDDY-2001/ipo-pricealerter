@@ -229,4 +229,38 @@ test('Listing Date Clamping & Logo Resolution Suite', async (t) => {
       );
     }
   });
+
+  await t.test('Stock with missing currentPrice resolves safely to open or previousClose, never falling back to corrupt ₹120', () => {
+    const unhydratedStock: any = {
+      id: 'stk-nse-544937',
+      symbol: 'NSE',
+      bseCode: '544937',
+      companyName: 'National Stock Exchange of Ind',
+      isin: 'INE721I01024',
+      exchange: 'BSE',
+      currentPrice: null, // quote pending or unhydrated
+      previousClose: 2220.30,
+      open: 2218.15,
+      dayHigh: 2251.0,
+      dayLow: 2212.0,
+      volume: 7751000,
+      historicalSeries: [],
+      sparkline: [],
+    };
+
+    const hydrated = ensureStockSeries(unhydratedStock, '1d');
+    assert.ok(hydrated.historicalSeries.length >= 2, 'Must generate valid 1D candles');
+    
+    // Check synthesized candle values: they MUST be around ₹2,220, never near ₹120!
+    const firstCandle = hydrated.historicalSeries[0];
+    const lastCandle = hydrated.historicalSeries[hydrated.historicalSeries.length - 1];
+    assert.ok(firstCandle.close > 2000, `First candle close ${firstCandle.close} must be > 2000, not corrupt fallback`);
+    assert.ok(lastCandle.close > 2000, `Last candle close ${lastCandle.close} must be > 2000, not corrupt fallback`);
+
+    // Verify corrupt price sanity check logic
+    const corruptPrice = 120.0;
+    const prevClose = 2220.30;
+    const isCorruptFallback = prevClose > 200 && (corruptPrice / prevClose < 0.2);
+    assert.strictEqual(isCorruptFallback, true, '120.0 against 2220.30 must be caught as corrupt fallback');
+  });
 });

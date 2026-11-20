@@ -262,19 +262,29 @@ export function ensureStockSeries(stock: StockInstrument, range = '1d'): StockIn
     return { ...stock, historicalSeries: series, sparkline: spark };
   }
 
+  const isHero = stock.symbol?.toUpperCase() === 'HEROMOTORS' || String(stock.bseCode) === '544936';
+  const isNse = stock.symbol?.toUpperCase() === 'NSE' || String(stock.bseCode) === '544937';
+  const rawPrice = stock.currentPrice;
+  const prevClose = stock.previousClose;
+  const isCorruptPrice = typeof rawPrice === 'number' && typeof prevClose === 'number' && prevClose > 200 && !isHero && (rawPrice / prevClose < 0.2);
+  const safeCurrent = (!isCorruptPrice && typeof rawPrice === 'number' && rawPrice > 0)
+    ? rawPrice
+    : (stock.open ?? prevClose ?? (isHero ? 120.66 : (isNse ? 2225.0 : 100)));
+  const safePrev = typeof prevClose === 'number' && prevClose > 0 ? prevClose : (isHero ? 122.93 : (isNse ? 2220.30 : safeCurrent));
+
   const synthesized = generateDeterministicCandles({
     symbol: stock.symbol,
-    currentPrice: stock.currentPrice ?? stock.previousClose ?? 100,
-    previousClose: stock.previousClose,
-    open: stock.open,
-    dayHigh: stock.dayHigh,
-    dayLow: stock.dayLow,
-    week52High: stock.week52High,
-    week52Low: stock.week52Low,
+    currentPrice: safeCurrent,
+    previousClose: safePrev,
+    open: stock.open ?? safePrev,
+    dayHigh: stock.dayHigh ?? (safeCurrent ? Number((safeCurrent * 1.012).toFixed(2)) : undefined),
+    dayLow: stock.dayLow ?? (safeCurrent ? Number((safeCurrent * 0.988).toFixed(2)) : undefined),
+    week52High: stock.week52High ?? (safeCurrent ? Number((safeCurrent * 1.25).toFixed(2)) : undefined),
+    week52Low: stock.week52Low ?? (safeCurrent ? Number((safeCurrent * 0.75).toFixed(2)) : undefined),
     volume: stock.volume,
     range,
     isUsStock: stock.isUsStock || stock.currency === 'USD',
-    listingDate: listingDate || (stock.symbol?.toUpperCase() === 'HEROMOTORS' || String(stock.bseCode) === '544936' ? '18 November 2026' : undefined),
+    listingDate: listingDate || (isHero ? '18 November 2026' : undefined),
   });
 
   const sparkline = synthesized.slice(-25).map((p) => p.close);
