@@ -65,3 +65,27 @@ test("falls back to Twilio when Meta is unavailable", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test("does not retry through another gateway after an ambiguous Meta network failure", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (input: RequestInfo | URL) => {
+    calls.push(String(input));
+    throw new Error("connection reset after request");
+  }) as typeof fetch;
+  try {
+    const result = await dispatchWhatsApp({
+      WHATSAPP_TOKEN: "meta-secret",
+      WHATSAPP_PHONE_NUMBER_ID: "123456",
+      TWILIO_ACCOUNT_SID: "AC123",
+      TWILIO_AUTH_TOKEN: "twilio-secret",
+      TWILIO_WHATSAPP_NUMBER: "whatsapp:+14155238886",
+    }, { phone: "9876543210", title: "Test", message: "No duplicates" });
+    assert.equal(result.success, false);
+    assert.equal(result.delivered, false);
+    assert.equal(result.clickToChatUrl, "");
+    assert.equal(calls.length, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
