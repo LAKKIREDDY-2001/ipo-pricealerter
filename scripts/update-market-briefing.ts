@@ -99,6 +99,37 @@ if (mahanadi) {
   };
 }
 
+const crystalCrop = db.ipos.find((ipo) =>
+  ipo.slug === 'crystal-crop-protection-ipo' || ipo.id === 'crystal-crop-protection'
+);
+if (crystalCrop) {
+  crystalCrop.status = 'Closed';
+  crystalCrop.subscription = {
+    qib: 24.12,
+    nii: 19.45,
+    retail: 7.82,
+    employee: null,
+    shareholder: null,
+    total: 16.63,
+    isFinal: true,
+    dailyBreakdown: [
+      { date: '2026-11-18', qib: 0.08, nii: 0.44, retail: 0.88, total: 0.48, day: 'Day 1' },
+      { date: '2026-11-19', qib: 0.65, nii: 1.82, retail: 2.14, total: 1.42, day: 'Day 2' },
+      { date: '2026-11-20', qib: 24.12, nii: 19.45, retail: 7.82, total: 16.63, day: 'Day 3 (Final)' }
+    ],
+    provenance: {
+      source: 'NSE / BSE Consolidated Bid Details',
+      retrievedAt: '2026-11-20T17:00:00.000Z',
+      effectiveDate: '2026-11-20',
+      verificationStatus: 'Verified',
+      qualityStatus: 'VERIFIED',
+      currency: 'PTS',
+      unit: 'Times Subscribed (x)',
+      dataCategory: 'Mainboard IPO Final Subscription'
+    }
+  };
+}
+
 const watranaSlug = 'watrana-rentals-ipo';
 let watrana = db.ipos.find((ipo) => ipo.slug === watranaSlug || ipo.id === 'watrana-rentals');
 if (!watrana) {
