@@ -12,9 +12,11 @@ export function ProfilePage() {
   const navigate = useNavigate();
 
   const [name, setName] = useState(user?.name || '');
+  const [phone, setPhone] = useState(user?.phone || '');
   const [prefs, setPrefs] = useState(
     user?.preferences || {
       emailAlerts: true,
+      whatsappAlerts: true,
       browserNotifications: false,
       ipoReminders: true,
       gmpAlerts: true,
@@ -27,7 +29,11 @@ export function ProfilePage() {
   useEffect(() => {
     if (user) {
       setName(user.name);
-      setPrefs(user.preferences);
+      setPhone(user.phone || '');
+      setPrefs({
+        whatsappAlerts: true,
+        ...user.preferences,
+      });
     }
   }, [user]);
 
@@ -87,6 +93,7 @@ export function ProfilePage() {
     try {
       await api.updatePreferences({
         name: name.trim() || user.name,
+        phone: phone.trim(),
         preferences: prefs,
       });
       await refreshUserData();
@@ -257,9 +264,21 @@ export function ProfilePage() {
             />
           </label>
 
+          <label className="block">
+            <span className="text-[#64748B]">WhatsApp Mobile Number</span>
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="e.g. 9876543210 or +91 9876543210"
+              className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-slate-100"
+            />
+          </label>
+
           <div className="space-y-2.5 pt-2">
             {(
               [
+                { key: 'whatsappAlerts', label: 'WhatsApp notifications for triggered price & IPO alerts' },
                 { key: 'emailAlerts', label: 'Email notifications for triggered price alerts' },
                 { key: 'ipoReminders', label: 'IPO opening, closing & allotment reminders' },
                 { key: 'gmpAlerts', label: 'Significant GMP change alerts' },

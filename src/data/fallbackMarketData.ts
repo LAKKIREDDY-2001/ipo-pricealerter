@@ -11,7 +11,7 @@ export interface FallbackMarketDataPayload {
 }
 
 export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
-  "lastSyncTime": "2026-11-20T17:59:41.381Z",
+  "lastSyncTime": "2026-11-20T18:10:56.971Z",
   "lastSyncFormatted": "20/11/2026, 03:30:00 pm IST",
   "indices": [
   {
@@ -101273,7 +101273,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -102137,7 +102137,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -102446,7 +102446,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "dailyBreakdown": [],
       "provenance": {
         "source": "Moneycontrol IPO; Economic Times IPO",
-        "retrievedAt": "2026-11-20T17:33:04.922Z",
+        "retrievedAt": "2026-11-20T17:59:41.586Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Provisional",
         "qualityStatus": "UNAVAILABLE",
@@ -103050,7 +103050,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -103459,7 +103459,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104780,7 +104780,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104965,7 +104965,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -105192,7 +105192,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106301,7 +106301,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106491,7 +106491,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106677,7 +106677,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107158,7 +107158,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107640,7 +107640,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -112592,7 +112592,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T17:59:39.949Z",
+        "retrievedAt": "2026-11-20T18:10:55.526Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",

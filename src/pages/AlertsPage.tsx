@@ -28,6 +28,49 @@ export function AlertsPage() {
 
   const [alertStocksBySym, setAlertStocksBySym] = useState<Record<string, StockInstrument>>({});
 
+  // WhatsApp Alert State
+  const [whatsappPhone, setWhatsappPhone] = useState(user?.phone || '');
+  const [whatsappBusy, setWhatsappBusy] = useState(false);
+  const [whatsappMsg, setWhatsappMsg] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [whatsappError, setWhatsappError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (user?.phone && !whatsappPhone) {
+      setWhatsappPhone(user.phone);
+    }
+  }, [user]);
+
+  const handleTestWhatsAppAlert = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = whatsappPhone.trim();
+    if (!clean) {
+      setWhatsappError('Please enter your WhatsApp mobile number.');
+      return;
+    }
+    setWhatsappBusy(true);
+    setWhatsappMsg(null);
+    setWhatsappError(null);
+    try {
+      const res = await api.testWhatsAppAlert({
+        phone: clean,
+        symbol: symbol || 'RELIANCE',
+      });
+      if (res.ok || res.success) {
+        setWhatsappMsg(`✅ ${res.message}`);
+        if (res.clickToChatUrl) {
+          setWhatsappUrl(res.clickToChatUrl);
+        }
+      } else {
+        setWhatsappError(res.message || 'Failed to dispatch WhatsApp alert.');
+      }
+    } catch (err: any) {
+      setWhatsappError(err?.message || 'Network error dispatching WhatsApp alert.');
+    } finally {
+      setWhatsappBusy(false);
+    }
+  };
+
   // Angel One SmartAPI GTT (Good-Till-Triggered) State
   const [gttRules, setGttRules] = useState<any[]>([]);
   const [gttLoading, setGttLoading] = useState(false);
@@ -300,6 +343,71 @@ export function AlertsPage() {
         </button>
       </div>
 
+      {/* WhatsApp Alerts Connection & Test Card */}
+      <div className="rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-slate-50 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-900/40 p-5 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="max-w-xl">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">
+                Live WhatsApp Alert Channel
+              </span>
+            </div>
+            <h3 className="text-base font-bold text-[#14263F] dark:text-white mt-1">
+              Direct WhatsApp Price &amp; IPO Notifications
+            </h3>
+            <p className="text-xs text-[#64748B] dark:text-slate-400 mt-0.5">
+              Receive real-time notifications directly on your mobile WhatsApp when your target prices trigger, IPOs open for bidding, or GMP jumps &gt;15%.
+            </p>
+          </div>
+
+          <form onSubmit={handleTestWhatsAppAlert} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <div className="relative">
+              <input
+                type="text"
+                value={whatsappPhone}
+                onChange={(e) => {
+                  setWhatsappPhone(e.target.value);
+                  setWhatsappMsg(null);
+                  setWhatsappError(null);
+                }}
+                placeholder="WhatsApp Number (e.g. 9876543210)"
+                className="w-full sm:w-64 px-3.5 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#0B1522] text-[#14263F] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00D09C]"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={whatsappBusy}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap disabled:opacity-50"
+            >
+              <span>{whatsappBusy ? 'Sending...' : '📲 Send Test Alert'}</span>
+            </button>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#14263F] hover:bg-slate-800 dark:bg-white dark:text-slate-900 text-white text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap"
+              >
+                <span>Open in WhatsApp</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </form>
+        </div>
+
+        {whatsappMsg && (
+          <p className="mt-3 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+            {whatsappMsg}
+          </p>
+        )}
+        {whatsappError && (
+          <p className="mt-3 text-xs font-semibold text-rose-600 dark:text-rose-400">
+            {whatsappError}
+          </p>
+        )}
+      </div>
+
       {activeTab === 'alerts' ? (
         <>
           {/* Create Alert Form */}
@@ -500,6 +608,15 @@ export function AlertsPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`🔔 Price Alert for ${rule.companyName} (${rule.symbol}): ${rule.conditionType.replace(/_/g, ' ')} ${formatINR(rule.targetValue)} on PriceAlerter: https://pricealerter.in/stock/${rule.symbol}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 rounded-md border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                    title="Open / Forward alert on WhatsApp"
+                  >
+                    <span>📲 WhatsApp</span>
+                  </a>
                   <button
                     type="button"
                     onClick={() => handleToggle(rule)}

@@ -19,6 +19,7 @@ import {
   dispatchWebhookNotification,
   sendPriceAlertEmail,
 } from '../services/mailerService.ts';
+import { sendWhatsAppAlert } from '../services/whatsappService.ts';
 import { fetchIndstocksQuotes, getStockHistoricalFromIndstocks } from './indstocksProvider.ts';
 import {
   getIndmoneyUsExploreSnapshot,
@@ -3678,6 +3679,23 @@ export function evaluatePriceAlerts(): number {
           reason,
           siteBaseUrl,
           link: `/stock/${alert.symbol}`,
+        });
+      }
+
+      const targetPhone =
+        owner?.phone ||
+        (owner?.email && owner.email.endsWith('@subscribers.pricealerter.in')
+          ? owner.email.split('@')[0]
+          : null);
+
+      if (targetPhone && owner?.preferences?.whatsappAlerts !== false) {
+        void sendWhatsAppAlert({
+          phone: targetPhone,
+          name: owner?.name,
+          title: `Price Alert: ${alert.symbol}`,
+          message: reason,
+          url: `${siteBaseUrl}/stock/${alert.symbol}`,
+          alertType: 'PRICE_ALERT',
         });
       }
       void dispatchWebhookNotification('price_alert_triggered', {

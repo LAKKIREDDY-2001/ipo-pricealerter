@@ -56,4 +56,34 @@ describe('Growth, Virality & Lead Capture Suite', () => {
     assert.ok(telegramHref.startsWith('https://t.me/share/url?'));
     assert.ok(telegramHref.includes(encodeURIComponent(url)));
   });
+
+  it('normalizes Indian and international phone numbers for WhatsApp', async () => {
+    const { normalizeWhatsAppNumber, formatWhatsAppMessage, sendWhatsAppAlert } = await import(
+      '../server/services/whatsappService.ts'
+    );
+
+    assert.equal(normalizeWhatsAppNumber('9876543210'), '919876543210');
+    assert.equal(normalizeWhatsAppNumber('+91 9876543210'), '919876543210');
+    assert.equal(normalizeWhatsAppNumber('09876543210'), '919876543210');
+
+    const formatted = formatWhatsAppMessage({
+      phone: '9876543210',
+      title: 'Target Reached: RELIANCE',
+      message: 'RELIANCE touched ₹1,280.00',
+      url: 'https://pricealerter.in/stock/RELIANCE',
+    });
+
+    assert.ok(formatted.includes('PriceAlerter Real-Time Market Alert'));
+    assert.ok(formatted.includes('RELIANCE'));
+
+    const result = await sendWhatsAppAlert({
+      phone: '9876543210',
+      title: 'Test Alert: TATAMOTORS',
+      message: 'TATAMOTORS crossed ₹840.00',
+    });
+
+    assert.equal(result.success, true);
+    assert.equal(result.recipient, '919876543210');
+    assert.ok(result.clickToChatUrl.includes('919876543210'));
+  });
 });

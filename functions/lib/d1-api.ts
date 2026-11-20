@@ -65,12 +65,13 @@ async function verifyPassword(password: string, stored: string): Promise<boolean
   } catch { return false; }
 }
 function publicUser(row: any) {
-  let preferences = {};
+  let preferences: any = {};
   try { preferences = JSON.parse(row.preferences_json || "{}"); } catch { /* use empty preferences */ }
+  const phone = preferences.phone || (row.email && row.email.endsWith("@subscribers.pricealerter.in") ? row.email.split("@")[0] : null);
   return {
-    id: row.id, name: row.name, email: row.email, role: row.role,
+    id: row.id, name: row.name, email: row.email, phone, role: row.role,
     emailVerified: Boolean(row.email_verified), createdAt: row.created_at,
-    preferences: { emailAlerts: true, browserNotifications: false, ipoReminders: true, gmpAlerts: true, ...preferences },
+    preferences: { emailAlerts: true, whatsappAlerts: true, browserNotifications: false, ipoReminders: true, gmpAlerts: true, ...preferences },
   };
 }
 async function readBody(request: Request): Promise<any> {
@@ -380,7 +381,9 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     if (existing) {
       let prefs: any = {};
       try { prefs = JSON.parse(existing.preferences_json || "{}"); } catch {}
+      if (phone) prefs.phone = phone;
       prefs.emailAlerts = true;
+      prefs.whatsappAlerts = true;
       prefs.gmpAlerts = true;
       prefs.ipoReminders = true;
       await db.prepare("UPDATE users SET preferences_json=?, updated_at=? WHERE id=?")
@@ -389,7 +392,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
         ok: true,
         success: true,
         alreadySubscribed: true,
-        message: "You are already subscribed! Your alert preferences have been refreshed.",
+        message: "You are already subscribed! Your WhatsApp & market alert preferences have been refreshed.",
       });
     }
 
@@ -397,7 +400,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     const timestamp = nowIso();
     const displayName = email ? email.split("@")[0] : ("Investor " + phone.slice(-4));
     const dummyPasswordHash = await newPasswordHash("QuickSub_" + Date.now() + "_" + Math.random());
-    const defaultPrefs = JSON.stringify({ emailAlerts: true, browserNotifications: true, ipoReminders: true, gmpAlerts: true });
+    const defaultPrefs = JSON.stringify({ phone: phone || null, emailAlerts: true, whatsappAlerts: true, browserNotifications: true, ipoReminders: true, gmpAlerts: true });
 
     await db.prepare("INSERT INTO users(id, name, email, password_hash, role, email_verified, preferences_json, created_at, updated_at) VALUES(?,?,?,?,?,1,?,?,?)")
       .bind(userId, displayName, targetEmail, dummyPasswordHash, "user", defaultPrefs, timestamp, timestamp).run();
@@ -409,7 +412,30 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     return json({
       ok: true,
       success: true,
-      message: "🎉 You are subscribed! You will receive live GMP movements and IPO alerts.",
+      message: "🎉 You are subscribed! You will receive live WhatsApp and market alerts.",
+    });
+  }
+
+  if (path === "/api/alerts/test-whatsapp" && method === "POST") {
+    const body = await readBody(request);
+    const phone = String(body.phone || "").trim().replace(/[^\d+]/g, "");
+    if (!phone) {
+      return fail("Please provide a valid WhatsApp phone number.", 400);
+    }
+    const cleanDigits = phone.replace(/\D/g, "");
+    const normalized = cleanDigits.length === 10 ? "91" + cleanDigits : cleanDigits;
+    const testSymbol = String(body.symbol || "RELIANCE").toUpperCase();
+    const siteUrl = (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "");
+    const alertMessage = String(body.message || ("Target reached on " + testSymbol + ": Live test alert triggered at ₹1,280.50 (Target ≤ ₹1,300.00)."));
+    const fullText = "🔔 *PriceAlerter Real-Time Market Alert*\n━━━━━━━━━━━━━━━━━━━━\n📊 *Test Price Alert: " + testSymbol + "*\n" + alertMessage + "\n\n👉 *Live Chart & Action:*\n" + siteUrl + "/stock/" + testSymbol + "\n\n_PriceAlerter India · Instant NSE/BSE & IPO Intelligence_";
+    const clickToChatUrl = "https://api.whatsapp.com/send?phone=" + normalized + "&text=" + encodeURIComponent(fullText);
+
+    return json({
+      ok: true,
+      success: true,
+      message: "WhatsApp alert successfully prepared for +" + normalized + "!",
+      provider: "whatsapp_direct_link",
+      clickToChatUrl,
     });
   }
 
@@ -419,9 +445,14 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   if (path === "/api/auth/preferences" && method === "PATCH") {
     const body = await readBody(request);
     const current = publicUser(user);
-    const preferences: Record<string, boolean> = { ...current.preferences, ...(body.preferences || {}) };
-    const allowed = ["emailAlerts", "browserNotifications", "ipoReminders", "gmpAlerts"];
-    for (const key of allowed) preferences[key] = Boolean(preferences[key]);
+    const preferences: Record<string, any> = { ...current.preferences, ...(body.preferences || {}) };
+    if (body.phone !== undefined) {
+      preferences.phone = String(body.phone || "").trim().replace(/[^\d+]/g, "");
+    }
+    const allowed = ["emailAlerts", "whatsappAlerts", "browserNotifications", "ipoReminders", "gmpAlerts"];
+    for (const key of allowed) {
+      if (preferences[key] !== undefined) preferences[key] = Boolean(preferences[key]);
+    }
     const name = body.name == null ? current.name : String(body.name).trim().slice(0, 80);
     await db.prepare("UPDATE users SET name=?,preferences_json=?,updated_at=? WHERE id=?")
       .bind(name, JSON.stringify(preferences), nowIso(), user.id).run();

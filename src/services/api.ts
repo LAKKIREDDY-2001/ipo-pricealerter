@@ -1568,7 +1568,7 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ token, password }),
     }),
-  updatePreferences: (payload: { name?: string; preferences?: Partial<AuthUser['preferences']> }) =>
+  updatePreferences: (payload: { name?: string; phone?: string; preferences?: Partial<AuthUser['preferences']> }) =>
     request<{ user: AuthUser }>('/api/auth/preferences', {
       method: 'PATCH',
       body: JSON.stringify(payload),
@@ -2733,7 +2733,13 @@ export const api = {
     }>(`/api/market/angel/cas/scrip/${encodeURIComponent(symbol)}`),
 
   subscribeFreeAlerts: (payload: { email?: string; phone?: string; source?: string; interests?: string[] }) =>
-    request<{ ok?: boolean; success: boolean; message: string; alreadySubscribed?: boolean }>('/api/subscribers/quick-join', {
+    request<{ ok?: boolean; success: boolean; message: string; alreadySubscribed?: boolean; whatsappResult?: any }>('/api/subscribers/quick-join', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  testWhatsAppAlert: (payload: { phone: string; symbol?: string; message?: string }) =>
+    request<{ ok?: boolean; success: boolean; message: string; provider?: string; clickToChatUrl?: string }>('/api/alerts/test-whatsapp', {
       method: 'POST',
       body: JSON.stringify(payload),
     }),

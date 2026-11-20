@@ -431,11 +431,13 @@ export interface AuthUser {
   id: string;
   name: string;
   email: string;
+  phone?: string | null;
   role: 'user' | 'admin';
   emailVerified: boolean;
   createdAt: string;
   preferences: {
     emailAlerts: boolean;
+    whatsappAlerts?: boolean;
     browserNotifications: boolean;
     ipoReminders: boolean;
     gmpAlerts: boolean;

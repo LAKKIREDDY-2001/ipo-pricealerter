@@ -51,6 +51,7 @@ import {
   sendIpoDigestEmail,
   sendHighSubscriptionAlertEmail,
 } from './server/services/mailerService.ts';
+import { sendWhatsAppAlert } from './server/services/whatsappService.ts';
 import {
   generateIpoReportHtml,
   generateStockReportHtml,
@@ -2895,18 +2896,35 @@ async function startServer() {
     const existing = db.users.find((u) => u.email.toLowerCase() === targetEmail);
 
     if (existing) {
+      if (cleanPhone) existing.phone = cleanPhone;
       existing.preferences = {
         ...existing.preferences,
         emailAlerts: true,
+        whatsappAlerts: true,
         gmpAlerts: true,
         ipoReminders: true,
       };
       saveDb();
+
+      let whatsappResult = null;
+      if (cleanPhone) {
+        const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+        whatsappResult = await sendWhatsAppAlert({
+          phone: cleanPhone,
+          name: existing.name,
+          title: 'PriceAlerter Real-Time Alerts Refreshed 🚀',
+          message: 'Your WhatsApp number is active! You will receive real-time notifications for live IPO openings, GMP surges >15%, and target price alerts.',
+          url: `${siteUrl}/alerts`,
+          alertType: 'BROADCAST',
+        }).catch(() => null);
+      }
+
       res.json({
         ok: true,
         success: true,
         alreadySubscribed: true,
-        message: 'You are already registered! Your GMP & IPO alert preferences have been refreshed.',
+        message: 'You are registered! Your WhatsApp & market alert preferences have been refreshed.',
+        whatsappResult,
       });
       return;
     }
@@ -2917,12 +2935,14 @@ async function startServer() {
       id: createId('usr'),
       name: displayName,
       email: targetEmail,
+      phone: cleanPhone || null,
       role: 'user',
       emailVerified: Boolean(cleanEmail),
       createdAt: new Date().toISOString(),
       passwordHash: dummyPasswordHash,
       preferences: {
         emailAlerts: true,
+        whatsappAlerts: true,
         browserNotifications: true,
         ipoReminders: true,
         gmpAlerts: true,
@@ -2930,6 +2950,19 @@ async function startServer() {
     };
     db.users.push(newUser);
     saveDb();
+
+    let whatsappResult = null;
+    if (cleanPhone) {
+      const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+      whatsappResult = await sendWhatsAppAlert({
+        phone: cleanPhone,
+        name: displayName,
+        title: 'Welcome to PriceAlerter: Live WhatsApp Alerts Activated 🚀',
+        message: 'Your number is connected! You will now receive instant WhatsApp alerts when new Mainboard & SME IPOs open, GMP jumps >15%, or target prices trigger.',
+        url: `${siteUrl}/alerts`,
+        alertType: 'BROADCAST',
+      }).catch(() => null);
+    }
 
     if (cleanEmail && isMailerConfigured()) {
       const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
@@ -2965,6 +2998,41 @@ async function startServer() {
       ok: true,
       success: true,
       message: '🎉 You are subscribed! You will receive live GMP movements and IPO alerts.',
+      whatsappResult,
+    });
+  });
+
+  app.post('/api/alerts/test-whatsapp', async (req, res) => {
+    const { phone, symbol, message } = req.body as {
+      phone?: string;
+      symbol?: string;
+      message?: string;
+    };
+    const cleanPhone = sanitizeText(phone, 25).replace(/[^\d+]/g, '');
+    if (!cleanPhone) {
+      res.status(400).json({ error: 'Please provide a valid WhatsApp mobile number.' });
+      return;
+    }
+
+    const testSymbol = (symbol || 'RELIANCE').toUpperCase();
+    const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+    const alertMessage = message || `Target reached on ${testSymbol}: Live test alert triggered at ₹1,280.50 (Target ≤ ₹1,300.00).`;
+
+    const result = await sendWhatsAppAlert({
+      phone: cleanPhone,
+      name: 'Investor',
+      title: `Test Price Alert: ${testSymbol}`,
+      message: alertMessage,
+      url: `${siteUrl}/stock/${testSymbol}`,
+      alertType: 'PRICE_ALERT',
+    });
+
+    res.json({
+      ok: true,
+      success: true,
+      message: `WhatsApp alert successfully prepared for +${result.recipient}!`,
+      provider: result.provider,
+      clickToChatUrl: result.clickToChatUrl,
     });
   });
 
@@ -3165,13 +3233,17 @@ async function startServer() {
       res.status(404).json({ error: 'User not found.' });
       return;
     }
-    const { name, preferences } = req.body as {
+    const { name, phone, preferences } = req.body as {
       name?: string;
+      phone?: string;
       preferences?: Partial<StoredUser['preferences']>;
     };
     const safeName = sanitizeText(name, 80);
     if (safeName.length >= 2) {
       user.name = safeName;
+    }
+    if (typeof phone === 'string') {
+      user.phone = sanitizeText(phone, 25).replace(/[^\d+]/g, '');
     }
     if (preferences && typeof preferences === 'object') {
       user.preferences = {
@@ -3179,6 +3251,10 @@ async function startServer() {
           typeof preferences.emailAlerts === 'boolean'
             ? preferences.emailAlerts
             : user.preferences.emailAlerts,
+        whatsappAlerts:
+          typeof preferences.whatsappAlerts === 'boolean'
+            ? preferences.whatsappAlerts
+            : (user.preferences.whatsappAlerts ?? true),
         browserNotifications:
           typeof preferences.browserNotifications === 'boolean'
             ? preferences.browserNotifications
