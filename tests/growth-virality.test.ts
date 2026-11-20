@@ -82,8 +82,28 @@ describe('Growth, Virality & Lead Capture Suite', () => {
       message: 'TATAMOTORS crossed ₹840.00',
     });
 
-    assert.equal(result.success, true);
     assert.equal(result.recipient, '919876543210');
+    assert.equal(result.provider, 'whatsapp_direct_link');
+    assert.equal(result.needsConfig, true);
     assert.ok(result.clickToChatUrl.includes('919876543210'));
+  });
+
+  it('handles Cloudflare Pages dispatchWhatsAppAlert with Twilio and sandbox diagnostics', async () => {
+    const { dispatchWhatsAppAlert, normalizeWhatsAppNumber } = await import(
+      '../functions/lib/d1-api.ts'
+    );
+
+    assert.equal(normalizeWhatsAppNumber('9876543210'), '919876543210');
+    assert.equal(normalizeWhatsAppNumber('+919876543210'), '919876543210');
+
+    // Test with missing config
+    const unconfigured = await dispatchWhatsAppAlert({}, {
+      phone: '9876543210',
+      text: 'Test Alert',
+    });
+    assert.equal(unconfigured.delivered, false);
+    assert.equal(unconfigured.needsConfig, true);
+    assert.equal(unconfigured.provider, 'whatsapp_direct_link');
+    assert.ok(unconfigured.clickToChatUrl.includes('919876543210'));
   });
 });

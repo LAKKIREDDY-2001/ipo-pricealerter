@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BellRing, Pause, Play, RefreshCw, Search, Trash2, Zap, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { BellRing, Pause, Play, RefreshCw, Search, Trash2, Zap, ShieldCheck, ArrowUpRight, CheckCircle2, AlertTriangle, Info, Settings2 } from 'lucide-react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import type { PriceAlertRule, StockInstrument } from '../types/financial';
@@ -35,6 +35,13 @@ export function AlertsPage() {
   const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
   const [whatsappDelivered, setWhatsappDelivered] = useState(false);
   const [whatsappError, setWhatsappError] = useState<string | null>(null);
+  const [whatsappSid, setWhatsappSid] = useState<string | null>(null);
+  const [whatsappSandboxRequired, setWhatsappSandboxRequired] = useState(false);
+  const [whatsappNeedsConfig, setWhatsappNeedsConfig] = useState(false);
+  const [showTwilioConfig, setShowTwilioConfig] = useState(false);
+  const [customSid, setCustomSid] = useState('');
+  const [customToken, setCustomToken] = useState('');
+  const [customFrom, setCustomFrom] = useState('');
 
   useEffect(() => {
     if (user?.phone && !whatsappPhone) {
@@ -54,19 +61,36 @@ export function AlertsPage() {
     setWhatsappError(null);
     setWhatsappUrl(null);
     setWhatsappDelivered(false);
+    setWhatsappSid(null);
+    setWhatsappSandboxRequired(false);
+    setWhatsappNeedsConfig(false);
     try {
       const res = await api.testWhatsAppAlert({
         phone: clean,
         symbol: symbol || 'RELIANCE',
+        twilioAccountSid: customSid.trim() || undefined,
+        twilioAuthToken: customToken.trim() || undefined,
+        twilioFrom: customFrom.trim() || undefined,
       });
-      if (res.ok || res.success) {
+
+      if (res.clickToChatUrl) {
+        setWhatsappUrl(res.clickToChatUrl);
+      }
+
+      if (res.delivered || res.ok || res.success) {
         setWhatsappDelivered(Boolean(res.delivered));
         setWhatsappMsg(res.message);
-        if (res.clickToChatUrl && !res.delivered) {
-          setWhatsappUrl(res.clickToChatUrl);
+        if (res.messageSid) {
+          setWhatsappSid(res.messageSid);
         }
       } else {
-        setWhatsappError(res.message || 'Failed to dispatch WhatsApp alert.');
+        setWhatsappError(res.message || res.error || 'Failed to dispatch WhatsApp alert.');
+        if (res.isSandboxJoinRequired) {
+          setWhatsappSandboxRequired(true);
+        }
+        if (res.needsConfig) {
+          setWhatsappNeedsConfig(true);
+        }
       }
     } catch (err: any) {
       setWhatsappError(err?.message || 'Network error dispatching WhatsApp alert.');
@@ -348,7 +372,7 @@ export function AlertsPage() {
       </div>
 
       {/* WhatsApp Alerts Connection & Test Card */}
-      <div className="rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-slate-50 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-900/40 p-5 shadow-sm">
+      <div className="rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-slate-50 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-900/40 p-5 shadow-sm space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="max-w-xl">
             <div className="flex items-center gap-2">
@@ -374,6 +398,8 @@ export function AlertsPage() {
                   setWhatsappPhone(e.target.value);
                   setWhatsappMsg(null);
                   setWhatsappError(null);
+                  setWhatsappSandboxRequired(false);
+                  setWhatsappNeedsConfig(false);
                 }}
                 placeholder="WhatsApp Number (e.g. 9876543210)"
                 className="w-full sm:w-64 px-3.5 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#0B1522] text-[#14263F] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00D09C]"
@@ -384,7 +410,7 @@ export function AlertsPage() {
               disabled={whatsappBusy}
               className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap disabled:opacity-50"
             >
-              <span>{whatsappBusy ? 'Sending...' : '📲 Send Test Alert'}</span>
+              <span>{whatsappBusy ? 'Sending via Twilio...' : '📲 Send Test Alert'}</span>
             </button>
             {whatsappUrl && (
               <a
@@ -397,18 +423,165 @@ export function AlertsPage() {
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             )}
+            <button
+              type="button"
+              onClick={() => setShowTwilioConfig(!showTwilioConfig)}
+              className="inline-flex items-center justify-center gap-1 px-2.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold cursor-pointer"
+              title="Twilio Configuration & Sandbox Diagnostics"
+            >
+              <Settings2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Settings</span>
+            </button>
           </form>
         </div>
 
-        {whatsappMsg && (
-          <p className={`mt-3 text-xs font-semibold ${whatsappDelivered ? "text-emerald-700 dark:text-emerald-400" : "text-amber-700 dark:text-amber-400"}`}>
-            {whatsappDelivered ? '✓ ' : '↗ '}{whatsappMsg}
-          </p>
+        {/* Optional Expandable Twilio Configuration & Diagnostics */}
+        {showTwilioConfig && (
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 p-4 space-y-3 text-xs">
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                Twilio API Credentials &amp; Sandbox Setup
+              </span>
+              <span className="text-[11px] text-slate-500">Optional Direct Test Overrides</span>
+            </div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+              PriceAlerter reads your Twilio API credentials automatically from your Cloudflare Pages environment variables (<code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">TWILIO_ACCOUNT_SID</code>, <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">TWILIO_AUTH_TOKEN</code>, <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">TWILIO_WHATSAPP_NUMBER</code>). You can also test specific credentials directly below:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <input
+                type="text"
+                value={customSid}
+                onChange={(e) => setCustomSid(e.target.value)}
+                placeholder="Account SID (AC...)"
+                className="px-3 py-1.5 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 font-mono text-slate-800 dark:text-slate-200"
+              />
+              <input
+                type="password"
+                value={customToken}
+                onChange={(e) => setCustomToken(e.target.value)}
+                placeholder="Auth Token (32 chars)"
+                className="px-3 py-1.5 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 font-mono text-slate-800 dark:text-slate-200"
+              />
+              <input
+                type="text"
+                value={customFrom}
+                onChange={(e) => setCustomFrom(e.target.value)}
+                placeholder="From Number (whatsapp:+14155238886)"
+                className="px-3 py-1.5 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 font-mono text-slate-800 dark:text-slate-200"
+              />
+            </div>
+          </div>
         )}
-        {whatsappError && (
-          <p className="mt-3 text-xs font-semibold text-rose-600 dark:text-rose-400">
-            {whatsappError}
-          </p>
+
+        {/* Twilio Success Feedback */}
+        {whatsappMsg && (
+          <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-900 dark:text-emerald-200 space-y-1">
+            <div className="font-bold flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+              WhatsApp Alert Dispatched!
+            </div>
+            <p className="leading-relaxed">{whatsappMsg}</p>
+            {whatsappSid && (
+              <p className="font-mono text-[11px] text-emerald-700 dark:text-emerald-400">
+                Twilio Message SID: <span className="font-bold">{whatsappSid}</span>
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Twilio Sandbox Join Required Banner */}
+        {whatsappSandboxRequired && (
+          <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-700 text-xs text-amber-900 dark:text-amber-200 space-y-2.5">
+            <div className="font-bold flex items-center gap-1.5 text-amber-800 dark:text-amber-300 text-sm">
+              <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+              Twilio WhatsApp Sandbox Setup Required (Code 21608)
+            </div>
+            <p className="leading-relaxed">
+              Twilio’s WhatsApp Sandbox will <strong>not deliver messages</strong> until your recipient number opts in. To receive alerts from your Twilio sandbox:
+            </p>
+            <ol className="list-decimal list-inside space-y-1.5 pl-1 text-xs">
+              <li>Open WhatsApp on your phone.</li>
+              <li>Message <strong>+1 415 523 8886</strong> and send your Twilio join keyword (for example: <code className="bg-amber-100 dark:bg-amber-900/80 px-1.5 py-0.5 rounded font-mono font-bold">join &lt;your-code&gt;</code> shown in your Twilio Console under Messaging → Try WhatsApp).</li>
+              <li>Once Twilio replies confirming you have joined, click <strong>Send Test Alert</strong> above.</li>
+            </ol>
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <a
+                href="https://api.whatsapp.com/send?phone=14155238886"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#25D366] text-white font-bold text-xs hover:bg-[#20bd5a] transition-all"
+              >
+                <span>📲 Message +1 415 523 8886 on WhatsApp</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs"
+                >
+                  <span>Open Prepared Alert Directly</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Twilio Credentials Missing Banner */}
+        {whatsappNeedsConfig && (
+          <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-xs text-blue-950 dark:text-blue-200 space-y-2.5">
+            <div className="font-bold flex items-center gap-1.5 text-blue-800 dark:text-blue-300 text-sm">
+              <Info className="w-4 h-4 text-blue-600 flex-shrink-0" />
+              Twilio API Secrets Not Detected in Environment
+            </div>
+            <p className="leading-relaxed">
+              To send automated WhatsApp messages from the server, add these environment variables in your <strong>Cloudflare Pages Dashboard</strong> (Settings → Environment variables) or your server <code className="bg-blue-100 dark:bg-blue-900/60 px-1 py-0.5 rounded font-mono">.env</code> file:
+            </p>
+            <div className="p-2.5 rounded-lg bg-blue-100/70 dark:bg-blue-900/30 font-mono text-[11px] space-y-1">
+              <div>TWILIO_ACCOUNT_SID = ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+              <div>TWILIO_AUTH_TOKEN = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+              <div>TWILIO_WHATSAPP_NUMBER = whatsapp:+14155238886</div>
+            </div>
+            <p className="text-[11px] text-blue-800 dark:text-blue-300">
+              💡 <em>Important:</em> After adding variables in Cloudflare Pages, a new build/deployment is required for them to take effect. You can also paste them into the <strong>Settings</strong> panel above to test immediately!
+            </p>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#25D366] text-white font-bold text-xs hover:bg-[#20bd5a]"
+              >
+                <span>📲 Test Sending via WhatsApp Web/App</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
+        )}
+
+        {/* Other Errors */}
+        {whatsappError && !whatsappSandboxRequired && !whatsappNeedsConfig && (
+          <div className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs text-rose-900 dark:text-rose-200 space-y-2">
+            <div className="font-bold flex items-center gap-1.5 text-rose-800 dark:text-rose-300">
+              <AlertTriangle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+              WhatsApp Alert Delivery Failed
+            </div>
+            <p className="leading-relaxed">{whatsappError}</p>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs"
+              >
+                <span>Open Alert in WhatsApp Manually</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
         )}
       </div>
 

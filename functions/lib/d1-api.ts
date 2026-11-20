@@ -1,5 +1,5 @@
 import { generateIpoReportHtml, generateStockReportHtml } from "./report-generator";
-import { dispatchWhatsApp, type WhatsAppEnv } from "./whatsapp-gateway";
+import { dispatchWhatsApp, normalizeWhatsAppPhone, type WhatsAppEnv, type WhatsAppDispatch } from "./whatsapp-gateway";
 
 type D1Result<T = Record<string, unknown>> = { results?: T[]; success?: boolean; meta?: { changes?: number } };
 interface D1Statement {
@@ -18,6 +18,16 @@ export interface D1Env {
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   SITE_URL?: string;
+  TWILIO_ACCOUNT_SID?: string;
+  TWILIO_SID?: string;
+  TWILIO_AUTH_TOKEN?: string;
+  TWILIO_TOKEN?: string;
+  TWILIO_WHATSAPP_NUMBER?: string;
+  TWILIO_PHONE_NUMBER?: string;
+  TWILIO_FROM?: string;
+  META_WHATSAPP_TOKEN?: string;
+  WHATSAPP_TOKEN?: string;
+  WHATSAPP_PHONE_NUMBER_ID?: string;
   ANGELONE_API_KEY?: string;
   ANGEL_API_KEY?: string;
   ANGELONE_AUTH_TOKEN?: string;
@@ -178,6 +188,21 @@ function rowToWatchlist(row: any) {
 function rowToNotification(row: any) {
   return { id: row.id, userId: row.user_id, category: row.category, title: row.title, message: row.message, link: row.link, read: Boolean(row.is_read), createdAt: row.created_at };
 }
+
+export const normalizeWhatsAppNumber = normalizeWhatsAppPhone;
+export const dispatchWhatsAppAlert = (env: D1Env, opts: any): Promise<WhatsAppDispatch> =>
+  dispatchWhatsApp(env, {
+    phone: opts.phone,
+    title: opts.symbol ? `Test Alert: ${opts.symbol}` : (opts.title || "Market Alert"),
+    message: opts.text || opts.message || "",
+    url: opts.siteUrl || opts.url,
+    twilioAccountSid: opts.twilioAccountSid,
+    twilioAuthToken: opts.twilioAuthToken,
+    twilioApiKeySid: opts.twilioApiKeySid,
+    twilioApiKeySecret: opts.twilioApiKeySecret,
+    twilioFrom: opts.twilioFrom,
+  });
+
 export async function handleD1Api(request: Request, url: URL, env: D1Env): Promise<Response | null> {
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const method = request.method.toUpperCase();
@@ -186,6 +211,50 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     path === "/api/alerts" || path.startsWith("/api/alerts/") || path === "/api/notifications" || path.startsWith("/api/notifications/") ||
     path.startsWith("/api/admin/") || path.startsWith("/api/automation/") || path.startsWith("/api/subscribers/") || isReportRoute;
   if (!isAccountRoute && path !== "/api/health") return null;
+
+  // WhatsApp test alert can be triggered anytime to test Twilio/Meta integration without requiring D1
+  if (path === "/api/alerts/test-whatsapp" && method === "POST") {
+    const body = await readBody(request);
+    const phone = String(body.phone || "").trim().slice(0, 25);
+    const normalized = normalizeWhatsAppPhone(phone);
+    if (!normalized) {
+      return fail("Please provide a valid WhatsApp phone number with country code.", 400);
+    }
+    const testSymbol = String(body.symbol || "RELIANCE").toUpperCase().replace(/[^A-Z0-9._-]/g, "").slice(0, 20) || "RELIANCE";
+    const alertMessage = String(body.message || ("Target reached on " + testSymbol + ": Live test alert triggered at ₹1,280.50 (Target ≤ ₹1,300.00).")).slice(0, 1200);
+    try {
+      const result = await dispatchWhatsApp(env, {
+        phone: normalized,
+        title: "Test WhatsApp Alert: " + testSymbol,
+        message: alertMessage,
+        url: (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "") + "/stock/" + encodeURIComponent(testSymbol),
+        twilioAccountSid: body.twilioAccountSid,
+        twilioAuthToken: body.twilioAuthToken,
+        twilioApiKeySid: body.twilioApiKeySid,
+        twilioApiKeySecret: body.twilioApiKeySecret,
+        twilioFrom: body.twilioFrom,
+      });
+      return json({
+        ok: result.ok,
+        success: result.success,
+        delivered: result.delivered,
+        provider: result.provider,
+        recipient: result.recipient,
+        message: result.message,
+        clickToChatUrl: result.clickToChatUrl,
+        messageSid: result.messageSid,
+        status: result.status,
+        code: result.code,
+        error: result.error,
+        hint: result.hint,
+        isSandboxJoinRequired: result.isSandboxJoinRequired,
+        needsConfig: result.needsConfig,
+      });
+    } catch (error) {
+      return fail(error instanceof Error ? error.message : "WhatsApp dispatch failed.", 400);
+    }
+  }
+
   // Never pretend account routes work without durable storage. Returning an
   // explicit setup error is safer than accepting credentials into ephemeral state.
   if (!env.DB) {
@@ -439,41 +508,6 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
       message: "🎉 Your subscription is saved. WhatsApp delivery status is included below.",
       whatsappResult,
     });
-  }
-
-  if (path === "/api/alerts/test-whatsapp" && method === "POST") {
-    const body = await readBody(request);
-    const phone = String(body.phone || "").trim().slice(0, 25);
-    const normalized = phone.replace(/[^\d]/g, "");
-    if (!normalized || normalized.length < 8 || normalized.length > 15) {
-      return fail("Please provide a valid WhatsApp phone number with country code.", 400);
-    }
-    const ip = request.headers.get("cf-connecting-ip") || "unknown";
-    if (!(await rateLimit(db, "wa-test:" + ip, 5, 10 * 60_000))) {
-      return fail("Too many WhatsApp test messages. Please wait 10 minutes.", 429);
-    }
-    const testSymbol = String(body.symbol || "RELIANCE").toUpperCase().replace(/[^A-Z0-9._-]/g, "").slice(0, 20) || "RELIANCE";
-    const alertMessage = String(body.message || ("This is a test notification for " + testSymbol + ". Configure a price rule to receive real trigger alerts.")).slice(0, 1200);
-    try {
-      const result = await dispatchWhatsApp(env, {
-        phone,
-        title: "Test WhatsApp Alert: " + testSymbol,
-        message: alertMessage,
-        url: (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "") + "/stock/" + encodeURIComponent(testSymbol),
-      });
-      return json({
-        ok: true,
-        success: true,
-        delivered: result.delivered,
-        provider: result.provider,
-        recipient: result.recipient,
-        message: result.message,
-        clickToChatUrl: result.clickToChatUrl,
-        ...(result.error ? { gatewayError: result.error } : {}),
-      });
-    } catch (error) {
-      return fail(error instanceof Error ? error.message : "WhatsApp dispatch failed.", 400);
-    }
   }
 
   const user = await authenticate(request, db);

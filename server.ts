@@ -3003,10 +3003,13 @@ async function startServer() {
   });
 
   app.post('/api/alerts/test-whatsapp', async (req, res) => {
-    const { phone, symbol, message } = req.body as {
+    const { phone, symbol, message, twilioAccountSid, twilioAuthToken, twilioFrom } = req.body as {
       phone?: string;
       symbol?: string;
       message?: string;
+      twilioAccountSid?: string;
+      twilioAuthToken?: string;
+      twilioFrom?: string;
     };
     const cleanPhone = sanitizeText(phone, 25).replace(/[^\d+]/g, '');
     if (!cleanPhone) {
@@ -3025,14 +3028,26 @@ async function startServer() {
       message: alertMessage,
       url: `${siteUrl}/stock/${testSymbol}`,
       alertType: 'PRICE_ALERT',
+      twilioAccountSid,
+      twilioAuthToken,
+      twilioFrom,
     });
 
     res.json({
-      ok: true,
-      success: true,
-      message: `WhatsApp alert successfully prepared for +${result.recipient}!`,
+      ok: result.success || Boolean(result.delivered),
+      success: result.success,
+      delivered: Boolean(result.delivered),
+      message: result.message,
       provider: result.provider,
+      recipient: result.recipient,
       clickToChatUrl: result.clickToChatUrl,
+      messageSid: result.messageSid,
+      status: result.status,
+      code: result.code,
+      error: result.error,
+      hint: result.hint,
+      isSandboxJoinRequired: result.isSandboxJoinRequired,
+      needsConfig: result.needsConfig,
     });
   });
 

@@ -2738,8 +2738,31 @@ export const api = {
       body: JSON.stringify(payload),
     }),
 
-  testWhatsAppAlert: (payload: { phone: string; symbol?: string; message?: string }) =>
-    request<{ ok?: boolean; success: boolean; delivered?: boolean; message: string; provider?: string; clickToChatUrl?: string }>('/api/alerts/test-whatsapp', {
+  testWhatsAppAlert: (payload: {
+    phone: string;
+    symbol?: string;
+    message?: string;
+    twilioAccountSid?: string;
+    twilioAuthToken?: string;
+    twilioFrom?: string;
+  }) =>
+    request<{
+      ok?: boolean;
+      success: boolean;
+      delivered?: boolean;
+      message: string;
+      provider?: string;
+      recipient?: string;
+      clickToChatUrl?: string;
+      messageSid?: string;
+      status?: string;
+      code?: number;
+      error?: string;
+      hint?: string;
+      isSandboxJoinRequired?: boolean;
+      needsConfig?: boolean;
+      gatewayError?: string;
+    }>('/api/alerts/test-whatsapp', {
       method: 'POST',
       body: JSON.stringify(payload),
     }),

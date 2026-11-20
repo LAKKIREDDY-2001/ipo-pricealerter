@@ -1,6 +1,6 @@
 /**
  * WhatsApp Alert Service for PriceAlerter
- * Supports Meta WhatsApp Cloud API, Twilio WhatsApp, Webhook Gateways, and 1-Click WhatsApp Click-to-Chat.
+ * Supports Twilio WhatsApp (Sandbox & Production), Meta WhatsApp Cloud API, Webhook Gateways, and 1-Click WhatsApp Click-to-Chat.
  */
 
 export interface WhatsAppAlertOptions {
@@ -10,15 +10,25 @@ export interface WhatsAppAlertOptions {
   message: string;
   url?: string;
   alertType?: 'PRICE_ALERT' | 'IPO_ALERT' | 'GMP_ALERT' | 'BROADCAST';
+  twilioAccountSid?: string;
+  twilioAuthToken?: string;
+  twilioFrom?: string;
 }
 
 export interface WhatsAppDispatchResult {
   success: boolean;
+  delivered?: boolean;
   provider: 'meta_cloud_api' | 'twilio' | 'gateway_webhook' | 'whatsapp_direct_link';
   recipient: string;
   clickToChatUrl: string;
   message: string;
+  messageSid?: string;
+  status?: string;
+  code?: number;
   error?: string;
+  hint?: string;
+  isSandboxJoinRequired?: boolean;
+  needsConfig?: boolean;
 }
 
 /**
@@ -26,15 +36,15 @@ export interface WhatsAppDispatchResult {
  * Defaulting Indian 10-digit mobile numbers to country code 91
  */
 export function normalizeWhatsAppNumber(rawPhone: string): string {
-  const digits = rawPhone.replace(/\D/g, '');
+  const digits = String(rawPhone || '').replace(/\D/g, '');
   if (digits.length === 10 && /^[6-9]/.test(digits)) {
     return `91${digits}`;
   }
-  if (digits.length === 12 && digits.startsWith('91')) {
-    return digits;
-  }
   if (digits.length === 11 && digits.startsWith('0')) {
     return `91${digits.slice(1)}`;
+  }
+  if (digits.length === 12 && digits.startsWith('91')) {
+    return digits;
   }
   return digits;
 }
@@ -68,7 +78,96 @@ export async function sendWhatsAppAlert(
   const formattedText = formatWhatsAppMessage(options);
   const clickToChatUrl = generateWhatsAppClickToChatUrl(normalizedPhone, formattedText);
 
-  // 1. Meta WhatsApp Cloud API (Graph API)
+  // 1. Twilio WhatsApp API
+  const twilioSid = (options.twilioAccountSid || process.env.TWILIO_ACCOUNT_SID || process.env.TWILIO_SID || '').trim();
+  const twilioAuth = (options.twilioAuthToken || process.env.TWILIO_AUTH_TOKEN || process.env.TWILIO_TOKEN || '').trim();
+  let twilioFrom = (options.twilioFrom || process.env.TWILIO_WHATSAPP_NUMBER || process.env.TWILIO_PHONE_NUMBER || process.env.TWILIO_FROM || 'whatsapp:+14155238886').trim();
+  if (twilioFrom && !twilioFrom.startsWith('whatsapp:')) {
+    twilioFrom = `whatsapp:${twilioFrom.startsWith('+') ? twilioFrom : '+' + twilioFrom}`;
+  }
+
+  if (twilioSid && twilioAuth) {
+    try {
+      const authHeader = 'Basic ' + Buffer.from(`${twilioSid}:${twilioAuth}`).toString('base64');
+      const params = new URLSearchParams({
+        From: twilioFrom,
+        To: `whatsapp:+${normalizedPhone}`,
+        Body: formattedText,
+      });
+
+      const res = await fetch(
+        `https://api.twilio.com/2010-04-01/Accounts/${twilioSid}/Messages.json`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: authHeader,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: params.toString(),
+          signal: AbortSignal.timeout(8000),
+        }
+      );
+
+      const data: any = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        console.log(`[WhatsApp Alert] Successfully delivered via Twilio to +${normalizedPhone} (SID: ${data.sid})`);
+        return {
+          success: true,
+          delivered: true,
+          provider: 'twilio',
+          recipient: normalizedPhone,
+          messageSid: data.sid,
+          status: data.status || 'queued',
+          clickToChatUrl,
+          message: `✅ Alert dispatched via Twilio to +${normalizedPhone}! (Status: ${data.status || 'queued'}, SID: ${data.sid})`,
+        };
+      } else {
+        const code = Number(data.code || res.status || 0);
+        const errMsg = String(data.message || res.statusText || 'Twilio delivery failed');
+        let hint = '';
+        let isSandboxJoinRequired = false;
+
+        if (code === 21608 || /sandbox/i.test(errMsg) || /unverified/i.test(errMsg)) {
+          isSandboxJoinRequired = true;
+          hint = `Recipient +${normalizedPhone} has not joined the Twilio WhatsApp Sandbox yet. Send your join code (e.g. 'join <keyword>') to +1 415 523 8886 from WhatsApp first.`;
+        } else if (code === 20003 || res.status === 401) {
+          hint = 'Twilio authentication failed: Check TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN in your environment.';
+        } else if (code === 63016 || code === 63015) {
+          hint = 'WhatsApp 24-hour session expired. Approved template required for business-initiated chats outside 24h.';
+        } else if (code === 21606) {
+          hint = 'From number is not a valid WhatsApp sender. Use whatsapp:+14155238886 for Sandbox.';
+        }
+
+        console.warn(`[WhatsApp Alert] Twilio delivery error (${code}): ${errMsg}. Hint: ${hint}`);
+        return {
+          success: false,
+          delivered: false,
+          provider: 'twilio',
+          recipient: normalizedPhone,
+          code,
+          error: errMsg,
+          hint,
+          isSandboxJoinRequired,
+          clickToChatUrl,
+          message: `⚠️ Twilio Error ${code ? `(${code})` : ''}: ${errMsg}. ${hint}`.trim(),
+        };
+      }
+    } catch (err: any) {
+      console.warn('[WhatsApp Alert] Twilio connection error:', err?.message || err);
+      return {
+        success: false,
+        delivered: false,
+        provider: 'twilio',
+        recipient: normalizedPhone,
+        error: err?.message || String(err),
+        clickToChatUrl,
+        message: `⚠️ Twilio Connection Error: ${err?.message || 'Failed to reach Twilio API.'}`,
+      };
+    }
+  }
+
+  // 2. Meta WhatsApp Cloud API (Graph API)
   const metaToken = (process.env.WHATSAPP_TOKEN || process.env.META_WHATSAPP_TOKEN || '').trim();
   const metaPhoneId = (process.env.WHATSAPP_PHONE_NUMBER_ID || '').trim();
 
@@ -90,63 +189,41 @@ export async function sendWhatsAppAlert(
         signal: AbortSignal.timeout(8000),
       });
 
+      const data: any = await res.json().catch(() => ({}));
       if (res.ok) {
         console.log(`[WhatsApp Alert] Successfully delivered via Meta Cloud API to +${normalizedPhone}`);
         return {
           success: true,
+          delivered: true,
           provider: 'meta_cloud_api',
           recipient: normalizedPhone,
           clickToChatUrl,
-          message: 'Delivered directly to WhatsApp',
+          message: `✅ Alert dispatched via Meta WhatsApp Cloud API to +${normalizedPhone}!`,
         };
       } else {
-        const errJson = await res.json().catch(() => ({}));
-        console.warn('[WhatsApp Alert] Meta API responded with error:', errJson);
+        const errMsg = data?.error?.message || 'Meta API error';
+        console.warn('[WhatsApp Alert] Meta API responded with error:', errMsg);
+        return {
+          success: false,
+          delivered: false,
+          provider: 'meta_cloud_api',
+          recipient: normalizedPhone,
+          error: errMsg,
+          clickToChatUrl,
+          message: `⚠️ Meta WhatsApp API Error: ${errMsg}`,
+        };
       }
     } catch (err: any) {
       console.warn('[WhatsApp Alert] Meta Cloud API delivery error:', err?.message || err);
-    }
-  }
-
-  // 2. Twilio WhatsApp API
-  const twilioSid = (process.env.TWILIO_ACCOUNT_SID || '').trim();
-  const twilioAuth = (process.env.TWILIO_AUTH_TOKEN || '').trim();
-  const twilioFrom = (process.env.TWILIO_WHATSAPP_NUMBER || 'whatsapp:+14155238886').trim();
-
-  if (twilioSid && twilioAuth) {
-    try {
-      const authHeader = 'Basic ' + Buffer.from(`${twilioSid}:${twilioAuth}`).toString('base64');
-      const params = new URLSearchParams({
-        From: twilioFrom.startsWith('whatsapp:') ? twilioFrom : `whatsapp:${twilioFrom}`,
-        To: `whatsapp:+${normalizedPhone}`,
-        Body: formattedText,
-      });
-
-      const res = await fetch(
-        `https://api.twilio.com/2010-04-01/Accounts/${twilioSid}/Messages.json`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: authHeader,
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: params.toString(),
-          signal: AbortSignal.timeout(8000),
-        }
-      );
-
-      if (res.ok) {
-        console.log(`[WhatsApp Alert] Successfully delivered via Twilio to +${normalizedPhone}`);
-        return {
-          success: true,
-          provider: 'twilio',
-          recipient: normalizedPhone,
-          clickToChatUrl,
-          message: 'Delivered directly to WhatsApp via Twilio',
-        };
-      }
-    } catch (err: any) {
-      console.warn('[WhatsApp Alert] Twilio delivery error:', err?.message || err);
+      return {
+        success: false,
+        delivered: false,
+        provider: 'meta_cloud_api',
+        recipient: normalizedPhone,
+        error: err?.message || String(err),
+        clickToChatUrl,
+        message: `⚠️ Meta API Connection Error: ${err?.message}`,
+      };
     }
   }
 
@@ -175,10 +252,11 @@ export async function sendWhatsAppAlert(
         console.log(`[WhatsApp Alert] Delivered via Webhook Gateway to +${normalizedPhone}`);
         return {
           success: true,
+          delivered: true,
           provider: 'gateway_webhook',
           recipient: normalizedPhone,
           clickToChatUrl,
-          message: 'Delivered via WhatsApp Gateway',
+          message: '✅ Delivered via WhatsApp Gateway',
         };
       }
     } catch (err: any) {
@@ -186,13 +264,15 @@ export async function sendWhatsAppAlert(
     }
   }
 
-  // 4. Default / Fallback: Log and provide direct WhatsApp link
-  console.log(`[WhatsApp Alert Dispatched] to +${normalizedPhone}:\n${formattedText}`);
+  // 4. Default: No external credentials configured
+  console.log(`[WhatsApp Alert Fallback Link Prepared] to +${normalizedPhone}`);
   return {
-    success: true,
+    success: false,
+    delivered: false,
+    needsConfig: true,
     provider: 'whatsapp_direct_link',
     recipient: normalizedPhone,
     clickToChatUrl,
-    message: 'Alert prepared and queued for WhatsApp delivery.',
+    message: '⚠️ Twilio API credentials (TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN) were not detected in the environment. Please add them in .env or Cloudflare Pages. Click below to test manually via WhatsApp.',
   };
 }
