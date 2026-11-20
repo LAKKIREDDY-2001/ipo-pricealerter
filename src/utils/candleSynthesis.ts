@@ -95,15 +95,16 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
       ? Date.UTC(y, m - 1, d, 14, 30, 0) // 14:30 UTC = 20:00 IST (US Market Open)
       : Date.UTC(y, m - 1, d, 3, 45, 0);  // 03:45 UTC = 09:15 IST (NSE/BSE Market Open)
     const stepMs = 5 * 60 * 1000;
+    const seedPrefix = `${symbol}_${istDate}`;
 
     let running = openPrice;
     for (let i = 0; i < count; i++) {
       const progress = i / (count - 1);
       // Brownian bridge interpolation between openPrice and current
       const linear = openPrice + (current - openPrice) * progress;
-      // Add wave variations constrained between dayL and dayH
-      const wave = (deterministicNoise(symbol, i, 8) - 0.5) * (dayH - dayL) * 0.45;
-      const micro = (hashToFloat(`${symbol}_${i}`, 42) - 0.5) * (dayH - dayL) * 0.08;
+      // Add wave variations constrained between dayL and dayH anchored to session seed
+      const wave = (deterministicNoise(seedPrefix, i, 8) - 0.5) * (dayH - dayL) * 0.45;
+      const micro = (hashToFloat(`${seedPrefix}_${i}`, 42) - 0.5) * (dayH - dayL) * 0.08;
 
       let candleClose = linear + wave + micro;
       // Ensure the very first candle opens at openPrice and the last closes at currentPrice
@@ -119,7 +120,7 @@ export function generateDeterministicCandles(opts: CandleSynthesisOptions): Stoc
       running = candleClose;
 
       const candleTime = new Date(startMs + i * stepMs).toISOString();
-      const candleVol = Math.round(volPerCandle * (0.6 + hashToFloat(`${symbol}_vol_${i}`) * 0.8));
+      const candleVol = Math.round(volPerCandle * (0.6 + hashToFloat(`${seedPrefix}_vol_${i}`) * 0.8));
 
       candles.push({
         date: candleTime,

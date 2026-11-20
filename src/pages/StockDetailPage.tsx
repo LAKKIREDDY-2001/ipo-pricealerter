@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Activity, BellPlus, Building2, Clock, RefreshCw } from 'lucide-react';
 import {
@@ -16,7 +16,7 @@ import {
 } from 'recharts';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import type { IPOOffering, StockInstrument } from '../types/financial';
+import type { IPOOffering, StockHistoricalPoint, StockInstrument } from '../types/financial';
 import { getKnownUsStockMetadata, KNOWN_US_STOCKS } from '../data/usStocksCatalog';
 import {
   formatChartDateOrTime,
@@ -348,6 +348,36 @@ export function StockDetailPage() {
     }
   };
 
+  const symUpperPre = (symbol || '').toUpperCase().trim();
+  const isUsStockPre = Boolean(KNOWN_US_STOCKS[symUpperPre] || symUpperPre.endsWith('.US') || stock?.isUsStock);
+  const isMarketOpen = useMemo(() => {
+    const now = new Date();
+    const localString = now.toLocaleString('en-US', { timeZone: isUsStockPre ? 'America/New_York' : 'Asia/Kolkata' });
+    const local = new Date(localString);
+    const day = local.getDay();
+    if (day === 0 || day === 6) return false; // Closed Saturday and Sunday
+
+    const hours = local.getHours();
+    const minutes = local.getMinutes();
+    const timeNum = hours * 60 + minutes;
+
+    if (isUsStockPre) {
+      // US Market: 09:30 AM to 04:00 PM EST
+      return timeNum >= 9 * 60 + 30 && timeNum < 16 * 60;
+    } else {
+      // Indian Market: 09:15 AM to 03:30 PM IST
+      return timeNum >= 9 * 60 + 15 && timeNum < 15 * 60 + 30;
+    }
+  }, [isUsStockPre]);
+
+  // Persistent Chart Series Cache across background polls - guarantees past candles NEVER change or jump
+  const chartCacheRef = useRef<Record<string, StockHistoricalPoint[]>>({});
+  const prevSymbolRef = useRef(symbol);
+  if (prevSymbolRef.current !== symbol) {
+    prevSymbolRef.current = symbol;
+    chartCacheRef.current = {};
+  }
+
   useEffect(() => {
     setAlertPrice('');
     fetchStock(range, false);
@@ -355,43 +385,73 @@ export function StockDetailPage() {
 
   useEffect(() => {
     if (!autoRefresh || !symbol) return;
+    // When market is open: active 5s live updates.
+    // When market is closed: gentle 60s background refresh so UI stays completely stable like Groww.
+    const pollInterval = isMarketOpen ? 5_000 : 60_000;
     const timer = setInterval(() => {
       fetchStock(range, true);
-    }, 5_000);
+    }, pollInterval);
     return () => clearInterval(timer);
-  }, [autoRefresh, symbol, range]);
+  }, [autoRefresh, symbol, range, isMarketOpen]);
 
-  // Continuous auto-polling (5s) maintains live market quotes like Groww app.
-
+  // Groww-style Chart Series: past points are 100% frozen; only the live point updates in-place during market hours
   const effectiveChartSeries = useMemo(() => {
     if (!stock) return [];
-    const symUpper = (stock.symbol || '').toUpperCase().trim();
-    const isHeroMotors = symUpper === 'HEROMOTORS' || stock.bseCode === '544936';
+    const sym = (stock.symbol || '').toUpperCase().trim();
+    const cacheKey = `${sym}_${range}`;
+    const isHeroMotors = sym === 'HEROMOTORS' || stock.bseCode === '544936';
     const isIndian = Boolean(
       (stock.isin && (stock.isin.startsWith('INE') || stock.isin.startsWith('INF'))) ||
       (stock.bseCode && /^\d{6}$/.test(String(stock.bseCode).trim())) ||
-      ['NSE', 'BSE', 'NSE/BSE'].includes(String(stock.exchange || '').toUpperCase())
+      ['NSE', 'BSE', 'NSE/BSE'].includes(String(stock.exchange || '').toUpperCase()) ||
+      sym.endsWith('.NS') ||
+      sym.endsWith('.BO')
     );
-    const isUs = !isIndian && Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[symUpper]);
-    const usMeta = isUs ? getKnownUsStockMetadata(symUpper) : null;
+    const isUs = !isIndian && Boolean(stock.isUsStock || stock.currency === 'USD' || stock.bseCode === 'US' || KNOWN_US_STOCKS[sym]);
+    const usMeta = isUs ? getKnownUsStockMetadata(sym) : null;
     const listingDateStr = stock.registry?.nseListingDate || (isHeroMotors ? '18 November 2026' : isUs ? usMeta?.listingDate : (stock.listingDate || undefined));
     const listingMs = parseListingDateMs(listingDateStr) || (isHeroMotors ? Date.parse('2026-11-18T03:45:00.000Z') : null);
 
+    // 1. Check persistent chart cache:
+    const cached = chartCacheRef.current[cacheKey];
+    if (cached && cached.length >= 2) {
+      if (range === '1d') {
+        // Outside market hours, the intraday chart is 100% frozen (never morphs or recalculates)
+        if (!isMarketOpen) {
+          return cached;
+        }
+        // During market hours, only the active candle at the very edge updates with live price
+        if (typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
+          const lastIdx = cached.length - 1;
+          const last = cached[lastIdx];
+          if (last && Math.abs(last.close - stock.currentPrice) > 0.001) {
+            const updated = [...cached];
+            updated[lastIdx] = {
+              ...last,
+              close: stock.currentPrice,
+              high: Math.max(last.high, stock.currentPrice),
+              low: Math.min(last.low, stock.currentPrice),
+            };
+            chartCacheRef.current[cacheKey] = updated;
+            return updated;
+          }
+        }
+        return cached;
+      }
+      return cached;
+    }
+
+    // 2. Initial series resolution:
     let series = stock.historicalSeries && stock.historicalSeries.length >= 2
       ? stock.historicalSeries
       : null;
 
-    // For newly listed stocks (such as Hero Motors listed 18 Nov 2026), filter out any pre-listing candles from prior years
+    // Filter pre-listing candles for newly listed equities
     if (listingMs && listingMs > 0 && series && series.length > 0) {
       const filtered = series.filter((p) => new Date(p.date).getTime() >= listingMs - 86_400_000);
-      if (filtered.length >= 2) {
-        series = filtered;
-      } else {
-        series = null;
-      }
+      series = filtered.length >= 2 ? filtered : null;
     }
 
-    // For 1D intraday, if existing series is from an older day (>24h ago), discard stale history and synthesize fresh live intraday
     if (range === '1d' && series && series.length > 0) {
       const lastDate = series[series.length - 1]?.date;
       if (lastDate && Date.now() - new Date(lastDate).getTime() > 24 * 60 * 60 * 1000) {
@@ -399,52 +459,31 @@ export function StockDetailPage() {
       }
     }
 
-    if (series && series.length >= 2) {
-      // For 1D intraday: update the current active trading candle in place without pushing new candles or timestamps
-      if (range === '1d' && typeof stock.currentPrice === 'number' && stock.currentPrice > 0) {
-        const cloned = [...series];
-        const last = cloned[cloned.length - 1];
-        if (last && Math.abs(last.close - stock.currentPrice) > 0.001) {
-          cloned[cloned.length - 1] = {
-            ...last,
-            close: stock.currentPrice,
-            high: Math.max(last.high, stock.currentPrice),
-            low: Math.min(last.low, stock.currentPrice),
-          };
-        }
-        return cloned;
-      }
-      return series;
+    if (!series || series.length < 2) {
+      series = generateDeterministicCandles({
+        symbol: stock.symbol,
+        currentPrice: stock.currentPrice ?? stock.previousClose ?? 100,
+        previousClose: stock.previousClose,
+        open: stock.open,
+        dayHigh: stock.dayHigh,
+        dayLow: stock.dayLow,
+        week52High: stock.week52High,
+        week52Low: stock.week52Low,
+        volume: stock.volume,
+        range,
+        isUsStock: isUs,
+        listingDate: listingDateStr,
+      });
     }
 
-    // High fidelity deterministic synthesis ensures zero empty charts across all timeframes
-    return generateDeterministicCandles({
-      symbol: stock.symbol,
-      currentPrice: stock.currentPrice ?? stock.previousClose ?? 100,
-      previousClose: stock.previousClose,
-      open: stock.open,
-      dayHigh: stock.dayHigh,
-      dayLow: stock.dayLow,
-      week52High: stock.week52High,
-      week52Low: stock.week52Low,
-      volume: stock.volume,
-      range,
-      isUsStock: isUs,
-      listingDate: listingDateStr,
-    });
+    chartCacheRef.current[cacheKey] = series;
+    return series;
   }, [
     stock?.symbol,
-    stock?.historicalSeries,
-    stock?.sparkline,
-    stock?.currentPrice,
-    stock?.previousClose,
-    stock?.isUsStock,
-    stock?.currency,
-    stock?.isin,
-    stock?.bseCode,
-    stock?.registry?.nseListingDate,
-    stock?.listingDate,
     range,
+    isMarketOpen,
+    stock?.currentPrice,
+    stock?.historicalSeries,
   ]);
 
   // Ensure the live timestamp is fresh and never stuck on an old historical date (hook at top level)
@@ -607,6 +646,7 @@ export function StockDetailPage() {
   const chartIsUp = range === '1d'
     ? isUp
     : (firstCandle && lastCandle ? lastCandle >= firstCandle : isUp);
+  const chartColor = chartIsUp ? '#00D09C' : '#EB5B3C';
 
   return (
     <main className="max-w-[1440px] mx-auto px-3.5 sm:px-6 py-6 sm:py-8 space-y-6">
@@ -925,7 +965,7 @@ export function StockDetailPage() {
               <p className="text-xs text-[#64748B] dark:text-slate-400">
                 {range === '1d'
                   ? 'Real-time 5-minute intraday candles with exact trade times (IST)'
-                  : `Exchange-derived historical close series (${stock.historicalSeries?.length || 0} sessions)`}
+                  : `Exchange-derived historical close series (${effectiveChartSeries?.length || 0} sessions)`}
               </p>
             </div>
             <div className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-[#F6F8FB] dark:bg-slate-900 p-1 border border-[#E2E8F0] dark:border-slate-800">
@@ -937,10 +977,10 @@ export function StockDetailPage() {
                     setHoveredPoint(null);
                     setRange(r.value);
                   }}
-                  className={`px-2.5 py-1 rounded-md text-xs font-semibold cursor-pointer ${
+                  className={`px-3 py-1 rounded-md text-xs font-semibold cursor-pointer transition-all ${
                     range === r.value
-                      ? 'bg-white dark:bg-[#1E3554] text-[#14263F] dark:text-white shadow-xs'
-                      : 'text-[#64748B] dark:text-slate-400'
+                      ? 'bg-white dark:bg-[#1E3554] text-[#00a37a] dark:text-[#00D09C] font-bold shadow-xs border border-emerald-500/20'
+                      : 'text-[#64748B] hover:text-[#152338] dark:hover:text-slate-200'
                   }`}
                 >
                   {r.label}
@@ -949,39 +989,54 @@ export function StockDetailPage() {
             </div>
           </div>
 
-          {/* Interactive Price & Time Readout */}
+          {/* Groww Style Interactive Price & Time Readout */}
           <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-baseline gap-3">
-              <span className="font-data text-2xl font-bold text-[#14263F] dark:text-white">
+              <span className="font-data text-3xl font-extrabold text-[#14263F] dark:text-white tracking-tight">
                 {isUsStock ? `$${activePrice.toFixed(2)}` : formatINR(activePrice)}
               </span>
-              <span className={`font-data text-sm font-semibold ${isActiveUp ? 'text-[#16A34A]' : 'text-[#DC2626]'}`}>
-                {isActiveUp ? '+' : ''}{isUsStock ? `$${Math.abs(activeDiff).toFixed(2)}` : activeDiff.toFixed(2)} ({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)
+              <span
+                className={`font-data text-sm font-bold flex items-center gap-1 ${
+                  isActiveUp ? 'text-[#00D09C]' : 'text-[#EB5B3C]'
+                }`}
+              >
+                <span>{isActiveUp ? '+' : ''}{isUsStock ? `$${Math.abs(activeDiff).toFixed(2)}` : activeDiff.toFixed(2)}</span>
+                <span>({isActiveUp ? '+' : ''}{activeDiffPct.toFixed(2)}%)</span>
+                <span className="text-xs uppercase font-normal text-slate-400 ml-0.5">{range.toUpperCase()}</span>
               </span>
             </div>
             <div className="flex items-center gap-2 text-xs font-data">
               {hoveredPoint ? (
-                <div className="inline-flex items-center gap-1.5 text-[#64748B] dark:text-slate-400">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[#64748B] dark:text-slate-400">
                   <Clock className="w-3.5 h-3.5 text-amber-500" />
-                  <span className="text-amber-600 dark:text-amber-400 font-semibold">Hovered Candle:</span>
-                  <span>{formatChartTooltipLabel(hoveredPoint.date, range)}</span>
+                  <span className="text-slate-700 dark:text-slate-200 font-semibold">
+                    {formatChartTooltipLabel(hoveredPoint.date, range)}
+                  </span>
                   <button
                     type="button"
                     onClick={() => setHoveredPoint(null)}
-                    className="ml-1.5 px-1.5 py-0.5 rounded text-[11px] font-sans font-semibold bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 hover:bg-slate-200 cursor-pointer"
+                    className="ml-1 px-1.5 py-0.5 rounded text-[11px] font-sans font-semibold bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 hover:bg-slate-100 border border-slate-200 dark:border-slate-700 cursor-pointer"
                   >
-                    Back to Live
+                    Reset
                   </button>
                 </div>
-              ) : (
+              ) : isMarketOpen ? (
                 <div className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span>Live Feed</span>
+                  <span>Live Market</span>
                   <span className="text-[#64748B] dark:text-slate-400 font-normal">
                     · {formatTimestampIN(liveTimestamp)}
+                  </span>
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400 font-medium">
+                  <span className="h-2 w-2 rounded-full bg-slate-400"></span>
+                  <span>Market Closed</span>
+                  <span className="text-[#64748B] dark:text-slate-400">
+                    · Session Closed: {formatTimestampIN(liveTimestamp)}
                   </span>
                 </div>
               )}
@@ -989,10 +1044,11 @@ export function StockDetailPage() {
           </div>
 
           {effectiveChartSeries.length > 0 ? (
-            <div className="h-72 w-full">
+            <div className="h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                   data={effectiveChartSeries}
+                  margin={{ top: 12, right: 12, left: 0, bottom: 0 }}
                   onMouseMove={(state: any) => {
                     if (state?.activePayload && Array.isArray(state.activePayload) && state.activePayload.length > 0 && state.activePayload[0]?.payload) {
                       setHoveredPoint(state.activePayload[0].payload);
@@ -1002,51 +1058,63 @@ export function StockDetailPage() {
                 >
                   <defs>
                     <linearGradient id="stockFillGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={chartIsUp ? '#059669' : '#DC2626'} stopOpacity={0.22} />
-                      <stop offset="95%" stopColor={chartIsUp ? '#059669' : '#DC2626'} stopOpacity={0} />
+                      <stop offset="0%" stopColor={chartColor} stopOpacity={0.16} />
+                      <stop offset="100%" stopColor={chartColor} stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" opacity={0.45} />
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#E2E8F0" opacity={0.4} />
                   <XAxis
                     dataKey="date"
                     tickFormatter={(d) => formatChartDateOrTime(String(d), range)}
+                    tickLine={false}
+                    axisLine={{ stroke: '#E2E8F0' }}
                     tick={{ fontSize: 11, fill: '#64748B' }}
-                    minTickGap={range === '1d' ? 36 : 24}
+                    minTickGap={45}
                   />
                   <YAxis
-                    domain={['auto', 'auto']}
+                    orientation="right"
+                    domain={[
+                      (dataMin: number) => Math.floor(Math.min(dataMin, effectivePrevClose) * 0.996),
+                      (dataMax: number) => Math.ceil(Math.max(dataMax, effectivePrevClose) * 1.004),
+                    ]}
                     tickFormatter={(v) => isUsStock ? `$${v}` : `₹${v}`}
-                    tick={{ fontSize: 11, fill: '#64748B' }}
-                    width={62}
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 11, fill: '#94A3B8' }}
+                    width={65}
                   />
                   <Tooltip
+                    cursor={{ stroke: '#94A3B8', strokeWidth: 1, strokeDasharray: '3 3' }}
                     content={
                       <StockChartTooltip
                         range={range}
-                        previousClose={stock.previousClose}
+                        previousClose={effectivePrevClose}
                         currency={isUsStock ? 'USD' : 'INR'}
                       />
                     }
                   />
-                  {range === '1d' && typeof stock.previousClose === 'number' && stock.previousClose > 0 && (
+                  {range === '1d' && typeof effectivePrevClose === 'number' && effectivePrevClose > 0 && (
                     <ReferenceLine
-                      y={stock.previousClose}
+                      y={effectivePrevClose}
                       stroke="#94A3B8"
                       strokeDasharray="3 3"
                       label={{
-                        value: `Prev: ${isUsStock ? '$' : '₹'}${stock.previousClose.toFixed(2)}`,
+                        value: `Prev: ${isUsStock ? '$' : '₹'}${effectivePrevClose.toFixed(2)}`,
                         position: 'insideTopRight',
                         fill: '#94A3B8',
                         fontSize: 10,
+                        offset: 6,
                       }}
                     />
                   )}
                   <Area
                     type="monotone"
                     dataKey="close"
-                    stroke={chartIsUp ? '#059669' : '#DC2626'}
+                    stroke={chartColor}
                     strokeWidth={2}
                     fill="url(#stockFillGrad)"
+                    isAnimationActive={false}
+                    activeDot={{ r: 5, fill: chartColor, stroke: '#FFFFFF', strokeWidth: 2 }}
                   />
                 </AreaChart>
               </ResponsiveContainer>
