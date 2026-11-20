@@ -11,6 +11,8 @@ import {
 } from '../utils/calculations';
 import { CompanyLogo } from '../components/common/CompanyLogo';
 import { SEOHead } from '../components/common/SEOHead';
+import { SocialShareButtons } from '../components/common/SocialShareButtons';
+import { FreeAlertsLeadMagnet } from '../components/marketing/FreeAlertsLeadMagnet';
 import {
   Breadcrumbs,
   DisclaimerBanner,
@@ -145,6 +147,30 @@ export function GMPTrackerPage() {
           Track recorded unofficial GMP movements, historical ranges, and hypothetical listing calculations.
         </p>
       </div>
+
+      {/* Social Share Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10">
+        <div>
+          <h2 className="text-sm font-bold text-[#14263F] dark:text-white">
+            Share Today's Live GMP Sheet with Investor Groups:
+          </h2>
+          <p className="text-xs text-[#64748B] dark:text-slate-400">
+            Real-time Grey Market Premiums for Mainboard &amp; SME public issues.
+          </p>
+        </div>
+        <SocialShareButtons
+          title="Today's Live IPO Grey Market Premium (GMP) Sheet"
+          summary="🔥 Check Today's Live IPO Grey Market Premium (GMP) & Estimated Listing Gains on PriceAlerter:"
+          url="https://pricealerter.in/gmp"
+          variant="compact"
+        />
+      </div>
+
+      <FreeAlertsLeadMagnet
+        source="gmp_tracker_top"
+        title="Get Real-Time GMP Surge Notifications"
+        description="Don't miss sharp GMP jumps. We monitor the unofficial grey market daily and alert you whenever an IPO premium jumps by more than 15%."
+      />
 
       <DisclaimerBanner
         title="Important GMP Data Policy"

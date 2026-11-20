@@ -38,6 +38,7 @@ import { GMPChart } from '../components/gmp/GMPChart';
 import { StockTable } from '../components/stocks/StockTable';
 import { SectorHeatmap } from '../components/stocks/SectorHeatmap';
 import { MacroCommoditiesBar } from '../components/market/MacroCommoditiesBar';
+import { FreeAlertsLeadMagnet } from '../components/marketing/FreeAlertsLeadMagnet';
 import {
   DisclaimerBanner,
   EmptyState,
@@ -576,6 +577,13 @@ export function HomePage() {
 
         {/* Global Macro & Commodities Live Feed */}
         <MacroCommoditiesBar />
+
+        {/* Free Live Alerts Lead Magnet */}
+        <FreeAlertsLeadMagnet
+          source="home_hero"
+          title="Get Instant WhatsApp & Email Alerts for Live IPOs & GMP Surges"
+          description="Never miss an IPO opening, GMP surge >15%, or allotment result. Join over 45,000 retail traders receiving verified market alerts with zero spam."
+        />
 
         {/* Section 4: Interactive IPO Activity Dashboard */}
         <section aria-labelledby="ipo-activity-heading" className="space-y-4">

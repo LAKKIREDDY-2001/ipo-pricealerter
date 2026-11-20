@@ -32,6 +32,7 @@ export function Footer() {
             </h3>
             <ul className="space-y-2 text-xs">
               <li><Link to="/ipo" className="hover:text-white transition-colors">IPO Explorer</Link></li>
+              <li><Link to="/allotment-status" className="hover:text-white transition-colors font-semibold text-[#00D09C]">IPO Allotment Status</Link></li>
               <li><Link to="/ipo/mainboard" className="hover:text-white transition-colors">Mainboard IPOs</Link></li>
               <li><Link to="/ipo/sme" className="hover:text-white transition-colors">SME IPOs</Link></li>
               <li><Link to="/gmp" className="hover:text-white transition-colors">GMP Tracker</Link></li>

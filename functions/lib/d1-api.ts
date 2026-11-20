@@ -95,6 +95,41 @@ async function sendPasswordResetEmail(env: D1Env, to: string, name: string, rese
     return response.ok;
   } catch { return false; }
 }
+async function sendQuickWelcomeEmail(env: D1Env, to: string, name: string): Promise<boolean> {
+  const apiKey = (env.RESEND_API_KEY || "").trim();
+  if (!apiKey) return false;
+  const from = (env.MAIL_FROM || "PriceAlerter <no-reply@pricealerter.in>").trim();
+  const safeName = name.replace(/[<>&"]/g, "");
+  const siteUrl = (env.SITE_URL || "https://pricealerter.in").replace(/\/+$/, "");
+  const text = "Hello " + name + ",\n\nWelcome to PriceAlerter! You are now subscribed to live Mainboard & SME IPO alerts, Grey Market Premium (GMP) surge notifications, and allotment updates.\n\nTrack live market data here: " + siteUrl + "/gmp\n\nHappy Investing,\nPriceAlerter Team";
+  const html = "<div style='font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:auto;padding:28px 24px;color:#152338;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;'>" +
+    "<div style='border-bottom:2px solid #00D09C;padding-bottom:12px;margin-bottom:20px;'>" +
+    "<h2 style='color:#00D09C;margin:0;font-size:22px;letter-spacing:-0.5px;'>PriceAlerter.in</h2>" +
+    "<p style='margin:4px 0 0;font-size:12px;color:#64748B;font-weight:600;text-transform:uppercase;'>Live IPO & Market Intelligence</p>" +
+    "</div>" +
+    "<h3 style='margin:0 0 12px;color:#0F172A;font-size:18px;'>Welcome to PriceAlerter, " + safeName + "! 🚀</h3>" +
+    "<p style='font-size:14px;line-height:1.6;color:#334155;margin:0 0 16px;'>Your free alert subscription is officially activated. You will now receive instant updates on:</p>" +
+    "<ul style='font-size:13px;line-height:1.8;color:#334155;margin:0 0 20px;padding-left:20px;'>" +
+    "<li><strong>Live IPO Openings:</strong> New Mainboard & SME issues opening for bidding</li>" +
+    "<li><strong>Grey Market Premium (GMP):</strong> Real-time price jumps and estimated listing gains</li>" +
+    "<li><strong>Subscription Multiples:</strong> Breaking alerts when an IPO exceeds 20x bids</li>" +
+    "<li><strong>Allotment Status Declarations:</strong> Instant notification when registrar results go live</li>" +
+    "</ul>" +
+    "<div style='text-align:center;margin:24px 0;'>" +
+    "<a href='" + siteUrl + "/gmp' style='background:#00D09C;color:#ffffff;text-decoration:none;font-weight:bold;font-size:14px;padding:12px 24px;border-radius:8px;display:inline-block;'>View Today\\'s Live GMP Tracker</a>" +
+    "</div>" +
+    "<p style='font-size:11px;color:#94A3B8;border-top:1px solid #E2E8F0;padding-top:16px;margin-top:24px;'>PriceAlerter is an independent Indian market intelligence portal. Not SEBI registered investment advice.</p>" +
+    "</div>";
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { authorization: "Bearer " + apiKey, "content-type": "application/json" },
+      body: JSON.stringify({ from, to: [to], subject: "Welcome to PriceAlerter: Live IPO & GMP Alerts Activated 🚀", text, html }),
+      signal: AbortSignal.timeout(8000),
+    });
+    return response.ok;
+  } catch { return false; }
+}
 async function authenticate(request: Request, db: D1Database): Promise<any | null> {
   const token = (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
   if (!token || token.length > 256) return null;
@@ -147,7 +182,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   const isReportRoute = (path.startsWith("/api/ipo/") || path.startsWith("/api/stock/")) && path.endsWith("/report");
   const isAccountRoute = path.startsWith("/api/auth/") || path === "/api/watchlist" || path.startsWith("/api/watchlist/") ||
     path === "/api/alerts" || path.startsWith("/api/alerts/") || path === "/api/notifications" || path.startsWith("/api/notifications/") ||
-    path.startsWith("/api/admin/") || path.startsWith("/api/automation/") || isReportRoute;
+    path.startsWith("/api/admin/") || path.startsWith("/api/automation/") || path.startsWith("/api/subscribers/") || isReportRoute;
   if (!isAccountRoute && path !== "/api/health") return null;
   // Never pretend account routes work without durable storage. Returning an
   // explicit setup error is safer than accepting credentials into ephemeral state.
@@ -322,6 +357,59 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     return new Response(html, {
       status: 200,
       headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=300" },
+    });
+  }
+
+  if (path === "/api/subscribers/quick-join" && method === "POST") {
+    const body = await readBody(request);
+    const email = String(body.email || "").trim().toLowerCase();
+    const phone = String(body.phone || "").trim().replace(/[^\d+]/g, "");
+    if (!email && !phone) {
+      return fail("Please provide a valid email or WhatsApp phone number.", 400);
+    }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return fail("Please enter a valid email address.", 400);
+    }
+    const rateLimitKey = "sub:" + (email || phone);
+    if (!(await rateLimit(db, rateLimitKey, 10, 3600000))) {
+      return fail("Too many subscription requests. Please try again later.", 429);
+    }
+
+    const targetEmail = email || (phone.replace(/\+/g, "") + "@subscribers.pricealerter.in");
+    const existing = await db.prepare("SELECT id, name, preferences_json FROM users WHERE email=?").bind(targetEmail).first<any>();
+    if (existing) {
+      let prefs: any = {};
+      try { prefs = JSON.parse(existing.preferences_json || "{}"); } catch {}
+      prefs.emailAlerts = true;
+      prefs.gmpAlerts = true;
+      prefs.ipoReminders = true;
+      await db.prepare("UPDATE users SET preferences_json=?, updated_at=? WHERE id=?")
+        .bind(JSON.stringify(prefs), nowIso(), existing.id).run();
+      return json({
+        ok: true,
+        success: true,
+        alreadySubscribed: true,
+        message: "You are already subscribed! Your alert preferences have been refreshed.",
+      });
+    }
+
+    const userId = id("usr");
+    const timestamp = nowIso();
+    const displayName = email ? email.split("@")[0] : ("Investor " + phone.slice(-4));
+    const dummyPasswordHash = await newPasswordHash("QuickSub_" + Date.now() + "_" + Math.random());
+    const defaultPrefs = JSON.stringify({ emailAlerts: true, browserNotifications: true, ipoReminders: true, gmpAlerts: true });
+
+    await db.prepare("INSERT INTO users(id, name, email, password_hash, role, email_verified, preferences_json, created_at, updated_at) VALUES(?,?,?,?,?,1,?,?,?)")
+      .bind(userId, displayName, targetEmail, dummyPasswordHash, "user", defaultPrefs, timestamp, timestamp).run();
+
+    if (email) {
+      void sendQuickWelcomeEmail(env, email, displayName);
+    }
+
+    return json({
+      ok: true,
+      success: true,
+      message: "🎉 You are subscribed! You will receive live GMP movements and IPO alerts.",
     });
   }
 

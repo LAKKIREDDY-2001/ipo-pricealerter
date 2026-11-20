@@ -115,6 +115,7 @@ export function MainNavbar() {
                   <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] shadow-lg p-1.5 grid gap-0.5">
                     {[
                       { label: 'All IPOs', to: '/ipo' },
+                      { label: '🎯 IPO Allotment Status', to: '/allotment-status' },
                       { label: 'Mainboard IPO', to: '/ipo/mainboard' },
                       { label: 'SME IPO', to: '/ipo/sme' },
                       { label: 'Open IPOs', to: '/ipo/open' },
@@ -415,6 +416,7 @@ export function MainNavbar() {
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: 'IPO Explorer', to: '/ipo' },
+                    { label: '🎯 Allotment Status', to: '/allotment-status' },
                     { label: 'Mainboard IPOs', to: '/ipo/mainboard' },
                     { label: 'SME IPOs', to: '/ipo/sme' },
                     { label: 'GMP Tracker', to: '/gmp' },

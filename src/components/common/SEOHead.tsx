@@ -5,9 +5,18 @@ interface SEOHeadProps {
   description: string;
   canonicalPath?: string;
   noIndex?: boolean;
+  ogImage?: string;
+  type?: 'website' | 'article' | 'product';
 }
 
-export function SEOHead({ title, description, canonicalPath, noIndex = false }: SEOHeadProps) {
+export function SEOHead({
+  title,
+  description,
+  canonicalPath,
+  noIndex = false,
+  ogImage = 'https://pricealerter.in/brand/logo.png',
+  type = 'website',
+}: SEOHeadProps) {
   useEffect(() => {
     const fullTitle = title.includes('PriceAlerter') ? title : `${title} | PriceAlerter`;
     document.title = fullTitle;
@@ -37,9 +46,14 @@ export function SEOHead({ title, description, canonicalPath, noIndex = false }: 
     updateMeta('meta[property="og:title"]', 'property', 'og:title', fullTitle);
     updateMeta('meta[property="og:description"]', 'property', 'og:description', description);
     updateMeta('meta[property="og:url"]', 'property', 'og:url', canonicalHref);
+    updateMeta('meta[property="og:type"]', 'property', 'og:type', type);
+    updateMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'PriceAlerter India');
+    updateMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
+    updateMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
     updateMeta('meta[name="twitter:title"]', 'name', 'twitter:title', fullTitle);
     updateMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
     updateMeta('meta[name="twitter:url"]', 'name', 'twitter:url', canonicalHref);
+    updateMeta('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
 
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {

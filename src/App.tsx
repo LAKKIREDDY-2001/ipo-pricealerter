@@ -17,12 +17,16 @@ import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { CookieConsentBanner } from './components/compliance/CookieConsentBanner';
 import { usePriceAlertWatcher } from './hooks/usePriceAlertWatcher';
 import { PriceAlertPopup } from './components/alerts/PriceAlertPopup';
+import { FreeAlertsFloatingWidget } from './components/marketing/FreeAlertsFloatingWidget';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage').then((m) => ({ default: m.HomePage }))
 );
 const IPOExplorerPage = lazy(() =>
   import('./pages/IPOExplorerPage').then((m) => ({ default: m.IPOExplorerPage }))
+);
+const AllotmentStatusPage = lazy(() =>
+  import('./pages/AllotmentStatusPage').then((m) => ({ default: m.AllotmentStatusPage }))
 );
 const IPODetailsPage = lazy(() =>
   import('./pages/IPODetailsPage').then((m) => ({ default: m.IPODetailsPage }))
@@ -130,6 +134,7 @@ function MobileQuickNav() {
     { label: 'Stocks', to: '/live-prices', icon: ChartNoAxesCombined },
   ];
   const moreItems = [
+    { label: 'Allotment Status', to: '/allotment-status' },
     { label: 'IPO Calendar', to: '/calendar' },
     { label: 'Listed IPOs', to: '/listed' },
     { label: 'Stock Screener', to: '/stock-screener' },
@@ -262,6 +267,10 @@ export default function App() {
                     <Route path="/ipo/listed" element={<IPOExplorerPage presetStatus="Listed" />} />
                     <Route path="/ipo/:companySlug" element={<IPODetailsPage />} />
 
+                    {/* IPO Allotment Status Hub */}
+                    <Route path="/allotment-status" element={<AllotmentStatusPage />} />
+                    <Route path="/ipo-allotment-status" element={<AllotmentStatusPage />} />
+
                     {/* GMP Tracker */}
                     <Route path="/gmp" element={<GMPTrackerPage />} />
                     <Route path="/gmp/:companySlug" element={<GMPTrackerPage />} />
@@ -320,6 +329,7 @@ export default function App() {
                 <FloatingBackToTop />
                 <CookieConsentBanner />
                 <GlobalPriceAlertWatcher />
+                <FreeAlertsFloatingWidget />
               </div>
             </BrowserRouter>
           </AuthProvider>

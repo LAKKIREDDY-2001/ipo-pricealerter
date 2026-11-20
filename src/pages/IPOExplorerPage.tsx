@@ -6,6 +6,7 @@ import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs, EmptyState, ErrorRetryState, LoadingSkeleton } from '../components/common/StateViews';
 import { IPOCard } from '../components/ipo/IPOCard';
 import { IPOTable } from '../components/ipo/IPOTable';
+import { FreeAlertsLeadMagnet } from '../components/marketing/FreeAlertsLeadMagnet';
 
 interface IPOExplorerPageProps {
   presetCategory?: 'Mainboard' | 'SME';
@@ -147,6 +148,13 @@ export function IPOExplorerPage({ presetCategory, presetStatus }: IPOExplorerPag
           </button>
         </div>
       </div>
+
+      {/* Free Alerts Lead Magnet */}
+      <FreeAlertsLeadMagnet
+        source="ipo_explorer"
+        title="Never Miss a Hot IPO Bidding Window"
+        description="Get automated WhatsApp & Email reminders when high-demand Mainboard & SME IPOs open for subscription."
+      />
 
       {/* Filters Panel */}
       <section className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 space-y-3">

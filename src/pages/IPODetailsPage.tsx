@@ -35,6 +35,8 @@ import {
 import { DataQualityBadge, IPOStatusBadge } from '../components/common/DataQualityBadge';
 import { WatchlistButton } from '../components/common/WatchlistButton';
 import { GMPChart } from '../components/gmp/GMPChart';
+import { SocialShareButtons } from '../components/common/SocialShareButtons';
+import { FreeAlertsLeadMagnet } from '../components/marketing/FreeAlertsLeadMagnet';
 
 type DetailTab =
   | 'overview'
@@ -237,6 +239,11 @@ export function IPODetailsPage() {
                 <FileText className="w-3.5 h-3.5" /> {ipo.documents.rhpUrl ? 'Official RHP' : 'Official DRHP'}
               </a>
             )}
+            <SocialShareButtons
+              title={ipo.companyName}
+              summary={`🚀 ${ipo.companyName} (${ipo.category} IPO)\n💰 Price Band: ₹${ipo.priceBandLow} – ₹${ipo.priceBandHigh}\n${ipo.priceBandHigh && ipo.gmp?.latestGmp ? `📈 GMP: +₹${ipo.gmp.latestGmp} (+${Math.round((ipo.gmp.latestGmp / ipo.priceBandHigh) * 100)}%)\n` : ''}${ipo.subscription?.total ? `🔥 Subscribed: ${ipo.subscription.total}x\n` : ''}📅 Allotment: ${ipo.dates.allotmentDate || 'TBA'}`}
+              variant="compact"
+            />
           </div>
         </div>
 
@@ -523,6 +530,18 @@ export function IPODetailsPage() {
               )}
             </div>
           </div>
+
+          <SocialShareButtons
+            title={ipo.companyName}
+            summary={`🔥 Live Grey Market Premium (GMP) for ${ipo.companyName}:\n📈 Current GMP: +₹${ipo.gmp.latestGmp ?? '—'}\n💰 Issue Price: ₹${ipo.priceBandHigh ?? '—'}\n📊 Expected Listing Gain: ${ipo.priceBandHigh && ipo.gmp.latestGmp ? `+${Math.round((ipo.gmp.latestGmp / ipo.priceBandHigh) * 100)}%` : '—'}\n📅 Allotment Date: ${ipo.dates.allotmentDate || 'TBA'}`}
+            variant="full"
+          />
+
+          <FreeAlertsLeadMagnet
+            source="ipo_detail_gmp"
+            title={`Get Instant Alerts for ${ipo.companyName}`}
+            description={`Subscribe for live GMP price changes, subscription updates, and instant allotment declaration notifications for ${ipo.companyName}.`}
+          />
         </div>
       )}
 

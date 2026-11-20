@@ -2731,4 +2731,10 @@ export const api = {
       priceBandPct: number | null;
       retrievedAt: string;
     }>(`/api/market/angel/cas/scrip/${encodeURIComponent(symbol)}`),
+
+  subscribeFreeAlerts: (payload: { email?: string; phone?: string; source?: string; interests?: string[] }) =>
+    request<{ ok?: boolean; success: boolean; message: string; alreadySubscribed?: boolean }>('/api/subscribers/quick-join', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
 };

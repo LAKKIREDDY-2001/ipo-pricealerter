@@ -32,6 +32,7 @@ import {
   Gauge,
   Timer,
   Scale,
+  Target,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { IPOOffering, StockInstrument } from '../types/financial';
@@ -47,6 +48,8 @@ import {
 } from '../utils/calculations';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs, DisclaimerBanner } from '../components/common/StateViews';
+import { SocialShareButtons } from '../components/common/SocialShareButtons';
+import { FreeAlertsLeadMagnet } from '../components/marketing/FreeAlertsLeadMagnet';
 
 export function CalculatorsPage() {
   const { tool } = useParams<{ tool?: string }>();
@@ -60,6 +63,15 @@ export function CalculatorsPage() {
   const [lotSize, setLotSize] = useState('34');
   const [lots, setLots] = useState('1');
   const ipoInv = calculateIPOInvestment(Number(ipoPrice), Number(lotSize), Number(lots));
+
+  // 1.1 Allotment Probability & Expected Gain Calculator
+  const [oddsIpoSlug, setOddsIpoSlug] = useState<string>('');
+  const [oddsIpoName, setOddsIpoName] = useState<string>('Upcoming Mainboard IPO');
+  const [oddsRetailSub, setOddsRetailSub] = useState<string>('18.5');
+  const [oddsPansCount, setOddsPansCount] = useState<string>('1');
+  const [oddsPrice, setOddsPrice] = useState<string>('195');
+  const [oddsLotSize, setOddsLotSize] = useState<string>('75');
+  const [oddsGmp, setOddsGmp] = useState<string>('45');
 
   // 11. Closing Auction Session (CAS) Suite State
   const [casSimTime, setCasSimTime] = useState<string>('15:22');
@@ -1074,6 +1086,34 @@ export function CalculatorsPage() {
     }
   };
 
+  const prefillOddsFromIpo = (slug: string) => {
+    const ipo = ipos.find((i) => i.slug === slug);
+    if (!ipo) return;
+    setOddsIpoSlug(ipo.slug);
+    setOddsIpoName(ipo.companyName);
+    if (ipo.priceBandHigh) setOddsPrice(String(ipo.priceBandHigh));
+    if (ipo.lotSize) setOddsLotSize(String(ipo.lotSize));
+    if (ipo.subscription?.retail && ipo.subscription.retail > 0) {
+      setOddsRetailSub(String(ipo.subscription.retail));
+    }
+    if (ipo.gmp?.latestGmp !== null && ipo.gmp?.latestGmp !== undefined) {
+      setOddsGmp(String(ipo.gmp.latestGmp));
+    }
+  };
+
+  const subMultiple = Math.max(1, Number(oddsRetailSub) || 1);
+  const nPans = Math.max(1, Math.min(20, Number(oddsPansCount) || 1));
+  const oddsLotPriceVal = Number(oddsPrice) || 0;
+  const oddsLotSharesVal = Number(oddsLotSize) || 0;
+  const oddsGmpVal = Number(oddsGmp) || 0;
+
+  const singleOddsPct = Math.min(100, (1 / subMultiple) * 100);
+  const combinedOddsPct = Math.min(100, (1 - Math.pow(1 - 1 / subMultiple, nPans)) * 100);
+  const estProfitPerLot = oddsLotSharesVal * oddsGmpVal;
+  const estListingPrice = oddsLotPriceVal + oddsGmpVal;
+  const estListingGainPct = oddsLotPriceVal > 0 ? (oddsGmpVal / oddsLotPriceVal) * 100 : 0;
+  const totalInvestmentRequired = nPans * oddsLotPriceVal * oddsLotSharesVal;
+
   const prefillFromStock = (symbol: string) => {
     const stk = stocks.find((s) => s.symbol === symbol);
     if (!stk || stk.currentPrice === null) return;
@@ -1108,6 +1148,7 @@ export function CalculatorsPage() {
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
         {[
           { label: 'All Calculators', to: '/calculators', id: 'all' },
+          { label: '🎯 Allotment Odds & Profit', to: '/calculators/allotment-odds', id: 'allotment-odds' },
           { label: '⚡ SmartAPI Margin', to: '/calculators/margin', id: 'margin' },
           { label: '📊 Option Greeks (SmartAPI)', to: '/calculators/option-greeks', id: 'option-greeks' },
           { label: '📡 SmartStream 2.0 (WebSocket)', to: '/calculators/smart-stream', id: 'smart-stream' },
@@ -1135,6 +1176,181 @@ export function CalculatorsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {show('allotment-odds') && (
+          <section className={`rounded-xl border border-emerald-500/30 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-5 ${activeTool === 'allotment-odds' ? 'col-span-full' : 'lg:col-span-2'}`}>
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div>
+                <h2 className="text-base font-bold text-[#14263F] dark:text-white flex items-center gap-2">
+                  <Target className="w-5 h-5 text-emerald-500" />
+                  IPO Allotment Probability &amp; Expected Profit Calculator
+                </h2>
+                <p className="text-xs text-[#64748B] dark:text-slate-400 mt-0.5">
+                  Simulate your retail lottery allotment odds and expected listing profit based on live subscription data.
+                </p>
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300">
+                Viral Retail Tool
+              </span>
+            </div>
+
+            {/* Prefill from active IPO */}
+            {ipos.length > 0 && (
+              <label className="block text-xs">
+                <span className="text-[#64748B] dark:text-slate-400 font-medium">Auto-fill from tracked IPO:</span>
+                <select
+                  value={oddsIpoSlug}
+                  onChange={(e) => prefillOddsFromIpo(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm sm:text-xs text-[#152338] dark:text-slate-100"
+                >
+                  <option value="" disabled>Select an IPO to pre-fill Price, Lot Size, GMP &amp; Subscription...</option>
+                  {ipos.filter((i) => i.priceBandHigh && i.lotSize).slice(0, 40).map((i) => (
+                    <option key={i.slug} value={i.slug}>
+                      {i.companyName} ({i.category}) — Retail: {i.subscription?.retail ? `${i.subscription.retail}x` : 'Open'} | GMP: {i.gmp?.latestGmp != null ? `+₹${i.gmp.latestGmp}` : '—'}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            {/* Inputs Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              <div>
+                <label className="text-[11px] font-semibold text-[#64748B] dark:text-slate-400 block mb-1">
+                  Retail Subscription (x)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  step="0.1"
+                  value={oddsRetailSub}
+                  onChange={(e) => setOddsRetailSub(e.target.value)}
+                  className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-[#64748B] dark:text-slate-400 block mb-1">
+                  Applications (Family PANs)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="20"
+                  value={oddsPansCount}
+                  onChange={(e) => setOddsPansCount(e.target.value)}
+                  className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-[#64748B] dark:text-slate-400 block mb-1">
+                  Issue Price (₹)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={oddsPrice}
+                  onChange={(e) => setOddsPrice(e.target.value)}
+                  className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-[#64748B] dark:text-slate-400 block mb-1">
+                  Lot Size (Shares)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={oddsLotSize}
+                  onChange={(e) => setOddsLotSize(e.target.value)}
+                  className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-[#64748B] dark:text-slate-400 block mb-1">
+                  Current GMP (₹)
+                </label>
+                <input
+                  type="number"
+                  value={oddsGmp}
+                  onChange={(e) => setOddsGmp(e.target.value)}
+                  className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-sm text-[#152338] dark:text-white"
+                />
+              </div>
+            </div>
+
+            {/* Results Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60">
+                <span className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-400 block">
+                  Probability of Allotment
+                </span>
+                <span className="text-xl sm:text-2xl font-black text-emerald-700 dark:text-emerald-300">
+                  {combinedOddsPct.toFixed(1)}%
+                </span>
+                <span className="text-[10px] text-emerald-600 dark:text-emerald-500 block mt-0.5">
+                  ≈ 1 in {Math.round(100 / Math.max(0.001, combinedOddsPct))} applicants
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/60">
+                <span className="text-[11px] font-semibold text-blue-800 dark:text-blue-400 block">
+                  Expected Profit / Lot
+                </span>
+                <span className="text-xl sm:text-2xl font-black text-blue-700 dark:text-blue-300">
+                  ₹{formatNumberIN(estProfitPerLot)}
+                </span>
+                <span className="text-[10px] text-blue-600 dark:text-blue-500 block mt-0.5">
+                  +{estListingGainPct.toFixed(1)}% Listing Gain
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 block">
+                  Estimated Listing Price
+                </span>
+                <span className="text-xl sm:text-2xl font-black text-slate-800 dark:text-white">
+                  ₹{estListingPrice.toFixed(2)}
+                </span>
+                <span className="text-[10px] text-slate-500 block mt-0.5">
+                  Base: ₹{oddsLotPriceVal} + GMP: ₹{oddsGmpVal}
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 block">
+                  Total Capital Required
+                </span>
+                <span className="text-xl sm:text-2xl font-black text-slate-800 dark:text-white">
+                  ₹{formatNumberIN(totalInvestmentRequired)}
+                </span>
+                <span className="text-[10px] text-slate-500 block mt-0.5">
+                  {nPans} application{nPans > 1 ? 's' : ''} (1 lot each)
+                </span>
+              </div>
+            </div>
+
+            {/* Viral Share Banner */}
+            <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 border border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div>
+                <h4 className="text-xs font-bold text-[#14263F] dark:text-white">
+                  Share Your Allotment Odds with Friends:
+                </h4>
+                <p className="text-[11px] text-[#64748B] dark:text-slate-400">
+                  Let your investor group know their chances of getting shares in {oddsIpoName}!
+                </p>
+              </div>
+              <SocialShareButtons
+                title={`My Allotment Odds for ${oddsIpoName}`}
+                summary={`🎯 My Allotment Odds for ${oddsIpoName}: 1 in ${Math.round(100 / Math.max(0.001, combinedOddsPct))} (${combinedOddsPct.toFixed(1)}% chance with ${nPans} PANs) with ₹${formatNumberIN(estProfitPerLot)} expected listing profit! Calculate your IPO odds here:`}
+                url="https://pricealerter.in/calculators/allotment-odds"
+                variant="compact"
+              />
+            </div>
+          </section>
+        )}
         {show('ipo') && (
           <section className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-4 sm:p-6 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">

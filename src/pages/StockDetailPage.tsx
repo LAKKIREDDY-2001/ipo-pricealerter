@@ -39,6 +39,7 @@ import {
 } from '../components/common/StateViews';
 import { DataQualityBadge } from '../components/common/DataQualityBadge';
 import { WatchlistButton } from '../components/common/WatchlistButton';
+import { SocialShareButtons } from '../components/common/SocialShareButtons';
 import { generateDeterministicCandles, parseListingDateMs } from '../utils/candleSynthesis';
 
 const CHART_RANGES = [
@@ -831,6 +832,11 @@ export function StockDetailPage() {
                 <span>Option Greeks</span>
               </Link>
             )}
+            <SocialShareButtons
+              title={`${stock.companyName} (${stock.symbol})`}
+              summary={`📊 ${stock.companyName} (${stock.symbol})\n💵 Price: ${isUsStock ? `$${currentPrice.toFixed(2)}` : formatINR(currentPrice)} (${isUp ? '+' : ''}${diffPct.toFixed(2)}%)\n🏢 Sector: ${stock.sector || 'Equities'}\nTrack real-time NSE/BSE chart on PriceAlerter:`}
+              variant="compact"
+            />
           </div>
         </div>
 

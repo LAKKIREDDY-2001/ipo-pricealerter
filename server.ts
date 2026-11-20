@@ -45,6 +45,7 @@ import {
 import {
   dispatchWebhookNotification,
   isMailerConfigured,
+  sendMail,
   sendContactNotificationEmail,
   sendPasswordResetEmail,
   sendIpoDigestEmail,
@@ -2874,6 +2875,97 @@ async function startServer() {
     saveDb();
     const token = setSessionCookie(req, res, newUser);
     res.status(201).json({ user: sanitizeUser(newUser), token });
+  });
+
+  app.post('/api/subscribers/quick-join', authRateLimit, async (req, res) => {
+    const { email, phone } = req.body as { email?: string; phone?: string };
+    const cleanEmail = sanitizeText(email, 120).toLowerCase();
+    const cleanPhone = sanitizeText(phone, 20).replace(/[^\d+]/g, '');
+    if (!cleanEmail && !cleanPhone) {
+      res.status(400).json({ error: 'Please provide a valid email or WhatsApp phone number.' });
+      return;
+    }
+    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      res.status(400).json({ error: 'Please enter a valid email address.' });
+      return;
+    }
+
+    const db = getDb();
+    const targetEmail = cleanEmail || `${cleanPhone.replace(/\+/g, '')}@subscribers.pricealerter.in`;
+    const existing = db.users.find((u) => u.email.toLowerCase() === targetEmail);
+
+    if (existing) {
+      existing.preferences = {
+        ...existing.preferences,
+        emailAlerts: true,
+        gmpAlerts: true,
+        ipoReminders: true,
+      };
+      saveDb();
+      res.json({
+        ok: true,
+        success: true,
+        alreadySubscribed: true,
+        message: 'You are already registered! Your GMP & IPO alert preferences have been refreshed.',
+      });
+      return;
+    }
+
+    const displayName = cleanEmail ? cleanEmail.split('@')[0] : `Investor ${cleanPhone.slice(-4)}`;
+    const dummyPasswordHash = await bcrypt.hash(`QuickSub_${Date.now()}_${Math.random()}`, 10);
+    const newUser: StoredUser = {
+      id: createId('usr'),
+      name: displayName,
+      email: targetEmail,
+      role: 'user',
+      emailVerified: Boolean(cleanEmail),
+      createdAt: new Date().toISOString(),
+      passwordHash: dummyPasswordHash,
+      preferences: {
+        emailAlerts: true,
+        browserNotifications: true,
+        ipoReminders: true,
+        gmpAlerts: true,
+      },
+    };
+    db.users.push(newUser);
+    saveDb();
+
+    if (cleanEmail && isMailerConfigured()) {
+      const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+      const safeName = displayName.replace(/[<>&"]/g, '');
+      const html = `<div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:auto;padding:28px 24px;color:#152338;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;">
+        <div style="border-bottom:2px solid #00D09C;padding-bottom:12px;margin-bottom:20px;">
+          <h2 style="color:#00D09C;margin:0;font-size:22px;letter-spacing:-0.5px;">PriceAlerter.in</h2>
+          <p style="margin:4px 0 0;font-size:12px;color:#64748B;font-weight:600;text-transform:uppercase;">Live IPO & Market Intelligence</p>
+        </div>
+        <h3 style="margin:0 0 12px;color:#0F172A;font-size:18px;">Welcome to PriceAlerter, ${safeName}! 🚀</h3>
+        <p style="font-size:14px;line-height:1.6;color:#334155;margin:0 0 16px;">Your free alert subscription is officially activated. You will now receive instant updates on:</p>
+        <ul style="font-size:13px;line-height:1.8;color:#334155;margin:0 0 20px;padding-left:20px;">
+          <li><strong>Live IPO Openings:</strong> New Mainboard &amp; SME issues opening for bidding</li>
+          <li><strong>Grey Market Premium (GMP):</strong> Real-time price jumps and estimated listing gains</li>
+          <li><strong>Subscription Multiples:</strong> Breaking alerts when an IPO exceeds 20x bids</li>
+          <li><strong>Allotment Status Declarations:</strong> Instant notification when registrar results go live</li>
+        </ul>
+        <div style="text-align:center;margin:24px 0;">
+          <a href="${siteUrl}/gmp" style="background:#00D09C;color:#ffffff;text-decoration:none;font-weight:bold;font-size:14px;padding:12px 24px;border-radius:8px;display:inline-block;">View Today's Live GMP Tracker</a>
+        </div>
+        <p style="font-size:11px;color:#94A3B8;border-top:1px solid #E2E8F0;padding-top:16px;margin-top:24px;">PriceAlerter is an independent Indian market intelligence portal. Not SEBI registered investment advice.</p>
+      </div>`;
+      const text = `Hello ${displayName},\n\nWelcome to PriceAlerter! You are now subscribed to live Mainboard & SME IPO alerts, Grey Market Premium (GMP) surge notifications, and allotment updates.\n\nTrack live market data here: ${siteUrl}/gmp\n\nHappy Investing,\nPriceAlerter Team`;
+      void sendMail({
+        to: cleanEmail,
+        subject: 'Welcome to PriceAlerter: Live IPO & GMP Alerts Activated 🚀',
+        text,
+        html,
+      }).catch(() => {});
+    }
+
+    res.json({
+      ok: true,
+      success: true,
+      message: '🎉 You are subscribed! You will receive live GMP movements and IPO alerts.',
+    });
   });
 
   app.post('/api/auth/login', authRateLimit, async (req, res) => {
