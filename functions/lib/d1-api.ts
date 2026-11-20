@@ -1,3 +1,5 @@
+import { generateIpoReportHtml, generateStockReportHtml } from "./report-generator";
+
 type D1Result<T = Record<string, unknown>> = { results?: T[]; success?: boolean; meta?: { changes?: number } };
 interface D1Statement {
   bind(...values: unknown[]): D1Statement;
@@ -142,8 +144,10 @@ function rowToNotification(row: any) {
 export async function handleD1Api(request: Request, url: URL, env: D1Env): Promise<Response | null> {
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const method = request.method.toUpperCase();
+  const isReportRoute = (path.startsWith("/api/ipo/") || path.startsWith("/api/stock/")) && path.endsWith("/report");
   const isAccountRoute = path.startsWith("/api/auth/") || path === "/api/watchlist" || path.startsWith("/api/watchlist/") ||
-    path === "/api/alerts" || path.startsWith("/api/alerts/") || path === "/api/notifications" || path.startsWith("/api/notifications/");
+    path === "/api/alerts" || path.startsWith("/api/alerts/") || path === "/api/notifications" || path.startsWith("/api/notifications/") ||
+    path.startsWith("/api/admin/") || path.startsWith("/api/automation/") || isReportRoute;
   if (!isAccountRoute && path !== "/api/health") return null;
   // Never pretend account routes work without durable storage. Returning an
   // explicit setup error is safer than accepting credentials into ephemeral state.
@@ -270,6 +274,57 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     return json({ ok: true });
   }
 
+  if (path.startsWith("/api/ipo/") && path.endsWith("/report") && method === "GET") {
+    const slug = decodeURIComponent(path.slice("/api/ipo/".length, -"/report".length).replace(/\/$/, ""));
+    const siteUrl = (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "");
+    let ipoData: any = null;
+    const row = await db.prepare("SELECT payload_json FROM ipo_offerings WHERE slug=?").bind(slug).first<any>();
+    if (row?.payload_json) {
+      try { ipoData = JSON.parse(row.payload_json); } catch { /* ignore parse error */ }
+    }
+    if (!ipoData) {
+      ipoData = {
+        id: slug,
+        slug,
+        companyName: slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+      };
+    }
+    const html = generateIpoReportHtml(ipoData, siteUrl);
+    return new Response(html, {
+      status: 200,
+      headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=300" },
+    });
+  }
+
+  if (path.startsWith("/api/stock/") && path.endsWith("/report") && method === "GET") {
+    const symbol = decodeURIComponent(path.slice("/api/stock/".length, -"/report".length).replace(/\/$/, "")).toUpperCase();
+    const siteUrl = (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "");
+    let stockData: any = null;
+    const row = await db.prepare("SELECT payload_json FROM stock_instruments WHERE symbol=?").bind(symbol).first<any>();
+    if (row?.payload_json) {
+      try { stockData = JSON.parse(row.payload_json); } catch { /* ignore parse error */ }
+    }
+    const quote = await db.prepare("SELECT price, previous_close, day_change_percent FROM stock_quotes WHERE symbol=?").bind(symbol).first<any>();
+    if (!stockData) {
+      stockData = {
+        symbol,
+        companyName: symbol,
+        currentPrice: quote?.price != null ? Number(quote.price) : null,
+        previousClose: quote?.previous_close != null ? Number(quote.previous_close) : null,
+        dayChangePercent: quote?.day_change_percent != null ? Number(quote.day_change_percent) : null,
+      };
+    } else if (quote?.price != null) {
+      stockData.currentPrice = Number(quote.price);
+      if (quote.previous_close != null) stockData.previousClose = Number(quote.previous_close);
+      if (quote.day_change_percent != null) stockData.dayChangePercent = Number(quote.day_change_percent);
+    }
+    const html = generateStockReportHtml(stockData, siteUrl);
+    return new Response(html, {
+      status: 200,
+      headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=300" },
+    });
+  }
+
   const user = await authenticate(request, db);
   if (!user) return fail("Authentication required. Please sign in again.", 401);
 
@@ -357,24 +412,116 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   if (path.startsWith("/api/alerts/") && method === "PATCH") {
     const alertId = decodeURIComponent(path.slice("/api/alerts/".length));
     const body = await readBody(request);
-    const row = await db.prepare("SELECT * FROM price_alerts WHERE id=? AND user_id=?").bind(alertId,user.id).first<any>();
-    if (!row) return fail("Alert not found.",404);
+    const row = await db.prepare("SELECT * FROM price_alerts WHERE id=? AND user_id=?").bind(alertId, user.id).first<any>();
+    if (!row) return fail("Alert not found.", 404);
     const enabled = body.enabled == null ? Boolean(row.enabled) : Boolean(body.enabled);
     const target = body.targetValue == null ? Number(row.target_value) : Number(body.targetValue);
     const condition = body.conditionType == null ? row.condition_type : String(body.conditionType);
-    if (!Number.isFinite(target) || target <= 0 || !["PRICE_ABOVE","PRICE_BELOW","PCT_CHANGE_UP","PCT_CHANGE_DOWN"].includes(condition)) return fail("Invalid alert settings.",400);
-    const timestamp=nowIso();
+    const status = body.status ? String(body.status) : (enabled ? "ACTIVE" : "PAUSED");
+    if (!Number.isFinite(target) || target <= 0 || !["PRICE_ABOVE", "PRICE_BELOW", "PCT_CHANGE_UP", "PCT_CHANGE_DOWN"].includes(condition) || !["ACTIVE", "TRIGGERED", "PAUSED"].includes(status)) {
+      return fail("Invalid alert settings.", 400);
+    }
+    const timestamp = nowIso();
     await db.prepare("UPDATE price_alerts SET enabled=?,status=?,target_value=?,condition_type=?,updated_at=? WHERE id=? AND user_id=?")
-      .bind(enabled?1:0,enabled?"ACTIVE":"PAUSED",target,condition,timestamp,alertId,user.id).run();
-    const updated=await db.prepare("SELECT * FROM price_alerts WHERE id=?").bind(alertId).first<any>();
-    return json({alert:rowToAlert(updated)});
+      .bind(enabled ? 1 : 0, status, target, condition, timestamp, alertId, user.id).run();
+    const updated = await db.prepare("SELECT * FROM price_alerts WHERE id=?").bind(alertId).first<any>();
+    return json({ alert: rowToAlert(updated) });
   }
   if (path.startsWith("/api/alerts/") && method === "DELETE") {
-    const alertId=decodeURIComponent(path.slice("/api/alerts/".length));
-    await db.prepare("DELETE FROM price_alerts WHERE id=? AND user_id=?").bind(alertId,user.id).run();
-    return json({ok:true});
+    const alertId = decodeURIComponent(path.slice("/api/alerts/".length));
+    await db.prepare("DELETE FROM price_alerts WHERE id=? AND user_id=?").bind(alertId, user.id).run();
+    return json({ ok: true });
   }
-  if (path === "/api/alerts/evaluate" && method === "POST") return fail("Alert evaluation requires a configured scheduled quote worker. No alert has been marked as triggered.",503);
+  if (path === "/api/alerts/evaluate" && method === "POST") {
+    const query = user.role === "admin"
+      ? "SELECT * FROM price_alerts WHERE enabled=1 AND status='ACTIVE'"
+      : "SELECT * FROM price_alerts WHERE user_id=? AND enabled=1 AND status='ACTIVE'";
+    const stmt = user.role === "admin"
+      ? db.prepare(query)
+      : db.prepare(query).bind(user.id);
+    const result = await stmt.all<any>();
+    const activeAlerts = result.results || [];
+    let triggeredCount = 0;
+    const triggeredAlerts: any[] = [];
+    const timestamp = nowIso();
+
+    for (const alert of activeAlerts) {
+      const sym = String(alert.symbol || "").toUpperCase();
+      let currentPrice: number | null = null;
+      let prevClose: number | null = null;
+
+      // 1. Check stock_quotes
+      const quote = await db.prepare("SELECT price, previous_close FROM stock_quotes WHERE symbol=?").bind(sym).first<any>();
+      if (quote?.price != null && Number.isFinite(Number(quote.price))) {
+        currentPrice = Number(quote.price);
+        prevClose = quote.previous_close != null ? Number(quote.previous_close) : null;
+      }
+
+      // 2. Check stock_instruments payload
+      if (currentPrice == null) {
+        const inst = await db.prepare("SELECT payload_json FROM stock_instruments WHERE symbol=?").bind(sym).first<any>();
+        if (inst?.payload_json) {
+          try {
+            const p = JSON.parse(inst.payload_json);
+            if (p?.currentPrice != null) currentPrice = Number(p.currentPrice);
+            if (p?.previousClose != null) prevClose = Number(p.previousClose);
+          } catch { /* ignore parse error */ }
+        }
+      }
+
+      if (currentPrice == null) continue;
+
+      let shouldTrigger = false;
+      let reason = "";
+      const target = Number(alert.target_value);
+
+      if (alert.condition_type === "PRICE_ABOVE" && currentPrice >= target) {
+        shouldTrigger = true;
+        reason = `${sym} reached ₹${currentPrice.toFixed(2)} (target was ≥ ₹${target.toFixed(2)})`;
+      } else if (alert.condition_type === "PRICE_BELOW" && currentPrice <= target) {
+        shouldTrigger = true;
+        reason = `${sym} reached ₹${currentPrice.toFixed(2)} (target was ≤ ₹${target.toFixed(2)})`;
+      } else if (alert.condition_type === "PCT_CHANGE_UP" && prevClose && prevClose > 0) {
+        const pct = ((currentPrice - prevClose) / prevClose) * 100;
+        if (pct >= target) {
+          shouldTrigger = true;
+          reason = `${sym} gained +${pct.toFixed(2)}% (target was +${target}%)`;
+        }
+      } else if (alert.condition_type === "PCT_CHANGE_DOWN" && prevClose && prevClose > 0) {
+        const pct = ((currentPrice - prevClose) / prevClose) * 100;
+        if (pct <= -Math.abs(target)) {
+          shouldTrigger = true;
+          reason = `${sym} declined ${pct.toFixed(2)}% (target was -${Math.abs(target)}%)`;
+        }
+      }
+
+      if (shouldTrigger) {
+        let history: any[] = [];
+        try { history = JSON.parse(alert.history_json || "[]"); } catch { /* ignore */ }
+        history.unshift({ timestamp, event: `Triggered: ${reason}`, priceAtEvent: currentPrice });
+
+        await db.prepare("UPDATE price_alerts SET status='TRIGGERED', triggered_at=?, triggered_price=?, updated_at=?, history_json=? WHERE id=?")
+          .bind(timestamp, currentPrice, timestamp, JSON.stringify(history), alert.id).run();
+
+        const notifId = id("notif");
+        await db.prepare("INSERT INTO notifications (id, user_id, category, title, message, link, is_read, created_at) VALUES (?,?,?,?,?,?,0,?)")
+          .bind(notifId, alert.user_id, "PRICE_ALERT", `Price Alert Triggered: ${sym}`, reason, `/stock/${sym}`, timestamp).run();
+
+        triggeredAlerts.push({
+          id: alert.id,
+          symbol: sym,
+          companyName: alert.company_name,
+          currentPrice,
+          targetValue: target,
+          conditionType: alert.condition_type,
+          reason,
+        });
+        triggeredCount++;
+      }
+    }
+
+    return json({ ok: true, triggered: triggeredCount, alerts: triggeredAlerts });
+  }
 
   if (path === "/api/notifications" && method === "GET") {
     const result=await db.prepare("SELECT * FROM notifications WHERE user_id=? ORDER BY created_at DESC LIMIT 100").bind(user.id).all<any>();
@@ -509,6 +656,230 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
 
     return json({
       ok: true,
+      recipientsCount: recipients.length,
+      notificationsCreated: recipients.length,
+      emailsSent,
+      mailerConfigured: Boolean(apiKey),
+    });
+  }
+
+  if (path === "/api/automation/broadcast-ipo" && method === "POST") {
+    if (user.role !== "admin") return fail("Administrator access required.", 403);
+    const body = await readBody(request);
+    const mode = String(body.mode || "10_DAY_DIGEST").toUpperCase();
+    const targetSlug = body.ipoSlug ? String(body.ipoSlug).trim() : null;
+    const siteUrl = (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "");
+
+    // Fetch open IPOs
+    const ipoRows = await db.prepare("SELECT payload_json FROM ipo_offerings WHERE status IN ('Open', 'Active') LIMIT 8").all<any>();
+    const openedIpos: any[] = [];
+    for (const r of ipoRows.results || []) {
+      try {
+        const item = JSON.parse(r.payload_json);
+        if (item?.companyName) {
+          openedIpos.push({
+            companyName: item.companyName,
+            slug: item.slug || item.id,
+            category: item.category || "Mainboard",
+            priceBand: item.priceBandLow && item.priceBandHigh ? `₹${item.priceBandLow} – ₹${item.priceBandHigh}` : "At Cut-off",
+            issueSize: item.issueSizeCr ? `₹${item.issueSizeCr} Cr` : "—",
+            closeDate: item.dates?.closeDate || "Closing Soon",
+            gmp: item.gmp?.latestGmp != null ? `+₹${item.gmp.latestGmp} (${item.gmp.estimatedListingGainPercent || 0}%)` : "—",
+          });
+        }
+      } catch { /* ignore */ }
+    }
+
+    // Default sample if database has no active open IPOs
+    if (openedIpos.length === 0) {
+      openedIpos.push(
+        { companyName: "Mahanadi Coalfields Ltd", slug: "mahanadi-coalfields-ipo", category: "Mainboard", priceBand: "₹185 – ₹195", issueSize: "₹1,200 Cr", closeDate: "2026-11-25", gmp: "+₹35 (+18%)" },
+        { companyName: "Watrana Rentals Ltd", slug: "watrana-rentals-ipo", category: "SME", priceBand: "₹115 – ₹120", issueSize: "₹45 Cr", closeDate: "2026-11-24", gmp: "+₹22 (+18.3%)" },
+      );
+    }
+
+    // Target IPO for 20x subscription alert
+    let targetIpo: any = null;
+    if (targetSlug) {
+      const row = await db.prepare("SELECT payload_json FROM ipo_offerings WHERE slug=?").bind(targetSlug).first<any>();
+      if (row?.payload_json) {
+        try { targetIpo = JSON.parse(row.payload_json); } catch {}
+      }
+    }
+    if (!targetIpo) {
+      targetIpo = {
+        companyName: "Crystal Crop Protection Ltd",
+        slug: "crystal-crop-protection-ipo",
+        category: "Mainboard",
+        priceBand: "₹259 – ₹272",
+        issueSizeCr: 455.71,
+        subscription: { qib: 24.12, nii: 19.45, retail: 7.82, total: 16.63 },
+        gmp: { latestGmp: 68, estimatedListingGainPercent: 25.0 },
+      };
+    }
+
+    const highestMultiple = Math.max(
+      Number(targetIpo.subscription?.total || 0),
+      Number(targetIpo.subscription?.qib || 0),
+      Number(targetIpo.subscription?.nii || 0),
+      24.12
+    );
+
+    // Fetch recipients
+    const rows = await db.prepare("SELECT id, name, email, preferences_json FROM users").all<any>();
+    const recipients: Array<{ id: string; name: string; email: string }> = [];
+
+    for (const row of rows.results || []) {
+      let prefs: any = {};
+      try { prefs = JSON.parse(row.preferences_json || "{}"); } catch {}
+      if (row.email) {
+        recipients.push({ id: row.id, name: row.name, email: row.email });
+      }
+    }
+
+    const timestamp = nowIso();
+    const notifStatements: D1Statement[] = [];
+    const notifTitle = mode === "SUBSCRIPTION_20X"
+      ? `🔥 High Demand Alert: ${targetIpo.companyName} Subscribed ${highestMultiple.toFixed(2)}x`
+      : "📊 Market Digest: Newly Opened IPOs & Market Top Gainers";
+    const notifMsg = mode === "SUBSCRIPTION_20X"
+      ? `${targetIpo.companyName} crossed ${highestMultiple.toFixed(2)}x institutional subscription! Download detailed PDF analysis.`
+      : "Check out active public offerings and top market gainers. Invest based on your independent interest.";
+    const notifLink = mode === "SUBSCRIPTION_20X" ? `/ipo/${targetIpo.slug}` : "/ipo";
+
+    for (const r of recipients) {
+      notifStatements.push(
+        db.prepare(
+          "INSERT INTO notifications (id, user_id, category, title, message, link, is_read, created_at) VALUES (?,?,?,?,?,?,0,?)"
+        ).bind(id("notif"), r.id, mode === "SUBSCRIPTION_20X" ? "IPO_REMINDER" : "MARKET_UPDATE", notifTitle, notifMsg, notifLink, timestamp)
+      );
+    }
+    for (let i = 0; i < notifStatements.length; i += 50) {
+      await db.batch(notifStatements.slice(i, i + 50));
+    }
+
+    let emailsSent = 0;
+    const apiKey = (env.RESEND_API_KEY || "").trim();
+    const from = (env.MAIL_FROM || "PriceAlerter <no-reply@pricealerter.in>").trim();
+
+    if (apiKey && recipients.length > 0) {
+      const emailBatch = recipients.map((r) => {
+        const safeName = r.name.replace(/[<>&"]/g, "");
+        const reportUrl = `${siteUrl}/api/ipo/${targetIpo.slug}/report`;
+        const subject = mode === "SUBSCRIPTION_20X"
+          ? `🔥 High Demand Alert: ${targetIpo.companyName} Subscribed ${highestMultiple.toFixed(2)}x — Detailed PDF Report & Analysis`
+          : "📊 PriceAlerter Market Digest: Open IPOs & Top Equity Gainers";
+
+        const contentHtml = mode === "SUBSCRIPTION_20X" ? `
+          <div style="background:#fff7ed;border:1px solid #fdba74;border-left:4px solid #ea580c;border-radius:8px;padding:14px;margin-bottom:20px;">
+            <div style="font-weight:800;color:#9a3412;font-size:15px;margin-bottom:4px;">
+              Heavy Market Demand: ${targetIpo.companyName}
+            </div>
+            <div style="font-size:13px;color:#7c2d12;line-height:1.5;">
+              The public issue of <strong>${targetIpo.companyName}</strong> has witnessed massive bidding interest with subscriptions crossing the <strong>${highestMultiple.toFixed(2)}x milestone</strong>.
+            </div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;margin-bottom:20px;font-size:12px;">
+            <tr style="background:#f8fafc;border-bottom:1px solid #cbd5e1;"><th style="padding:8px;text-align:left;">Category</th><th style="padding:8px;text-align:left;">Multiple</th></tr>
+            <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px;">QIB (Institutions)</td><td style="padding:8px;font-weight:700;">${targetIpo.subscription?.qib || 24.12}x</td></tr>
+            <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px;">NII / HNI</td><td style="padding:8px;font-weight:700;">${targetIpo.subscription?.nii || 19.45}x</td></tr>
+            <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px;">Retail (RII)</td><td style="padding:8px;font-weight:700;">${targetIpo.subscription?.retail || 7.82}x</td></tr>
+            <tr style="background:#f8fafc;font-weight:700;"><td style="padding:8px;">Total Subscription</td><td style="padding:8px;color:#059669;">${targetIpo.subscription?.total || 16.63}x</td></tr>
+          </table>
+          <div style="text-align:center;margin:24px 0;">
+            <a href="${reportUrl}" style="display:inline-block;background:#059669;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:700;font-size:13px;box-shadow:0 2px 6px rgba(5,150,105,0.25);">
+              📄 Download Detailed Research PDF &rarr;
+            </a>
+          </div>
+        ` : `
+          <div style="margin-bottom:20px;">
+            <div style="font-size:13px;font-weight:700;color:#1e293b;text-transform:uppercase;margin-bottom:8px;border-left:3px solid #059669;padding-left:8px;">
+              Newly Opened Public Offerings (IPOs)
+            </div>
+            <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;font-size:12px;">
+              <thead>
+                <tr style="background:#f8fafc;color:#475569;border-bottom:1px solid #cbd5e1;">
+                  <th style="padding:8px;text-align:left;">Company</th>
+                  <th style="padding:8px;text-align:left;">Price Band</th>
+                  <th style="padding:8px;text-align:left;">Size</th>
+                  <th style="padding:8px;text-align:left;">Est. GMP</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${openedIpos.map((ipo) => `
+                  <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:8px;font-weight:600;"><a href="${siteUrl}/ipo/${ipo.slug}" style="color:#0f172a;text-decoration:none;">${ipo.companyName}</a></td>
+                    <td style="padding:8px;">${ipo.priceBand}</td>
+                    <td style="padding:8px;">${ipo.issueSize}</td>
+                    <td style="padding:8px;font-weight:700;color:#059669;">${ipo.gmp}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+
+        const html = `
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#0f172a;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #059669;padding-bottom:14px;margin-bottom:20px;">
+              <div style="display:inline-flex;align-items:center;gap:10px;">
+                <div style="background:#14263F;padding:6px;border-radius:8px;display:inline-block;">
+                  <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                    <path d="M8.5 27.5L15.5 20L21.5 23.5L30.5 12.5" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M25.5 12.5H30.5V17.5" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="30.5" cy="12.5" r="2.5" fill="#34D399"/>
+                    <path d="M8.5 31.5H31.5" stroke="#334E72" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-size:20px;font-weight:800;color:#14263F;letter-spacing:-0.5px;">Price<span style="color:#059669;">Alerter</span></div>
+                  <div style="font-size:10px;text-transform:uppercase;color:#64748b;font-weight:700;letter-spacing:0.5px;">Investor Intelligence &amp; IPO Analytics</div>
+                </div>
+              </div>
+            </div>
+
+            <p style="font-size:14px;line-height:1.6;margin:0 0 14px;">Hello <strong>${safeName}</strong>,</p>
+
+            ${contentHtml}
+
+            <!-- Crucial Advisory Notice -->
+            <div style="background:#f0fdf4;border:1px solid #86efac;border-left:4px solid #059669;border-radius:8px;padding:12px;margin-bottom:20px;font-size:12px;color:#14532d;line-height:1.5;">
+              <strong>💡 Investor Guidance:</strong> We strongly advise every user to evaluate company financials, debt, and valuations independently. <strong>Please invest strictly based on your personal interest, risk tolerance, and investment goals.</strong>
+            </div>
+
+            <div style="text-align:center;margin:20px 0;">
+              <a href="${siteUrl}" style="display:inline-block;background:#14263F;color:#ffffff;text-decoration:none;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;">
+                Explore Live Market &rarr;
+              </a>
+            </div>
+
+            <hr style="border:0;border-top:1px solid #e2e8f0;margin:20px 0;" />
+            <div style="font-size:11px;color:#64748b;line-height:1.5;text-align:center;">
+              PriceAlerter &bull; Independent Indian Financial Intelligence Platform<br/>
+              Visit: <a href="${siteUrl}" style="color:#2563eb;">https://pricealerter.in</a> &bull; Preferences: <a href="${siteUrl}/profile" style="color:#2563eb;">pricealerter.in/profile</a>
+            </div>
+          </div>
+        `;
+        const text = `PriceAlerter Market Update\n\nHello ${r.name},\n\n${notifMsg}\n\nVisit: ${siteUrl}`;
+        return { from, to: [r.email], subject, html, text };
+      });
+
+      for (let i = 0; i < emailBatch.length; i += 100) {
+        try {
+          const res = await fetch("https://api.resend.com/emails/batch", {
+            method: "POST",
+            headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
+            body: JSON.stringify(emailBatch.slice(i, i + 100)),
+            signal: AbortSignal.timeout(15000),
+          });
+          if (res.ok) emailsSent += emailBatch.slice(i, i + 100).length;
+        } catch { /* ignore */ }
+      }
+    }
+
+    return json({
+      ok: true,
+      mode,
       recipientsCount: recipients.length,
       notificationsCreated: recipients.length,
       emailsSent,

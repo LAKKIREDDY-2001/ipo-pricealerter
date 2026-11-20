@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import {
   Activity,
   Archive,
+  BellRing,
   Database,
   Download,
+  FileDown,
   FileSpreadsheet,
   Plus,
   RefreshCw,
+  Send,
   ShieldAlert,
   Upload,
 } from 'lucide-react';
@@ -23,7 +26,7 @@ import { formatCrores, formatTimestampIN } from '../utils/calculations';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs, EmptyState, LoadingSkeleton } from '../components/common/StateViews';
 
-type AdminTab = 'overview' | 'ipos' | 'gmp' | 'listings' | 'sources' | 'users' | 'audit';
+type AdminTab = 'overview' | 'ipos' | 'gmp' | 'listings' | 'sources' | 'users' | 'broadcast' | 'audit';
 
 export function AdminPage() {
   const { user, loading: authLoading } = useAuth();
@@ -56,6 +59,10 @@ export function AdminPage() {
   const [adsenseId, setAdsenseId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState<string | null>(null);
+
+  // Broadcast & Automation State
+  const [broadcastSlug, setBroadcastSlug] = useState('crystal-crop-protection-ipo');
+  const [broadcastBusy, setBroadcastBusy] = useState(false);
 
   // Add IPO form state
   const [newName, setNewName] = useState('');
@@ -200,6 +207,22 @@ export function AdminPage() {
     }
   };
 
+  const handleBroadcast = async (mode: '10_DAY_DIGEST' | 'SUBSCRIPTION_20X') => {
+    setBroadcastBusy(true);
+    setFeedback(null);
+    try {
+      const res = await api.broadcastIpoDigest({
+        mode,
+        ipoSlug: broadcastSlug,
+      });
+      setFeedback(`Broadcast executed: Processed for ${res.recipientsCount} users (${res.notificationsCreated} in-app notifications created, ${res.emailsSent ?? res.emailsDispatched ?? 0} emails dispatched).`);
+    } catch (err: any) {
+      setFeedback(`Broadcast error: ${err?.message || 'Failed'}`);
+    } finally {
+      setBroadcastBusy(false);
+    }
+  };
+
   return (
     <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
       <SEOHead
@@ -224,6 +247,7 @@ export function AdminPage() {
                 { id: 'listings', label: 'Verify Listings', icon: ShieldAlert },
                 { id: 'sources', label: 'Data Sources & Import', icon: Database },
                 { id: 'users', label: 'Users & Alerts', icon: Activity },
+                { id: 'broadcast', label: 'Broadcast & Automation', icon: Send },
                 { id: 'audit', label: 'Audit Logs', icon: Archive },
               ] as const
             ).map((item) => {
@@ -622,6 +646,122 @@ export function AdminPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {tab === 'broadcast' && (
+            <div className="space-y-6">
+              {/* Card 1: 10-Day Market Digest */}
+              <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4 shadow-sm">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="text-base font-bold text-[#14263F] dark:text-white flex items-center gap-2">
+                      <Send className="w-4 h-4 text-[#059669]" />
+                      <span>10-Day Automated Market Digest &amp; Open IPOs</span>
+                    </h2>
+                    <p className="text-xs text-[#64748B] dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                      Sends an automated email to all registered database users featuring newly opened IPOs, current GMP trends, top equity gainers, and clear advisory guidance: <em>&ldquo;Invest strictly based on your personal interest, risk capacity, and independent research.&rdquo;</em> Includes full PriceAlerter logo, website links, and upcoming calendar.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleBroadcast('10_DAY_DIGEST')}
+                    disabled={broadcastBusy}
+                    className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-[#059669] hover:bg-[#047857] text-white px-4 py-2.5 text-xs font-bold transition-all shadow-sm cursor-pointer disabled:opacity-50"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>{broadcastBusy ? 'Dispatching...' : 'Dispatch 10-Day Digest'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Card 2: Bumper Subscription Alert (> 20x) */}
+              <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4 shadow-sm">
+                <div>
+                  <h2 className="text-base font-bold text-[#14263F] dark:text-white flex items-center gap-2">
+                    <BellRing className="w-4 h-4 text-orange-500" />
+                    <span>🔥 High Demand Bumper Subscription Alert (&gt;20x Demand)</span>
+                  </h2>
+                  <p className="text-xs text-[#64748B] dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                    Automatically triggers an urgent alert when an IPO witnesses massive subscription crossing <strong>&gt;20x</strong> (such as Crystal Crop Protection QIB 24.12x). Includes full breakdown by QIB/NII/Retail, GMP gains, direct link to Download Detailed PDF Report, official disclaimer, and upcoming allotment dates.
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                  <div className="w-full sm:w-80">
+                    <label className="block text-[11px] font-bold text-[#64748B] uppercase mb-1">
+                      Select High Demand IPO
+                    </label>
+                    <select
+                      value={broadcastSlug}
+                      onChange={(e) => setBroadcastSlug(e.target.value)}
+                      className="w-full rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900 px-3 py-2 text-xs font-semibold"
+                    >
+                      <option value="crystal-crop-protection-ipo">Crystal Crop Protection Ltd (QIB: 24.12x &bull; Total: 16.63x)</option>
+                      {ipos.map((i) => (
+                        <option key={i.slug} value={i.slug}>
+                          {i.companyName} ({i.category} &bull; {i.status})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="sm:self-end w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => handleBroadcast('SUBSCRIPTION_20X')}
+                      disabled={broadcastBusy}
+                      className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 text-xs font-bold transition-all shadow-sm cursor-pointer disabled:opacity-50"
+                    >
+                      <BellRing className="w-3.5 h-3.5" />
+                      <span>{broadcastBusy ? 'Broadcasting...' : 'Broadcast >20x Subscription Alert'}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Detailed PDF Reports Preview */}
+              <div className="rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-[#111C2E] p-5 space-y-4 shadow-sm">
+                <div>
+                  <h2 className="text-base font-bold text-[#14263F] dark:text-white flex items-center gap-2">
+                    <FileDown className="w-4 h-4 text-blue-500" />
+                    <span>Downloadable / Printable Institutional PDF Reports</span>
+                  </h2>
+                  <p className="text-xs text-[#64748B] dark:text-slate-400 mt-1">
+                    Verify and preview the high-resolution, institutional-grade PDF factsheets linked in automated customer emails.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <a
+                    href="/api/ipo/crystal-crop-protection-ipo/report"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900/60 px-3.5 py-2 text-xs font-semibold text-[#152338] dark:text-slate-200 hover:border-[#059669] transition-colors"
+                  >
+                    <FileDown className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Crystal Crop Protection Report (PDF)</span>
+                  </a>
+                  <a
+                    href="/api/ipo/mahanadi-coalfields-ipo/report"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900/60 px-3.5 py-2 text-xs font-semibold text-[#152338] dark:text-slate-200 hover:border-[#059669] transition-colors"
+                  >
+                    <FileDown className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Mahanadi Coalfields Report (PDF)</span>
+                  </a>
+                  <a
+                    href="/api/stock/HEROMOTOCO/report"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#E2E8F0] dark:border-slate-700 bg-[#F6F8FB] dark:bg-slate-900/60 px-3.5 py-2 text-xs font-semibold text-[#152338] dark:text-slate-200 hover:border-[#059669] transition-colors"
+                  >
+                    <FileDown className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Hero MotoCorp Equity Report (PDF)</span>
+                  </a>
+                </div>
+              </div>
             </div>
           )}
 

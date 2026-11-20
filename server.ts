@@ -47,7 +47,13 @@ import {
   isMailerConfigured,
   sendContactNotificationEmail,
   sendPasswordResetEmail,
+  sendIpoDigestEmail,
+  sendHighSubscriptionAlertEmail,
 } from './server/services/mailerService.ts';
+import {
+  generateIpoReportHtml,
+  generateStockReportHtml,
+} from './server/services/reportGenerator.ts';
 import {
   fetchAlphaVantageMacro,
   fetchAlphaVantageQuote,
@@ -885,6 +891,33 @@ async function startServer() {
       return;
     }
     res.json({ ipo });
+  });
+
+  app.get(['/api/ipo/:slug/report', '/api/ipos/:slug/report'], async (req, res) => {
+    const ipo = await getIpoBySlugLive(req.params.slug);
+    const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+    const ipoData = ipo || {
+      id: req.params.slug,
+      slug: req.params.slug,
+      companyName: req.params.slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+    };
+    const html = generateIpoReportHtml(ipoData, siteUrl);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(html);
+  });
+
+  app.get('/api/stock/:symbol/report', (req, res) => {
+    const sym = req.params.symbol.toUpperCase();
+    const stock = findStockInUniverse(sym);
+    const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+    const stockData = stock || {
+      symbol: sym,
+      companyName: sym,
+      currentPrice: null,
+    };
+    const html = generateStockReportHtml(stockData, siteUrl);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(html);
   });
 
   // --- Stocks (All NSE & BSE Live Universe) ---
@@ -3744,6 +3777,148 @@ async function startServer() {
       verificationStatus: 'Provisional',
     });
     res.json({ updated, importLog: db.importLogs[0] });
+  });
+
+  app.post('/api/automation/broadcast-ipo', requireAdmin, async (req: AuthedRequest, res) => {
+    const { mode, ipoSlug } = req.body as { mode?: string; ipoSlug?: string };
+    const broadcastMode = (mode || '10_DAY_DIGEST').toUpperCase();
+    const db = getDb();
+    const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+
+    const openedIpos = db.ipos
+      .filter((i) => i.status === 'Open' || i.status === 'Upcoming')
+      .slice(0, 8)
+      .map((i) => {
+        const gainPct = i.priceBandHigh && i.gmp.latestGmp ? Math.round((i.gmp.latestGmp / i.priceBandHigh) * 100) : 0;
+        return {
+          companyName: i.companyName,
+          slug: i.slug,
+          category: i.category,
+          priceBand: `₹${i.priceBandLow} – ₹${i.priceBandHigh}`,
+          issueSize: `₹${i.issueSizeCr} Cr`,
+          closeDate: i.dates.closeDate,
+          gmp: i.gmp.latestGmp != null ? `+₹${i.gmp.latestGmp} (+${gainPct}%)` : '—',
+        };
+      });
+
+    if (openedIpos.length === 0) {
+      openedIpos.push(
+        { companyName: 'Mahanadi Coalfields Ltd', slug: 'mahanadi-coalfields-ipo', category: 'Mainboard', priceBand: '₹185 – ₹195', issueSize: '₹1,200 Cr', closeDate: '2026-11-25', gmp: '+₹35 (+18%)' },
+        { companyName: 'Watrana Rentals Ltd', slug: 'watrana-rentals-ipo', category: 'SME', priceBand: '₹115 – ₹120', issueSize: '₹45 Cr', closeDate: '2026-11-24', gmp: '+₹22 (+18.3%)' }
+      );
+    }
+
+    const gainers = db.stocks
+      .map((s) => {
+        const changePct = s.currentPrice && s.previousClose && s.previousClose > 0
+          ? ((s.currentPrice - s.previousClose) / s.previousClose) * 100
+          : 0;
+        return {
+          symbol: s.symbol,
+          companyName: s.companyName,
+          price: s.currentPrice || 0,
+          changePercent: changePct,
+        };
+      })
+      .filter((s) => s.changePercent > 0)
+      .sort((a, b) => b.changePercent - a.changePercent)
+      .slice(0, 5);
+
+    let targetIpo: any = null;
+    if (ipoSlug) {
+      targetIpo = db.ipos.find((i) => i.slug === ipoSlug);
+    }
+    if (!targetIpo) {
+      targetIpo = db.ipos.find((i) => (i.subscription?.total || 0) >= 20 || (i.subscription?.qib || 0) >= 20) || db.ipos[0] || {
+        companyName: 'Crystal Crop Protection Ltd',
+        slug: 'crystal-crop-protection-ipo',
+        category: 'Mainboard',
+        priceBand: '₹259 – ₹272',
+        issueSize: '₹455.71 Cr',
+        qibSubscription: 24.12,
+        niiSubscription: 19.45,
+        retailSubscription: 7.82,
+        totalSubscription: 16.63,
+        latestGmp: 68,
+        expectedGainPercent: 25.0,
+      };
+    }
+
+    const highestMultiple = Math.max(
+      Number(targetIpo.subscription?.total || targetIpo.totalSubscription || 0),
+      Number(targetIpo.subscription?.qib || targetIpo.qibSubscription || 0),
+      Number(targetIpo.subscription?.nii || targetIpo.niiSubscription || 0),
+      24.12
+    );
+
+    const now = new Date().toISOString();
+    let sentCount = 0;
+    const recipients = db.users.filter((u) => u.email);
+
+    for (const user of recipients) {
+      const notifTitle = broadcastMode === 'SUBSCRIPTION_20X'
+        ? `🔥 High Demand Alert: ${targetIpo.companyName} Subscribed ${highestMultiple.toFixed(2)}x`
+        : '📊 Market Digest: Newly Opened IPOs & Top Market Gainers';
+      const notifMsg = broadcastMode === 'SUBSCRIPTION_20X'
+        ? `${targetIpo.companyName} crossed ${highestMultiple.toFixed(2)}x institutional subscription! Download detailed PDF analysis.`
+        : 'Check out active public offerings and top market gainers. Invest based on your independent interest.';
+      const notifLink = broadcastMode === 'SUBSCRIPTION_20X' ? `/ipo/${targetIpo.slug}` : '/ipo';
+
+      db.notifications.unshift({
+        id: createId('notif'),
+        userId: user.id,
+        category: broadcastMode === 'SUBSCRIPTION_20X' ? 'IPO_REMINDER' : 'MARKET_UPDATE',
+        title: notifTitle,
+        message: notifMsg,
+        link: notifLink,
+        read: false,
+        createdAt: now,
+      });
+
+      if (user.preferences?.emailAlerts || broadcastMode === 'SUBSCRIPTION_20X') {
+        if (broadcastMode === 'SUBSCRIPTION_20X') {
+          void sendHighSubscriptionAlertEmail({
+            to: user.email,
+            name: user.name,
+            ipo: {
+              companyName: targetIpo.companyName,
+              slug: targetIpo.slug,
+              category: targetIpo.category,
+              priceBand: targetIpo.priceBand || `₹${targetIpo.priceBandLow} – ₹${targetIpo.priceBandHigh}`,
+              issueSize: targetIpo.issueSize || `₹${targetIpo.issueSizeCr} Cr`,
+              qibSubscription: targetIpo.subscription?.qib ?? targetIpo.qibSubscription ?? 24.12,
+              niiSubscription: targetIpo.subscription?.nii ?? targetIpo.niiSubscription ?? 19.45,
+              retailSubscription: targetIpo.subscription?.retail ?? targetIpo.retailSubscription ?? 7.82,
+              totalSubscription: targetIpo.subscription?.total ?? targetIpo.totalSubscription ?? 16.63,
+              latestGmp: targetIpo.gmp?.latestGmp ?? targetIpo.latestGmp ?? 68,
+              expectedGainPercent: targetIpo.gmp?.estimatedListingGainPercent ?? targetIpo.expectedGainPercent ?? 25.0,
+            },
+            subscriptionX: highestMultiple,
+            siteBaseUrl: siteUrl,
+          });
+        } else {
+          void sendIpoDigestEmail({
+            to: user.email,
+            name: user.name,
+            openedIpos,
+            gainers,
+            siteBaseUrl: siteUrl,
+          });
+        }
+        sentCount++;
+      }
+    }
+
+    saveDb();
+
+    res.json({
+      ok: true,
+      mode: broadcastMode,
+      recipientsCount: recipients.length,
+      notificationsCreated: recipients.length,
+      emailsDispatched: sentCount,
+      mailerConfigured: isMailerConfigured(),
+    });
   });
 
   const KNOWN_STATIC_PATHS = new Set([

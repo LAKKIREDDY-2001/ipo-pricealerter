@@ -7,6 +7,7 @@ import {
   syncAllIndianStocks,
 } from '../providers/marketDataProvider.ts';
 import { refreshIposFromProvider } from '../providers/ipoDataProvider.ts';
+import { sendHighSubscriptionAlertEmail, sendIpoDigestEmail } from './mailerService.ts';
 
 export type IstMarketSession = 'PRE_OPEN' | 'MARKET_OPEN' | 'POST_CLOSE' | 'WEEKEND';
 
@@ -69,6 +70,7 @@ let lastIndicesEpoch = 0;
 let lastEquitiesEpoch = 0;
 let lastIposEpoch = 0;
 let lastError: string | null = null;
+const alertedHighSubscriptionSlugs = new Set<string>();
 
 export function getIstMarketSession(now: Date = new Date()): {
   session: IstMarketSession;
@@ -247,6 +249,41 @@ export async function runIposSyncCycle(force = false): Promise<void> {
       timestamp: lastRunAt.ipos,
       session: getIstMarketSession().session,
     });
+
+    // Check for high subscription (>20x) and notify database users
+    const db = getDb();
+    const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://pricealerter.in').replace(/\/+$/, '');
+    for (const ipo of ipos) {
+      const qib = Number(ipo.subscription?.qib || 0);
+      const total = Number(ipo.subscription?.total || 0);
+      const highest = Math.max(qib, total);
+      if (highest >= 20 && !alertedHighSubscriptionSlugs.has(ipo.slug)) {
+        alertedHighSubscriptionSlugs.add(ipo.slug);
+        for (const user of db.users) {
+          if (user.preferences?.emailAlerts && user.email) {
+            void sendHighSubscriptionAlertEmail({
+              to: user.email,
+              name: user.name,
+              ipo: {
+                companyName: ipo.companyName,
+                slug: ipo.slug,
+                category: ipo.category,
+                priceBand: `₹${ipo.priceBandLow} – ₹${ipo.priceBandHigh}`,
+                issueSize: `₹${ipo.issueSizeCr} Cr`,
+                qibSubscription: ipo.subscription?.qib,
+                niiSubscription: ipo.subscription?.nii,
+                retailSubscription: ipo.subscription?.retail,
+                totalSubscription: ipo.subscription?.total,
+                latestGmp: ipo.gmp?.latestGmp,
+                expectedGainPercent: ipo.priceBandHigh && ipo.gmp?.latestGmp ? Math.round((ipo.gmp.latestGmp / ipo.priceBandHigh) * 100) : null,
+              },
+              subscriptionX: highest,
+              siteBaseUrl: siteUrl,
+            });
+          }
+        }
+      }
+    }
   } catch (err) {
     lastError = err instanceof Error ? err.message : 'IPO sync cycle failed';
   } finally {

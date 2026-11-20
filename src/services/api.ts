@@ -1618,7 +1618,12 @@ export const api = {
     }),
   updateAlert: (
     id: string,
-    payload: { enabled?: boolean; targetValue?: number; conditionType?: PriceAlertRule['conditionType'] }
+    payload: {
+      enabled?: boolean;
+      targetValue?: number;
+      conditionType?: PriceAlertRule['conditionType'];
+      status?: PriceAlertRule['status'];
+    }
   ) =>
     request<{ alert: PriceAlertRule }>(`/api/alerts/${encodeURIComponent(id)}`, {
       method: 'PATCH',
@@ -1628,7 +1633,27 @@ export const api = {
     request<{ ok: boolean }>(`/api/alerts/${encodeURIComponent(id)}`, {
       method: 'DELETE',
     }),
-  evaluateAlerts: () => request<{ triggered: number }>('/api/alerts/evaluate', { method: 'POST' }),
+  evaluateAlerts: () =>
+    request<{ ok?: boolean; triggered: number; alerts?: any[] }>('/api/alerts/evaluate', {
+      method: 'POST',
+    }),
+  broadcastIpoDigest: (payload?: {
+    mode?: '10_DAY_DIGEST' | 'SUBSCRIPTION_20X' | 'NEW_IPO_OPENED';
+    ipoSlug?: string;
+  }) =>
+    request<{
+      ok: boolean;
+      mode: string;
+      recipientsCount: number;
+      notificationsCreated: number;
+      emailsSent?: number;
+      emailsDispatched?: number;
+    }>('/api/automation/broadcast-ipo', {
+      method: 'POST',
+      body: JSON.stringify(payload || {}),
+    }),
+  getIpoReportUrl: (slug: string) => `/api/ipo/${encodeURIComponent(slug)}/report`,
+  getStockReportUrl: (symbol: string) => `/api/stock/${encodeURIComponent(symbol)}/report`,
 
   // Notifications
   getNotifications: () => request<{ notifications: NotificationItem[] }>('/api/notifications'),

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Activity, BellPlus, Building2, Clock, RefreshCw } from 'lucide-react';
+import { Activity, BellPlus, Building2, Clock, FileDown, RefreshCw } from 'lucide-react';
 import {
   Area,
   AreaChart,
@@ -812,6 +812,15 @@ export function StockDetailPage() {
               <RefreshCw className={`w-3.5 h-3.5 ${refreshingQuote ? 'animate-spin text-emerald-500' : ''}`} />
               {refreshingQuote ? 'Syncing...' : 'Refresh Quote'}
             </button>
+            <a
+              href={`/api/stock/${stock.symbol}/report`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-md bg-[#059669] hover:bg-[#047857] px-3 py-2 text-xs font-semibold text-white transition-colors"
+              title="Download institutional equity research factsheet (PDF)"
+            >
+              <FileDown className="w-3.5 h-3.5" /> Research Report (PDF)
+            </a>
             {stock.registry?.isFnoEnabled && (
               <Link
                 to={`/calculators/option-greeks?symbol=${stock.symbol}`}

@@ -15,6 +15,8 @@ import { PriceAlerterLogo } from './components/brand/PriceAlerterLogo';
 import { SEOHead } from './components/common/SEOHead';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { CookieConsentBanner } from './components/compliance/CookieConsentBanner';
+import { usePriceAlertWatcher } from './hooks/usePriceAlertWatcher';
+import { PriceAlertPopup } from './components/alerts/PriceAlertPopup';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage').then((m) => ({ default: m.HomePage }))
@@ -229,6 +231,11 @@ function NotFoundPage() {
   );
 }
 
+function GlobalPriceAlertWatcher() {
+  const { triggeredQueue, dismissAlert, dismissAll } = usePriceAlertWatcher();
+  return <PriceAlertPopup queue={triggeredQueue} onDismiss={dismissAlert} onDismissAll={dismissAll} />;
+}
+
 export default function App() {
   return (
     <ErrorBoundary>
@@ -312,6 +319,7 @@ export default function App() {
                 <MobileQuickNav />
                 <FloatingBackToTop />
                 <CookieConsentBanner />
+                <GlobalPriceAlertWatcher />
               </div>
             </BrowserRouter>
           </AuthProvider>

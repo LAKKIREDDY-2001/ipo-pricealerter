@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ExternalLink, FileText, Globe } from 'lucide-react';
+import { ExternalLink, FileDown, FileText, Globe } from 'lucide-react';
 import {
   Bar,
   BarChart,
@@ -218,6 +218,15 @@ export function IPODetailsPage() {
                 <ExternalLink className="w-3.5 h-3.5" /> Registrar Allotment
               </a>
             )}
+            <a
+              href={`/api/ipo/${ipo.slug}/report`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-md bg-[#059669] hover:bg-[#047857] px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-all"
+              title="Download institutional research report formatted for PDF saving and printing"
+            >
+              <FileDown className="w-3.5 h-3.5" /> Research Report (PDF)
+            </a>
             {docMainUrl && (
               <a
                 href={docMainUrl}
