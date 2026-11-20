@@ -436,7 +436,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
     return json({
       ok: true,
       success: true,
-      message: "🎉 You are subscribed! You will receive live WhatsApp and market alerts.",
+      message: "🎉 Your subscription is saved. WhatsApp delivery status is included below.",
       whatsappResult,
     });
   }
