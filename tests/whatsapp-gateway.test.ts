@@ -140,3 +140,27 @@ test("does not retry through another gateway after an ambiguous Meta network fai
     globalThis.fetch = originalFetch;
   }
 });
+
+test("reports Twilio HTTP rejection instead of silently falling back", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async () => new Response(JSON.stringify({
+    code: 63007,
+    message: "Twilio could not find a Channel with the specified From address",
+  }), { status: 400 })) as typeof fetch;
+  try {
+    const result = await dispatchWhatsApp({
+      TWILIO_ACCOUNT_SID: "AC-account",
+      TWILIO_API_KEY_SID: "SK-api-key",
+      TWILIO_API_KEY_SECRET: "api-key-secret",
+      TWILIO_WHATSAPP_NUMBER: "whatsapp:+14155238886",
+    }, { phone: "9876543210", title: "Test", message: "Rejected message" });
+    assert.equal(result.success, false);
+    assert.equal(result.delivered, false);
+    assert.equal(result.provider, "twilio");
+    assert.match(result.error || "", /63007/);
+    assert.match(result.error || "", /Channel/);
+    assert.match(result.clickToChatUrl, /^https:\/\/api\.whatsapp\.com\/send\?/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

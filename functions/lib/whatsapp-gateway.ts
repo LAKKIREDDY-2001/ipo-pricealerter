@@ -46,6 +46,27 @@ function uncertain(provider: WhatsAppProvider, phone: string, error: string): Wh
     error,
   };
 }
+async function rejected(provider: WhatsAppProvider, phone: string, text: string, response: Response): Promise<WhatsAppDispatch> {
+  let detail = "";
+  try {
+    const payload = await response.json() as { code?: string | number; message?: string };
+    const code = payload?.code ? " (" + payload.code + ")" : "";
+    detail = payload?.message ? String(payload.message).slice(0, 400) : "";
+    detail = "HTTP " + response.status + code + (detail ? ": " + detail : "");
+  } catch {
+    detail = "HTTP " + response.status;
+  }
+  return {
+    ok: false,
+    success: false,
+    delivered: false,
+    provider,
+    recipient: phone,
+    message: provider === "twilio" ? "Twilio rejected the WhatsApp message. Use the manual WhatsApp link or fix the gateway error." : "The WhatsApp provider rejected the message.",
+    clickToChatUrl: "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text),
+    error: detail,
+  };
+}
 export async function dispatchWhatsApp(env: WhatsAppEnv, input: { phone: string; title: string; message: string; url?: string }): Promise<WhatsAppDispatch> {
   const phone = normalizeWhatsAppPhone(input.phone);
   if (!phone) throw new Error("Enter a valid WhatsApp number with country code.");
@@ -89,6 +110,7 @@ export async function dispatchWhatsApp(env: WhatsAppEnv, input: { phone: string;
         signal: AbortSignal.timeout(10000),
       });
       if (response.ok) return result("twilio", phone, text, true);
+      return await rejected("twilio", phone, text, response);
     } catch {
       // A transport failure has an ambiguous outcome; never retry through another path.
       return uncertain("twilio", phone, "Twilio request outcome is unknown.");
