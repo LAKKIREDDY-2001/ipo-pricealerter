@@ -663,6 +663,21 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
         await db.prepare("INSERT INTO notifications (id, user_id, category, title, message, link, is_read, created_at) VALUES (?,?,?,?,?,?,0,?)")
           .bind(notifId, alert.user_id, "PRICE_ALERT", `Price Alert Triggered: ${sym}`, reason, `/stock/${sym}`, timestamp).run();
 
+        let whatsappDelivery: any = null;
+        try {
+          const owner = await db.prepare("SELECT preferences_json FROM users WHERE id=?").bind(alert.user_id).first<any>();
+          const prefs = JSON.parse(owner?.preferences_json || "{}");
+          const phone = String(prefs.phone || "");
+          if (phone && prefs.whatsappAlerts !== false) {
+            whatsappDelivery = await dispatchWhatsApp(env, {
+              phone,
+              title: "Price Alert Triggered: " + sym,
+              message: reason + " · Live price ₹" + currentPrice.toFixed(2),
+              url: (env.SITE_URL || url.origin).replace(/\\/+$/, "") + "/stock/" + encodeURIComponent(sym),
+            });
+          }
+        } catch { /* keep the in-app alert even when a WhatsApp gateway is unavailable */ }
+
         triggeredAlerts.push({
           id: alert.id,
           symbol: sym,
@@ -671,6 +686,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
           targetValue: target,
           conditionType: alert.condition_type,
           reason,
+          ...(whatsappDelivery ? { whatsappDelivery } : {}),
         });
         triggeredCount++;
       }
