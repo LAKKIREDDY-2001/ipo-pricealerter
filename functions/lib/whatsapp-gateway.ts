@@ -36,6 +36,14 @@ function result(provider: WhatsAppProvider, phone: string, text: string, deliver
     ...(error ? { error } : {}),
   };
 }
+function uncertain(provider: WhatsAppProvider, phone: string, error: string): WhatsAppDispatch {
+  return {
+    ok: false, success: false, delivered: false, provider, recipient: phone,
+    message: "Delivery status is unknown. Check WhatsApp before retrying to avoid a duplicate alert.",
+    clickToChatUrl: "",
+    error,
+  };
+}
 export async function dispatchWhatsApp(env: WhatsAppEnv, input: { phone: string; title: string; message: string; url?: string }): Promise<WhatsAppDispatch> {
   const phone = normalizeWhatsAppPhone(input.phone);
   if (!phone) throw new Error("Enter a valid WhatsApp number with country code.");
@@ -53,7 +61,11 @@ export async function dispatchWhatsApp(env: WhatsAppEnv, input: { phone: string;
         signal: AbortSignal.timeout(10000),
       });
       if (response.ok) return result("meta_cloud_api", phone, text, true);
-    } catch { /* try the next configured gateway */ }
+    } catch {
+      // A timeout can happen after Meta accepted the message. Do not send via Twilio
+      // as well: that could create a duplicate. Ask the user to verify delivery first.
+      return uncertain("meta_cloud_api", phone, "Meta request outcome is unknown.");
+    }
   }
   const sid = (env.TWILIO_ACCOUNT_SID || "").trim();
   const auth = (env.TWILIO_AUTH_TOKEN || "").trim();
@@ -69,7 +81,10 @@ export async function dispatchWhatsApp(env: WhatsAppEnv, input: { phone: string;
         signal: AbortSignal.timeout(10000),
       });
       if (response.ok) return result("twilio", phone, text, true);
-    } catch { /* fall through to user-driven WhatsApp link */ }
+    } catch {
+      // A transport failure has an ambiguous outcome; never retry through another path.
+      return uncertain("twilio", phone, "Twilio request outcome is unknown.");
+    }
   }
   return result("whatsapp_direct_link", phone, text, false);
 }
