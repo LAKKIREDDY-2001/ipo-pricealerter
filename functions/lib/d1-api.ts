@@ -396,7 +396,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
             phone,
             title: "PriceAlerter WhatsApp Alerts Activated",
             message: "Your number is registered for PriceAlerter alerts. You can now manage price alerts, IPO updates and GMP notifications.",
-            url: (env.SITE_URL || url.origin).replace(/\\/+$/, "") + "/alerts",
+            url: (env.SITE_URL || url.origin).replace(/\/+$/, "") + "/alerts",
           });
         } catch { /* subscription remains successful if WhatsApp is unavailable */ }
       }
@@ -428,7 +428,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
           phone,
           title: "Welcome to PriceAlerter: WhatsApp Alerts Activated",
           message: "Your number is registered for PriceAlerter alerts. Manage your stock price alerts, IPO updates and GMP notifications on the website.",
-          url: (env.SITE_URL || url.origin).replace(/\\/+$/, "") + "/alerts",
+          url: (env.SITE_URL || url.origin).replace(/\/+$/, "") + "/alerts",
         });
       } catch { /* subscription remains successful if WhatsApp is unavailable */ }
     }
@@ -459,7 +459,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
         phone,
         title: "Test WhatsApp Alert: " + testSymbol,
         message: alertMessage,
-        url: (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\\/+$/, "") + "/stock/" + encodeURIComponent(testSymbol),
+        url: (env.SITE_URL || url.origin || "https://pricealerter.in").replace(/\/+$/, "") + "/stock/" + encodeURIComponent(testSymbol),
       });
       return json({
         ok: true,
@@ -673,7 +673,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
               phone,
               title: "Price Alert Triggered: " + sym,
               message: reason + " · Live price ₹" + currentPrice.toFixed(2),
-              url: (env.SITE_URL || url.origin).replace(/\\/+$/, "") + "/stock/" + encodeURIComponent(sym),
+              url: (env.SITE_URL || url.origin).replace(/\/+$/, "") + "/stock/" + encodeURIComponent(sym),
             });
           }
         } catch { /* keep the in-app alert even when a WhatsApp gateway is unavailable */ }
