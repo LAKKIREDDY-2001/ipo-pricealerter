@@ -5,6 +5,8 @@ export interface WhatsAppEnv {
   WHATSAPP_PHONE_NUMBER_ID?: string;
   TWILIO_ACCOUNT_SID?: string;
   TWILIO_AUTH_TOKEN?: string;
+  TWILIO_API_KEY_SID?: string;
+  TWILIO_API_KEY_SECRET?: string;
   TWILIO_WHATSAPP_NUMBER?: string;
   SITE_URL?: string;
 }
@@ -67,14 +69,20 @@ export async function dispatchWhatsApp(env: WhatsAppEnv, input: { phone: string;
       return uncertain("meta_cloud_api", phone, "Meta request outcome is unknown.");
     }
   }
-  const sid = (env.TWILIO_ACCOUNT_SID || "").trim();
-  const auth = (env.TWILIO_AUTH_TOKEN || "").trim();
+  const accountSid = (env.TWILIO_ACCOUNT_SID || "").trim();
+  const apiKeySid = (env.TWILIO_API_KEY_SID || "").trim();
+  const apiKeySecret = (env.TWILIO_API_KEY_SECRET || "").trim();
+  const authToken = (env.TWILIO_AUTH_TOKEN || "").trim();
   const from = (env.TWILIO_WHATSAPP_NUMBER || "").trim();
-  if (sid && auth && from) {
+  // Twilio API Key credentials authenticate the request; Account SID still identifies
+  // the account in the Messages endpoint URL. Keep legacy Auth Token support as fallback.
+  const credentialUser = apiKeySid && apiKeySecret ? apiKeySid : accountSid;
+  const credentialPassword = apiKeySid && apiKeySecret ? apiKeySecret : authToken;
+  if (accountSid && credentialUser && credentialPassword && from) {
     try {
-      const basic = btoa(sid + ":" + auth);
+      const basic = btoa(credentialUser + ":" + credentialPassword);
       const body = new URLSearchParams({ From: from.startsWith("whatsapp:") ? from : "whatsapp:" + from, To: "whatsapp:+" + phone, Body: text });
-      const response = await fetch("https://api.twilio.com/2010-04-01/Accounts/" + encodeURIComponent(sid) + "/Messages.json", {
+      const response = await fetch("https://api.twilio.com/2010-04-01/Accounts/" + encodeURIComponent(accountSid) + "/Messages.json", {
         method: "POST",
         headers: { authorization: "Basic " + basic, "content-type": "application/x-www-form-urlencoded" },
         body: body.toString(),
