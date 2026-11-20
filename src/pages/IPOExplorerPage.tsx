@@ -13,8 +13,8 @@ interface IPOExplorerPageProps {
 }
 
 export function IPOExplorerPage({ presetCategory, presetStatus }: IPOExplorerPageProps) {
-  const [ipos, setIpos] = useState<IPOOffering[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [ipos, setIpos] = useState<IPOOffering[]>(() => api.getInitialIpos());
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
@@ -34,21 +34,23 @@ export function IPOExplorerPage({ presetCategory, presetStatus }: IPOExplorerPag
     setPage(1);
   }, [presetCategory, presetStatus]);
 
-  const fetchIpos = async () => {
-    setLoading(true);
+  const fetchIpos = async (isBackground = false) => {
+    if (!isBackground && ipos.length === 0) setLoading(true);
     setError(null);
     try {
       const res = await api.getIpos();
       setIpos(res.ipos);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to fetch IPO registry.');
+      if (!isBackground) {
+        setError(err instanceof Error ? err.message : 'Unable to fetch IPO registry.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchIpos();
+    fetchIpos(ipos.length > 0);
   }, []);
 
   const sectors = useMemo(

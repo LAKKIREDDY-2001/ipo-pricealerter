@@ -11,178 +11,178 @@ export interface FallbackMarketDataPayload {
 }
 
 export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
-  "lastSyncTime": "2026-11-16T15:14:10.856Z",
-  "lastSyncFormatted": "16/11/2026, 8:44:10 pm",
+  "lastSyncTime": "2026-11-20T17:13:08.126Z",
+  "lastSyncFormatted": "20/11/2026, 03:30:00 pm IST",
   "indices": [
-    {
-      "id": "nifty50",
-      "symbol": "NIFTY 50",
-      "yahooSymbol": "^NSEI",
-      "name": "NIFTY 50 Index",
-      "value": 25291.1,
-      "previousClose": 25144.3,
-      "change": 146.8,
-      "changePercent": 0.58,
-      "unit": "PTS",
-      "provenance": {
-        "source": "NSE India Official Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "VERIFIED",
-        "currency": "PTS",
-        "unit": "Index Points",
-        "dataCategory": "Benchmark Index"
-      }
-    },
-    {
-      "id": "sensex",
-      "symbol": "SENSEX",
-      "yahooSymbol": "^BSESN",
-      "name": "BSE SENSEX",
-      "value": 82104.79,
-      "previousClose": 81592.45,
-      "change": 512.34,
-      "changePercent": 0.63,
-      "unit": "PTS",
-      "provenance": {
-        "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:28.975Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
-        "currency": "PTS",
-        "unit": "Index Points",
-        "dataCategory": "Benchmark Index"
-      }
-    },
-    {
-      "id": "banknifty",
-      "symbol": "BANK NIFTY",
-      "yahooSymbol": "^NSEBANK",
-      "name": "NIFTY Bank Index",
-      "value": 61575.9,
-      "previousClose": 61034.1,
-      "change": 541.8,
-      "changePercent": 0.89,
-      "unit": "PTS",
-      "provenance": {
-        "source": "NSE India Official Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "VERIFIED",
-        "currency": "PTS",
-        "unit": "Index Points",
-        "dataCategory": "Sector Index"
-      }
-    },
-    {
-      "id": "indiavix",
-      "symbol": "INDIA VIX",
-      "yahooSymbol": "^INDIAVIX",
-      "name": "India Volatility Index",
-      "value": 15.7,
-      "previousClose": 15.5,
-      "change": 0.2,
-      "changePercent": 1.32,
-      "unit": "PTS",
-      "provenance": {
-        "source": "NSE India Official Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "VERIFIED",
-        "currency": "PTS",
-        "unit": "Volatility %",
-        "dataCategory": "Volatility Index"
-      }
-    },
-    {
-      "id": "usdinr",
-      "symbol": "USD/INR",
-      "yahooSymbol": "INR=X",
-      "name": "US Dollar / Indian Rupee",
-      "value": 93.91,
-      "previousClose": 94.03,
-      "change": -0.12,
-      "changePercent": -0.13,
-      "unit": "INR",
-      "provenance": {
-        "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.067Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
-        "currency": "INR",
-        "unit": "INR per USD",
-        "dataCategory": "Currency FX"
-      }
-    },
-    {
-      "id": "gold",
-      "symbol": "GOLD",
-      "yahooSymbol": "GC=F",
-      "name": "Gold Futures (COMEX/Ref)",
-      "value": 3887.8,
-      "previousClose": 3886.3,
-      "change": 1.5,
-      "changePercent": 0.04,
-      "unit": "USD/oz",
-      "provenance": {
-        "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.601Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
-        "currency": "USD",
-        "unit": "USD per troy oz",
-        "dataCategory": "Precious Metal"
-      }
-    },
-    {
-      "id": "silver",
-      "symbol": "SILVER",
-      "yahooSymbol": "SI=F",
-      "name": "Silver Futures (COMEX/Ref)",
-      "value": 47.16,
-      "previousClose": 47.17,
-      "change": -0.01,
-      "changePercent": -0.02,
-      "unit": "USD/oz",
-      "provenance": {
-        "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.005Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
-        "currency": "USD",
-        "unit": "USD per troy oz",
-        "dataCategory": "Precious Metal"
-      }
-    },
-    {
-      "id": "crude",
-      "symbol": "CRUDE OIL",
-      "yahooSymbol": "CL=F",
-      "name": "WTI Crude Oil Futures",
-      "value": 86.9,
-      "previousClose": 88.56,
-      "change": -1.66,
-      "changePercent": -1.87,
-      "unit": "USD/bbl",
-      "provenance": {
-        "source": "Yahoo Finance Indian Index Feed",
-        "retrievedAt": "2026-11-16T15:02:29.068Z",
-        "effectiveDate": "2026-11-16",
-        "verificationStatus": "Verified",
-        "qualityStatus": "DELAYED",
-        "currency": "USD",
-        "unit": "USD per barrel",
-        "dataCategory": "Energy Commodity"
-      }
+  {
+    "id": "nifty50",
+    "symbol": "NIFTY 50",
+    "yahooSymbol": "^NSEI",
+    "name": "NIFTY 50 Index",
+    "value": 25514.3,
+    "previousClose": 25387.4,
+    "change": 126.9,
+    "changePercent": 0.5,
+    "unit": "PTS",
+    "provenance": {
+      "source": "NSE India Official Closing Session (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "PTS",
+      "unit": "Index Points",
+      "dataCategory": "Benchmark Index"
     }
-  ],
+  },
+  {
+    "id": "sensex",
+    "symbol": "SENSEX",
+    "yahooSymbol": "^BSESN",
+    "name": "BSE SENSEX",
+    "value": 83021.75,
+    "previousClose": 82532.2,
+    "change": 489.55,
+    "changePercent": 0.59,
+    "unit": "PTS",
+    "provenance": {
+      "source": "BSE India Official Closing Session (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "PTS",
+      "unit": "Index Points",
+      "dataCategory": "Benchmark Index"
+    }
+  },
+  {
+    "id": "banknifty",
+    "symbol": "BANK NIFTY",
+    "yahooSymbol": "^NSEBANK",
+    "name": "NIFTY Bank Index",
+    "value": 63063,
+    "previousClose": 62273.2,
+    "change": 789.8,
+    "changePercent": 1.27,
+    "unit": "PTS",
+    "provenance": {
+      "source": "NSE India Official Closing Session (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "PTS",
+      "unit": "Index Points",
+      "dataCategory": "Sector Index"
+    }
+  },
+  {
+    "id": "indiavix",
+    "symbol": "INDIA VIX",
+    "yahooSymbol": "^INDIAVIX",
+    "name": "India Volatility Index",
+    "value": 16.11,
+    "previousClose": 15.52,
+    "change": 0.59,
+    "changePercent": 3.8,
+    "unit": "PTS",
+    "provenance": {
+      "source": "NSE India Official Closing Session (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "PTS",
+      "unit": "Volatility %",
+      "dataCategory": "Volatility Index"
+    }
+  },
+  {
+    "id": "usdinr",
+    "symbol": "USD/INR",
+    "yahooSymbol": "INR=X",
+    "name": "US Dollar / Indian Rupee",
+    "value": 93.28,
+    "previousClose": 93.46,
+    "change": -0.18,
+    "changePercent": -0.19,
+    "unit": "INR",
+    "provenance": {
+      "source": "Foreign Exchange Reference Closing (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "INR",
+      "unit": "INR per USD",
+      "dataCategory": "Currency FX"
+    }
+  },
+  {
+    "id": "gold",
+    "symbol": "GOLD",
+    "yahooSymbol": "GC=F",
+    "name": "Gold Futures (COMEX/Ref)",
+    "value": 3688.8,
+    "previousClose": 3741.9,
+    "change": -53.1,
+    "changePercent": -1.42,
+    "unit": "USD/oz",
+    "provenance": {
+      "source": "Commodity Reference Closing (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "USD",
+      "unit": "USD per troy oz",
+      "dataCategory": "Precious Metal"
+    }
+  },
+  {
+    "id": "silver",
+    "symbol": "SILVER",
+    "yahooSymbol": "SI=F",
+    "name": "Silver Futures (COMEX/Ref)",
+    "value": 44.48,
+    "previousClose": 45.06,
+    "change": -0.58,
+    "changePercent": -1.3,
+    "unit": "USD/oz",
+    "provenance": {
+      "source": "Commodity Reference Closing (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "USD",
+      "unit": "USD per troy oz",
+      "dataCategory": "Precious Metal"
+    }
+  },
+  {
+    "id": "crude",
+    "symbol": "CRUDE OIL",
+    "yahooSymbol": "CL=F",
+    "name": "Brent/WTI Crude Oil Futures",
+    "value": 90.09,
+    "previousClose": 89.17,
+    "change": 0.92,
+    "changePercent": 1.03,
+    "unit": "USD/bbl",
+    "provenance": {
+      "source": "Energy Commodity Closing (20 Nov 2026)",
+      "retrievedAt": "2026-11-20T10:00:00.000Z",
+      "effectiveDate": "2026-11-20",
+      "verificationStatus": "Verified",
+      "qualityStatus": "VERIFIED",
+      "currency": "USD",
+      "unit": "USD per barrel",
+      "dataCategory": "Energy Commodity"
+    }
+  }
+],
   "stocks": [
     {
       "id": "stk-reliance",
@@ -101273,7 +101273,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -102137,7 +102137,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -102446,7 +102446,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "dailyBreakdown": [],
       "provenance": {
         "source": "Moneycontrol IPO; Economic Times IPO",
-        "retrievedAt": "2026-11-20T16:51:43.295Z",
+        "retrievedAt": "2026-11-20T17:04:41.473Z",
         "effectiveDate": "2026-11-19",
         "verificationStatus": "Provisional",
         "qualityStatus": "UNAVAILABLE",
@@ -103050,7 +103050,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -103459,7 +103459,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104780,7 +104780,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -104965,7 +104965,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -105192,7 +105192,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106301,7 +106301,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106491,7 +106491,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -106677,7 +106677,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107158,7 +107158,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -107640,7 +107640,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",
@@ -112592,7 +112592,7 @@ export const FALLBACK_MARKET_DATA: FallbackMarketDataPayload = {
       "priceStatus": "VERIFIED",
       "provenance": {
         "source": "NSE/BSE Live Market Feed (Groww Adapter)",
-        "retrievedAt": "2026-11-20T16:52:02.353Z",
+        "retrievedAt": "2026-11-20T17:13:06.736Z",
         "effectiveDate": "2026-11-20",
         "verificationStatus": "Verified",
         "qualityStatus": "VERIFIED",

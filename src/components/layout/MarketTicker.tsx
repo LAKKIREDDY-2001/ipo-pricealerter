@@ -6,9 +6,19 @@ import { formatNumberIN, formatTimestampIN } from '../../utils/calculations';
 import { useLiveMarketStream } from '../../hooks/useLiveMarketStream';
 
 export function MarketTicker() {
-  const [indices, setIndices] = useState<MarketIndexInstrument[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [indices, setIndices] = useState<MarketIndexInstrument[]>(() => api.getInitialIndices());
+  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
+  const isMarketOpen = React.useMemo(() => {
+    const now = new Date();
+    const localString = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    const local = new Date(localString);
+    const day = local.getDay();
+    if (day === 0 || day === 6) return false;
+    const minutes = local.getHours() * 60 + local.getMinutes();
+    return minutes >= 9 * 60 + 15 && minutes < 15 * 60 + 30;
+  }, []);
 
   const loadIndices = async (force = false) => {
     if (force) setRefreshing(true);
@@ -27,11 +37,12 @@ export function MarketTicker() {
 
   useEffect(() => {
     loadIndices(false);
+    const intervalTime = isMarketOpen ? 12_000 : 180_000;
     const interval = setInterval(() => {
       loadIndices(true);
-    }, 12_000);
+    }, intervalTime);
     return () => clearInterval(interval);
-  }, []);
+  }, [isMarketOpen]);
 
   useLiveMarketStream({
     onIndices: () => {
@@ -62,19 +73,25 @@ export function MarketTicker() {
             const isUp = (item.change ?? 0) >= 0;
             const unavailable = typeof item.value !== 'number' || !Number.isFinite(item.value);
             const quality = String(item.provenance?.qualityStatus || '').toUpperCase();
-            const quoteStatus = quality === 'LIVE' || quality === 'DELAYED' ? 'Live Price'
-              : quality === 'VERIFIED' ? 'Verified'
-              : quality === 'STALE' ? 'Stale'
-              : unavailable ? 'Unavailable' : 'Live Price';
+            const isIndianIndex = item.provenance?.currency === 'INR' || item.provenance?.currency === 'PTS';
+            const quoteStatus = unavailable
+              ? 'Unavailable'
+              : (isIndianIndex && !isMarketOpen)
+                ? 'Closed'
+                : (quality === 'LIVE' || quality === 'DELAYED' ? 'Live Price' : 'Verified');
             const statusClass = quoteStatus === 'Live Price'
               ? 'text-emerald-400'
-              : quoteStatus === 'Verified'
-                ? 'text-sky-300'
-                : 'text-slate-400';
+              : quoteStatus === 'Closed'
+                ? 'text-amber-300/90'
+                : quoteStatus === 'Verified'
+                  ? 'text-sky-300'
+                  : 'text-slate-400';
             return (
               <div
                 key={item.id}
-                title={`${item.name} · Prev Close: ${
+                title={`${item.name} · ${isIndianIndex && !isMarketOpen ? 'Official Session Close' : 'Price'}: ${
+                  item.value !== null ? formatNumberIN(item.value) : 'Unavailable'
+                } · Prev Close: ${
                   item.previousClose !== null ? formatNumberIN(item.previousClose) : 'Unavailable'
                 } · Provider: ${item.provenance.source} · Updated: ${formatTimestampIN(
                   item.provenance.retrievedAt
@@ -85,7 +102,7 @@ export function MarketTicker() {
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wide text-slate-300 whitespace-nowrap">
                     <span>{item.symbol}</span>
                     <span className={`inline-flex items-center gap-1 text-[10px] font-semibold ${statusClass}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${quoteStatus === 'Live Price' ? 'bg-emerald-400 animate-pulse' : quoteStatus === 'Verified' ? 'bg-sky-300' : 'bg-slate-400'}`} />
+                      <span className={`w-1.5 h-1.5 rounded-full ${quoteStatus === 'Live Price' ? 'bg-emerald-400 animate-pulse' : quoteStatus === 'Closed' ? 'bg-amber-400' : quoteStatus === 'Verified' ? 'bg-sky-300' : 'bg-slate-400'}`} />
                       {quoteStatus}
                     </span>
                   </div>

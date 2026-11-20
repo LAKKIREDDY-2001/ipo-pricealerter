@@ -121,7 +121,6 @@ export function StockDetailPage() {
   const { user, refreshUserData } = useAuth();
   const navigate = useNavigate();
 
-  const [stock, setStock] = useState<StockInstrument | null>(null);
   const [linkedIpo, setLinkedIpo] = useState<IPOOffering | null>(null);
   const [range, setRange] = useState<string>('1d');
   const [hoveredPoint, setHoveredPoint] = useState<{
@@ -132,7 +131,10 @@ export function StockDetailPage() {
     low?: number | null;
     volume?: number | null;
   } | null>(null);
-  const [loading, setLoading] = useState(true);
+  const initialStock = useMemo(() => api.getInitialStock(symbol), [symbol]);
+  const [stock, setStock] = useState<StockInstrument | null>(initialStock);
+  const [loading, setLoading] = useState<boolean>(!initialStock);
+  const [refreshingQuote, setRefreshingQuote] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [alertPrice, setAlertPrice] = useState('');
@@ -146,7 +148,8 @@ export function StockDetailPage() {
 
   const fetchStock = async (targetRange = range, background = false, force = false) => {
     if (!symbol) return;
-    if (!background) setLoading(true);
+    if (!background && !stock) setLoading(true);
+    if (force) setRefreshingQuote(true);
     setError(null);
     try {
       const res = await api.getStockBySymbol(symbol, targetRange, force);
@@ -345,6 +348,7 @@ export function StockDetailPage() {
       }
     } finally {
       if (!background) setLoading(false);
+      if (force) setRefreshingQuote(false);
     }
   };
 
@@ -380,7 +384,7 @@ export function StockDetailPage() {
 
   useEffect(() => {
     setAlertPrice('');
-    fetchStock(range, false);
+    fetchStock(range, Boolean(initialStock));
   }, [symbol, range]);
 
   useEffect(() => {
@@ -801,11 +805,12 @@ export function StockDetailPage() {
             </button>
             <button
               type="button"
-              onClick={() => fetchStock(range, false, true)}
+              onClick={() => fetchStock(range, true, true)}
+              disabled={refreshingQuote}
               className="inline-flex items-center gap-1.5 rounded-md border border-[#E2E8F0] dark:border-slate-700 px-3 py-2 text-xs font-medium text-[#152338] dark:text-slate-200 hover:border-[#14263F] cursor-pointer"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-              Refresh Quote
+              <RefreshCw className={`w-3.5 h-3.5 ${refreshingQuote ? 'animate-spin text-emerald-500' : ''}`} />
+              {refreshingQuote ? 'Syncing...' : 'Refresh Quote'}
             </button>
             {stock.registry?.isFnoEnabled && (
               <Link

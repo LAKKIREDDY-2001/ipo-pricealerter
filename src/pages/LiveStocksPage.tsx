@@ -30,15 +30,15 @@ export function LiveStocksPage({ presetExchange }: LiveStocksPageProps) {
   const initialTab = searchParams.get('tab');
   const initialSector = searchParams.get('sector') || 'All';
 
-  const [stocks, setStocks] = useState<StockInstrument[]>([]);
+  const [stocks, setStocks] = useState<StockInstrument[]>(() => api.getInitialStocks());
   const loadRequestId = useRef(0);
   const [sectors, setSectors] = useState<string[]>([]);
-  const [totalMatches, setTotalMatches] = useState(0);
-  const [totalUniverse, setTotalUniverse] = useState(0);
+  const [totalMatches, setTotalMatches] = useState(() => api.getInitialStocks().length);
+  const [totalUniverse, setTotalUniverse] = useState(7172);
   const [nseCount, setNseCount] = useState(0);
   const [bseCount, setBseCount] = useState(0);
   const [liveSyncedAt, setLiveSyncedAt] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

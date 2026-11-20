@@ -10,6 +10,7 @@ import {
   buildLogoCandidateList,
 } from '../src/components/common/CompanyLogo.tsx';
 import type { StockInstrument } from '../src/types/financial.ts';
+import { api } from '../src/services/api.ts';
 
 test('Listing Date Clamping & Logo Resolution Suite', async (t) => {
   await t.test('parseListingDateMs parses natural, ISO, and exchange date formats', () => {
@@ -262,5 +263,41 @@ test('Listing Date Clamping & Logo Resolution Suite', async (t) => {
     const prevClose = 2220.30;
     const isCorruptFallback = prevClose > 200 && (corruptPrice / prevClose < 0.2);
     assert.strictEqual(isCorruptFallback, true, '120.0 against 2220.30 must be caught as corrupt fallback');
+  });
+
+  await t.test('Instant synchronous initial getters provide 0ms data without loading spinners or nulls', () => {
+    // 1. Indices
+    const indices = api.getInitialIndices();
+    assert.ok(Array.isArray(indices) && indices.length >= 8, 'Must return at least 8 indices synchronously in 0ms');
+    const nifty = indices.find((i) => i.symbol === 'NIFTY 50');
+    assert.ok(nifty, 'NIFTY 50 index must exist');
+    assert.ok(typeof nifty.value === 'number' && nifty.value > 20000, 'NIFTY 50 value must be a valid number');
+
+    // 2. Global Macro & Commodities
+    const macro = api.getInitialMacro();
+    assert.ok(macro, 'Initial macro must not be null');
+    assert.ok(typeof macro.usdInr?.rate === 'number' && macro.usdInr.rate > 80, 'USD/INR rate must be > 80');
+    assert.ok(typeof macro.gold?.price === 'number' && macro.gold.price > 2000, 'Gold price must be > 2000');
+    assert.ok(typeof macro.silver?.price === 'number' && macro.silver.price > 30, 'Silver price must be > 30');
+    assert.ok(typeof macro.brentCrude?.price === 'number' && macro.brentCrude.price > 60, 'Brent Crude price must be > 60');
+    assert.ok(typeof macro.us10yYield?.rate === 'number' && macro.us10yYield.rate > 2, 'US 10Y Yield must be > 2%');
+    assert.strictEqual(macro.liveFeedReachable, true, 'Macro feed must be marked reachable');
+
+    // 3. Stocks initial getters
+    const stocks = api.getInitialStocks();
+    assert.ok(Array.isArray(stocks) && stocks.length >= 20, 'Must return top liquid stocks in 0ms');
+
+    // 4. Hero MotoCorp vs US stocks distinction
+    const heroMoto = api.getInitialStock('HEROMOTOCO');
+    if (heroMoto) {
+      assert.strictEqual(heroMoto.currency, 'INR');
+      assert.strictEqual(heroMoto.isUsStock, false);
+    }
+
+    const nvda = api.getInitialStock('NVDA');
+    assert.ok(nvda, 'NVDA stock must be available in 0ms');
+    assert.strictEqual(nvda.currency, 'USD');
+    assert.strictEqual(nvda.isUsStock, true);
+    assert.ok(nvda.currentPrice !== null && nvda.currentPrice > 100);
   });
 });

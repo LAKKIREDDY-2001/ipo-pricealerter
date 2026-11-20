@@ -48,27 +48,30 @@ type DetailTab =
 
 export function IPODetailsPage() {
   const { companySlug } = useParams<{ companySlug: string }>();
-  const [ipo, setIpo] = useState<IPOOffering | null>(null);
-  const [loading, setLoading] = useState(true);
+  const initialIpo = React.useMemo(() => api.getInitialIpo(companySlug), [companySlug]);
+  const [ipo, setIpo] = useState<IPOOffering | null>(initialIpo);
+  const [loading, setLoading] = useState<boolean>(!initialIpo);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<DetailTab>('overview');
 
-  const fetchDetail = async () => {
+  const fetchDetail = async (isBackground = false) => {
     if (!companySlug) return;
-    setLoading(true);
+    if (!isBackground && !ipo) setLoading(true);
     setError(null);
     try {
       const res = await api.getIpoBySlug(companySlug);
       setIpo(res.ipo);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to load IPO research profile.');
+      if (!isBackground) {
+        setError(err instanceof Error ? err.message : 'Unable to load IPO research profile.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDetail();
+    fetchDetail(Boolean(initialIpo));
     setActiveTab('overview');
   }, [companySlug]);
 

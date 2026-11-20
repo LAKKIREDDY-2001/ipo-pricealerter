@@ -22,40 +22,47 @@ import { GMPChart } from '../components/gmp/GMPChart';
 
 export function GMPTrackerPage() {
   const { companySlug } = useParams<{ companySlug?: string }>();
-  const [ipos, setIpos] = useState<IPOOffering[]>([]);
-  const [loading, setLoading] = useState(true);
+  const initialIpos = React.useMemo(() => api.getInitialIpos(), []);
+  const [ipos, setIpos] = useState<IPOOffering[]>(initialIpos);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<
     'All' | 'Mainboard' | 'SME' | 'Upcoming' | 'Open' | 'Positive' | 'Negative'
   >('All');
-  const [selectedSlug, setSelectedSlug] = useState<string>(companySlug || '');
+  const [selectedSlug, setSelectedSlug] = useState<string>(() => {
+    if (companySlug) return companySlug;
+    const first = initialIpos.find((i) => i.gmp.history.length > 0);
+    return first ? first.slug : '';
+  });
 
   // Hypothetical GMP calculator state
   const [calcUpperPrice, setCalcUpperPrice] = useState('435');
   const [calcGmp, setCalcGmp] = useState('68');
   const [search, setSearch] = useState('');
 
-  const fetchIpos = async () => {
-    setLoading(true);
+  const fetchIpos = async (isBackground = false) => {
+    if (!isBackground && ipos.length === 0) setLoading(true);
     setError(null);
     try {
       const res = await api.getIpos();
       setIpos(res.ipos);
       if (companySlug) {
         setSelectedSlug(companySlug);
-      } else {
+      } else if (!selectedSlug) {
         const first = res.ipos.find((i) => i.gmp.history.length > 0);
         if (first) setSelectedSlug(first.slug);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to load GMP data.');
+      if (!isBackground) {
+        setError(err instanceof Error ? err.message : 'Unable to load GMP data.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchIpos();
+    fetchIpos(ipos.length > 0);
   }, [companySlug]);
 
   const metrics = useMemo(() => {

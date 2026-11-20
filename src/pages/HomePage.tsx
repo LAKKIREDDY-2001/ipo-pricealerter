@@ -52,20 +52,41 @@ export function HomePage() {
   const navigate = useNavigate();
   const { user, watchlist } = useAuth();
 
-  const [indices, setIndices] = useState<MarketIndexInstrument[]>([]);
-  const [ipos, setIpos] = useState<IPOOffering[]>([]);
-  const [stocks, setStocks] = useState<StockInstrument[]>([]);
-  const [heatmapStocks, setHeatmapStocks] = useState<StockInstrument[]>([]);
-  const [topGainers, setTopGainers] = useState<StockInstrument[]>([]);
-  const [topLosers, setTopLosers] = useState<StockInstrument[]>([]);
+  const [indices, setIndices] = useState<MarketIndexInstrument[]>(() => api.getInitialIndices());
+  const [ipos, setIpos] = useState<IPOOffering[]>(() => api.getInitialIpos());
+  const [stocks, setStocks] = useState<StockInstrument[]>(() => api.getInitialStocks());
+  const [heatmapStocks, setHeatmapStocks] = useState<StockInstrument[]>(() => api.getInitialStocks().slice(0, 16));
+  const [topGainers, setTopGainers] = useState<StockInstrument[]>(() => {
+    const init = api.getInitialStocks();
+    const calcPct = (s: StockInstrument) => s.currentPrice && s.previousClose ? ((s.currentPrice - s.previousClose) / s.previousClose) * 100 : 0;
+    return [...init].sort((a, b) => calcPct(b) - calcPct(a)).slice(0, 5);
+  });
+  const [topLosers, setTopLosers] = useState<StockInstrument[]>(() => {
+    const init = api.getInitialStocks();
+    const calcPct = (s: StockInstrument) => s.currentPrice && s.previousClose ? ((s.currentPrice - s.previousClose) / s.previousClose) * 100 : 0;
+    return [...init].sort((a, b) => calcPct(a) - calcPct(b)).slice(0, 5);
+  });
   const [allSectors, setAllSectors] = useState<string[]>([]);
-  const [totalUniverse, setTotalUniverse] = useState(0);
+  const [totalUniverse, setTotalUniverse] = useState(() => api.getInitialStocks().length || 7172);
   const [insights, setInsights] = useState<MarketInsight[]>([]);
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [stocksLoading, setStocksLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [marketSessionLabel, setMarketSessionLabel] = useState<string>('IST Auto-Sync Active');
+
+  const isMarketOpen = useMemo(() => {
+    const now = new Date();
+    const localString = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    const local = new Date(localString);
+    const day = local.getDay();
+    if (day === 0 || day === 6) return false;
+    const minutes = local.getHours() * 60 + local.getMinutes();
+    return minutes >= 9 * 60 + 15 && minutes < 15 * 60 + 30;
+  }, []);
+
+  const [marketSessionLabel, setMarketSessionLabel] = useState<string>(() =>
+    isMarketOpen ? 'Live Session · NSE/BSE Feed' : 'Market Closed · Session Closed: 20 Nov, 03:30 pm IST'
+  );
 
   // Interactive dashboard states
   const [heroSearch, setHeroSearch] = useState('');
@@ -93,7 +114,7 @@ export function HomePage() {
   }, [stockSearch]);
 
   const loadDashboard = async (background = false) => {
-    if (!background) setLoading(true);
+    if (!background && stocks.length === 0) setLoading(true);
     setError(null);
 
     // Keep the first paint dependent only on the three core dashboard datasets.
@@ -167,7 +188,7 @@ export function HomePage() {
   };
 
   useEffect(() => {
-    loadDashboard(false);
+    loadDashboard(stocks.length > 0);
     api
       .getAutomationStatus()
       .then((st) => {
@@ -176,15 +197,16 @@ export function HomePage() {
             ? `NSE/BSE Live Session (${st.istTimeLabel})`
             : st.marketSession === 'PRE_OPEN'
               ? `Pre-Open Session (${st.istTimeLabel})`
-              : `Auto-Sync Active (${st.istTimeLabel})`;
+              : `Market Closed · Session Closed: 20 Nov, 03:30 pm IST`;
         setMarketSessionLabel(label);
       })
       .catch(() => {});
+    const intervalTime = isMarketOpen ? 30_000 : 180_000;
     const timer = setInterval(() => {
       loadDashboard(true);
-    }, 30_000);
+    }, intervalTime);
     return () => clearInterval(timer);
-  }, []);
+  }, [isMarketOpen]);
 
   useLiveMarketStream({
     onIndices: () => {

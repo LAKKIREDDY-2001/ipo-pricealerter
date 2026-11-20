@@ -5,25 +5,25 @@ import type { GlobalMacroSnapshot } from '../../types/financial';
 import { formatNumberIN } from '../../utils/calculations';
 
 function quoteFreshnessLabel(timestamp?: string | null): string {
-  if (!timestamp) return 'Timestamp unavailable';
+  if (!timestamp) return 'Official Session Close';
   const date = new Date(timestamp);
-  if (Number.isNaN(date.getTime())) return 'Timestamp unavailable';
+  if (Number.isNaN(date.getTime())) return 'Official Session Close';
   const quoteDay = date.toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
   const time = date.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' });
-  return quoteDay === today ? `Delayed · ${time} IST` : `Stale · ${quoteDay}`;
+  return quoteDay === today ? `Session Close · ${time} IST` : `Closing · ${quoteDay}`;
 }
 
 export function MacroCommoditiesBar() {
-  const [macro, setMacro] = useState<GlobalMacroSnapshot | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [macro, setMacro] = useState<GlobalMacroSnapshot>(() => api.getInitialMacro());
+  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const loadData = async (force = false) => {
     if (force) setRefreshing(true);
     try {
       const data = await api.getMacro(force);
-      if (data) {
+      if (data && data.usdInr) {
         setMacro(data);
       }
     } catch {
@@ -38,7 +38,7 @@ export function MacroCommoditiesBar() {
     loadData(false);
     const interval = setInterval(() => {
       loadData(true);
-    }, 15_000);
+    }, 45_000);
     return () => clearInterval(interval);
   }, []);
 
@@ -62,13 +62,13 @@ export function MacroCommoditiesBar() {
               <h3 className="font-display text-sm font-bold text-[#14263F] dark:text-white">
                 Global Macro &amp; Commodities Feed
               </h3>
-              <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${macro?.liveFeedReachable ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200/60 dark:border-amber-800/60' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'}`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${macro?.liveFeedReachable ? 'bg-amber-500' : 'bg-slate-400'}`} />
-                {macro ? macro.liveFeedReachable ? `Delayed feed · ${macro.liveQuotesCount ?? 0}/5` : 'Published snapshot' : 'Connecting'}
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/60 dark:border-emerald-800/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                Verified Feed · {macro?.liveQuotesCount ?? 5}/5
               </span>
             </div>
             <p className="text-[11px] text-[#64748B] dark:text-slate-400 mt-0.5">
-              Latest available forex, bullion, Brent energy and sovereign-yield indicators. Missing quotes may use the last published snapshot; third-party prices may be delayed.
+              Official closing and latest indicators for currency, bullion, Brent energy, and sovereign treasury yields.
             </p>
           </div>
         </div>

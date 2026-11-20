@@ -56,9 +56,9 @@ const DEFAULT_CRITERIA: ScreenerCriteria = {
 const PAGE_SIZE = 25;
 
 export function StockScreenerPage() {
-  const [stocks, setStocks] = useState<StockInstrument[]>([]);
+  const [stocks, setStocks] = useState<StockInstrument[]>(() => api.getInitialStocks());
   const [sectors, setSectors] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [criteria, setCriteria] = useState<ScreenerCriteria>(DEFAULT_CRITERIA);
   const [sortBy, setSortBy] = useState<ScreenerSortKey>('marketCapCr');
   const [sortAsc, setSortAsc] = useState(false);
