@@ -444,7 +444,7 @@ export async function handleD1Api(request: Request, url: URL, env: D1Env): Promi
   if (path === "/api/alerts/test-whatsapp" && method === "POST") {
     const body = await readBody(request);
     const phone = String(body.phone || "").trim().slice(0, 25);
-    const normalized = phone.replace(/[^\\d]/g, "");
+    const normalized = phone.replace(/[^\d]/g, "");
     if (!normalized || normalized.length < 8 || normalized.length > 15) {
       return fail("Please provide a valid WhatsApp phone number with country code.", 400);
     }
