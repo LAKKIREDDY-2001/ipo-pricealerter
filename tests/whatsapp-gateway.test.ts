@@ -42,25 +42,47 @@ test("uses Meta Cloud API when configured and accepted", async () => {
   }
 });
 
-test("falls back to Twilio when Meta is unavailable", async () => {
+test("authenticates Twilio with API Key SID and Secret while using Account SID in the URL", async () => {
   const originalFetch = globalThis.fetch;
-  const calls: string[] = [];
-  globalThis.fetch = (async (input: RequestInfo | URL) => {
-    calls.push(String(input));
-    if (String(input).includes("graph.facebook.com")) return new Response("{}", { status: 401 });
+  let requestUrl = "";
+  let authorization = "";
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    requestUrl = String(input);
+    authorization = (init?.headers as Record<string, string>).authorization;
     return new Response(JSON.stringify({ sid: "SM-test" }), { status: 201 });
   }) as typeof fetch;
   try {
     const result = await dispatchWhatsApp({
-      WHATSAPP_TOKEN: "bad-meta-token",
-      WHATSAPP_PHONE_NUMBER_ID: "123456",
-      TWILIO_ACCOUNT_SID: "AC123",
-      TWILIO_AUTH_TOKEN: "twilio-secret",
+      TWILIO_ACCOUNT_SID: "AC-account",
+      TWILIO_API_KEY_SID: "SK-api-key",
+      TWILIO_API_KEY_SECRET: "api-key-secret",
+      TWILIO_AUTH_TOKEN: "legacy-token-should-not-be-used",
       TWILIO_WHATSAPP_NUMBER: "whatsapp:+14155238886",
-    }, { phone: "9876543210", title: "Test", message: "Twilio fallback" });
+    }, { phone: "9876543210", title: "Test", message: "API key auth" });
     assert.equal(result.provider, "twilio");
     assert.equal(result.delivered, true);
-    assert.equal(calls.length, 2);
+    assert.equal(requestUrl, "https://api.twilio.com/2010-04-01/Accounts/AC-account/Messages.json");
+    assert.equal(authorization, "Basic " + btoa("SK-api-key:api-key-secret"));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("falls back to legacy Twilio Auth Token when API Key credentials are absent", async () => {
+  const originalFetch = globalThis.fetch;
+  let authorization = "";
+  globalThis.fetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+    authorization = (init?.headers as Record<string, string>).authorization;
+    return new Response(JSON.stringify({ sid: "SM-test" }), { status: 201 });
+  }) as typeof fetch;
+  try {
+    const result = await dispatchWhatsApp({
+      TWILIO_ACCOUNT_SID: "AC123",
+      TWILIO_AUTH_TOKEN: "legacy-token",
+      TWILIO_WHATSAPP_NUMBER: "whatsapp:+14155238886",
+    }, { phone: "9876543210", title: "Test", message: "Legacy auth" });
+    assert.equal(result.provider, "twilio");
+    assert.equal(authorization, "Basic " + btoa("AC123:legacy-token"));
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -78,7 +100,8 @@ test("does not retry through another gateway after an ambiguous Meta network fai
       WHATSAPP_TOKEN: "meta-secret",
       WHATSAPP_PHONE_NUMBER_ID: "123456",
       TWILIO_ACCOUNT_SID: "AC123",
-      TWILIO_AUTH_TOKEN: "twilio-secret",
+      TWILIO_API_KEY_SID: "SK123",
+      TWILIO_API_KEY_SECRET: "twilio-secret",
       TWILIO_WHATSAPP_NUMBER: "whatsapp:+14155238886",
     }, { phone: "9876543210", title: "Test", message: "No duplicates" });
     assert.equal(result.success, false);
